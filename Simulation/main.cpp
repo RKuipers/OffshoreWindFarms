@@ -13,7 +13,7 @@ bool CompareEvents::operator()(shared_ptr<Event> l, shared_ptr<Event> r)
 Simulation::Simulation()
 {
     string input;
-    cout << "Hello World!" << endl;
+    cout << "Hello World! :D" << endl;
     cin >> input;
 }
 

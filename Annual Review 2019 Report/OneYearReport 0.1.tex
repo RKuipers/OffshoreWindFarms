@@ -1,0 +1,70 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage[font=it,labelfont=bf]{caption}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{varwidth}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{cleveref}
+\usepackage{cite}
+
+\captionsetup[subfigure]{subrefformat=simple,labelformat=simple}
+\renewcommand\thesubfigure{(\alph{subfigure})}
+
+\setcounter{secnumdepth}{4}
+\newcommand{\myparagraph}[1]{\paragraph*{#1}\mbox{}\\}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{defin}{Definition}
+\newcommand{\mydef}[3]{
+\begin{defin}
+\textsc{#1}
+
+Given: #2
+
+Question: #3
+\end{defin}}
+
+\newcommand{\bigO}[1]{$\mathcal{O}$($#1$)}
+\newcommand{\bigOs}[1]{$\mathcal{O^*}$($#1$)}
+\newcommand{\NP}{$\mathcal{NP}$}
+\newcommand{\acco}[1]{\{ #1 \}}
+
+\newcommand{\vecarr}[3]{\overset{#2}{\overrightarrow{#1}}}
+
+%Door deze regel springt de eerste regel van
+%elke alinea niet meer steeds een stukje in.
+%\setlength{\parskip}{\baselineskip}
+%Door deze regel wordt tussen de alinea's steeds
+%een regel overgeslagen.
+
+%\setlength{\columnseprule}{1pt}
+%\def\columnseprulecolor{\color{blue}}
+
+\newcommand{\algorithmicbreak}{\textbf{break}}
+\newcommand{\Break}{\State \algorithmicbreak}
+
+\begin{document}
+\title{}
+\author{R. Kuipers}
+\date{April, 2019}
+
+\section{Introduction}
+Over the past year, I have been researching scheduling related to offshore windfarm projects; the installation, maintanance, and dissassembling of windfarms in various Seas, primarily the North Sea. The installation and dissassembling projects can often take more than 18 monts, and the lifespan of such farms is about 30 years, over which maintenance has to be done. For these projects, expensive vessels have to be used, the rent of which is often in the range of \pounds 100.000 per day, hence a project with multiple vessels over many months can cost tens, if not hundreds, of millions of pounds.  %TODO: Factcheck
+
+\section{The project}
+
+\section{Literature}
+
+\section{Simulator}
+
+\section{Conclusion}
+
+\end{document}
