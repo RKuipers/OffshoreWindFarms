@@ -1,0 +1,12 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{BzR{\etalchar{+}}18}
+
+\bibitem[BzR{\etalchar{+}}18]{BARLOW2018894}
+Euan Barlow, Diclehan~Tezcaner Öztürk, Matthew Revie, Kerem Akartunalı,
+  Alexander~H. Day, and Evangelos Boulougouris.
+\newblock A mixed-method optimisation and simulation framework for supporting
+  logistical decisions during offshore wind farm installations.
+\newblock {\em European Journal of Operational Research}, 264(3):894 -- 906,
+  2018.
+
+\end{thebibliography}
