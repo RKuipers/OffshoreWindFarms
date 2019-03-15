@@ -3,5 +3,8 @@
 \contentsline {section}{\numberline {2}The project}{5}% 
 \contentsline {subsection}{\numberline {2.1}Methodology}{6}% 
 \contentsline {section}{\numberline {3}Literature}{7}% 
+\contentsline {subsection}{\numberline {3.1}Schedulling the installation}{7}% 
+\contentsline {subsection}{\numberline {3.2}Related research regarding offshore projects}{7}% 
+\contentsline {subsection}{\numberline {3.3}More general work on stocahstic scheduling}{7}% 
 \contentsline {section}{\numberline {4}Simulator}{8}% 
 \contentsline {section}{\numberline {5}Future Work}{9}% 

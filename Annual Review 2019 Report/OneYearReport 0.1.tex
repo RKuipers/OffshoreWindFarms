@@ -63,7 +63,7 @@ Question: #3
 \pagebreak
 
 \begin{abstract}
-This report aims to give a detailed overview of the research progress I made between March 2018 and March 2019, the first year of this project. It will explain the research subject, give an overview of the relevant literature I've read and the limitations of the current research. Furthermore, it will recount the work I've done on a simulator, to be used for later research. Finally, my future research on this topic will be estimated. 
+This report aims to give a detailed overview of the research progress I made between March 2018 and March 2019, the first year of this project. It will explain the research subject, give an overview of the relevant literature I've read and the limitations of the current research. Furthermore, it will discuss the work I've done on a simulator, to be used for later research. Finally, my future research on this topic will be estimated. 
 \end{abstract}
 
 \pagebreak
@@ -73,20 +73,20 @@ This report aims to give a detailed overview of the research progress I made bet
 \pagebreak
 
 \section{Introduction} \label{s:intro}
-Over the past year, I have been researching scheduling related to offshore windfarm projects; the installation, maintenance, and dismantling of windfarms in various seas, primarily the North Sea. The installation and dismantling projects can often take up to several years, and the lifespan of such farms is about 30 years, over which maintenance has to be done. For these projects, expensive vessels have to be used, the rent of which is often on the order of \pounds 100.000 per day, hence a project with multiple vessels over many months can cost tens, if not hundreds, of millions of pounds.  Therefore, even small improvements to the schedules can save significant amounts of money. %TODO: Factcheck
+Over the past year, I have been researching scheduling related to offshore windfarm projects; the installation, maintenance, and dismantling of windfarms in various seas, primarily the North Sea. The installation and dismantling projects can often take up to several years, and the lifespan of such farms is about 30 years, over which maintenance has to be done. For these projects, expensive vessels have to be used, the rent of which is often upwards of \pounds 100.000 per day\cite{barlow2014support}, hence a project with multiple vessels over many months can cost hundreds of millions of pounds.  Therefore, even small improvements to the schedules can save significant amounts of money. %TODO: Factcheck
 
-Because of that, I expected a lot of research in this area had already been done, but this turned out to be less the case than I would have expected. Most research is fairly recent, and there are significant literature gaps. The primary obstracle in this scheduling problem which seperates it from more traditional scheduling problems is the stochasticity, mainly related to the weather conditions. These projects take place on open sea, where weather can often be rougher than on land. In addition, the high-tech vessels are performing operations on big industrial constructions, so they have a limited range of allowed wind speeds and wave heights. Something else which can further limit possible schedules is the inflexibility involved in vessel rental, since vessels of the required caliber cannot be rented on short notice, and often need to be rented for at least some minimum amount of time, so adaptive in-the-moment scheduling is impossible and we cannot simply wait for an expected period of good weather based on real-time data to rent the vessels; if we expected some period to have good weather but this turns out not to be the case, we'll often have the vessels rented but unusable. This means the problem has a lot of undeterministic yet impactful factors which any good solution would have to take into account. 
+Because of that, I expected a lot of research in this area had already been conducted, but this turned out to be less the case than I would have expected. Most research is fairly recent, and there are significant literature gaps. The primary obstracle in this scheduling problem which seperates it from more traditional scheduling problems is the high degree of non-deterministic factors, mainly related to the weather conditions. These projects take place on open sea, where weather can often be rougher than on land. In addition, the high-tech vessels are performing operations on big industrial constructions, so they have a limited range of allowed wind speeds and wave heights. Something else which can further limit possible schedules is the inflexibility involved in vessel rental, since vessels of the required caliber cannot be rented on short notice, and often need to be rented for at least some minimum amount of time \cite{kerkhove2017optimised}, so adaptive in-the-moment scheduling is impossible and we cannot simply wait for an expected period of good weather based on real-time data to rent the vessels; if we expected some period to have good weather but this turns out not to be the case, we'll often have the vessels rented but unusable. This means the problem has a lot of undeterministic yet impactful factors which any good solution would have to take into account. 
 
-In this report I will talk about my progress and what I have learned over the past year. First, in \Cref{s:project} I will explain the examined problem in more detail. After that, in \Cref{s:lit}, I will recount the reading I have done over the past year, which was the main focus of my work over the past year. This will include both research on this specific project, and research in the more general field of (stocahstic) scheduling, optimisation and simulation. This will be the main focus of the report, as it was the main focus of my work. In addition to reading up on the state of the current research, I have also started building a Simulator for this problem, which I will discuss in \Cref{s:sim}. Finally, I will summarize my current standing and plans for future work in \Cref{s:concl}. 
+In this report I will talk about my progress and what I have learned over the past year. First, in \Cref{s:project} I will explain the examined problem in more detail. After that, in \Cref{s:lit}, I will recount the reading I have done over so far, which was the main focus of my work over the past year. This will include both research on this specific project, and research in the more general fields of (stochastic) scheduling, optimisation and simulation. This will be the main focus of the report, as it was the main focus of my work. In addition to reading up on the state of the current research, I have also started building a Simulator for this problem, which I will discuss in \Cref{s:sim}. Finally, I will summarize my current standing and plans for future work in \Cref{s:concl}. 
 
 \pagebreak
 
 \section{The project} \label{s:project}
 In this section I will attempt to summarize the different views I've seen on the project, in enough detail for the reader to understand the rest of the report. I will primarily talk about installation projects, as most of the literature I've read is about those problems. It is likely the dismantling projects are very similar in structure; anything that was build needs to be taken apart. Maintenance projects however will be very different, as they are over a much larger time scale and while the two other types of projects have a set number of tasks that would ideally be completed as fast as possible, the mainenance has a set duration, with a potentially varying number of tasks.
 
-A typical windfarm will have two types of structures: Wind Turbine Generators (WTGs) and Offshore Substation Platforms (OSPs) \cite{barlow2018mixed}. The WTGs are the actual turbines generating energy, and the OSPs are hubs where the power generated in the WTGs is gathered and transformed before being transported to shore. A typical windfarm might have 100 WTGs and 2 OSPs. Each of these structures has a set of tasks that need to be completed in series for each individual structure, like preparing the sea surface, laying the foundation, installing the structure and laying the cables (each of these tasks may be split into more tasks such as loading, transport and installation). Within the group of tasks for a structure, most tasks will have to be performed in a specific order, while the tasks for seperate structures can be completed in any order. This is essential for some of the more sophisticated objective functions used in the literature; if one OSP and a set of WTGs connected to it are active, they can start generating power while the rest of the wind farm is still under construction. This would mean the farm starts making money significantly earlier, and can therefore have big impacts on desired schedules. In some situations the company might even set desired deadline for certain milestones, like 10\% or 50\% of the turbines operating. 
+A typical windfarm will have two types of structures: Wind Turbine Generators (WTGs) and Offshore Substation Platforms (OSPs). The WTGs are the actual turbines generating energy, and the OSPs are hubs where the power generated in the WTGs is gathered and transformed before being transported to shore. A typical windfarm might have upwards of 100 WTGs and 2 OSPs \cite{barlow2018mixed}. Each of these structures has a set of tasks that need to be completed in series for each individual structure, like preparing the sea surface, laying the foundation, installing the structure and laying the cables (each of these tasks may be split into more tasks such as loading, transport and installation) \cite{kerkhove2017optimised}. Within the group of tasks for a structure, most tasks will have to be performed in a specific order, while the tasks for seperate structures can be completed in any order. This is essential for some of the more sophisticated objective functions used in the literature; if one OSP and a set of WTGs connected to it are active, they can start generating power while the rest of the wind farm is still under construction \cite{barlow2017using}. This would mean the farm starts making money significantly earlier, and can therefore have big impacts on desired schedules. In some situations the company might even set desired deadline for certain milestones, like 10\% or 50\% of the turbines operating. 
 
-The ultimate goal of the scheduling might be expressed in different ways. The most basic way would be to produce a schedule with the earliest end time. Given the stochastic nature of the project, naively this would become the earliest expected end time. There are however a lot of different goals that could be described; instead of expected end time, a high confidence might be desired for the specific project. So instead of looking at the expected end time, one could look at the end time by which we can be 95\% certain the project would be completed. Using the end time as a measure is also up for debate, as the net profit is often more important for the companies doing these projects. So while the end time would obviously be postponed, completely halting the project over the winter months (during which no rent would be payed for the vessels) might be beneficial for the total costs, since there will be less individual days during summer where the weather would require the work to be halted (while the vessels would still be rented). As I will be discussing a lot of the literature in \Cref{s:lit} I will discuss the goals and objective functions in more detail there. 
+The ultimate goal of the scheduling might be expressed in different ways. The most basic way would be to produce a schedule with the earliest end time. Given the stochastic nature of the project, naively this would become the earliest expected end time. There are however a lot of different goals that could be described; instead of expected end time, a high confidence might be desired for the specific project. So instead of looking at the expected end time, one could for example look at the end time by which we can be 95\% certain the project would be completed (based on simulations). Using the end time as a measure is also up for debate, as the net profit is often more important for the companies doing these projects. So while the end time would obviously be postponed, completely halting the project over the winter months (during which no rent would be payed for the vessels) might be beneficial for the total costs, since there will be less individual days during summer where the weather would require the work to be halted (while the vessels would still be rented). As I will be discussing a lot of the literature in \Cref{s:lit} I will discuss the goals and objective functions in more detail there. 
 
 \subsection{Methodology} \label{ss:meth}
 Lorem Ipsum %TODO SOON
@@ -95,20 +95,40 @@ Lorem Ipsum %TODO SOON
 %Not too much detail for obj funcs as they'll be handled in s:lit too
 
 %TODO SOON
-%Add references
 %Add subsections in s:lit for types of papers, maybe list papers under subsection as notes
 
 \pagebreak
 
 \section{Literature} \label{s:lit}
+In this section I will discuss a selection of the literature I have read so far for my research. In all the literature I discuss I will discuss the methods, assumptions, goals and results of each work. I have seperated it into several subsections, depending on how closely related to my topic the discussed research is, as much more general scheduling methods will also be discussed to some extend. 
+
+\subsection{Schedulling the installation} \label{ss:sched}
+Lorem Ipsum \\
+\cite{barlow2018mixed} \\
+\cite{kerkhove2017optimised} \\
+\cite{barlow2017using}
+
+\subsection{Related research regarding offshore projects} \label{ss:offsh}
+Lorem Ipsum \\
+\cite{barlow2014assessment} \\
+\cite{barlow2014support} \\
+\cite{leggate2010crew}
+
+\subsection{More general work on stocahstic scheduling} \label{ss:stoch}
+Lorem Ipsum \\
+\cite{herroelen2005project} \\
+\cite{sevaux2002genetic} \\
+\cite{artigues2000polynomial}
 
 \pagebreak
 
 \section{Simulator} \label{s:sim}
+Lorem Ipsum
 
 \pagebreak
 
 \section{Future Work} \label{s:concl}
+Lorem Ipsum
 
 \pagebreak
 
