@@ -55,7 +55,7 @@ Question: #3
 
 \begin{document}
 \title{Simulation and Optimisation of Offshore Renewable Energy Arrays for Minimal Life-Cycle Costs}
-\author{R. Kuipers \\[1cm] Supervisors: \\ Kerem Akartunali \\ Euan Barlow\\[2cm] University of Strathclyde \\ Strathclyde Business School \\ }
+\author{R. Kuipers \\[1cm] Supervisors: \\ Kerem Akartunali \\ Euan Barlow\\[2cm] University of Strathclyde \\ Strathclyde Business School \\ {\small Glasgow, Scotland}}
 \date{April, 2019}
 
 \maketitle
@@ -63,7 +63,7 @@ Question: #3
 \pagebreak
 
 \begin{abstract}
-Hello % TODO SOON
+This report aims to give a detailed overview of the research progress I made between March 2018 and March 2019, the first year of this project. It will explain the research subject, give an overview of the relevant literature I've read and the limitations of the current research. Furthermore, it will recount the work I've done on a simulator, to be used for later research. Finally, my future research on this topic will be estimated. 
 \end{abstract}
 
 \pagebreak
@@ -84,10 +84,12 @@ In this report I will talk about my progress and what I have learned over the pa
 \section{The project} \label{s:project}
 In this section I will attempt to summarize the different views I've seen on the project, in enough detail for the reader to understand the rest of the report. I will primarily talk about installation projects, as most of the literature I've read is about those problems. It is likely the dismantling projects are very similar in structure; anything that was build needs to be taken apart. Maintenance projects however will be very different, as they are over a much larger time scale and while the two other types of projects have a set number of tasks that would ideally be completed as fast as possible, the mainenance has a set duration, with a potentially varying number of tasks.
 
-A typical windfarm will have two types of structures: Wind Turbine Generators (WTGs) and Offshore Substation Platforms (OSPs) \cite{BARLOW2018894}. The WTGs are the actual turbines generating energy, and the OSPs are hubs where the power generated in the WTGs is gathered and transformed before being transported to shore. A typical windfarm might have 100 WTGs and 2 OSPs. Each of these structures has a set of tasks that need to be completed in series for each individual structure, like preparing the sea surface, laying the foundation, installing the structure and laying the cables (each of these tasks may be split into more tasks such as loading, transport and installation). Within the group of tasks for a structure, most tasks will have to be performed in a specific order, while the tasks for seperate structures can be completed in any order. This is essential for some of the more sophisticated objective functions used in the literature; if one OSP and a set of WTGs connected to it are active, they can start generating power while the rest of the wind farm is still under construction. This would mean the farm starts making money significantly earlier, and can therefore have big impacts on desired schedules. In some situations the company might even set desired deadline for certain milestones, like 10\% or 50\% of the turbines operating. 
+A typical windfarm will have two types of structures: Wind Turbine Generators (WTGs) and Offshore Substation Platforms (OSPs) \cite{barlow2018mixed}. The WTGs are the actual turbines generating energy, and the OSPs are hubs where the power generated in the WTGs is gathered and transformed before being transported to shore. A typical windfarm might have 100 WTGs and 2 OSPs. Each of these structures has a set of tasks that need to be completed in series for each individual structure, like preparing the sea surface, laying the foundation, installing the structure and laying the cables (each of these tasks may be split into more tasks such as loading, transport and installation). Within the group of tasks for a structure, most tasks will have to be performed in a specific order, while the tasks for seperate structures can be completed in any order. This is essential for some of the more sophisticated objective functions used in the literature; if one OSP and a set of WTGs connected to it are active, they can start generating power while the rest of the wind farm is still under construction. This would mean the farm starts making money significantly earlier, and can therefore have big impacts on desired schedules. In some situations the company might even set desired deadline for certain milestones, like 10\% or 50\% of the turbines operating. 
 
 The ultimate goal of the scheduling might be expressed in different ways. The most basic way would be to produce a schedule with the earliest end time. Given the stochastic nature of the project, naively this would become the earliest expected end time. There are however a lot of different goals that could be described; instead of expected end time, a high confidence might be desired for the specific project. So instead of looking at the expected end time, one could look at the end time by which we can be 95\% certain the project would be completed. Using the end time as a measure is also up for debate, as the net profit is often more important for the companies doing these projects. So while the end time would obviously be postponed, completely halting the project over the winter months (during which no rent would be payed for the vessels) might be beneficial for the total costs, since there will be less individual days during summer where the weather would require the work to be halted (while the vessels would still be rented). As I will be discussing a lot of the literature in \Cref{s:lit} I will discuss the goals and objective functions in more detail there. 
 
+\subsection{Methodology} \label{ss:meth}
+Lorem Ipsum %TODO SOON
 
 %Should I mention sim and opt here?
 %Not too much detail for obj funcs as they'll be handled in s:lit too
