@@ -86,10 +86,45 @@ In this section I will attempt to summarize the different views I've seen on the
 
 A typical windfarm will have two types of structures: Wind Turbine Generators (WTGs) and Offshore Substation Platforms (OSPs). The WTGs are the actual turbines generating energy, and the OSPs are hubs where the power generated in the WTGs is gathered and transformed before being transported to shore. A typical windfarm might have upwards of 100 WTGs and 2 OSPs \cite{barlow2018mixed}. Each of these structures has a set of tasks that need to be completed in series for each individual structure, like preparing the sea surface, laying the foundation, installing the structure and laying the cables (each of these tasks may be split into more tasks such as loading, transport and installation) \cite{kerkhove2017optimised}. Within the group of tasks for a structure, most tasks will have to be performed in a specific order, while the tasks for seperate structures can be completed in any order. This is essential for some of the more sophisticated objective functions used in the literature; if one OSP and a set of WTGs connected to it are active, they can start generating power while the rest of the wind farm is still under construction \cite{barlow2017using}. This would mean the farm starts making money significantly earlier, and can therefore have big impacts on desired schedules. In some situations the company might even set desired deadline for certain milestones, like 10\% or 50\% of the turbines being operational. 
 
+%TODO: For the cites, look at sources and where they got it from; citing directly leads me to more (varied) sources
+
 The measure with which to compare schedules can vary. The most basic measure would be to produce a schedule with the earliest end time. Given the stochastic nature of the project, naively this would become the earliest expected end time. There are however a lot of different goals that could be described; instead of expected end time, a high confidence might be desired for the specific project. So instead of looking at the expected end time, one could for example look at the end time by which we can be 95\% certain the project would be completed (based on simulations). Using the end time as a measure is also up for debate, as the net profit is often more important for the companies doing these projects. So while the end time would obviously be postponed, completely halting the project over the winter months (during which no rent would be payed for the vessels) might be beneficial for the total costs, since there will be less individual days during summer where the weather would require the work to be halted (while the vessels would still be rented). As I will be discussing a lot of the literature in \Cref{s:lit} I will discuss the goals and objective functions in more detail there. 
 
-\subsection{Methodology} \label{ss:meth}
-In the literature, two main methods are used for this problem; optimization and simulation.
+\pagebreak
+
+\section{Methodology} \label{s:meth}
+In the literature, two main types of methods are used for this problem; optimization and simulation. Often both are used together, either by tackling one part of the problem with simulation and another with optimization (as in \cite{barlow2018mixed}), or by creating schedules with an optimization model, which are then evaluated using simulation (as in \cite{kerkhove2017optimised}). Exactly how certain previous research uses these methods will be discussed more in \Cref{s:lit}, but a more general look at these methods, as well as other methods currently under consideration for this research, will be given in this section. 
+
+\bigskip
+
+\subsection{Simulation} \label{ss:sim}
+Simulation, especially Discrete Event Simulation, is a good method to evaluate the strength of a proposed schedule under uncertain circumstances. If enough simulations are run, an accurate view of the realistic duration of a schedule can be gained. This does not only mean expected (average) duration, but also for example a confidence interval for the extreme cases. This does however have two big bottlenecks; the information gained through simulation can only be as precise as the weather model used for it, and doing enough simulations can take considerable time. 
+
+\bigskip
+
+If the weather data is limited in precision or amount of data available, the results of the simulation in turn will also be limited. First of all is the precision of the data; a simulation as detailed as we would like for this type of project would have timesteps in the range of 15 minutes to an hour. A lot of weather data has much larger timesteps, often of several hours. There are methods to interpolate between weather data points, but this tends to not be very precise as there are a lot of factors to take into account. The most important measures of the weather are wind speed and wave height, as by these measures the usability of the vessels can be determined. In order to have this data be realistic, the two measures have to be correlated, as well as have autocorrelation over time (the weather does not often drastically change in the span of 15 minutes). Having those values be realistically interpolated between two measured points is a difficult task, and something we will have to figure out a way to realistically handle for future research.
+
+The amount of data available is also a common problem. A major reason for this is the natural change of weather depending on the time of year. Generally, a year would be split up in sections, for example the four seasons or the twelve months. Intuitively this makes a lot of sense; if we want to model the weather in January data from July is irrelevant for this. But the consequence of this is the shear time it takes to collect accurate data for each time period; if we want 300 days of data for the month of April, we need data collected over the span of 10 years. In addition, the conditions of the location the data is gathered from have to be similar to the location of the windfarm. The most important parameter for this is the distance to the shore, but there are more factors which play a part. 
+
+A method to handle these drawbacks of the weather data is to not use raw data, but analyze the periodic characteristics of the change of both wind and wave states. Using these characteristics, one can generate weather data by drawing a random real data point within the desired time period, and extrapolating the data from there using the found characteristics. This is something we are planning to explore in future research, and we think it has potential to give a good weather model to be used for stochastic simulations. 
+
+Another method we are considering to explore relates more to robust optimization. It might not be necessary to have a large number of simulations for all possible weather conditions. If, for each time period, we create a range of possible wind and wave states (including the extreme cases from the data) and run simulations for each (realistic) combination of them we could aim to make a robust schedule that performs well within even the most extreme weather scenarios without having too many simulations to run (if the durations of tasks are deterministic a single simulation for each weather state would be enough). The drawback of this robust approach is a schedule that performs well in 99\% of weather cases might be discarded for the most extreme 1\% of cases. This can however be reduced by carefully selecting the data to use for the simulations, or allowing a certain number of bad scenarios (especially if the weather causing it is very rare). We might explore this more in future research. 
+
+%TODO: Citations?
+
+\bigskip
+
+%TODO: Talk about efficient simulations here (multi level?)
+
+\bigskip
+
+\subsection{Optimization} \label{ss:opt}
+Lorem Ipsum
+
+\bigskip
+
+\subsection{Other Methods} \label{ss:otmet}
+Lorem Ipsum
 
 %Expand a lot on opt and sim, and robustness
 %Look at Okyu's work for some ideas on this section, and have a quick look at her sources 18 17 9 about robust optimization
@@ -97,7 +132,7 @@ In the literature, two main methods are used for this problem; optimization and 
 \pagebreak
 
 \section{Literature} \label{s:lit}
-In this section I will discuss a selection of the literature I have read so far for my research. In all the literature I discuss I will discuss the methods, assumptions, goals and results of each work. I have seperated it into several subsections, depending on how closely related to my topic the discussed research is, as much more general scheduling methods will also be discussed to some extend. 
+In this section I will discuss a selection of the literature I have read so far for my research. In all the literature I discuss I will discuss the methods, assumptions, goals and results of each work. I have separated it into several subsections, depending on how closely related to my topic the discussed research is, as much more general scheduling methods will also be discussed to some extend. 
 
 \subsection{Schedulling the installation} \label{ss:sched}
 Lorem Ipsum \\
