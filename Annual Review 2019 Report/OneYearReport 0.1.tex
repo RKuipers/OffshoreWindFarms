@@ -14,6 +14,8 @@
 \usepackage{cleveref}
 \usepackage{cite}
 
+\linespread{1.3}
+
 \captionsetup[subfigure]{subrefformat=simple,labelformat=simple}
 \renewcommand\thesubfigure{(\alph{subfigure})}
 
@@ -121,12 +123,21 @@ There are many other possible methods to reduce number of simulations required, 
 \bigskip
 
 \subsection{Optimization} \label{ss:opt}
-Lorem Ipsum
+Optimization, in particular through linear programming, is an essential tool in problems like this, and is used extensively in the literature. Linear programming is preferred as non-linear programming is computationally much more complex to solve, therefore non-linear models are restricted in size in order to be solved in feasible time. However, both methods are used in the literature.
+
+Even linear programming models computationally complex to solve, hence many methods are used to reduce to complexity of the models. There are standard techniques like Lagrangian relaxation \cite{fisher1981lagrangian} and column generation \cite{barnhart1998branch}, but there are more specific methods used as well. The primary way this is done is by limiting the scope of individual optimization problems (not necesarilly the research), by splitting up the research and using multi-level optimization models, or using simulation for certain parts of it. I will go into more detail on specific models in \Cref{s:lit}, where I will also give an example model from the literature to illustrate a way to model this type of project.
+
+%TODO: Highlight example model
+
+Another method has been discussed before already; robust optimization. As with Simulation, this reduces the number of considered inputs (primarily weather states, but also task duration which is sometimes stochastic) by only considering certain constructed uncertainty sets. This strongly reduces the number of situations considered in the optimization. 
 
 \bigskip
 
 \subsection{Other Methods} \label{ss:otmet}
-Lorem Ipsum
+While the main methods are Simulation and Optimization, there are more notable methods used in the litarature. The main one that stroke me as relevant are genetic algorithms. In \cite{kerkhove2017optimised} a local search algorithm is used on what they call `genes' (set of times from which a specific task is available) to find smal beneficiall changes to an existing schedule. This method seemed promising, and not a lot of research has been done in this area, hence it is being considered for use in our future research. Additionally, using the schedule performance as a measure of gene strength, potentially an evolutionary algorithm could be tested by combining successfull genes. As far as we know, this has not been used for research on this problem before and is therefore of potential interest in the future. This is strenghted by evolutionairy methods occasionally being found effective for a machine scheduling problem \cite{dorndorf1995evolution}. The windfarm installation problem could be modelled similar to a machine scheduling problem (where each vessel is a machine), hence this method may be beneficial.
+
+Another fairly unorthodox method for scheduling problems is by use of Graph theory. 
+%TODO: Find way this might help and talk about researchers experience here. 
 
 %Expand a lot on opt and sim, and robustness
 %Look at Okyu's work for some ideas on this section, and have a quick look at her sources 18 17 9 about robust optimization

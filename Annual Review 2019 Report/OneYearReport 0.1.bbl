@@ -8,6 +8,13 @@ Christian Artigues and Francois Roubellat.
 \newblock {\em European Journal of Operational Research}, 127(2):297--316,
   2000.
 
+\bibitem[BJN{\etalchar{+}}98]{barnhart1998branch}
+Cynthia Barnhart, Ellis~L Johnson, George~L Nemhauser, Martin~WP Savelsbergh,
+  and Pamela~H Vance.
+\newblock Branch-and-price: Column generation for solving huge integer
+  programs.
+\newblock {\em Operations research}, 46(3):316--329, 1998.
+
 \bibitem[B{\"O}R{\etalchar{+}}18]{barlow2018mixed}
 Euan Barlow, Diclehan~Tezcaner {\"O}zt{\"u}rk, Matthew Revie, Kerem
   Akartunal{\i}, Alexander~H Day, and Evangelos Boulougouris.
@@ -35,6 +42,17 @@ Euan Barlow, Diclehan Tezcaner~Ozturk, Matthew Revie, Kerem Akartunali,
 \newblock On using simulation to model the installation process logistics for
   an offshore wind farm.
 \newblock 2017.
+
+\bibitem[DP95]{dorndorf1995evolution}
+Ulrich Dorndorf and Erwin Pesch.
+\newblock Evolution based learning in a job shop scheduling environment.
+\newblock {\em Computers \& Operations Research}, 22(1):25--40, 1995.
+
+\bibitem[Fis81]{fisher1981lagrangian}
+Marshall~L Fisher.
+\newblock The lagrangian relaxation method for solving integer programming
+  problems.
+\newblock {\em Management science}, 27(1):1--18, 1981.
 
 \bibitem[HL05]{herroelen2005project}
 Willy Herroelen and Roel Leus.
