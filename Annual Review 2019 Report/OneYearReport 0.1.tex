@@ -108,13 +108,15 @@ The amount of data available is also a common problem. A major reason for this i
 
 A method to handle these drawbacks of the weather data is to not use raw data, but analyze the periodic characteristics of the change of both wind and wave states. Using these characteristics, one can generate weather data by drawing a random real data point within the desired time period, and extrapolating the data from there using the found characteristics. This is something we are planning to explore in future research, and we think it has potential to give a good weather model to be used for stochastic simulations. 
 
-Another method we are considering to explore relates more to robust optimization. It might not be necessary to have a large number of simulations for all possible weather conditions. If, for each time period, we create a range of possible wind and wave states (including the extreme cases from the data) and run simulations for each (realistic) combination of them we could aim to make a robust schedule that performs well within even the most extreme weather scenarios without having too many simulations to run (if the durations of tasks are deterministic a single simulation for each weather state would be enough). The drawback of this robust approach is a schedule that performs well in 99\% of weather cases might be discarded for the most extreme 1\% of cases. This can however be reduced by carefully selecting the data to use for the simulations, or allowing a certain number of bad scenarios (especially if the weather causing it is very rare). We might explore this more in future research. 
+Another method we are considering to explore relates more to robust optimization. It might not be necessary to have a large number of simulations for all possible weather conditions. If, for each time period, we create a range of possible wind and wave states (including the extreme cases from the data) and run simulations for a set of (realistic) combinations of them we could aim to make a robust schedule that performs well within even the most extreme weather scenarios without having too many simulations to run. The drawback of this robust approach is a schedule that performs well in 99\% of weather cases might be discarded for the most extreme 1\% of cases. This can however be reduced by carefully selecting the data to use for the simulations, or allowing a certain number of bad scenarios (especially if the weather causing it is very rare). We might explore this more in future research. 
 
 %TODO: Citations?
 
 \bigskip
 
-%TODO: Talk about efficient simulations here (multi level?)
+The other bottleneck, that of the considerable time it will take to run enough simulations, is something that will need to be taken into consideration for any research project using simulation. There are several methods to reduce the time used if necessary. A rigorous but effective step is is increasing the size of a timestep. This reduces accuracy, but does significantly reduce calculation time as well. Another is to carefully select input so less simulations need to be run for precision, as was discussed above. Aiming to get a robust result will generally need less simulations than a result with simply the lowest average duration, as a lot of simulations are needed to calculate that average. 
+
+There are many other possible methods to reduce number of simulations required, and which to apply depends on the specific research project and goals, and how much speed is needed. This is something we are aware of for when experiments will be done in the future. 
 
 \bigskip
 
@@ -154,7 +156,7 @@ Lorem Ipsum \\
 
 \pagebreak
 
-\section{Simulator} \label{s:sim}
+\section{Simulation tool} \label{s:sim}
 Lorem Ipsum
 
 \pagebreak

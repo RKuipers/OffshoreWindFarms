@@ -3,11 +3,11 @@
 \contentsline {section}{\numberline {2}The project}{5}
 \contentsline {section}{\numberline {3}Methodology}{7}
 \contentsline {subsection}{\numberline {3.1}Simulation}{7}
-\contentsline {subsection}{\numberline {3.2}Optimization}{8}
-\contentsline {subsection}{\numberline {3.3}Other Methods}{8}
-\contentsline {section}{\numberline {4}Literature}{9}
-\contentsline {subsection}{\numberline {4.1}Schedulling the installation}{9}
-\contentsline {subsection}{\numberline {4.2}Related research regarding offshore projects}{9}
-\contentsline {subsection}{\numberline {4.3}More general work on stocahstic scheduling}{9}
-\contentsline {section}{\numberline {5}Simulator}{10}
-\contentsline {section}{\numberline {6}Future Work}{11}
+\contentsline {subsection}{\numberline {3.2}Optimization}{9}
+\contentsline {subsection}{\numberline {3.3}Other Methods}{9}
+\contentsline {section}{\numberline {4}Literature}{10}
+\contentsline {subsection}{\numberline {4.1}Schedulling the installation}{10}
+\contentsline {subsection}{\numberline {4.2}Related research regarding offshore projects}{10}
+\contentsline {subsection}{\numberline {4.3}More general work on stocahstic scheduling}{10}
+\contentsline {section}{\numberline {5}Simulation tool}{11}
+\contentsline {section}{\numberline {6}Future Work}{12}
