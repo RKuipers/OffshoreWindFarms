@@ -60,6 +60,13 @@ Willy Herroelen and Roel Leus.
 \newblock {\em European journal of operational research}, 165(2):289--306,
   2005.
 
+\bibitem[KS10]{kaiser2010offshore}
+Mark~J Kaiser and Brian Snyder.
+\newblock Offshore wind energy installation and decommissioning cost estimation
+  in the us outer continental shelf.
+\newblock {\em US Dept. of the Interior, Bureau of Ocean Energy Management,
+  Regulation and Enforcement, Herndon, VA TA\&R}, 648, 2010.
+
 \bibitem[KV17]{kerkhove2017optimised}
 L-P Kerkhove and Mario Vanhoucke.
 \newblock Optimised scheduling for weather sensitive offshore construction
@@ -77,5 +84,13 @@ Marc Sevaux and Kenneth Sörensen.
 \newblock Genetic algorithm for robust schedules.
 \newblock {\em 8th International Workshop on Project Management and Scheduling
   (PMS 2002)}, pages 330--333, 2002.
+
+\bibitem[UK17]{ruk2017}
+Renewable UK.
+\newblock Offshore wind project timelines.
+\newblock {\em
+  https://www.renewableuk.com/news/294516/Offshore-Wind-Project-Timelines.htm},
+  2017.
+\newblock Accessed: 2019-03-24.
 
 \end{thebibliography}

@@ -13,6 +13,7 @@
 \usepackage{titlesec}
 \usepackage{cleveref}
 \usepackage{cite}
+\usepackage{url}
 
 \linespread{1.3}
 
@@ -75,7 +76,7 @@ This report aims to give a detailed overview of the research progress I made bet
 \pagebreak
 
 \section{Introduction} \label{s:intro}
-Over the past year, I have been researching scheduling related to offshore windfarm projects; the installation, maintenance, and dismantling of windfarms in various seas, primarily the North Sea. The installation and dismantling projects can often take up to several years, and the lifespan of such farms is about 30 years, over which maintenance has to be done. For these projects, expensive vessels have to be used, the rent of which is often upwards of \pounds 100.000 per day\cite{barlow2014support}, hence a project with multiple vessels over many months can cost hundreds of millions of pounds.  Therefore, even small improvements to the schedules can save significant amounts of money.
+Over the past year, I have been researching scheduling related to offshore windfarm projects; the installation, maintenance, and dismantling of windfarms in various seas, primarily the North Sea. The installation and dismantling projects can often take up to several years, and the lifespan of such farms is about 30 years, over which maintenance has to be done. For these projects, expensive vessels have to be used, the rent of which is often upwards of \pounds 100.000 per day\cite{barlow2014support}, hence a project with multiple vessels over many months can cost upwards of \pounds 100 million \cite{kaiser2010offshore}. Therefore, even small improvements to the schedules can save significant amounts of money.
 
 Because of that, I expected a lot of research in this area had already been conducted, but this turned out to be less the case than I would have expected. Most research is fairly recent, and there are significant literature gaps. The primary obstracle in this scheduling problem which seperates it from more traditional scheduling problems is the high degree of non-deterministic factors, mainly related to the weather conditions. These projects take place on open sea, where weather can often be rougher than on land. In addition, the high-tech vessels are performing operations on big industrial constructions, so they have a limited range of allowed wind speeds and wave heights. Something else which can further limit possible schedules is the inflexibility involved in vessel rental, since vessels of the required caliber cannot be rented on short notice, and often need to be rented for at least some minimum amount of time \cite{kerkhove2017optimised}, so adaptive in-the-moment scheduling is impossible and we cannot simply wait for an expected period of good weather based on real-time data to rent the vessels; if we expected some period to have good weather but this turns out not to be the case, we'll often have the vessels rented but unusable. This means the problem has a lot of undeterministic yet impactful factors which any good solution would have to take into account. 
 
@@ -86,7 +87,7 @@ In this report I will talk about my progress and what I have learned over the pa
 \section{The project} \label{s:project}
 In this section I will attempt to summarize the different views I've seen on the project, in enough detail for the reader to understand the rest of the report. I will primarily talk about installation projects, as most of the literature I've read is about those problems. It is likely the dismantling projects are very similar in structure; anything that was build needs to be taken apart. Maintenance projects however will be very different, as they are over a much larger time scale and while the two other types of projects have a set number of tasks that would ideally be completed as fast as possible, the mainenance has a set duration, with a potentially varying number of tasks.
 
-A typical windfarm will have two types of structures: Wind Turbine Generators (WTGs) and Offshore Substation Platforms (OSPs). The WTGs are the actual turbines generating energy, and the OSPs are hubs where the power generated in the WTGs is gathered and transformed before being transported to shore. A typical windfarm might have upwards of 100 WTGs and 2 OSPs \cite{barlow2018mixed}. Each of these structures has a set of tasks that need to be completed in series for each individual structure, like preparing the sea surface, laying the foundation, installing the structure and laying the cables (each of these tasks may be split into more tasks such as loading, transport and installation) \cite{kerkhove2017optimised}. Within the group of tasks for a structure, most tasks will have to be performed in a specific order, while the tasks for seperate structures can be completed in any order. This is essential for some of the more sophisticated objective functions used in the literature; if one OSP and a set of WTGs connected to it are active, they can start generating power while the rest of the wind farm is still under construction \cite{barlow2017using}. This would mean the farm starts making money significantly earlier, and can therefore have big impacts on desired schedules. In some situations the company might even set desired deadline for certain milestones, like 10\% or 50\% of the turbines being operational. 
+A typical windfarm will have two types of structures: Wind Turbine Generators (WTGs) and Offshore Substation Platforms (OSPs). The WTGs are the actual turbines generating energy, and the OSPs are hubs where the power generated in the WTGs is gathered and transformed before being transported to shore. A typical windfarm currently in development might have upwards of 100 WTGs and 2 OSPs \cite{ruk2017, barlow2018mixed}. Each of these structures has a set of tasks that need to be completed in series for each individual structure, like preparing the sea surface, laying the foundation, installing the structure and laying the cables (each of these tasks may be split into more tasks such as loading, transport and installation) \cite{kerkhove2017optimised}. Within the group of tasks for a structure, most tasks will have to be performed in a specific order, while the tasks for seperate structures can be completed in any order. This is essential for some of the more sophisticated objective functions used in the literature; if one OSP and a set of WTGs connected to it are active, they can start generating power while the rest of the wind farm is still under construction \cite{barlow2017using}. This would mean the farm starts making money significantly earlier, and can therefore have big impacts on desired schedules. In some situations the company might even set desired deadline for certain milestones, like 10\% or 50\% of the turbines being operational. 
 
 %TODO: For the cites, look at sources and where they got it from; citing directly leads me to more (varied) sources
 
@@ -136,20 +137,22 @@ Another method has been discussed before already; robust optimization. As with S
 \subsection{Other Methods} \label{ss:otmet}
 While the main methods are Simulation and Optimization, there are more notable methods used in the litarature. The main one that stroke me as relevant are genetic algorithms. In \cite{kerkhove2017optimised} a local search algorithm is used on what they call `genes' (set of times from which a specific task is available) to find smal beneficiall changes to an existing schedule. This method seemed promising, and not a lot of research has been done in this area, hence it is being considered for use in our future research. Additionally, using the schedule performance as a measure of gene strength, potentially an evolutionary algorithm could be tested by combining successfull genes. As far as we know, this has not been used for research on this problem before and is therefore of potential interest in the future. This is strenghted by evolutionairy methods occasionally being found effective for a machine scheduling problem \cite{dorndorf1995evolution}. The windfarm installation problem could be modelled similar to a machine scheduling problem (where each vessel is a machine), hence this method may be beneficial.
 
-Another fairly unorthodox method for scheduling problems is by use of Graph theory. 
-%TODO: Find way this might help and talk about researchers experience here. 
-
-%Expand a lot on opt and sim, and robustness
-%Look at Okyu's work for some ideas on this section, and have a quick look at her sources 18 17 9 about robust optimization
+%Consider adding a Graph Theory section (unlikely as no real relevance)
 
 \pagebreak
 
 \section{Literature} \label{s:lit}
-In this section I will discuss a selection of the literature I have read so far for my research. In all the literature I discuss I will discuss the methods, assumptions, goals and results of each work. I have separated it into several subsections, depending on how closely related to my topic the discussed research is, as much more general scheduling methods will also be discussed to some extend. 
+In this section I will give an overview of the literature I have read to-date for this research. I will discuss some actual attempts to produce a schedule for the installation problem in \Cref{ss:sched}, and other research related to offshore projects in \Cref{ss:offsh}. Finally, I will highlight some other studies to do with uncertain scheduling in \Cref{ss:stoch}.  
 
 \subsection{Schedulling the installation} \label{ss:sched}
-Lorem Ipsum \\
-\cite{barlow2018mixed} \\
+For the research discussed here, I will discuss some models and methods used, and try and compare these studies. 
+
+\bigskip
+
+In \cite{barlow2018mixed} a mixed-method approach is used. They identify the strengths and weaknesses of both simulation and optimization, and aim to use the methods together in a way that exploits the strength of each. First the simulation is used to determine some amount of delay before starting the project, as this can have sizable impact on the total duration of the project. 
+
+\bigskip
+
 \cite{kerkhove2017optimised} \\
 \cite{barlow2017using}
 
