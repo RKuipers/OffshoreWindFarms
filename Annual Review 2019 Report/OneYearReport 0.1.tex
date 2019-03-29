@@ -123,8 +123,8 @@ There are many other possible methods to reduce number of simulations required, 
 
 \bigskip
 
-\subsection{optimisation} \label{ss:opt}
-optimisation, in particular through linear programming, is an essential tool in problems like this, and is used extensively in the literature. Linear programming is preferred as non-linear programming is computationally much more complex to solve, therefore non-linear models are restricted in size in order to be solved in feasible time. However, both methods are used in the literature.
+\subsection{Optimisation} \label{ss:opt}
+Optimisation, in particular through linear programming, is an essential tool in problems like this, and is used extensively in the literature. Linear programming is preferred as non-linear programming is computationally much more complex to solve, therefore non-linear models are restricted in size in order to be solved in feasible time. However, both methods are used in the literature.
 
 Even linear programming models computationally complex to solve, hence many methods are used to reduce to complexity of the models. There are standard techniques like Lagrangian relaxation \cite{fisher1981lagrangian} and column generation \cite{barnhart1998branch}, but there are more specific methods used as well. The primary way this is done is by limiting the scope of individual optimisation problems (not necesarilly the research), by splitting up the research and using multi-level optimisation models, or using simulation for certain parts of it. I will go into more detail on specific models in \Cref{s:lit}, where I will also give an example model from the literature to illustrate a way to model this type of project.
 
@@ -150,6 +150,10 @@ For the research discussed here, I will discuss some models and methods used, an
 \bigskip
 
 In \cite{barlow2018mixed} a mixed-method approach is used. They identify the strengths and weaknesses of both simulation and optimisation, and aim to use the methods together in a way that exploits the strength of each. First the simulation is used to determine some amount of delay before starting the project, as this can have sizable impact on the total duration of the project. Then, a mathematical programming model is used to construct a schedule from this starting point. The output of that optimisation model is then used in the simulation to give a view of the overall costs and uncertainty of the project. 
+
+In the simulation model, a synthetic weather series is used. 
+
+%TODO Talk opt model weather (task delay cap) and multi-stage
 
 \bigskip
 
