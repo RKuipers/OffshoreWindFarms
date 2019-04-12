@@ -151,20 +151,32 @@ For the research discussed here, I will discuss some models and methods used, an
 
 In \cite{barlow2018mixed} a mixed-method approach is used. They identify the strengths and weaknesses of both simulation and optimisation, and aim to use the methods together in a way that exploits the strength of each. First the simulation is used to determine some amount of delay before starting the project, as this can have sizable impact on the total duration of the project. Then, a mathematical programming model is used to construct a schedule from this starting point. The output of that optimisation model is then used in the simulation to give a view of the overall costs and uncertainty of the project. 
 
-In the simulation model, a synthetic weather series is used. 
+In the simulation model, a synthetic weather time-series model is used. Their model is described in full in \cite{dinwoodie2014operational} , and uses a correlated autoregression model which identifies underlying trends in the data over time and aims to predict future behavior over time. This seems to be a fitting and sophisticated model. However, in the optimisation model a more simplistic model is used. Tasks are given a minimal duration $d_{i, min}$ and a maximum increase $d_{i, inc}$ of that duration. The realized duration is given by $d_{i,  min} + z_i d_{i, inc}$ for some $0 \leq z_i \leq 1$. The programming model has two levels; the outer model maximizes $\sum_i z_i \leq \Gamma$ for some given limit $\Gamma$. The inner model then uses the fixed values $z_i$ to set the start times of each task in accordance with their deadlines and precedence relations. 
 
-%TODO Talk opt model weather (task delay cap) and multi-stage
+In effect, a $\Gamma$ is chosen to represent a certain percentage of tasks taking their maximum duration. For example, if there are 200 tasks and 10\% of them can take the maximum duration $\Gamma$ is set to 20, and this can either result in 20 tasks taking their maximum duration with all other tasks being completed in the minimum duration, or every task taking 10\% of its maximum extra time ($d_{i, inc}$). There are two key aspects of weather delay not taking into consideration here. The first is that tasks can often not be performed at all during certain weather conditions. Resources found and discussed in other research (which will be discussed later in this section as well) mention maximum wave heights and wind speeds, which when reached could shut down installation (or at least certain tasks) for hours or maybe even days. These would be identified later when the schedule is tested in simulation (through the synthetic weather series), but it seems valuable if this behavior was incorporated in the optimisation model as tasks not being able to be performed is fundamentally different behavior than tasks simply taking longer. The second aspect not used in this model is that delays often occur time-dependent of each other. The model uses multiple vessels; if weather conditions at a certain time cause one vessel to experience delays, chances are the other vessels are experiencing similar delays at that time. Additionally, if a certain task is performed with some delay, the next task that vessel works on probably happens in similar weather conditions and may experience delay again. Therefore it seems a more sophisticated model which incorporates these characteristics of delays could yield results which better correspond to the reality of the projects. 
+
+An additional criticism to make this research more applicable is the objective of the optimisation; currently the makespan of the longest path of the schedule is minimized, but a company doing the installation will generally be more interested in the total cost of a schedule. This is clearly very related to the makespan, but can differ if certain vessels are used for longer than others, and when parts of the windfarm can become active (and generate profit) earlier. Early profits are currently treated as certain milestones to reach, but when using the monetary value of the project in the objective function this can be done more naturally. The common practice of discounting future spending and profit could also be incorporated in this to more accurately represent the interests of the company. It seems like more research into this could therefore be beneficial. 
+
+Finally the strengths of the simulation could be exploited more. In the research presented, a start date is determined at the start and this is then used in the optimisation and for the rest of the research. Optimal schedules starting in each month could be explored more, as well as pausing the operations after they started. For example, if the winter months turn out to be very difficult and slow to work in, the project could be paused over several months, over which no rent for the vessel would have to be payed. This would seem to be particularly effective if a subset of the turbines could be operational before pausing, as they would generate energy (and revenue) during winter. These seems to be possible areas of research which could be valuable to explore in the future.  
 
 \bigskip
 
+FOR SOME OF THE PAPERS LISTED BELOW I HAVE THE NOTES ABOUT WHAT I WANT TO SAY BUT I HAVE NOT YET WRITTEN IT DOWN. THEY WILL BE SHORTER THAN WHAT I DID FOR THE PREVIOUS PAPER BUT I TRY TO GET TO THE HEART OF THE MODELS USED AND THE LITERATURE CONTRIBUTIONS AND GAPS
+
 \cite{kerkhove2017optimised} \\
 \cite{barlow2017using}
+
+\subsection{Maintenance of the site} \label{ss:maint}
+Lorem Ipsum \\ 
+\cite{dinwoodie2012analysis} \\
+\cite{merigaud2016condition} \\
 
 \subsection{Related research regarding offshore projects} \label{ss:offsh}
 Lorem Ipsum \\
 \cite{barlow2014assessment} \\
 \cite{barlow2014support} \\
-\cite{leggate2010crew}
+\cite{leggate2010crew} \\
+\cite{perez2013offshore}
 
 \subsection{More general work on stocahstic scheduling} \label{ss:stoch}
 Lorem Ipsum \\
@@ -180,6 +192,7 @@ Lorem Ipsum
 \pagebreak
 
 \section{Future Work} \label{s:concl}
+THIS SECTION WILL MOSTLY SUM UP LITERATURE GAPS IDENTIFIED IN SECTION 4, SAY WHICH ONES IM MOST INTERESTED IN PURSUING (AND HOW) AND A POSSIBLE TIMELINE FOR THAT
 Lorem Ipsum
 
 \pagebreak

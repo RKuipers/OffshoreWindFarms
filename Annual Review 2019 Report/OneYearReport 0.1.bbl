@@ -43,10 +43,23 @@ Euan Barlow, Diclehan Tezcaner~Ozturk, Matthew Revie, Kerem Akartunali,
   an offshore wind farm.
 \newblock 2017.
 
+\bibitem[DM14]{dinwoodie2014operational}
+Iain~Allan Dinwoodie and David McMillan.
+\newblock Operational strategies for offshore wind turbines to mitigate failure
+  rate uncertainty on operational costs and revenue.
+\newblock {\em IET Renewable Power Generation}, 8(4):359--366, 2014.
+
 \bibitem[DP95]{dorndorf1995evolution}
 Ulrich Dorndorf and Erwin Pesch.
 \newblock Evolution based learning in a job shop scheduling environment.
 \newblock {\em Computers \& Operations Research}, 22(1):25--40, 1995.
+
+\bibitem[DQM12]{dinwoodie2012analysis}
+Iain Dinwoodie, F~Quail, and D~McMillan.
+\newblock Analysis of offshore wind turbine operation and maintenance using a
+  novel time domain meteo-ocean modeling approach.
+\newblock In {\em ASME Turbo Expo 2012: Turbine Technical Conference and
+  Exposition}, pages 847--857. American Society of Mechanical Engineers, 2012.
 
 \bibitem[Fis81]{fisher1981lagrangian}
 Marshall~L Fisher.
@@ -78,6 +91,17 @@ Alex Leggate, Seda Sucu, Kerem Akartunali, and Robbert van~der Meer.
 \newblock Modelling crew scheduling in offshore supply vessels.
 \newblock {\em Journal of the Operational Research Society}, 69(6):959--970,
   2018.
+
+\bibitem[MR16]{merigaud2016condition}
+Alexis M{\'e}rigaud and John~V Ringwood.
+\newblock Condition-based maintenance methods for marine renewable energy.
+\newblock {\em Renewable and Sustainable Energy Reviews}, 66:53--78, 2016.
+
+\bibitem[PMG13]{perez2013offshore}
+Beatriz P{\'e}rez, Roberto M{\'\i}nguez, and Ra{\'u}l Guanche.
+\newblock Offshore wind farm layout optimization using mathematical programming
+  techniques.
+\newblock {\em Renewable Energy}, 53:389--399, 2013.
 
 \bibitem[SS02]{sevaux2002genetic}
 Marc Sevaux and Kenneth Sörensen.
