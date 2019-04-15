@@ -7,7 +7,7 @@
 \contentsline {subsection}{\numberline {3.3}Other Methods}{11}
 \contentsline {section}{\numberline {4}Literature}{12}
 \contentsline {subsection}{\numberline {4.1}Schedulling the installation}{12}
-\contentsline {subsection}{\numberline {4.2}Maintenance of the site}{14}
+\contentsline {subsection}{\numberline {4.2}Maintenance of the site}{15}
 \contentsline {subsection}{\numberline {4.3}Related research regarding offshore projects}{15}
 \contentsline {subsection}{\numberline {4.4}More general work on stocahstic scheduling}{15}
 \contentsline {section}{\numberline {5}Simulation tool}{16}

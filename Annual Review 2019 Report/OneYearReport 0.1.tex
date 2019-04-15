@@ -142,7 +142,7 @@ While the main methods are Simulation and optimisation, there are more notable m
 \pagebreak
 
 \section{Literature} \label{s:lit}
-In this section I will give an overview of the literature I have read to-date for this research. I will discuss some actual attempts to produce a schedule for the installation problem in \Cref{ss:sched}, and other research related to offshore projects in \Cref{ss:offsh}. Finally, I will highlight some other studies to do with uncertain scheduling in \Cref{ss:stoch}.  
+In this section I will give an overview of the literature I have read to-date for this research. I will discuss some actual attempts to produce a schedule for the installation problem in \Cref{ss:sched}, and some research on the maintenance of the site will be shown in \Cref{ss:maint}. Other research related to offshore projects is shown in \Cref{ss:offsh}. Finally, I will highlight some other studies to do with uncertain scheduling in \Cref{ss:stoch}.  
 
 \subsection{Schedulling the installation} \label{ss:sched}
 For the research discussed here, I will discuss some models and methods used, and try and compare these studies. 
@@ -161,9 +161,15 @@ Finally the strengths of the simulation could be exploited more. In the research
 
 \bigskip
 
+A different model is designed in \cite{kerkhove2017optimised}. It uses similar methods as used in \cite{barlow2018mixed}, namely a mixed-method of optimisation and simulation, but but in a significantly different way. The research incorporates certain industry restrictions to do with vessel renting; it keeps track of when vessels are commissioned and decommissioned, incorporates a price for both, and has minimal renting and downtime periods. These logically make sense, as the vessels likely have costs to travel between the storage and used port, and the rental company will usually not be able to find other uses for a vessel if it has a sort down time. 
+
+Related to this, the variables being decided on are the gate times of the tasks, instead of the start times as previously. The gate time refers to the time from which resources for a certain task should be made available. These times should be determined in advance, as there are generally long lead times associated with renting the vessels (hence they do not lend themselves much for dynamic scheduling). 
+
+
+\bigskip
+
 FOR SOME OF THE PAPERS LISTED BELOW I HAVE THE NOTES ABOUT WHAT I WANT TO SAY BUT I HAVE NOT YET WRITTEN IT DOWN. THEY WILL BE SHORTER THAN WHAT I DID FOR THE PREVIOUS PAPER BUT I TRY TO GET TO THE HEART OF THE MODELS USED AND THE LITERATURE CONTRIBUTIONS AND GAPS
 
-\cite{kerkhove2017optimised} \\
 \cite{barlow2017using}
 
 \subsection{Maintenance of the site} \label{ss:maint}
