@@ -58,7 +58,7 @@ Question: #3
 
 \begin{document}
 \title{Simulation and Optimisation of Offshore Renewable Energy Arrays for Minimal Life-Cycle Costs}
-\author{R. Kuipers \\[1cm] Supervisors: \\ Kerem Akartunali \\ Euan Barlow\\[2cm] University of Strathclyde \\ Strathclyde Business School \\ {\small Glasgow, Scotland}}
+\author{Robin Kuipers \\[1cm] Supervisors: \\ Kerem Akartunali \\ Euan Barlow\\[2cm] University of Strathclyde \\ Strathclyde Business School \\ {\small Glasgow, Scotland}}
 \date{April, 2019}
 
 \maketitle
@@ -163,8 +163,15 @@ Finally the strengths of the simulation could be exploited more. In the research
 
 A different model is designed in \cite{kerkhove2017optimised}. It uses similar methods as used in \cite{barlow2018mixed}, namely a mixed-method of optimisation and simulation, but but in a significantly different way. The research incorporates certain industry restrictions to do with vessel renting; it keeps track of when vessels are commissioned and decommissioned, incorporates a price for both, and has minimal renting and downtime periods. These logically make sense, as the vessels likely have costs to travel between the storage and used port, and the rental company will usually not be able to find other uses for a vessel if it has a sort down time. 
 
-Related to this, the variables being decided on are the gate times of the tasks, instead of the start times as previously. The gate time refers to the time from which resources for a certain task should be made available. These times should be determined in advance, as there are generally long lead times associated with renting the vessels (hence they do not lend themselves much for dynamic scheduling). 
+Related to this, the variables being decided on are the gate times of the tasks, instead of the start times as previously. The gate time refers to the time from which resources for a certain task should be made available. These times should be determined in advance, as there are generally long lead times associated with renting the vessels (hence they do not lend themselves much for dynamic scheduling). This allows for the optimisation to directly influence when the money is spend, which is a major focus of this research. The objective function is also different to accomodate this, it maximises net present value of the complete project. This takes into account discount rates both on exenses and project value, which are emphesised in the literature. These rates are higher than traditionally used, as a main reason to include discount rates is the inherent uncertainty of the future, and projects of this nature have an even higher degree of uncertainty.
 
+This leads me to a major limitation of this research. While the monetary value of the project is presented as the main focus, there is no mention of any postive cashflow starting when the project is partly done, nor are there any deadlines for milestones mentioned (such as when the first 10\% or 50\% of the turbines are operational). Therefore the only postive value considered in the objective is the fixed value of the project upon completion, subject to discount rates. For research so focussed on the financial perspecitve, not incorporating the possibility of early positive cashflows seems like a big gap, and a possible improvement for future research.
+
+The actual methods used in the research are simulation and optimisation (primarily through local search). For the local search, two types of genes are used to represent restrictions of time periods in which certain activity types can be performed. For example, a gene could restrict all activities between December and February, and only allow for certain activities (less susceptible to weather) between September and November. The difference between the two gene types is that one type distinguishes between the years and the other does not (the former might have different weather restrictions for the first July and the second July of the project, while the latter sees them as the same). A simulated annealing algorithm is used to optimise the values of the genes, which are then converted into gate times (through a fairly straightforward algorithm) and tested in a simulation where the net present value of the project is calculated over several runs with different weather series. As an alternative to the local search, a heuristic is used where all activities are seen as the same type and months to totally halt all execution are identified. Since there is only a binary value to be determined for each month there are only $12^2 = 144$ possible variations, which are all tested in simulation. In the case study for which experiments were run, this dedicated search outperformed both variations of local search. 
+
+%Talk about limitations of conversion algorithm (between MAT/SAT and Gate genes)
+
+%Talk about weather model
 
 \bigskip
 
