@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  16 APR 2019 17:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  17 APR 2019 17:49
 entering extended mode
 **"./OneYearReport 0.1.tex"
 ("OneYearReport 0.1.tex"
@@ -376,12 +376,12 @@ Overfull \hbox (7.28587pt too wide) in paragraph at lines 152--153
 tify the strengths
  []
 
-[12] [13] [14] [15]
-Underfull \hbox (badness 10000) in paragraph at lines 183--186
+[12] [13] [14] [15] [16]
+Underfull \hbox (badness 10000) in paragraph at lines 185--188
 
  []
 
-[16] [17] [18] [19] ("OneYearReport 0.1.bbl"
+[17] [18] [19] ("OneYearReport 0.1.bbl"
 Underfull \hbox (badness 1902) in paragraph at lines 19--25
 []\OT1/cmr/m/n/12 Euan Bar-low, Di-cle-han Tez-caner []Ozturk, Matthew Re-
  []
@@ -411,7 +411,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 113--119
 Package caption Warning: Unused \captionsetup[subfigure] on input line 20.
 See the caption package documentation for explanation.
 
-[22] ("OneYearReport 0.1.aux") ) 
+[22] ("OneYearReport 0.1.aux")
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
  6584 strings out of 492946
  112117 string characters out of 3124934
@@ -420,22 +424,22 @@ Here is how much of TeX's memory you used:
  11183 words of font info for 40 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,7n,38p,1821b,240s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/wsb18103/AppData/Local/Programs/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/wsb18103/AppData/Loca
-l/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/wsb18
-103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb
-><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
-ts/cm/cmmi12.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
-e1/public/amsfonts/cm/cmmi8.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/wsb18103/AppData/Local
-/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/wsb1810
-3/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C
+<C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmbx10.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
+pe1/public/amsfonts/cm/cmbx12.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/wsb18103/AppData/Lo
+cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/wsb
+18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pf
+b><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmr10.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
+e1/public/amsfonts/cm/cmr12.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/wsb18103/AppData/Local
+/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/wsb18103
+/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C
 :/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmr8.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.
-9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/wsb18103/AppData/Local/Pr
-ograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmu10.pfb>
-Output written on "OneYearReport 0.1.pdf" (22 pages, 187274 bytes).
+cm/cmti12.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
+public/amsfonts/cm/cmu10.pfb>
+Output written on "OneYearReport 0.1.pdf" (22 pages, 188767 bytes).
 PDF statistics:
  121 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
