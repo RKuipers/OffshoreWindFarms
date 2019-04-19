@@ -1,0 +1,18 @@
+Notes on Future Work:
+Weather
+	Extrapolation from data
+	Robust (simulation for a constructed set of weather series)
+
+Simulation
+	Various ways to reduce run time if needed (time steps, number of runs)
+
+
+
+
+
+
+
+Notes on Section 3:
+Move to ending of section 4
+Intro rewrite for new location
+3.3 Rewrite, see whether to mention genetic/evolutionairy algorithms (sevaux)
