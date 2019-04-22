@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.18)  22 APR 2019 20:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.18)  22 APR 2019 21:40
 entering extended mode
 **"./OneYearReport 0.1.tex"
 ("OneYearReport 0.1.tex"
@@ -322,18 +322,18 @@ oc")
 \openout3 = `"OneYearReport 0.1.toc"'.
 
 
-[3] [4] [5] [6] [7] [8] [9] [10] [11]
-Overfull \hbox (7.28587pt too wide) in paragraph at lines 152--153
+[3] [4] [5] [6] [7]
+Overfull \hbox (7.28587pt too wide) in paragraph at lines 108--109
 []\OT1/cmr/m/n/12 In [B[]OR$[]$18] a mixed-method ap-proach is used. They iden-
 tify the strengths
  []
 
-[12] [13] [14] [15] [16]
-Underfull \hbox (badness 10000) in paragraph at lines 183--186
+[8] [9] [10] [11] [12]
+Underfull \hbox (badness 10000) in paragraph at lines 139--142
 
  []
 
-[17] [18] [19] ("OneYearReport 0.1.bbl"
+[13] [14] [15] [16] [17] [18] [19] ("OneYearReport 0.1.bbl"
 Underfull \hbox (badness 1902) in paragraph at lines 19--25
 []\OT1/cmr/m/n/12 Euan Bar-low, Di-cle-han Tez-caner []Ozturk, Matthew Re-
  []
@@ -366,31 +366,28 @@ Underfull \hbox (badness 10000) in paragraph at lines 118--124
 Package caption Warning: Unused \captionsetup[subfigure] on input line 20.
 See the caption package documentation for explanation.
 
-[22] ("OneYearReport 0.1.aux")
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+[22] ("OneYearReport 0.1.aux") ) 
 Here is how much of TeX's memory you used:
- 6320 strings out of 493334
- 102413 string characters out of 3139251
- 185915 words of memory out of 3000000
- 9772 multiletter control sequences out of 15000+200000
+ 6329 strings out of 493334
+ 102588 string characters out of 3139251
+ 186915 words of memory out of 3000000
+ 9781 multiletter control sequences out of 15000+200000
  11183 words of font info for 40 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,7n,38p,1821b,240s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
-ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
-les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKT
-eX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX 2.9/f
-onts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
-1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
-amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.p
-fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/P
-rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program F
-iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmu10.pfb>
-Output written on "OneYearReport 0.1.pdf" (22 pages, 189796 bytes).
+ 40i,7n,38p,1808b,240s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public
+/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfont
+s/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cme
+x10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Progr
+am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
+c/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
+ts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
+u10.pfb>
+Output written on "OneYearReport 0.1.pdf" (22 pages, 190039 bytes).
 PDF statistics:
  121 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

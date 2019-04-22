@@ -6,13 +6,11 @@ Weather
 Simulation
 	Various ways to reduce run time if needed (time steps, number of runs)
 
+Optimisation
+	Evolutionairy Algorithms
+	Use kerkhove dedicated search to find base solutions for local search
 
-
-
-
-
-
-Notes on Section 3:
-Move to ending of section 4
-Intro rewrite for new location
-3.3 Rewrite, see whether to mention genetic/evolutionairy algorithms (sevaux)
+Schedule restrictions
+	Have off and on months combined with early start bonus (so there is generation over off months) (with NPV)
+	Vessel renting limitations and costs
+	

@@ -78,14 +78,14 @@ This report aims to give a detailed overview of the research progress I made bet
 \section{Introduction} \label{s:intro}
 Over the past year, I have been researching scheduling related to offshore windfarm projects; the installation, maintenance, and dismantling of windfarms in various seas, primarily the North Sea. The installation and dismantling projects can often take up to several years, and the lifespan of such farms is about 30 years, over which maintenance has to be done. For these projects, expensive vessels have to be used, the rent of which is often upwards of \pounds 100.000 per day\cite{barlow2014support}, hence a project with multiple vessels over many months can cost upwards of \pounds 100 million \cite{kaiser2010offshore}. Therefore, even small improvements to the schedules can save significant amounts of money.
 
-Because of that, I expected a lot of research in this area had already been conducted, but this turned out to be less the case than I would have expected. Most research is fairly recent, and there are significant literature gaps. The primary obstracle in this scheduling problem which seperates it from more traditional scheduling problems is the high degree of non-deterministic factors, mainly related to the weather conditions. These projects take place on open sea, where weather can often be rougher than on land. In addition, the high-tech vessels are performing operations on big industrial constructions, so they have a limited range of allowed wind speeds and wave heights. Something else which can further limit possible schedules is the inflexibility involved in vessel rental, since vessels of the required caliber cannot be rented on short notice, and often need to be rented for at least some minimum amount of time \cite{kerkhove2017optimised}, so adaptive in-the-moment scheduling is impossible and we cannot simply wait for an expected period of good weather based on real-time data to rent the vessels; if we expected some period to have good weather but this turns out not to be the case, we'll often have the vessels rented but unusable. This means the problem has a lot of undeterministic yet impactful factors which any good solution would have to take into account. 
+Because of that, I expected a lot of research in this area had already been conducted, but this turned out to be less the case than I would have expected. Most research is fairly recent, and there are significant literature gaps. The primary obstacle in this scheduling problem which separates it from more traditional scheduling problems is the high degree of non-deterministic factors, mainly related to the weather conditions. These projects take place on open sea, where weather can often be rougher than on land. In addition, the high-tech vessels are performing operations on big industrial constructions, so they have a limited range of allowed wind speeds and wave heights. Something else which can further limit possible schedules is the inflexibility involved in vessel rental, since vessels of the required caliber cannot be rented on short notice, and often need to be rented for at least some minimum amount of time \cite{kerkhove2017optimised}, so adaptive in-the-moment scheduling is impossible and we cannot simply wait for an expected period of good weather based on real-time data to rent the vessels; if we expected some period to have good weather but this turns out not to be the case, we'll often have the vessels rented but unusable. This means the problem has a lot of nondeterministic yet impactful factors which any good solution would have to take into account. 
 
-In this report I will talk about my progress and what I have learned over the past year. First, in \Cref{s:project} I will explain the examined problem in more detail. After that, in \Cref{s:lit}, I will recount the reading I have done over so far, which was the main focus of my work over the past year. This will include both research on this specific project, and research in the more general fields of (stochastic) scheduling, optimisation and simulation. This will be the main focus of the report, as it was the main focus of my work. In addition to reading up on the state of the current research, I have also started building a Simulator for this problem, which I will discuss in \Cref{s:sim}. Finally, I will summarize my current standing and plans for future work in \Cref{s:concl}. 
+In this report I will talk about my progress and what I have learned over the past year. First, in \Cref{s:project} I will explain the examined problem in more detail. After that, in \Cref{s:lit}, I will recount the reading I have done over so far, which was the main focus of my work over the past year. This will include both research on this specific project, and research in the more general fields of (stochastic) scheduling and common methods such as optimisation and simulation. This will be the main focus of the report, as it was the main focus of my work. In addition to reading up on the state of the current research, I have also started building a Simulator for this problem, which I will discuss in \Cref{s:sim}. Finally, I will summarize my current standing and plans for future work in \Cref{s:concl}. 
 
 \pagebreak
 
 \section{The project} \label{s:project}
-In this section I will attempt to summarize the different views I've seen on the project, in enough detail for the reader to understand the rest of the report. I will primarily talk about installation projects, as most of the literature I've read is about those problems. It is likely the dismantling projects are very similar in structure; anything that was build needs to be taken apart. Maintenance projects however will be very different, as they are over a much larger time scale and while the two other types of projects have a set number of tasks that would ideally be completed as fast as possible, the mainenance has a set duration, with a potentially varying number of tasks.
+In this section I will attempt to summarize the different views I've seen on the project, in enough detail for the reader to understand the rest of the report. I will primarily talk about installation projects, as most of the literature I've read is about those problems. It is likely the dismantling projects are very similar in structure; anything that was build needs to be taken apart. Maintenance projects however will be very different, as they are over a much larger time scale and while the two other types of projects have a set number of tasks that would ideally be completed as fast as possible, the maintenance has a set duration, with a potentially varying number of tasks.
 
 A typical windfarm will have two types of structures: Wind Turbine Generators (WTGs) and Offshore Substation Platforms (OSPs). The WTGs are the actual turbines generating energy, and the OSPs are hubs where the power generated in the WTGs is gathered and transformed before being transported to shore. A typical windfarm currently in development might have upwards of 100 WTGs and 2 OSPs \cite{ruk2017, barlow2018mixed}. Each of these structures has a set of tasks that need to be completed in series for each individual structure, like preparing the sea surface, laying the foundation, installing the structure and laying the cables (each of these tasks may be split into more tasks such as loading, transport and installation) \cite{kerkhove2017optimised}. Within the group of tasks for a structure, most tasks will have to be performed in a specific order, while the tasks for seperate structures can be completed in any order. This is essential for some of the more sophisticated objective functions used in the literature; if one OSP and a set of WTGs connected to it are active, they can start generating power while the rest of the wind farm is still under construction \cite{barlow2017using}. This would mean the farm starts making money significantly earlier, and can therefore have big impacts on desired schedules. In some situations the company might even set desired deadline for certain milestones, like 10\% or 50\% of the turbines being operational. 
 
@@ -95,56 +95,12 @@ The measure with which to compare schedules can vary. The most basic measure wou
 
 \pagebreak
 
-\section{Methodology} \label{s:meth}
-In the above literature, two main types of methods are used for this problem; optimisation and simulation. Often both are used together, either by tackling one part of the problem with simulation and another with optimisation (as in \cite{barlow2018mixed}), or by creating schedules with an optimisation model, which are then evaluated using simulation (as in \cite{kerkhove2017optimised}). In this sections the methods will be discussed in more detail, seperate from the research they were used in. Other possible methods for problems of the kind we are looking at will also be discussed. 
-
-\bigskip
-
-\subsection{Simulation} \label{ss:sim}
-Simulation, especially Discrete Event Simulation, is a good method to evaluate the strength of a proposed schedule under uncertain circumstances. If enough simulations are run, an accurate view of the realistic duration of a schedule can be gained. This does not only mean expected (average) duration, but also for example a confidence interval for the extreme cases. This does however have two big bottlenecks; the information gained through simulation can only be as precise as the weather model used for it, and doing enough simulations can take considerable time. 
-
-\bigskip
-
-If the weather data is limited in precision or amount of data available, the results of the simulation in turn will also be limited. First of all is the precision of the data; a simulation as detailed as we would like for this type of project would have timesteps in the range of 15 minutes to an hour. A lot of weather data has much larger timesteps, often of several hours. There are methods to interpolate between weather data points, but this tends to not be very precise as there are a lot of factors to take into account. The most important measures of the weather are wind speed and wave height, as by these measures the usability of the vessels can be determined. In order to have this data be realistic, the two measures have to be correlated, as well as have autocorrelation over time (the weather does not often drastically change in the span of 15 minutes). Having those values be realistically interpolated between two measured points is a difficult task, and something we will have to figure out a way to realistically handle for future research.
-
-The amount of data available is also a common problem. A major reason for this is the natural change of weather depending on the time of year. Generally, a year would be split up in sections, for example the four seasons or the twelve months. Intuitively this makes a lot of sense; if we want to model the weather in January data from July is irrelevant for this. But the consequence is the sheer amount of time it takes to collect accurate data for each time period; if we want 300 days of data for the month of April, we need data collected over the span of 10 years. In addition, the conditions of the location the data is gathered from have to be similar to the location of the windfarm. An important parameter for this is the distance to the shore, but there are more factors which play a part. 
-
-A method to handle these drawbacks of the weather data is to not use raw data, but analyze the periodic characteristics of the change of both wind and wave states. Using these characteristics, one can generate weather data by drawing a random real data point within the desired time period, and extrapolating the data from there using the found characteristics. This is used frequently in the literature, and has been shown to have a good potential for stochastic simulations. 
-
-Another method we are considering to explore relates more to robust optimisation. It might not be necessary to have a large number of simulations for all possible weather conditions. If, for each time period, we create a range of possible wind and wave states (including the extreme cases from the data) and run simulations for a set of (realistic) combinations of them we could aim to make a robust schedule that performs well within even the most extreme weather scenarios without having too many simulations to run. The drawback of this robust approach is a schedule that performs well in 99\% of weather cases might be discarded for the most extreme 1\% of cases. This can however be reduced by carefully selecting the data to use for the simulations, or allowing a certain number of bad scenarios (especially if the weather causing it is very rare). We might explore this more in future research. 
-
-%TODO: Citations?
-
-\bigskip
-
-The other bottleneck, that of the considerable time it will take to run enough simulations, is something that will need to be taken into consideration for any research project using simulation. There are several methods to reduce the time used if necessary. A rigorous but effective step is is increasing the size of a timestep. This reduces accuracy, but does significantly reduce calculation time as well. Another is to carefully select input so less simulations need to be run for precision, as was discussed above. Aiming to get a robust result will generally need much less simulations than a result with simply the lowest average duration, as a lot of simulations are needed to calculate that average. 
-
-There are many other possible methods to reduce number of simulations required, and which to apply depends on the specific research project and goals, and how much speed is needed. This is something we are aware of for when experiments will be done in the future. 
-
-\bigskip
-
-\subsection{Optimisation} \label{ss:opt}
-Optimisation, in particular through linear programming, is an essential tool in problems like this, and is used extensively in the literature. Linear programming is preferred as non-linear programming is computationally much more complex to solve, therefore non-linear models are restricted in size in order to be solved in feasible time. However, both methods are used in the literature.
-
-Even linear programming models computationally complex to solve, hence many methods are used to reduce to complexity of the models. There are standard techniques like Lagrangian relaxation \cite{fisher1981lagrangian} and column generation \cite{barnhart1998branch}, but there are more specific methods used as well. The primary way this is done is by limiting the scope of individual optimisation problems (not necesarilly the research), by splitting up the research and using multi-level optimisation models, or using simulation for certain parts of it. 
-
-Another method has been discussed before already; robust optimisation. As with Simulation, this reduces the number of considered inputs (primarily weather states, but also task duration which is sometimes stochastic) by only considering certain constructed uncertainty sets. This strongly reduces the number of situations considered in the optimisation. 
-
-There are alternatives to computational programming. The most prominent is local search. A benefit of local search is that reasonably good results can often be found fairly quick, but this is connected to the main drawback of local search; it can often be difficult to get out of local optima. However, there is a lot of literature on local search and many variants designed to reduce its drawbacks. 
-
-\bigskip
-
-\subsection{Other Methods} \label{ss:otmet}
-The main methods used in the literature are simulation and optimisation, but there are other relevant methods used in other scheduling problems. Evolutionary algorithms have been used for deterministic scheduling problems such as machine learning \cite{dorndorf1995evolution}. A good explanation of this technique for scheduling is given in \cite{cotta2007memetic}. While this technique seems to be fairly common in deterministic scheduling, not much research could be found in an uncertain setting. The exception is \cite{sevaux2002genetic} as discussed in \Cref{ss:stoch}. This research, although seemingly brief, gives quality results. Since there is no clear reason why evolutionary algorithms couldn't work well within an uncertain setting, this is a potential method to explore in the future. 
-
-%Consider adding a Graph Theory section (unlikely as no real relevance)
-
-\pagebreak
-
 \section{Literature} \label{s:lit}
-In this section I will give an overview of the literature I have read to-date for this research. I will discuss some actual attempts to produce a schedule for the installation problem in \Cref{ss:sched}, and some research on the maintenance of the site will be shown in \Cref{ss:maint}. Other research related to offshore projects is shown in \Cref{ss:offsh}. Finally, I will highlight some other studies to do with uncertain scheduling in \Cref{ss:stoch}.  
+In this section I will give an overview of the literature I have read to-date for this research. I will discuss some actual attempts to produce a schedule for the installation problem in \Cref{sss:sched}, and some research on the maintenance of the site will be shown in \Cref{sss:maint}. Other research related to offshore projects is shown in \Cref{sss:offsh}. Finally, I will highlight some other studies to do with uncertain scheduling in \Cref{sss:stoch}.  Afterwards in \Cref{ss:meth} the common methods for these problems will be discussed separate from any particular research. 
 
-\subsection{Schedulling the installation} \label{ss:sched}
+\subsection{Research overview} \label{ss:rese}
+
+\subsubsection{Schedulling the installation} \label{sss:sched}
 For the research discussed here, I will discuss some models and methods used, and try and compare these studies. 
 
 \bigskip
@@ -179,23 +135,67 @@ FOR SOME OF THE PAPERS LISTED BELOW I HAVE THE NOTES ABOUT WHAT I WANT TO SAY BU
 
 \cite{barlow2017using}
 
-\subsection{Maintenance of the site} \label{ss:maint}
+\subsubsection{Maintenance of the site} \label{sss:maint}
 Lorem Ipsum \\ 
 \cite{dinwoodie2012analysis} \\
 \cite{merigaud2016condition} \\
 
-\subsection{Related research regarding offshore projects} \label{ss:offsh}
+\subsubsection{Related research regarding offshore projects} \label{sss:offsh}
 Lorem Ipsum \\
 \cite{barlow2014assessment} \\
 \cite{barlow2014support} \\
 \cite{leggate2010crew} \\
 \cite{perez2013offshore}
 
-\subsection{More general work on stocahstic scheduling} \label{ss:stoch}
+\subsubsection{More general work on stocahstic scheduling} \label{sss:stoch}
 Lorem Ipsum \\
 \cite{herroelen2005project} \\
 \cite{sevaux2002genetic} \\
 \cite{artigues2000polynomial}
+
+\subsection{Methodology} \label{ss:meth}
+In the above literature, two main types of methods are used for this problem; optimisation and simulation. Often both are used together, either by tackling one part of the problem with simulation and another with optimisation (as in \cite{barlow2018mixed}), or by creating schedules with an optimisation model, which are then evaluated using simulation (as in \cite{kerkhove2017optimised}). In this sections the methods will be discussed in more detail, seperate from the research they were used in. Other possible methods for problems of the kind we are looking at will also be discussed. 
+
+\bigskip
+
+\subsubsection{Simulation} \label{ss:sim}
+Simulation, especially Discrete Event Simulation, is a good method to evaluate the strength of a proposed schedule under uncertain circumstances. If enough simulations are run, an accurate view of the realistic duration of a schedule can be gained. This does not only mean expected (average) duration, but also for example a confidence interval for the extreme cases. This does however have two big bottlenecks; the information gained through simulation can only be as precise as the weather model used for it, and doing enough simulations can take considerable time. 
+
+\bigskip
+
+If the weather data is limited in precision or amount of data available, the results of the simulation in turn will also be limited. First of all is the precision of the data; a simulation as detailed as we would like for this type of project would have timesteps in the range of 15 minutes to an hour. A lot of weather data has much larger timesteps, often of several hours. There are methods to interpolate between weather data points, but this tends to not be very precise as there are a lot of factors to take into account. The most important measures of the weather are wind speed and wave height, as by these measures the usability of the vessels can be determined. In order to have this data be realistic, the two measures have to be correlated, as well as have autocorrelation over time (the weather does not often drastically change in the span of 15 minutes). Having those values be realistically interpolated between two measured points is a difficult task, and something we will have to figure out a way to realistically handle for future research.
+
+The amount of data available is also a common problem. A major reason for this is the natural change of weather depending on the time of year. Generally, a year would be split up in sections, for example the four seasons or the twelve months. Intuitively this makes a lot of sense; if we want to model the weather in January data from July is irrelevant for this. But the consequence is the sheer amount of time it takes to collect accurate data for each time period; if we want 300 days of data for the month of April, we need data collected over the span of 10 years. In addition, the conditions of the location the data is gathered from have to be similar to the location of the windfarm. An important parameter for this is the distance to the shore, but there are more factors which play a part. 
+
+A method to handle these drawbacks of the weather data is to not use raw data, but analyze the periodic characteristics of the change of both wind and wave states. Using these characteristics, one can generate weather data by drawing a random real data point within the desired time period, and extrapolating the data from there using the found characteristics. This is used frequently in the literature, and has been shown to have a good potential for stochastic simulations. 
+
+Another method we are considering to explore relates more to robust optimisation. It might not be necessary to have a large number of simulations for all possible weather conditions. If, for each time period, we create a range of possible wind and wave states (including the extreme cases from the data) and run simulations for a set of (realistic) combinations of them we could aim to make a robust schedule that performs well within even the most extreme weather scenarios without having too many simulations to run. The drawback of this robust approach is a schedule that performs well in 99\% of weather cases might be discarded for the most extreme 1\% of cases. This can however be reduced by carefully selecting the data to use for the simulations, or allowing a certain number of bad scenarios (especially if the weather causing it is very rare). We might explore this more in future research. 
+
+%TODO: Citations?
+
+\bigskip
+
+The other bottleneck, that of the considerable time it will take to run enough simulations, is something that will need to be taken into consideration for any research project using simulation. There are several methods to reduce the time used if necessary. A rigorous but effective step is is increasing the size of a timestep. This reduces accuracy, but does significantly reduce calculation time as well. Another is to carefully select input so less simulations need to be run for precision, as was discussed above. Aiming to get a robust result will generally need much less simulations than a result with simply the lowest average duration, as a lot of simulations are needed to calculate that average. 
+
+There are many other possible methods to reduce number of simulations required, and which to apply depends on the specific research project and goals, and how much speed is needed. This is something we are aware of for when experiments will be done in the future. 
+
+\bigskip
+
+\subsubsection{Optimisation} \label{ss:opt}
+Optimisation, in particular through linear programming, is an essential tool in problems like this, and is used extensively in the literature. Linear programming is preferred as non-linear programming is computationally much more complex to solve, therefore non-linear models are restricted in size in order to be solved in feasible time. However, both methods are used in the literature.
+
+Even linear programming models computationally complex to solve, hence many methods are used to reduce to complexity of the models. There are standard techniques like Lagrangian relaxation \cite{fisher1981lagrangian} and column generation \cite{barnhart1998branch}, but there are more specific methods used as well. The primary way this is done is by limiting the scope of individual optimisation problems (not necesarilly the research), by splitting up the research and using multi-level optimisation models, or using simulation for certain parts of it. 
+
+Another method has been discussed before already; robust optimisation. As with Simulation, this reduces the number of considered inputs (primarily weather states, but also task duration which is sometimes stochastic) by only considering certain constructed uncertainty sets. This strongly reduces the number of situations considered in the optimisation. 
+
+There are alternatives to computational programming. The most prominent is local search. A benefit of local search is that reasonably good results can often be found fairly quick, but this is connected to the main drawback of local search; it can often be difficult to get out of local optima. However, there is a lot of literature on local search and many variants designed to reduce its drawbacks. 
+
+\bigskip
+
+\subsubsection{Other Methods} \label{ss:otmet}
+The main methods used in the literature are simulation and optimisation, but there are other relevant methods used in other scheduling problems. Evolutionary algorithms have been used for deterministic scheduling problems such as machine learning \cite{dorndorf1995evolution}. A good explanation of this technique for scheduling is given in \cite{cotta2007memetic}. While this technique seems to be fairly common in deterministic scheduling, not much research could be found in an uncertain setting. The exception is \cite{sevaux2002genetic} as discussed in \Cref{sss:stoch}. This research, although seemingly brief, gives quality results. Since there is no clear reason why evolutionary algorithms couldn't work well within an uncertain setting, this is a potential method to explore in the future. 
+
+%Consider adding a Graph Theory section (unlikely as no real relevance)
 
 \pagebreak
 
