@@ -43,6 +43,11 @@ Euan Barlow, Diclehan Tezcaner~Ozturk, Matthew Revie, Kerem Akartunali,
   an offshore wind farm.
 \newblock 2017.
 
+\bibitem[CF07]{cotta2007memetic}
+Carlos Cotta and Antonio~J Fern{\'a}ndez.
+\newblock Memetic algorithms in planning, scheduling, and timetabling.
+\newblock In {\em Evolutionary Scheduling}, pages 1--30. Springer, 2007.
+
 \bibitem[DM14]{dinwoodie2014operational}
 Iain~Allan Dinwoodie and David McMillan.
 \newblock Operational strategies for offshore wind turbines to mitigate failure

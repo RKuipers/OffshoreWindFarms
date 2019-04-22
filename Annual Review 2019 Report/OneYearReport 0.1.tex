@@ -96,7 +96,7 @@ The measure with which to compare schedules can vary. The most basic measure wou
 \pagebreak
 
 \section{Methodology} \label{s:meth}
-In the literature, two main types of methods are used for this problem; optimisation and simulation. Often both are used together, either by tackling one part of the problem with simulation and another with optimisation (as in \cite{barlow2018mixed}), or by creating schedules with an optimisation model, which are then evaluated using simulation (as in \cite{kerkhove2017optimised}). Exactly how certain previous research uses these methods will be discussed more in \Cref{s:lit}, but a more general look at these methods, as well as other methods currently under consideration for this research, will be given in this section. 
+In the above literature, two main types of methods are used for this problem; optimisation and simulation. Often both are used together, either by tackling one part of the problem with simulation and another with optimisation (as in \cite{barlow2018mixed}), or by creating schedules with an optimisation model, which are then evaluated using simulation (as in \cite{kerkhove2017optimised}). In this sections the methods will be discussed in more detail, seperate from the research they were used in. Other possible methods for problems of the kind we are looking at will also be discussed. 
 
 \bigskip
 
@@ -135,7 +135,7 @@ There are alternatives to computational programming. The most prominent is local
 \bigskip
 
 \subsection{Other Methods} \label{ss:otmet}
-While the main methods are simulation and optimisation, there are more notable methods used in the litarature. The main one that stroke me as relevant are genetic algorithms. In \cite{kerkhove2017optimised} a local search algorithm is used on what they call `genes' (set of times from which a specific task is available) to find smal beneficiall changes to an existing schedule. This method seemed promising, and not a lot of research has been done in this area, hence it is being considered for use in our future research. Additionally, using the schedule performance as a measure of gene strength, potentially an evolutionary algorithm could be tested by combining successfull genes. As far as we know, this has not been used for research on this problem before and is therefore of potential interest in the future. This is strenghted by evolutionairy methods occasionally being found effective for a machine scheduling problem \cite{dorndorf1995evolution}. The windfarm installation problem could be modelled similar to a machine scheduling problem (where each vessel is a machine), hence this method may be beneficial.
+The main methods used in the literature are simulation and optimisation, but there are other relevant methods used in other scheduling problems. Evolutionary algorithms have been used for deterministic scheduling problems such as machine learning \cite{dorndorf1995evolution}. A good explanation of this technique for scheduling is given in \cite{cotta2007memetic}. While this technique seems to be fairly common in deterministic scheduling, not much research could be found in an uncertain setting. The exception is \cite{sevaux2002genetic} as discussed in \Cref{ss:stoch}. This research, although seemingly brief, gives quality results. Since there is no clear reason why evolutionary algorithms couldn't work well within an uncertain setting, this is a potential method to explore in the future. 
 
 %Consider adding a Graph Theory section (unlikely as no real relevance)
 
