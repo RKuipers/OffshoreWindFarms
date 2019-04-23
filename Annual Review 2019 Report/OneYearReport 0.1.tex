@@ -131,7 +131,7 @@ The final thing to note about this research is the advanced weather simulation m
 
 \bigskip
 
-FOR SOME OF THE PAPERS LISTED BELOW I HAVE THE NOTES ABOUT WHAT I WANT TO SAY BUT I HAVE NOT YET WRITTEN IT DOWN. THEY WILL BE SHORTER THAN WHAT I DID FOR THE PREVIOUS PAPERS BUT I TRY TO GET TO THE HEART OF THE MODELS USED AND THE LITERATURE CONTRIBUTIONS AND GAPS
+FOR SOME OF THE PAPERS LISTED BELOW I HAVE THE NOTES ABOUT WHAT I WANT TO SAY BUT I HAVE NOT YET WRITTEN IT DOWN. THEY ALL WILL BE SHORTER THAN WHAT I DID FOR THE PREVIOUS PAPERS BUT I TRY TO GET TO THE HEART OF THE MODELS USED AND THE LITERATURE CONTRIBUTIONS AND GAPS
 
 \cite{barlow2017using}
 
@@ -200,14 +200,34 @@ The main methods used in the literature are simulation and optimisation, but the
 \pagebreak
 
 \section{Simulation tool} \label{s:sim}
-Lorem Ipsum
+HERE I WILL MOSTLY SAY WHAT I CURRENTLY HAVE ON MY WAY TO A SIMULATION TOOL, AND WHAT I AM PLANNING TO DO WITH IT
 
 \pagebreak
 
 \section{Future Work} \label{s:concl}
-THIS SECTION WILL MOSTLY SUM UP LITERATURE GAPS IDENTIFIED IN SECTION 4, SAY WHICH ONES IM MOST INTERESTED IN PURSUING (AND HOW) AND A POSSIBLE TIMELINE FOR THAT
+%THIS SECTION WILL MOSTLY SUM UP LITERATURE GAPS IDENTIFIED IN SECTION 3, SAY WHICH ONES IM MOST INTERESTED IN PURSUING (AND HOW) AND A POSSIBLE TIMELINE FOR THAT
+In this section I will outline two main directions this research could take and sum up the previously identified gaps in the literature and possible ways to fill them in. 
 
+\bigskip
 
+%Installation ideas: Improvement of Kerkhove with early starts and methodology improvements
+The first direction is to focus on the installation projects and work from the existing literature. Of the models I discussed in \Cref{sss:sched} I identified both strenghts and weaknesses, and my hope is to be able to combine them to highlight their strengths. I think a focus on cashflows is a good approach (as it will always be of interest to the project developer), but it should incorporate positive cashflows from partial completion, as well as possible milestone deadlines. Given this approach, it seems an investigation into both start date and off-months would be beneficial. A dedicated heuristic (as in \cite{kerkhove2017optimised}) could be used (where all activity types and years are treated equally) as base solutions, to then be potentially improved with a local search. However, this is not the only optimisation that should be performed. A restriction on which activities can be completed in which time periods is a starting point from which more detailed scheduling should occur. For each period a set of desired vessels should be determined, keeping in mind costs of (de)commissioning vessels and restrictions on timespans for that. A schedule should be made for each vessel such that each task is assigned a vessel and a timeslot. For this there are various optimisation techniques possible. The basic one to go to would be trying to solve a linear program, in which task durations can be the expected time within a time period (month) based on expected weather. A solution would then have to be checked through simulation. This may be difficult to do in a way that is computationally feasible in a reasonable time, but that is one of the challenges of this research, and there is a lot of literature on improving simulations when necessary. However, if this turns out to not be feasible there are alternatives such as using an evolutionairy algorithm for optimisation. 
+
+\bigskip
+
+%Maintenence ideas: New uncertain aspects to do with when stuff breaks (poisson distribution) possibly correlated with weather, ???
+The second direction to take this research is to focus on the maintenance of an engery site, as discussed in \Cref{sss:maint}. WILL EXPAND ON THIS MUCH MORE AFTER WRITING 3.1.2 AS I DON''T HAVE FULL NOTES YET
+
+\bigskip
+
+%Combine for full life cycle 
+There is a third direction following from the above two. In the event I spend some amount of time on both previous directions and gain reasonable results for both, I could aim to combine the models the techniques into a single model (and tool) for most scheduling decisions regarding projects of this kind. In addition to the above two directions, there is a third phase of the project to be taken into account for this; decommission. This is presumed to be very similar to the installation phase (hence not massively interesting in itself in my opinion) but there are some key differences, such as the reverse direction of cashflows (we start with the whole site operational but getting less operational over time), and very uncertain costs given that the decomissioning of sites currently being build will occur in several (unpredictable) decades. However, these obstacles can be overcome to make a good general use decision support tool for the scheduling of offshore windfarm projects. This is clearly a very ambitious goal, but it might be feasible depending on my research progress in the other directions over the following years. 
+
+\bigskip
+
+\subsection{Timeline and next steps} \label{ss:timel}
+%Timeline and focus from here
+AFTER OUTLINING THESE DIRECTIONS I WANNA SAY WHAT I WILL FOCUS ON IN THE NEXT 6-12 MONTHS AND GIVE A POSSIBLE TIMELINE FOR THE RESEARCH. SINCE THIS IS WHAT YOU ARE LIKELY MOST INTERESTED IN I THINK I MIGHT WANT TO START WITH MY IDEAS FOR THE INSTALLATION PROJECT AS I HAVE A GOOD NUMBER OF IDEAS TO IMPLEMENT, AND IT WOULD SERVE AS A GOOD TEST FOR THE SIMULATOR. WE CAN DISCUSS THIS MORE IN PERSON NEXT TIME. 
 
 \pagebreak
 
