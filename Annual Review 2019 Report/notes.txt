@@ -14,3 +14,12 @@ Schedule restrictions
 	Have off and on months combined with early start bonus (so there is generation over off months) (with NPV)
 	Vessel renting limitations and costs
 	
+
+
+
+
+
+Feedback from 24/04/19 meeting:
+Get broader literature section. More papers, especially on maintenance. Euan also send a mail on this. Also have at least one paper on/wit aggregate scheduling (multi level). Highlight differences between my research proposal and the current literature. 
+Continue focussing on Section 5(.1) and 4. Good plan is to work on direction 1 for the next 6 months then review whether to continue, expand to maintenance or fully drop for maintenance. Should keep thinking about what makes my idea for the installation special (in terms of research, also compared to other multi-level research). Possible rewrite that bit in Section 5 to make it clearer what makes my approach special and stand out from "focus papers".
+I should also look at what Euan emailed me. 
