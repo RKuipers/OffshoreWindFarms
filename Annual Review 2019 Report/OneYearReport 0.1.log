@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  23 APR 2019 16:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  26 APR 2019 18:07
 entering extended mode
 **"./OneYearReport 0.1.tex"
 ("OneYearReport 0.1.tex"
@@ -381,7 +381,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 139--142
 
  []
 
-[13] [14] [15] [16] [17] [18] [19] [20] ("OneYearReport 0.1.bbl"
+[13] [14] [15] [16] [17] [18] [19] [20]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 238.
+
+
+("C:\Users\wsb18103\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\omscmr.fd"
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 238.
+ [21] ("OneYearReport 0.1.bbl"
 Underfull \hbox (badness 1902) in paragraph at lines 19--25
 []\OT1/cmr/m/n/12 Euan Bar-low, Di-cle-han Tez-caner []Ozturk, Matthew Re-
  []
@@ -396,7 +405,7 @@ Underfull \hbox (badness 2529) in paragraph at lines 40--45
 \OT1/cmr/m/n/12 vie, Kerem Akar-tu-nali, Alexan-der Day, and Evan-ge-los
  []
 
-[21] [22]
+[22] [23]
 Underfull \hbox (badness 10000) in paragraph at lines 118--124
 []\OT1/cmr/m/n/12 Renewable UK.  Off-shore wind project time-lines.
  []
@@ -411,12 +420,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 118--124
 Package caption Warning: Unused \captionsetup[subfigure] on input line 20.
 See the caption package documentation for explanation.
 
-[23] ("OneYearReport 0.1.aux") ) 
+[24] ("OneYearReport 0.1.aux") ) 
 Here is how much of TeX's memory you used:
- 6593 strings out of 492946
- 112263 string characters out of 3124934
+ 6610 strings out of 492946
+ 112599 string characters out of 3124934
  200199 words of memory out of 3000000
- 10406 multiletter control sequences out of 15000+200000
+ 10420 multiletter control sequences out of 15000+200000
  11183 words of font info for 40 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,7n,38p,1945b,240s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -435,9 +444,9 @@ cm/cmr8.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
 blic/amsfonts/cm/cmsy10.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.
 9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/wsb18103/AppData/Local/Pr
 ograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmu10.pfb>
-Output written on "OneYearReport 0.1.pdf" (23 pages, 193716 bytes).
+Output written on "OneYearReport 0.1.pdf" (24 pages, 195789 bytes).
 PDF statistics:
- 124 PDF objects out of 1000 (max. 8388607)
+ 127 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
