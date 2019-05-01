@@ -20,6 +20,14 @@ Schedule restrictions
 
 
 Feedback from 24/04/19 meeting:
-Get broader literature section. More papers, especially on maintenance. Euan also send a mail on this. Also have at least one paper on/wit aggregate scheduling (multi level). Highlight differences between my research proposal and the current literature. 
+Get broader literature section. More papers, especially on maintenance. Euan also send a mail on this. Also have at least one paper on/with aggregate scheduling (multi level). Highlight differences between my research proposal and the current literature. 
 Continue focussing on Section 5(.1) and 4. Good plan is to work on direction 1 for the next 6 months then review whether to continue, expand to maintenance or fully drop for maintenance. Should keep thinking about what makes my idea for the installation special (in terms of research, also compared to other multi-level research). Possible rewrite that bit in Section 5 to make it clearer what makes my approach special and stand out from "focus papers".
 I should also look at what Euan emailed me. 
+
+
+
+Notes Barlow Simulation paper references:
+37 27 26 weather series
+19 33 2	simple opt
+34 maintenance overview
+28 38 41 simulation

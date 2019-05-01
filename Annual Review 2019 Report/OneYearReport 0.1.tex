@@ -131,6 +131,8 @@ The final thing to note about this research is the advanced weather simulation m
 
 \bigskip
 
+%TODO
+
 FOR SOME OF THE PAPERS LISTED BELOW I HAVE THE NOTES ABOUT WHAT I WANT TO SAY BUT I HAVE NOT YET WRITTEN IT DOWN. THEY ALL WILL BE SHORTER THAN WHAT I DID FOR THE PREVIOUS PAPERS BUT I TRY TO GET TO THE HEART OF THE MODELS USED AND THE LITERATURE CONTRIBUTIONS AND GAPS
 
 \cite{barlow2017using}
@@ -184,7 +186,7 @@ There are many other possible methods to reduce number of simulations required, 
 \subsubsection{Optimisation} \label{ss:opt}
 Optimisation, in particular through linear programming, is an essential tool in problems like this, and is used extensively in the literature. Linear programming is preferred as non-linear programming is computationally much more complex to solve, therefore non-linear models are restricted in size in order to be solved in feasible time. However, both methods are used in the literature.
 
-Even linear programming models computationally complex to solve, hence many methods are used to reduce to complexity of the models. There are standard techniques like Lagrangian relaxation \cite{fisher1981lagrangian} and column generation \cite{barnhart1998branch}, but there are more specific methods used as well. The primary way this is done is by limiting the scope of individual optimisation problems (not necesarilly the research), by splitting up the research and using multi-level optimisation models, or using simulation for certain parts of it. 
+Even linear programming models computationally complex to solve, hence many methods are used to reduce to complexity of the models. There are standard techniques like Lagrangian relaxation \cite{fisher1981lagrangian} and column generation \cite{barnhart1998branch}, but there are more specific methods used as well. The primary way this is done is by limiting the scope of individual optimisation problems (not necessarily the research), by splitting up the research and using multi-level optimisation models, or using simulation for certain parts of it. 
 
 Another method has been discussed before already; robust optimisation. As with Simulation, this reduces the number of considered inputs (primarily weather states, but also task duration which is sometimes stochastic) by only considering certain constructed uncertainty sets. This strongly reduces the number of situations considered in the optimisation. 
 
@@ -200,35 +202,42 @@ The main methods used in the literature are simulation and optimisation, but the
 \pagebreak
 
 \section{Simulation tool} \label{s:sim}
-HERE I WILL MOSTLY SAY WHAT I CURRENTLY HAVE ON MY WAY TO A SIMULATION TOOL, AND WHAT I AM PLANNING TO DO WITH IT
+%HERE I WILL MOSTLY SAY WHAT I CURRENTLY HAVE ON MY WAY TO A SIMULATION TOOL, AND WHAT I AM PLANNING TO DO WITH IT
+Apart from getting caught up with the literature, over the past year I have also laid the foundations for some practical experiments. I have programmed the basics of an adaptable simulator from scratch. It is not yet operational and not very developed so far, but it can easily be expanded upon to fit future research. Currently it simulates different vessels that each have a schedule of tasks they work on. In my current implementation, task duration is deterministic and independent of the weather, but this will obviously be changed when an actual model is being tested. When a vessel cannot perform a certain task during the current weather, it will wait at a designated spot, but it more likely will end up waiting near the location of its next task. Currently the set of vessels is constant and the project is simply completed in the shortest possible timespan, but this can be changed depending on the model design. The size of a single time step can be adjusted to most reasonable values without problems. 
+
+%Paragraph about implementation (c++ and matlab)
+The simulator has been implemented in C++ as it seems the most fitting out of all the languages I am proficient with. A benefit of C++ is that is can easily be combined with Matlab. I am planning to implement the optimisation model in Matlab as it is very suited for such uses and this will hopefully lead to a well optimised implementation (in terms of computational speed). While I am not yet proficient with Matlab, I hope I can then let the optimisation model in Matlab and the simulation model in C++ work together in whichever way I try (as this is dependent on the model design). 
+
+%Paragraph about its uses
+%TODO: Point out goals of sim, like determine feasibility and analyse uncertainty
+My goal for this simulator is for it to be usable as a tool in most of the likely research directions my PhD will go. The way it is currently set up the simulator is most suitable for fixed-task projects such as installation and decommission of the energy sites. However it is possible to adapt the simulator for other types of projects such as the maintenance of the site. In \Cref{s:concl} I will discuss various research directions; the simulator could be used for each of those directions. 
 
 \pagebreak
 
 \section{Future Work} \label{s:concl}
-%THIS SECTION WILL MOSTLY SUM UP LITERATURE GAPS IDENTIFIED IN SECTION 3, SAY WHICH ONES IM MOST INTERESTED IN PURSUING (AND HOW) AND A POSSIBLE TIMELINE FOR THAT
 In this section I will outline two main directions this research could take and sum up the previously identified gaps in the literature and possible ways to fill them in. 
 
 \bigskip
 
 %Installation ideas: Improvement of Kerkhove with early starts and methodology improvements
-The first direction is to focus on the installation projects and work from the existing literature. Of the models I discussed in \Cref{sss:sched} I identified both strenghts and weaknesses, and my hope is to be able to combine them to highlight their strengths. I think a focus on cashflows is a good approach (as it will always be of interest to the project developer), but it should incorporate positive cashflows from partial completion, as well as possible milestone deadlines. Given this approach, it seems an investigation into both start date and off-months would be beneficial. A dedicated heuristic (as in \cite{kerkhove2017optimised}) could be used (where all activity types and years are treated equally) as base solutions, to then be potentially improved with a local search. However, this is not the only optimisation that should be performed. A restriction on which activities can be completed in which time periods is a starting point from which more detailed scheduling should occur. For each period a set of desired vessels should be determined, keeping in mind costs of (de)commissioning vessels and restrictions on timespans for that. A schedule should be made for each vessel such that each task is assigned a vessel and a timeslot. For this there are various optimisation techniques possible. The basic one to go to would be trying to solve a linear program, in which task durations can be the expected time within a time period (month) based on expected weather. A solution would then have to be checked through simulation. This may be difficult to do in a way that is computationally feasible in a reasonable time, but that is one of the challenges of this research, and there is a lot of literature on improving simulations when necessary. However, if this turns out to not be feasible there are alternatives such as using an evolutionairy algorithm for optimisation. 
+The first direction is to focus on the installation projects and work from the existing literature. Of the models I discussed in \Cref{sss:sched} I identified both strengths and weaknesses, and my hope is to be able to combine them to highlight their strengths. I think a focus on cashflows is a good approach (as it will always be of interest to the project developer), but it should incorporate positive cashflows from partial completion, as well as possible milestone deadlines. Given this approach, it seems an investigation into both start date and off-months would be beneficial. A dedicated heuristic (as in \cite{kerkhove2017optimised}) could be used (where all activity types and years are treated equally) as base solutions, to then be potentially improved with a local search. However, this is not the only optimisation that should be performed. A restriction on which activities can be completed in which time periods is a starting point from which more detailed scheduling should occur. For each period a set of desired vessels should be determined, keeping in mind costs of (de)commissioning vessels and restrictions on timespans for that. A schedule should be made for each vessel such that each task is assigned a vessel and a timeslot. For this there are various optimisation techniques possible. The basic one to go to would be trying to solve a linear program, in which task durations can be the expected time within a time period (month) based on expected weather. A solution would then have to be checked through simulation. This may be difficult to do in a way that is computationally feasible in a reasonable time, but that is one of the challenges of this research, and there is a lot of literature on improving simulations when necessary. However, if this turns out to not be feasible there are alternatives such as using an evolutionary algorithm for optimisation. 
 
 \bigskip
 
+%TODO
 %Maintenence ideas: New uncertain aspects to do with when stuff breaks (poisson distribution) possibly correlated with weather, ???
-The second direction to take this research is to focus on the maintenance of an engery site, as discussed in \Cref{sss:maint}. WILL EXPAND ON THIS MUCH MORE AFTER WRITING 3.1.2 AS I DON''T HAVE FULL NOTES YET
+The second direction to take this research is to focus on the maintenance of an energy site, as discussed in \Cref{sss:maint}. WILL EXPAND ON THIS MUCH MORE AFTER WRITING 3.1.2 AS I DON''T HAVE FULL NOTES YET
 
 \bigskip
 
 %Combine for full life cycle 
-There is a third direction following from the above two. In the event I spend some amount of time on both previous directions and gain reasonable results for both, I could aim to combine the models the techniques into a single model (and tool) for most scheduling decisions regarding projects of this kind. In addition to the above two directions, there is a third phase of the project to be taken into account for this; decommission. This is presumed to be very similar to the installation phase (hence not massively interesting in itself in my opinion) but there are some key differences, such as the reverse direction of cashflows (we start with the whole site operational but getting less operational over time), and very uncertain costs given that the decomissioning of sites currently being build will occur in several (unpredictable) decades. However, these obstacles can be overcome to make a good general use decision support tool for the scheduling of offshore windfarm projects. This is clearly a very ambitious goal, but it might be feasible depending on my research progress in the other directions over the following years. 
+There is a third direction following from the above two. In the event I spend some amount of time on both previous directions and gain reasonable results for both, I could aim to combine the models the techniques into a single model (and tool) for most scheduling decisions regarding projects of this kind. In addition to the above two directions, there is a third phase of the project to be taken into account for this; decommission. This is presumed to be very similar to the installation phase (hence not massively interesting in itself in my opinion) but there are some key differences, such as the reverse direction of cashflows (we start with the whole site operational but getting less operational over time), and very uncertain costs given that the decommissioning of sites currently being build will occur in several (unpredictable) decades. However, these obstacles can be overcome to make a good general use decision support tool for the scheduling of offshore windfarm projects. This is clearly a very ambitious goal, but it might be feasible depending on my research progress in the other directions over the following years. 
 
 \bigskip
 
 \subsection{Timeline and next steps} \label{ss:timel}
 %Timeline and focus from here
-%AFTER OUTLINING THESE DIRECTIONS I WANNA SAY WHAT I WILL FOCUS ON IN THE NEXT 6-12 MONTHS AND GIVE A POSSIBLE TIMELINE FOR THE RESEARCH. SINCE THIS IS WHAT YOU ARE LIKELY MOST INTERESTED IN I THINK I MIGHT WANT TO START WITH MY IDEAS FOR THE INSTALLATION PROJECT AS I HAVE A GOOD NUMBER OF IDEAS TO IMPLEMENT, AND IT WOULD SERVE AS A GOOD TEST FOR THE SIMULATOR. WE CAN DISCUSS THIS MORE IN PERSON NEXT TIME. 
-Since research is inherently exploratory and unpredictable, it is impossilbe to have a timeline set in stone. However, in this section I will sketch a possible timeline and outline what I will focus on from here, based on the previously mentioned directions. 
+Since research is inherently exploratory and unpredictable, it is impossible to have a timeline set in stone. However, in this section I will sketch a possible timeline and outline what I will focus on from here, based on the previously mentioned directions. 
 
 My immediate focus will now move to the first direction discussed, that of the installation project. The plan is to focus on that for the next 6 months, and then review where to go from there. It is currently hard to say whether only following this direction will lead to a big and novel enough result for a PhD thesis. The individual components (uncertainty scheduling, aggregate scheduling, using net present value) have all been researched in the literature, but not in this combination. So the resulting model would be related to the models discussed in various papers, but their combination might be different enough to significantly transform the problem and its computability. The goal of the next 6 months is to do preliminary research in this direction and explore whether the new problem is far enough away from the existing literature. Depending on this result, a decision will be made whether to continue purely in this direction, or to shift to the third direction and include maintenance as well to create a general decision support tool, or to fully shift to the maintenance direction if the installation direction does not appear to be a valuable enough research area. 
 
@@ -236,16 +245,18 @@ A possible timeline for this would be:
 
 \begin{itemize}
 	\item Year 2, first half: Finish basic simulator, design model for installation project, choose and implement optimisation algorithm for it
-	\item Year 2, second half:  Contact industry companies for realistic project data, run initial experiments, design basic model for maintenane research, adapt simulator for it
+	\item Year 2, second half:  Contact industry companies for realistic project data, run initial experiments, design basic model for maintenance research, adapt simulator for it
 	\item Year 3, first half: Run experiments with both installation and maintenance models, aim to combine them
 	\item Year 3, second half: Test various alternative optimisation algorithms, finalize writing up research. 
 \end{itemize}
 
-This is the scenario in which I combine the installation and maintenance directions. Unmentioned in this timeline is possibly writing a paper on each individual model, and continues work on writing my thesis. In the case where I focus on either of the directions the timeline will look similar just more focussed in either direction. 
+This is the scenario in which I combine the installation and maintenance directions. Unmentioned in this timeline is possibly writing a paper on each individual model, and continues work on writing my thesis. In the case where I focus on either of the directions the timeline will look similar just more focused in either direction. 
 
 \pagebreak
 
 \bibliographystyle{alpha}
 \bibliography{mybib}
+
+%TODO: Uniformilize usage of I and We
 
 \end{document}
