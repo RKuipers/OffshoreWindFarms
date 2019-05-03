@@ -129,27 +129,25 @@ Another limitation of this paper are the genes, which are fairly high level. The
 
 The final thing to note about this research is the advanced weather simulation model used for the simulation. It uses a combination of transition probability matrices and a Weibull distribution to generate wind speeds and wave heights that are both sufficiently correlated to each other and themselves. The data this is based on was divided by month of the year, so the model takes time of year into account. Given the degree to which this type of project depends on the weather conditions, a realistic and sophisticated model like this is beneficial for the applicability of the model. 
 
-\bigskip
-
-%TODO
-
 FOR SOME OF THE PAPERS LISTED BELOW I HAVE THE NOTES ABOUT WHAT I WANT TO SAY BUT I HAVE NOT YET WRITTEN IT DOWN. THEY ALL WILL BE SHORTER THAN WHAT I DID FOR THE PREVIOUS PAPERS BUT I TRY TO GET TO THE HEART OF THE MODELS USED AND THE LITERATURE CONTRIBUTIONS AND GAPS
 
-\cite{barlow2017using}
-
+%TODO
 \subsubsection{Maintenance of the site} \label{sss:maint}
 Lorem Ipsum \\ 
 \cite{dinwoodie2012analysis} \\
 \cite{merigaud2016condition} \\
 
+%TODO
 \subsubsection{Related research regarding offshore projects} \label{sss:offsh}
 Lorem Ipsum \\
 \cite{barlow2014assessment} \\
 \cite{barlow2014support} \\
+\cite{barlow2017using} \\
 \cite{leggate2010crew} \\
 \cite{perez2013offshore}
 
-\subsubsection{More general work on stocahstic scheduling} \label{sss:stoch}
+%TODO
+\subsubsection{More general work on stochastic scheduling} \label{sss:stoch}
 Lorem Ipsum \\
 \cite{herroelen2005project} \\
 \cite{sevaux2002genetic} \\
@@ -202,7 +200,6 @@ The main methods used in the literature are simulation and optimisation, but the
 \pagebreak
 
 \section{Simulation tool} \label{s:sim}
-%HERE I WILL MOSTLY SAY WHAT I CURRENTLY HAVE ON MY WAY TO A SIMULATION TOOL, AND WHAT I AM PLANNING TO DO WITH IT
 In addition to getting caught up with the literature, I have also laid the foundations for some practical experiments. I have programmed the basics of an adaptable simulator from scratch. It is not yet operational and not very developed so far, but it can easily be expanded upon to fit future research. The use of this simulator would be checking feasibility of a generated schedule and analyzing the impacts of uncertain factors of the project. Currently it simulates a fixed set of different vessels that each have a schedule of tasks they aim to complete in the shortest timespan, but this can be changed based on the model design. In my current implementation, task duration is deterministic and independent of the weather conditions, but this will obviously be changed when an actual model is being tested. When a vessel cannot perform a certain task during the current weather conditions, it will wait at a designated spot, but it could also end up waiting near the location of its next task. The size of a single time step can be adjusted to most reasonable values without problems. 
 
 %Paragraph about implementation (c++ and matlab)
