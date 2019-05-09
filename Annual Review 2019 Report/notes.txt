@@ -13,9 +13,6 @@ Optimisation
 Schedule restrictions
 	Have off and on months combined with early start bonus (so there is generation over off months) (with NPV)
 	Vessel renting limitations and costs
-	
-
-
 
 
 
@@ -31,7 +28,6 @@ Notes Barlow Simulation paper references:
 19 33 2	simple opt
 34 maintenance overview
 28 38 41 simulation
-
 
 
 
