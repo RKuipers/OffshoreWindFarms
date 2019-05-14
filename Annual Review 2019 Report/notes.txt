@@ -35,6 +35,6 @@ Feedback from 08/05/19 meeting:
 - Finishing before NL trip is nice, but not necessary
 - Next week we have a meeting with us 3, week after just Euan, week after none cause NL
 - There was a problem with 144 clain in dedicated heuristic for Kerkhove (fixed)
-- 3.1.3 should renamed to reflect focus papers (done)
+- 3.1.1 should renamed to reflect focus papers (done)
 - Section 5.1 should be expanded, especially for the research methods of the next 6-12 months (TODO)
 - Section 4 should be expanded with the model and algorithm I have implemented, current writing seems more like an introduction (Maybe not matlab, talk about it being a discrete event simulater, etc)(TODO)
