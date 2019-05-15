@@ -202,13 +202,34 @@ The main methods used in the literature are simulation and optimisation, but the
 \pagebreak
 
 \section{Simulation tool} \label{s:sim}
-In addition to getting caught up with the literature, I have also laid the foundations for some practical experiments. I have programmed the basics of an adaptable simulator from scratch. It is not yet operational and not very developed so far, but it can easily be expanded upon to fit future research. The use of this simulator would be checking feasibility of a generated schedule and analyzing the impacts of uncertain factors of the project. Currently it simulates a fixed set of different vessels that each have a schedule of tasks they aim to complete in the shortest timespan, but this can be changed based on the model design. In my current implementation, task duration is deterministic and independent of the weather conditions, but this will obviously be changed when an actual model is being tested. When a vessel cannot perform a certain task during the current weather conditions, it will wait at a designated spot, but it could also end up waiting near the location of its next task. The size of a single time step can be adjusted to most reasonable values without problems. 
+In addition to getting caught up with the literature, I have also laid the foundations for some practical experiments. I have programmed the basics of an adaptable simulator from scratch. It is not yet operational and not very developed so far, but it can easily be expanded upon to fit future research. The use of this simulator would be checking feasibility of a generated schedule and analyzing the impacts of uncertain factors of the project.
+
+It was implemented in C++, as it seems well suited for this and I have previously used this language. A benefit of C++ is that it's a very commonly used language so modules are available for a lot of things I might want to add to the simulator, and it could potentially be integrated with other languages like Matlab if there is a need for that in the future. 
+
+In this section I will first describe the current progress of the simulator and some failed previous attempts at programming it. Afterwards, I will outline my plans for what the simulator will be in the future of this research.
+
+\bigskip
+
+THE FOLLOWING IS MOSTLY WRITTEN BUT NOT CURRENTLY IN THE REPORT AS IT HAS TO BE REARANGED FOR THE NEW STRUCTURE
+
+\subsection{Current progress} \label{ss:simprog}
+HERE I WILL TALK ABOUT THE PREVIOUS FAILED ATTEMPTS AT PROGRAMMING THE SIMULATOR AND HOW IT IS CURRENTLY IMPLEMENTED
+
+\subsection{Future developments} \label{ss:simfut}
+HERE I WILL DISCUSS WHAT I AM PLANNING TO DO WITH THE SIMULATOR BOTH IN TERMS OF SCOPE AND MODEL 
+
+
+
+
+%\pagebreak
+
+%Currently it simulates a fixed set of different vessels that each have a schedule of tasks they aim to complete in the shortest timespan, but this can be changed based on the model design. In my current implementation, task duration is deterministic and independent of the weather conditions, but this will obviously be changed when an actual model is being tested. When a vessel cannot perform a certain task during the current weather conditions, it will wait at a designated spot, but it could also end up waiting near the location of its next task. The size of a single time step can be adjusted to most reasonable values without problems. 
 
 %Paragraph about implementation (c++ and matlab)
-The simulator has been implemented in C++, as it seems well suited for this. A benefit is that C++ can easily be combined with Matlab, which I am planning to implement the optimisation model in, as it is very suited for such uses and this will hopefully lead to a efficient implementation. While I am not yet proficient with Matlab, I have started learning it and I think I can then let the optimisation model in Matlab and the simulation model in C++ work together in a way useful for the model. 
+%The simulator has been implemented in C++, as it seems well suited for this. A benefit is that C++ can easily be combined with Matlab, which I am planning to implement the optimisation model in, as it is very suited for such uses and this will hopefully lead to a efficient implementation. While I am not yet proficient with Matlab, I have started learning it and I think I can then let the optimisation model in Matlab and the simulation model in C++ work together in a way useful for the model. 
 
 %Paragraph about its uses
-My goal for this simulator is for it to be usable as a tool in most of the likely research directions my PhD can go. The way it is currently set up the simulator is most suitable for fixed-task projects such as installation and decommission of the energy sites. However it is possible to adapt the simulator for other types of projects such as the maintenance of the site. In \Cref{s:concl} I will discuss various research directions; the simulator could be used for each of those directions. 
+%My goal for this simulator is for it to be usable as a tool in most of the likely research directions my PhD can go. The way it is currently set up the simulator is most suitable for fixed-task projects such as installation and decommission of the energy sites. However it is possible to adapt the simulator for other types of projects such as the maintenance of the site. In \Cref{s:concl} I will discuss various research directions; the simulator could be used for each of those directions. 
 
 \pagebreak
 
