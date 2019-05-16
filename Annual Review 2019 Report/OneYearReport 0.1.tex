@@ -208,16 +208,30 @@ It was implemented in C++, as it seems well suited for this and I have previousl
 
 In this section I will first describe the current progress of the simulator and some failed previous attempts at programming it. Afterwards, I will outline my plans for what the simulator will be in the future of this research.
 
+\subsection{Current progress} \label{ss:simprog}
+Currently the simulator simulates a set of vessels that each have a set of tasks to go through. The vessels are assumed to be identical. When a vessel finishes a task at time $t$ it will look at the next task $a$ assigned to it. If for task $a$ each preceding task is completed (which may not be the case if another vessel has to do some preceding tasks) and $a$ has been released (the release time $r_a < t$ ) the vessel will start on the task. This means an event is added to the event queue to signify the completion of task $a$, at time $t + d_a$ where $d_a$ is the duration of task $a$. This duration is currently fully deterministic. At every timestep I check for each vessel whether the current weather is acceptable for its task. If this is not the case, the time at which the task is completed is pushed back by 1 timestep, effectively halting operations for that timestep. However, since the weather currently is not yet being generated, this is not causing any delays. 
+
+This is repeated for every vessel and task, until that vessel has completed all its tasks. At that point it is assumed to be back at the port, as the tasks will represent the actual operations working on the assets, as well as transit between operations and transits from and to the port. Hence the last task is the transit from the OWF to the port. 
+
 \bigskip
 
-THE FOLLOWING IS MOSTLY WRITTEN BUT NOT CURRENTLY IN THE REPORT AS IT HAS TO BE REARANGED FOR THE NEW STRUCTURE
+While this is clearly as of yet a rather bare bones setup, everything is programmed to be expandable, and I have plans on how to make this model more useful. How I plan to do this I will explain in \Cref{ss:simfut} but for now I would like to make a remark on previous failed attempts to program this. In my first attempt, I did not actually simulate different vessels and simply had a count of how many vessels were available. After some simple test cases two major problems with this approach emerged. The first is that each vessel necessarily had to be identical. While they currently are still identical, in my current setup they could easily be given different characteristics. The second problem was that there was not a set of tasks per vessel, and simply a common pool of tasks. This meant that transition between locations could not be a task, as this task would necessarily have to be completed by the same vessels doing the operations at these locations. Another problem with this restriction is that is is simply impractical in reality; the tasks a vessel will complete have to be mostly predetermined for the sake of supplies.
 
-\subsection{Current progress} \label{ss:simprog}
-HERE I WILL TALK ABOUT THE PREVIOUS FAILED ATTEMPTS AT PROGRAMMING THE SIMULATOR AND HOW IT IS CURRENTLY IMPLEMENTED
+After realizing this I effectively started over with this new vessel structure in mind. There were some other problems during this attempt; for example the realized duration of a task (taking into account both natural delay and weather-based delay) was decided at the moment it was started. The problem with this is that tasks taking a long time can experience very different weather conditions while it is in progress. The weather-based delay was decided at the moment the task was started with the weather conditions at that moment. While in the current implementation there is no weather delay, I ended up changing to my previously described set up to allow for the duration of a task to be influenced by weather during its entire duration and not just at its start. In general, I believe that my current model is very adaptable, and the changes described in \Cref{ss:simfut} can be implemented without changing the primary structure of the simulator. 
+
+Reflecting on these failed attempts, I reckon they originated because I started working on the simulator while I was still reading essential parts of the literature. Whilst developing this model, I read about other models for very similar projects, leading me to new realizations about my own model. As I now feel much more caught up with the current literature, I am confident mistakes like this are much less likely to happen again. 
 
 \subsection{Future developments} \label{ss:simfut}
 HERE I WILL DISCUSS WHAT I AM PLANNING TO DO WITH THE SIMULATOR BOTH IN TERMS OF SCOPE AND MODEL 
-
+%TODO:
+%Inputs (excel, task structure, vessel settings)
+%Outputs (statistics, costs)
+%Task duration (triangle)
+%Weather model (measures, correlation and autoregression, forecasts)
+%Weather affecting task duration
+%Start dates and break periods
+%Barges
+%UML diagram of program setup and model
 
 
 
