@@ -44,6 +44,6 @@ Feedback from 08/05/19 meeting:
 Feedback from 14/05/19 meetings (mostly with Euan):
 - Can choose to move maintenance to immediate future work if a lot of reading has to be done before including them in the report. (TODO)
 - Split Section 4 into subsections "Current progress" and "Future plans" (TODO). Write more about what it can and will be able to do (input, outputs, vessels, weather series) (TODO)
-- In Section 4.1 should also talk about failed attempts at programming (due to changing view of model or programmings structure) as this is a report not a scientific paper
+- In Section 4.1 should also talk about failed attempts at programming (due to changing view of model or programmings structure) as this is a report not a scientific paper (TODO)
 - While I could potentially focus on installation alone, a broader scope of installation + maintenance is more in line with their original idea, and would lay the foundations for new research instead of building on the past
 - Euan said the assumption of perfect short term weather forecasts is indeed a strong assumption that's not very realistic. He said it could potentially be a focus, though need a scientific basis for any 'fix'. Might be a chapter in my thesis if I find a good way to incorporate it. Initial reaction to my idea of "generate 100 different weather states for today based on previous week, take some average (or % of sims in which weather is good) and base decisions on that"
