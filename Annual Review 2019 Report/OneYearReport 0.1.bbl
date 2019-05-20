@@ -122,4 +122,10 @@ Renewable UK.
   2017.
 \newblock Accessed: 2019-03-24.
 
+\bibitem[Wil92]{williams1992practical}
+TM~Williams.
+\newblock Practical use of distributions in network analysis.
+\newblock {\em Journal of the Operational Research Society}, 43(3):265--270,
+  1992.
+
 \end{thebibliography}
