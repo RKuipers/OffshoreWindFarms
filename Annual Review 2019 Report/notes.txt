@@ -37,13 +37,21 @@ Feedback from 08/05/19 meeting:
 - There was a problem with 144 claim in dedicated heuristic for Kerkhove (fixed)
 - 3.1.1 should renamed to reflect focus papers (done)
 - Section 5.1 should be expanded, especially for the research methods of the next 6-12 months (TODO)
-- Section 4 should be expanded with the model and algorithm I have implemented, current writing seems more like an introduction (Maybe not matlab, talk about it being a discrete event simulater, etc)(TODO)
+- Section 4 should be expanded with the model and algorithm I have implemented, current writing seems more like an introduction (Maybe not matlab, talk about it being a discrete event simulater, etc)(DONE)
 
 
 
-Feedback from 14/05/19 meetings (mostly with Euan):
+Feedback from 15/05/19 meetings (mostly with Euan):
 - Can choose to move maintenance to immediate future work if a lot of reading has to be done before including them in the report. (TODO)
-- Split Section 4 into subsections "Current progress" and "Future plans" (TODO). Write more about what it can and will be able to do (input, outputs, vessels, weather series) (TODO)
-- In Section 4.1 should also talk about failed attempts at programming (due to changing view of model or programmings structure) as this is a report not a scientific paper (TODO)
+- Split Section 4 into subsections "Current progress" and "Future plans" (DONE). Write more about what it can and will be able to do (input, outputs, vessels, weather series) (DONE)
+- In Section 4.1 should also talk about failed attempts at programming (due to changing view of model or programmings structure) as this is a report not a scientific paper (DONE)
 - While I could potentially focus on installation alone, a broader scope of installation + maintenance is more in line with their original idea, and would lay the foundations for new research instead of building on the past
 - Euan said the assumption of perfect short term weather forecasts is indeed a strong assumption that's not very realistic. He said it could potentially be a focus, though need a scientific basis for any 'fix'. Might be a chapter in my thesis if I find a good way to incorporate it. Initial reaction to my idea of "generate 100 different weather states for today based on previous week, take some average (or % of sims in which weather is good) and base decisions on that"
+
+
+
+Feedback from 22/05/19 meeting (just Euan):
+- Doing finishing touches now. Send update tomorrow before leaving, then after NL just finishing touches. (Personally I think a good schedule with tasks per day would be a good idea, could probably get it done in a week.)
+- Talked about structure of review. Basically they pick one person from department to judge. I give presentation, they ask questions, I talk with judge 1on1 (regarding problems in process and with supervisors), supervisors do the same, we all reconvene to talk a bit more and probably give go/nogo. Goal is also to cement my trust that I'm actually going in a direction. 
+- About the forecasts, he mentioned I should probably write a bit about it as it would likely be a novel approach (TODO)
+- Basically for each section that still needs stuff filled in or to be signifantly changed I put notes in the todoist #Writing to do project
