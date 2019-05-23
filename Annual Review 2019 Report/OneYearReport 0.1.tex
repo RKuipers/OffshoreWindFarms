@@ -247,7 +247,7 @@ As mentioned earlier, a decision needs to be made on the presumed knowledge of t
 \pagebreak
 
 \section{Future Work} \label{s:concl}
-In this section I will outline two main directions this research could take and sum up the previously identified gaps in the literature and possible ways to fill them in. 
+In this section I will outline the two main research directions to be explored in the rest of this project. I will sum up the previously identified research gaps and describe how I am planning to contribute to them. 
 
 \bigskip
 
@@ -256,33 +256,46 @@ The first direction is to focus on the installation projects and work from the e
 
 \bigskip
 
-%TODO
 %Maintenance ideas: New uncertain aspects to do with when stuff breaks (poisson distribution) possibly correlated with weather, ???
-The second direction to take this research is to focus on the maintenance of an energy site, as discussed in \Cref{sss:maint}. WILL EXPAND ON THIS MUCH MORE AFTER WRITING 3.1.2 AS I DON''T HAVE FULL NOTES YET
+The second direction to take this research is to focus on the maintenance of an energy site. As mentioned in \Cref{sss:maint} in significant additional reading will have to be done on this subject, and I am planning to do see in the coming months (as described in \Cref{ss:timel}). Generally the typical subjects in maintenance such as supply chain management and minimizing asset failure are significantly more difficult in our context, as there is a large lead up time before any emergency operations can be performed on the site. Intuitively the OSPs are the most vital to prevent failure in, as a failure in one of them can mean dozens of WTGs are no longer producing energy. Therefore I am planning on experiments with various maintenance strategies with the aim of maximizing overall profit. For more detail more research will need to be done first, which I will do in the upcoming months. It is clear there is a relative large amount of research on maintenance of offshore sites (as compared to a small amount of research on their installation), so any future research will have to build on that.
 
 \bigskip
 
 %Combine for full life cycle 
-There is a third direction following from the above two. In the event I spend some amount of time on both previous directions and gain reasonable results for both, I could aim to combine the models the techniques into a single model (and tool) for most scheduling decisions regarding projects of this kind. In addition to the above two directions, there is a third phase of the project to be taken into account for this; decommission. This is presumed to be very similar to the installation phase (hence not massively interesting in itself in my opinion) but there are some key differences, such as the reverse direction of cashflows (we start with the whole site operational but getting less operational over time), and very uncertain costs given that the decommissioning of sites currently being build will occur in several (unpredictable) decades. However, these obstacles can be overcome to make a good general use decision support tool for the scheduling of OWF projects. This is clearly a very ambitious goal, but it might be feasible depending on my research progress in the other directions over the following years. 
+Ideally, both of these directions can be explored to some satisfactory extend. In that case I would aim to combine the installation model and maintenance model into a single model for a general decision support tool for various logistical decisions about OWFs. In addition to the above two directions, there is a third phase of the project to be taken into account for this; decommission. This is presumed to be very similar to the installation phase (hence not massively interesting in itself in my opinion) but there are some key differences, such as the reverse direction of cashflows (we start with the whole site operational but getting less operational over time), and very uncertain costs given that the decommissioning of sites currently being build will occur in several (unpredictable) decades. However, these obstacles can be overcome to make a good general use decision support tool for the scheduling of OWF projects. This is clearly a very ambitious goal, but it might be feasible depending on my research progress in the other directions over the following years. 
 
 \bigskip
 
 \subsection{Timeline and next steps} \label{ss:timel}
 %Timeline and focus from here
-Since research is inherently exploratory and unpredictable, it is impossible to have a timeline set in stone. However, in this section I will sketch a possible timeline and outline what I will focus on from here, based on the previously mentioned directions. 
+Since research is inherently exploratory and unpredictable, it is impossible to have a timeline set in stone. However, in this section I will sketch a possible timeline and outline what I will focus on from here, based on the previously mentioned directions. Note that this timeline is subject to change, especially the further into the future it predicts. 
 
-My immediate focus will now move to the first direction discussed, that of the installation project. The plan is to focus on that for the next 6 months, and then review where to go from there. It is currently hard to say whether only following this direction will lead to a big and novel enough result for a PhD thesis. The individual components (uncertainty scheduling, aggregate scheduling, using net present value) have all been researched in the literature, but not in this combination. So the resulting model would be related to the models discussed in various papers, but their combination might be different enough to significantly transform the problem and its computability. The goal of the next 6 months is to do preliminary research in this direction and explore whether the new problem is far enough away from the existing literature. Depending on this result, a decision will be made whether to continue purely in this direction, or to shift to the third direction and include maintenance as well to create a general decision support tool, or to fully shift to the maintenance direction if the installation direction does not appear to be a valuable research potential. 
+\bigskip
 
-A possible timeline in which I develop a decision support tool for the whole lifecycle of an OWF would be:	
+My immediate focus will now go to filling in my knowledge gaps regarding the maintenance projects. As stated before, some research has already been conducted, but there is significant reading of the literature to be done, which I aim to do in the upcoming months. I am planning to do the bulk of this reading in the next two months, although more reading of the literature will naturally be something I do throughout this project. Additionally I am planning to work on the simulator described in \Cref{s:sim} and getting it operational for installation projects while remaining adaptable enough to later be used in maintenance projects as well. The simulator should be operational for that within the next six months. After the bulk of the previously mentioned reading is done, I plan to start work on the optimisation model for the installation project as well, as this will be needed to make full use of the simulator. It is unlikely that I completely finish that in the next six months (as it will be combined with the other tasks described) but a sizable start should be made. 
+
+In the six months after that, so the second half of the second year of my PhD, the simulator should be finished and the optimisation model should be coming along. Therefore I aim to focus on running the first experiments in this time frame. For that test data needs to be acquired from weather institutions and industrial companies. A start on acquiring this should be made soon than six months, as setting up a connection might take a lot of time, but actually using the data will be done at this point. My supervisors have both worked extensively within this field so I am hopeful they will be able to help me connect to outside companies. Additionally within this time frame I hope to adapt the simulator to work with maintenance projects and design an initial model for those.
+
+\bigskip
+
+At the start of the third year of my PhD the models for both installation projects and maintenance projects should be well formed, and I will aim to combine them. This should not be too difficult when both are implemented in the simulator. For the the decommission projects will also be included, which will likely be very similar to installation projects in structure. Realistic experiments can also be run now, and my goal is to adapt the models to accommodate for more extensive research into directions which are indicated to be useful by the earlier experiments. For example, if realistic imperfect weather forecasts seem like a valuable research topic, I aim to adapt the models and simulator to include them. This also includes various alternative optimisation models, as multiple alternatives should be experimented with to compare their performance over the entire life cycle of an OWF which is now included in the model. Finally experiments with different layouts of the OWF can be performed to see their impact on the costs of installation, maintenance and decommission of the site. 
+
+In the final 6 months of my PhD, I will hopefully focus mostly on writing. While I plan to continually write about my progress and findings, there will always be a significant portion to write up in the end. That said, any additional experiments and final changes can also be performed and implemented during this time. 
+
+\bigskip
+
+To summarize, this timeline would look like:
 
 \begin{itemize}
-	\item Year 2, first half: Finish basic simulator, design model for installation project, choose and implement optimisation algorithm for it
-	\item Year 2, second half:  Contact industry companies for realistic project data, run initial experiments, design basic model for maintenance research, adapt simulator for it
-	\item Year 3, first half: Run experiments with both installation and maintenance models, aim to combine them
-	\item Year 3, second half: Test various alternative optimisation algorithms, finalize writing up research. 
+	\item Year 2, first half: Read up more on maintenance projects and related research, implement the simulator for installation projects, start on the optimisation model for the installation project, put out initial efforts to gather data from companies. 
+	\item Year 2, second half:  Implement maintenance projects in the simulator, run initial experiments using data gathered from companies.
+	\item Year 3, first half: Combine the models into an overarching model for the entire life cycle, run deeper experiments and adapt the tool based on found results.
+	\item Year 3, second half: Finalize experiments, and finalize writing up the research.
 \end{itemize}
 
-This is the scenario in which I combine the installation and maintenance directions. Unmentioned in this timeline is possibly writing a paper on each individual model, and continues work on writing my thesis. In the case where I focus on either of the directions the timeline will look similar just more focused in either direction. 
+In this scenario I am able to research the entire life cycle of an OWF and build a tool for decision support at any point in that life cycle. But as I stated before, this is a rough timeline, and is subject to change depending on where progress is made. If very promising initial results come from the installation part of the project, there is a chance the main focus will shift there, and maintenance projects fall to a background role. Naturally the reverse might also happen. 
+
+Writing additional papers is not included in this timeline, as this strongly depends on where significant results are found. However I would ideally publish at least one paper on the installation model, one on the maintenance model, and one on their combination. Writing them will have a strong overlap with writing the related chapters of my thesis, so this will coincide with the continual writing I am planning to do. 
 
 \pagebreak
 
