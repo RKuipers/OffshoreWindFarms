@@ -1,5 +1,5 @@
 \newcommand{\etalchar}[1]{$^{#1}$}
-\begin{thebibliography}{BTOD{\etalchar{+}}14b}
+\begin{thebibliography}{SMSSPT{\etalchar{+}}11}
 
 \bibitem[AR00]{artigues2000polynomial}
 Christian Artigues and Francois Roubellat.
@@ -72,18 +72,28 @@ Marshall~L Fisher.
   problems.
 \newblock {\em Management science}, 27(1):1--18, 1981.
 
+\bibitem[HHS{\etalchar{+}}17]{hou2017combined}
+Peng Hou, Weihao Hu, Mohsen Soltani, Cong Chen, and Zhe Chen.
+\newblock Combined optimization for offshore wind turbine micro siting.
+\newblock {\em Applied energy}, 189:271--282, 2017.
+
 \bibitem[HL05]{herroelen2005project}
 Willy Herroelen and Roel Leus.
 \newblock Project scheduling under uncertainty: Survey and research potentials.
 \newblock {\em European journal of operational research}, 165(2):289--306,
   2005.
 
-\bibitem[KS10]{kaiser2010offshore}
+\bibitem[KS10a]{kaiser2010offshore}
 Mark~J Kaiser and Brian Snyder.
 \newblock Offshore wind energy installation and decommissioning cost estimation
   in the us outer continental shelf.
 \newblock {\em US Dept. of the Interior, Bureau of Ocean Energy Management,
   Regulation and Enforcement, Herndon, VA TA\&R}, 648, 2010.
+
+\bibitem[KS10b]{kusiak2010design}
+Andrew Kusiak and Zhe Song.
+\newblock Design of wind farm layout for maximum wind energy capture.
+\newblock {\em Renewable energy}, 35(3):685--694, 2010.
 
 \bibitem[KV17]{kerkhove2017optimised}
 L-P Kerkhove and Mario Vanhoucke.
@@ -97,6 +107,13 @@ Alex Leggate, Seda Sucu, Kerem Akartunali, and Robbert van~der Meer.
 \newblock {\em Journal of the Operational Research Society}, 69(6):959--970,
   2018.
 
+\bibitem[MPD94]{mosetti1994optimization}
+GPCDB Mosetti, Carlo Poloni, and B~Diviacco.
+\newblock Optimization of wind turbine positioning in large windfarms by means
+  of a genetic algorithm.
+\newblock {\em Journal of Wind Engineering and Industrial Aerodynamics},
+  51(1):105--116, 1994.
+
 \bibitem[MR16]{merigaud2016condition}
 Alexis M{\'e}rigaud and John~V Ringwood.
 \newblock Condition-based maintenance methods for marine renewable energy.
@@ -107,6 +124,13 @@ Beatriz P{\'e}rez, Roberto M{\'\i}nguez, and Ra{\'u}l Guanche.
 \newblock Offshore wind farm layout optimization using mathematical programming
   techniques.
 \newblock {\em Renewable Energy}, 53:389--399, 2013.
+
+\bibitem[SMSSPT{\etalchar{+}}11]{saavedra2011seeding}
+B~Saavedra-Moreno, S~Salcedo-Sanz, A~Paniagua-Tineo, L~Prieto, and
+  A~Portilla-Figueras.
+\newblock Seeding evolutionary algorithms with heuristics for optimal wind
+  turbines positioning in wind farms.
+\newblock {\em Renewable Energy}, 36(11):2838--2844, 2011.
 
 \bibitem[SS02]{sevaux2002genetic}
 Marc Sevaux and Kenneth Sörensen.
