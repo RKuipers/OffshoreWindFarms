@@ -129,9 +129,7 @@ Another limitation of this paper are the genes, which are fairly high level. The
 
 The final thing to note about this research is the advanced weather simulation model used for the simulation. It uses a combination of transition probability matrices and a Weibull distribution to generate wind speeds and wave heights that are both sufficiently correlated to each other and themselves. The data this is based on was divided by month of the year, so the model takes time of year into account. Given the degree to which this type of project depends on the weather conditions, a realistic and sophisticated model like this is beneficial for the applicability of the model. 
 
-%TODO
 \subsubsection{Maintenance of the site} \label{sss:maint}
-%Give overview from shafiee then note that ill do more reading soon
 
 Compared to the topic of installation installation, there is a large body of research done in the area of operation and maintenance (O\&M) of offshore wind farms. This research looks at various aspects and timescales relevant to the OWFs. In \cite{shafiee2015maintenance} the research and topics are divided into three timescales (echelons):
 
@@ -145,7 +143,6 @@ Within each of these echelons, various areas of research are identified. Strateg
 
 With the large amount of research done, and the variety of subjects within this field, I have yet to read much more about the current state of most subjects. This will be my immediate focus from here on, as described in more detail in \Cref{s:concl}.
 
-%TODO
 \subsubsection{Related research regarding offshore projects} \label{sss:offsh}
 A group of researchers at my department, whose research \cite{barlow2018mixed} I have already described in \Cref{sss:sched}, have developed a simulation tool with which various logistical decisions for the installation of an OWF have been explored. In \cite{barlow2014support} the number of installation vessels and supply barges is experimented with, as well as their relative release dates. These simulations consider only the installation of OSPs and not WTGs. There are several measures considered for the quality of a setup such as the total cost of the project and the completion dates of the first and last OSPs, as well as the uncertainty of those measures (shown through the median and 90\% confidence interval for these measures, resulting from 100 simulations). 
 
@@ -163,17 +160,29 @@ Another logistical decision topic related to the offshore windfarm sites is deci
 
 %TODO
 \subsubsection{More general work on stochastic scheduling} \label{sss:stoch}
-Lorem Ipsum \\
-\cite{herroelen2005project} \\
-\cite{sevaux2002genetic} \\
-\cite{artigues2000polynomial}
+A comprehensive overview of various approaches to scheduling within an uncertain envirionment is given in \cite{herroelen2005project}. While the survey is relatively old, it provides a valuable categorisation of approaches used to handle uncertainty within scheduling problems. It discusses reactive scheduling, where the baseline schedule is made based on the assumption that all uncertain parameters will take their expected value, and any variation is handled at the moment it occurs. Stochasitic project scheduling and fuzzy project project scheduling are also discussed, as two different ways to handle uncertainty in project scheduling. Both share a weakness in that they do not produce reliable baseline schedules. For projects on OWFs this weakness is important, as contractors and companies renting out vessels have siginificant lead times and in-the-moment scheduling is infeasable in this situation. It is therefore crucial to have a baseline schedule which roughly corresponds to how the actual operations will turn out. This is what the last approach discussed in this survey provides; robust scheduling should lead to schedules that do not get disrupted easily. This method is discussed in more detail in \Cref{ss:meth}. Additionally the concept of sensitivity analysis is discussed, as giving related parties insight into the vulnerable parts of the schedule can often be beneficial. This is one of the goals of the Simulator discussed in \Cref{s:sim}. 
+
+At the time of the above study not a lot of research had been done into robust scheduling. A work that had been published and is mentioned in the study is \cite{sevaux2002genetic}. It is one of the few works I was able to find which attempted to solve a robust scheduling problem using genetic algorithms. Their initial results seemed promising, but their industry partner stopped the collaboration before practical results were found. Since the initial results seemed promissing and no reason was found that indicates genetic algorithms are not fit to be used for scheduling problems, this is one of the methods considered for my reserach, as discussed later in \Cref{ss:meth}.
+
+\bigskip
+
+%TODO: Add papers in this section to excel sheet
+
+A more recent overview of the state of robust optimisation is given in \cite{gabrel2014recent}. This study looks at 130 papers, 45 PhD dissertations, and selected other works published between 2007 and 2013 which discussed robust optimisation. The sheer amount of research done reflects the strength of this method. Both the theory and applications of robust optimisation are discussed, and some time is spend discussing its application for scheduling problems. 
+
+%TODO: refine 
+In \cite{burke2010multi} a robust optimisation approach is applied to a multi-objective airline scheduling problem, the nature of which has certain similarities to offshore scheduling problems. Their approach, which used both iterative improvement and large-scale simulation, was tested in practice and yielded valuable results, signifying that a similar approach might yield good results for my research as well. 
+Another study looking into robust scheduling is \cite{goren2008robustness}. It considers a single machine scheduling problem is considered where the machine randomly breaks down. A single machine scheduling problem is comparable to a project at an OWF with a single vessel. The vessel temporarily having to wait out weather conditions would then relate to the machine breaking down. For this reason the findings in this study may be roughly applicable in offshore scheduling problems. However one big observation is that single machine scheduling problems often behave different from multi-machine scheduling problems, and most projects on OWFs will employ multiple vessels. 
+
+%TODO: gabrel risk 
+%\cite{iancu2013pareto} \cite{dentcheva2010robust}
 
 \subsection{Methodology} \label{ss:meth}
 In the above literature, two main types of methods are used for this problem; optimisation and simulation. Often both are used together, either by tackling one part of the problem with simulation and another with optimisation (as in \cite{barlow2018mixed}), or by creating schedules with an optimisation model, which are then evaluated using simulation (as in \cite{kerkhove2017optimised}). In this sections the methods will be discussed in more detail, separate from the research they were used in. Other possible methods for problems of the kind we are looking at will also be discussed. 
 
 \bigskip
 
-\subsubsection{Simulation} \label{ss:sim}
+\subsubsection{Simulation} \label{sss:sim}
 Simulation, especially Discrete Event Simulation, is a good method to evaluate the strength of a proposed schedule under uncertain circumstances. If enough simulations are run, an accurate view of the realistic duration of a schedule can be gained. This does not only mean expected (average) duration, but also for example a confidence interval for the extreme cases. This does however have two big bottlenecks; the information gained through simulation can only be as precise as the weather model used for it, and doing enough simulations can take considerable time. 
 
 \bigskip
@@ -210,7 +219,7 @@ There are alternatives to computational programming. The most prominent is local
 \subsubsection{Other Methods} \label{ss:otmet}
 The main methods used in the literature are simulation and optimisation, but there are other relevant methods used in other scheduling problems. Evolutionary algorithms have been used for deterministic scheduling problems such as machine learning \cite{dorndorf1995evolution}. A good explanation of this technique for scheduling is given in \cite{cotta2007memetic}. While this technique seems to be fairly common in deterministic scheduling, not much research could be found in an uncertain setting. The exception is \cite{sevaux2002genetic} as discussed in \Cref{sss:stoch}. This research, although seemingly brief, gives quality results. Since there is no clear reason why evolutionary algorithms couldn't work well within an uncertain setting, this is a potential method to explore in the future. 
 
-%Consider adding a Graph Theory section (unlikely as no real relevance)
+%TODO: Consider adding a Graph Theory section (unlikely as no real relevance)
 
 \pagebreak
 
@@ -228,7 +237,7 @@ This is repeated for every vessel and task, until that vessel has completed all 
 
 \bigskip
 
-While this is clearly as of yet a rather bare bones setup, everything is programmed to be expandable, and I have plans on how to make this model more useful. How I plan to do this I will explain in \Cref{ss:simfut} but for now I would like to make a remark on previous failed attempts to program this. In my first attempt, I did not actually simulate different vessels and simply had a count of how many vessels were available. After some simple test cases two major problems with this approach emerged. The first is that each vessel necessarily had to be identical. While they currently are still identical, in my current setup they could easily be given different characteristics. The second problem was that there was not a set of tasks per vessel, and simply a common pool of tasks. This meant that transition between locations could not be a task, as this task would necessarily have to be completed by the same vessels doing the operations at these locations. Another problem with this restriction is that is is simply impractical in reality; the tasks a vessel will complete have to be mostly predetermined for the sake of supplies.
+While this is clearly as of yet a rather bare bones setup, everything is programmed to be expandable, and I have plans on how to make this model more useful. How I plan to do this I will explain in \Cref{sss:simfut} but for now I would like to make a remark on previous failed attempts to program this. In my first attempt, I did not actually simulate different vessels and simply had a count of how many vessels were available. After some simple test cases two major problems with this approach emerged. The first is that each vessel necessarily had to be identical. While they currently are still identical, in my current setup they could easily be given different characteristics. The second problem was that there was not a set of tasks per vessel, and simply a common pool of tasks. This meant that transition between locations could not be a task, as this task would necessarily have to be completed by the same vessels doing the operations at these locations. Another problem with this restriction is that is is simply impractical in reality; the tasks a vessel will complete have to be mostly predetermined for the sake of supplies.
 
 After realizing this I effectively started over with this new vessel structure in mind. There were some other problems during this attempt; for example the realized duration of a task (taking into account both natural delay and weather-based delay) was decided at the moment it was started. The problem with this is that tasks taking a long time can experience very different weather conditions while it is in progress. The weather-based delay was decided at the moment the task was started with the weather conditions at that moment. While in the current implementation there is no weather delay, I ended up changing to my previously described set up to allow for the duration of a task to be influenced by weather during its entire duration and not just at its start. In general, I believe that my current model is very adaptable, and the changes described in \Cref{ss:simfut} can be implemented without changing the primary structure of the simulator. 
 
@@ -317,5 +326,6 @@ Writing additional papers is not included in this timeline, as this strongly dep
 
 %TODO: Uniformilize usage of I and We
 %TODO: Uniformilize usage of optimisation/optimization and analyse/analyze
+%TODO: Go through all \Cref tags and check whether all claims made are correct
 
 \end{document}

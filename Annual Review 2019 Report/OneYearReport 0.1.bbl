@@ -8,6 +8,12 @@ Christian Artigues and Francois Roubellat.
 \newblock {\em European Journal of Operational Research}, 127(2):297--316,
   2000.
 
+\bibitem[BDCDM{\etalchar{+}}10]{burke2010multi}
+Edmund~K Burke, Patrick De~Causmaecker, Geert De~Maere, Jeroen Mulder, Marc
+  Paelinck, and Greet~Vanden Berghe.
+\newblock A multi-objective approach for robust airline scheduling.
+\newblock {\em Computers \& Operations Research}, 37(5):822--832, 2010.
+
 \bibitem[BJN{\etalchar{+}}98]{barnhart1998branch}
 Cynthia Barnhart, Ellis~L Johnson, George~L Nemhauser, Martin~WP Savelsbergh,
   and Pamela~H Vance.
@@ -59,18 +65,29 @@ Ulrich Dorndorf and Erwin Pesch.
 \newblock Evolution based learning in a job shop scheduling environment.
 \newblock {\em Computers \& Operations Research}, 22(1):25--40, 1995.
 
-\bibitem[DQM12]{dinwoodie2012analysis}
-Iain Dinwoodie, F~Quail, and D~McMillan.
-\newblock Analysis of offshore wind turbine operation and maintenance using a
-  novel time domain meteo-ocean modeling approach.
-\newblock In {\em ASME Turbo Expo 2012: Turbine Technical Conference and
-  Exposition}, pages 847--857. American Society of Mechanical Engineers, 2012.
+\bibitem[DR10]{dentcheva2010robust}
+Darinka Dentcheva and Andrzej Ruszczy{\'n}ski.
+\newblock Robust stochastic dominance and its application to risk-averse
+  optimization.
+\newblock {\em Mathematical Programming}, 123(1):85, 2010.
 
 \bibitem[Fis81]{fisher1981lagrangian}
 Marshall~L Fisher.
 \newblock The lagrangian relaxation method for solving integer programming
   problems.
 \newblock {\em Management science}, 27(1):1--18, 1981.
+
+\bibitem[GMT14]{gabrel2014recent}
+Virginie Gabrel, C{\'e}cile Murat, and Aur{\'e}lie Thiele.
+\newblock Recent advances in robust optimization: An overview.
+\newblock {\em European journal of operational research}, 235(3):471--483,
+  2014.
+
+\bibitem[GS08]{goren2008robustness}
+Selcuk Goren and Ihsan Sabuncuoglu.
+\newblock Robustness and stability measures for scheduling: single-machine
+  environment.
+\newblock {\em IIE Transactions}, 40(1):66--83, 2008.
 
 \bibitem[HHS{\etalchar{+}}17]{hou2017combined}
 Peng Hou, Weihao Hu, Mohsen Soltani, Cong Chen, and Zhe Chen.
@@ -82,6 +99,11 @@ Willy Herroelen and Roel Leus.
 \newblock Project scheduling under uncertainty: Survey and research potentials.
 \newblock {\em European journal of operational research}, 165(2):289--306,
   2005.
+
+\bibitem[IT13]{iancu2013pareto}
+Dan~A Iancu and Nikolaos Trichakis.
+\newblock Pareto efficiency in robust optimization.
+\newblock {\em Management Science}, 60(1):130--147, 2013.
 
 \bibitem[KS10a]{kaiser2010offshore}
 Mark~J Kaiser and Brian Snyder.
@@ -113,11 +135,6 @@ GPCDB Mosetti, Carlo Poloni, and B~Diviacco.
   of a genetic algorithm.
 \newblock {\em Journal of Wind Engineering and Industrial Aerodynamics},
   51(1):105--116, 1994.
-
-\bibitem[MR16]{merigaud2016condition}
-Alexis M{\'e}rigaud and John~V Ringwood.
-\newblock Condition-based maintenance methods for marine renewable energy.
-\newblock {\em Renewable and Sustainable Energy Reviews}, 66:53--78, 2016.
 
 \bibitem[PMG13]{perez2013offshore}
 Beatriz P{\'e}rez, Roberto M{\'\i}nguez, and Ra{\'u}l Guanche.
