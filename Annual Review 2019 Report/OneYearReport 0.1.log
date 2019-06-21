@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  17 JUN 2019 20:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  21 JUN 2019 18:05
 entering extended mode
 **"./OneYearReport 0.1.tex"
 ("OneYearReport 0.1.tex"
@@ -383,20 +383,20 @@ tify the strengths
  []
 
 [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22]
-[23]
+[23] [24]
 
-LaTeX Warning: Reference `sss:simfut' on page 1 undefined on input line 240.
+LaTeX Warning: Reference `sss:simfut' on page 1 undefined on input line 239.
 
-[24] [25] [26] [27] [28] [29] [30] [31]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 312.
+[25] [26] [27] [28] [29] [30] [31] [32]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 311.
 
 
 ("C:\Users\wsb18103\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 312.
- [32] [33] ("OneYearReport 0.1.bbl"
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 311.
+ [33] [34] ("OneYearReport 0.1.bbl"
 Underfull \hbox (badness 1132) in paragraph at lines 25--31
 []\OT1/cmr/m/n/12 Euan Bar-low, Di-cle-han Tez-caner []Ozturk, Matthew Re-
  []
@@ -411,12 +411,12 @@ Underfull \hbox (badness 1616) in paragraph at lines 46--51
 \OT1/cmr/m/n/12 vie, Kerem Akar-tu-nali, Alexan-der Day, and Evan-ge-los
  []
 
-[34]
+[35]
 Underfull \hbox (badness 1762) in paragraph at lines 69--73
 []\OT1/cmr/m/n/12 Darinka Dentcheva and An-drzej Ruszczynski.  Ro-bust
  []
 
-[35] [36]
+[36] [37]
 Underfull \hbox (badness 10000) in paragraph at lines 165--171
 []\OT1/cmr/m/n/12 Renewable UK.  Off-shore wind project time-lines.
  []
@@ -431,7 +431,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 165--171
 Package caption Warning: Unused \captionsetup[subfigure] on input line 20.
 See the caption package documentation for explanation.
 
-[37] ("OneYearReport 0.1.aux")
+[38] ("OneYearReport 0.1.aux")
 
 LaTeX Warning: There were undefined references.
 
@@ -459,9 +459,9 @@ X 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/wsb18103/AppData/Local
 :/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
 cm/cmti12.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
 public/amsfonts/cm/cmu10.pfb>
-Output written on "OneYearReport 0.1.pdf" (37 pages, 230407 bytes).
+Output written on "OneYearReport 0.1.pdf" (38 pages, 232049 bytes).
 PDF statistics:
- 171 PDF objects out of 1000 (max. 8388607)
+ 174 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
