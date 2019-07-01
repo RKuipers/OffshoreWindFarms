@@ -59,7 +59,7 @@ Question: #3
 \begin{document}
 \title{Simulation and Optimisation of Offshore Renewable Energy Arrays for Minimal Life-Cycle Costs}
 \author{Robin Kuipers \\[1cm] Supervisors: \\ Kerem Akartunali \\ Euan Barlow\\[2cm] University of Strathclyde \\ Strathclyde Business School \\ {\small Glasgow, Scotland}}
-\date{June, 2019}
+\date{July, 2019}
 
 \maketitle
 
@@ -101,14 +101,29 @@ The stochasticity of the project also comes with various challenges. Naively one
 %TODO: For the cites, look at sources and where they got it from; citing directly leads me to more (varied) sources
 
 \subsection{This research project} \label{ss:thisproj}
-The goal of this project is to look at the entire life cycle of OWFs, and how decisions near the start of this life cycle impact the situation down the line. Specifically I aim to use both optimization and simulation to provide insight into logistical decisions, primarily scheduling, but also routing and layout of the site. Over the past year, I have spend most of my time reading up on the subject, both the methods and the challenges off offshore projects. This literature in summed up in \Cref{s:lit}. Additionally I have been laying the groundwork for a simulator which I am planning to turn into a tool for support on the logistical decisions described previously. Details on this tool are given in \Cref{s:sim}. 
-
-The goals of this project are as follows:
-
+The goal of this project is to look at the entire life cycle of OWFs, and how decisions near the start of this life cycle impact the situation down the line. Specifically I aim to use both optimization and simulation to provide insight into logistical decisions, primarily scheduling, but also routing and layout of the site. Over the past year, I have spend most of my time reading up on the subject, both the methods and the challenges off offshore projects. This literature in summed up in \Cref{s:lit}. Additionally I have been laying the groundwork for a simulator which I am planning to turn into a tool for support on the logistical decisions described previously. Details on this tool are given in \Cref{s:sim}. \\
+The explicit goals of this project are as follows:
+\vspace{-\topsep}
 \begin{enumerate}
-\item Lorem 
-\item Ipsum
+\setlength{\itemsep}{0pt plus 1pt}
+\item Building a comprehesive multi-level model of the installation projects of OWF sites. 
+\item Building a similar model for the maintenance projects.
+\item Combining above models into a model spanning the full life cycle.
+\item Implementing above models into a simulator, which should function as a tool to help make logistical decisions while considering their long-term impact.
+\item Using the tool to look into optimal scheduling policies. 
+\item Applying above models and tool to real life data and projects.
 \end{enumerate}
+\vspace{-\topsep}
+Adjacent topics that might be explored more in later stages of this project include:
+\vspace{-\topsep}
+\begin{itemize}
+\setlength{\itemsep}{0pt plus 1pt}
+\item Using the tool to research the layout of the OWF sites.
+\item Using the tool to research the supply chain for any projects on the site. 
+\item Experimenting within the tool with imperfect weather forcasts. 
+\end{itemize}
+\vspace{-\topsep}
+All following writing regards at least one of these goals. In \Cref{s:concl} I will go into more detail about the directions this project might take, and what the future of this project will look like. 
 
 \pagebreak
 
@@ -295,7 +310,7 @@ The first direction is to focus on the installation projects and work from the e
 \bigskip
 
 %Maintenance ideas: New uncertain aspects to do with when stuff breaks (poisson distribution) possibly correlated with weather, ???
-The second direction to take this research is to focus on the maintenance of an energy site. As mentioned in \Cref{sss:maint} in significant additional reading will have to be done on this subject, and I am planning to do see in the coming months (as described in \Cref{ss:timel}). Generally the typical subjects in maintenance such as supply chain management and minimizing asset failure are significantly more difficult in our context, as there is a large lead up time before any emergency operations can be performed on the site. Intuitively the OSPs are the most vital to prevent failure in, as a failure in one of them can mean dozens of WTGs are no longer producing energy. Therefore I am planning on experiments with various maintenance strategies with the aim of maximizing overall profit. For more detail more research will need to be done first, which I will do in the upcoming months. It is clear there is a relative large amount of research on maintenance of offshore sites (as compared to a small amount of research on their installation), so any future research will have to build on that.
+The second direction to take this research is to focus on the maintenance of an energy site. As mentioned in \Cref{sss:maint} in significant additional reading will have to be done on this subject, and I am planning to do see in the coming months (as described in \Cref{ss:timel}). Generally the typical subjects in maintenance such as supply chain management and minimizing asset failure are significantly more difficult in our context, as there is a large lead up time before any emergency operations can be performed on the site. Intuitively the OSPs are the most vital to prevent failure in, as a failure in one of them can mean dozens of WTGs are no longer producing energy. Therefore I am planning on experiments with various maintenance strategies with the aim of maximizing overall profit. For more detail more research will need to be done first, which I will do in the upcoming months. It is clear there is a relatively large amount of research on maintenance of offshore sites (as compared to a small amount of research on their installation), so any future research will have to build on that.
 
 \bigskip
 
@@ -312,11 +327,11 @@ Since research is inherently exploratory and unpredictable, it is impossible to 
 
 My immediate focus will now go to filling in my knowledge gaps regarding the maintenance projects. As stated before, some research has already been conducted, but there is significant reading of the literature to be done, which I aim to do in the upcoming months. I am planning to do the bulk of this reading in the next two months, although more reading of the literature will naturally be something I do throughout this project. Additionally I am planning to work on the simulator described in \Cref{s:sim} and getting it operational for installation projects while remaining adaptable enough to later be used in maintenance projects as well. The simulator should be operational for that within the next six months. After the bulk of the previously mentioned reading is done, I plan to start work on the optimisation model for the installation project as well, as this will be needed to make full use of the simulator. It is unlikely that I completely finish that in the next six months (as it will be combined with the other tasks described) but a sizable start should be made. 
 
-In the six months after that, so the second half of the second year of my PhD, the simulator should be finished and the optimisation model should be coming along. Therefore I aim to focus on running the first experiments in this time frame. For that test data needs to be acquired from weather institutions and industrial companies. A start on acquiring this should be made soon than six months, as setting up a connection might take a lot of time, but actually using the data will be done at this point. My supervisors have both worked extensively within this field so I am hopeful they will be able to help me connect to outside companies. Additionally within this time frame I hope to adapt the simulator to work with maintenance projects and design an initial model for those.
+In the six months after that, so the second half of the second year of my PhD, the simulator should be finished and the optimisation model should be coming along. Therefore I aim to focus on running the first experiments in this time frame. For that test data needs to be acquired from weather institutions and industrial companies. A start on acquiring this should be made sooner than six months, as setting up a connection with these companies might take a lot of time. The aim is to have the data available at this point, and use it for analysis. My supervisors have both worked extensively within this field so I am hopeful they will be able to help me connect to outside companies. Additionally within this time frame I hope to adapt the simulator to work with maintenance projects and design an initial model for those.
 
 \bigskip
 
-At the start of the third year of my PhD the models for both installation projects and maintenance projects should be well formed, and I will aim to combine them. This should not be too difficult when both are implemented in the simulator. For the the decommission projects will also be included, which will likely be very similar to installation projects in structure. Realistic experiments can also be run now, and my goal is to adapt the models to accommodate for more extensive research into directions which are indicated to be useful by the earlier experiments. For example, if realistic imperfect weather forecasts seem like a valuable research topic, I aim to adapt the models and simulator to include them. This also includes various alternative optimisation models, as multiple alternatives should be experimented with to compare their performance over the entire life cycle of an OWF which is now included in the model. Finally experiments with different layouts of the OWF can be performed to see their impact on the costs of installation, maintenance and decommission of the site. 
+At the start of the third year of my PhD the models for both installation projects and maintenance projects should be well formed, and I will aim to combine them. This should not be too difficult when both are implemented in the simulator. The decommission projects will also be included in this overarching model, which will likely be very similar to installation projects in structure. Realistic experiments can also be run now, and my goal is to adapt the models to accommodate for more extensive research into directions which are indicated to be useful by the earlier experiments. For example, if realistic imperfect weather forecasts seem like a valuable research topic, I aim to adapt the models and simulator to include them. This also includes various alternative optimisation models, as multiple alternatives should be experimented with to compare their performance over the entire life cycle of an OWF which is now included in the model. Finally experiments with different layouts of the OWF can be performed to see their impact on the costs of installation, maintenance and decommission of the site. 
 
 In the final 6 months of my PhD, I will hopefully focus mostly on writing. While I plan to continually write about my progress and findings, there will always be a significant portion to write up in the end. That said, any additional experiments and final changes can also be performed and implemented during this time. 
 
@@ -331,7 +346,7 @@ To summarize, this timeline would look like:
 	\item Year 3, second half: Finalize experiments, and finalize writing up the research.
 \end{itemize}
 
-In this scenario I am able to research the entire life cycle of an OWF and build a tool for decision support at any point in that life cycle. But as I stated before, this is a rough timeline, and is subject to change depending on where progress is made. If very promising initial results come from the installation part of the project, there is a chance the main focus will shift there, and maintenance projects fall to a background role. Naturally the reverse might also happen. 
+In this scenario I am able to research the entire life cycle of an OWF and build a tool for decision support at any point in that life cycle. But as I stated before, this is a rough timeline, and is subject to change depending on where progress is made. If very promising initial results come from the installation part of the project, there is a chance the main focus will shift there, and maintenance projects fall to a background role. Naturally the opposite might also happen. 
 
 Writing additional papers is not included in this timeline, as this strongly depends on where significant results are found. However I would ideally publish at least one paper on the installation model, one on the maintenance model, and one on their combination. Writing them will have a strong overlap with writing the related chapters of my thesis, so this will coincide with the continual writing I am planning to do. 
 
