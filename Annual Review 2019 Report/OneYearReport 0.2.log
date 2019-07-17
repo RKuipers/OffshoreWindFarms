@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  1 JUL 2019 14:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  17 JUL 2019 15:31
 entering extended mode
 **"./OneYearReport 0.2.tex"
 ("OneYearReport 0.2.tex"
@@ -392,11 +392,8 @@ tify the strengths
  []
 
 [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22] [23]
-[24] [25]
-
-LaTeX Warning: Reference `sss:simfut' on page 1 undefined on input line 271.
-
-[26] [27] [28] [29] [30] [31] [32] [33] [34] [35] ("OneYearReport 0.2.bbl"
+[24] [25] [26] [27] [28] [29] [30] [31] [32] [33] [34] [35]
+("OneYearReport 0.2.bbl"
 Underfull \hbox (badness 1132) in paragraph at lines 18--24
 []\OT1/cmr/m/n/12 Euan Bar-low, Di-cle-han Tez-caner []Ozturk, Matthew Re-
  []
@@ -426,35 +423,31 @@ Underfull \hbox (badness 10000) in paragraph at lines 152--158
 Package caption Warning: Unused \captionsetup[subfigure] on input line 20.
 See the caption package documentation for explanation.
 
-[39] ("OneYearReport 0.2.aux")
-
-LaTeX Warning: There were undefined references.
-
- ) 
+[39] ("OneYearReport 0.2.aux") ) 
 Here is how much of TeX's memory you used:
- 6631 strings out of 492946
- 112917 string characters out of 3124934
+ 6630 strings out of 492946
+ 112900 string characters out of 3124934
  204199 words of memory out of 3000000
- 10441 multiletter control sequences out of 15000+200000
+ 10440 multiletter control sequences out of 15000+200000
  11183 words of font info for 40 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,7n,38p,2891b,240s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfo
-nts/cm/cmbx10.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/cm/cmbx12.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiK
-TeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/wsb18103/AppData/Lo
-cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/wsb
-18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pf
-b><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfo
-nts/cm/cmr10.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
-e1/public/amsfonts/cm/cmr12.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/wsb18103/AppData/Local
-/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/wsb18103
-/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C
+<C:/Users/wsb18103/AppData/Local/Programs/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/wsb18103/AppData/Loca
+l/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/wsb18
+103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb
+><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
+ts/cm/cmmi12.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
+e1/public/amsfonts/cm/cmmi8.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/wsb18103/AppData/Local
+/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/wsb1810
+3/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C
 :/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmti12.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
-public/amsfonts/cm/cmu10.pfb>
-Output written on "OneYearReport 0.2.pdf" (39 pages, 235283 bytes).
+cm/cmr8.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmsy10.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/wsb18103/AppData/Local/Pr
+ograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmu10.pfb>
+Output written on "OneYearReport 0.2.pdf" (39 pages, 235090 bytes).
 PDF statistics:
  177 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
