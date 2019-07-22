@@ -103,26 +103,26 @@ The stochasticity of the project also comes with various challenges. Naively one
 \subsection{This research project} \label{ss:thisproj}
 The goal of this project is to look at the entire life cycle of OWFs, and how decisions near the start of this life cycle impact the situation down the line. Specifically I aim to use both optimization and simulation to provide insight into logistical decisions, primarily scheduling, but also routing and layout of the site. Over the past year, I have spend most of my time reading up on the subject, both the methods and the challenges off offshore projects. This literature in summed up in \Cref{s:lit}. Additionally I have been laying the groundwork for a simulator which I am planning to turn into a tool for support on the logistical decisions described previously. Details on this tool are given in \Cref{s:sim}. \\
 The explicit goals of this project are as follows:
-\vspace{-\topsep}
+
 \begin{enumerate}
-\setlength{\itemsep}{0pt plus 1pt}
-\item Building a comprehesive multi-level model of the installation projects of OWF sites. 
-\item Building a similar model for the maintenance projects.
-\item Combining above models into a model spanning the full life cycle.
+\item Building a optimisation model and simulation model of the installation projects of OWF sites. 
+\item Building similar models for the maintenance projects.
+\item Combining above models into a multi-level model spanning the full life cycle, where the optimization model uses the simulation model.
 \item Implementing above models into a simulator, which should function as a tool to help make logistical decisions while considering their long-term impact.
 \item Using the tool to look into optimal scheduling policies. 
 \item Applying above models and tool to real life data and projects.
 \end{enumerate}
-\vspace{-\topsep}
+
+In this, the optimisation model and the simulation model work together, as a solution found with the optimisation model can be tested using the simulation model. Therefore this would be a mixed-method model. 
+
 Adjacent topics that might be explored more in later stages of this project include:
-\vspace{-\topsep}
+
 \begin{itemize}
-\setlength{\itemsep}{0pt plus 1pt}
 \item Using the tool to research the layout of the OWF sites.
 \item Using the tool to research the supply chain for any projects on the site. 
 \item Experimenting within the tool with imperfect weather forcasts. 
 \end{itemize}
-\vspace{-\topsep}
+
 All following writing regards at least one of these goals. In \Cref{s:concl} I will go into more detail about the directions this project might take, and what the future of this project will look like. 
 
 \pagebreak
