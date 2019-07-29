@@ -101,13 +101,13 @@ The stochasticity of the project also comes with various challenges. Naively one
 %TODO: For the cites, look at sources and where they got it from; citing directly leads me to more (varied) sources
 
 \subsection{This research project} \label{ss:thisproj}
-The goal of this project is to look at the entire life cycle of OWFs, and how decisions near the start of this life cycle impact the situation down the line. Specifically I aim to use both optimisation and simulation to provide insight into logistical decisions, primarily scheduling, but also routing and layout of the site. The latter two are very challenging subjects on their own, and I will likely only run simplistic experiments with them, seeing whether looking at a full life cycle gives any insights on its own. Over the past year, I have spend most of my time reading up on the subject, both the methods and the challenges off offshore projects. This literature in summed up in \Cref{s:lit}. Additionally I have been laying the groundwork for a simulator which I am planning to turn into a tool for support on the logistical decisions described previously. Details on this tool are given in \Cref{s:sim}. \\
+The goal of this project is to look at the entire life-cycle of OWFs, and how decisions near the start of this life-cycle impact the situation down the line. Specifically I aim to use both optimisation and simulation to provide insight into logistical decisions, primarily scheduling, but also routing and layout of the site. The latter two are very challenging subjects on their own, and I will likely only run simplistic experiments with them, seeing whether looking at a full life-cycle gives any insights on its own. Over the past year, I have spend most of my time reading up on the subject, both the methods and the challenges off offshore projects. This literature in summed up in \Cref{s:lit}. Additionally I have been laying the groundwork for a simulator which I am planning to turn into a tool for support on the logistical decisions described previously. Details on this tool are given in \Cref{s:sim}. \\
 The explicit goals of this project are as follows:
 
 \begin{enumerate}
 \item Building a optimisation model and simulation model of the installation projects of OWF sites. 
 \item Building a optimisation model and simulation model for the maintenance projects.
-\item Combining above models into a multi-level model spanning the full life cycle, where the optimisation model uses the simulation model.
+\item Combining above models into a multi-level model spanning the full life-cycle, where the optimisation model uses the simulation model.
 \item Implementing above models into a simulator, which should function as a tool to help make logistical decisions while considering their long-term impact.
 \item Using the tool to look into optimal scheduling policies. 
 \item Applying above models and tool to real life data and projects.
@@ -317,7 +317,7 @@ As mentioned in \Cref{sss:maint} significant additional reading will have to be 
 
 \begin{enumerate}
 \addtocounter{enumi}{2}
-\item Combining above models into a multi-level model spanning the full life cycle, where the optimisation model uses the simulation model.
+\item Combining above models into a multi-level model spanning the full life-cycle, where the optimisation model uses the simulation model.
 \end{enumerate}
 
 This would require the first two goals to be completed, and additionally similar models will have to be made for decommissioning projects. As stated earlier, these models will be very similar to those of the installation projects, so this is expected to be relatively easy. However, integrating these different models into a single one will likely be difficult, and a lot of research into integrated models has been done. I will have to make myself familiar with this research in order to properly integrate the models.  
@@ -356,7 +356,7 @@ In the six months after that, so the second half of the second year of my PhD, t
 
 \bigskip
 
-At the start of the third year of my PhD the models for both installation projects and maintenance projects should be well formed, and I will aim to combine them. The decommission projects will also be included in this overarching model, which will likely be very similar to installation projects in structure. This is likely to be difficult, even if both models are already implemented in the simulator, as integrated models have proven to be a complex subject in itself. Realistic experiments can also be run now, and my goal is to adapt the models to accommodate for more extensive research into directions which are indicated to be useful by the earlier experiments. For example, if realistic imperfect weather forecasts seem like a valuable research topic, I aim to adapt the models and simulator to include them. This also includes various alternative optimisation models, as multiple alternatives should be experimented with to compare their performance over the entire life cycle of an OWF which is now included in the model. Finally experiments with different layouts of the OWF can be performed to see their impact on the costs of installation, maintenance and decommission of the site. 
+At the start of the third year of my PhD the models for both installation projects and maintenance projects should be well formed, and I will aim to combine them. The decommission projects will also be included in this overarching model, which will likely be very similar to installation projects in structure. This is likely to be difficult, even if both models are already implemented in the simulator, as integrated models have proven to be a complex subject in itself. Realistic experiments can also be run now, and my goal is to adapt the models to accommodate for more extensive research into directions which are indicated to be useful by the earlier experiments. For example, if realistic imperfect weather forecasts seem like a valuable research topic, I aim to adapt the models and simulator to include them. This also includes various alternative optimisation models, as multiple alternatives should be experimented with to compare their performance over the entire life-cycle of an OWF which is now included in the model. Finally experiments with different layouts of the OWF can be performed to see their impact on the costs of installation, maintenance and decommission of the site. 
 
 In the final 6 months of my PhD, I will hopefully focus mostly on writing. While I plan to continually write about my progress and findings, there will always be a significant portion to write up in the end. That said, any additional experiments and final changes can also be performed and implemented during this time. 
 
@@ -367,11 +367,11 @@ To summarise, this timeline would look like:
 \begin{itemize}
 	\item Year 2, first half: Read up more on maintenance projects and related research (goal 2), implement the simulator for installation projects (goals 1, 4), start on the optimisation model for the installation project (goal 1), put out initial efforts to gather data from companies (goals 5, 6). 
 	\item Year 2, second half: Implement maintenance projects in the simulator (goals 2, 4), run initial experiments using data gathered from companies (goals 5, 6).
-	\item Year 3, first half: Combine the models into an overarching model for the entire life cycle (goal 3), run deeper experiments and adapt the tool based on found results (goal 5, 6).
+	\item Year 3, first half: Combine the models into an overarching model for the entire life-cycle (goal 3), run deeper experiments and adapt the tool based on found results (goal 5, 6).
 	\item Year 3, second half: Finalise experiments (goal 5, 6), and finalise writing up the research.
 \end{itemize}
 
-In this scenario I am able to research the entire life cycle of an OWF and build a tool for decision support at any point in that life cycle. But as I stated before, this is a rough timeline, and is subject to change depending on where progress is made. If very promising initial results come from the installation part of the project, there is a chance the main focus will shift there, and maintenance projects fall to a background role. Naturally the opposite might also happen. 
+In this scenario I am able to research the entire life-cycle of an OWF and build a tool for decision support at any point in that life-cycle. But as I stated before, this is a rough timeline, and is subject to change depending on where progress is made. If very promising initial results come from the installation part of the project, there is a chance the main focus will shift there, and maintenance projects fall to a background role. Naturally the opposite might also happen. 
 
 Writing additional papers is not included in this timeline, as this strongly depends on where significant results are found. However I would ideally publish at least one paper on the installation model, one on the maintenance model, and one on their combination. Writing them will have a strong overlap with writing the related chapters of my thesis, so this will coincide with the continual writing I am planning to do. 
 
@@ -381,7 +381,6 @@ Writing additional papers is not included in this timeline, as this strongly dep
 \bibliography{mybib}
 
 %TODO: Uniformilize usage of I and We
-%TODO: Uniformilize life cycle and lifecycle and life-cycle
 %TODO: Go through all \Cref tags and check whether all claims made are correct
 
 \end{document}
