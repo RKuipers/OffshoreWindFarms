@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.18)  23 JUL 2019 16:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.18)  29 JUL 2019 13:39
 entering extended mode
 **"./OneYearReport 0.2.tex"
 ("OneYearReport 0.2.tex"
@@ -328,7 +328,7 @@ Overfull \hbox (4.87877pt too wide) in paragraph at lines 99--100
 chal-lenges. Naively
  []
 
-[7]
+[7] [8]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 121.
 
  ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
@@ -336,15 +336,19 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 121.
- [8] [9]
+ [9]
 Overfull \hbox (7.28587pt too wide) in paragraph at lines 140--141
 []\OT1/cmr/m/n/12 In [B[]OR$[]$18] a mixed-method ap-proach is used. They iden-
 tify the strengths
  []
 
-[10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22] [23] [24]
-[25] [26] [27] [28] [29] [30] [31] [32] [33] [34] [35] [36] [37]
-("OneYearReport 0.2.bbl"
+[10] [11] [12] [13] [14] [15] [16] [17]
+
+LaTeX Warning: Citation `mosetti1994optimisation' on page 18 undefined on input
+ line 191.
+
+[18] [19] [20] [21] [22] [23] [24] [25] [26] [27] [28] [29] [30] [31] [32]
+[33] [34] [35] [36] [37] ("OneYearReport 0.2.bbl"
 Underfull \hbox (badness 1132) in paragraph at lines 18--24
 []\OT1/cmr/m/n/12 Euan Bar-low, Di-cle-han Tez-caner []Ozturk, Matthew Re-
  []
@@ -377,28 +381,31 @@ Underfull \hbox (badness 10000) in paragraph at lines 152--158
 Package caption Warning: Unused \captionsetup[subfigure] on input line 20.
 See the caption package documentation for explanation.
 
-[41] ("OneYearReport 0.2.aux") ) 
+[41] ("OneYearReport 0.2.aux")
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 6368 strings out of 493334
- 103213 string characters out of 3139251
+ 6369 strings out of 493334
+ 103238 string characters out of 3139251
  190915 words of memory out of 3000000
- 9817 multiletter control sequences out of 15000+200000
+ 9818 multiletter control sequences out of 15000+200000
  11183 words of font info for 40 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  40i,7n,38p,2891b,240s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public
-/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfont
-s/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cme
-x10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Progr
-am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.
-9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
-ype1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
-c/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
-ts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
-u10.pfb>
-Output written on "OneYearReport 0.2.pdf" (41 pages, 237964 bytes).
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX 2.9/f
+onts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.p
+fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/P
+rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program F
+iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmu10.pfb>
+Output written on "OneYearReport 0.2.pdf" (41 pages, 238681 bytes).
 PDF statistics:
  183 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
