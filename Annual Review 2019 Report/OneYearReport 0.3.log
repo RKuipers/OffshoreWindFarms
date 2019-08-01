@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  31 JUL 2019 16:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  1 AUG 2019 14:22
 entering extended mode
 **"./OneYearReport 0.3.tex"
 ("OneYearReport 0.3.tex"
@@ -433,10 +433,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 6631 strings out of 492946
- 112925 string characters out of 3124934
+ 6629 strings out of 492946
+ 112900 string characters out of 3124934
  204199 words of memory out of 3000000
- 10441 multiletter control sequences out of 15000+200000
+ 10439 multiletter control sequences out of 15000+200000
  11183 words of font info for 40 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,7n,38p,2891b,240s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -455,7 +455,7 @@ X 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/wsb18103/AppData/Local
 :/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
 cm/cmti12.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
 public/amsfonts/cm/cmu10.pfb>
-Output written on "OneYearReport 0.3.pdf" (41 pages, 237577 bytes).
+Output written on "OneYearReport 0.3.pdf" (41 pages, 237548 bytes).
 PDF statistics:
  183 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

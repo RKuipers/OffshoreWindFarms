@@ -12,7 +12,6 @@
 \contentsline {subsection}{\numberline {3.2}Methodology}{21}% 
 \contentsline {subsubsection}{\numberline {3.2.1}Simulation}{22}% 
 \contentsline {subsubsection}{\numberline {3.2.2}Optimisation}{24}% 
-\contentsline {subsubsection}{\numberline {3.2.3}Other Methods}{25}% 
 \contentsline {section}{\numberline {4}Simulation tool}{26}% 
 \contentsline {subsection}{\numberline {4.1}Current progress}{26}% 
 \contentsline {subsection}{\numberline {4.2}Future developments}{28}% 

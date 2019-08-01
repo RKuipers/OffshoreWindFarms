@@ -105,9 +105,9 @@ The goal of this project is to look at the entire life-cycle of OWFs, and how de
 The explicit goals of this project are as follows:
 
 \begin{enumerate}
-\item Building a optimisation model and simulation model of the installation projects of OWF sites. 
-\item Building a optimisation model and simulation model for the maintenance projects.
-\item Combining above models into a multi-level model spanning the full life-cycle, where the optimisation model uses the simulation model.
+\item Building an integration model integrating both a simulation and an optimisation model of the installation projects of OWF sites. This model will be based on models in the literature.  
+\item Building an integration model integrating both a simulation and an optimisation model for the maintenance projects.
+\item Integrate above models into a multi-level model spanning the full life-cycle.
 \item Implementing above models into a simulator, which should function as a tool to help make logistical decisions while considering their long-term impact.
 \item Using the tool to look into optimal scheduling policies. 
 \item Applying above models and tool to real life data and projects.
@@ -237,20 +237,15 @@ There are many other possible methods to reduce number of simulations required, 
 \bigskip
 
 \subsubsection{Optimisation} \label{ss:opt}
-Optimisation, in particular through linear programming, is an essential tool in problems like this, and is used extensively in the literature. Linear programming is preferred as non-linear programming is computationally much more complex to solve, therefore non-linear models are restricted in size in order to be solved in feasible time. However, both methods are used in the literature.
+Optimisation, in particular through (mixed-)integer programming, is an essential tool in problems like this, and is used extensively in the literature. Linear programming and integer programming is preferred as mixed-integer programming is computationally much more complex to solve, therefore mixed-integer models are restricted in size in order to be solved in feasible time. However, both methods are used in the literature.
 
-Even linear programming models computationally complex to solve, hence many methods are used to reduce to complexity of the models. There are standard techniques like Lagrangian relaxation \cite{fisher1981lagrangian} and column generation \cite{barnhart1998branch}, but there are more specific methods used as well. The primary way this is done is by limiting the scope of individual optimisation problems (not necessarily the research), by splitting up the research and using multi-level optimisation models, or using simulation for certain parts of it. 
+Even linear and integer programming models computationally complex to solve, hence many methods are used to reduce to complexity of the models. There are standard techniques like Lagrangian relaxation \cite{fisher1981lagrangian} and column generation \cite{barnhart1998branch}, but there are more specific methods used as well. The primary way this is done is by limiting the scope of individual optimisation problems (not necessarily the research), by splitting up the research and using multi-level optimisation models, or using simulation for certain parts of it. 
 
 Another method has been discussed before already; robust optimisation. As with Simulation, this reduces the number of considered inputs (primarily weather states, but also task duration which is sometimes stochastic) by only considering certain constructed uncertainty sets. This strongly reduces the number of situations considered in the optimisation. 
 
 There are alternatives to computational programming. The most prominent is local search. A benefit of local search is that reasonably good results can often be found fairly quick, but this is connected to the main drawback of local search; it can often be difficult to get out of local optima. However, there is a lot of literature on local search and many variants designed to reduce its drawbacks. 
 
-\bigskip
-
-\subsubsection{Other Methods} \label{ss:otmet}
-The main methods used in the literature are simulation and optimisation, but there are other relevant methods used in other scheduling problems. Evolutionary algorithms have been used for deterministic scheduling problems such as machine learning \cite{dorndorf1995evolution}. A good explanation of this technique for scheduling is given in \cite{cotta2007memetic}. While this technique seems to be fairly common in deterministic scheduling, not much research could be found in an uncertain setting. The exception is \cite{sevaux2002genetic} as discussed in \Cref{sss:stoch}. This research, although seemingly brief, gives quality results. Since there is no clear reason why evolutionary algorithms couldn't work well within an uncertain setting, this is a potential method to explore in the future. 
-
-%TODO: Consider adding a Graph Theory section (unlikely as no real relevance)
+Alternatively, evolutionary algorithms have been used for deterministic scheduling problems such as machine learning \cite{dorndorf1995evolution}. A good explanation of this technique for scheduling is given in \cite{cotta2007memetic}. While this technique seems to be fairly common in deterministic scheduling, not much research could be found in an uncertain setting. The exception is \cite{sevaux2002genetic} as discussed in \Cref{sss:stoch}. This research, although seemingly brief, gives quality results. Since there is no clear reason why evolutionary algorithms couldn't work well within an uncertain setting, this is a potential method to explore in the future. 
 
 \pagebreak
 
@@ -303,21 +298,21 @@ As mentioned earlier, a decision needs to be made on the presumed knowledge of t
 In this section I will go into more detail about my goals from \Cref{ss:thisproj}, and use what I discussed in Sections \ref{s:lit} and \ref{s:sim} to explain how I am planning to approach each goal, and explain how I am planning to fill in previously identified research gaps. 
 
 \begin{enumerate}
-\item Building a optimisation model and simulation model of the installation projects of OWF sites. 
+\item Building an integration model integrating both a simulation and an optimisation model of the installation projects of OWF sites. This model will be based on models in the literature.  
 \end{enumerate}
 
-Effectively this would come down to making two models inspired by the models discussed in  \Cref{sss:sched}, in which I took two focus papers and discussed strengths and weaknesses of both. My hope is to make a hybrid of these two approaches and highlight their strengths. A focus on cashflows seems to be a good approach (as it will always be of interest to the project developer), but it should incorporate positive cashflows from partial completion, as well as possible milestone deadlines. Given this approach, it seems an investigation into both start date and non-operational periods would be beneficial. A dedicated heuristic (as in \cite{kerkhove2017optimised}) could be used (where all activity types and years are treated equally) as base solutions, to then be potentially improved with a local search. However, this is not the only optimisation that should be performed. A restriction on which activities can be completed in which time periods is a starting point from which more detailed scheduling should occur. For each period a set of desired vessels should be determined, keeping in mind costs of (de)commissioning vessels and restrictions on timespans for that. A schedule should be made for each vessel such that each task is assigned a vessel and a timeslot. For this there are various optimisation techniques possible. The basic one to go to would be trying to solve a linear program, in which task durations can be the expected time within a time period (month) based on expected weather. A solution would then have to be checked through simulation, and the simulator described in \Cref{s:sim} is designed to be used for this. This may be difficult to do in a way that is computationally feasible in a reasonable time, but that is one of the challenges of this research, and there is a lot of literature on improving simulations when necessary. However, if this turns out to not be feasible there are alternatives such as using an evolutionary algorithm for optimisation. 
+Effectively this would come down to making two models inspired by the models discussed in  \Cref{sss:sched}, in which I took two focus papers and discussed strengths and weaknesses of both. My hope is to make a hybrid of these two approaches and highlight their strengths. A focus on cashflows seems to be a good approach (as it will always be of interest to the project developer), but it should incorporate positive cashflows from partial completion, as well as possible milestone deadlines. Given this approach, it seems an investigation into both start date and non-operational periods would be beneficial. A dedicated heuristic (as in \cite{kerkhove2017optimised}) could be used (where all activity types and years are treated equally) as base solutions, to then be potentially improved with a local search. However, this is not the only optimisation that should be performed. A restriction on which activities can be completed in which time periods is a starting point from which more detailed scheduling should occur. For each period a set of desired vessels should be determined, keeping in mind costs of (de)commissioning vessels and restrictions on timespans for that. A schedule should be made for each vessel such that each task is assigned a vessel and a timeslot. For this there are various optimisation techniques possible. The basic one to go to would be trying to solve a integer program, in which task durations can be the expected time within a time period (month) based on expected weather. A solution would then have to be checked through simulation, and the simulator described in \Cref{s:sim} is designed to be used for this. This may be difficult to do in a way that is computationally feasible in a reasonable time, but that is one of the challenges of this research, and there is a lot of literature on improving simulations when necessary. However, if this turns out to not be feasible there are alternatives such as using an evolutionary algorithm for optimisation. 
 
 \begin{enumerate}
 \addtocounter{enumi}{1}
-\item Building a optimisation model and simulation model for the maintenance projects.
+\item Building an integration model integrating both a simulation and an optimisation model of the maintenance projects of OWF sites.
 \end{enumerate}
 
 As mentioned in \Cref{sss:maint} significant additional reading will have to be done on this subject, and I am planning to do this in the coming months (as described in \Cref{ss:timel}). Generally the typical subjects in maintenance such as supply chain management and minimising asset failure are significantly more difficult in our context, as there is a large lead up time before any emergency operations can be performed on the site. Intuitively the OSPs are the most vital to prevent failure in, as a failure in one of them can mean dozens of WTGs are no longer producing energy. Therefore I am planning on experiments with various maintenance strategies with the aim of maximising overall profit. For more detail more research will need to be done first, which I will do in the upcoming months. It is clear there is a relatively large amount of research on maintenance of offshore sites (as compared to a small amount of research on their installation), so any future research will have to build on that.
 
 \begin{enumerate}
 \addtocounter{enumi}{2}
-\item Combining above models into a multi-level model spanning the full life-cycle, where the optimisation model uses the simulation model.
+\item Integrate above models into a multi-level model spanning the full life-cycle.
 \end{enumerate}
 
 This would require the first two goals to be completed, and additionally similar models will have to be made for decommissioning projects. As stated earlier, these models will be very similar to those of the installation projects, so this is expected to be relatively easy. However, integrating these different models into a single one will likely be difficult, and a lot of research into integrated models has been done. I will have to make myself familiar with this research in order to properly integrate the models.  
