@@ -1,0 +1,381 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage[font=it,labelfont=bf]{caption}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{varwidth}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{cleveref}
+\usepackage{cite}
+\usepackage{url}
+
+\linespread{1.3}
+
+\captionsetup[subfigure]{subrefformat=simple,labelformat=simple}
+\renewcommand\thesubfigure{(\alph{subfigure})}
+
+\setcounter{secnumdepth}{4}
+\newcommand{\myparagraph}[1]{\paragraph*{#1}\mbox{}\\}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{defin}{Definition}
+\newcommand{\mydef}[3]{
+\begin{defin}
+\textsc{#1}
+
+Given: #2
+
+Question: #3
+\end{defin}}
+
+\newcommand{\bigO}[1]{$\mathcal{O}$($#1$)}
+\newcommand{\bigOs}[1]{$\mathcal{O^*}$($#1$)}
+\newcommand{\NP}{$\mathcal{NP}$}
+\newcommand{\acco}[1]{\{ #1 \}}
+
+\newcommand{\vecarr}[3]{\overset{#2}{\overrightarrow{#1}}}
+
+%Door deze regel springt de eerste regel van
+%elke alinea niet meer steeds een stukje in.
+%\setlength{\parskip}{\baselineskip}
+%Door deze regel wordt tussen de alinea's steeds
+%een regel overgeslagen.
+
+%\setlength{\columnseprule}{1pt}
+%\def\columnseprulecolor{\color{blue}}
+
+\newcommand{\algorithmicbreak}{\textbf{break}}
+\newcommand{\Break}{\State \algorithmicbreak}
+
+
+
+\begin{document}
+\title{Simulation and Optimisation of Offshore Renewable Energy Arrays for Minimal Life-Cycle Costs}
+\author{Robin Kuipers \\[1cm] Supervisors: \\ Kerem Akartunali \\ Euan Barlow\\[2cm] University of Strathclyde \\ Strathclyde Business School \\ {\small Glasgow, Scotland}}
+\date{July, 2019}
+
+\maketitle
+
+\pagebreak
+
+\begin{abstract}
+This report aims to give a detailed overview of the research progress I made between March 2018 and March 2019, the first year of this PhD project into logistical decisions regarding offshore wind farms. It will explain the research subject, give an overview of the relevant literature I've read and the limitations of the current research. Furthermore, it will discuss the work I've done on a simulator, to be used for later research. Finally, the next steps and ultimate goals of this project are described. 
+\end{abstract}
+
+\pagebreak
+
+\tableofcontents
+
+\pagebreak
+
+\section{Introduction} \label{s:intro}
+Over the past year, I have been researching scheduling related to offshore windfarm projects; the installation, maintenance, and dismantling of windfarms in various seas and oceans, primarily the North Sea. The installation and dismantling projects can often take up to several years, and the lifespan of such farms is about 30 years, over which maintenance has to be done. For these projects, expensive vessels have to be used, the rent of which is often upwards of \pounds 100.000 per day\cite{barlow2014support}, hence a project with multiple vessels over many months can cost upwards of \pounds 100 million \cite{kaiser2010offshore}. Therefore, even small improvements to the schedules can save significant amounts of money.
+
+Because of this, I expected a lot of research in this area had already been conducted, but this turned out to be less the case than I would have expected. Most research is fairly recent, and there are significant literature gaps. The primary obstacle in this scheduling problem which separates it from more traditional scheduling problems is the high degree of non-deterministic factors, mainly related to the weather conditions. These projects take place on open sea, where weather can often be rougher than on land. In addition, the high-tech vessels are performing operations on big industrial constructions, hence there is a limited range of allowed wind speeds and wave heights. Something else which can further limit possible schedules is the inflexibility involved in vessel rental, since vessels of the required caliber cannot be rented on short notice, and often need to be rented for at least some minimum amount of time \cite{kerkhove2017optimised}, so adaptive in-the-moment scheduling is impossible and we cannot simply wait for an expected period of good weather based on real-time data to rent the vessels; if we expected some period to have good weather but this turns out not to be the case, we will often have the vessels rented but unusable. This means the problem has a lot of nondeterministic factors which have a large impact; factors which any good solution approach will have to take into account. 
+
+In this report I will talk about my progress and what I have learned over the past year. First, in \Cref{s:project} I will explain the examined problem in more detail. After that, in \Cref{s:lit}, I will recount the reading I have done so far, which was the main focus of my work over the past year. This will include both research on this specific project, and research in the more general fields of (stochastic) scheduling and common methods such as optimisation and simulation. This will be the main focus of the report, as it was the main focus of my work. In addition to reading up on the state of the current research, I have also started building a Simulator for this problem, which I will discuss in \Cref{s:sim}. Finally, I will summarise my current standing and plans for future work in \Cref{s:concl}. 
+
+\pagebreak
+
+\section{The project} \label{s:project}
+In this section I will attempt to summarise the different aspects I've seen on the project, in enough detail for the reader to understand the rest of the report, and understand the goals I am working towards.
+
+My project is about optimising all sorts of logistical decisions regarding offshore energy sites, primarily windfarms. This includes supply chains, routing, design of the windfarm, and scheduling of the operations to be done on the windfarm. The latter is where my primary focus lies, and what most of this report will be about. 
+
+\subsection{Logistical decisions on offshore windfarms} \label{ss:logdec}
+A typical offshore windfarm (OWF) will have two types of structures: Wind Turbine Generators (WTGs) and Offshore Substation Platforms (OSPs). The WTGs are the actual turbines generating energy, and the OSPs are hubs where the power generated in the WTGs is gathered and transformed before being transported to shore. A typical OWF currently in development might have upwards of 100 WTGs and 2 OSPs \cite{ruk2017, barlow2018mixed}. 
+
+The life-cycle of an OWF can be broken up into three phases: installation, maintenance and decommissioning. Installation and decommission are similar; a set of tasks needs to be completed in a cost effective way. The primary difference is the reversed order of the tasks. For each of the structures there is a set of tasks that need to be completed in series for each individual structure, such as (for installation): preparing the sea surface, laying the foundation, installing the structure and laying the cables (each of these tasks may be split into more tasks such as loading, transport and installation) \cite{kerkhove2017optimised}. Within the group of tasks for a structure, most tasks will have to be performed in a specific order, while the tasks for separate structures can be completed in any order. This is essential for some of the more sophisticated objective functions used in the literature; if one OSP and a set of WTGs connected to it are active, they can start generating power while the rest of the wind farm is still under construction \cite{barlow2017using}. This would mean the farm starts making money significantly earlier, and can therefore have big impacts on desired schedules. In some situations the company might even have contractually or legally enforced deadlines for certain milestones, like 10\% or 50\% of the WTGs being operational. 
+
+The structure of maintenance projects is completely different. Scheduling maintenance has to be done significantly in advance, as the vessels used need to be reserved. For this reason simply reacting to failures on the site would mean it can take a long time before a failure is repaired. It is also costly, meaning maintenance trips which would have been unnecessary are undesirable as well. These two factors means a balance needs to be struck between not spending too much on maintenance, and maintaining high uptime on the structures of the site (especially OSPs being offline can lead to massive losses in profit). 
+
+The stochasticity of the project also comes with various challenges. Naively one would perhaps go for the schedule with the lowest expected cost or the earlier expected end time. But the specific goal depends on the wishes of the executing company and project details. For example, some company may want at least 95\% certainty that the project is complete (or complete up to some milestone) by a given deadline, or some certainty that the costs do not exceed a given threshold. Therefore the probability distribution of the cost and duration of a resulting schedule are important to determining the value of that schedule. Additionally it is worth noting that while the end time of a schedule and the cost are strongly related, there are scenarios in which it is more profitable to halt the operations for a number of months, especially the winter months where there will be more days with weather too extreme to perform operations in. While this break would obviously postpone the total completion of the schedule, not having to pay rent for vessels over these months in which they cannot perform optimally might lead to a higher net profit over all, especially if a part of the windfarm is already operational and generating energy over these months. 
+
+%TODO: For the cites, look at sources and where they got it from; citing directly leads me to more (varied) sources
+
+\subsection{This research project} \label{ss:thisproj}
+The goal of this project is to look at the entire life-cycle of OWFs, and how decisions near the start of this life-cycle impact the situation down the line. Specifically I aim to use both optimisation and simulation to provide insight into logistical decisions, primarily scheduling, but also routing and layout of the site. The latter two are very challenging subjects on their own, and I will likely only run simplistic experiments with them, seeing whether looking at a full life-cycle gives any insights on its own. Over the past year, I have spend most of my time reading up on the subject, both the methods and the challenges off offshore projects. This literature in summed up in \Cref{s:lit}. Additionally I have been laying the groundwork for a simulator which I am planning to turn into a tool for support on the logistical decisions described previously. Details on this tool are given in \Cref{s:sim}. \\
+The explicit goals of this project are as follows:
+
+\begin{enumerate}
+\item Building an integration model integrating both a simulation and an optimisation model of the installation projects of OWF sites. This model will be based on models in the literature.  
+\item Building an integration model integrating both a simulation and an optimisation model for the maintenance projects.
+\item Integrate above models into a multi-level model spanning the full life-cycle.
+\item Implementing above models into a simulator, which should function as a tool to help make logistical decisions while considering their long-term impact.
+\item Using the tool to look into optimal scheduling policies. 
+\item Applying above models and tool to real life data and projects.
+\end{enumerate}
+
+In this, the optimisation model and the simulation model work together, as a solution found with the optimisation model can be tested using the simulation model. Therefore this would be a mixed-method model. 
+
+Adjacent topics that might be explored more in later stages of this project include:
+
+\begin{itemize}
+\item Using the tool to research the layout of the OWF sites.
+\item Using the tool to research the supply chain for any projects on the site. 
+\item Experimenting within the tool with imperfect weather forecasts. 
+\end{itemize}
+
+All following writing regards at least one of these goals. In \Cref{s:concl} I will go into more detail about the directions this project might take, and what the future of this project will look like. 
+
+\pagebreak
+
+\section{Literature} \label{s:lit}
+In this section I will give an overview of the literature I have read to-date for this research. I will discuss some actual attempts to produce a schedule for the installation problem in \Cref{sss:sched}, and some research on the maintenance of the site will be shown in \Cref{sss:maint}. Other research related to offshore projects is shown in \Cref{sss:offsh}. Finally, I will highlight some other studies to do with uncertain scheduling in \Cref{sss:stoch}.  Afterwards in \Cref{ss:meth} the common methods for these problems will be discussed separate from any particular research. 
+
+\subsection{Research overview} \label{ss:rese}
+
+\subsubsection{Studies on the full installation} \label{sss:sched}
+For the research discussed here, I will discuss some models and methods used, and try and compare these studies. 
+
+\bigskip
+
+In \cite{barlow2018mixed} a mixed-method approach is used. They identify the strengths and weaknesses of both simulation and optimisation, and aim to use the methods together in a way that exploits the strength of each. First the simulation is used to determine some amount of delay before starting the project, as this can have sizable impact on the total duration of the project. Then, a mathematical programming model is used to construct a schedule from this starting point. The output of that optimisation model is then used in the simulation to give a view of the overall costs and uncertainty of the project. 
+
+In the simulation model, a synthetic weather time-series model is used. Their model is described in full in \cite{dinwoodie2014operational} , and uses a correlated auto-regression model which identifies underlying trends in the data over time and aims to predict future behavior over time. This seems to be a fitting and sophisticated model. However, in the optimisation model a more simplistic model is used. Tasks are given a minimal duration $d_{i, min}$ and a maximum increase $d_{i, inc}$ of that duration. The realised duration is given by $d_{i,  min} + z_i d_{i, inc}$ for some $0 \leq z_i \leq 1$. The programming model has two levels; the outer model maximises $\sum_i z_i \leq \Gamma$ for some given limit $\Gamma$. The inner model then uses the fixed values $z_i$ to set the start times of each task in accordance with their deadlines and precedence relations. 
+
+In effect, a $\Gamma$ is chosen to represent a certain percentage of tasks taking their maximum duration. For example, if there are 200 tasks and 10\% of them can take the maximum duration $\Gamma$ is set to 20, and this can either result in 20 tasks taking their maximum duration with all other tasks being completed in the minimum duration, or every task taking 10\% of its maximum extra time ($d_{i, inc}$). There are two key aspects of weather delay not taking into consideration here. The first is that tasks can often not be performed at all during certain weather conditions. Resources found and discussed in other research (which will be discussed later in this section as well) mention maximum wave heights and wind speeds, which when reached could shut down installation (or at least certain tasks) for hours or maybe even days. These would be identified later when the schedule is tested in simulation (through the synthetic weather series), but it seems valuable if this behavior was incorporated in the optimisation model as tasks not being able to be performed is fundamentally different behavior than tasks simply taking longer. The second aspect not used in this model is that delays often occur time-dependent of each other. The model uses multiple vessels; if weather conditions at a certain time cause one vessel to experience delays, chances are the other vessels are experiencing similar delays at that time. Additionally, if a certain task is performed with some delay, the next task that vessel works on probably happens in similar weather conditions and may experience delay again. Therefore it seems a more sophisticated model which incorporates these characteristics of delays could yield results which better correspond to the reality of the projects. 
+
+An additional criticism to make this research more applicable is the objective of the optimisation; currently the makespan of the longest path of the schedule is minimised, but a company doing the installation will generally be more interested in the total cost of a schedule. This is clearly very related to the makespan, but can differ if certain vessels are used for longer than others, and when parts of the OWF can become active (and generate profit) earlier. Early profits are currently treated as certain milestones to reach, but when using the monetary value of the project in the objective function this can be done more naturally. The common practice of discounting future spending and profit could also be incorporated in this to more accurately represent the interests of the company. It seems like more research into this could therefore be beneficial. 
+
+Finally the strengths of the simulation could be exploited more. In the research presented, a start date is determined at the start and this is then used in the optimisation and for the rest of the research. Optimal schedules starting in each month could be explored more, as well as pausing the operations after they started. For example, if the winter months turn out to be very difficult and slow to work in, the project could be paused over several months, over which no rent for the vessel would have to be payed. This would seem to be particularly effective if a subset of the WTGs could be operational before pausing, as they would generate energy (and revenue) during winter. These seems to be possible areas of research which could be valuable to explore in the future.  
+
+\bigskip
+
+A different model is designed in \cite{kerkhove2017optimised}. It uses similar methods as used in \cite{barlow2018mixed}, namely a mixed-method of optimisation and simulation, but but in a significantly different way. The research incorporates certain industry restrictions to do with vessel renting; it keeps track of when vessels are commissioned and decommissioned, incorporates a price for both, and has minimal renting and downtime periods. These logically make sense, as the vessels likely have costs to travel between the storage and used port, and the rental company will usually not be able to find other uses for a vessel if it has a sort down time. 
+
+Related to this, the variables being decided on are the gate times of the tasks, instead of the start times as previously. The gate time refers to the time from which resources for a certain task should be made available. These times should be determined in advance, as there are generally long lead times associated with renting the vessels (hence they do not lend themselves much for dynamic scheduling). This allows for the optimisation to directly influence when the money is spend, which is a major focus of this research. The objective function is also different to accommodate this, it maximises net present value of the complete project. This takes into account discount rates both on expenses and project value, which are emphasised in the literature. These rates are higher than traditionally used, as a main reason to include discount rates is the inherent uncertainty of the future, and projects of this nature have an even higher degree of uncertainty.
+
+This leads me to a major limitation of this research. While the monetary value of the project is presented as the main focus, there is no mention of any positive cashflow starting when the project is partly done, nor are there any deadlines for milestones mentioned (such as when the first 10\% or 50\% of the WTGs are operational). Therefore the only positive value considered in the objective is the fixed value of the project upon completion, subject to discount rates. For research so focused on the financial perspective, not incorporating the possibility of early positive cashflows seems like a big gap, and a possible improvement for future research.
+
+The actual methods used in the research are simulation and optimisation (primarily through local search). For the local search, two types of genes are used to represent restrictions of time periods in which certain activity types can be performed. For example, a gene could restrict all activities between December and February, and only allow for certain activities (less susceptible to weather) between September and November. The difference between the two gene types is that one type distinguishes between the years and the other does not (the former might have different weather restrictions for the first July and the second July of the project, while the latter sees them as the same). A simulated annealing algorithm is used to optimise the values of the genes, which are then converted into gate times (through a fairly straightforward algorithm) and tested in a simulation where the net present value of the project is calculated over several runs with different weather series. As an alternative to the local search, a heuristic is used where all activities are seen as the same type and a set of consecutive months to totally halt all execution are identified. Since there is only one month as the start of the `break' and one month as it's end, there are only $12^2 = 144$ combinations, which are all tested in simulation. In the case study for which experiments were run, this dedicated search outperformed both variations of local search. A way to possibly improve this optimisation is to first use the dedicated search to identify regions of the solution space which yield good results, and then use the best results of this search as starting solutions for the local search (where activity types are taken into consideration again). 
+
+Another limitation of this paper are the genes, which are fairly high level. They determine which (category of) tasks can be performed in which month, but determining the schedule on a more detailed timescale can likely lead to much better results. A conversion algorithm is used to generate gate times for each task based on any given chromosome, but it is very simplistic. Every task is placed immediately after all preceding tasks should be completed if there are no weather delays. This is then tested with a single simulation, and if any task executions violate the given chromosome the gate time of that task is shifted forward to the next eligible period. This seems like a very simplistic method to use (as the genes operate on a much larger timescale than the gate times) and leads me to think improvement might be very beneficial.
+
+The final thing to note about this research is the advanced weather simulation model used for the simulation. It uses a combination of transition probability matrices and a Weibull distribution to generate wind speeds and wave heights that are both sufficiently correlated to each other and themselves. The data this is based on was divided by month of the year, so the model takes time of year into account. Given the degree to which this type of project depends on the weather conditions, a realistic and sophisticated model like this is beneficial for the applicability of the model. 
+
+\subsubsection{Maintenance of the site} \label{sss:maint}
+
+Compared to the topic of installation installation, there is a large body of research done in the area of operation and maintenance (O\&M) of offshore wind farms. This research looks at various aspects and timescales relevant to the OWFs. In \cite{shafiee2015maintenance} the research and topics are divided into three timescales (echelons):
+
+\begin{enumerate}
+\item Strategic: Long term, over the lifespan of an OWF
+\item Tactical: Medium term, between 1 and 5 years
+\item Operational: Short term, day to day
+\end{enumerate}
+
+Within each of these echelons, various areas of research are identified. Strategic decisions are found to have the biggest impact on the costs of operations, which makes sense as they affect the largest amount of time. However each of these echelons include important decisions that will have to be made for the maintenance of the sites. 
+
+With the large amount of research done, and the variety of subjects within this field, I have yet to read much more about the current state of most subjects. This will be my immediate focus from here on, as described in more detail in \Cref{s:concl}.
+
+\subsubsection{Related research regarding offshore projects} \label{sss:offsh}
+A group of researchers at my department, whose research \cite{barlow2018mixed} I have already described in \Cref{sss:sched}, have developed a simulation tool with which various logistical decisions for the installation of an OWF have been explored. In \cite{barlow2014support} the number of installation vessels and supply barges is experimented with, as well as their relative release dates. These simulations consider only the installation of OSPs and not WTGs. There are several measures considered for the quality of a setup such as the total cost of the project and the completion dates of the first and last OSPs, as well as the uncertainty of those measures (shown through the median and 90\% confidence interval for these measures, resulting from 100 simulations). 
+
+In \cite{barlow2014assessment} the same tool is used to compare several types of installation vessels. Simulations are run with vessels varying in four measures; number of WTGs it is able to carry at once, transition speed, maximum wave height for transitioning and maximum wave height during jacking operations. The values tested range from current vessels to expected vessels available in the near future. The transitioning speed is the only measure which seems to yield continuing improvement; the other three measures have clear diminishing returns and improvement beyond vessels currently available is unlikely to be worth it (given that newer vessels will have a higher cost). A criticism of this research is that all measures are tested in isolation, while three of the four measures are directly related the number or length of transits between the port and the OWF site. It is clear that the average transitioning speed matters less when the capacity is high enough to limit the number of transitions. However, the simulation tool used for this is capable of simulating those vessels, so if used to support decisions in an actual installation project the potential vessels used can be compared. 
+
+In \cite{barlow2017using}, the final paper (so far) on this tool, they go a bit more in depth on the tool and simulation as a method for supporting decisions in these projects. They talk about how the model was constructed and how after each round of improvements the model was validated with industry partners to ensure its accuracy. Some experiments are also discussed, the first being a simple simulation of the installation of a fictional OWF over 1000 weather series. The costs and duration of each segment of operations are analysed, and it is shown desirable to reduce any uncertainty as distribution of costs has a long tail. The standard deviation is \pounds 11.80M (approximately 5\% of the \pounds 233.89M median cost) so reducing uncertainty could lead to saving significant amounts of money. Then experiments with different number of supply barges are performed for the WTG jacket phase of the installation. A scenario is set up where these operations start a full year after the preceding phase of laying the foundations to ensure no delay is caused by that. Two sets of experiments are done, one with a single installation vessel and one with two installations vessels. For both scenarios similar patterns are found in the result; for the costs, there is an optimal minimum and increasing the number of supply barges from there slowly increases cost. The duration of the installation tends to only decrease very slowly from that optimal minimum as well. The statistical significance of their results are also tested, and some differences are found not to be statistically relevant. Finally, the impact of the relative starting dates of piling the foundations and starting jacket operations are explored. The start of laying the foundations is fixed at April 1st to optimally make use of the summer weather conditions. If the jacket operations would start at the same moment, there would be a lot of waiting and delays since the foundations for a specific WT need to be completed before the jacking operations can begin. This increases costs, so delaying the start of these latter operations is beneficial. A good amount of delay found is about 90 days, as waiting longer means more severe winter weather conditions. However, if it is possible to wait out the winter and delay operations about 420 days the total cost can be minimised as waiting this long means there are no delays due to waiting for the foundations, and making optimal use of summer weather conditions. The downside of this is a significant increase in makespan of the entire project. The OWF developer will have to decide between these options. For a different OWF the actual values will obviously differ, but similar patterns could be found. All in all, this tool is shown to be powerful and useful for logistical decisions related to the installation projects. 
+
+\bigskip
+
+The problem of crew scheduling is discussed in detail in \cite{leggate2010crew}. In that, the problem of assigning specific crew members to specific tasks over long periods of time is considered. It goes more in depth than I will in my research as I will not consider individual crew members but parts of this research are still valuable for my research. It is stated that contractually each crew member has a certain limit on the length of time they are allowed to work, and then have a minimum amount of time to rest before their next shift. If this maximum amount of work time is surpassed, the costs go up as overtime salaries are higher than regular salaries. Additionally each crew member has a set amount of time they can be on the sea before needing time at shore. This is usually cut up in blocks of four or five weeks, as these contracts are standardised. While I do not plan to integrate this problem into my research on the level of individual crew members, these constraints will likely have to be considered in any research I do. For example it might not be accurate to assume costs of using a vessel strictly follow a linear pattern over time, as the increased costs of overtime will come in at some point. The times between port visits will also have to be constrained in some way to ensure crew members do not spend too much time offshore. However, these are still much lighter constraints than are considered by the research discussed. In it two types of crew members are considered; those with a fixed contract and outside hires who can be hired when needed. Additionally crew nationalities are considered, as ships with certain flags can only employ certain nationalities, and certain nationalities apparently do not work well together. For my research, these constraints relating to individual crew members will not be considered, and I will assume they are handled by the company that rents out the vessels (as they also provide the crew). 
+
+\bigskip
+
+Another logistical decision topic related to the offshore windfarm sites is deciding their layout. This is discussed in various papers, such as \cite{mosetti1994optimisation, kusiak2010design, saavedra2011seeding, perez2013offshore, hou2017combined}. There has been a significant amount of research in this direction, though most of this research focuses on windfarm on land, instead of offshore. The latter two papers \cite{perez2013offshore, hou2017combined} consider offshore windfarms, as this topic has gained more interest in recent years. While there is a large body of research, there are still many unanswered questions when one wants to determine how to get the most energy production from a site. One big question is the wake model to use, where wake is the decrease in energy output of a turbine based on the position of surrounding turbines. This is clearly a core part of determining where to place the turbines, and most wake models still have considerable uncertainty. A variety of methods to optimise turbine placement is used, where local search and genetic algorithms seem to be the most prevalent. While I am currently not planning to do significant research into the optimal methods to determine turbine placement, aspects of this research field are still very relevant as the wake influences the energy output of the site. Additionally the placement of the turbines can affect their failure rate and is therefore important when planning maintenance of the site. Therefore results found in the research of OWF layout will have to be incorporated in accurate models of those sites, and future research can potentially be done in this direction.
+
+%TODO
+\subsubsection{More general work on stochastic scheduling} \label{sss:stoch}
+A comprehensive overview of various approaches to scheduling within an uncertain environment is given in \cite{herroelen2005project}. While the survey is relatively old, it provides a valuable categorisation of approaches used to handle uncertainty within scheduling problems. It discusses reactive scheduling, where the baseline schedule is made based on the assumption that all uncertain parameters will take their expected value, and any variation is handled at the moment it occurs. Stochastic project scheduling and fuzzy project scheduling are also discussed, as two different ways to handle uncertainty in project scheduling. Both share a weakness in that they do not produce reliable baseline schedules. For projects on OWFs this weakness is important, as contractors and companies renting out vessels have significant lead times and in-the-moment scheduling is infeasible in this situation. It is therefore crucial to have a baseline schedule which roughly corresponds to how the actual operations will turn out. This is what the last approach discussed in this survey provides; robust scheduling should lead to schedules that do not get disrupted easily. This method is discussed in more detail in \Cref{ss:meth}. Additionally the concept of sensitivity analysis is discussed, as giving related parties insight into the vulnerable parts of the schedule can often be beneficial. This is one of the goals of the Simulator discussed in \Cref{s:sim}. 
+
+At the time of the above study not a lot of research had been done into robust scheduling. A work that had been published and is mentioned in the study is \cite{sevaux2002genetic}. It is one of the few works I was able to find which attempted to solve a robust scheduling problem using genetic algorithms. Their initial results seemed promising, but their industry partner stopped the collaboration before practical results were found. Since the initial results seemed promising and no reason was found that indicates genetic algorithms are not fit to be used for scheduling problems, this is one of the methods considered for my research, as discussed later in \Cref{ss:meth}.
+
+\bigskip
+
+A more recent overview of the state of robust optimisation is given in \cite{gabrel2014recent}. This study looks at 130 papers, 45 PhD dissertations, and selected other works published between 2007 and 2013 which discussed robust optimisation. The sheer amount of research done reflects the strength of this method. Both the theory and applications of robust optimisation are discussed, and some time is spend discussing its application for scheduling problems. 
+
+%TODO: refine 
+In \cite{burke2010multi} a robust optimisation approach is applied to a multi-objective airline scheduling problem, the nature of which has certain similarities to offshore scheduling problems. Their approach, which used both iterative improvement and large-scale simulation, was tested in practice and yielded valuable results, signifying that a similar approach might yield good results for my research as well. 
+Another study looking into robust scheduling is \cite{goren2008robustness}. It considers a single machine scheduling problem is considered where the machine randomly breaks down. A single machine scheduling problem is comparable to a project at an OWF with a single vessel. The vessel temporarily having to wait out weather conditions would then relate to the machine breaking down. For this reason the findings in this study may be roughly applicable in offshore scheduling problems. However one big observation is that single machine scheduling problems often behave different from multi-machine scheduling problems, and most projects on OWFs will employ multiple vessels. 
+
+%TODO: gabrel risk 
+%\cite{iancu2013pareto} \cite{dentcheva2010robust}
+As for research about the theory of robust optimisation, \cite{iancu2013pareto} introduces the concept of Pareto efficiency, which has roots in economics and multi-objective optimisation. For a multi-objective problem a solution is Pareto efficient (or Pareto optimal) if any change that gives a better value in one objective function will lead to a worse value in at least one other objective function. For such problems, any desirable solution will be Pareto optimal, and all Pareto optimal solutions together form the Pareto barrier. In \cite{iancu2013pareto} the writers state that within robust optimisation problems there will be a set of solutions which perform optimally within all tested worst-case scenarios, the so called Robustly Optimal (RO) solutions. They then identify some of these RO solutions to be Pareto Robustly Optimal (PRO), which means no other RO solution performs as well or better than the PRO solutions across all possible scenarios. Effectively, they say that RO is not a strong enough requirement for solutions, as in reality the worst-case scenario will not often happen, and a solution being RO says nothing about how that solution will perform in a scenario which is not the worst-case. They then provide a method to generate a PRO solution from any RO solution in a time complexity not greater than the time complexity of the original problem, thereby not significantly increasing the time complexity to finding the desired solution. This paper is a couple of years old now, and seems to have been impactful in the literature. 
+
+\subsection{Methodology} \label{ss:meth}
+In the above literature, two main types of methods are used for this problem; optimisation and simulation. Often both are used together, either by tackling one part of the problem with simulation and another with optimisation (as in \cite{barlow2018mixed}), or by creating schedules with an optimisation model, which are then evaluated using simulation (as in \cite{kerkhove2017optimised}). In this sections the methods will be discussed in more detail, separate from the research they were used in. Other possible methods for problems of the kind we are looking at will also be discussed. 
+
+\bigskip
+
+\subsubsection{Simulation} \label{sss:sim}
+Simulation, especially Discrete Event Simulation, is a good method to evaluate the strength of a proposed schedule under uncertain circumstances. If enough simulations are run, an accurate view of the realistic duration of a schedule can be gained. This does not only mean expected (average) duration, but also for example a confidence interval for the extreme cases. This does however have two big bottlenecks; the information gained through simulation can only be as precise as the weather model used for it, and doing enough simulations can take considerable time. 
+
+\bigskip
+
+If the weather data is limited in precision or amount of data available, the results of the simulation in turn will also be limited. First of all is the precision of the data; a simulation as detailed as we would like for this type of project would have timesteps in the range of 15 minutes to an hour. A lot of weather data has much larger timesteps, often of several hours. There are methods to interpolate between weather data points, but this tends to not be very precise as there are a lot of factors to take into account. The most important measures of the weather are wind speed and wave height, as by these measures the usability of the vessels can be determined. In order to have this data be realistic, the two measures have to be correlated, as well as have autocorrelation over time (the weather does not often drastically change in the span of 15 minutes). Having those values be realistically interpolated between two measured points is a difficult task, and something we will have to figure out a way to realistically handle for future research.
+
+The amount of data available is also a common problem. A major reason for this is the natural change of weather depending on the time of year. Generally, a year would be split up in sections, for example the four seasons or the twelve months. Intuitively this makes a lot of sense; if we want to model the weather in January data from July is irrelevant for this. But the consequence is the sheer amount of time it takes to collect accurate data for each time period; if we want 300 days of data for the month of April, we need data collected over the span of 10 years. In addition, the conditions of the location the data is gathered from have to be similar to the location of the OWF. An important parameter for this is the distance to the shore, but there are more factors which play a part. 
+
+A method to handle these drawbacks of the weather data is to not use raw data, but analyse the periodic characteristics of the change of both wind and wave states. Using these characteristics, one can generate weather data by drawing a random real data point within the desired time period, and extrapolating the data from there using the found characteristics. This is used frequently in the literature, and has been shown to have a good potential for stochastic simulations. 
+
+Another method we are considering to explore relates more to robust optimisation. It might not be necessary to have a large number of simulations for all possible weather conditions. If, for each time period, we create a range of possible wind and wave states (including the extreme cases from the data) and run simulations for a set of (realistic) combinations of them we could aim to make a robust schedule that performs well within even the most extreme weather scenarios without having too many simulations to run. The drawback of this robust approach is a schedule that performs well in 99\% of weather cases might be discarded for the most extreme 1\% of cases. This can however be reduced by carefully selecting the data to use for the simulations, or allowing a certain number of bad scenarios (especially if the weather causing it is very rare). We might explore this more in future research. 
+
+%TODO: Citations?
+
+\bigskip
+
+The other bottleneck, that of the considerable time it will take to run enough simulations, is something that will need to be taken into consideration for any research project using simulation. There are several methods to reduce the time used if necessary. A rigorous but effective step is is increasing the size of a timestep. This reduces accuracy, but does significantly reduce calculation time as well. Another is to carefully select input so less simulations need to be run for precision, as was discussed above. Aiming to get a robust result will generally need much less simulations than a result with simply the lowest average duration, as a lot of simulations are needed to calculate that average. 
+
+There are many other possible methods to reduce number of simulations required, and which to apply depends on the specific research project and goals, and how much speed is needed. This is something we are aware of for when experiments will be done in the future. 
+
+\bigskip
+
+\subsubsection{Optimisation} \label{ss:opt}
+Optimisation, in particular through (mixed-)integer programming, is an essential tool in problems like this, and is used extensively in the literature. Linear programming and integer programming is preferred as mixed-integer programming is computationally much more complex to solve, therefore mixed-integer models are restricted in size in order to be solved in feasible time. However, both methods are used in the literature.
+
+Even linear and integer programming models computationally complex to solve, hence many methods are used to reduce to complexity of the models. There are standard techniques like Lagrangian relaxation \cite{fisher1981lagrangian} and column generation \cite{barnhart1998branch}, but there are more specific methods used as well. The primary way this is done is by limiting the scope of individual optimisation problems (not necessarily the research), by splitting up the research and using multi-level optimisation models, or using simulation for certain parts of it. 
+
+Another method has been discussed before already; robust optimisation. As with Simulation, this reduces the number of considered inputs (primarily weather states, but also task duration which is sometimes stochastic) by only considering certain constructed uncertainty sets. This strongly reduces the number of situations considered in the optimisation. 
+
+There are alternatives to computational programming. The most prominent is local search. A benefit of local search is that reasonably good results can often be found fairly quick, but this is connected to the main drawback of local search; it can often be difficult to get out of local optima. However, there is a lot of literature on local search and many variants designed to reduce its drawbacks. 
+
+Alternatively, evolutionary algorithms have been used for deterministic scheduling problems such as machine learning \cite{dorndorf1995evolution}. A good explanation of this technique for scheduling is given in \cite{cotta2007memetic}. While this technique seems to be fairly common in deterministic scheduling, not much research could be found in an uncertain setting. The exception is \cite{sevaux2002genetic} as discussed in \Cref{sss:stoch}. This research, although seemingly brief, gives quality results. Since there is no clear reason why evolutionary algorithms couldn't work well within an uncertain setting, this is a potential method to explore in the future. 
+
+\pagebreak
+
+\section{Simulation tool} \label{s:sim}
+In addition to getting caught up with the literature, I have also laid the foundations for some practical experiments. I have programmed the basics of an adaptable simulator from scratch. It is not yet operational and not very developed so far, but it can easily be expanded upon to fit future research. The use of this simulator would be checking feasibility of a generated schedule and analyzing the impacts of uncertain factors of the project.
+
+It was implemented in C++, as it seems well suited for this and I have previously used this language. A benefit of C++ is that it's a very commonly used language so modules are available for a lot of things I might want to add to the simulator, and it could potentially be integrated with other languages like Matlab if there is a need for that in the future. 
+
+In this section I will first describe the current progress of the simulator and some failed previous attempts at programming it. Afterwards, I will outline my plans for what the simulator will be in the future of this research.
+
+\subsection{Current progress} \label{ss:simprog}
+Currently the simulator uses discrete event simulation to simulate a set of installation or maintenance vessels and supply barges (hereafter collectively referred to as vessels) that each have a set of tasks to go through. The tasks are the practical operations on the site, as well as all transits between locations and loading tasks at the port. All supplies and crew are assumed to be present at the port at the required time. The installation vessels are assumed to be identical, as are the supply barges. When a vessel finishes a task at time $t$ it will look at the next task $a$ assigned to it. If for task $a$ each preceding task is completed (which may not be the case if another vessel has to do some preceding tasks) and $a$ has been released (the release time $r_a < t$) the vessel will start on the task. This means an event is added to the event queue to signify the completion of task $a$, at time $t + d_a$ where $d_a$ is the duration of task $a$. This duration is currently fully deterministic. At every timestep I check for each vessel whether the current weather is acceptable for its task. If this is not the case, the time at which the task is completed is pushed back by 1 timestep, effectively halting operations for that timestep. However, since the weather currently is not yet being generated, this is not causing any delays. 
+
+This is repeated for every vessel and task, until that vessel has completed all its tasks. At that point it is assumed to be back at the port, as the tasks will represent the actual operations working on the assets, as well as transit between operations and transits from and to the port. Hence the last task is the transit from the OWF to the port. 
+
+\bigskip
+
+While this is clearly as of yet a rather bare bones setup, everything is programmed to be expandable, and I have plans on how to make this model more useful. How I plan to do this I will explain in \Cref{ss:simfut} but for now I would like to make a remark on previous failed attempts to program this. In my first attempt, I did not actually simulate different vessels and simply had a count of how many vessels were available. After some simple test cases two major problems with this approach emerged. The first is that each vessel necessarily had to be identical. While they currently are still identical, in my current setup they could easily be given different characteristics. The second problem was that there was not a set of tasks per vessel, and simply a common pool of tasks. This meant that transition between locations could not be a task, as this task would necessarily have to be completed by the same vessels doing the operations at these locations. Another problem with this restriction is that is is simply impractical in reality; the tasks a vessel will complete have to be mostly predetermined for the sake of supplies.
+
+After realising this I effectively started over with this new vessel structure in mind. There were some other problems during this attempt; for example the realised duration of a task (taking into account both natural delay and weather-based delay) was decided at the moment it was started. The problem with this is that tasks taking a long time can experience very different weather conditions while it is in progress. The weather-based delay was decided at the moment the task was started with the weather conditions at that moment. While in the current implementation there is no weather delay, I ended up changing to my previously described set up to allow for the duration of a task to be influenced by weather during its entire duration and not just at its start. In general, I believe that my current model is very adaptable, and the changes described in \Cref{ss:simfut} can be implemented without changing the primary structure of the simulator. 
+
+Reflecting on these failed attempts, I reckon they originated from me starting the work on the simulator while I was still reading essential parts of the literature. Whilst developing this model, I read about other models for very similar projects, leading me to new realisations about my own model. As I now feel much more caught up with the current literature, I am confident mistakes like this are much less likely to happen again. 
+
+\subsection{Future developments} \label{ss:simfut}
+A number of big assumptions are currently made in the implementation of the simulator that will be relaxed in the future. Vessels can have different characteristics, and they are included in the input. Additionally a big structural assumption is made in assuming every task can (instantly) be halted partway through completion and then (instantly) be resumed when the weather improves. This assumption should not be made for every task, and for each task the input determines whether it can be interrupted. However, when this assumption is relaxed a problem arises; how to handle tasks that cannot be interrupted when the weather changes unexpectedly. Generally this problem is avoided by assuming perfect weather forecasts, but this in itself is a strong assumption and relaxing it might make the simulation more true to reality. This will be discussed a bit more in \Cref{sss:wemo}. 
+
+\subsubsection{Inputs and outputs} \label{sss:inou}
+In the plans I have for this simulator, a lot of things will be added on top of what I currently have. First of all, I want inputs to be read from an excel sheet, and outputs to be written to a different sheet. These inputs would include the task information; precedence relations, weather restrictions, release date, assigned vessel, whether it can be interrupted partway through, etc.  The duration of a task would obviously also be included, but since this duration would no longer be deterministic multiple values need to be decided. Initially I am planning on having tasks follow a triangular distribution, as this is common and practical in scheduling problems \cite{williams1992practical}. This would mean the input for the duration of each task would have a lower and upper limit, and a mode. Potentially this could be changed in the future, giving tasks a more sophisticated probability distribution (possibly depending on the weather conditions), but for my initial experiments I am not planning on doing so.
+
+Technically, this is all the input that is required, as vessel characteristics would only be used to calculate these task characteristics. In that way the speed of a vessel is represented by the duration of the transit task. However, this is an impractical way of giving input. Therefore I am also planning on having a tool to generate the input described above. As input it would take the actual operations required to be done on site and their details, and the vessel characteristics. The operation details are the same as mentioned previously for tasks: duration (as described above), precedence relations, weather restrictions, release date, assigned vessel, whether it can be interrupted partway through. The only thing that is to be added is the location of the operation. However, these tasks would only correspond to the actual installation or maintenance operations the related vessels need to perform. All other tasks (transits on the OWF site, transits between the port and the site, loading tasks at the port, all tasks for supply barges) can be derived from this when the vessel characteristics (and required supplies per task) are given. These vessel characteristics will also be an input for this tool, and will include: average transit speed on the site, average transit speed between the port and the OWF site, average speed of loading on a single asset, weather restrictions for loading and transit tasks, and capacity. 
+
+The aspect of cost should also be included as one of the desired output metrics will be the cost of the project. All costs and profits will be subject to a discount rate. For the on-site operations, a supply cost should be included, which is incurred during the loading task preceding that operation. Additionally any extra costs charged by the vessel provider for certain types of operations should also be included. The day rates and (de)commissioning costs of vessels will be part of the input. A mechanism can be put in place that only allows for vessels to be (de)commissioned when given notice or at certain moments. How exactly this works can be determined in the input file, through a selection of settings. To oppose the costs, the profit gained from a working WTG should also be given. This profit will initially be represented as a flat rate per WTG based on the month of the year. A potential future improvement is to make it depended on the actual simulated wind speeds, but this is not currently planned to be experimented with in this research. Other basic simulation settings will also be part of the input, such as the number of simulations to run and the type of output to give.
+
+Additional an input signifying the start date of the project is useful. This matters for the weather simulation, as it is dependent on the time of year. This could be done through an initial task with a release date on the desired start date, but by giving a specific start date for the project all other release dates can be made relative to it, which is convenient when a single schedule is to be tested with various start dates. Potentially I can also add inputs for non-operational periods; for example if we want to pause operations over the most severe winter months. However I am not currently planning on adding that specifically; these experiments can still be done, but through the start dates of tasks. For example if a project will be performed over two summers, but the work will be halted during the winter in between, every task scheduled to be performed in the second summer can simply have a starting date after operations resume. This allows tasks in the first summer to be completed even if they take longer than the planned start of the break. However if it turns out it is desired to have a hard cutoff point after which all operations will halt even if they were planned to be completed in the previous phase of the project, this functionality can be added. 
+
+The main output is data regarding the variability of both the costs and makespan of a given project (installation or maintenance). Probabilistic measures on the cost and duration on the project will be recorded over all simulations. These can be used to focus in on vulnerable aspects and look at the expected time and cost certain phases of the project will take (for example, a 90\% confidence interval on when 10\% of the WTGs will be online). Focusing in on measures for categories of tasks will also be possible, like every task performed by a certain vessel or of a specific type. Specific cost related measures will also be able to be found, such as the expected time the project becomes profitable, the net present value of the project, and exact data on the spending and profit every month. 
+
+\subsubsection{Weather model} \label{sss:wemo}
+As the weather conditions are clearly dependent on the time of year, I plan to split the data based on the month it occurred. Apart from that I have not yet fully decided on the specifics of the weather model to generate synthetic weather series. It will be a multivariate auto-regression model including wind speed and wave height, where the two measures are also correlated correlated. The model I will end up using will likely inspired by the models used in the previously mentioned research \cite{dinwoodie2014operational} (also used in \cite{barlow2018mixed}) and \cite{kerkhove2017optimised} as both of these models appear to be adequate.
+
+As mentioned earlier, a decision needs to be made on the presumed knowledge of the weather as well. Certain tasks cannot be interrupted when the weather turns unexpectedly. Therefore either perfect weather forecasts need to be assumed, or a weather forecasting method needs to be used and a strategy of handling interrupted tasks needs to be chosen. Generally the former is chosen, and no previous research on the former is to be found. This is a potential direction to explore in the future, as it is a crucial difference between the reality and the simulation. 
+
+%TODO add references for saying the perfect forecasting is usually used in literature
+%TODO actually look up research on the forecasting
+%TODO add UML diagram of program setup and model
+
+\pagebreak
+
+\section{Future Work} \label{s:concl}
+In this section I will go into more detail about my goals from \Cref{ss:thisproj}, and use what I discussed in Sections \ref{s:lit} and \ref{s:sim} to explain how I am planning to approach each goal, and explain how I am planning to fill in previously identified research gaps. 
+
+\begin{enumerate}
+\item Building an integration model integrating both a simulation and an optimisation model of the installation projects of OWF sites. This model will be based on models in the literature.  
+\end{enumerate}
+
+Effectively this would come down to making two models inspired by the models discussed in  \Cref{sss:sched}, in which I took two focus papers and discussed strengths and weaknesses of both. My hope is to make a hybrid of these two approaches and highlight their strengths. A focus on cashflows seems to be a good approach (as it will always be of interest to the project developer), but it should incorporate positive cashflows from partial completion, as well as possible milestone deadlines. Given this approach, it seems an investigation into both start date and non-operational periods would be beneficial. A dedicated heuristic (as in \cite{kerkhove2017optimised}) could be used (where all activity types and years are treated equally) as base solutions, to then be potentially improved with a local search. However, this is not the only optimisation that should be performed. A restriction on which activities can be completed in which time periods is a starting point from which more detailed scheduling should occur. For each period a set of desired vessels should be determined, keeping in mind costs of (de)commissioning vessels and restrictions on timespans for that. A schedule should be made for each vessel such that each task is assigned a vessel and a timeslot. For this there are various optimisation techniques possible. The basic one to go to would be trying to solve a integer program, in which task durations can be the expected time within a time period (month) based on expected weather. A solution would then have to be checked through simulation, and the simulator described in \Cref{s:sim} is designed to be used for this. This may be difficult to do in a way that is computationally feasible in a reasonable time, but that is one of the challenges of this research, and there is a lot of literature on improving simulations when necessary. However, if this turns out to not be feasible there are alternatives such as using an evolutionary algorithm for optimisation. 
+
+\begin{enumerate}
+\addtocounter{enumi}{1}
+\item Building an integration model integrating both a simulation and an optimisation model of the maintenance projects of OWF sites.
+\end{enumerate}
+
+As mentioned in \Cref{sss:maint} significant additional reading will have to be done on this subject, and I am planning to do this in the coming months (as described in \Cref{ss:timel}). Generally the typical subjects in maintenance such as supply chain management and minimising asset failure are significantly more difficult in our context, as there is a large lead up time before any emergency operations can be performed on the site. Intuitively the OSPs are the most vital to prevent failure in, as a failure in one of them can mean dozens of WTGs are no longer producing energy. Therefore I am planning on experiments with various maintenance strategies with the aim of maximising overall profit. For more detail more research will need to be done first, which I will do in the upcoming months. It is clear there is a relatively large amount of research on maintenance of offshore sites (as compared to a small amount of research on their installation), so any future research will have to build on that.
+
+\begin{enumerate}
+\addtocounter{enumi}{2}
+\item Integrate above models into a multi-level model spanning the full life-cycle.
+\end{enumerate}
+
+This would require the first two goals to be completed, and additionally similar models will have to be made for decommissioning projects. As stated earlier, these models will be very similar to those of the installation projects, so this is expected to be relatively easy. However, integrating these different models into a single one will likely be difficult, and a lot of research into integrated models has been done. I will have to make myself familiar with this research in order to properly integrate the models.  
+%TODO: Change if I do literature on integration models
+
+\begin{enumerate}
+\addtocounter{enumi}{3}
+\item Implementing above models into a simulator, which should function as a tool to help make logistical decisions while considering their long-term impact.
+\end{enumerate}
+
+This tool is described in detail in \Cref{s:sim}. This is currently a rather basic tool, but it is made to be easily expanded and to be used with the described models. 
+
+\begin{enumerate}
+\addtocounter{enumi}{4}
+\item Using the tool to look into optimal scheduling policies. 
+\end{enumerate}
+
+The tool will include the optimisation model(s) from the above goals, and experiments into general scheduling policies will be done. Each project is of course different, but potentially some general insights and "rules of thumb" can be gained by experimenting with test data. This data will be based on real sites and therefore be realistic, but it will not correspond to any specific OWF. 
+
+\begin{enumerate}
+\addtocounter{enumi}{5}
+\item Applying above models and tool to real life data and projects.
+\end{enumerate}
+
+Finally the tool would ideally be used in real projects, or at least be tested on a previously build real site to verify its accuracy and test its strength (and potentially weaknesses). 
+
+\subsection{Timeline and next steps} \label{ss:timel}
+%Timeline and focus from here
+Since research is inherently exploratory and unpredictable, it is impossible to have a timeline set in stone. However, in this section I will sketch a possible timeline and outline what I will focus on from here, based on the previously mentioned directions. Note that this timeline is subject to change, especially the further into the future it predicts. 
+
+\bigskip
+
+My immediate focus will now go to filling in my knowledge gaps regarding the maintenance projects. As stated before, some research has already been conducted, but there is significant reading of the literature to be done, which I aim to do in the upcoming months. I am planning to do the bulk of this reading in the next two months, although more reading of the literature will naturally be something I do throughout this project. Additionally I am planning to work on the simulator described in \Cref{s:sim} and getting it operational for installation projects while remaining adaptable enough to later be used in maintenance projects as well. The simulator should be operational for that within the next six months. After the bulk of the previously mentioned reading is done, I plan to start work on the optimisation model for the installation project as well, as this will be needed to make full use of the simulator. It is unlikely that I completely finish that in the next six months (as it will be combined with the other tasks described) but a sizable start should be made. 
+
+In the six months after that, so the second half of the second year of my PhD, the simulator should be finished and the optimisation model should be coming along. Therefore I aim to focus on running the first experiments in this time frame. For that test data needs to be acquired from weather institutions and industrial companies. A start on acquiring this should be made sooner than six months, as setting up a connection with these companies might take a lot of time. The aim is to have the data available at this point, and use it for analysis. My supervisors have both worked extensively within this field so I am hopeful they will be able to help me connect to outside companies. Additionally within this time frame I hope to adapt the simulator to work with maintenance projects and design an initial model for those.
+
+\bigskip
+
+At the start of the third year of my PhD the models for both installation projects and maintenance projects should be well formed, and I will aim to combine them. The decommission projects will also be included in this overarching model, which will likely be very similar to installation projects in structure. This is likely to be difficult, even if both models are already implemented in the simulator, as integrated models have proven to be a complex subject in itself. Realistic experiments can also be run now, and my goal is to adapt the models to accommodate for more extensive research into directions which are indicated to be useful by the earlier experiments. For example, if realistic imperfect weather forecasts seem like a valuable research topic, I aim to adapt the models and simulator to include them. This also includes various alternative optimisation models, as multiple alternatives should be experimented with to compare their performance over the entire life-cycle of an OWF which is now included in the model. Finally experiments with different layouts of the OWF can be performed to see their impact on the costs of installation, maintenance and decommission of the site. 
+
+In the final 6 months of my PhD, I will hopefully focus mostly on writing. While I plan to continually write about my progress and findings, there will always be a significant portion to write up in the end. That said, any additional experiments and final changes can also be performed and implemented during this time. 
+
+\bigskip
+
+To summarise, this timeline would look like:
+
+\begin{itemize}
+	\item Year 2, first half: Read up more on maintenance projects and related research (goal 2), implement the simulator for installation projects (goals 1, 4), start on the optimisation model for the installation project (goal 1), put out initial efforts to gather data from companies (goals 5, 6). 
+	\item Year 2, second half: Implement maintenance projects in the simulator (goals 2, 4), run initial experiments using data gathered from companies (goals 5, 6).
+	\item Year 3, first half: Combine the models into an overarching model for the entire life-cycle (goal 3), run deeper experiments and adapt the tool based on found results (goal 5, 6).
+	\item Year 3, second half: Finalise experiments (goal 5, 6), and finalise writing up the research.
+\end{itemize}
+
+In this scenario I am able to research the entire life-cycle of an OWF and build a tool for decision support at any point in that life-cycle. But as I stated before, this is a rough timeline, and is subject to change depending on where progress is made. If very promising initial results come from the installation part of the project, there is a chance the main focus will shift there, and maintenance projects fall to a background role. Naturally the opposite might also happen. 
+
+Writing additional papers is not included in this timeline, as this strongly depends on where significant results are found. However I would ideally publish at least one paper on the installation model, one on the maintenance model, and one on their combination. Writing them will have a strong overlap with writing the related chapters of my thesis, so this will coincide with the continual writing I am planning to do. 
+
+\pagebreak
+
+\bibliographystyle{alpha}
+\bibliography{mybib}
+
+%TODO: Uniformilize usage of I and We
+%TODO: Go through all \Cref tags and check whether all claims made are correct
+
+\end{document}
