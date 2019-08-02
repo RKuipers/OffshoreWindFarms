@@ -26,6 +26,8 @@
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{defin}{Definition}
+\newtheorem*{objective}{Objective}
+\newtheorem{subobjective}{Sub-objective}
 \newcommand{\mydef}[3]{
 \begin{defin}
 \textsc{#1}
@@ -100,30 +102,55 @@ The stochasticity of the project also comes with various challenges. Naively one
 
 %TODO: For the cites, look at sources and where they got it from; citing directly leads me to more (varied) sources
 
-\subsection{This research project} \label{ss:thisproj}
-The goal of this project is to look at the entire life-cycle of OWFs, and how decisions near the start of this life-cycle impact the situation down the line. Specifically I aim to use both optimisation and simulation to provide insight into logistical decisions, primarily scheduling, but also routing and layout of the site. The latter two are very challenging subjects on their own, and I will likely only run simplistic experiments with them, seeing whether looking at a full life-cycle gives any insights on its own. Over the past year, I have spend most of my time reading up on the subject, both the methods and the challenges off offshore projects. This literature in summed up in \Cref{s:lit}. Additionally I have been laying the groundwork for a simulator which I am planning to turn into a tool for support on the logistical decisions described previously. Details on this tool are given in \Cref{s:sim}. \\
-The explicit goals of this project are as follows:
+\subsection{This research project}
+The primary goal of this project is to look at the entire life-cycle of OWFs, and how decisions near the start of this life-cycle impact the situation down the line. Specifically I aim to use both optimisation and simulation to provide insight into logistical decisions, primarily scheduling, but also layout of the site and the routing on it. The latter two are very challenging subjects on their own, and I will likely only run simplistic experiments with them, seeing whether looking at a full life-cycle gives any insights on its own. The layout of the site has very clear effect on any operation performed on the site. The scheduling of an installation project installation project might affect the optimal maintenance policy, especially considering that maintenance might start after the first wind turbine is completed, while the rest of the site is still being build. These are the type of connections I aim to explore within this project. 
 
-\begin{enumerate}
-\item Building an integration model integrating both a simulation and an optimisation model of the installation projects of OWF sites. This model will be based on models in the literature.  
-\item Building an integration model integrating both a simulation and an optimisation model for the maintenance projects.
-\item Integrate above models into a multi-level model spanning the full life-cycle.
-\item Implementing above models into a simulator, which should function as a tool to help make logistical decisions while considering their long-term impact.
-\item Using the tool to look into optimal scheduling policies. 
-\item Applying above models and tool to real life data and projects.
-\end{enumerate}
+Over the past year, I have spend most of my time reading up on the subject, both the methods and the challenges off offshore projects. This literature in summed up in \Cref{s:lit}. Additionally I have been laying the groundwork for a simulator which I am planning to turn into a tool for support on the logistical decisions described previously. Details on this tool are given in \Cref{s:sim}.
 
-In this, the optimisation model and the simulation model work together, as a solution found with the optimisation model can be tested using the simulation model. Therefore this would be a mixed-method model. 
+\bigskip
 
-Adjacent topics that might be explored more in later stages of this project include:
+The explicit research objective is: 
+
+\begin{objective}
+Create an integrated optimisation and simulation model spanning the entire life-cycle of an Offshore Wind Farm, based on models for each phase of the life-cycle.
+\end{objective}
+
+This objective has three sub-objectives:
+
+\begin{subobjective}
+Create an integrated optimisation and simulation model for the installation projects of an OWF. 
+\end{subobjective}
+
+\begin{subobjective}
+Create an integrated optimisation and simulation model for the maintenance projects of an OWF. 
+\end{subobjective}
+
+\begin{subobjective}
+Create an integrated optimisation and simulation model for the decommission projects of an OWF. 
+\end{subobjective}
+
+As each of these three sub-objectives is already a big goal in itself, these models will likely be based on models from the literature. For the installation projects, I already have a fairly clear view of how I want to structure this model, as will be explained later in this report. Additionally, the decommission model will likely be similar to the installation model, as these projects are assumed to be similar in structure. 
+
+After each of the sub-objectives is complete, the models need to be integrated into one big model in order to complete the primary objective. Integrating models, especially on this scale, is often very complex. This will be the main contribution of this research project. 
+
+\bigskip
+
+In addition to these research objectives, I aim to achieve some practical results during this research. I want to build a tool that can be used to help make logistical decisions, based on the above models. The tool should have multiple functions, highlighting either the optimisation or the simulation aspect of the model. For example, one could focus on the optimisation and generate some optimal schedule, given a set of parameters, or give the tool a schedule it should look for improvements on. Alternatively, the tool should be able to take in a schedule and explore statistical measures if this schedule was to be used in reality, providing insight into expected and plausible completion dates and costs of projects. 
+
+This tool is a core part of the project, as it can be used to validate the models and explore their strength. It will be used to make the research contribution of this project applicable to actual projects. 
+
+\bigskip
+
+Potential other objectives that might be explored later in this project are:
 
 \begin{itemize}
-\item Using the tool to research the layout of the OWF sites.
-\item Using the tool to research the supply chain for any projects on the site. 
-\item Experimenting within the tool with imperfect weather forecasts. 
+\item Use the tool to research the layout of the OWF sites.
+\item Use the tool to research routing policies on the site.
+\item Use the tool to research the supply chain for any projects on the site. 
+\item Experiment within the tool with imperfect weather forecasts. 
 \end{itemize}
 
-All following writing regards at least one of these goals. In \Cref{s:concl} I will go into more detail about the directions this project might take, and what the future of this project will look like. 
+In \Cref{s:concl} I will go into more detail about these objectives, how I aim to complete them, and what the future of this project will look like.
 
 \pagebreak
 
