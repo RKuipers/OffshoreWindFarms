@@ -102,8 +102,8 @@ The stochasticity of the project also comes with various challenges. Naively one
 
 %TODO: For the cites, look at sources and where they got it from; citing directly leads me to more (varied) sources
 
-\subsection{This research project}
-The primary goal of this project is to look at the entire life-cycle of OWFs, and how decisions near the start of this life-cycle impact the situation down the line. Specifically I aim to use both optimisation and simulation to provide insight into logistical decisions, primarily scheduling, but potentially also layout of the site and the routing on it. The latter two are very challenging subjects on their own, and I will likely only run simplistic experiments with them, to see whether looking at a full life-cycle gives any insights on its own. %The layout of the site has very clear effect on any operation performed on the site. The scheduling of an installation project installation project might affect the optimal maintenance policy, especially considering that maintenance might start after the first wind turbine is completed, while the rest of the site is still being build. These are the type of connections I aim to explore within this project. 
+\subsection{This research project} \label{ss:objs}
+The primary goal of this project is to look at the entire life-cycle of OWFs, and how decisions near the start of this life-cycle impact the situation down the line. Specifically I aim to use both optimisation and simulation to provide insight into logistical decisions, primarily scheduling, but potentially also layout of the site and the routing on it. The latter two are very challenging subjects on their own, and I will likely only run simplistic experiments with them, to see whether looking at a full life-cycle gives any insights on its own.
 
 Over the past year, I have spend most of my time reading up on the subject, both the methods and the challenges off offshore projects. This literature in summed up in \Cref{s:lit}. Additionally I have been laying the groundwork for a simulator which I am planning to turn into a tool for support on the logistical decisions described previously. Details on this tool are given in \Cref{s:sim}.
 
@@ -323,49 +323,33 @@ As mentioned earlier, a decision needs to be made on the presumed knowledge of t
 \pagebreak
 
 \section{Future Work} \label{s:concl}
-In this section I will go into more detail about my goals from \Cref{ss:thisproj}, and use what I discussed in Sections \ref{s:lit} and \ref{s:sim} to explain how I am planning to approach each goal, and explain how I am planning to fill in previously identified research gaps. 
+In this section I will return to my objectives from \Cref{ss:objs} to talk more about how I am planning to achieve them, and I sketch a possible future timeline for this research project. 
 
-\begin{enumerate}
-\item Building an integration model integrating both a simulation and an optimisation model of the installation projects of OWF sites. This model will be based on models in the literature.  
-\end{enumerate}
+%TODO: Talk more about how to achieve practical goals, the main integration goal, and how the models work together (flowchart)
+\subsection{Research plans} \label{ss:plans}
+\begin{objective}
+Create an integrated optimisation and simulation model spanning the entire life-cycle of an Offshore Wind Farm, based on models for each phase of the life-cycle.
+\end{objective}
 
-Effectively this would come down to making two models inspired by the models discussed in  \Cref{sss:sched}, in which I took two focus papers and discussed strengths and weaknesses of both. My hope is to make a hybrid of these two approaches and highlight their strengths. A focus on cashflows seems to be a good approach (as it will always be of interest to the project developer), but it should incorporate positive cashflows from partial completion, as well as possible milestone deadlines. Given this approach, it seems an investigation into both start date and non-operational periods would be beneficial. A dedicated heuristic (as in \cite{kerkhove2017optimised}) could be used (where all activity types and years are treated equally) as base solutions, to then be potentially improved with a local search. However, this is not the only optimisation that should be performed. A restriction on which activities can be completed in which time periods is a starting point from which more detailed scheduling should occur. For each period a set of desired vessels should be determined, keeping in mind costs of (de)commissioning vessels and restrictions on timespans for that. A schedule should be made for each vessel such that each task is assigned a vessel and a timeslot. For this there are various optimisation techniques possible. The basic one to go to would be trying to solve a integer program, in which task durations can be the expected time within a time period (month) based on expected weather. A solution would then have to be checked through simulation, and the simulator described in \Cref{s:sim} is designed to be used for this. This may be difficult to do in a way that is computationally feasible in a reasonable time, but that is one of the challenges of this research, and there is a lot of literature on improving simulations when necessary. However, if this turns out to not be feasible there are alternatives such as using an evolutionary algorithm for optimisation. 
+%TODO
 
-\begin{enumerate}
-\addtocounter{enumi}{1}
-\item Building an integration model integrating both a simulation and an optimisation model of the maintenance projects of OWF sites.
-\end{enumerate}
+\begin{subobjective}
+Create an integrated optimisation and simulation model for the installation projects of an OWF. 
+\end{subobjective}
+
+Effectively this would come down to combining the two models inspired by the models discussed in  \Cref{sss:sched}, in which I took two focus papers and discussed strengths and weaknesses of both. My hope is to make a hybrid of these two approaches and highlight their strengths. Both approaches used both simulation and optimisation together, and I am to do the same. A focus on cashflows seems to be a good approach (as it will always be of interest to the project developer), but it should incorporate positive cashflows from partial completion, as well as possible milestone deadlines. Given this approach, it seems an investigation into both start date and non-operational periods would be beneficial. A dedicated heuristic (as in \cite{kerkhove2017optimised}) could be used (where all activity types and years are treated equally) as base solutions, to then be potentially improved with a local search. However, this is not the only optimisation that should be performed. A restriction on which activities can be completed in which time periods is a starting point from which more detailed scheduling should occur. For each period a set of desired vessels should be determined, keeping in mind costs of (de)commissioning vessels and restrictions on timespans for that. A schedule should be made for each vessel such that each task is assigned a vessel and a timeslot. For this there are various optimisation techniques possible. The basic one to go to would be trying to solve a integer program, in which task durations can be the expected time within a time period (month) based on expected weather. A solution would then have to be checked through simulation, and the simulator described in \Cref{s:sim} is designed to be used for this. This may be difficult to do in a way that is computationally feasible in a reasonable time, but that is one of the challenges of this research, and there is a lot of literature on improving simulations when necessary. However, if this turns out to not be feasible there are alternatives for the optimisation technique that might speed up the process. 
+
+\begin{subobjective}
+Create an integrated optimisation and simulation model for the maintenance projects of an OWF. 
+\end{subobjective}
 
 As mentioned in \Cref{sss:maint} significant additional reading will have to be done on this subject, and I am planning to do this in the coming months (as described in \Cref{ss:timel}). Generally the typical subjects in maintenance such as supply chain management and minimising asset failure are significantly more difficult in our context, as there is a large lead up time before any emergency operations can be performed on the site. Intuitively the OSPs are the most vital to prevent failure in, as a failure in one of them can mean dozens of WTGs are no longer producing energy. Therefore I am planning on experiments with various maintenance strategies with the aim of maximising overall profit. For more detail more research will need to be done first, which I will do in the upcoming months. It is clear there is a relatively large amount of research on maintenance of offshore sites (as compared to a small amount of research on their installation), so any future research will have to build on that.
 
-\begin{enumerate}
-\addtocounter{enumi}{2}
-\item Integrate above models into a multi-level model spanning the full life-cycle.
-\end{enumerate}
+\begin{subobjective}
+Create an integrated optimisation and simulation model for the decommission projects of an OWF. 
+\end{subobjective}
 
-This would require the first two goals to be completed, and additionally similar models will have to be made for decommissioning projects. As stated earlier, these models will be very similar to those of the installation projects, so this is expected to be relatively easy. However, integrating these different models into a single one will likely be difficult, and a lot of research into integrated models has been done. I will have to make myself familiar with this research in order to properly integrate the models.  
-%TODO: Change if I do literature on integration models
-
-\begin{enumerate}
-\addtocounter{enumi}{3}
-\item Implementing above models into a simulator, which should function as a tool to help make logistical decisions while considering their long-term impact.
-\end{enumerate}
-
-This tool is described in detail in \Cref{s:sim}. This is currently a rather basic tool, but it is made to be easily expanded and to be used with the described models. 
-
-\begin{enumerate}
-\addtocounter{enumi}{4}
-\item Using the tool to look into optimal scheduling policies. 
-\end{enumerate}
-
-The tool will include the optimisation model(s) from the above goals, and experiments into general scheduling policies will be done. Each project is of course different, but potentially some general insights and "rules of thumb" can be gained by experimenting with test data. This data will be based on real sites and therefore be realistic, but it will not correspond to any specific OWF. 
-
-\begin{enumerate}
-\addtocounter{enumi}{5}
-\item Applying above models and tool to real life data and projects.
-\end{enumerate}
-
-Finally the tool would ideally be used in real projects, or at least be tested on a previously build real site to verify its accuracy and test its strength (and potentially weaknesses). 
+This model should be similar in structure to that created for the first sub-objective. However, the restrictions may be fairly different. Cost-effectiveness is still important, but there may be many more hard restrictions based on government regulations. These will be the restrictions to ensure the project is completed before a certain deadline, as otherwise a later start for the decomission might be more cost-effective. Therefore these projects will hold their own difficulties and are significantly different from installation projects. 
 
 \subsection{Timeline and next steps} \label{ss:timel}
 %Timeline and focus from here
