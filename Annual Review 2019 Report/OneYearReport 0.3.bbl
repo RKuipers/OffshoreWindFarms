@@ -1,165 +1,163 @@
-\newcommand{\etalchar}[1]{$^{#1}$}
-\begin{thebibliography}{SMSSPT{\etalchar{+}}11}
+\begin{thebibliography}{xx}
 
-\bibitem[BDCDM{\etalchar{+}}10]{burke2010multi}
-Edmund~K Burke, Patrick De~Causmaecker, Geert De~Maere, Jeroen Mulder, Marc
-  Paelinck, and Greet~Vanden Berghe.
-\newblock A multi-objective approach for robust airline scheduling.
-\newblock {\em Computers \& Operations Research}, 37(5):822--832, 2010.
+\harvarditem[Barlow et~al.]{Barlow, {\"O}zt{\"u}rk, Revie, Akartunal{\i}, Day
+  \harvardand\ Boulougouris}{2018}{barlow2018mixed}
+Barlow, E., {\"O}zt{\"u}rk, D.~T., Revie, M., Akartunal{\i}, K., Day, A.~H.
+  \harvardand\ Boulougouris, E.  \harvardyearleft 2018\harvardyearright , `A
+  mixed-method optimisation and simulation framework for supporting logistical
+  decisions during offshore wind farm installations', {\em European Journal of
+  Operational Research} {\bf 264}(3),~894--906.
 
-\bibitem[BJN{\etalchar{+}}98]{barnhart1998branch}
-Cynthia Barnhart, Ellis~L Johnson, George~L Nemhauser, Martin~WP Savelsbergh,
-  and Pamela~H Vance.
-\newblock Branch-and-price: Column generation for solving huge integer
-  programs.
-\newblock {\em Operations research}, 46(3):316--329, 1998.
+\harvarditem[Barlow et~al.]{Barlow, Tezcaner~Ozturk, Day, Boulougouris, Revie
+  \harvardand\ Akartunali}{2014{\em a}}{barlow2014support}
+Barlow, E., Tezcaner~Ozturk, D., Day, A., Boulougouris, E., Revie, M.
+  \harvardand\ Akartunali, K.  \harvardyearleft 2014{\em a}\harvardyearright ,
+  `A support tool for assessing the risks of heavy lift vessel logistics in the
+  installation of offshore wind farms', {\em Marine Heavy Transport \& Lift IV}
+  .
 
-\bibitem[B{\"O}R{\etalchar{+}}18]{barlow2018mixed}
-Euan Barlow, Diclehan~Tezcaner {\"O}zt{\"u}rk, Matthew Revie, Kerem
-  Akartunal{\i}, Alexander~H Day, and Evangelos Boulougouris.
-\newblock A mixed-method optimisation and simulation framework for supporting
-  logistical decisions during offshore wind farm installations.
-\newblock {\em European Journal of Operational Research}, 264(3):894--906,
-  2018.
+\harvarditem[Barlow et~al.]{Barlow, Tezcaner~Ozturk, Day, Boulougouris, Revie
+  \harvardand\ Akartunali}{2014{\em b}}{barlow2014assessment}
+Barlow, E., Tezcaner~Ozturk, D., Day, S., Boulougouris, E., Revie, M.
+  \harvardand\ Akartunali, K.  \harvardyearleft 2014{\em b}\harvardyearright ,
+  An assessment of vessel characteristics for the installation of offshore wind
+  farms, {\em in} `International Conference on Marine Technology ICMT 2014'.
 
-\bibitem[BTOD{\etalchar{+}}14a]{barlow2014support}
-E~Barlow, D~Tezcaner~Ozturk, AH~Day, E~Boulougouris, M~Revie, and K~Akartunali.
-\newblock A support tool for assessing the risks of heavy lift vessel logistics
-  in the installation of offshore wind farms.
-\newblock {\em Marine Heavy Transport \& Lift IV}, 2014.
+\harvarditem[Barlow et~al.]{Barlow, Tezcaner~Ozturk, Revie, Akartunali, Day
+  \harvardand\ Boulougouris}{2017}{barlow2017using}
+Barlow, E., Tezcaner~Ozturk, D., Revie, M., Akartunali, K., Day, A.
+  \harvardand\ Boulougouris, E.  \harvardyearleft 2017\harvardyearright , `On
+  using simulation to model the installation process logistics for an offshore
+  wind farm'.
 
-\bibitem[BTOD{\etalchar{+}}14b]{barlow2014assessment}
-E~Barlow, D~Tezcaner~Ozturk, S~Day, E~Boulougouris, M~Revie, and K~Akartunali.
-\newblock An assessment of vessel characteristics for the installation of
-  offshore wind farms.
-\newblock In {\em International Conference on Marine Technology ICMT 2014},
-  2014.
+\harvarditem[Barnhart et~al.]{Barnhart, Johnson, Nemhauser, Savelsbergh
+  \harvardand\ Vance}{1998}{barnhart1998branch}
+Barnhart, C., Johnson, E.~L., Nemhauser, G.~L., Savelsbergh, M.~W. \harvardand\
+  Vance, P.~H.  \harvardyearleft 1998\harvardyearright , `Branch-and-price:
+  Column generation for solving huge integer programs', {\em Operations
+  research} {\bf 46}(3),~316--329.
 
-\bibitem[BTOR{\etalchar{+}}17]{barlow2017using}
-Euan Barlow, Diclehan Tezcaner~Ozturk, Matthew Revie, Kerem Akartunali,
-  Alexander Day, and Evangelos Boulougouris.
-\newblock On using simulation to model the installation process logistics for
-  an offshore wind farm.
-\newblock 2017.
+\harvarditem[Burke et~al.]{Burke, De~Causmaecker, De~Maere, Mulder, Paelinck
+  \harvardand\ Berghe}{2010}{burke2010multi}
+Burke, E.~K., De~Causmaecker, P., De~Maere, G., Mulder, J., Paelinck, M.
+  \harvardand\ Berghe, G.~V.  \harvardyearleft 2010\harvardyearright , `A
+  multi-objective approach for robust airline scheduling', {\em Computers \&
+  Operations Research} {\bf 37}(5),~822--832.
 
-\bibitem[CF07]{cotta2007memetic}
-Carlos Cotta and Antonio~J Fern{\'a}ndez.
-\newblock Memetic algorithms in planning, scheduling, and timetabling.
-\newblock In {\em Evolutionary Scheduling}, pages 1--30. Springer, 2007.
+\harvarditem{Cotta \harvardand\ Fern{\'a}ndez}{2007}{cotta2007memetic}
+Cotta, C. \harvardand\ Fern{\'a}ndez, A.~J.  \harvardyearleft
+  2007\harvardyearright , Memetic algorithms in planning, scheduling, and
+  timetabling, {\em in} `Evolutionary Scheduling', Springer, pp.~1--30.
 
-\bibitem[DM14]{dinwoodie2014operational}
-Iain~Allan Dinwoodie and David McMillan.
-\newblock Operational strategies for offshore wind turbines to mitigate failure
-  rate uncertainty on operational costs and revenue.
-\newblock {\em IET Renewable Power Generation}, 8(4):359--366, 2014.
+\harvarditem{Dinwoodie \harvardand\ McMillan}{2014}{dinwoodie2014operational}
+Dinwoodie, I.~A. \harvardand\ McMillan, D.  \harvardyearleft
+  2014\harvardyearright , `Operational strategies for offshore wind turbines to
+  mitigate failure rate uncertainty on operational costs and revenue', {\em IET
+  Renewable Power Generation} {\bf 8}(4),~359--366.
 
-\bibitem[DP95]{dorndorf1995evolution}
-Ulrich Dorndorf and Erwin Pesch.
-\newblock Evolution based learning in a job shop scheduling environment.
-\newblock {\em Computers \& Operations Research}, 22(1):25--40, 1995.
+\harvarditem{Dorndorf \harvardand\ Pesch}{1995}{dorndorf1995evolution}
+Dorndorf, U. \harvardand\ Pesch, E.  \harvardyearleft 1995\harvardyearright ,
+  `Evolution based learning in a job shop scheduling environment', {\em
+  Computers \& Operations Research} {\bf 22}(1),~25--40.
 
-\bibitem[Fis81]{fisher1981lagrangian}
-Marshall~L Fisher.
-\newblock The lagrangian relaxation method for solving integer programming
-  problems.
-\newblock {\em Management science}, 27(1):1--18, 1981.
+\harvarditem{Fisher}{1981}{fisher1981lagrangian}
+Fisher, M.~L.  \harvardyearleft 1981\harvardyearright , `The lagrangian
+  relaxation method for solving integer programming problems', {\em Management
+  science} {\bf 27}(1),~1--18.
 
-\bibitem[GMT14]{gabrel2014recent}
-Virginie Gabrel, C{\'e}cile Murat, and Aur{\'e}lie Thiele.
-\newblock Recent advances in robust optimization: An overview.
-\newblock {\em European journal of operational research}, 235(3):471--483,
-  2014.
+\harvarditem[Gabrel et~al.]{Gabrel, Murat \harvardand\
+  Thiele}{2014}{gabrel2014recent}
+Gabrel, V., Murat, C. \harvardand\ Thiele, A.  \harvardyearleft
+  2014\harvardyearright , `Recent advances in robust optimization: An
+  overview', {\em European journal of operational research} {\bf
+  235}(3),~471--483.
 
-\bibitem[GS08]{goren2008robustness}
-Selcuk Goren and Ihsan Sabuncuoglu.
-\newblock Robustness and stability measures for scheduling: single-machine
-  environment.
-\newblock {\em IIE Transactions}, 40(1):66--83, 2008.
+\harvarditem{Goren \harvardand\ Sabuncuoglu}{2008}{goren2008robustness}
+Goren, S. \harvardand\ Sabuncuoglu, I.  \harvardyearleft 2008\harvardyearright
+  , `Robustness and stability measures for scheduling: single-machine
+  environment', {\em IIE Transactions} {\bf 40}(1),~66--83.
 
-\bibitem[HHS{\etalchar{+}}17]{hou2017combined}
-Peng Hou, Weihao Hu, Mohsen Soltani, Cong Chen, and Zhe Chen.
-\newblock Combined optimization for offshore wind turbine micro siting.
-\newblock {\em Applied energy}, 189:271--282, 2017.
+\harvarditem{Herroelen \harvardand\ Leus}{2005}{herroelen2005project}
+Herroelen, W. \harvardand\ Leus, R.  \harvardyearleft 2005\harvardyearright ,
+  `Project scheduling under uncertainty: Survey and research potentials', {\em
+  European journal of operational research} {\bf 165}(2),~289--306.
 
-\bibitem[HL05]{herroelen2005project}
-Willy Herroelen and Roel Leus.
-\newblock Project scheduling under uncertainty: Survey and research potentials.
-\newblock {\em European journal of operational research}, 165(2):289--306,
-  2005.
+\harvarditem[Hou et~al.]{Hou, Hu, Soltani, Chen \harvardand\
+  Chen}{2017}{hou2017combined}
+Hou, P., Hu, W., Soltani, M., Chen, C. \harvardand\ Chen, Z.  \harvardyearleft
+  2017\harvardyearright , `Combined optimization for offshore wind turbine
+  micro siting', {\em Applied energy} {\bf 189},~271--282.
 
-\bibitem[IT13]{iancu2013pareto}
-Dan~A Iancu and Nikolaos Trichakis.
-\newblock Pareto efficiency in robust optimization.
-\newblock {\em Management Science}, 60(1):130--147, 2013.
+\harvarditem{Iancu \harvardand\ Trichakis}{2013}{iancu2013pareto}
+Iancu, D.~A. \harvardand\ Trichakis, N.  \harvardyearleft 2013\harvardyearright
+  , `Pareto efficiency in robust optimization', {\em Management Science} {\bf
+  60}(1),~130--147.
 
-\bibitem[KS10a]{kaiser2010offshore}
-Mark~J Kaiser and Brian Snyder.
-\newblock Offshore wind energy installation and decommissioning cost estimation
-  in the us outer continental shelf.
-\newblock {\em US Dept. of the Interior, Bureau of Ocean Energy Management,
-  Regulation and Enforcement, Herndon, VA TA\&R}, 648, 2010.
+\harvarditem{Kaiser \harvardand\ Snyder}{2010}{kaiser2010offshore}
+Kaiser, M.~J. \harvardand\ Snyder, B.  \harvardyearleft 2010\harvardyearright ,
+  `Offshore wind energy installation and decommissioning cost estimation in the
+  us outer continental shelf', {\em US Dept. of the Interior, Bureau of Ocean
+  Energy Management, Regulation and Enforcement, Herndon, VA TA\&R} {\bf 648}.
 
-\bibitem[KS10b]{kusiak2010design}
-Andrew Kusiak and Zhe Song.
-\newblock Design of wind farm layout for maximum wind energy capture.
-\newblock {\em Renewable energy}, 35(3):685--694, 2010.
+\harvarditem{Kerkhove \harvardand\ Vanhoucke}{2017}{kerkhove2017optimised}
+Kerkhove, L.-P. \harvardand\ Vanhoucke, M.  \harvardyearleft
+  2017\harvardyearright , `Optimised scheduling for weather sensitive offshore
+  construction projects', {\em Omega} {\bf 66},~58--78.
 
-\bibitem[KV17]{kerkhove2017optimised}
-L-P Kerkhove and Mario Vanhoucke.
-\newblock Optimised scheduling for weather sensitive offshore construction
-  projects.
-\newblock {\em Omega}, 66:58--78, 2017.
+\harvarditem{Kusiak \harvardand\ Song}{2010}{kusiak2010design}
+Kusiak, A. \harvardand\ Song, Z.  \harvardyearleft 2010\harvardyearright ,
+  `Design of wind farm layout for maximum wind energy capture', {\em Renewable
+  energy} {\bf 35}(3),~685--694.
 
-\bibitem[LSAM18]{leggate2010crew}
-Alex Leggate, Seda Sucu, Kerem Akartunali, and Robbert van~der Meer.
-\newblock Modelling crew scheduling in offshore supply vessels.
-\newblock {\em Journal of the Operational Research Society}, 69(6):959--970,
-  2018.
+\harvarditem[Leggate et~al.]{Leggate, Sucu, Akartunali \harvardand\
+  Meer}{2018}{leggate2010crew}
+Leggate, A., Sucu, S., Akartunali, K. \harvardand\ Meer, R. v.~d.
+  \harvardyearleft 2018\harvardyearright , `Modelling crew scheduling in
+  offshore supply vessels', {\em Journal of the Operational Research Society}
+  {\bf 69}(6),~959--970.
 
-\bibitem[MPD94]{mosetti1994optimization}
-GPCDB Mosetti, Carlo Poloni, and B~Diviacco.
-\newblock Optimization of wind turbine positioning in large windfarms by means
-  of a genetic algorithm.
-\newblock {\em Journal of Wind Engineering and Industrial Aerodynamics},
-  51(1):105--116, 1994.
+\harvarditem[Mosetti et~al.]{Mosetti, Poloni \harvardand\
+  Diviacco}{1994}{mosetti1994optimization}
+Mosetti, G., Poloni, C. \harvardand\ Diviacco, B.  \harvardyearleft
+  1994\harvardyearright , `Optimization of wind turbine positioning in large
+  windfarms by means of a genetic algorithm', {\em Journal of Wind Engineering
+  and Industrial Aerodynamics} {\bf 51}(1),~105--116.
 
-\bibitem[PMG13]{perez2013offshore}
-Beatriz P{\'e}rez, Roberto M{\'\i}nguez, and Ra{\'u}l Guanche.
-\newblock Offshore wind farm layout optimization using mathematical programming
-  techniques.
-\newblock {\em Renewable Energy}, 53:389--399, 2013.
+\harvarditem[P{\'e}rez et~al.]{P{\'e}rez, M{\'\i}nguez \harvardand\
+  Guanche}{2013}{perez2013offshore}
+P{\'e}rez, B., M{\'\i}nguez, R. \harvardand\ Guanche, R.  \harvardyearleft
+  2013\harvardyearright , `Offshore wind farm layout optimization using
+  mathematical programming techniques', {\em Renewable Energy} {\bf
+  53},~389--399.
 
-\bibitem[Sha15]{shafiee2015maintenance}
-Mahmood Shafiee.
-\newblock Maintenance logistics organization for offshore wind energy: Current
-  progress and future perspectives.
-\newblock {\em Renewable Energy}, 77:182--193, 2015.
-
-\bibitem[SMSSPT{\etalchar{+}}11]{saavedra2011seeding}
-B~Saavedra-Moreno, S~Salcedo-Sanz, A~Paniagua-Tineo, L~Prieto, and
-  A~Portilla-Figueras.
-\newblock Seeding evolutionary algorithms with heuristics for optimal wind
-  turbines positioning in wind farms.
-\newblock {\em Renewable Energy}, 36(11):2838--2844, 2011.
-
-\bibitem[SS02]{sevaux2002genetic}
-Marc Sevaux and Kenneth Sörensen.
-\newblock Genetic algorithm for robust schedules.
-\newblock {\em 8th International Workshop on Project Management and Scheduling
-  (PMS 2002)}, pages 330--333, 2002.
-
-\bibitem[UK17]{ruk2017}
-Renewable UK.
-\newblock Offshore wind project timelines.
-\newblock {\em
-  https://www.renewableuk.com/news/294516/Offshore-Wind-Project-Timelines.htm},
-  2017.
+\harvarditem{Renewable-UK}{2017}{ruk2017}
+Renewable-UK  \harvardyearleft 2017\harvardyearright , `Offshore wind project
+  timelines', {\em
+  https://www.renewableuk.com/news/294516/Offshore-Wind-Project-Timelines.htm}
+  .
 \newblock Accessed: 2019-03-24.
 
-\bibitem[Wil92]{williams1992practical}
-TM~Williams.
-\newblock Practical use of distributions in network analysis.
-\newblock {\em Journal of the Operational Research Society}, 43(3):265--270,
-  1992.
+\harvarditem[Saavedra-Moreno et~al.]{Saavedra-Moreno, Salcedo-Sanz,
+  Paniagua-Tineo, Prieto \harvardand\
+  Portilla-Figueras}{2011}{saavedra2011seeding}
+Saavedra-Moreno, B., Salcedo-Sanz, S., Paniagua-Tineo, A., Prieto, L.
+  \harvardand\ Portilla-Figueras, A.  \harvardyearleft 2011\harvardyearright ,
+  `Seeding evolutionary algorithms with heuristics for optimal wind turbines
+  positioning in wind farms', {\em Renewable Energy} {\bf 36}(11),~2838--2844.
+
+\harvarditem{Sevaux \harvardand\ Sörensen}{2002}{sevaux2002genetic}
+Sevaux, M. \harvardand\ Sörensen, K.  \harvardyearleft 2002\harvardyearright ,
+  `Genetic algorithm for robust schedules', {\em 8th International Workshop on
+  Project Management and Scheduling (PMS 2002)} pp.~330--333.
+
+\harvarditem{Shafiee}{2015}{shafiee2015maintenance}
+Shafiee, M.  \harvardyearleft 2015\harvardyearright , `Maintenance logistics
+  organization for offshore wind energy: Current progress and future
+  perspectives', {\em Renewable Energy} {\bf 77},~182--193.
+
+\harvarditem{Williams}{1992}{williams1992practical}
+Williams, T.  \harvardyearleft 1992\harvardyearright , `Practical use of
+  distributions in network analysis', {\em Journal of the Operational Research
+  Society} {\bf 43}(3),~265--270.
 
 \end{thebibliography}
