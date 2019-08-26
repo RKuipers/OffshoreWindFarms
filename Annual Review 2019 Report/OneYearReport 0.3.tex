@@ -15,6 +15,7 @@
 \usepackage{cite}
 \usepackage{url}
 \usepackage{harvard}
+\usepackage{thm-restate}
 
 \citationmode{abbr}
 
@@ -123,17 +124,17 @@ The primary motivation for this objective is that in the literature the three ph
 
 This objective has three sub-objectives:
 
-\begin{subobjective}
+\begin{restatable}{subobjective}{subobjone}
 Create an integrated optimisation and simulation model for the installation projects of an OWF. 
-\end{subobjective}
+\end{restatable}
 
-\begin{subobjective}
+\begin{restatable}{subobjective}{subobjtwo}
 Create an integrated optimisation and simulation model for the maintenance projects of an OWF. 
-\end{subobjective}
+\end{restatable}
 
-\begin{subobjective}
+\begin{restatable}{subobjective}{subobjthree}
 Create an integrated optimisation and simulation model for the decommission projects of an OWF. 
-\end{subobjective}
+\end{restatable}
 
 As each of these three sub-objectives is already a big goal in itself, these models will likely be based on models from the literature. For the installation projects, I already have a fairly clear view of how I want to structure this model, as will be explained later in this report. Additionally, the decommission model will likely be similar to the installation model, as these projects are assumed to be similar in structure. 
 
@@ -337,23 +338,17 @@ Create an integrated optimisation and simulation model spanning the entire life-
 
 %TODO
 
-\begin{subobjective}
-Create an integrated optimisation and simulation model for the installation projects of an OWF. 
-\end{subobjective}
+\subobjone*
 
 Effectively this would come down to combining the two models inspired by the models discussed in  \Cref{sss:sched}, in which I took two focus papers and discussed strengths and weaknesses of both. My hope is to make a hybrid of these two approaches and highlight their strengths. Both approaches used both simulation and optimisation together, and I am to do the same. A focus on cashflows seems to be a good approach (as it will always be of interest to the project developer), but it should incorporate positive cashflows from partial completion, as well as possible milestone deadlines. Given this approach, it seems an investigation into both start date and non-operational periods would be beneficial. A dedicated heuristic (as in \cite{kerkhove2017optimised}) could be used (where all activity types and years are treated equally) as base solutions, to then be potentially improved with a local search. However, this is not the only optimisation that should be performed. A restriction on which activities can be completed in which time periods is a starting point from which more detailed scheduling should occur. For each period a set of desired vessels should be determined, keeping in mind costs of (de)commissioning vessels and restrictions on timespans for that. A schedule should be made for each vessel such that each task is assigned a vessel and a timeslot. For this there are various optimisation techniques possible. The basic one to go to would be trying to solve a integer program, in which task durations can be the expected time within a time period (month) based on expected weather. A solution would then have to be checked through simulation, and the simulator described in \Cref{s:sim} is designed to be used for this. This may be difficult to do in a way that is computationally feasible in a reasonable time, but that is one of the challenges of this research, and there is a lot of literature on improving simulations when necessary. However, if this turns out to not be feasible there are alternatives for the optimisation technique that might speed up the process. 
 
-\begin{subobjective}
-Create an integrated optimisation and simulation model for the maintenance projects of an OWF. 
-\end{subobjective}
+\subobjtwo*
 
 As mentioned in \Cref{sss:maint} significant additional reading will have to be done on this subject, and I am planning to do this in the coming months (as described in \Cref{ss:timel}). Generally the typical subjects in maintenance such as supply chain management and minimising asset failure are significantly more difficult in our context, as there is a large lead up time before any emergency operations can be performed on the site. Intuitively the OSPs are the most vital to prevent failure in, as a failure in one of them can mean dozens of WTGs are no longer producing energy. Therefore I am planning on experiments with various maintenance strategies with the aim of maximising overall profit. For more detail more research will need to be done first, which I will do in the upcoming months. It is clear there is a relatively large amount of research on maintenance of offshore sites (as compared to a small amount of research on their installation), so any future research will have to build on that.
 
-\begin{subobjective}
-Create an integrated optimisation and simulation model for the decommission projects of an OWF. 
-\end{subobjective}
+\subobjthree*
 
-%This model should be similar in structure to that created for the first sub-objective. However, the restrictions may be fairly different. Cost-effectiveness is still important, but there may be many more hard restrictions based on government regulations. These will be the restrictions to ensure the project is completed before a certain deadline, as otherwise a later start for the decomission might be more cost-effective. Therefore these projects will hold their own difficulties and are significantly different from installation projects. 
+This model should be similar in structure to that created for the first sub-objective. However, the restrictions may be fairly different. Cost-effectiveness is still important, but there may be many more hard restrictions based on government regulations. These will be the restrictions to ensure the project is completed before a certain deadline, as otherwise a later start for the decomission might be more cost-effective. Therefore these projects will hold their own difficulties and are significantly different from installation projects. 
 
 \subsection{Timeline and next steps} \label{ss:timel}
 %Timeline and focus from here
