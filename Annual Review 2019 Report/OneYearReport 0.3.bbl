@@ -8,24 +8,25 @@ Barlow, E., {\"O}zt{\"u}rk, D.~T., Revie, M., Akartunal{\i}, K., Day, A.~H.
   decisions during offshore wind farm installations', {\em European Journal of
   Operational Research} {\bf 264}(3),~894--906.
 
-\harvarditem[Barlow et~al.]{Barlow, Tezcaner~Ozturk, Day, Boulougouris, Revie
-  \harvardand\ Akartunali}{2014{\em a}}{barlow2014support}
-Barlow, E., Tezcaner~Ozturk, D., Day, A., Boulougouris, E., Revie, M.
-  \harvardand\ Akartunali, K.  \harvardyearleft 2014{\em a}\harvardyearright ,
-  `A support tool for assessing the risks of heavy lift vessel logistics in the
-  installation of offshore wind farms', {\em Marine Heavy Transport \& Lift IV}
-  .
+\harvarditem[Barlow et~al.]{Barlow, Tezcaner~{\"O}zt{\"u}rk, Day, Boulougouris,
+  Revie \harvardand\ Akartunal{\i}}{2014{\em a}}{barlow2014support}
+Barlow, E., Tezcaner~{\"O}zt{\"u}rk, D., Day, A., Boulougouris, E., Revie, M.
+  \harvardand\ Akartunal{\i}, K.  \harvardyearleft 2014{\em a}\harvardyearright
+  , `A support tool for assessing the risks of heavy lift vessel logistics in
+  the installation of offshore wind farms', {\em Marine Heavy Transport \& Lift
+  IV} .
 
-\harvarditem[Barlow et~al.]{Barlow, Tezcaner~Ozturk, Day, Boulougouris, Revie
-  \harvardand\ Akartunali}{2014{\em b}}{barlow2014assessment}
-Barlow, E., Tezcaner~Ozturk, D., Day, S., Boulougouris, E., Revie, M.
-  \harvardand\ Akartunali, K.  \harvardyearleft 2014{\em b}\harvardyearright ,
-  An assessment of vessel characteristics for the installation of offshore wind
-  farms, {\em in} `International Conference on Marine Technology ICMT 2014'.
+\harvarditem[Barlow et~al.]{Barlow, Tezcaner~{\"O}zt{\"u}rk, Day, Boulougouris,
+  Revie \harvardand\ Akartunal{\i}}{2014{\em b}}{barlow2014assessment}
+Barlow, E., Tezcaner~{\"O}zt{\"u}rk, D., Day, S., Boulougouris, E., Revie, M.
+  \harvardand\ Akartunal{\i}, K.  \harvardyearleft 2014{\em b}\harvardyearright
+  , An assessment of vessel characteristics for the installation of offshore
+  wind farms, {\em in} `International Conference on Marine Technology ICMT
+  2014'.
 
-\harvarditem[Barlow et~al.]{Barlow, Tezcaner~Ozturk, Revie, Akartunali, Day
-  \harvardand\ Boulougouris}{2017}{barlow2017using}
-Barlow, E., Tezcaner~Ozturk, D., Revie, M., Akartunali, K., Day, A.
+\harvarditem[Barlow et~al.]{Barlow, Tezcaner~{\"O}zt{\"u}rk, Revie,
+  Akartunal{\i}, Day \harvardand\ Boulougouris}{2017}{barlow2017using}
+Barlow, E., Tezcaner~{\"O}zt{\"u}rk, D., Revie, M., Akartunal{\i}, K., Day, A.
   \harvardand\ Boulougouris, E.  \harvardyearleft 2017\harvardyearright , `On
   using simulation to model the installation process logistics for an offshore
   wind farm'.
@@ -35,7 +36,7 @@ Barlow, E., Tezcaner~Ozturk, D., Revie, M., Akartunali, K., Day, A.
 Barnhart, C., Johnson, E.~L., Nemhauser, G.~L., Savelsbergh, M.~W. \harvardand\
   Vance, P.~H.  \harvardyearleft 1998\harvardyearright , `Branch-and-price:
   Column generation for solving huge integer programs', {\em Operations
-  research} {\bf 46}(3),~316--329.
+  Research} {\bf 46}(3),~316--329.
 
 \harvarditem[Burke et~al.]{Burke, De~Causmaecker, De~Maere, Mulder, Paelinck
   \harvardand\ Berghe}{2010}{burke2010multi}
@@ -63,13 +64,13 @@ Dorndorf, U. \harvardand\ Pesch, E.  \harvardyearleft 1995\harvardyearright ,
 \harvarditem{Fisher}{1981}{fisher1981lagrangian}
 Fisher, M.~L.  \harvardyearleft 1981\harvardyearright , `The lagrangian
   relaxation method for solving integer programming problems', {\em Management
-  science} {\bf 27}(1),~1--18.
+  Science} {\bf 27}(1),~1--18.
 
 \harvarditem[Gabrel et~al.]{Gabrel, Murat \harvardand\
   Thiele}{2014}{gabrel2014recent}
 Gabrel, V., Murat, C. \harvardand\ Thiele, A.  \harvardyearleft
   2014\harvardyearright , `Recent advances in robust optimization: An
-  overview', {\em European journal of operational research} {\bf
+  overview', {\em European Journal of Operational Research} {\bf
   235}(3),~471--483.
 
 \harvarditem{Goren \harvardand\ Sabuncuoglu}{2008}{goren2008robustness}
@@ -80,7 +81,7 @@ Goren, S. \harvardand\ Sabuncuoglu, I.  \harvardyearleft 2008\harvardyearright
 \harvarditem{Herroelen \harvardand\ Leus}{2005}{herroelen2005project}
 Herroelen, W. \harvardand\ Leus, R.  \harvardyearleft 2005\harvardyearright ,
   `Project scheduling under uncertainty: Survey and research potentials', {\em
-  European journal of operational research} {\bf 165}(2),~289--306.
+  European Journal of Operational Research} {\bf 165}(2),~289--306.
 
 \harvarditem[Hou et~al.]{Hou, Hu, Soltani, Chen \harvardand\
   Chen}{2017}{hou2017combined}
