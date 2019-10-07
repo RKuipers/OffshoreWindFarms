@@ -1,12 +1,12 @@
 \documentclass{beamer}
 
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
 %\usetheme{Madrid}
 \usetheme{Warsaw}
 
 \title[Logistical Optimisation for Offshore Windfarms]{Simulation and Optimisation of Offshore Renewable Energy Arrays for Minimal Life-Cycle Costs}
-
-% A subtitle is optional and this may be deleted
-\subtitle{subtitle}
 
 \author{R. Kuipers}
 
@@ -20,7 +20,7 @@
 
 \begin{frame}{The problem}
   \begin{itemize}
-  	\item Focus on modern windfarms, 100+ wind turbines, lifespan of about 20-30 years, costs of installation in range of \pounds 100 million
+  	\item Focus on modern windfarms in the North Sea, relatively far from the coast, 100+ wind turbines, lifespan of about 20-30 years, costs of installation in range of \pounds 100 million or higher
   	\item Optimize logistics of operations on offshore windfarms (OWFs) in each phase of the life-cycle:
   	\begin{itemize}
   		\item Installation
@@ -57,14 +57,27 @@
 
 \begin{frame}{Current Progress}
    \begin{itemize}
-  	\item 
+  	\item Reviewed a large part of the literature, primarily on installation projects and secondarily on maintenance projects and general non-deterministic scheduling and logistics
+  	\item Laid the foundations for a decision support tool suited to analyse and optimise schedules for any phase of the life-cycle, based on site-specific characteristics of the project
+  	\item Planned the interactions between my various models	
   \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Model interactions}
+\begin{figure}[t]
+  \includegraphics[width=0.8\textwidth]{flowchart}
+\centering
+\end{figure}
 \end{frame}
 
 
 \begin{frame}{Future Work}
    \begin{itemize}
-  	\item 
+  	\item Develop full models for each stage of the life-cycle
+  	\item Determine specific interactions between the stages
+  	\item Implement models in the tool, develop it further for full commercial functionality
+  	\item Validate and test the tool (and underlying models) using real data
   \end{itemize}
 \end{frame}
 

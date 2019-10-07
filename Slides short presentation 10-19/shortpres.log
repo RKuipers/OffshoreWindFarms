@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  7 OCT 2019 15:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  7 OCT 2019 16:33
 entering extended mode
 **./shortpres.tex
 (shortpres.tex
@@ -956,7 +956,15 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/ui' in size <10.95> not available
 
 ] [5
 
-] [6
+]
+<./images/flowchart.png, id=164, 804.00375pt x 714.67pt>
+File: ./images/flowchart.png Graphic file (type png)
+<use ./images/flowchart.png>
+Package pdftex.def Info: ./images/flowchart.png  used on input line 72.
+(pdftex.def)             Requested size: 245.83282pt x 218.51382pt.
+ [6
+
+ <./images/flowchart.png>] [7
 
 ]
 \tf@nav=\write6
@@ -968,19 +976,19 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/ui' in size <10.95> not available
 \tf@snm=\write8
 \openout8 = `shortpres.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 71.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 71.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 84.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 84.
  (shortpres.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 71.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 71.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 84.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 84.
 Package rerunfilecheck Info: File `shortpres.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 17317 strings out of 492946
- 339278 string characters out of 3124934
- 411132 words of memory out of 3000000
- 20824 multiletter control sequences out of 15000+200000
+ 17320 strings out of 492946
+ 339267 string characters out of 3124934
+ 411109 words of memory out of 3000000
+ 20822 multiletter control sequences out of 15000+200000
  6052 words of font info for 22 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,15n,59p,778b,574s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -989,9 +997,9 @@ nts/cm/cmss10.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
 pe1/public/amsfonts/cm/cmss12.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiK
 TeX 2.9/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Users/wsb18103/AppData/Loc
 al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmu10.pfb>
-Output written on shortpres.pdf (6 pages, 85421 bytes).
+Output written on shortpres.pdf (7 pages, 122369 bytes).
 PDF statistics:
- 206 PDF objects out of 1000 (max. 8388607)
- 13 named destinations out of 1000 (max. 500000)
- 85 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 237 PDF objects out of 1000 (max. 8388607)
+ 15 named destinations out of 1000 (max. 500000)
+ 90 words of extra memory for PDF output out of 10000 (max. 10000000)
 
