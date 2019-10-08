@@ -16,6 +16,7 @@
 \usepackage{url}
 \usepackage{harvard}
 \usepackage{thm-restate}
+\usepackage[space]{grffile}
 
 \citationmode{abbr}
 
@@ -117,9 +118,10 @@ Over the past year, I have spent most of my time reading up on the subject, both
 
 The explicit research objective is: 
 
-\begin{objective}
+\begin{restatable}{objective}{objectve}
+\label{objectve}
 Create an integrated optimisation and simulation model spanning the entire life-cycle of an Offshore Wind Farm, based on sub-models for each phase of the life-cycle.
-\end{objective}
+\end{restatable}
 
 The primary motivation for this objective is that in the literature the three phases of the life-cycle are each treated seperately, while they might heavily influence each other. There is a large amount of research done on the maintenance projects, and quite a bit on installation projects as well, while decommissioning projects are less well researched. Treating these phases as separate is often beneficial, but some insight about how they influence each other is also valuable. The decision that impacts all future decisions most clearly is the layout of the site, as this affects the distance and travel times between the assets during all other operations. Therefore the tool will be able to take in different layouts and thereby experiment with them. However, the main focus of this project is on scheduling, where the different phases also affect each other. A clear way to demonstrate this is by showing that the phases are not entirely distinct; an installation projects can take several years to complete, but the first WTGs might be operational much earlier. That means the site is partly operational while other parts are still being installed. These operational parts might need maintenance before the installation is fully complete, and at the very least these early WTGs may need maintenance before the last WTG that was installed needs maintenance. Therefore the installation schedule impacts the maintenance schedule, and to my knowledge there is no other research exploring this effect. A similar effect appears at the end of the life-cycle, when the decommissioning project starts. Here the connection between maintenance and decommissioning may be even stronger, as it may not be cost-effective to conduct maintenance on a WTG shortly before that WTG is decommissioned. Conversely one may want to schedule the decommissioning of a WTG that recently has had maintenance later than that of a WTG which is likely to need maintenance soon. How this exactly works out depends on the installation, maintenance and decommissioning policies, but it is clear that these decisions affect one another, and that is what I would like to research in this project. 
 
@@ -336,16 +338,11 @@ In this section I will return to my objectives from \Cref{ss:objs} to talk more 
 
 %TODO: Talk more about how to achieve practical goals, the main integration goal, and how the models work together (flowchart)
 \subsection{Research plans} \label{ss:plans}
-
-\begin{objective}
-Create an integrated optimisation and simulation model spanning the entire life-cycle of an Offshore Wind Farm, based on sub-models for each phase of the life-cycle.
-\end{objective}
-
-%TODO add the integration model stuff here, maybe flowchart (or that at end of section)
+First I will go through each of the sub-objectives, before talking about the main objective at the end of the section. 
 
 \subobjone*
 
-Effectively this would come down to combining the two models inspired by the models discussed in  \Cref{sss:sched}, in which I took two focus papers and discussed strengths and weaknesses of both. My hope is to make a hybrid of these two approaches and highlight their strengths. Both approaches used both simulation and optimisation together, and I aim to do the same. A focus on cashflows seems to be a good approach (as it will always be of interest to the project developer), but it should incorporate positive cashflows from partial completion, as well as possible milestone deadlines. Given this approach, it seems an investigation into both start date and non-operational periods would be beneficial. A dedicated heuristic (as in \cite{kerkhove2017optimised}) could be used (where all activity types and years are treated equally) as base solutions, to then be potentially improved with a local search. However, this is not the only optimisation that should be performed. A restriction on which activities can be completed in which time periods is a starting point from which more detailed scheduling should occur. For each period a set of desired vessels should be determined, keeping in mind costs of (de)commissioning vessels and restrictions on timespans for that. A schedule should be made for each vessel such that each task is assigned a vessel and a timeslot. For this there are various optimisation techniques possible. The basic one to go to would be trying to solve an integer program, in which task durations can be the expected time within a time period (month) based on expected weather. A solution would then have to be checked through simulation, and the simulator described in \Cref{s:sim} is designed to be used for this. This may be difficult to do in a way that is computationally feasible in a reasonable time, but that is one of the challenges of this research, and there is a lot of literature on improving simulations when necessary. However, if this turns out to not be feasible there are alternatives for the optimisation technique that might speed up the process. 
+Effectively this would come down to combining the two models inspired by the models discussed in  \Cref{sss:sched}, in which I took two focus papers and discussed strengths and weaknesses of both. My hope is to make a hybrid of these two approaches and highlight their strengths. Both approaches used both simulation and optimisation together, and I aim to do the same. A focus on cashflows seems to be a good approach (as it will always be of interest to the project developer), but it should incorporate positive cashflows from partial completion, as well as possible milestone deadlines. Given this approach, it seems an investigation into both start date and non-operational periods would be beneficial. A dedicated heuristic (as in \cite{kerkhove2017optimised}) could be used (where all activity types and years are treated equally) as base solutions, to then be potentially improved with a local search. However, this is not the only optimisation that should be performed. A restriction on which activities can be completed in which time periods is a starting point from which more detailed scheduling should occur. For each period a set of desired vessels should be determined, keeping in mind costs of (de)commissioning vessels and restrictions on timespans for that. A schedule should be made for each vessel such that each task is assigned a vessel and a timeslot. For this there are various optimisation techniques possible. The basic one to go to would be trying to solve an integer program, in which task durations can be the expected time within a time period (month) based on expected weather. A solution would then have to be checked through simulation, and the simulator described in \Cref{s:sim} is designed to be used for this. This may be difficult to do in a way that is computationally feasible in a reasonable time, but that is one of the challenges of this research, and there is a lot of literature on improving the speed of simulations when necessary. However, if this turns out to not be feasible there are alternatives for the optimisation technique that might speed up the process. 
 
 \subobjtwo*
 
@@ -354,6 +351,18 @@ As mentioned in \Cref{sss:maint} significant additional reading will have to be 
 \subobjthree*
 
 This model should be similar in structure to that created for the first sub-objective. However, the restrictions may be fairly different. Cost-effectiveness is still important, but there may be many more hard restrictions based on government regulations. These will be the restrictions to ensure the project is completed before a certain deadline, as otherwise a later start for the decomission might be more cost-effective. Therefore these projects will hold their own difficulties and are significantly different from installation projects. 
+
+\objectve*
+
+After each of the sub-objectives is completed, I will aim to integrate the resulting models into one big model spanning the entire life-cycle of the OWF. The different models and their interactions are shown in Figure~\ref{f:interact}. Each of the three phases of the model has a corresponding integrated model, where the inner optimisation and simulation models work together. This interaction is effectively the same for each of the phases. On a higher level, the models for each of the phases interact with each other in specific ways. 
+
+Installation and maintenance partially overlap in time, and therefore have a significant impact on each other. The scheduling of routing and time at ports for installation and maintenance vessels may benefit from being done together, and only the assets that have been installed require maintenance. Maintenance and decommission affect each other in a very similar way, as they too overlap in time. The direct influence is that near the end of the life-cycle, it may not be cost-effiecient to maintain or repair an asset if it is to be decommissioned shortly after. Finally, installation affects decomission in more intricate ways. These phases do not overlap in time, but since the installation phase can take several years, some WTs may be years older than other WTs. This can affect maintenance, but also decomission as it may be cost-efficient to decomission the WTs that are oldest first. However, there is more that affects this, as the maintenance on each individual asset can also influence the most cost-effective order of decomissioning. 
+
+\begin{figure}[h]
+\includegraphics[width = \textwidth]{OWF Tool interactions}
+\caption{The connections between each of the minor models that together make up the final model}
+\label{f:interact}
+\end{figure}
 
 \subsection{Timeline and next steps} \label{ss:timel}
 %Timeline and focus from here
@@ -367,7 +376,7 @@ In the six months after that, so the second half of the second year of my PhD, t
 
 \bigskip
 
-At the start of the third year of my PhD the models for both installation projects and maintenance projects should be well formed, and I will aim to combine them. The decommissioning projects will also be included in this overarching model, which will likely be very similar to installation projects in structure. This is likely to be difficult, even if both models are already implemented in the simulator, as integrated models have proven to be a complex subject in itself. Realistic experiments can also be run now, and my goal is to adapt the models to accommodate for more extensive research into directions which are indicated to be useful by the earlier experiments. For example, if realistic imperfect weather forecasts seem like a valuable research topic, I aim to adapt the models and simulator to include them. This also includes various alternative optimisation models, as multiple alternatives should be experimented with to compare their performance over the entire life-cycle of an OWF which is now included in the model. Finally experiments with different layouts of the OWF can be performed to see their impact on the costs of installation, maintenance and decommissioning of the site. 
+At the start of the third year of my PhD the models for both installation projects and maintenance projects should be well formed, and I will aim to combine them. The decommissioning projects will also be included in this overarching model, which will likely be very similar to installation projects in structure. This is likely to be difficult, even if both models are already implemented in the simulator, as integrated models have proven to be a complex subject in itself. Realistic experiments can also be performed at this time, and my goal is to adapt the models to accommodate for more extensive research into directions which are indicated to be useful by the earlier experiments. For example, if realistic imperfect weather forecasts seem like a valuable research topic, I aim to adapt the models and simulator to include them. This also includes various alternative optimisation models, as multiple alternatives should be experimented with to compare their performance over the entire life-cycle of an OWF which is now included in the model. Finally experiments with different layouts of the OWF can be performed to see their impact on the costs of installation, maintenance and decommissioning of the site. 
 
 In the final 6 months of my PhD, I will hopefully focus mostly on writing. While I plan to continually write about my progress and findings, there will always be a significant portion to write up in the end. That said, any additional experiments and final changes can also be performed and implemented during this time. 
 
