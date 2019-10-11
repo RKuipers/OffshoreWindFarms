@@ -110,6 +110,17 @@ Kusiak, A. \harvardand\ Song, Z.  \harvardyearleft 2010\harvardyearright ,
   `Design of wind farm layout for maximum wind energy capture', {\em Renewable
   energy} {\bf 35}(3),~685--694.
 
+\harvarditem[Law et~al.]{Law, Kelton \harvardand\
+  Kelton}{2000}{law2000simulation}
+Law, A.~M., Kelton, W.~D. \harvardand\ Kelton, W.~D.  \harvardyearleft
+  2000\harvardyearright , {\em Simulation modeling and analysis}, Vol.~3,
+  McGraw-Hill New York.
+
+\harvarditem{Lee \harvardand\ Leyffer}{2011}{lee2011mixed}
+Lee, J. \harvardand\ Leyffer, S.  \harvardyearleft 2011\harvardyearright , {\em
+  Mixed integer nonlinear programming}, Vol. 154, Springer Science \& Business
+  Media.
+
 \harvarditem[Leggate et~al.]{Leggate, Sucu, Akartunali \harvardand\
   Meer}{2018}{leggate2010crew}
 Leggate, A., Sucu, S., Akartunali, K. \harvardand\ Meer, R. v.~d.
@@ -124,6 +135,11 @@ Mosetti, G., Poloni, C. \harvardand\ Diviacco, B.  \harvardyearleft
   windfarms by means of a genetic algorithm', {\em Journal of Wind Engineering
   and Industrial Aerodynamics} {\bf 51}(1),~105--116.
 
+\harvarditem{Nemhauser \harvardand\ Wolsey}{1999}{nemhauser1999integer}
+Nemhauser, G. \harvardand\ Wolsey, L.  \harvardyearleft 1999\harvardyearright ,
+  Integer programming and combinatorial optimization, {\em in} `Wiley, 1988',
+  Springer.
+
 \harvarditem[P{\'e}rez et~al.]{P{\'e}rez, M{\'\i}nguez \harvardand\
   Guanche}{2013}{perez2013offshore}
 P{\'e}rez, B., M{\'\i}nguez, R. \harvardand\ Guanche, R.  \harvardyearleft
@@ -137,6 +153,12 @@ Renewable-UK  \harvardyearleft 2017\harvardyearright , `Offshore wind project
   https://www.renewableuk.com/news/294516/Offshore-Wind-Project-Timelines.htm}
   .
 \newblock Accessed: 2019-03-24.
+
+\harvarditem[Robinson et~al.]{Robinson, Brooks, Kotiadis \harvardand\ Van
+  Der~Zee}{2010}{robinson2010conceptual}
+Robinson, S., Brooks, R., Kotiadis, K. \harvardand\ Van Der~Zee, D.-J.
+  \harvardyearleft 2010\harvardyearright , {\em Conceptual modeling for
+  discrete-event simulation}, CRC Press.
 
 \harvarditem[Saavedra-Moreno et~al.]{Saavedra-Moreno, Salcedo-Sanz,
   Paniagua-Tineo, Prieto \harvardand\
