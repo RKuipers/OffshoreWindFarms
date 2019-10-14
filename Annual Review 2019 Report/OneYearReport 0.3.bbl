@@ -94,6 +94,13 @@ Iancu, D.~A. \harvardand\ Trichakis, N.  \harvardyearleft 2013\harvardyearright
   , `Pareto efficiency in robust optimization', {\em Management Science} {\bf
   60}(1),~130--147.
 
+\harvarditem[Irawan et~al.]{Irawan, Wall \harvardand\
+  Jones}{2019}{irawan2019optimisation}
+Irawan, C.~A., Wall, G. \harvardand\ Jones, D.  \harvardyearleft
+  2019\harvardyearright , `An optimisation model for scheduling the
+  decommissioning of an offshore wind farm', {\em OR Spectrum} {\bf
+  41}(2),~513--548.
+
 \harvarditem{Kaiser \harvardand\ Snyder}{2010}{kaiser2010offshore}
 Kaiser, M.~J. \harvardand\ Snyder, B.  \harvardyearleft 2010\harvardyearright ,
   `Offshore wind energy installation and decommissioning cost estimation in the
@@ -127,6 +134,19 @@ Leggate, A., Sucu, S., Akartunali, K. \harvardand\ Meer, R. v.~d.
   \harvardyearleft 2018\harvardyearright , `Modelling crew scheduling in
   offshore supply vessels', {\em Journal of the Operational Research Society}
   {\bf 69}(6),~959--970.
+
+\harvarditem[Leontaris et~al.]{Leontaris, Morales-N{\'a}poles, Dewan
+  \harvardand\ Wolfert}{2019}{leontaris2019decision}
+Leontaris, G., Morales-N{\'a}poles, O., Dewan, A. \harvardand\ Wolfert, A.~R.
+  \harvardyearleft 2019\harvardyearright , `Decision support for offshore asset
+  construction using expert judgments for supply disruptions risk', {\em
+  Automation in Construction} {\bf 107},~102903.
+
+\harvarditem[Leontaris et~al.]{Leontaris, Morales-N{\'a}poles \harvardand\
+  Wolfert}{n.d.}{leontarisprobabilistic}
+Leontaris, G., Morales-N{\'a}poles, O. \harvardand\ Wolfert, A.~R.
+  \harvardyearleft n.d.\harvardyearright , `Probabilistic decision support for
+  offshore wind operations'.
 
 \harvarditem[Mosetti et~al.]{Mosetti, Poloni \harvardand\
   Diviacco}{1994}{mosetti1994optimization}
@@ -177,6 +197,13 @@ Sevaux, M. \harvardand\ Sörensen, K.  \harvardyearleft 2002\harvardyearright ,
 Shafiee, M.  \harvardyearleft 2015\harvardyearright , `Maintenance logistics
   organization for offshore wind energy: Current progress and future
   perspectives', {\em Renewable Energy} {\bf 77},~182--193.
+
+\harvarditem[St{\aa}lhane et~al.]{St{\aa}lhane, Halvorsen-Weare, Non{\aa}s
+  \harvardand\ Pantuso}{2019}{staalhane2019optimizing}
+St{\aa}lhane, M., Halvorsen-Weare, E.~E., Non{\aa}s, L.~M. \harvardand\
+  Pantuso, G.  \harvardyearleft 2019\harvardyearright , `Optimizing vessel
+  fleet size and mix to support maintenance operations at offshore wind farms',
+  {\em European Journal of Operational Research} {\bf 276}(2),~495--509.
 
 \harvarditem{Williams}{1992}{williams1992practical}
 Williams, T.  \harvardyearleft 1992\harvardyearright , `Practical use of
