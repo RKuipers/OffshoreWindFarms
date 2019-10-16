@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  14 OCT 2019 17:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  16 OCT 2019 17:04
 entering extended mode
 **"./OneYearReport 0.3.tex"
 ("OneYearReport 0.3.tex"
@@ -451,7 +451,7 @@ n, ([]Iancu & Trichakis[]
  []
 
 [24] [25] [26] [27] [28] [29] [30] [31] [32] [33] [34] [35] [36]
-Overfull \hbox (0.7228pt too wide) in paragraph at lines 365--366
+Overfull \hbox (0.7228pt too wide) in paragraph at lines 368--369
 \OT1/cmr/m/n/12 objective. How-ever, the re-stric-tions may be fairly dif-fer-e
 nt. Cost-effectiveness
  []
@@ -461,7 +461,7 @@ nt. Cost-effectiveness
 File: images/OWF Tool interactions.png Graphic file (type png)
 <use images/OWF Tool interactions.png>
 Package pdftex.def Info: images/OWF Tool interactions.png  used on input line 3
-74.
+77.
 (pdftex.def)             Requested size: 390.0pt x 346.65814pt.
 
 
@@ -510,7 +510,7 @@ ts/cm/cmr17.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type
 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/wsb18103/AppData/Local/
 Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/wsb1810
 3/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmu10.pfb>
-Output written on "OneYearReport 0.3.pdf" (46 pages, 288281 bytes).
+Output written on "OneYearReport 0.3.pdf" (46 pages, 288422 bytes).
 PDF statistics:
  206 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
