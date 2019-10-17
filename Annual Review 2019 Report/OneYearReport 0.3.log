@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  16 OCT 2019 17:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  17 OCT 2019 16:23
 entering extended mode
 **"./OneYearReport 0.3.tex"
 ("OneYearReport 0.3.tex"
@@ -429,7 +429,7 @@ eYearReport 0.3.toc")
 \tf@toc=\write3
 \openout3 = `"OneYearReport 0.3.toc"'.
 
- [3] [4] [5] [6] [7] [8] [9]
+ [3] [4] [5] [6] [7] [8] [9] [10]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 160.
 
 
@@ -438,7 +438,7 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 160.
- [10] [11] [12] [13] [14] [15] [16]
+ [11] [12] [13] [14] [15] [16]
 Overfull \hbox (6.2931pt too wide) in paragraph at lines 221--222
 \OT1/cmr/m/n/12 While there is not much re-search re-lat-ing specif-i-cally to 
 de-com-mis-sion projects,
@@ -510,7 +510,7 @@ ts/cm/cmr17.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type
 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/wsb18103/AppData/Local/
 Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/wsb1810
 3/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmu10.pfb>
-Output written on "OneYearReport 0.3.pdf" (46 pages, 288422 bytes).
+Output written on "OneYearReport 0.3.pdf" (46 pages, 288858 bytes).
 PDF statistics:
  206 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
