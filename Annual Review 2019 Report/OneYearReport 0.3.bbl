@@ -1,5 +1,12 @@
 \begin{thebibliography}{xx}
 
+\harvarditem[Bard et~al.]{Bard, Jia, Chacon \harvardand\
+  Stuber}{2015}{bard2015integrating}
+Bard, J.~F., Jia, S., Chacon, R. \harvardand\ Stuber, J.  \harvardyearleft
+  2015\harvardyearright , `Integrating optimisation and simulation approaches
+  for daily scheduling of assembly and test operations', {\em International
+  Journal of Production Research} {\bf 53}(9),~2617--2632.
+
 \harvarditem[Barlow et~al.]{Barlow, {\"O}zt{\"u}rk, Revie, Akartunal{\i}, Day
   \harvardand\ Boulougouris}{2018}{barlow2018mixed}
 Barlow, E., {\"O}zt{\"u}rk, D.~T., Revie, M., Akartunal{\i}, K., Day, A.~H.
@@ -49,6 +56,13 @@ Burke, E.~K., De~Causmaecker, P., De~Maere, G., Mulder, J., Paelinck, M.
 Cotta, C. \harvardand\ Fern{\'a}ndez, A.~J.  \harvardyearleft
   2007\harvardyearright , Memetic algorithms in planning, scheduling, and
   timetabling, {\em in} `Evolutionary Scheduling', Springer, pp.~1--30.
+
+\harvarditem[De~Angelis et~al.]{De~Angelis, Felici \harvardand\
+  Impelluso}{2003}{de2003integrating}
+De~Angelis, V., Felici, G. \harvardand\ Impelluso, P.  \harvardyearleft
+  2003\harvardyearright , `Integrating simulation and optimisation in health
+  care centre management', {\em European Journal of Operational Research} {\bf
+  150}(1),~101--114.
 
 \harvarditem{Dinwoodie \harvardand\ McMillan}{2014}{dinwoodie2014operational}
 Dinwoodie, I.~A. \harvardand\ McMillan, D.  \harvardyearleft

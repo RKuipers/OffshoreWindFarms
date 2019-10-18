@@ -12,7 +12,7 @@
 \contentsline {subsection}{\numberline {3.2}Methodology}{24}% 
 \contentsline {subsubsection}{\numberline {3.2.1}Simulation}{25}% 
 \contentsline {subsubsection}{\numberline {3.2.2}Optimisation}{27}% 
-\contentsline {subsection}{\numberline {3.3}Integration of Simulation and Optimisation}{28}% 
+\contentsline {subsubsection}{\numberline {3.2.3}Combining Simulation and Optimisation}{28}% 
 \contentsline {section}{\numberline {4}Simulation tool}{29}% 
 \contentsline {subsection}{\numberline {4.1}Current progress}{29}% 
 \contentsline {subsection}{\numberline {4.2}Future developments}{31}% 
