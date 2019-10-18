@@ -265,11 +265,11 @@ In the above literature, two main types of methods are used for this problem; op
 \bigskip
 
 \subsubsection{Simulation} \label{sss:sim}
-Simulation, especially Discrete Event Simulation, is a very broadly used method in computational analysis \cite{law2000simulation,robinson2010conceptual} . It is often used to evaluate the strength of a proposed layout or schedule under uncertain circumstances. If enough simulations are run, an accurate view of the realistic duration of a schedule can be gained. This does not only mean expected (average) duration, but also for example a confidence interval for the extreme cases. This does however have two important bottlenecks; the information gained through simulation can only be as precise as the weather model used for it, and doing enough simulations can take considerable time. 
+Simulation, especially Discrete Event Simulation, is a very broadly used method in computational analysis \cite{law2000simulation,robinson2010conceptual}. It is often used to evaluate the strength of a proposed layout or schedule under uncertain circumstances. If enough simulations are run, an accurate view of the realistic duration of a schedule can be gained. This does not only mean expected (average) duration, but also for example a confidence interval for the costs of the project or the probability a certain task will be completed before a set time. However, simulation for these offshore projects has two important bottlenecks; the information gained through simulation can only be as precise as the weather model used for it, and running enough simulations to get an accurate result can take considerable time. 
 
 \bigskip
 
-If the weather data is limited in precision or amount of data available, the results of the simulation in turn will also be limited. First of all is the precision of the data; a simulation as detailed as we would like for this type of project would have timesteps in the range of 15 minutes to an hour. A lot of weather data has much larger timesteps, often of several hours. There are methods to interpolate between weather data points, but this tends to not be very precise as there are a lot of factors to take into account. The most important measures of the weather are wind speed and wave height, as by these measures the usability of the vessels can be determined. In order to have this data be realistic, the two measures have to be correlated, as well as have autocorrelation over time. Having those values be realistically interpolated between two measured points is a difficult task, and something we will have to figure out a way to realistically handle for future research.
+If the weather data is limited in precision or amount of data available, the results of the simulation in turn will also be limited. A simulation as detailed as we would like for this type of project would have timesteps in the range of 15 minutes to an hour. A lot of weather data has much larger timesteps, often of several hours. There are methods to interpolate between weather data points, but this tends to not be very precise as there are a lot of factors to take into account. The most important measures of the weather are wind speed and wave height, as by these measures the usability of the vessels can be determined. In order for this data to be realistic, the two measures have to be correlated, as well as have autocorrelation over time. Having those values be realistically interpolated between two measured points is a difficult task, and something we will have to figure out a way to realistically handle for future research.
 
 The amount of data available is also a common problem. A major reason for this is the natural change of weather depending on the time of year. Generally, a year would be split up in sections, for example the four seasons or the twelve months. Intuitively this makes a lot of sense; if we want to model the weather in January data from July is irrelevant for this. But the consequence is the sheer amount of time it takes to collect accurate data for each time period; if we want 300 days of data for the month of April, we need data collected over the span of 10 years. In addition, the conditions of the location the data is gathered from have to be similar to the location of the OWF. An important parameter for this is the distance to the shore, but there are more factors which play a part. 
 
@@ -298,8 +298,8 @@ There are alternatives to computational programming. The most prominent are heur
 
 Alternatively, evolutionary algorithms have been used for deterministic scheduling problems such as machine learning \cite{dorndorf1995evolution}. A good explanation of this technique for scheduling is given in \cite{cotta2007memetic}. While this technique seems to be fairly common in deterministic scheduling, not much research could be found in an uncertain setting. The exception is \cite{sevaux2002genetic} as discussed in \Cref{sss:stoch}. This research, although seemingly brief, gives quality results. Since there is no clear reason why evolutionary algorithms couldn't work well within an uncertain setting, this is a potential method to explore in the future. 
 
-\subsection{Integration of Simulation and Optimisation}
-Lorem Ipsum %TODO
+\subsubsection{Combining Simulation and Optimisation}
+When optimisation is to be performed within non-deterministic environments, it is often combined with simulation, such as in \cite{de2003integrating} and \cite{bard2015integrating}. A primary reason for this, and why I plan on using this too, is that simulation is a very effective way to analyse large-scale schedules subject to uncertain conditions. %TODO: Write more
 
 \pagebreak
 
@@ -351,7 +351,6 @@ As mentioned earlier, a decision needs to be made on the presumed knowledge of t
 \section{Future Work} \label{s:concl}
 In this section I will return to my objectives from \Cref{ss:objs} to talk more about how I am planning to achieve them, and I sketch a possible future timeline for this research project. 
 
-%TODO: Talk more about how to achieve practical goals, the main integration goal, and how the models work together (flowchart)
 \subsection{Research plans} \label{ss:plans}
 First I will go through each of the sub-objectives, before talking about the main objective at the end of the section. 
 
