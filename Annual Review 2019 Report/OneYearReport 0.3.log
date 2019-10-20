@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.8)  19 OCT 2019 11:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.8)  20 OCT 2019 14:19
 entering extended mode
 **"./OneYearReport 0.3.tex"
 ("OneYearReport 0.3.tex"
@@ -440,18 +440,19 @@ n, ([]Iancu & Trichakis[]
  []
 
 [24] [25] [26] [27] [28] [29] [30] [31] [32] [33] [34] [35] [36] [37] [38]
-<images/OWF Tool interactions.png, id=134, 804.00375pt x 714.67pt>
+[39] [40]
+<images/OWF Tool interactions.png, id=140, 804.00375pt x 714.67pt>
 File: images/OWF Tool interactions.png Graphic file (type png)
 <use images/OWF Tool interactions.png>
 Package pdftex.def Info: images/OWF Tool interactions.png  used on input line 3
-78.
+99.
 (pdftex.def)             Requested size: 390.0pt x 346.65814pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[39] [40 <./images/OWF Tool interactions.png>] [41] [42] [43] [44]
-("OneYearReport 0.3.bbl" [45] [46] [47]
+[41] [42 <./images/OWF Tool interactions.png>] [43] [44] [45] [46]
+("OneYearReport 0.3.bbl" [47] [48] [49]
 Underfull \hbox (badness 10000) in paragraph at lines 184--190
 []| | \OT1/cmr/m/n/12 Renewable-UK (2017), `Off-shore wind project time-lines',
 
@@ -463,17 +464,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 184--190
 
  []
 
-[48])
+[50])
 
 Package caption Warning: Unused \captionsetup[subfigure] on input line 26.
 See the caption package documentation for explanation.
 
-[49] ("OneYearReport 0.3.aux") ) 
+[51] ("OneYearReport 0.3.aux") ) 
 Here is how much of TeX's memory you used:
- 7450 strings out of 492895
- 129181 string characters out of 3123736
+ 7452 strings out of 492895
+ 129204 string characters out of 3123736
  207057 words of memory out of 3000000
- 11238 multiletter control sequences out of 15000+200000
+ 11240 multiletter control sequences out of 15000+200000
  11542 words of font info for 41 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,7n,39p,2902b,304s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -493,9 +494,9 @@ obin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb>
 m/cmsy10.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
 ic/amsfonts/cm/cmti12.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fon
 ts/type1/public/amsfonts/cm/cmu10.pfb>
-Output written on "OneYearReport 0.3.pdf" (49 pages, 294390 bytes).
+Output written on "OneYearReport 0.3.pdf" (51 pages, 298921 bytes).
 PDF statistics:
- 216 PDF objects out of 1000 (max. 8388607)
+ 222 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
