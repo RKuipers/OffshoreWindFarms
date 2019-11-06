@@ -24,3 +24,5 @@ def checkVal(indices, values):
 	for i in indices:
 		sum += values[i]		
 	return sum
+
+print(knapSack(50, [10, 20, 30], [50, 10, 20], 3))
