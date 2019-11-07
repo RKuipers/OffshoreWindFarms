@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  5 NOV 2019 17:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  7 NOV 2019 16:13
 entering extended mode
 **./annurev.tex
 (annurev.tex
@@ -957,42 +957,42 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/ui' in size <10.95> not available
 ] [6
 
 ]
-<./images/flowchart.png, id=180, 804.00375pt x 714.67pt>
-File: ./images/flowchart.png Graphic file (type png)
-<use ./images/flowchart.png>
-Package pdftex.def Info: ./images/flowchart.png  used on input line 86.
-(pdftex.def)             Requested size: 245.83282pt x 218.51382pt.
- [7
-
- <./images/flowchart.png>]
-LaTeX Font Info:    Try loading font information for U+msa on input line 104.
+LaTeX Font Info:    Try loading font information for U+msa on input line 102.
 
 ("C:\Users\wsb18103\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\umsa.f
 d"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 104.
+LaTeX Font Info:    Try loading font information for U+msb on input line 102.
 
 ("C:\Users\wsb18103\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\umsb.f
 d"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input 
-line 104.
+line 102.
 
 ("C:\Users\wsb18103\AppData\Local\Programs\MiKTeX 2.9\tex/latex/sansmathaccent\
 ot1mathkerncmss.fd"
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
 )
-<./images/Installation.png, id=210, 318.18875pt x 292.09125pt>
+<./images/Installation.png, id=180, 318.18875pt x 292.09125pt>
 File: ./images/Installation.png Graphic file (type png)
 <use ./images/Installation.png>
-Package pdftex.def Info: ./images/Installation.png  used on input line 104.
+Package pdftex.def Info: ./images/Installation.png  used on input line 102.
 (pdftex.def)             Requested size: 153.64493pt x 141.0401pt.
+ [7
+
+ <./images/Installation.png>]
+<./images/flowchart.png, id=210, 804.00375pt x 714.67pt>
+File: ./images/flowchart.png Graphic file (type png)
+<use ./images/flowchart.png>
+Package pdftex.def Info: ./images/flowchart.png  used on input line 110.
+(pdftex.def)             Requested size: 245.83282pt x 218.51382pt.
  [8
 
- <./images/Installation.png>] [9
+ <./images/flowchart.png>] [9
 
 ]
 \tf@nav=\write6
@@ -1004,28 +1004,28 @@ Package pdftex.def Info: ./images/Installation.png  used on input line 104.
 \tf@snm=\write8
 \openout8 = `annurev.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 116.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 116.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 122.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 122.
  (annurev.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 116.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 116.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 122.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 122.
 Package rerunfilecheck Info: File `annurev.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 17337 strings out of 492946
- 339176 string characters out of 3124934
- 410181 words of memory out of 3000000
- 20816 multiletter control sequences out of 15000+200000
+ 17357 strings out of 492946
+ 339753 string characters out of 3124934
+ 411181 words of memory out of 3000000
+ 20836 multiletter control sequences out of 15000+200000
  10990 words of font info for 40 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 56i,15n,59p,776b,614s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 56i,15n,59p,776b,938s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfo
 nts/cm/cmss10.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
 pe1/public/amsfonts/cm/cmss12.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiK
 TeX 2.9/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Users/wsb18103/AppData/Loc
 al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmu10.pfb>
-Output written on annurev.pdf (9 pages, 137058 bytes).
+Output written on annurev.pdf (9 pages, 138196 bytes).
 PDF statistics:
  282 PDF objects out of 1000 (max. 8388607)
  19 named destinations out of 1000 (max. 500000)

@@ -79,18 +79,16 @@
 
 
 \begin{frame}{Model interactions - 1}
-\begin{figure}[t]
-  \includegraphics[width=0.8\textwidth]{flowchart}
-\centering
-\end{figure}
-\end{frame}
-
-
-\begin{frame}{Model interactions - 2}
 \begin{columns}
 	\begin{column}{0.5\textwidth}
 		\begin{itemize}
-			\item TODO
+			\item Primary process pipeline:
+			\begin{enumerate}
+				\item Optimisation Model (OM) gets info about the site and task structure
+				\item OM calculates new/improves existing schedule and sends it to the Simulation Model (SM)
+				\item SM runs simulations with the schedule, returns metrics back to OM
+				\item OM determines that end conditions are met or returns to step 2
+			\end{enumerate}
 		\end{itemize}
 	\end{column}
 
@@ -101,6 +99,14 @@
 		\end{figure}
 	\end{column}
 \end{columns}
+\end{frame}
+
+
+\begin{frame}{Model interactions - 2}
+\begin{figure}[t]
+  \includegraphics[width=0.8\textwidth]{flowchart}
+\centering
+\end{figure}
 \end{frame}
 
 
