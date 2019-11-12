@@ -46,6 +46,16 @@
 \end{frame}
 
 
+\begin{frame}{Existing literature}
+   \begin{itemize}
+  	\item Various attempts to improve the installation phase, through integer programming and local search, combined with simulation
+  	\item A lot of research has been done in various areas of maintenance, including supply chain management, mitigating failure rate, condition based maintenance
+  	\item Not a lot of research has been done on decommission projects, but they are similar in structure to installation projects
+  	\item No research at all has been found that looks at the entire life-cycle and how the different phases affect each other
+  \end{itemize}
+\end{frame}
+
+
 \begin{frame}{Research objectives}
   \begin{itemize}
   	\item Design an integrated optimisation and simulation model spanning the entire life-cycle of an Offshore Wind Farm, based on sub-models for each phase of the life-cycle.
@@ -59,20 +69,11 @@
 \end{frame}
 
 
-\begin{frame}{Existing literature}
-   \begin{itemize}
-  	\item Various attempts to improve the installation phase, through integer programming and local search, combined with simulation
-  	\item A lot of research has been done in various areas of maintenance, including supply chain management, mitigating failure rate, condition based maintenance
-  	\item Not a lot of research has been done on decommission projects, but they are similar in structure to installation projects
-  	\item No research at all has been found that looks at the entire life-cycle and how the different phases affect each other
-  \end{itemize}
-\end{frame}
-
-
 \begin{frame}{Current Progress}
    \begin{itemize}
-  	\item Reviewed a large part of the literature, primarily on installation projects and secondarily on maintenance projects and general non-deterministic scheduling and logistics
-  	\item Laid the foundations for a decision support tool suited to analyse and optimise schedules for any phase of the life-cycle, based on site-specific characteristics of the project
+  	\item Reviewed a large part of the literature, primarily on installation projects and secondarily on maintenance projects and general non-deterministic scheduling and robust optimisation
+	\item Specified research area and objectives
+  	\item Laid the foundations for a decision support tool suited to analyse and optimise schedules for any phase of the life-cycle, based on project-specific characteristics
   	\item Planned the interactions between my various models	
   \end{itemize}
 \end{frame}
@@ -81,15 +82,12 @@
 \begin{frame}{Model interactions - 1}
 \begin{columns}
 	\begin{column}{0.5\textwidth}
-		\begin{itemize}
-			\item Primary process pipeline:
-			\begin{enumerate}
-				\item Optimisation Model (OM) gets info about the site and task structure
-				\item OM calculates new/improves existing schedule and sends it to the Simulation Model (SM)
-				\item SM runs simulations with the schedule, returns metrics back to OM
-				\item OM determines that end conditions are met or returns to step 2
-			\end{enumerate}
-		\end{itemize}
+		\begin{enumerate}
+			\item Optimisation Model (OM) gets info about the site and task structure
+			\item OM calculates new/improves existing schedule and sends it to the Simulation Model (SM)
+			\item SM runs simulations with the schedule, returns metrics back to OM
+			\item OM determines that end conditions are met or returns to step 2
+		\end{enumerate}
 	\end{column}
 
 	\begin{column}{0.5\textwidth}
@@ -112,8 +110,8 @@
 
 \begin{frame}{Future Work}
    \begin{itemize}
-  	\item Develop full models for each stage of the life-cycle
-  	\item Determine specific interactions between the stages
+  	\item Develop full models for each phase of the life-cycle
+  	\item Determine specific interactions between the phases
   	\item Implement models in the tool, develop it further for full commercial functionality
   	\item Validate and test the tool (and underlying models) using real(istic) data
   \end{itemize}
