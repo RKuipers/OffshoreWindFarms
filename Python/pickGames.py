@@ -123,11 +123,12 @@ def voteSat(budget, n):
 def calcVal(setOfGames, setOfVotes):
     numSat = 0
     for vote in setOfVotes:
-        satisfied = False
+        satisfied = 0
         for game in vote:
-            satisfied |= (game in setOfGames)
-        if satisfied:
-            numSat += 1
+            if (game in setOfGames):
+                satisfied += 1
+        if satisfied > 0:
+            numSat += 49 + satisfied
     return numSat
 
 def checkVal(indices, values):
@@ -187,9 +188,16 @@ for i in range(len(names)):
 run(50)
 run(75)
 run(100)
+run(125)
 run(150)
+run(160)
+run(165)
+run(170)
+run(175)
+run(180)
+run(185)
+run(190)
 run(200)
+run(225)
 run(250)
-run(300)
 run(500)
-run(750)
