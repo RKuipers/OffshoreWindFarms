@@ -33,6 +33,7 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{defin}{Definition}
 \newtheorem*{objective}{Objective}
+\newtheorem*{rquestion}{Question}
 \newtheorem{subobjective}{Sub-objective}
 \newcommand{\mydef}[3]{
 \begin{defin}
@@ -117,6 +118,15 @@ Over the past year, I have spent most of my time reading up on the subject, both
 
 \bigskip
 
+The primary research question is:
+
+\begin{restatable}{rquestion}{rquest}
+Can considering the entirety of the life-cycle of an Offshore Wind Farm, and how each of the phases interact, improve logistical decision making on these projects?
+\label{rquest}
+\end{restatable}
+
+The primary motivation for this objective is that in the literature the three phases of the life-cycle are each treated seperately, while they might heavily influence each other. There is a large amount of research done on the maintenance projects, and quite a bit on installation projects as well, while decommissioning projects are less well researched. Treating these phases as separate makes them more manageble, but some insight about how they influence each other is also valuable. There are two primary ways in which these 
+
 \iffalse
 
 The explicit research objective is: 
@@ -126,7 +136,12 @@ The explicit research objective is:
 Design an integrated optimisation and simulation model spanning the entire life-cycle of an Offshore Wind Farm, based on sub-models for each phase of the life-cycle.
 \end{restatable}
 
-The primary motivation for this objective is that in the literature the three phases of the life-cycle are each treated seperately, while they might heavily influence each other. There is a large amount of research done on the maintenance projects, and quite a bit on installation projects as well, while decommissioning projects are less well researched. Treating these phases as separate is often beneficial, but some insight about how they influence each other is also valuable. The decision that impacts all future decisions most clearly is the layout of the site, as this affects the distance and travel times between the assets during all other operations. Therefore the tool will be able to take in different layouts and thereby experiment with them. However, the main focus of this project is on scheduling, where the different phases also affect each other. A clear way to demonstrate this is by showing that the phases are not entirely distinct; an installation project can take several years to complete, but the first WTGs might be operational much earlier. That means the site is partly operational while other parts are still being installed. These operational parts might need maintenance before the installation is fully complete, and at the very least these early WTGs may need maintenance before the last WTG that was installed needs maintenance. Therefore the installation schedule impacts the maintenance schedule, and to my knowledge there is no other research exploring this effect. A similar effect appears at the end of the life-cycle, when the decommissioning project starts. Here the connection between maintenance and decommissioning may be even stronger, as it may not be cost-effective to conduct maintenance on a WTG shortly before that WTG is decommissioned. Conversely one may want to schedule the decommissioning of a WTG that recently has had maintenance later than that of a WTG which is likely to need maintenance soon. How this exactly works out depends on the installation, maintenance and decommissioning policies, but it is clear that these decisions affect one another, and that is what I would like to research in this project. 
+The primary motivation for this objective is that in the literature the three phases of the life-cycle are each treated seperately, while they might heavily influence each other. There is a large amount of research done on the maintenance projects, and quite a bit on installation projects as well, while decommissioning projects are less well researched. Treating these phases as separate is often beneficial, but some insight about how they influence each other is also valuable. 
+
+The decision that impacts all future decisions most clearly is the layout of the site, as this affects the distance and travel times between the assets during all other operations. Therefore the tool will be able to take in different layouts and thereby experiment with them. 
+
+However, the main focus of this project is on scheduling, where the different phases also affect each other. A clear way to demonstrate this is by showing that the phases are not entirely distinct; an installation project can take several years to complete, but the first WTGs might be operational much earlier. That means the site is partly operational while other parts are still being installed. These operational parts might need maintenance before the installation is fully complete, and at the very least these early WTGs may need maintenance before the last WTG that was installed needs maintenance. Therefore the installation schedule impacts the maintenance schedule, and to my knowledge there is no other research exploring this effect. 
+A similar effect appears at the end of the life-cycle, when the decommissioning project starts. Here the connection between maintenance and decommissioning may be even stronger, as it may not be cost-effective to conduct maintenance on a WTG shortly before that WTG is decommissioned. Conversely one may want to schedule the decommissioning of a WTG that recently has had maintenance later than that of a WTG which is likely to need maintenance soon. How this exactly works out depends on the installation, maintenance and decommissioning policies, but it is clear that these decisions affect one another, and that is what I would like to research in this project. 
 
 This objective has three sub-objectives:
 
