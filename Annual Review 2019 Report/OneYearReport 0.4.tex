@@ -35,6 +35,7 @@
 \newtheorem*{objective}{Objective}
 \newtheorem*{rquestion}{Question}
 \newtheorem{subobjective}{Sub-objective}
+\newtheorem{subquestion}{Sub-Question}
 \newcommand{\mydef}[3]{
 \begin{defin}
 \textsc{#1}
@@ -130,6 +131,23 @@ The primary motivation for this objective is that in the literature the three ph
 For the first type of interaction it is important to consider that the maintenance phase overlaps with both other phases for some amount of time. Once the first set of wind turbines has been fully installed they start producing energy and might require maintenance. It may be beneficial to use the same vessels to install the remaining wind turbines and perform maintenance, or have separate vessels that still use the same ports and have to consider the routing of the installation vessels. The same thing happens at the end of the life cycle; when decommission starts specific wind turbines are decommissioned while others continue to produce energy. 
 
 The second type of interaction stems from any event in the life-cycle of a wind turbine (or the entire farm) can affect any event after it, regardless of which phase these events are part of. The order in which the turbines are installed determines their age, and affects their expected failure rate when maintenance starts on them. In a more extensive way, any failures and repairs during the maintenance phase influence which wind turbines are most likely to fail again, and therefore which are most efficient to decommission first. With that in mind it is clear that decommission is the phase which relies most heavily on what happens before it, which may be one of the reasons why it has been studied less than the other two phases. This type of interaction means simulating the early stages of the life-cycle of the windfarm might lead to more accurate and realistic knowledge to base decisions in the later stages of the life-cycle on. Potentially early decisions might even be affected by the long-term effect they have. 
+
+Through these interactions we state three sub-questions for the above research question:
+
+\begin{restatable}{subquestion}{sq1}
+\label{sq1}
+Can considering how phases in the life-cycle of a windfarm overlap and share resources improve logistical decision making on these projects
+\end{restatable}
+
+\begin{restatable}{subquestion}{sq2}
+\label{sq2}
+Can simulating the entire life-cycle of a windfarm provide useful data to base logistical decisions on in the later phases of these projects. 
+\end{restatable}
+
+\begin{restatable}{subquestion}{sq3}
+\label{sq3}
+Can considering the long-term effects of logistical decisions early on in the life-cycle of a windfarm improve these decisions. 
+\end{restatable}
 
 \iffalse
 
