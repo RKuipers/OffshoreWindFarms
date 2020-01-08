@@ -5,14 +5,14 @@
 \contentsline {subsection}{\numberline {2.2}This research project}{8}% 
 \contentsline {section}{\numberline {3}Literature}{11}% 
 \contentsline {subsection}{\numberline {3.1}Research overview}{11}% 
-\contentsline {subsubsection}{\numberline {3.1.1}Studies on the full installation}{11}% 
+\contentsline {subsubsection}{\numberline {3.1.1}Scheduling the installation}{11}% 
 \contentsline {subsubsection}{\numberline {3.1.2}Maintenance of the site}{16}% 
 \contentsline {subsubsection}{\numberline {3.1.3}Related research regarding offshore projects}{17}% 
 \contentsline {subsubsection}{\numberline {3.1.4}More general work on stochastic scheduling}{21}% 
-\contentsline {subsection}{\numberline {3.2}Research Methods}{23}% 
+\contentsline {subsection}{\numberline {3.2}Research Methods}{24}% 
 \contentsline {subsubsection}{\numberline {3.2.1}Simulation}{24}% 
 \contentsline {subsubsection}{\numberline {3.2.2}Optimisation}{26}% 
-\contentsline {subsubsection}{\numberline {3.2.3}Combining Simulation and Optimisation}{27}% 
+\contentsline {subsubsection}{\numberline {3.2.3}Combining Simulation and Optimisation}{28}% 
 \contentsline {section}{\numberline {4}Simulation tool}{29}% 
 \contentsline {subsection}{\numberline {4.1}Current progress}{29}% 
 \contentsline {subsection}{\numberline {4.2}Future developments}{31}% 
