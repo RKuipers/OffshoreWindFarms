@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  8 JAN 2020 18:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.18)  9 JAN 2020 17:58
 entering extended mode
 **"./OneYearReport 0.4.tex"
 ("OneYearReport 0.4.tex"
@@ -432,13 +432,13 @@ eYearReport 0.4.toc")
 
  [3] [4] [5] [6] [7] [8] [9] [10]
 [11] [12] [13] [14] [15] [16]
-Overfull \hbox (6.2931pt too wide) in paragraph at lines 220--221
+Overfull \hbox (6.2931pt too wide) in paragraph at lines 215--216
 \OT1/cmr/m/n/12 While there is not much re-search re-lat-ing specif-i-cally to 
 de-com-mis-sion projects,
  []
 
 [17] [18] [19] [20] [21] [22]
-Overfull \hbox (2.89453pt too wide) in paragraph at lines 259--260
+Overfull \hbox (2.89453pt too wide) in paragraph at lines 254--255
 []\OT1/cmr/m/n/12 As for re-search about the the-ory of ro-bust op-ti-mi-sa-tio
 n, ([]Iancu & Trichakis[]
  []
@@ -449,17 +449,17 @@ n, ([]Iancu & Trichakis[]
 File: images/OWF Tool interactions.png Graphic file (type png)
 <use images/OWF Tool interactions.png>
 Package pdftex.def Info: images/OWF Tool interactions.png  used on input line 3
-98.
+93.
 (pdftex.def)             Requested size: 390.0pt x 346.65814pt.
  [40 <./images/OWF Tool interactions.png>] [41] [42]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 432.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 427.
 
 
 ("C:\Users\wsb18103\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 432.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 427.
  [43] [44] ("OneYearReport 0.4.bbl" [45] [46] [47]
 Underfull \hbox (badness 10000) in paragraph at lines 186--192
 []| | \OT1/cmr/m/n/12 Renewable-UK (2017), `Off-shore wind project time-lines',
@@ -502,7 +502,7 @@ ts/cm/cmr17.pfb><C:/Users/wsb18103/AppData/Local/Programs/MiKTeX 2.9/fonts/type
 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/wsb18103/AppData/Local/
 Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/wsb1810
 3/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmu10.pfb>
-Output written on "OneYearReport 0.4.pdf" (49 pages, 296663 bytes).
+Output written on "OneYearReport 0.4.pdf" (49 pages, 296591 bytes).
 PDF statistics:
  216 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
