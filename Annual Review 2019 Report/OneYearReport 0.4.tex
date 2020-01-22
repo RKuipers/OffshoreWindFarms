@@ -278,7 +278,7 @@ Simulation, especially Discrete Event Simulation, is a very broadly used method 
 
 \bigskip
 
-If the weather data is limited in precision or amount of data available, the results of the simulation in turn will also be limited. A simulation as detailed as we would like for this type of project would have timesteps in the range of 15 minutes to an hour. A lot of weather data has much larger timesteps, often of several hours. There are methods to interpolate between weather data points, but this tends to not be very precise as there are a lot of factors to take into account. The most important measures of the weather are wind speed and wave height, as by these measures the usability of the vessels can be determined. In order for this data to be realistic, the two measures have to be correlated, as well as have autocorrelation over time. Having those values be realistically interpolated between two measured points is a difficult task, and something we will have to figure out a way to realistically handle for future research.
+If the weather data is limited in precision or amount of data available, the applicability of the simulation results in turn will also be limited. A simulation as detailed as we would like for this type of project would have timesteps in the range of 15 minutes to an hour. A lot of weather data has much larger timesteps, often of several hours. There are methods to interpolate between weather data points, but this tends to not be very precise as there are a lot of factors to take into account. The most important measures of the weather are wind speed and wave height, as by these measures the usability of the vessels can be determined. In order for this data to be realistic, the two measures have to be correlated, as well as have autocorrelation over time. Having those values be realistically interpolated between two measured points is a difficult task, and something we will have to figure out a way to realistically handle for future research.
 
 The amount of data available is also a common problem. A major reason for this is the natural change of weather depending on the time of year. Generally, a year would be split up in sections, for example the four seasons or the twelve months. Intuitively this makes a lot of sense; if we want to model the weather in January data from July is irrelevant for this. But the consequence is the sheer amount of time it takes to collect accurate data for each time period; if we want 300 days of data for the month of April, we need data collected over the span of 10 years. In addition, the conditions of the location the data is gathered from have to be similar to the location of the OWF. An important parameter for this is the distance to the shore, but there are more factors which play a part. 
 
@@ -290,11 +290,10 @@ Another method we are considering to explore relates more to robust optimisation
 
 \bigskip
 
+%TODO: Redo a lot of this cause it's repetative and unstructured
 The other bottleneck, that of the considerable time it will take to run enough simulations, is something that will need to be taken into consideration for any research project using simulation. There are several methods to reduce the time used if necessary. A rigorous and effective step is increasing the size of a timestep. This reduces accuracy, but does significantly reduce calculation time as well. Another is to carefully select input so less simulations need to be run for precision, as was discussed above. Using a robust approach could potentially reduce the number of required simulations, as the robust inputs are constructed to explore important situations, instead of random inputs which require a lot of simulations to construct an accurate average. 
 
 There are many other possible methods to reduce number of simulations required, and which to apply depends on the specific research project and goals, and how much speed is needed. This is something we are aware of for when experiments will be done in the future. 
-
-\bigskip
 
 \subsubsection{Optimisation} \label{ss:opt}
 Optimisation, in particular through (mixed-)integer programming, is an essential tool in problems like this, and is used extensively in the literature \cite{nemhauser1999integer,lee2011mixed}. Linear programming and integer programming is preferred as mixed-integer programming is computationally much more complex to solve, therefore mixed-integer models are restricted in size in order to be solved in feasible time. However, both methods are used in the literature.
@@ -302,6 +301,8 @@ Optimisation, in particular through (mixed-)integer programming, is an essential
 Even linear and integer programming models computationally complex to solve, hence many methods are used to reduce to complexity of the models. There are standard techniques like Lagrangian relaxation \cite{fisher1981lagrangian} and column generation \cite{barnhart1998branch}, but there are more specific methods used as well. The primary way this is done is by limiting the scope of individual optimisation problems (not necessarily the research), by splitting up the research and using multi-level optimisation models, or using simulation for certain parts of it. 
 
 Another method has been discussed before already; robust optimisation. As with simulation, this reduces the number of considered inputs (primarily weather states, but also task duration which is sometimes stochastic) by only considering certain constructed uncertainty sets. This strongly reduces the number of situations considered in the optimisation. 
+
+\bigskip
 
 There are alternatives to computational programming. The most prominent are heuristic methods, such as local search. Heuristics are powerful when dealing with large problems like this, as finding an exact global optimum will usually take an infeasibly long time. A benefit of local search is that reasonably good results can often be found fairly quick, but this is connected to the main drawback of local search; it can often be difficult to get out of local optima. However, there is a lot of literature on local search and other heuristics and many variants designed to reduce its drawbacks. 
 
@@ -313,6 +314,7 @@ When optimisation is to be performed within nondeterministic environments, it is
 The exact manner in which simulation and optimisation are combined depends on the project and individual models, but the above technique is very promising for offshore construction projects, and similar to the model used in \cite{kerkhove2017optimised}. 
 
 %After refining 3.2 I should look at the concern at top top of 3.1.4 and possibly restructure
+%Possibly swap 3.2 and 3.1, and have Methods be purely explaining the methods and their strenghts and weaknesses for this project? (maybe split them to two fully seperate section too?)
 
 \pagebreak
 
