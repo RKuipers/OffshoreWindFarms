@@ -9,12 +9,16 @@
 \contentsline {subsection}{\numberline {3.2}Optimisation}{13}% 
 \contentsline {subsection}{\numberline {3.3}Combining Simulation and Optimisation}{15}% 
 \contentsline {section}{\numberline {4}Literature}{17}% 
-\contentsline {section}{\numberline {5}Simulation tool}{18}% 
-\contentsline {subsection}{\numberline {5.1}Current progress}{18}% 
-\contentsline {subsection}{\numberline {5.2}Future developments}{20}% 
-\contentsline {subsubsection}{\numberline {5.2.1}Inputs and outputs}{20}% 
-\contentsline {subsubsection}{\numberline {5.2.2}Weather model}{23}% 
-\contentsline {section}{\numberline {6}Other activities}{25}% 
-\contentsline {section}{\numberline {7}Future Work}{27}% 
-\contentsline {subsection}{\numberline {7.1}Research plans}{27}% 
-\contentsline {subsection}{\numberline {7.2}Timeline and next steps}{31}% 
+\contentsline {subsection}{\numberline {4.1}Scheduling the installation}{17}% 
+\contentsline {subsection}{\numberline {4.2}Maintenance of the site}{22}% 
+\contentsline {subsection}{\numberline {4.3}Related research regarding offshore projects}{23}% 
+\contentsline {subsection}{\numberline {4.4}More general work on stochastic scheduling}{28}% 
+\contentsline {section}{\numberline {5}Simulation tool}{31}% 
+\contentsline {subsection}{\numberline {5.1}Current progress}{31}% 
+\contentsline {subsection}{\numberline {5.2}Future developments}{33}% 
+\contentsline {subsubsection}{\numberline {5.2.1}Inputs and outputs}{33}% 
+\contentsline {subsubsection}{\numberline {5.2.2}Weather model}{36}% 
+\contentsline {section}{\numberline {6}Other activities}{38}% 
+\contentsline {section}{\numberline {7}Future Work}{40}% 
+\contentsline {subsection}{\numberline {7.1}Research plans}{40}% 
+\contentsline {subsection}{\numberline {7.2}Timeline and next steps}{44}% 
