@@ -32,9 +32,7 @@
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{defin}{Definition}
-\newtheorem*{objective}{Objective}
 \newtheorem*{rquestion}{Question}
-\newtheorem{subobjective}{Sub-objective}
 \newtheorem{subquestion}{Sub-Question}
 \newcommand{\mydef}[3]{
 \begin{defin}
@@ -137,18 +135,18 @@ This interaction works in the other direction as well. Instead of the history of
 
 Through these interactions we state three sub-questions for the above research question:
 
-\begin{restatable}{subquestion}{sq1}
-\label{sq1}
+\begin{restatable}{subquestion}{sqa}
+\label{sqa}
 Can considering how phases in the life-cycle of a windfarm overlap and share resources improve logistical decision making on these projects?
 \end{restatable}
 
-\begin{restatable}{subquestion}{sq2}
-\label{sq2}
+\begin{restatable}{subquestion}{sqb}
+\label{sqb}
 Can simulating the entire life-cycle of a windfarm provide useful data to base logistical decisions on in the later phases of these projects?
 \end{restatable}
 
-\begin{restatable}{subquestion}{sq3}
-\label{sq3}
+\begin{restatable}{subquestion}{sqc}
+\label{sqd}
 Can considering the long-term effects of logistical decisions early on in the life-cycle of a windfarm improve these decisions? 
 \end{restatable}
 
@@ -422,7 +420,25 @@ Generally the typical subjects in maintenance such as supply chain management an
 For the decommission phase there is much less literature than for the other two phases, which means there is no good model from the literature to base my model on.
 For that reason I am planning for the decommission model to be similar in structure to that created for installation phase, and the methods should therefore be similar as well. However, the restrictions may be fairly different. Cost-effectiveness is still important, but there may be many more hard restrictions based on government regulations. These will be the restrictions to ensure the project is completed before a certain deadline, as otherwise a later start for the decommission might be more cost-effective. Therefore these projects will hold their own difficulties and are significantly different from installation projects. 
 
+\bigskip
+
+Finally all the models described above need to be integrated together. In practice there are various ways to do this, and which works best will need to be explored and experimented with. In the decision support tool the simulation models should be simple to combine, effectively allowing for one big simulation. It would start simulating the installation project, and start the maintenance simulation once it reaches a certain milestone (probably the first turbines being finished). Installation would then finish up, and maintenance would continue until a certain point in time where decommission starts. Finally when the last turbine is deactivated maintenance ends, and once all have been decommissioned the project is over. %TODO:  Continue
+
 \subsubsection{Research questions} \label{sss:questions}
+I will now go back through the questions first discussed in \Cref{ss:objs} and give a bit more context for each of them. 
+
+\sqa*
+
+These interactions will occur when two phases of the life-cycle partially take place at the same time, namely installation and maintenance at the start, and maintenance and decommission at the end. 
+
+\sqb*
+LOREM
+
+\sqc*
+LOREM
+
+\rquest*
+LOREM
 
 \iffalse
 First I will go through each of the sub-objectives, before talking about the main objective at the end of the section. 
