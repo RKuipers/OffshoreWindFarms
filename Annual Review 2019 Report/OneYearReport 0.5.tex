@@ -425,14 +425,19 @@ For that reason I am planning for the decommission model to be similar in struct
 However, as stated before, the above plans are as goals for the individual phases of a life-cycle spanning model. This model will start of very simple, and these goals will slowly be incorporated into it. It is therefore possible that some of the goals here will not be feasible in the final model. Which aspects are feasible and which are not is hard to say at this point, as this is novel research and there is no precedent for designing a model that spans the entire life-cycle. This difficulty is why the choice was made to start off without much detail, and build from there, instead of making detailed models for each of the phases and then combine them. The combination is the part I want to focus on, and should therefore be my starting point. 
 
 \subsubsection{Research questions} \label{sss:questions}
-I will now go back through the questions first discussed in \Cref{ss:objs} and give a bit more context for each of them. 
+I will now go back through the questions first discussed in \Cref{ss:objs} and give a bit more context for each of them, as well as my plans on how to start answering them. 
 
 \sqa*
 
-These interactions will occur when two phases of the life-cycle partially take place at the same time, namely installation and maintenance at the start, and maintenance and decommission at the end.%TODO: Check what section 2 already says about this
+These interactions will occur when two phases of the life-cycle partially take place at the same time, namely installation and maintenance at the start, and maintenance and decommission at the end. To fully explore this interaction between installation and maintenance, we need to know which types of vessels can be used for installation tasks, which for maintenance tasks, and which for both. The extend to which exploring this interaction can lead to higher efficiency is determined by how many of the vessels can be used for both type of task. For example a vessel specialised in cable-laying will not be much use for maintenance tasks if cables do not need much maintenance. But a transport vessel might be suited to transport assets for both installation and maintenance operations. The same sort of question needs to be answered when looking at the interaction between maintenance and decommission. 
+
+In order to optimise with this interaction in mind, a model where the fleet compostion and start and end dates of vessel rentals are decision variables might work well. In practice there are minimum periods for vessel rental, and minimum periods for which a vessel can be decommissioned for. There are also costs associated with this. For that reason, optimising these values, and then assigning the available vessels to tasks related to either of the active phases might be a good approach, and will be one of the things I aim to try early on.
 
 \sqb*
-LOREM
+
+This question primarily regards the decomission phase, though maintenance is also affected. In order to optimially decide how to do maintenance we need to use all available information to predict how likely each asset is to fail. Therefore individual histories of each asset should be kept, including when it became active, and any previous failures and repairs. Using this to create a more accurate prediction of failure rates can help in the maintenance phase, but it can also help determine which assets to decomission first. If we predict an asset is likely to fail soon, we ought to decomission that before an asset that will probably continue functioning for a while. This ordering is the primary question in the decomission phase, and I hope to help answer it with my research.
+
+The difficulty in answering this question comes from its reliance on data. I have an intuition that looking at all events in a 20 or 30 year lifespans of many WTGs will reveal some pattern allowing for reasonably accurate predictions on the failure rate, but without having large amounts of data to base models on, and then actual windfarms to test the model predictions with, I cannot say anything conclusive about this intuition. Therefore the first step in attempting to answer this question is gathering as much data as there is available, and then look for patterns in their history of failure. 
 
 \sqc*
 LOREM
