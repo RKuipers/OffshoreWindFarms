@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 
 import datetime as dt
+import optsched
 
 #TODO: Set to false/remove
 debug = True
 
-def chop_microseconds(delta):
+def chop_microseconds(delta: dt.timedelta) -> dt.timedelta:
     return delta - dt.timedelta(microseconds=delta.microseconds)
 
-def getInput():
+def getInput() -> (dt.timedelta, int):
     now = dt.datetime.now()
     start = now.time()
 
@@ -23,13 +24,7 @@ def getInput():
     
     return (available, round(available.seconds / 60))
 
-def calc(minutes):
-    worku = 86
-    breaku = 40
-
-    return divmod((minutes-worku), (worku + breaku))
-
-def printOutput(available, minutes, blocks):
+def printOutput(available: dt.timedelta, minutes: int, blocks: (int, int)):
     print ("Available time: " + str(available) + " (" + str(minutes) + " minutes)")
     print ("Full blocks: ", blocks[0] + 1)
     print ("Leftover minutes: ", blocks[1])
@@ -38,7 +33,7 @@ def main():
     while True:
         (available, minutes) = getInput()
     
-        blocks = calc(minutes)
+        blocks = optsched.calc(minutes)
 
         printOutput(available, minutes, blocks)
 
