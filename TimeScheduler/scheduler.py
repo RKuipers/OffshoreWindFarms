@@ -2,6 +2,7 @@
 
 import datetime as dt
 import optsched
+import bruteforce
 
 #TODO: Set to false/remove
 debug = True
@@ -26,7 +27,7 @@ def getInput() -> (dt.timedelta, int):
 
 def printOutput(available: dt.timedelta, minutes: int, blocks: (int, int)):
     print ("Available time: " + str(available) + " (" + str(minutes) + " minutes)")
-    print ("Full blocks: ", blocks[0] + 1)
+    print ("Full blocks: ", blocks[0])
     print ("Leftover minutes: ", blocks[1])
 
 def main():
@@ -34,6 +35,7 @@ def main():
         (available, minutes) = getInput()
     
         blocks = optsched.calc(minutes)
+        blocks = bruteforce.calc(minutes)
 
         printOutput(available, minutes, blocks)
 
