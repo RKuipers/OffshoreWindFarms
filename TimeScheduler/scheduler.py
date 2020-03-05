@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import datetime as dt
-import optsched
 import bruteforce
 
 #TODO: Set to false/remove
@@ -18,26 +17,35 @@ def getInput() -> (dt.timedelta, int):
     if not debug:
         endstr = input()
     else:
-        endstr = "19:00"
+        endstr = "18:00"
     end = dt.datetime.strptime(endstr, "%H:%M").time()
     available = dt.datetime.combine(dt.date.today(), end) - dt.datetime.combine(dt.date.today(), start)
     available = chop_microseconds(available)
     
     return (available, round(available.seconds / 60))
 
-def printOutput(available: dt.timedelta, minutes: int, blocks: (int, int)):
-    print ("Available time: " + str(available) + " (" + str(minutes) + " minutes)")
-    print ("Full blocks: ", blocks[0])
-    print ("Leftover minutes: ", blocks[1])
+def printOutput(available: dt.timedelta, minutes: int, res: (int, int, int, int, int)):
+    (B, S, L, N, P) = res
+        
+    program = N * (P * B + (P-1) * S) + (N-1) * L   
+    wt = N * B * P
+    
+    print (f"Available time: {available} ({minutes} minutes)")
+    print (f"Block length: {B}m")
+    print (f"Full blocks: {N} ({P} pomos each)")
+    print (f"Breaks: {L}m long, {S}m short")
+    print (f"Worktime: {wt}, Breaktime: {program - wt}, Ratio: {wt/program}")
+    print (f"Leftover minutes: {minutes - program}")
+    if debug:
+        print (f"B:{B} N:{N} P:{P} L:{L} S:{S}")
 
 def main():
     while True:
         (available, minutes) = getInput()
     
-        blocks = optsched.calc(minutes)
-        blocks = bruteforce.calc(minutes)
+        res = tuple(bruteforce.calc(minutes))
 
-        printOutput(available, minutes, blocks)
+        printOutput(available, minutes, res)
 
         if debug:
             break

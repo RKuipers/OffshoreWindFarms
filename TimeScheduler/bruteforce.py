@@ -1,33 +1,38 @@
+import numpy as np
+
+def getvars(R: int, lows: list, ranges: list) -> list:
+    res = []
+    
+    for i in range(len(lows)):
+        (x, R) = divmod(R, int(np.prod(ranges[(i+1):])))
+        res.append(x + lows[i])
+        
+    return res
+
 def calc(minutes: int) -> (int, int):
     lows = [15, 1, 30, 1, 3] #Inclusive
-    highs = [26, 4, 51, 5, 6] #Exclusive    
+    highs = [25, 3, 50, 4, 5] #Inclusive  
+    
+    ranges = [y - x + 1 for x,y in zip(lows, highs)]
+    options = np.prod(ranges)
     
     best = 0
     bestset = [-1, -1, -1, -1, -1]
     
-    for B in range(lows[0], highs[0]):  
-        for S in range(lows[1], highs[1]):  
-            for L in range(lows[2], highs[2]):  
-                for N in range(lows[3], highs[3]):
-                    for P in range(lows[4], highs[4]):
-                        pomoblock = P * B
-                        fullblock = pomoblock + (P-1) * S
-                        program = N * fullblock + (N-1) * L
-                        
-                        worktime = N * P * B
-                        
-                        ratio = worktime / program
-                        
-                        if program <= minutes and ratio <= 2/3 and worktime > best:
-                            best = worktime
-                            bestset = [B, S, L, N, P]
+    for i in range(options):
+        [B, S, L, N, P] = getvars(i, lows, ranges)
+        
+        pomoblock = P * B
+        fullblock = pomoblock + (P-1) * S
+        program = N * fullblock + (N-1) * L
+        
+        worktime = N * P * B
+        
+        ratio = worktime / program
+        
+        if program <= minutes and ratio <= 3/4:
+            if worktime > best:
+                best = worktime
+                bestset = [B, S, L, N, P]
 
-    print (bestset)
-    
-    #TODO: Everything after this can be better, pretty sure  the first result of the divmod is N
-    #Should deffo print something about ratio too
-    
-    worku = bestset[0] * bestset[4] + bestset[1] * (bestset[4]-1)
-    breaku = bestset[2]
-
-    return divmod((minutes + breaku), worku + breaku)
+    return bestset
