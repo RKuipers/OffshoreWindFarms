@@ -3,4 +3,3 @@ def calc(minutes: int) -> (int, int):
     breaku = 40
 
     return divmod(minutes + breaku, worku + breaku)
-
