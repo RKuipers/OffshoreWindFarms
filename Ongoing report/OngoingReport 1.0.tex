@@ -261,8 +261,27 @@ One aspect to consider is fleet size. In \cite{staalhane2019optimizing} a two-st
 
 With the large amount of research done, and the variety of subjects within this field, I have yet to read much more about the current state of most subjects. This will be my immediate focus from here on, as described in more detail in \Cref{s:concl}.
 
-%ONGOING: Dinwoodie paragraph
+\bigskip
 
+%ONGOING: Dinwoodie paragraph
+In \cite{dinwoodie2012analysis} an attempt is made to analyse the availability of OWFs. It is observed that the availability of offshore farms is much lower than that of onshore farms; currently offshore availability is around 80\%, while onshore this is 97\%. Various future scenarios are simulated to investigate which measures are likely to improve availability. It is found that increasing vessel operability to allow a higher significant wave height will greatly increase availablity, but it will still be significantly lower than the onshore availibility. It is posited this can only be improved with improvement of the components to lower their failure rates, but an 8-fold improvement is required to achieve the same level of availability as onshore. 
+
+The weather model used in this research is an auto-regressive model broadly used in the literature, and is likely similar to what will be used for my reserach. The failure model is similar to those used on onshore farms, as there is a lack of available offshore data. While these models seem sufficient, the research is based on a number of big assumptions. For example, it is assumed that a failure will be repaired during the next available weather period. This does not seem to take into consideration the significant lead-up time before a vessel can be at the site to perform the repair, nor does it consider different operational strategies to handle maintenance. 
+
+This point especially seems strange, as in another paper \cite{dinwoodie2014operational} the same researchers focus on comparing operational strategies. They consider 4 types: 
+
+\begin{itemize}
+\item Annual charter, where maintenance operations take place at predetermined times
+\item Fix on fail, where repairs are made as soon as any failures are detected
+\item Batch repair, where repairs are done after a set number of failures is detected
+\item Purchase, where a vessel is purchased rather than rented
+\end{itemize}
+
+It is found that the latter three strategies are all close in costs, and which performs better depends on scenario specifics such as fluctuations in vessel costs, the value of energy, and specific failure rates. Each of the strategies also has inherent characteristics that the operator might have preferences in, such as the purchase strategy having much higher costs up front, but lower operational costs. 
+
+As the previous paper discussed, this research is also lacking in crucial areas. It is clear to see the feasibility of the batch repair strategy depends on the batch size chosen, and no mention is given on how this is determined. A similar issue arrises with he purchase strategy, which is not a complete strategy in itself since after purchasing a vessel there is still a choice on when to deploy it (predetermined times, after every failure, or after a batch of failures). This too is not discussed, even though related details such as potentially renting out a purchased vessel to improve this strategy are speculated about. Another issue is that mixing of strategies is only very briefly discussed, while this intuitively seems like it might be beneficial. For example, in batch repair, if the batch size is set to 5 failures and for an extended period of time there are 4 failures, it might be beneficial to repair it if this situation goes on for long enough. One way to do this is to mix the annual charter strategy with the batch repair strategy, having a set time to do maintenance even if the required number of failures is not reached. 
+
+In conclusion, these strategies are something I need to consider in my research, and while the research presented here is a useful foundation, significantly more research needs to be done into these operational strategies. 
 
 \subsection{Related research regarding offshore projects} \label{ss:offsh}
 While there is not much research relating specifically to decommission projects, there is some. Especially recently there has been new research such as \cite{irawan2019optimisation}. In it the researchers use an Integer Linear Programming method to find schedules for decommission projects with minimum costs. The method is shown to be efficient and seems to yield good results. As expected, this model is fairly similar to the ones used for installation projects. 
