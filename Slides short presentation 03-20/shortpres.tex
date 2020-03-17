@@ -1,0 +1,143 @@
+\documentclass{beamer}
+
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+%\usetheme{Madrid}
+\usetheme{Warsaw}
+
+\title[Initial models for optimisation]{Initial models for optimisation}
+
+\author{R. Kuipers}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+\begin{frame}{Initial model for installation}
+\begin{equation}
+	\text{maximize} \sum_{p \in P} [ DIS^p (A_p \cdot v_p - \sum_{r \in R} N_{rp} \cdot C_{rp}) ]
+\end{equation}
+
+\bigskip
+subject to:
+
+\begin{align}
+s_i =& \max_{j \in IP_i}(f_j)				&	\forall i \in& I 									\\
+d_i =& \sum_{t = s_i}^{f_i} \omega_{it} 		& 	\forall i \in& I 									\\
+N_{rp} \geq& \sum_{i | s_i \leq t \leq f_i} \rho_{ir}	& 	\forall r \in& R   	&	\forall p \in& P 	&	t \in T_p  		\\
+A_p =&  \sum_{ f_i \leq \tau_p} 1   			&	\forall p \in& P         	&	\forall i \in& F
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Notation overview}
+\footnotesize
+
+\begin{columns}
+\begin{column}{.48\textwidth}
+Sets:
+\begin{itemize}
+\item $P$: All time periods (large scale)
+\item $T_p$: All time intervals (small scale) in period $p$
+\item $R$: All resources
+\item $I$: All tasks
+\item $F \subset I$: All final tasks that complete a turbine
+\item $IP_i$: All prerequisite tasks of task $i$
+\end{itemize}
+
+Decision variables:
+\begin{itemize}
+\item $A_{p}$: Number of active turbines after period $p$
+\item $N_{rp}$: Number of resources $r$ used in period $p$
+\item $s_i$: Starting time of task $i$
+\item $f_i$: Finishing time of task $i$
+\end{itemize}
+\end{column}
+
+\hfill
+
+\begin{column}{.48\textwidth}
+Parameters:
+\begin{itemize}
+\item $DIS$: The discount factor per period
+\item $v_p$: The value of energy a single turbine produces in period $p$
+\item $C_{rp}$: The cost of chartering resource $r$ in period $p$
+\item $d_i$: The duration of task $i$
+\item $\omega_{it}$: Binary parameter representing weather, 1 if task $i$ can be completed at time $t$, 0 otherwise
+\item $\rho_{ir}$: The amount of resource $r$ used by task $i$
+\item $\tau_p$: The final time interval (from $T$) in period $p$
+\end{itemize}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}{Initial model for maintenance}
+\begin{equation}
+	\text{maximize} \sum_{p \in P} [ DIS^p (A_p \cdot v_p - \sum_{r \in R} N_{rp} \cdot C_{rp}) ]
+\end{equation}
+
+\bigskip
+subject to:
+
+\begin{align}
+s_{ic} =& \max_{}(\gamma \cdot c, \max_{j \in IP_i}(f_{jc}))			&	\forall i \in& I 	&	\forall c \in& C				\\
+d_{ic} =& \sum_{t = s_{ic}}^{f_{ic}} \omega_{it} 					& 	\forall i \in& I		&	\forall c \in& C				\\
+N_{rp} \geq& \sum_{i | s_{ic} \leq t \leq f_{ic}, \forall t \in T_p} \rho_{ir}		& 	\forall r \in& R   	&	\forall p \in& P 	&	\forall c \in& C\\
+A_p =&  A_{p-1} \cdot \lambda + \text{number fully repaired}			&	\forall p \in& P         	&	\forall i \in& F
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}{Initial mixed model}
+\scriptsize
+
+\begin{columns}
+\begin{column}{.48\textwidth}
+Sets:
+\begin{itemize}
+\item $P$: All time periods (large scale)
+\item $T_p$: All time intervals (small scale) in period $p$
+\item $C$: All cycles
+\item $R$: All resources
+\item $I$: All tasks
+\item $F \subset I$: All final tasks that complete a turbine
+\item $IP_i$: All prerequisite tasks of task $i$
+\end{itemize}
+
+Decision variables:
+\begin{itemize}
+\item $\gamma$: The lenth of a cycle
+\item $A_{p}$: Number of active turbines after period $p$
+\item $N_{rp}$: Number of resources $r$ used in period $p$
+\item $s_{ic}$: Starting time of task $i$ in cycle $c$
+\item $f_{ic}$: Finishing time of task $i$ in cycle $c$
+\end{itemize}
+\end{column}
+
+\hfill
+
+\begin{column}{.48\textwidth}
+Parameters:
+\begin{itemize}
+\item $DIS$: The discount factor per period
+\item $v_p$: The value of energy a single turbine produces in period $p$
+\item $C_{rp}$: The cost of chartering resource $r$ in period $p$
+\item $d_i$: The duration of task $i$
+\item $\omega_{it}$: Binary parameter representing weather, 1 if task $i$ can be completed at time $t$, 0 otherwise
+\item $\rho_{ir}$: The amount of resource $r$ used by task $i$
+\item $\tau_p$: The final time interval (from $T$) in period $p$
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\end{document}
+
+
