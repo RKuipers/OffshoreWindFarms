@@ -16,9 +16,9 @@ updates = [(W, W_updated)]
 
 #f = theano.function([], W, updates=updates)
 f = theano.function([], Accuracy, updates=updates)
-for i in xrange(10):
+for i in range(10):
     output = f()
-    print output
+    print (output)
 
 
 

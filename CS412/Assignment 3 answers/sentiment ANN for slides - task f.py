@@ -23,6 +23,6 @@ data_vector = [0., 1.]
 target_vector = [1,0,0,0,0]
 W, activations, predicted_values, predicted_class, Accuracy, gradients_W  \
     = train(data_vector, target_vector)
-print W, activations, predicted_values, predicted_class, Accuracy, '\n', gradients_W
+print (W, activations, predicted_values, predicted_class, Accuracy, '\n', gradients_W)
 
 

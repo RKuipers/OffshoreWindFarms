@@ -22,6 +22,7 @@ test = theano.function([input_vector, target_values], [Accuracy, predicted_class
 
 def read_dataset(path): #The function that reads training or testing data and returns it as an array of data points
     number_of_images = len(open(path).readlines()) / 28 #28 lines per each image
+    print (number_of_images)
     f = open(path)
     dataset = [] #starts with an empty container
     for i in range(int(number_of_images)): 
@@ -44,13 +45,19 @@ def read_dataset(path): #The function that reads training or testing data and re
 
 #reading the data:
 data_train = read_dataset("train.txt")
+print ("Train set read")
 data_test = read_dataset("test.txt")
+print ("Test set read")
 
 # training
 for epoch in range(1000):
         cost_sum = 0.0
         correct = 0
+        i = 0
         for labelv, vector in data_train:
+            i += 1
+            if i % 100 == 0:
+                print (f"Done {i} datapoints")
             Accuracy, predicted_class = train(vector, labelv)
             cost_sum += Accuracy
             if (labelv[predicted_class] == 1):
