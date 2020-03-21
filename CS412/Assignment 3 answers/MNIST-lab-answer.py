@@ -1,7 +1,5 @@
 import theano
-import sys
 import numpy
-import collections
 
 input_vector = theano.tensor.fvector('input_vector') #theano variable representing image
 target_values = theano.tensor.fvector('target_values') #theano variable representing the label of that image

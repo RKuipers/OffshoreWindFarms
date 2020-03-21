@@ -8,6 +8,8 @@ print ("A")
 print (differentiate(1)[0])
 assert differentiate(1)[0] == 150 #3*2*(2*x + 3)**2 = 6*25
 
+
+
 import theano
 x = theano.tensor.fscalar('x')
 y = theano.tensor.fscalar('y')
@@ -22,6 +24,8 @@ print (differentiate(1,1,1)[2])
 assert differentiate(1,1,1)[0] == 1
 assert differentiate(1,1,1)[1] == 1
 assert differentiate(1,1,1)[2] == 1
+
+
 
 W = theano.shared(np.asarray([0.0, 0.0, 0.0]), 'W') #would 0 work? #C: add one more init value to make 3D
 z = -(W[0]+W[1]+W[2]-1)**2  #C define the function
