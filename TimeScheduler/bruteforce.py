@@ -1,10 +1,11 @@
 import numpy as np
 
+#Magic function that generates the Rth set of variables
 def getvars(R: int, lows: list, ranges: list) -> list:
     res = []
     
     for i in range(len(lows)):
-        (x, R) = divmod(R, int(np.prod(ranges[(i+1):])))
+        (x, R) = divmod(R, int(np.prod(ranges[(i+1):]))) #Arcane magic, based on flexible number systems
         res.append(x + lows[i])
         
     return res
