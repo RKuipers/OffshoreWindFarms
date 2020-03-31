@@ -86,15 +86,31 @@ Parameters:
 \end{equation}
 
 \bigskip
-subject to:
+
+\only<+>{
+subject to (1):
 
 \begin{align}
-1 =& \sum_{t \in T} s_{it}	= \sum_{t \in T} f_{it}										&	\forall i \in I 						\\
-1 \leq& \sum_{t = \dot{t}}^{\hat{t}} [ \sum_{t' = \dot{t}}^t f_{jt'} \cdot \sum_{t' = t}^{\hat{t}} s_{it'} ]	&	\forall (i, j) \in IP					\\
-d_i \geq& (f_{it''} + s_{it'} - 1) \cdot \sum_{t = t'}^{t''} \omega_{it} 							& 	\forall i \in I, 	\forall t'' \geq t' + d_i, t', t'' \in T	\\
-N_{rp} \geq& \sum_{i\in I} \sum_{t' = \dot{t}}^t \sum_{t'' = t}^{\hat{t}} s_{it'} \cdot f_{it''} \cdot \rho_{ir}	& 	\forall r \in R, \forall p \in P, \forall t \in T_p 	\\
+1 =& \sum_{t \in T} s_{act}	= \sum_{t \in T} f_{act}									&	\forall a \in A, \forall c \in C^M	\\
+1 \geq& \sum_{t \in T} s_{act}													&	\forall a \in A, \forall c \in C^O	\\
+\sum_{t \in T} s_{act}	=& \sum_{t \in T} f_{act}										&	\forall a \in A, \forall c \in C^O	\\	
+\sum_{t \in T} s_{act}	\geq& \sum_{t \in T} s_{ac't}									&	\forall a \in A, \forall c + 1 = c', c, c' \in C^O		
+\end{align} }
+
+\stepcounter{equation}
+\stepcounter{equation}
+\stepcounter{equation}
+\stepcounter{equation}
+
+\only<+>{
+subject to (2):
+
+\begin{align}
+d_a \geq& (f_{act''} + s_{act'} - 1) \cdot \sum_{t = t'}^{t''} \omega_{it} 						& 	\begin{aligned} \forall a \in A, \forall c \in C, \\
+																		\forall t'' \geq t' + d_i, t', t'' \in T 	\end{aligned}\\
+N_{rp} \geq& \sum_{a\in A} \sum_{c\in C} \sum_{t' = \dot{t}}^t \sum_{t'' = t}^{\hat{t}} s_{act'} \cdot f_{act''} \cdot \rho_{ar}	& 	\forall r \in R, \forall p \in P, \forall t \in T_p 	\\
 A_p =&  \sum_{ t = \dot{t}}^{\tau_p} \sum_{i \in F} f_{it}									&	\forall p \in P
-\end{align}
+\end{align} }
 
 \end{frame}
 
