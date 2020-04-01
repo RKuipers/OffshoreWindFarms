@@ -27,12 +27,21 @@ subject to:
 
 \begin{align}
 1 =& \sum_{t \in T} s_{it}	= \sum_{t \in T} f_{it}										&	\forall i \in I 						\\
-1 \leq& \sum_{t = \dot{t}}^{\hat{t}} [ \sum_{t' = \dot{t}}^t f_{jt'} \cdot \sum_{t' = t}^{\hat{t}} s_{it'} ]	&	\forall (i, j) \in IP					\\
+1 \leq& \sum_{t = \dot{t}}^{\hat{t}} [ \sum_{t' = \dot{t}}^t f_{it'} \cdot \sum_{t' = t}^{\hat{t}} s_{jt'} ]	&	\forall (i, j) \in IP					\\
 d_i \geq& (f_{it''} + s_{it'} - 1) \cdot \sum_{t = t'}^{t''} \omega_{it} 							& 	\forall i \in I, 	\forall t'' \geq t' + d_i, t', t'' \in T	\\
 N_{rp} \geq& \sum_{i\in I} \sum_{t' = \dot{t}}^t \sum_{t'' = t}^{\hat{t}} s_{it'} \cdot f_{it''} \cdot \rho_{ir}	& 	\forall r \in R, \forall p \in P, \forall t \in T_p 	\\
 A_p =&  \sum_{ t = \dot{t}}^{\tau_p} \sum_{i \in F} f_{it}									&	\forall p \in P
 \end{align}
 
+\end{frame}
+
+\begin{frame}{Installation Model Explanation}
+(1) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
+(2) Forces every task to be done at some point	\\
+(3) For every precedence relation $(i, j)$ it ensures there is a $t$ such that $i$ has a finish time before $t$, and $i$ a starting time after $t$	\\
+(4) Ensures that between the starting and finish times of each task are enough timesteps with acceptable weather	\\
+(5) Counts up the resources needed in a time period summing up over all active tasks (an $s$ before and $f$ after $t$)	\\
+(6) Counts the number of turbines which finished installing by the end of a period	
 \end{frame}
 
 \begin{frame}{Notation overview}
@@ -82,7 +91,7 @@ Parameters:
 \begin{frame}{Initial model for maintenance}
 \footnotesize
 \begin{equation}
-	\text{maximize} \sum_{p \in P} [ DIS^p (A_p \cdot v_p - \sum_{r \in R} N_{rp} \cdot C_{rp}) ]
+	\text{maximize} \sum_{t \in T} [ DIS^t (O_t \cdot v_t - \sum_{r \in R} N_{rt} \cdot C_{rt}) ]
 \end{equation}
 
 \bigskip
@@ -108,10 +117,24 @@ subject to (2):
 \begin{align}
 d_a \geq& (f_{act''} + s_{act'} - 1) \cdot \sum_{t = t'}^{t''} \omega_{it} 						& 	\begin{aligned} \forall a \in A, \forall c \in C, \\
 																		\forall t'' \geq t' + d_i, t', t'' \in T 	\end{aligned}\\
-N_{rp} \geq& \sum_{a\in A} \sum_{c\in C} \sum_{t' = \dot{t}}^t \sum_{t'' = t}^{\hat{t}} s_{act'} \cdot f_{act''} \cdot \rho_{ar}	& 	\forall r \in R, \forall p \in P, \forall t \in T_p 	\\
-A_p =&  \sum_{ t = \dot{t}}^{\tau_p} \sum_{i \in F} f_{it}									&	\forall p \in P
+N_{rt} \geq& \sum_{a\in A} \sum_{c\in C} \sum_{t' = \dot{t}}^t \sum_{t'' = t}^{\hat{t}} s_{act'} \cdot f_{act''} \cdot \rho_{ar}	& 	\forall r \in R, \forall t \in T	\\
+b_{at} <&  \sum_{t' = t - \lambda_a}^t - f_{act'}										&	\forall a \in A, \forall t \in T 	\\
+O_t =&  |A| - \sum_{a \in A} b_{at}												&	\forall t \in T
 \end{align} }
 
+\end{frame}
+
+\begin{frame}{Maintenance  Model Explanation}
+\footnotesize
+(7) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
+(8) Forces every mandatory maintenance cycle to be done at some point	\\
+(9) Ensures each optional maintenance cycle to be started at most once	\\
+(10) Ensures that every maintenance cycle for a particular asset that is started is also finished	\\
+(11) Ensures if a cycle is maintained for the $c$th time there was a $c-1$th time (technically not needed?)	\\
+(12) Ensures that between the starting and finish times of each cycle are enough timesteps with acceptable weather	\\
+(13) Counts up the resources needed in a timestep summing up over all active tasks (an $s$ before and $f$ after $t$)	\\
+(14) If no maintenance tasks have finished in the past $\lambda_a$ timesteps this asset is broken	\\
+(15) The number of active (online) turbines is equal to everything that isn't broken
 \end{frame}
 
 \begin{frame}{Notation overview}
@@ -121,21 +144,19 @@ A_p =&  \sum_{ t = \dot{t}}^{\tau_p} \sum_{i \in F} f_{it}									&	\forall p \
 \begin{column}{.48\textwidth}
 Sets:
 \begin{itemize}
-\item $P$: All time periods (large scale)
 \item $T$: All time intervals [$\dot{t}, \dots , \hat{t}$]
-\item $T_p \in T$: All time intervals (small scale) in period $p$
 \item $R$: All resources
-\item $I$: All tasks
-\item $F \subset I$: All final tasks that complete a turbine
-\item $IP$: All precedency pairs ($i$, $j$)
+\item $A$: All assets
+\item $C = C^M \cup C^O$: All (mandatory and optional) maintenance cycles
 \end{itemize}
 
 Decision variables:
 \begin{itemize}
-\item $A_{p}$: Number of active turbines after period $p$
-\item $N_{rp}$: Number of resources $r$ used in period $p$
-\item $s_{it}$: Binary variable, 1 if task $i$ starts at time $t$
-\item $f_{it}$: Binary variable, 1 if task $i$ ends at time $t$
+\item $O_{t}$: Number of active turbines at timestep $t$
+\item $N_{rt}$: Number of resources $r$ used at timestep $t$
+\item $s_{act}$: Binary variable, 1 if maintenance cycle $c$ for asset $a$ starts at time $t$
+\item $f_{act}$: Binary variable, 1 if maintenance cycle $c$ for asset $a$ finishes at time $t$
+\item $b_{at}$: Binary variable, 1 if asset $a$ is broken at timestep $t$
 \end{itemize}
 \end{column}
 
@@ -144,79 +165,17 @@ Decision variables:
 \begin{column}{.48\textwidth}
 Parameters:
 \begin{itemize}
-\item $DIS$: The discount factor per period
-\item $v_p$: The value of energy a single turbine produces in period $p$
-\item $C_{rp}$: The cost of chartering resource $r$ in period $p$
-\item $d_i$: The duration of task $i$
+\item $DIS$: The discount factor per timestep
+\item $v_t$: The value of energy a single turbine produces at timestep $t$
+\item $C_{rt}$: The cost of chartering resource $r$ at timestep $t$
+\item $d_a$: The duration of a maintenance cycle for asset $a$
+\item $\lambda_a$: The number of timesteps after the last maintenance before asset $a$ fails
 \item $\omega_{it}$: Binary parameter representing weather, 1 if task $i$ can be completed at time $t$, 0 otherwise
-\item $\rho_{ir}$: The amount of resource $r$ used by task $i$
-\item $\tau_p$: The final time interval (from $T$) in period $p$
+\item $\rho_{ar}$: The amount of resource $r$ used for maintenance of asset $a$
 \end{itemize}
 \end{column}
 \end{columns}
 
-\end{frame}
-
-
-\begin{frame}{Initial model for maintenance}
-\begin{equation}
-	\text{maximize} \sum_{p \in P} [ DIS^p (A_p \cdot v_p - \sum_{r \in R} N_{rp} \cdot C_{rp}) ]
-\end{equation}
-
-\bigskip
-subject to:
-
-\begin{align}
-s_{ic} =& \max_{}(\gamma \cdot c, \max_{j \in IP_i}(f_{jc}))			&	\forall i \in& I 	&	\forall c \in& C				\\
-d_{ic} =& \sum_{t = s_{ic}}^{f_{ic}} \omega_{it} 					& 	\forall i \in& I		&	\forall c \in& C				\\
-N_{rp} \geq& \sum_{i | s_{ic} \leq t \leq f_{ic}, \forall t \in T_p} \rho_{ir}		& 	\forall r \in& R   	&	\forall p \in& P 	&	\forall c \in& C\\
-A_p =&  A_{p-1} \cdot \lambda + \text{number fully repaired}			&	\forall p \in& P         	&	\forall i \in& F
-\end{align}
-
-\end{frame}
-
-
-\begin{frame}{Initial mixed model}
-\scriptsize
-
-\begin{columns}
-\begin{column}{.48\textwidth}
-Sets:
-\begin{itemize}
-\item $P$: All time periods (large scale)
-\item $T_p$: All time intervals (small scale) in period $p$
-\item $C$: All cycles
-\item $R$: All resources
-\item $I$: All tasks
-\item $F \subset I$: All final tasks that complete a turbine
-\item $IP_i$: All prerequisite tasks of task $i$
-\end{itemize}
-
-Decision variables:
-\begin{itemize}
-\item $\gamma$: The lenth of a cycle
-\item $A_{p}$: Number of active turbines after period $p$
-\item $N_{rp}$: Number of resources $r$ used in period $p$
-\item $s_{ic}$: Starting time of task $i$ in cycle $c$
-\item $f_{ic}$: Finishing time of task $i$ in cycle $c$
-\end{itemize}
-\end{column}
-
-\hfill
-
-\begin{column}{.48\textwidth}
-Parameters:
-\begin{itemize}
-\item $DIS$: The discount factor per period
-\item $v_p$: The value of energy a single turbine produces in period $p$
-\item $C_{rp}$: The cost of chartering resource $r$ in period $p$
-\item $d_i$: The duration of task $i$
-\item $\omega_{it}$: Binary parameter representing weather, 1 if task $i$ can be completed at time $t$, 0 otherwise
-\item $\rho_{ir}$: The amount of resource $r$ used by task $i$
-\item $\tau_p$: The final time interval (from $T$) in period $p$
-\end{itemize}
-\end{column}
-\end{columns}
 \end{frame}
 
 \end{document}
