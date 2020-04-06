@@ -1,0 +1,25 @@
+import numpy
+
+word_embedding_size = 5 
+#We use one-hot encoding for the word embeddings:
+word_embeddings = numpy.zeros((5,5))
+for i in range(5):  
+    word_embeddings[i][i] = 1
+print ("word_embeddings:\n", word_embeddings)
+context_vector_size = word_embedding_size
+
+def rnn_step_add(word_vector, context_vector): 
+    W = numpy.ones(5)
+    return W*context_vector + word_vector
+
+
+def map_sequence_add(input_indices): 
+  input_vectors = word_embeddings[input_indices] 
+  context_vector = numpy.zeros(context_vector_size)
+  for x in input_vectors: 
+    print ("context vector:", context_vector, "word vector:", x)
+    context_vector = rnn_step_add(x, context_vector) 
+
+  print ("final context vector:", context_vector)
+print ("model: adding to the existing context vector")
+map_sequence_add([0, 1, 2])

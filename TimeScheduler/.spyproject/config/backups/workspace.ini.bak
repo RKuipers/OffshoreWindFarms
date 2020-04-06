@@ -6,5 +6,5 @@ save_non_project_files = False
 
 [main]
 version = 0.2.0
-recent_files = ['scheduler.py', 'optsched.py', 'bruteforce.py']
+recent_files = ['scheduler.py', 'optsched.py', 'bruteforce.py', '..\\CS412\\Assignment 4 answers\\individual-RNN-answer.py']
 

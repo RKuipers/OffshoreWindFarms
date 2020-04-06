@@ -13,68 +13,27 @@ input_indices = theano.tensor.ivector('input_indices')
 target_class = theano.tensor.iscalar('target_class') #e.g. could be sentiment level
 #All words in the language are represented as trainable vectors:
 word_embedding_size = 10    #the size of those vectors
-recurrent_size = 10 
+
+word_embeddings = theano.shared(numpy.ones((n_words, word_embedding_size)), 'word_embeddings')
 #This represents the input sequence (e.g. a sentence):
+input_vectors = word_embeddings[input_indices]
 
-rng = random.RandomState(0) 
-vals = numpy.asarray(rng.normal(loc=0.0, scale=0.1, size=(n_words, word_embedding_size)))  # E
-word_embeddings = theano.shared(vals, 'word_embeddings')  #
-input_vectors = word_embeddings[input_indices] 
-#word_embeddings = theano.shared(numpy.ones((n_words, word_embedding_size)), 'word_embeddings')
-
-vals = numpy.asarray(rng.normal(loc=0.0, scale=0.1, size=(  #
-    recurrent_size, word_embedding_size)))  # EXPLAIN: around normal or simplify
-W_xh = theano.shared(vals, 'W_xh')  # C
-vals = numpy.asarray(
-    rng.normal(loc=0.0, scale=0.1, size=(recurrent_size, recurrent_size)))  # EXPLAIN: around normal or simplify
-W_hh = theano.shared(vals, 'W_hh')  # C
-vals = numpy.asarray(  # C
-    rng.normal(loc=0.0, scale=0.1, size=(n_classes, recurrent_size)))  # EXPLAIN: around normal or simplify
-W_output = theano.shared(vals, 'W_output')  # C E: decision making layer is added
-
-#W0 = theano.shared(numpy.zeros((n_classes, word_embedding_size)), 'W0') 
-#W1 = theano.shared(numpy.zeros((n_classes, word_embedding_size)), 'W1') 
-
-
-#floatX=theano.config.floatX 
-
-#also work, but need additional explanation, or use in scan template in future
-#initial_hidden_vector = theano.tensor.zeros_like(input_vectors[0])
-#initial_hidden_vector = theano.tensor.alloc(numpy.array(0, dtype=floatX), recurrent_size)
-
-def rnn_step(x, h_prev, W_xh, W_hh):  
-    _h = theano.tensor.tanh(theano.tensor.dot(W_xh, x) + theano.tensor.dot(W_hh, h_prev))
-    h = _h
-    return h
-context_vector, _ = theano.scan( 
-    rnn_step,
-    sequences=input_vectors,
-    outputs_info=numpy.zeros(recurrent_size),
-    #non_sequences=[W_xh, W_hh]  #
-    non_sequences = [W_xm, W_hm, W_xh, W_hh]
-)
-context_vector = context_vector[-1]
+W0 = theano.shared(numpy.zeros((n_classes, word_embedding_size)), 'W0')
+W1 = theano.shared(numpy.zeros((n_classes, word_embedding_size)), 'W1')
+W2 = theano.shared(numpy.zeros((n_classes, word_embedding_size)), 'W2')
 
 #The template uses onlty the first two words in the sequence:
-#activations = theano.tensor.dot(W0, input_vectors[0]) + theano.tensor.dot(W1, input_vectors[1])
-activations = [theano.tensor.dot(W_output, context_vector)] 
+activations = theano.tensor.dot(W0, input_vectors[0]) + theano.tensor.dot(W1, input_vectors[1]) + theano.tensor.dot(W2, input_vectors[2])
+
 predicted_class = theano.tensor.argmax(activations)
 output = theano.tensor.nnet.softmax(activations)[0]
 cost = -theano.tensor.log(output[target_class]) #We use cross-entropy: It works better with multiple classes
-
-updates = [  # C
-    (word_embeddings, word_embeddings - .01 * theano.tensor.grad(cost, word_embeddings)),
-    # EXPLAIN: 0.01 crucial, peaks at 94/97 with 5x5
-    (W_output, W_output - .01 * theano.tensor.grad(cost, W_output)),  # 0.1 works well
-    (W_xh, W_xh - .01 * theano.tensor.grad(cost, W_xh)),
-    (W_hh, W_hh - .01 * theano.tensor.grad(cost, W_hh))
-]
-
-'''updates = [ #now reducing cost so using -, not +
+updates = [ #now reducing cost so using -, not +
     (word_embeddings, word_embeddings - .1*theano.tensor.grad(cost, word_embeddings)),
     (W0, W0 - .1*theano.tensor.grad(cost, W0)),
-    (W1, W1 - .1*theano.tensor.grad(cost, W1))
-]'''
+    (W1, W1 - .1*theano.tensor.grad(cost, W1)),
+    (W2, W2 - .1*theano.tensor.grad(cost, W2))
+]
 
 train = theano.function([input_indices, target_class], [cost, predicted_class], updates=updates, allow_input_downcast = True)
 test = theano.function([input_indices, target_class], [cost, predicted_class], allow_input_downcast = True)
@@ -131,14 +90,13 @@ data_test = [(score, sentence2ids(sentence.split(), word2id)) for score, sentenc
 #The rest of the code is similar to the MNIST task:
 
 for epoch in range(100):
-        print (len(data_train))
-        print (len(data_test))
+
 
         cost_sum = 0.0
         correct = 0
         count = 0
         for target_class, sentence in data_train:
-            count += 1 
+            count += 1
             cost, predicted_class = train(sentence, target_class)
             cost_sum += cost
             if predicted_class == target_class:
