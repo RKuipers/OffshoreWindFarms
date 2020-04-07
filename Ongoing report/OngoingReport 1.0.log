@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.8)  2 APR 2020 18:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.8)  7 APR 2020 16:11
 entering extended mode
 **"./OngoingReport 1.0.tex"
 ("OngoingReport 1.0.tex"
@@ -418,7 +418,7 @@ ngReport 1.0.toc")
 \openout3 = `"OngoingReport 1.0.toc"'.
 
  [3] [4] [5] [6] [7] [8] [9] [10] [11]
-[12] [13] [14] [15] [16] [17] [18] [19] [20] [21]
+[12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 256.
 
 
@@ -428,57 +428,57 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 256.
 
-[22] [23] [24] [25]
-Overfull \hbox (6.2931pt too wide) in paragraph at lines 309--310
+[23] [24] [25] [26]
+Overfull \hbox (6.2931pt too wide) in paragraph at lines 314--315
 \OT1/cmr/m/n/12 While there is not much re-search re-lat-ing specif-i-cally to 
 de-com-mis-sion projects,
  []
 
-[26] [27] [28] [29] [30] [31]
-Overfull \hbox (2.89453pt too wide) in paragraph at lines 348--349
+[27] [28] [29] [30] [31] [32]
+Overfull \hbox (2.89453pt too wide) in paragraph at lines 353--354
 []\OT1/cmr/m/n/12 As for re-search about the the-ory of ro-bust op-ti-mi-sa-tio
 n, ([]Iancu & Trichakis[]
  []
 
-[32] [33] [34] [35] [36] [37] [38] [39] [40] [41] [42] [43]
-<images/OWF Tool interactions.png, id=150, 804.00375pt x 714.67pt>
+[33] [34] [35] [36] [37] [38] [39] [40] [41] [42] [43] [44] [45] [46] [47]
+<images/OWF Tool interactions.png, id=162, 804.00375pt x 714.67pt>
 File: images/OWF Tool interactions.png Graphic file (type png)
 <use images/OWF Tool interactions.png>
 Package pdftex.def Info: images/OWF Tool interactions.png  used on input line 4
-40.
+62.
 (pdftex.def)             Requested size: 390.0pt x 346.65814pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[44] [45 <./images/OWF Tool interactions.png>] [46] [47] [48] [49] [50]
-[51] [52] ("OngoingReport 1.0.bbl" [53] [54] [55]
-Underfull \hbox (badness 10000) in paragraph at lines 217--223
+[48] [49 <./images/OWF Tool interactions.png>] [50] [51] [52] [53] [54]
+[55] [56] ("OngoingReport 1.0.bbl" [57] [58] [59]
+Underfull \hbox (badness 10000) in paragraph at lines 224--230
 []| | \OT1/cmr/m/n/12 Renewable-UK (2017), `Off-shore wind project time-lines',
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 217--223
+Underfull \hbox (badness 10000) in paragraph at lines 224--230
 \OT1/cmr/m/it/12 https://www.renewableuk.com/news/294516/Offshore-Wind-Project-
 
  []
 
-[56])
+[60])
 
 Package caption Warning: Unused \captionsetup[subfigure] on input line 26.
 See the caption package documentation for explanation.
 
-[57] ("OngoingReport 1.0.aux")
+[61] ("OngoingReport 1.0.aux")
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 7476 strings out of 492895
- 129547 string characters out of 3123736
+ 7482 strings out of 492895
+ 129682 string characters out of 3123736
  205057 words of memory out of 3000000
- 11264 multiletter control sequences out of 15000+200000
+ 11270 multiletter control sequences out of 15000+200000
  11542 words of font info for 41 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,7n,39p,2942b,304s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -498,9 +498,9 @@ Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Robin/A
 ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/
 Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
 u10.pfb>
-Output written on "OngoingReport 1.0.pdf" (57 pages, 317476 bytes).
+Output written on "OngoingReport 1.0.pdf" (61 pages, 322957 bytes).
 PDF statistics:
- 241 PDF objects out of 1000 (max. 8388607)
+ 254 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
