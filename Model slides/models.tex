@@ -102,11 +102,9 @@ subject to (1):
 \begin{align}
 1 =& \sum_{t \in T} s_{act}	= \sum_{t \in T} f_{act}									&	\forall a \in A, \forall c \in C^M	\\
 1 \geq& \sum_{t \in T} s_{act}													&	\forall a \in A, \forall c \in C^O	\\
-\sum_{t \in T} s_{act}	=& \sum_{t \in T} f_{act}										&	\forall a \in A, \forall c \in C^O	\\	
-\sum_{t \in T} s_{act}	\geq& \sum_{t \in T} s_{ac't}									&	\forall a \in A, \forall c + 1 = c', c, c' \in C^O		
+\sum_{t \in T} s_{act}	=& \sum_{t \in T} f_{act}										&	\forall a \in A, \forall c \in C^O	
 \end{align} }
 
-\stepcounter{equation}
 \stepcounter{equation}
 \stepcounter{equation}
 \stepcounter{equation}
@@ -130,11 +128,10 @@ O_t =&  |A| - \sum_{a \in A} b_{at}												&	\forall t \in T
 (8) Forces every mandatory maintenance cycle to be done at some point	\\
 (9) Ensures each optional maintenance cycle to be started at most once	\\
 (10) Ensures that every maintenance cycle for a particular asset that is started is also finished	\\
-(11) Ensures if a cycle is maintained for the $c$th time there was a $c-1$th time (technically not needed?)	\\
-(12) Ensures that between the starting and finish times of each cycle are enough timesteps with acceptable weather	\\
-(13) Counts up the resources needed in a timestep summing up over all active tasks (an $s$ before and $f$ after $t$)	\\
-(14) If no maintenance tasks have finished in the past $\lambda_a$ timesteps this asset is broken	\\
-(15) The number of active (online) turbines is equal to everything that isn't broken
+(11) Ensures that between the starting and finish times of each cycle are enough timesteps with acceptable weather	\\
+(12) Counts up the resources needed in a timestep summing up over all active tasks (an $s$ before and $f$ after $t$)	\\
+(13) If no maintenance tasks have finished in the past $\lambda_a$ timesteps this asset is broken	\\
+(14) The number of active (online) turbines is equal to everything that isn't broken
 \end{frame}
 
 \begin{frame}{Notation overview}
