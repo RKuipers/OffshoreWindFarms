@@ -116,7 +116,7 @@ subject to (2):
 d_a \geq& (f_{act''} + s_{act'} - 1) \cdot \sum_{t = t'}^{t''} \omega_{it} 						& 	\begin{aligned} \forall a \in A, \forall c \in C, \\
 																		\forall t'' \geq t' + d_i, t', t'' \in T 	\end{aligned}\\
 N_{rp} \geq& \sum_{a\in A} \sum_{c\in C} \sum_{t' = \dot{t}}^t \sum_{t'' = t}^{\hat{t}} s_{act'} \cdot f_{act''} \cdot \rho_{ar}	& 	\forall r \in R, \forall p \in P, \forall t \in T_p	\\
-b_{at} <&  \sum_{t' = t - \lambda_a}^t - f_{act'}										&	\forall a \in A, \forall t \in T 	\\
+b_{at} >&  \sum_{c \in C} \sum_{t' = t - \lambda_a}^t - f_{act'}								&	\forall a \in A, \forall t \in T 	\\
 O_t =&  |A| - \sum_{a \in A} b_{at}												&	\forall t \in T
 \end{align} }
 
@@ -174,6 +174,53 @@ Parameters:
 \end{itemize}
 \end{column}
 \end{columns}
+
+\end{frame}
+
+%TODO: FIX all but 21, 26 and 27
+\begin{frame}{Initial mixed model}
+\scriptsize
+
+\begin{equation}
+	\text{maximize} \sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
+\end{equation}
+
+\bigskip
+
+\only<1>{
+subject to:
+
+\begin{align}
+1 =& \sum_{t \in T} s_{it}	= \sum_{t \in T} f_{it}										&	\forall i \in I 						\\
+1 \leq& \sum_{t = \dot{t}}^{\hat{t}} [ \sum_{t' = \dot{t}}^t f_{it'} \cdot \sum_{t' = t}^{\hat{t}} s_{jt'} ]	&	\forall (i, j) \in IP					\\
+1 =& \sum_{t \in T} s_{act}	= \sum_{t \in T} f_{act}									&	\forall a \in A, \forall c \in C^M	\\
+1 \geq& \sum_{t \in T} s_{act}													&	\forall a \in A, \forall c \in C^O	\\
+\sum_{t \in T} s_{act}	=& \sum_{t \in T} f_{act}										&	\forall a \in A, \forall c \in C^O	\\
+0 =& \sum_{t = \dot{t}}^{t'} s^M_{act} \cdot \sum_{t = t'}^{\hat{t}} f^I_{ait}					&	\begin{aligned} \forall a \in A, \forall t' \in T, \\
+																		\forall i \in I, \forall c \in C 	\end{aligned}
+\end{align}}
+
+\stepcounter{equation}
+\stepcounter{equation}
+\stepcounter{equation}
+\stepcounter{equation}
+\stepcounter{equation}
+\stepcounter{equation}
+
+\only<2>{
+subject to (2):
+
+\tiny
+
+\begin{align}
+d_i \geq& (f_{it''} + s_{it'} - 1) \cdot \sum_{t = t'}^{t''} \omega_{it} 							& 	\forall i \in I, 	\forall t'' \geq t' + d_i, t', t'' \in T	\\
+d_a \geq& (f_{act''} + s_{act'} - 1) \cdot \sum_{t = t'}^{t''} \omega_{it} 						& 	\begin{aligned} \forall a \in A, \forall c \in C, \\
+																		\forall t'' \geq t' + d_i, t', t'' \in T 	\end{aligned}\\
+N_{rp} \geq& \sum_{i\in I} \sum_{t' = \dot{t}}^t \sum_{t'' = t}^{\hat{t}} s_{it'} \cdot f_{it''} \cdot \rho_{ir}	& 	\forall r \in R, \forall p \in P, \forall t \in T_p 	\\
+N_{rp} \geq& \sum_{a\in A} \sum_{c\in C} \sum_{t' = \dot{t}}^t \sum_{t'' = t}^{\hat{t}} s_{act'} \cdot f_{act''} \cdot \rho_{ar}	& 	\forall r \in R, \forall p \in P, \forall t \in T_p	\\
+o_{at} \leq& \sum_{t' = \dot{t}}^{t} f^I_{an_at'} \cdot \sum_{c \in C} \sum_{t' = t - \lambda_a}^t (f^M_{act'} + f^I_{an_at'})	&	\forall a \in A, \forall t \in T \\
+O_t =& \sum_{a \in A} o_{at}													&	\forall t \in T
+\end{align} }
 
 \end{frame}
 
