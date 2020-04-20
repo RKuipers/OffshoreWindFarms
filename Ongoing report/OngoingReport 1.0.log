@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.8)  7 APR 2020 16:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.8)  20 APR 2020 17:02
 entering extended mode
 **"./OngoingReport 1.0.tex"
 ("OngoingReport 1.0.tex"
@@ -429,13 +429,19 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 256.
 
 [23] [24] [25] [26]
-Overfull \hbox (6.2931pt too wide) in paragraph at lines 314--315
+Overfull \hbox (22.7999pt too wide) in paragraph at lines 316--317
+[]\OT1/cmr/m/n/12 Research re-gard-ing Condition-Based Main-te-nance is sum-ma-
+rized in ([]Merigaud
+ []
+
+
+Overfull \hbox (6.2931pt too wide) in paragraph at lines 319--320
 \OT1/cmr/m/n/12 While there is not much re-search re-lat-ing specif-i-cally to 
 de-com-mis-sion projects,
  []
 
 [27] [28] [29] [30] [31] [32]
-Overfull \hbox (2.89453pt too wide) in paragraph at lines 353--354
+Overfull \hbox (2.89453pt too wide) in paragraph at lines 358--359
 []\OT1/cmr/m/n/12 As for re-search about the the-ory of ro-bust op-ti-mi-sa-tio
 n, ([]Iancu & Trichakis[]
  []
@@ -445,60 +451,56 @@ n, ([]Iancu & Trichakis[]
 File: images/OWF Tool interactions.png Graphic file (type png)
 <use images/OWF Tool interactions.png>
 Package pdftex.def Info: images/OWF Tool interactions.png  used on input line 4
-62.
+67.
 (pdftex.def)             Requested size: 390.0pt x 346.65814pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [48] [49 <./images/OWF Tool interactions.png>] [50] [51] [52] [53] [54]
-[55] [56] ("OngoingReport 1.0.bbl" [57] [58] [59]
-Underfull \hbox (badness 10000) in paragraph at lines 224--230
+[55] [56] ("OngoingReport 1.0.bbl" [57] [58] [59] [60]
+Underfull \hbox (badness 10000) in paragraph at lines 230--236
 []| | \OT1/cmr/m/n/12 Renewable-UK (2017), `Off-shore wind project time-lines',
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 224--230
+Underfull \hbox (badness 10000) in paragraph at lines 230--236
 \OT1/cmr/m/it/12 https://www.renewableuk.com/news/294516/Offshore-Wind-Project-
 
  []
 
-[60])
+)
 
 Package caption Warning: Unused \captionsetup[subfigure] on input line 26.
 See the caption package documentation for explanation.
 
-[61] ("OngoingReport 1.0.aux")
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+[61] ("OngoingReport 1.0.aux") ) 
 Here is how much of TeX's memory you used:
- 7482 strings out of 492895
- 129682 string characters out of 3123736
- 205057 words of memory out of 3000000
- 11270 multiletter control sequences out of 15000+200000
+ 7486 strings out of 492895
+ 129794 string characters out of 3123736
+ 206057 words of memory out of 3000000
+ 11274 multiletter control sequences out of 15000+200000
  11542 words of font info for 41 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,7n,39p,2942b,304s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmbx10.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmbx12.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/f
-onts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/Users/Robin/AppData/Local/Progra
-ms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Robin/AppData
-/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/
-Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pf
-b><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmr10.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
-lic/amsfonts/cm/cmr12.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/Robin/AppData/Local/Programs/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Robin/AppData/Local/
-Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Robin/A
-ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/
-Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
-u10.pfb>
-Output written on "OngoingReport 1.0.pdf" (61 pages, 322957 bytes).
+<C:/Users/Robin/AppData/Local/Programs/MiKTeX 2
+.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Robin/AppData/Local/Prog
+rams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Robin/AppDa
+ta/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/Us
+ers/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex
+10.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/ams
+fonts/cm/cmmi12.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
+e1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2
+.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Robin/AppData/Local/Progr
+ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Robin/AppData
+/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/R
+obin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb>
+<C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/c
+m/cmsy10.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmti12.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmu10.pfb>
+Output written on "OngoingReport 1.0.pdf" (61 pages, 323648 bytes).
 PDF statistics:
  254 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
