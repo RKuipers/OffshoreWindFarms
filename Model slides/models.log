@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.8)  20 APR 2020 17:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.8)  21 APR 2020 16:18
 entering extended mode
 **./models.tex
 (models.tex
@@ -969,7 +969,7 @@ thkerncmss.
 ] [9
 
 ]
-Overfull \vbox (5.49155pt too high) detected at line 222
+Overfull \vbox (1.94373pt too high) detected at line 221
  []
 
 [10
@@ -988,22 +988,22 @@ Overfull \vbox (5.49155pt too high) detected at line 222
 \tf@snm=\write8
 \openout8 = `models.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 289.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 289.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 288.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 288.
  (models.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 289.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 289.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 288.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 288.
 Package rerunfilecheck Info: File `models.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
  17399 strings out of 492895
  339519 string characters out of 3123736
- 426248 words of memory out of 3000000
+ 426278 words of memory out of 3000000
  20887 multiletter control sequences out of 15000+200000
  13683 words of font info for 50 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 56i,16n,59p,775b,751s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 56i,15n,59p,775b,751s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cmextra/cmex8.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type
 1/public/amsfonts/cmextra/cmex9.pfb><C:/Users/Robin/AppData/Local/Programs/MiKT
@@ -1020,13 +1020,12 @@ ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss9.pfb><C:/Users/Robin/AppData
 /Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi8.
 pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
 ts/cm/cmssi9.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
-public/amsfonts/cm/cmsy5.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/
-fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/Robin/AppData/Local/Programs
-/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Robin/AppData/Lo
-cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy9.pfb>
-Output written on models.pdf (12 pages, 248506 bytes).
+public/amsfonts/cm/cmsy6.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Robin/AppData/Local/Programs
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy9.pfb>
+Output written on models.pdf (12 pages, 240782 bytes).
 PDF statistics:
- 416 PDF objects out of 1000 (max. 8388607)
+ 412 PDF objects out of 1000 (max. 8388607)
  25 named destinations out of 1000 (max. 500000)
  79 words of extra memory for PDF output out of 10000 (max. 10000000)
 
