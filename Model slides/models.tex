@@ -3,8 +3,8 @@
 \usepackage{graphicx}
 \graphicspath{ {./images/} }
 
-%\usetheme{Madrid}
-\usetheme{Warsaw}
+\usetheme{Madrid}
+%\usetheme{Warsaw}
 
 \title[Initial models for optimisation]{Initial models for optimisation}
 
@@ -177,6 +177,107 @@ Parameters:
 \end{frame}
 
 \begin{frame}{Initial mixed model}
+\scriptsize
+
+\begin{equation}
+	\text{maximize} \sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
+\end{equation}
+
+\bigskip
+
+\only<1>{
+subject to:
+
+\begin{align}
+1 =& \sum_{t \in T} s_{ait}	= \sum_{t \in T} f_{ait}								&	\forall i \in I \cup M^M, \forall a \in A				\\
+1 \leq& \sum_{t_1 = t_0}^{t_N} [ \sum_{t_2 = t_0}^{t_1} f_{ait_2} \cdot \sum_{t_3 = t_1}^{t_N} s_{ajt_3}]	&	\forall (i, j) \in IP, \forall a \in A	\\
+1 \geq& \sum_{t \in T} s_{ait}												&	\forall a \in A, \forall i \in M^O	\\
+\sum_{t \in T} s_{ait}	=& \sum_{t \in T} f_{ait}									&	\forall a \in A, \forall i \in M^O	\\
+0 =& \sum_{t_1 = t_0}^t s_{ajt_1} \cdot \sum_{t_2 = t}^{t_N} f_{ait_2}					&	\begin{aligned} \forall a \in A, \forall t \in T, 	\\
+																	\forall i \in I, \forall j \in M 	\end{aligned}
+\end{align} }
+
+\stepcounter{equation}
+\stepcounter{equation}
+\stepcounter{equation}
+\stepcounter{equation}
+\stepcounter{equation}
+
+\only<2>{
+subject to (2):
+
+\begin{align}
+d_i \geq& (f_{ait_2} + s_{ait_1} - 1) \cdot \sum_{t_3 = t_1}^{t_2} \omega_{it_3} 				& 	\begin{aligned} \forall i \in \mathcal{I}, \forall a \in A, \\
+																	\forall t_1, t_2 \in T | t_2 \geq t_1 + d_i \end{aligned}\\
+N_{rp} \geq& \sum_{a\in A} \sum_{t_1 = t_0}^t \sum_{t_2 = t}^{t_N}  \sum_{i\in \mathcal{I}} (s_{ait_1} \cdot f_{ait_2} \cdot \rho_{ir}) & \forall r \in R, \forall p \in P, \forall t \in T_p \\
+o_{at} \leq& \sum_{t_1 = t_0}^{t} f_{ai_Nt_1} \cdot \sum_{i \in M \cup \{i_N\}} \sum_{t_2 = t - \lambda_a}^t f_{ait_2}	&	\forall a \in A, \forall t \in T \\
+O_t =& \sum_{a \in A} o_{at}													&	\forall t \in T
+\end{align} }
+
+\end{frame}
+
+\begin{frame}{Mixed Model Explanation}
+\footnotesize
+(15) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
+(16) (Mixed) Forces every mandatory task to be starded and finished at some point	\\
+(17) (Installation) For every precedence relation $(i, j)$ it ensures there is a $t$ such that $i$ has a finish time before $t$, and $i$ a starting time after $t$	\\
+(18) (Maintenance) Ensures each optional maintenance task to be started at most once 	\\
+(19) (Maintenance)	Ensures that every maintenance task for a particular asset that is started is also finished \\
+(20) (Mixed) Ensures an asset is fully installed before maintenance starts	\\
+(21) (Mixed) Ensures that between the starting and finish times of each task are enough timesteps with acceptable weather	\\
+(22) (Mixed) Counts up the resources needed in a time period summing up over all active tasks (an $s$ before and $f$ after $t$)	\\
+(23) (Mixed) Sets an asset to be online if it installed and had work done on it recently \\
+(24) (Mixed) Counts how many assets are online	
+\end{frame}
+
+\begin{frame}{Notation overview}
+\tiny
+
+\begin{columns}
+\begin{column}{.48\textwidth}
+Sets:
+\begin{itemize}
+\item $P$: All time periods (large scale)
+\item $T$: All time intervals (small scale) [$t_0, \dots , t_N$]
+\item $T_p \in T$: All time intervals (small scale) in period $p$
+\item $R$: All resources
+\item $I$: All installation tasks per asset [$1, \dots , i_N$]
+\item $M = M^M \cup M^O$: all mandatory and optional maintenance tasks
+\item $\mathcal{I} = I \cup M$: All tasks
+\item $IP$: All precedency pairs ($i$, $j$)
+\item $A$: All assets
+\end{itemize}
+\end{column}
+
+\hfill
+
+\begin{column}{.48\textwidth}
+Decision variables:
+\begin{itemize}
+\item $O_{t}$: Number of online turbines at timestep $t$
+\item $o_{at}$: Binary variable, 1 if asset $a$ is online at timestep $t$
+\item $N_{rp}$: Number of resources $r$ used in period $p$
+\item $s_{ait}$: Binary variable, 1 if task $i \in \mathcal{I}$ for asset $a$ starts at time $t$
+\item $f_{ait}$: Binary variable, 1 if task $i \in \mathcal{I}$ for asset $a$ finishes at time $t$
+\end{itemize}
+
+Parameters:
+\begin{itemize}
+\item $DIS$: The discount factor per time period
+\item $v_t$: The value of energy a single turbine produces at timestep $t$
+\item $C_{rp}$: The cost of chartering resource $r$ in period $p$
+\item $d_i$: The duration of task $i \in \mathcal{I}$
+\item $\lambda_a$: The number of timesteps after the last maintenance before asset $a$ fails
+\item $\omega_{it}$: Binary parameter representing weather, 1 if task $i \in \mathcal{I}$ can be completed at time $t$, 0 otherwise
+\item $\rho_{ir}$: The amount of resource $r$ used for task $i \in \mathcal{I}$
+\end{itemize}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}{Initial mixed model (old)}
+\setcounter{equation}{14}
 \scriptsize
 
 \begin{equation}

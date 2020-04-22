@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.8)  21 APR 2020 16:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.8)  22 APR 2020 17:02
 entering extended mode
 **./models.tex
 (models.tex
@@ -744,17 +744,15 @@ themedefault.sty"
 ("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerouter
 themedefault.sty")))
 ("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamertheme
-Warsaw.sty"
+Madrid.sty"
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamercolor
+themewhale.sty")
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamercolor
+themeorchid.sty")
 ("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerinner
 themerounded.sty")
 ("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerouter
-themeshadow.sty"
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerouter
-themesplit.sty"))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamercolor
-themeorchid.sty")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamercolor
-themewhale.sty")) (models.aux)
+themeinfolines.sty")) (models.aux)
 \openout1 = `models.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
@@ -780,14 +778,14 @@ LaTeX Font Info:    ... okay on input line 13.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: includehead includefoot 
-* h-part:(L,W,R)=(28.45274pt, 307.28987pt, 28.45274pt)
+* h-part:(L,W,R)=(10.95003pt, 342.2953pt, 10.95003pt)
 * v-part:(T,H,B)=(0.0pt, 273.14662pt, 0.0pt)
 * \paperwidth=364.19536pt
 * \paperheight=273.14662pt
-* \textwidth=307.28987pt
+* \textwidth=342.2953pt
 * \textheight=244.6939pt
-* \oddsidemargin=-43.81725pt
-* \evensidemargin=-43.81725pt
+* \oddsidemargin=-61.31996pt
+* \evensidemargin=-61.31996pt
 * \topmargin=-72.26999pt
 * \headheight=14.22636pt
 * \headsep=0.0pt
@@ -968,15 +966,23 @@ thkerncmss.
 
 ] [9
 
-]
-Overfull \vbox (1.94373pt too high) detected at line 221
- []
-
-[10
+] [10
 
 ] [11
 
 ] [12
+
+] [13
+
+]
+Overfull \vbox (6.41554pt too high) detected at line 322
+ []
+
+[14
+
+] [15
+
+] [16
 
 ]
 \tf@nav=\write6
@@ -988,19 +994,19 @@ Overfull \vbox (1.94373pt too high) detected at line 221
 \tf@snm=\write8
 \openout8 = `models.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 288.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 288.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 389.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 389.
  (models.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 288.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 288.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 389.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 389.
 Package rerunfilecheck Info: File `models.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 17399 strings out of 492895
- 339519 string characters out of 3123736
- 426278 words of memory out of 3000000
- 20887 multiletter control sequences out of 15000+200000
+ 17388 strings out of 492895
+ 338648 string characters out of 3123736
+ 424698 words of memory out of 3000000
+ 20871 multiletter control sequences out of 15000+200000
  13683 words of font info for 50 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,15n,59p,775b,751s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1023,9 +1029,9 @@ ts/cm/cmssi9.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
 public/amsfonts/cm/cmsy6.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/
 fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Robin/AppData/Local/Programs
 /MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy9.pfb>
-Output written on models.pdf (12 pages, 240782 bytes).
+Output written on models.pdf (16 pages, 268021 bytes).
 PDF statistics:
- 412 PDF objects out of 1000 (max. 8388607)
- 25 named destinations out of 1000 (max. 500000)
- 79 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 514 PDF objects out of 1000 (max. 8388607)
+ 33 named destinations out of 1000 (max. 500000)
+ 67 words of extra memory for PDF output out of 10000 (max. 10000000)
 
