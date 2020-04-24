@@ -274,9 +274,9 @@ Compared to the topic of installation, there is a large body of research done in
 
 Decisions within the strategic echelon are found to have the biggest impact on the costs of operations, which makes sense as they affect the largest amount of time. However each of these echelons include important decisions that will have to be made for the maintenance of the sites. Besides providing this framework to categorize research, they also highlight which areas appear most thoroughly researched, and identify some unexplored areas. Potentially due to their large impact, the topics within the strategic echelon have received most attention, while the topics in the operational echelon received least. The writers indicate they these shorter term areas might hold unexplored potential for future research. Additionally some related topics that might improve help in related maintenance logistics are discussed, such as the creation of a database with scenarios and case studies.
 
-\bigskip
-
-One aspect to consider is fleet size. In \cite{staalhane2019optimizing} a two-stage stochastic programming model is used to first determine which vessels to charter, and then how to use the cartered vessels. In their computational study this approach is compared to several life-cycle cost estimating simulation models from the literature, and it is found to give reasonable estimates on the resulting costs. Additionally it is shown to require relatively low computational power, and can therefore be used to support maintenance decisions made. 
+%\bigskip
+%ONGOING: Removed
+%One aspect to consider is fleet size. In \cite{staalhane2019optimizing} a two-stage stochastic programming model is used to first determine which vessels to charter, and then how to use the cartered vessels. In their computational study this approach is compared to several life-cycle cost estimating simulation models from the literature, and it is found to give reasonable estimates on the resulting costs. Additionally it is shown to require relatively low computational power, and can therefore be used to support maintenance decisions made. 
 
 \bigskip
 
@@ -314,6 +314,13 @@ In \cite{besnard2011stochastic} an optimisation model is constructed for short-t
 
 %ONGOING: Marigaud
 Research regarding Condition-Based Maintenance is summarized in \cite{merigaud2016condition}. This work talks in-depth about many systems available to monitor the health and potential failure rate of many components, which all operate on different levels. It includes research on Tidal Turbines and Wave Energy Converters, but focuses on Wind Turbines. Since it does not talk (much) about logistics, and more about monitoring at an engineering and design level, not much of this work applies to my research, but it is a potential resource to look at if my results indicate that improved condition-tracking is useful or necessary. 
+
+\bigskip
+
+%ONGOING: Stalhane
+In \cite{staalhane2019optimizing} the problem of fleet composition is investigated through a two-stage stochastic programming model. The problem is decomposed using a variant of a Dantzig-Wolfe decomposition. In the first stage a set of vessels is decided to be chartered for each active base. In the second stage the maintenance tasks are divided over the available vessels. The first stage has an objective function minimising costs, which as one term representing the expected costs from the second stage. This cost depends on the stochastic variables in the second stage (failures, energy generated based on weather conditions, availability of vessels based on weather conditions). In order to solve it, a set of scenarios are generated, each of which represent a realisation of this set of variables. The weighted average costs of all scenarios (weighted on their probability) is used to represent the expected costs, after which the first stage of the problem can be solved. 
+
+This sort of decomposition is potentially useful for my models, to handle the stochastic aspects of the problem. In this paper, the model is verified by comparing it to cases constructed in \cite{dinwoodie2015reference}. It is shown to run in feasible time, and when the fleet composition is fixed it is shown to give comparable results to what is expected. Then some adjustments to the given cases are made, to see what impacts they have to the solutions produced. Overall this approach seems promising to help make logistical decisions about the maintenance. 
 
 \subsection{Related research regarding offshore projects} \label{ss:offsh}
 While there is not much research relating specifically to decommission projects, there is some. Especially recently there has been new research such as \cite{irawan2019optimisation}. In it the researchers use an Integer Linear Programming method to find schedules for decommission projects with minimum costs. The method is shown to be efficient and seems to yield good results. As expected, this model is fairly similar to the ones used for installation projects. 

@@ -11,17 +11,17 @@
 \contentsline {section}{\numberline {4}Literature}{18}% 
 \contentsline {subsection}{\numberline {4.1}Scheduling the installation}{18}% 
 \contentsline {subsection}{\numberline {4.2}Maintenance of the site}{23}% 
-\contentsline {subsection}{\numberline {4.3}Related research regarding offshore projects}{27}% 
+\contentsline {subsection}{\numberline {4.3}Related research regarding offshore projects}{28}% 
 \contentsline {subsection}{\numberline {4.4}More general work on stochastic scheduling}{32}% 
-\contentsline {section}{\numberline {5}Simulation and optimisation tool}{35}% 
-\contentsline {subsection}{\numberline {5.1}Current progress}{35}% 
-\contentsline {subsection}{\numberline {5.2}Future developments}{37}% 
-\contentsline {subsubsection}{\numberline {5.2.1}Inputs and outputs}{38}% 
-\contentsline {subsubsection}{\numberline {5.2.2}Weather model}{41}% 
-\contentsline {subsection}{\numberline {5.3}Data plan}{41}% 
-\contentsline {section}{\numberline {6}Other activities}{44}% 
-\contentsline {section}{\numberline {7}Future Work}{48}% 
-\contentsline {subsection}{\numberline {7.1}Research plans}{48}% 
-\contentsline {subsubsection}{\numberline {7.1.1}Models for each phase}{48}% 
-\contentsline {subsubsection}{\numberline {7.1.2}Research questions}{51}% 
-\contentsline {subsection}{\numberline {7.2}Timeline and next steps}{54}% 
+\contentsline {section}{\numberline {5}Simulation and optimisation tool}{36}% 
+\contentsline {subsection}{\numberline {5.1}Current progress}{36}% 
+\contentsline {subsection}{\numberline {5.2}Future developments}{38}% 
+\contentsline {subsubsection}{\numberline {5.2.1}Inputs and outputs}{39}% 
+\contentsline {subsubsection}{\numberline {5.2.2}Weather model}{42}% 
+\contentsline {subsection}{\numberline {5.3}Data plan}{42}% 
+\contentsline {section}{\numberline {6}Other activities}{45}% 
+\contentsline {section}{\numberline {7}Future Work}{49}% 
+\contentsline {subsection}{\numberline {7.1}Research plans}{49}% 
+\contentsline {subsubsection}{\numberline {7.1.1}Models for each phase}{49}% 
+\contentsline {subsubsection}{\numberline {7.1.2}Research questions}{52}% 
+\contentsline {subsection}{\numberline {7.2}Timeline and next steps}{55}% 
