@@ -68,7 +68,7 @@ def modifyRanges() -> (list, list):
     
     for i in range(5):
         v = vs[i]
-        print (f"Enter two numbers separated by a space to for the low and high bound of {v} (or n to use the normal value, N to use the normal value for all remaining variables)")
+        print (f"Enter bounds (L H) of {v} (or n to use the normal value, N to use the normal value for all remaining variables)")
         inp = input()
         
         if (inp == "n"):
