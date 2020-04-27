@@ -10,10 +10,7 @@ def getvars(R: int, lows: list, ranges: list) -> list:
         
     return res
 
-def calc(minutes: int) -> (int, int):
-    lows = [15, 1, 30, 1, 3] #Inclusive
-    highs = [25, 3, 50, 4, 5] #Inclusive  
-    
+def calc(minutes: int, lows: list, highs: list) -> (int, int):    
     ranges = [y - x + 1 for x,y in zip(lows, highs)]
     options = np.prod(ranges)
     
