@@ -19,7 +19,7 @@
 \begin{frame}{Initial model for installation}
 \footnotesize
 \begin{equation}
-	\text{maximize} \sum_{p \in P} [ DIS^p (O_p \cdot v_p - \sum_{r \in R} N_{rp} \cdot C_{rp}) ]
+	\max_{\substack{O_p, N_{rp} \in \mathbb{Z}^* \\ s_{it}, f_{it} \in \{0, 1\}}} \sum_{p \in P} [ DIS^p (O_p \cdot v_p - \sum_{r \in R} N_{rp} \cdot C_{rp}) ]
 \end{equation}
 
 \bigskip
@@ -91,7 +91,7 @@ Parameters:
 \begin{frame}{Initial model for maintenance}
 \footnotesize
 \begin{equation}
-	\text{maximize} \sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
+	\max_{\substack{O_t, N_{rp} \in \mathbb{Z}^* \\ s_{act}, f_{act}, b_{at} \in \{0, 1\}}} \sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
 \end{equation}
 
 \bigskip
@@ -180,7 +180,7 @@ Parameters:
 \scriptsize
 
 \begin{equation}
-	\text{maximize} \sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
+	\max_{\substack{O_t, N_{rp} \in \mathbb{Z}^* \\ s_{ait}, f_{ait}, o_{at} \in \{0, 1\}}} \sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
 \end{equation}
 
 \bigskip
@@ -270,116 +270,6 @@ Parameters:
 \item $\lambda_a$: The number of timesteps after the last maintenance before asset $a$ fails
 \item $\omega_{it}$: Binary parameter representing weather, 1 if task $i \in \mathcal{I}$ can be completed at time $t$, 0 otherwise
 \item $\rho_{ir}$: The amount of resource $r$ used for task $i \in \mathcal{I}$
-\end{itemize}
-\end{column}
-\end{columns}
-
-\end{frame}
-
-\begin{frame}{Initial mixed model (old)}
-\setcounter{equation}{14}
-\scriptsize
-
-\begin{equation}
-	\text{maximize} \sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
-\end{equation}
-
-\bigskip
-
-\only<1>{
-subject to:
-
-\begin{align}
-1 =& \sum_{t \in T} s^I_{ait}	= \sum_{t \in T} f^I_{ait}								&	\forall i \in I, \forall a \in A				\\
-1 \leq& \sum_{t_1 = t_0}^{t_N} [ \sum_{t_2 = t_0}^{t_1} f^I_{ait_2} \cdot \sum_{t_3 = t_1}^{t_N} s^I_{ajt_3}]	&	\forall (i, j) \in IP, \forall a \in A	\\
-1 =& \sum_{t \in T} s^M_{act}	= \sum_{t \in T} f^M_{act}							&	\forall a \in A, \forall c \in \{1, \dots , c_M \}	\\
-1 \geq& \sum_{t \in T} s^M_{act}											&	\forall a \in A, \forall c \in \{c_M + 1, \dots , c_N \}	\\
-\sum_{t \in T} s^M_{act}	=& \sum_{t \in T} f^M_{act}								&	\forall a \in A, \forall c \in \{c_M + 1, \dots , c_N \}	\\
-0 =& \sum_{t_1 = t_0}^t s^M_{act_1} \cdot \sum_{t_2 = t}^{t_N} f^I_{ait_2}					&	\begin{aligned} \forall a \in A, \forall t \in T, 	\\
-																	\forall i \in I, \forall c \in C 	\end{aligned}
-\end{align} }
-
-\stepcounter{equation}
-\stepcounter{equation}
-\stepcounter{equation}
-\stepcounter{equation}
-\stepcounter{equation}
-\stepcounter{equation}
-
-\only<2>{
-subject to (2):
-
-\begin{align}
-d^I_i \geq& (f^I_{ait_2} + s^I_{ait_1} - 1) \cdot \sum_{t_3 = t_1}^{t_2} \omega^I_{it_3} 			& 	\begin{aligned} \forall i \in I, \forall a \in A, \\
-																	\forall t_1, t_2 \in T | t_2 \geq t_1 + d^I_i \end{aligned}\\
-d^M_c \geq& (f^M_{act_2} + s^M_{act_1} - 1) \cdot \sum_{t_3 = t_1}^{t_2} \omega^M_{ct_3} 			& 	\begin{aligned} \forall a \in A, \forall c \in C, \\
-																	\forall t_1, t_2 \in T | t_2 \geq t_1 + d^m_c \end{aligned}\\
-N_{rp} \geq& \begin{aligned}\sum_{a\in A} \sum_{t_1 = t_0}^t \sum_{t_2 = t}^{t_N} [ \sum_{i\in I} (s^I_{ait_1} \cdot f^I_{ait_2} \cdot \rho_{ir}^I) + \\ \sum_{c\in C} (s^M_{act_1} \cdot f^M_{act_2} \cdot \rho_{cr}^M) ] \end{aligned}	& 	\forall r \in R, \forall p \in P, \forall t \in T_p 	\\
-o_{at} \leq& \sum_{t_1 = t_0}^{t} f^I_{ai_Nt_1} \cdot \sum_{c \in C} \sum_{t_2 = t - \lambda_a}^t (f^M_{act_2} + f^I_{ai_Nt_2})	&	\forall a \in A, \forall t \in T \\
-O_t =& \sum_{a \in A} o_{at}													&	\forall t \in T
-\end{align} }
-
-\end{frame}
-
-\begin{frame}{Mixed Model Explanation}
-\footnotesize
-(15) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
-(16) (Installation) Forces every task to be starded and finished at some point	\\
-(17) (Installation) For every precedence relation $(i, j)$ it ensures there is a $t$ such that $i$ has a finish time before $t$, and $i$ a starting time after $t$	\\
-(18) (Maintenance) Forces every mandatory maintenance cycle to be starded and finished at some point	\\
-(19) (Maintenance) Ensures each optional maintenance cycle to be started at most once 	\\
-(20) (Maintenance)	Ensures that every maintenance cycle for a particular asset that is started is also finished \\
-(21) (Mixed) Ensures an asset is fully installed before maintenance starts	\\
-(22) (Installation) Ensures that between the starting and finish times of each task are enough timesteps with acceptable weather	\\
-(23) (Maintenance) Ensures that between the starting and finish times of each cycle are enough timesteps with acceptable weather	\\
-(24) (Mixed) Counts up the resources needed in a time period summing up over all active tasks (an $s$ before and $f$ after $t$)	\\
-(25) (Mixed) Sets an asset to be online if it installed and had work done on it recently \\
-(26) (Mixed) Counts how many assets are online	
-\end{frame}
-
-\begin{frame}{Notation overview}
-\tiny
-
-\begin{columns}
-\begin{column}{.48\textwidth}
-Sets:
-\begin{itemize}
-\item $P$: All time periods (large scale)
-\item $T$: All time intervals (small scale) [$t_0, \dots , t_N$]
-\item $T_p \in T$: All time intervals (small scale) in period $p$
-\item $R$: All resources
-\item $I$: All installation tasks per asset [$1, \dots , i_N$]
-\item $A$: All assets
-\item $C$: All ($c_M$ mandatory and ($c_N - c_M$) optional) maintenance cycles [$1, \dots , c_M, \dots , c_N$]
-\end{itemize}
-
-Decision variables:
-\begin{itemize}
-\item $O_{t}$: Number of online turbines at timestep $t$
-\item $o_{at}$: Binary variable, 1 if asset $a$ is online at timestep $t$
-\item $N_{rp}$: Number of resources $r$ used in period $p$
-\item $s^I_{ait}$: Binary variable, 1 if installation task $i$ for asset $a$ starts at time $t$
-\item $f^I_{ait}$: Binary variable, 1 if installation task $i$ for asset $a$ finishes at time $t$
-\item $s^M_{act}$: Binary variable, 1 if maintenance cycle $c$ for asset $a$ starts at time $t$
-\item $f^M_{act}$: Binary variable, 1 if maintenance cycle $c$ for asset $a$ finishes at time $t$
-\end{itemize}
-\end{column}
-
-\hfill
-
-\begin{column}{.48\textwidth}
-Parameters:
-\begin{itemize}
-\item $DIS$: The discount factor per time period
-\item $v_t$: The value of energy a single turbine produces at timestep $t$
-\item $C_{rp}$: The cost of chartering resource $r$ in period $p$
-\item $d^I_i$: The duration of installation task $i$
-\item $d^M_c$: The duration per task during maintenance cycle $c$
-\item $\lambda_a$: The number of timesteps after the last maintenance before asset $a$ fails
-\item $\omega^I_{it}$: Binary parameter representing weather, 1 if task $i$ can be completed at time $t$, 0 otherwise
-\item $\omega^M_{ct}$: Binary parameter representing weather, 1 if maintenance cycle $c$ can be completed at time $t$, 0 otherwise
-\item $\rho^I_{ir}$: The amount of resource $r$ used for intallation task $i$
-\item $\rho^M_{cr}$: The amount of resource $r$ used per task for maintenance cycle $c$
 \end{itemize}
 \end{column}
 \end{columns}
