@@ -68,7 +68,7 @@ def modifyRanges() -> (list, list):
     
     for i in range(5):
         v = vs[i]
-        print (f"Enter bounds (L H) of {v} (or n to use the normal value, N to use the normal value for all remaining variables)")
+        print (f"Enter bounds (L H) of {v} (or type n or N)")
         inp = input()
         
         if (inp == "n"):

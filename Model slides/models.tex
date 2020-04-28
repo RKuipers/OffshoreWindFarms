@@ -193,7 +193,7 @@ subject to:
 1 \leq& \sum_{t_1 = t_0}^{t_N} [ \sum_{t_2 = t_0}^{t_1} f_{ait_2} \cdot \sum_{t_3 = t_1}^{t_N} s_{ajt_3}]	&	\forall (i, j) \in IP, \forall a \in A	\\
 1 \geq& \sum_{t \in T} s_{ait}												&	\forall a \in A, \forall i \in M^O	\\
 \sum_{t \in T} s_{ait}	=& \sum_{t \in T} f_{ait}									&	\forall a \in A, \forall i \in M^O	\\
-0 =& \sum_{t_1 = t_0}^t s_{ajt_1} \cdot \sum_{t_2 = t}^{t_N} f_{ait_2}					&	\begin{aligned} \forall a \in A, \forall t \in T, 	\\
+0 =& \sum_{t_1 = t_0}^t s_{ajt_1} + \sum_{t_2 = t}^{t_N} f_{ait_2}					&	\begin{aligned} \forall a \in A, \forall t \in T, 	\\
 																	\forall i \in I, \forall j \in M 	\end{aligned}
 \end{align} }
 
