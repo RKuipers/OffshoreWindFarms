@@ -1,0 +1,1 @@
+﻿C:\Users\Robin\Desktop\Clp-master\MSVisualStudio\v10\libClp\libClp.vcxproj(50,5): error MSB4019: The imported project "C:\Users\Robin\Desktop\BuildTools\MSVisualStudio\v10\Common.props" was not found. Confirm that the path in the <Import> declaration is correct, and that the file exists on disk.

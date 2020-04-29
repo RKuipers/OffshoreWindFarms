@@ -2,10 +2,12 @@
 
 import datetime as dt
 import bruteforce
+import sys
 
 modify = False
 #TODO: Set to false/remove
 debug = False
+autoRerun = True
 
 def chop_microseconds(delta: dt.timedelta) -> dt.timedelta:
     return delta - dt.timedelta(microseconds=delta.microseconds)
@@ -19,15 +21,19 @@ def getInput() -> (dt.timedelta, int, list, list):
     now = dt.datetime.now()
     start = now.time()
 
-    print ("What time do you need to be done? (HH:MM)")
     if not debug:
+        print ("What time do you need to be done? (HH:MM)")
         endstr = input()
-    else:
-        endstr = "18:00"
-    end = dt.datetime.strptime(endstr, "%H:%M").time()
-    available = dt.datetime.combine(dt.date.today(), end) - dt.datetime.combine(dt.date.today(), start)
-    available = chop_microseconds(available)
-    
+        end = dt.datetime.strptime(endstr, "%H:%M").time()
+        available = dt.datetime.combine(dt.date.today(), end) - dt.datetime.combine(dt.date.today(), start)
+        available = chop_microseconds(available)
+    else: 
+        print ("Enter available minutes (q to exit)")
+        mins = input()
+        if (mins == "q"):
+            sys.exit()
+        available = dt.timedelta(minutes = int(mins))
+        
     return (available, round(available.seconds / 60), l, h)
 
 def printOutput(available: dt.timedelta, minutes: int, res: (int, int, int, int, int)):
@@ -57,7 +63,7 @@ def getRanges(s: str) -> (list, list):
         highs = [20, 2, 45, 4, 4]
     else:
         lows = [15, 1, 30, 1, 3]
-        highs = [25, 3, 50, 4, 5]
+        highs = [25, 4, 50, 5, 5]
     return (lows, highs)
         
 def modifyRanges() -> (list, list):
@@ -66,9 +72,10 @@ def modifyRanges() -> (list, list):
     vs = ["B (block length)", "S (short break length)", "L (long break length)", "N (number of blocks)", "P (number of pomodoros per block)"]
     (bl, bh) = getRanges("n")
     
+    print ("For each of the following variables enter a range (L H), fixed value (F), or enter \"n\" to fix it to the normal value. Enter \"N\" to fix all remaining variables to their normal values.")
+    
     for i in range(5):
-        v = vs[i]
-        print (f"Enter bounds (L H) of {v} (or type n or N)")
+        print (vs[i])
         inp = input()
         
         if (inp == "n"):
@@ -79,10 +86,13 @@ def modifyRanges() -> (list, list):
                 lows.append(bl[j])
                 highs.append(bh[j])
             break
-        else:
+        elif " " in inp:
             (l, h) = inp.split()
             lows.append(int(l))
             highs.append(int(h))
+        else:            
+            lows.append(int(inp))
+            highs.append(int(inp))
     return (lows, highs)
 
 def main():    
@@ -95,7 +105,10 @@ def main():
         printOutput(available, minutes, res)
 
         if debug:
-            break
+            if not autoRerun:
+                break
+            else:
+                continue
 
         print ("Press Enter to run again, m to modify, or q to quit")
         inp = input()

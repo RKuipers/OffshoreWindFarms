@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['scheduler.py'],
-             pathex=['C:\\Users\\Robin\\OneDrive\\Documenten\\GitHub\\OFWSim\\TimeScheduler'],
+             pathex=['C:\\Users\\Robin\\OneDrive\\Documenten\\GitHub\\OWFSim\\TimeScheduler'],
              binaries=[],
              datas=[],
              hiddenimports=[],

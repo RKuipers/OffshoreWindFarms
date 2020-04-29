@@ -14,7 +14,8 @@ def calc(minutes: int, lows: list, highs: list) -> (int, int):
     ranges = [y - x + 1 for x,y in zip(lows, highs)]
     options = np.prod(ranges)
     
-    best = 0
+    bestWT = 0
+    bestFull = 0
     bestset = [-1, -1, -1, -1, -1]
     
     for i in range(options):
@@ -29,8 +30,12 @@ def calc(minutes: int, lows: list, highs: list) -> (int, int):
         ratio = worktime / program
         
         if program <= minutes and ratio <= 3/4:
-            if worktime > best:
-                best = worktime
+            if worktime > bestWT:
+                bestWT = worktime
+                bestFull = program
+                bestset = [B, S, L, N, P]
+            elif worktime == bestWT and bestFull < program:                
+                bestFull = program
                 bestset = [B, S, L, N, P]
 
     return bestset
