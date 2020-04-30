@@ -2,9 +2,9 @@
 C:\Program Files (x86)\OR tools\include\ortools\linear_solver\linear_solver.h(272,28): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
 C:\Program Files (x86)\OR tools\include\ortools\linear_solver\linear_solver.h(337,30): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
   Generating code
-  4 of 203 functions ( 2.0%) were compiled, the rest were copied from previous compilation.
+  1 of 203 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
 LINK : warning LNK4286: symbol '??0LogMessage@google@@QEAA@PEBDH@Z (public: __cdecl google::LogMessage::LogMessage(char const *,int))' defined in 'ortools.lib(logging.cc.obj)' is imported by 'Optimiser.obj'
 LINK : warning LNK4286: symbol '??0LogMessageFatal@google@@QEAA@PEBDH@Z (public: __cdecl google::LogMessageFatal::LogMessageFatal(char const *,int))' defined in 'ortools.lib(logging.cc.obj)' is imported by 'Optimiser.obj'

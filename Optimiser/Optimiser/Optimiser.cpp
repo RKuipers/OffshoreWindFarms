@@ -5,6 +5,7 @@
 #include "ortools/linear_solver/linear_solver.h"
 
 namespace operations_research {
+#define USE_CBC
     struct DataModel {
         const std::vector<std::vector<double>> constraint_coeffs{
             {5, 7, 9, 2, 1},
