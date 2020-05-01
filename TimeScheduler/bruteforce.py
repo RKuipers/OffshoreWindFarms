@@ -10,13 +10,14 @@ def getvars(R: int, lows: list, ranges: list) -> list:
         
     return res
 
-def calc(minutes: int, lows: list, highs: list) -> (int, int):    
+def calc(minutes: int, lows: list, highs: list, target: float) -> (int, int):    
     ranges = [y - x + 1 for x,y in zip(lows, highs)]
     options = np.prod(ranges)
     
-    bestWT = 0
+    noSol = True
+    bestVal = 1.0
     bestFull = 0
-    bestset = [-1, -1, -1, -1, -1]
+    bestSet = [-1, -1, -1, -1, -1]
     
     for i in range(options):
         [B, S, L, N, P] = getvars(i, lows, ranges)
@@ -29,13 +30,14 @@ def calc(minutes: int, lows: list, highs: list) -> (int, int):
         
         ratio = worktime / program
         
-        if program <= minutes and ratio <= 3/4:
-            if worktime > bestWT:
-                bestWT = worktime
+        if program <= minutes and 0.6 <= ratio <= 0.75: #Check validity     
+            penalty = 1 + (pow(minutes - program, 1.5)/100) #Incorporates leftover minutes into objective
+            val = (abs(target - ratio) + penalty / 100) * penalty
+            #Objective:
+            if noSol or (val <= bestVal or (val == bestVal and program > bestFull)):
+                bestVal = val
                 bestFull = program
-                bestset = [B, S, L, N, P]
-            elif worktime == bestWT and bestFull < program:                
-                bestFull = program
-                bestset = [B, S, L, N, P]
+                bestSet = [B, S, L, N, P]    
+                noSol = False         
 
-    return bestset
+    return bestSet
