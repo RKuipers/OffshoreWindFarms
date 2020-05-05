@@ -69,12 +69,19 @@ def chop_microseconds(delta: dt.timedelta) -> dt.timedelta:
 
 def getInput() -> (dt.timedelta, int):    
     now = dt.datetime.now()
-    start = now.time()
 
     if not debug:
         print ("What time do you need to be done? (HH:MM)")
         endstr = input()
-        end = dt.datetime.strptime(endstr, "%H:%M").time()
+        if endstr.count(":") == 1:
+            start = now.time()
+            end = dt.datetime.strptime(endstr, "%H:%M").time()
+        elif endstr.count(":") == 2:
+            start = dt.datetime.strptime(endstr.split(" ")[0], "%H:%M").time()
+            end = dt.datetime.strptime(endstr.split(" ")[1], "%H:%M").time()
+        else:
+            print ("Invalid Input") #ERROR
+            endstr = input()
         available = dt.datetime.combine(dt.date.today(), end) - dt.datetime.combine(dt.date.today(), start)
         available = chop_microseconds(available)
     else: 
@@ -161,6 +168,29 @@ def modifySettings() -> None:
     else:
         I.setTargetF(int(inp))
 
+def pomo(inp: (int, int, int, int, int)) -> str:
+    (B, S, L, N, P) = inp
+    res = ""
+    for n in range(N):
+        if n > 0:
+            res = res + "+" + str(L)
+        for p in range(P):
+            if p > 0:
+                res = res + "+" + str(S)
+            res = res + "+" + str(B)
+    return res[1:]
+
+def reRun(res: list) -> bool:
+    global modify
+    
+    print ("Press Enter to run again, m to modify, or q to quit")
+    inp = input()
+    if inp == "pomo" or inp == "Pomo":
+        print (pomo(res))
+        return reRun(res)
+    modify = inp == "m" or inp == "M"
+    return inp == "q" or inp == "Q"
+
 def main():    
     global modify
     global I
@@ -179,11 +209,8 @@ def main():
 
         printOutput(available, minutes, res)
 
-        print ("Press Enter to run again, m to modify, or q to quit")
-        inp = input()
-        if inp == "q" or inp == "Q":
+        if reRun(res):
             break
-        modify = inp == "m" or inp == "M"
         
 if __name__ == '__main__':    
     main()
