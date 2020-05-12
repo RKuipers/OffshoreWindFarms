@@ -247,7 +247,7 @@ A final big limitation of this research has to do with one of the cashflows bein
 
 \subsection{Maintenance of the site} \label{ss:maint}
 
-%ONGOING: shafiee bits (changed)
+%OG CHECKED: Shafiee, Survey and Categorisation
 Compared to the topic of installation, there is a large body of diverse research done in the area of operation and maintenance (O\&M) of offshore wind farms. This research looks at various aspects and timescales relevant to the OWFs. In \cite{shafiee2015maintenance} the research and topics are divided into three timescales (echelons):
 
 \begin{enumerate}
@@ -276,11 +276,13 @@ Decisions within the strategic echelon are found to have the biggest impact on t
 
 \bigskip
 
-%ONGOING: Dinwoodie paragraph
+%OG CHECKED: Dinwoodie paragraph
+%Availability
 In \cite{dinwoodie2012analysis} an attempt is made to analyse the availability of OWFs. It is observed that the availability of offshore farms is much lower than that of onshore farms; currently offshore availability is around 80\%, while onshore this is 97\%. Various future scenarios are simulated to investigate which measures are likely to improve availability. It is found that increasing vessel operability to allow a higher significant wave height will greatly increase availablity, but realistically it will remain significantly below onshore availability. It is posited this can only be improved with improvement of the components to lower their failure rates, but an 8-fold improvement is required to achieve the same level of availability as onshore. 
 
 The weather model used in this research is an auto-regressive model used in other parts of the literature too, and is likely similar to what will be used for my reserach. The failure model is similar to those used on onshore farms, as there is a lack of available offshore data. While these models seem sufficient, the research is based on a number of big assumptions. For example, it is assumed that a failure will be repaired during the next available weather period. This does not seem to take into consideration the significant lead-up time before a vessel can be at the site to perform the repair, nor does it consider different operational strategies to handle maintenance. 
 
+%Maintenance Strategies
 This point especially seems strange, as in another paper \cite{dinwoodie2014operational} the same researchers focus on comparing operational strategies. They consider 4 approaches: 
 
 \begin{itemize}
@@ -296,6 +298,9 @@ Like the previous paper discussed, this research is also based on some strong as
 
 In conclusion, these strategies are something anyone simulating or optimizing maintenance will have to consider, which includes me in my research. While the research presented here is a useful foundation, significantly more research needs to be done into these operational strategies. 
 
+\bigskip
+
+%Reference case
 In \cite{dinwoodie2015reference} this same group of researchers proposes a reference case for maintenance models. Their idea is for various maintenance models to optimise a constructed scenario a fictional windfarm, as a benchmark to compare these models. This allows us to see which models perform better in various scenarios, as they constructed a base case and a set of variants. In the paper they compare four models, and compare various metrics of the results. For availability of the windfarms all results are extremely close, apart from three scenarios. It is explained that these differences result from previously unknown assumptions in the different models, such as whether  parallel maintenance tasks are possible on the same turbine, and the moment at which tasks should be assigned to vessels. 
 
 This uncovering of assumptions is another benefit of using a standardised reference case to verify a model. Seeing that a new model performs similarly to other models apart from certain scenarios can give insight into how this new model handles these scenarios in ways that might otherwise have gone unnoticed, as demonstrated in this paper. However it also comes with certain drawbacks. In order to properly handle these scenarios some of the models needed to be adjusted, hence a new model which is planned to be verified through this method might limit itself to be able to handle these scenarios. Therefore there is a risk for model space to be restricted in known and unknown ways if they are expected to be benchmarked by a technique like this, as they will have to take in this specific data as input. 
@@ -304,20 +309,20 @@ That said, this benchmarking technique still seems promising to compare differen
 
 \bigskip
 
-%ONGOING: Besnard
+%OG CHECKED: Besnard, Short term stochastic optimisation
 In \cite{besnard2011stochastic} a stochasitc optimisation model is constructed for short-term maintenance planning. The primary goal is to utilize times when energy production is expected to be low for maintenance, in order to minimise production losses. An interesting aspect of this model is the build-in uncertainty of weather forecasts. The stochastic element of their model is realized by having a set of scenarios, and the average cost over all scenarios is minimised. The first time step is assumed to have the correct forecast, hence the idea behind the model is for the optimisation to be recomputed regularly. A rolling horizon approach such as this seems like a good method to deal with these uncertain forecasts, although it can be computationally expensive to recalculate regularly. 
 
 \bigskip
 
-%ONGOING: Marigaud
-A summary of research regarding Condition-Based Maintenance is given in \cite{merigaud2016condition}. This work talks in-depth about many systems available to monitor the health and potential failure rate of many components, which all operate on different levels. For example, some might simply monitor the energy output of a turbine to detect faults in any of its components, while a different system might specifically monitor the component that transforms rotational energy to electrical energy. It includes research on Tidal Turbines and Wave Energy Converters, but focuses on Wind Turbines. Since it does not talk (much) about logistics, and more about monitoring at an engineering and design level, not much of this work applies to my research, but it is a potential resource to look at if my results indicate that improved condition-tracking is useful or necessary. 
+%OG CHECKED: Stalhane, Optimisation focussed on fleet size
+Another optimisation model focused on maintenance is given in \cite{staalhane2019optimizing}, where the problem of fleet composition is investigated through a two-stage stochastic programming model. The problem is decomposed using a variant of a Dantzig-Wolfe decomposition. In the first stage the set of vessels to be chartered for each active base is decided. In the second stage the maintenance tasks are divided over the available vessels. The first stage has an objective function minimising costs, which has one term representing the expected costs from the second stage. This cost depends on the stochastic variables in the second stage (failures, energy generated based on weather conditions, availability of vessels based on weather conditions). In order to solve it, a set of scenarios is generated, each of which represent a realisation of this set of variables. The weighted average costs of all scenarios (weighted on their probability) is used to represent the expected costs, after which the first stage of the problem can be solved. 
+
+This sort of decomposition is potentially useful for my models, to handle the stochastic aspects of the problem. In this paper, the model is verified by comparing it to cases constructed in \cite{dinwoodie2015reference}. It is shown to run in feasible time, and when the fleet composition is fixed it is shown to give comparable results to what is expected. Then some adjustments to the given cases are made, to see what impacts they have to the solutions produced. Overall this approach seems promising to help make logistical decisions about the maintenance. 
 
 \bigskip
 
-%ONGOING: Stalhane
-In \cite{staalhane2019optimizing} the problem of fleet composition is investigated through a two-stage stochastic programming model. The problem is decomposed using a variant of a Dantzig-Wolfe decomposition. In the first stage the set of vessels to be chartered for each active base is decided. In the second stage the maintenance tasks are divided over the available vessels. The first stage has an objective function minimising costs, which has one term representing the expected costs from the second stage. This cost depends on the stochastic variables in the second stage (failures, energy generated based on weather conditions, availability of vessels based on weather conditions). In order to solve it, a set of scenarios is generated, each of which represent a realisation of this set of variables. The weighted average costs of all scenarios (weighted on their probability) is used to represent the expected costs, after which the first stage of the problem can be solved. 
-
-This sort of decomposition is potentially useful for my models, to handle the stochastic aspects of the problem. In this paper, the model is verified by comparing it to cases constructed in \cite{dinwoodie2015reference}. It is shown to run in feasible time, and when the fleet composition is fixed it is shown to give comparable results to what is expected. Then some adjustments to the given cases are made, to see what impacts they have to the solutions produced. Overall this approach seems promising to help make logistical decisions about the maintenance. 
+%OG CHECKED: Marigaud, CBM Survey
+A summary of research regarding Condition-Based Maintenance is given in \cite{merigaud2016condition}. This work talks in-depth about many systems available to monitor the health and potential failure rate of many components, which all operate on different levels. For example, some might simply monitor the energy output of a turbine to detect faults in any of its components, while a different system might specifically monitor the component that transforms rotational energy to electrical energy. It includes research on Tidal Turbines and Wave Energy Converters, but focuses on Wind Turbines. Since it does not talk (much) about logistics, and more about monitoring at an engineering and design level, not much of this work applies to my research, but it is a potential resource to look at if my results indicate that improved condition-tracking is useful or necessary. 
 
 \subsection{Related research regarding offshore projects} \label{ss:offsh}
 While there is not much research relating specifically to decommission projects, there is some. Especially recently there has been new research such as \cite{irawan2019optimisation}. In it the researchers use an Integer Linear Programming method to find schedules for decommission projects with minimum costs. The method is shown to be efficient and seems to yield good results. As expected, this model is fairly similar to the ones used for installation projects. 
@@ -335,7 +340,7 @@ In \cite{barlow2017using}, the final paper (so far) on this tool, the researcher
 %TODO: Check these texts and references
 In a very recent work \cite{leontaris2019decision}, researchers have looked into reducing the risk of supply disruptions. Due to the absence of sufficient historical data, they use expert judgement to analyse the risk of supply disruptions, using different weights to combine judgements from various experts. It was found that the combined judgement lead to a better outcome than any individual judgement. In general it was found that not taking the estimations of supply disruptions into account could lead to significant overruns in both schedule and budget. 
 
-%ONGOING: CHECKED
+%ONGOING: Fully read this paper, task duration dependence
 The same authors have written about whether dependencies between task duration \cite{leontaris2018probabilistic} should be considered. They use a non-parametric Bayesian Network to model dependant delays in task duration, so that if a vessel has a delay on a certain task, the task it performs afterwards has a higher chance to be delayed as well. So far they have only tested this technique with the main tasks for installation, but this technique could be used throughout all operations. The initial results show that using constant task duration (based on the mode of historical durations) underestimates the duration, and with it costs of the installation. The reverse seems to happen when the durations are stochastic (using a triangular distribution); the increased variability seems to overestimate the durations. The proposed approach is shown to be a more realistic way to model this. 
 
 In another paper \cite{leontaris2016probabilistic} the same authors attempt to generate synthethic weather series, where the different metrics (wave height, wind speed, and potentially more like wave period and wind direction) are dependent on each other. For this they use copulas, which join multivariate distribution functions. They test their method with a project for laying the cables of an OWF. Their initial results show that this method could provide more insights into the realistic durations of offshore projects. 
@@ -410,7 +415,7 @@ As mentioned earlier, a decision needs to be made on the presumed knowledge of t
 %TODO add references for saying the perfect forecasting is usually used in literature
 %TODO actually look up research on the forecasting
 
-%ONGOING:
+%OG CHECKED:
 \subsection{Data plan} \label{ss:data}
 In order to run the simulations described above, two types of data need to be gathered, which I call weather data and operational data.
 
@@ -423,9 +428,9 @@ The primary location for windfarms I am considering in this project is the North
 
 \bigskip
 
-Operational data is the data about the windfarm and the tasks that need to be performed. If the model is used in an industrial context this data would obviously be specified by the used, as it is specific to the project the model would be used for. However, in order to answer the research questions some realistic data is needed to populate the simulations. If I can get data from case studies used in other research projects, that might allow for some comparison between my models and the models from those projects. 
+Operational data is the data about the windfarm, the vessels, and the tasks that need to be performed. If the model is used in an industrial context this data would obviously be specified by the user, as it is specific to the project the model would be used for. However, in order to answer the research questions some realistic data is needed to populate the simulations. If I can get data from case studies used in other research projects, that might allow for some comparison between my models and the models from those projects. 
 
-Currently I do not have access to any operational data yet. However my supervisors have offered me access to the data they used for the case studies in \cite{barlow2018mixed} and \cite{barlow2017using}, and assured me there are other case studies I could get my hands on. In \cite{leontaris2016probabilistic} a case study of a OWF with 55 WTGs is used. This case study was provided by Van Oord, a Dutch company developing offshore windfarms. I will attempt to contact the authors and Van Oord to see if I can get access to this study. These case studies all have to do with installation scenarios, but in order to answer my research questions I need data from the other phases of the life cycle too, and ideally have data from a windfarm over the whole life-cycle. This will likely be difficult, as it requires the life-cycle to have finished, which (given the 20-30 years length of their life-cycles) means the data will be too outdated to be used for current windfarms. Therefore I am aiming to get accurate recent data about the maintenance, and estimates regarding decommission. To accomplish this I will contact OWF operators for cooperation. The OWEZ windfarm has previously provided data for other studies, such as \cite{dinwoodie2012analysis}, so I am hopeful this or other windfarms will help me acquire the data I need. 
+Currently I do not have access to any operational data yet. However my supervisors have offered me access to the data they used for the case studies in \cite{barlow2018mixed} and \cite{barlow2017using}, and assured me there are other case studies I could get my hands on. In \cite{leontaris2016probabilistic} a case study of a OWF with 55 WTGs is used. This case study was provided by Van Oord, a Dutch company developing offshore windfarms. I will attempt to contact the authors and Van Oord to see if I can get access to this data. These case studies all have to do with installation scenarios, but in order to answer my research questions I need data from the other phases of the life cycle too, and ideally have data from a windfarm over the whole life-cycle. This will likely be difficult, as it requires the life-cycle to have finished, which (given the 20-30 years length of their life-cycles) means the windfarm will be too outdated for the data to be used for current windfarms. Therefore I am aiming to get accurate recent data about the maintenance, and estimates regarding decommission. To accomplish this I will contact OWF operators for cooperation. The OWEZ windfarm has previously provided data for other studies, such as \cite{dinwoodie2012analysis}, so I am hopeful this or other windfarms will help me acquire the data I need. 
 
 \pagebreak
 
