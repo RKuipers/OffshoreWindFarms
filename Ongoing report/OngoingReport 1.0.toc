@@ -12,7 +12,7 @@
 \contentsline {subsection}{\numberline {4.1}Scheduling the installation}{18}% 
 \contentsline {subsection}{\numberline {4.2}Maintenance of the site}{23}% 
 \contentsline {subsection}{\numberline {4.3}Related research regarding offshore projects}{29}% 
-\contentsline {subsection}{\numberline {4.4}More general work on stochastic scheduling}{33}% 
+\contentsline {subsection}{\numberline {4.4}More general work on stochastic scheduling}{34}% 
 \contentsline {section}{\numberline {5}Simulation and optimisation tool}{37}% 
 \contentsline {subsection}{\numberline {5.1}Current progress}{37}% 
 \contentsline {subsection}{\numberline {5.2}Future developments}{39}% 

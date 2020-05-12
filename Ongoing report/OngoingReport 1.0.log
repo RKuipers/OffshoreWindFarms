@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.8)  11 MAY 2020 15:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.8)  12 MAY 2020 14:17
 entering extended mode
 **"./OngoingReport 1.0.tex"
 ("OngoingReport 1.0.tex"
@@ -428,20 +428,14 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 256.
 
-[23] [24] [25] [26] [27]
-Overfull \hbox (22.7999pt too wide) in paragraph at lines 322--323
-[]\OT1/cmr/m/n/12 Research re-gard-ing Condition-Based Main-te-nance is sum-ma-
-rized in ([]Merigaud
- []
-
-[28]
-Overfull \hbox (6.2931pt too wide) in paragraph at lines 332--333
+[23] [24] [25] [26] [27] [28]
+Overfull \hbox (6.2931pt too wide) in paragraph at lines 323--324
 \OT1/cmr/m/n/12 While there is not much re-search re-lat-ing specif-i-cally to 
 de-com-mis-sion projects,
  []
 
 [29] [30] [31] [32] [33] [34]
-Overfull \hbox (2.89453pt too wide) in paragraph at lines 372--373
+Overfull \hbox (2.89453pt too wide) in paragraph at lines 363--364
 []\OT1/cmr/m/n/12 As for re-search about the the-ory of ro-bust op-ti-mi-sa-tio
 n, ([]Iancu & Trichakis[]
  []
@@ -451,7 +445,7 @@ n, ([]Iancu & Trichakis[]
 File: images/OWF Tool interactions.png Graphic file (type png)
 <use images/OWF Tool interactions.png>
 Package pdftex.def Info: images/OWF Tool interactions.png  used on input line 4
-81.
+72.
 (pdftex.def)             Requested size: 390.0pt x 346.65814pt.
 
 
@@ -500,7 +494,7 @@ obin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb>
 m/cmsy10.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
 ic/amsfonts/cm/cmti12.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fon
 ts/type1/public/amsfonts/cm/cmu10.pfb>
-Output written on "OngoingReport 1.0.pdf" (64 pages, 328315 bytes).
+Output written on "OngoingReport 1.0.pdf" (64 pages, 328535 bytes).
 PDF statistics:
  263 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
