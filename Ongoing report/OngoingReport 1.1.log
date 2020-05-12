@@ -1,0 +1,502 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.8)  12 MAY 2020 14:57
+entering extended mode
+**"./OngoingReport 1.1.tex"
+("OngoingReport 1.1.tex"
+LaTeX2e <2018-12-01>
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\article.cls"
+Document Class: article 2018/09/03 v1.4i Standard LaTeX document class
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\size12.clo"
+File: size12.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
+)
+\c@part=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) ("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\babel.st
+y"
+Package: babel 2019/07/19 3.33 The Babel package
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\switch.def
+"
+File: switch.def 2019/07/19 3.33 Babel switching mechanism
+)
+*************************************
+* Local config file bblopts.cfg used
+*
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/arabi\bblopts.cfg"
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
+ babel
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/babel-english\engl
+ish.ldf"
+Language: english 2017/06/06 v3.3r English support from the babel system
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\babel.def"
+File: babel.def 2019/07/19 3.33 Babel common definitions
+\babel@savecnt=\count88
+\U@D=\dimen103
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\txtbabel.d
+ef")
+\bbl@dirlevel=\count89
+)
+\l@canadian = a dialect from \language\l@american 
+\l@australian = a dialect from \language\l@british 
+\l@newzealand = a dialect from \language\l@british 
+))
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphicx.
+sty"
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\keyval.st
+y"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphics.
+sty"
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\graph
+ics.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-def\pdfte
+x.def"
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen104
+\Gin@req@width=\dimen105
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/caption\caption.st
+y"
+Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/caption\caption3.s
+ty"
+Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 64.
+\captionmargin=\dimen106
+\captionmargin@=\dimen107
+\captionwidth=\dimen108
+\caption@tempdima=\dimen109
+\caption@indent=\dimen110
+\caption@parindent=\dimen111
+\caption@hangindent=\dimen112
+)
+\c@caption@flags=\count90
+\c@ContinuedFloat=\count91
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/algorithms\algorit
+hm.sty"
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count92
+\float@exts=\toks15
+\float@box=\box27
+\@float@everytoks=\toks16
+\@floatcapt=\box28
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\ifthen.sty"
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks17
+\c@algorithm=\count93
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/algorithmicx\algps
+eudocode.sty"
+Package: algpseudocode 
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/algorithmicx\algor
+ithmicx.sty"
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count94
+\c@ALG@rem=\count95
+\c@ALG@nested=\count96
+\ALG@tlm=\skip43
+\ALG@thistlm=\skip44
+\c@ALG@Lnr=\count97
+\c@ALG@blocknr=\count98
+\c@ALG@storecount=\count99
+\c@ALG@tmpcounter=\count100
+\ALG@tmplength=\skip45
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/varwidth\varwidth.
+sty"
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box29
+\sift@deathcycles=\count101
+\@vwid@loff=\dimen113
+\@vwid@roff=\dimen114
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsmath.st
+y"
+Package: amsmath 2018/12/01 v2.17b AMS math features
+\@mathmargin=\skip46
+
+For additional information on amsmath, use the `?' option.
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amstext.st
+y"
+Package: amstext 2000/06/29 v2.01 AMS text
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsgen.sty
+"
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks18
+\ex@=\dimen115
+))
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsbsy.sty
+"
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen116
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsopn.sty
+"
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count102
+LaTeX Info: Redefining \frac on input line 223.
+\uproot@=\count103
+\leftroot@=\count104
+LaTeX Info: Redefining \overline on input line 385.
+\classnum@=\count105
+\DOTSCASE@=\count106
+LaTeX Info: Redefining \ldots on input line 482.
+LaTeX Info: Redefining \dots on input line 485.
+LaTeX Info: Redefining \cdots on input line 606.
+\Mathstrutbox@=\box30
+\strutbox@=\box31
+\big@size=\dimen117
+LaTeX Font Info:    Redeclaring font encoding OML on input line 729.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
+\macc@depth=\count107
+\c@MaxMatrixCols=\count108
+\dotsspace@=\muskip10
+\c@parentequation=\count109
+\dspbrk@lvl=\count110
+\tag@help=\toks19
+\row@=\count111
+\column@=\count112
+\maxfields@=\count113
+\andhelp@=\toks20
+\eqnshift@=\dimen118
+\alignsep@=\dimen119
+\tagshift@=\dimen120
+\tagwidth@=\dimen121
+\totwidth@=\dimen122
+\lineht@=\dimen123
+\@envbody=\toks21
+\multlinegap=\skip47
+\multlinetaggap=\skip48
+\mathdisplay@stack=\toks22
+LaTeX Info: Redefining \[ on input line 2844.
+LaTeX Info: Redefining \] on input line 2845.
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amscls\amsthm.sty"
+Package: amsthm 2017/10/31 v2.20.4
+\thm@style=\toks23
+\thm@bodyfont=\toks24
+\thm@headfont=\toks25
+\thm@notefont=\toks26
+\thm@headpunct=\toks27
+\thm@preskip=\skip49
+\thm@postskip=\skip50
+\thm@headsep=\skip51
+\dth@everypar=\toks28
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/caption\subcaption
+.sty"
+Package: subcaption 2018/05/01 v1.1-162 Sub-captions (AR)
+\c@subfigure=\count114
+\c@subtable=\count115
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/titlesec\titlesec.
+sty"
+Package: titlesec 2019/07/16 v2.11 Sectioning titles
+\ttl@box=\box32
+\beforetitleunit=\skip52
+\aftertitleunit=\skip53
+\ttl@plus=\dimen124
+\ttl@minus=\dimen125
+\ttl@toksa=\toks29
+\titlewidth=\dimen126
+\titlewidthlast=\dimen127
+\titlewidthfirst=\dimen128
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/cleveref\cleveref.
+sty"
+Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
+Package cleveref Info: `amsthm' support loaded on input line 3026.
+Package cleveref Info: `algorithmicx' support loaded on input line 3120.
+) ("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/cite\cite.sty"
+LaTeX Info: Redefining \cite on input line 302.
+LaTeX Info: Redefining \nocite on input line 332.
+Package: cite 2015/02/27  v 5.5
+) ("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/url\url.sty"
+\Urlmuskip=\muskip11
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/harvard\harvard.st
+y"
+Package: harvard 
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/thmtools\thm-resta
+te.sty"
+Package: thm-restate 2019/07/31 v67
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/thmtools\thmtools.
+sty"
+Package: thmtools 2019/07/31 v67
+\thmt@toks=\toks30
+\c@thmt@dummyctr=\count116
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/thmtools\thm-patch
+.sty"
+Package: thm-patch 2019/07/31 v67
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/thmtools\parseargs
+.sty"
+Package: parseargs 2019/07/31 v67
+\@parsespec=\toks31
+))
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/thmtools\thm-kv.st
+y"
+Package: thm-kv 2019/07/31 v67
+Package thm-kv Info: Theorem names will be uppercased on input line 39.
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\kvsetke
+ys.sty"
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\infware
+rr.sty"
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\etexcmd
+s.sty"
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ifluate
+x.sty"
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)))
+Package thm-kv Info: kvsetkeys patch (v1.16 or later) on input line 155.
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/thmtools\thm-autor
+ef.sty"
+Package: thm-autoref 2019/07/31 v67
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/thmtools\aliasctr.
+sty"
+Package: aliasctr 2019/07/31 v67
+))
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/thmtools\thm-listo
+f.sty"
+Package: thm-listof 2019/07/31 v67
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/thmtools\thm-amsth
+m.sty"
+Package: thm-amsthm 2019/07/31 v67
+\thmt@style@headstyle=\toks32
+)))
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\grffile.s
+ty"
+Package: grffile 2017/06/30 v1.18 Extended file name support for graphics (HO)
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ifpdf.s
+ty"
+Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/ifxetex\ifxetex.
+sty"
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\kvoptions
+.sty"
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ltxcmds
+.sty"
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+))
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\pdftexc
+mds.sty"
+Package: pdftexcmds 2019/07/25 v0.30 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+Package grffile Info: Option `multidot' is set to `true'.
+Package grffile Info: Option `extendedchars' is set to `false'.
+Package grffile Info: Option `space' is set to `true'.
+Package grffile Info: \Gin@ii of package `graphicx' fixed on input line 494.
+)
+\c@theorem=\count117
+\c@defin=\count118
+\c@subquestion=\count119
+ ("OngoingReport 1.1.aux")
+\openout1 = `"OngoingReport 1.1.aux"'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/context/base/mkii\supp-p
+df.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count120
+\scratchdimen=\dimen129
+\scratchbox=\box33
+\nofMPsegments=\count121
+\nofMParguments=\count122
+\everyMPshowfont=\toks33
+\MPscratchCnt=\count123
+\MPscratchDim=\dimen130
+\MPnumerator=\count124
+\makeMPintoPDFobject=\count125
+\everyMPtoPDFconversion=\toks34
+)
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\epstopdf-
+base.sty"
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\grfext.st
+y"
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\kvdefin
+ekeys.sty"
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+))
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+)
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: End \AtBeginDocument code.
+ [1
+
+{C:/Users/Robin/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2] ("Ongoi
+ngReport 1.1.toc")
+\tf@toc=\write3
+\openout3 = `"OngoingReport 1.1.toc"'.
+
+ [3] [4] [5] [6] [7] [8] [9] [10] [11]
+[12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 256.
+
+
+("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\omscmr.fd"
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 256.
+
+[23] [24] [25] [26] [27] [28]
+Overfull \hbox (6.2931pt too wide) in paragraph at lines 328--329
+\OT1/cmr/m/n/12 While there is not much re-search re-lat-ing specif-i-cally to 
+de-com-mis-sion projects,
+ []
+
+[29] [30] [31] [32] [33] [34]
+Overfull \hbox (2.89453pt too wide) in paragraph at lines 368--369
+[]\OT1/cmr/m/n/12 As for re-search about the the-ory of ro-bust op-ti-mi-sa-tio
+n, ([]Iancu & Trichakis[]
+ []
+
+[35] [36] [37] [38] [39] [40] [41] [42] [43] [44] [45] [46] [47] [48] [49]
+<images/OWF Tool interactions.png, id=169, 804.00375pt x 714.67pt>
+File: images/OWF Tool interactions.png Graphic file (type png)
+<use images/OWF Tool interactions.png>
+Package pdftex.def Info: images/OWF Tool interactions.png  used on input line 4
+77.
+(pdftex.def)             Requested size: 390.0pt x 346.65814pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[50] [51 <./images/OWF Tool interactions.png>] [52] [53] [54] [55] [56]
+[57] [58] ("OngoingReport 1.1.bbl" [59] [60] [61] [62]
+Underfull \hbox (badness 10000) in paragraph at lines 237--243
+[]| | \OT1/cmr/m/n/12 Renewable-UK (2017), `Off-shore wind project time-lines',
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 237--243
+\OT1/cmr/m/it/12 https://www.renewableuk.com/news/294516/Offshore-Wind-Project-
+
+ []
+
+[63])
+
+Package caption Warning: Unused \captionsetup[subfigure] on input line 26.
+See the caption package documentation for explanation.
+
+[64] ("OngoingReport 1.1.aux") ) 
+Here is how much of TeX's memory you used:
+ 7490 strings out of 492895
+ 129910 string characters out of 3123736
+ 205057 words of memory out of 3000000
+ 11278 multiletter control sequences out of 15000+200000
+ 11542 words of font info for 41 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 45i,7n,39p,2942b,304s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/Robin/AppData/Local/Programs/MiKTeX 2
+.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Robin/AppData/Local/Prog
+rams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Robin/AppDa
+ta/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/Us
+ers/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex
+10.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/ams
+fonts/cm/cmmi12.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
+e1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2
+.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Robin/AppData/Local/Progr
+ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Robin/AppData
+/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/R
+obin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb>
+<C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/c
+m/cmsy10.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmti12.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmu10.pfb>
+Output written on "OngoingReport 1.1.pdf" (64 pages, 328574 bytes).
+PDF statistics:
+ 263 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+
