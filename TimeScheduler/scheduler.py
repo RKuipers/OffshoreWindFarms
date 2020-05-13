@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import datetime as dt
-import bruteforce
+import numpy as np
 import sys
 
 modify = False
@@ -23,7 +23,7 @@ class Input:
     #Ratio = WorkTime / TotalLength
     
     #Default ranges
-    dl = [15, 1, 30, 1, 3]
+    dl = [15, 1, 30, 1, 2]
     dh = [25, 4, 50, 5, 5]
     #"Normal" ranges
     nl = [20, 2, 45, 2, 4]
@@ -64,6 +64,77 @@ class Input:
 
 I = Input()    
 
+class Solution:
+    #B: Length of a work block in minutes
+    #S: Short break length in minutes
+    #L: Long break length in minutes
+    #N: Number of blocks (full repeats)
+    #P: Number of work blocks (pomodoros) before a long break
+
+    def __init__(self, B: int, S: int, L: int , N: int, P: int):
+        self.B = B
+        self.S = S
+        self.L = L
+        self.N = N
+        self.P = P
+    
+    @staticmethod
+    def fromList(l: list):
+        return Solution(l[0], l[1], l[2], l[3], l[4])
+    
+    @staticmethod
+    def fromTuple(t: (int, int, int, int, int)):
+        (B, S, L, N, P) = t
+        return Solution(B, S, L, N, P)
+    
+    def asTuple(self) -> (int, int, int, int, int):
+        return (self.B, self.S, self.L, self.N, self.P)
+
+    #From this the following values can be calcuated
+    #WorkTime = B * P * N
+    #PomoBlock = B * P + S * (P-1)
+    #TotalLength = PomoBlock * N + L * (N-1)
+    #Ratio = WorkTime / TotalLength
+    
+    def workTime(self) -> int:
+        return self.B * self.P * self.N
+    
+    def pomoBlock(self) -> int:
+        return self.B * self.P + self.S * (self.P-1)
+    
+    def length(self) -> int:
+        return self.pomoBlock() * self.N + self.L * (self.N-1)
+    
+    def ratio(self) -> int:
+        return self.workTime() / self.length()
+    
+    #Return a string to put into pomodoro-timers
+    def pomo(self) -> str:
+        res = ""
+        for n in range(self.N):
+            if n > 0:
+                res = res + "+" + str(self.L)
+            for p in range(self.P):
+                if p > 0:
+                    res = res + "+" + str(self.S)
+                res = res + "+" + str(self.B)
+        return res[1:]
+    
+    #Print the values to the console
+    def printOutput(self, available: dt.timedelta, minutes: int):
+        (B, S, L, N, P) = self.asTuple()
+        wt = self.workTime()
+        length = self.length()
+        
+        print (f"Available time: {available} ({minutes} minutes)")
+        print (f"Block length: {self.B}m")
+        print (f"Full blocks: {N} ({P} pomos each)")
+        print (f"Breaks: {L}m long, {S}m short")
+        print (f"Worktime: {wt}, Breaktime: {length - wt}, Ratio: {wt/length}")
+        print (f"Leftover minutes: {minutes - length}")
+        if debug:
+            print (f"B:{B} N:{N} P:{P} L:{L} S:{S}") 
+        
 def chop_microseconds(delta: dt.timedelta) -> dt.timedelta:
     return delta - dt.timedelta(microseconds=delta.microseconds)
 
@@ -93,21 +164,6 @@ def getInput() -> (dt.timedelta, int):
         
     return (available, round(available.seconds / 60))
 
-def printOutput(available: dt.timedelta, minutes: int, res: (int, int, int, int, int)):
-    (B, S, L, N, P) = res
-        
-    program = N * (P * B + (P-1) * S) + (N-1) * L   
-    wt = N * B * P
-    
-    print (f"Available time: {available} ({minutes} minutes)")
-    print (f"Block length: {B}m")
-    print (f"Full blocks: {N} ({P} pomos each)")
-    print (f"Breaks: {L}m long, {S}m short")
-    print (f"Worktime: {wt}, Breaktime: {program - wt}, Ratio: {wt/program}")
-    print (f"Leftover minutes: {minutes - program}")
-    if debug:
-        print (f"B:{B} N:{N} P:{P} L:{L} S:{S}")  
-        
 def modifySettings() -> None:
     global I
     
@@ -168,30 +224,52 @@ def modifySettings() -> None:
     else:
         I.setTargetF(int(inp))
 
-def pomo(inp: (int, int, int, int, int)) -> str:
-    (B, S, L, N, P) = inp
-    res = ""
-    for n in range(N):
-        if n > 0:
-            res = res + "+" + str(L)
-        for p in range(P):
-            if p > 0:
-                res = res + "+" + str(S)
-            res = res + "+" + str(B)
-    return res[1:]
-
-def reRun(res: list) -> bool:
+def reRun(sol: Solution) -> bool:
     global modify
     
     print ("Press Enter to run again, m to modify, or q to quit")
     inp = input()
     if inp == "pomo" or inp == "Pomo":
-        print (pomo(res))
-        return reRun(res)
+        print (sol.pomo())
+        return reRun(sol)
     modify = inp == "m" or inp == "M"
     return inp == "q" or inp == "Q"
 
-def main():    
+def getvars(R: int, lows: list, ranges: list) -> Solution:
+    #Magic function that generates the Rth set of variables
+    res = []
+    
+    for i in range(len(lows)):
+        (x, R) = divmod(R, int(np.prod(ranges[(i+1):]))) #Arcane magic, based on flexible number systems
+        res.append(x + lows[i])
+        
+    return Solution.fromList(res)
+
+def calc(minutes: int, lows: list, highs: list, target: float) -> (int, int):    
+    ranges = [y - x + 1 for x,y in zip(lows, highs)]
+    options = np.prod(ranges)
+    
+    noSol = True
+    bestVal = 1.0
+    bestFull = 0
+    bestSol = Solution(-1, -1, -1, -1, -1)
+    
+    for i in range(options):
+        sol = getvars(i, lows, ranges)
+        
+        if sol.length() <= minutes and 0.6 <= sol.ratio() <= 0.75: #Check validity     
+            penalty = 1 + (pow(minutes - sol.length(), 1.5)/100) #Incorporates leftover minutes into objective
+            val = (abs(target - sol.ratio()) + penalty / 100) * penalty
+            #Objective:
+            if noSol or (val <= bestVal or (val == bestVal and sol.length() > bestFull)):
+                bestVal = val
+                bestFull = sol.length()
+                bestSol = sol
+                noSol = False         
+
+    return bestSol
+
+def main():  
     global modify
     global I
     while True:
@@ -205,11 +283,11 @@ def main():
         
         (available, minutes) = getInput()
         
-        res = tuple(bruteforce.calc(minutes, I.lows, I.highs, I.target))
+        sol = calc(minutes, I.lows, I.highs, I.target)
 
-        printOutput(available, minutes, res)
+        sol.printOutput(available, minutes)
 
-        if reRun(res):
+        if reRun(sol):
             break
         
 if __name__ == '__main__':    
