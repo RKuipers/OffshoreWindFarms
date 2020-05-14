@@ -28,7 +28,7 @@ subject to:
 \begin{align}
 1 =& \sum_{t \in T} s_{it}	= \sum_{t \in T} f_{it}										&	\forall i \in I 						\\
 1 \geq& s_{jt_1} + f_{it_2}											&	\begin{aligned} \forall (i, j) \in IP, \\
-																	\forall t_1, t_2 \in T | t_1 < t_2 \end{aligned} \\
+																	\forall t_1, t_2 \in T | t_1 \leq t_2 \end{aligned} \\
 (s_{it_1} + f_{it_2} - 1) \cdot d_i \leq& \frac{s_{it_1} + f_{it_2}}{2} \cdot \sum_{t_3 = t_1}^{t_2} \omega_{it_3} 		& \forall i \in I, \forall t_1, t_2 \in T	\\
 N_{rp} \geq& \sum_{i\in I} \sum_{t_1 = t_0}^t (\rho_{ir} \cdot (s_{it_1} - f_{it_1})) 				& \forall r \in R, \forall p \in P, \forall t \in T_p 	\\
 O_p =&  \sum_{t = t_0}^{t_p} \sum_{i \in F} f_{it}									& \forall p \in P
@@ -192,7 +192,7 @@ subject to:
 \begin{align}
 1 =& \sum_{t \in T} s_{ait}	= \sum_{t \in T} f_{ait}								&	\forall i \in I \cup M^M, \forall a \in A				\\
 1 \geq& s_{ajt_1} + f_{ait_2}											&	\begin{aligned} \forall (i, j) \in IP, \forall a \in A, \\
-																	\forall t_1, t_2 \in T | t_1 < t_2 \end{aligned} \\
+																	\forall t_1, t_2 \in T | t_1 \leq t_2 \end{aligned} \\
 1 \geq& \sum_{t \in T} s_{ait}												&	\forall a \in A, \forall i \in M^O	\\
 \sum_{t \in T} s_{ait}	=& \sum_{t \in T} f_{ait}									&	\forall a \in A, \forall i \in M^O	\\
 0 =& \sum_{t_1 = t_0}^t s_{ajt_1} + \sum_{t_2 = t}^{t_N} f_{ait_2}					&	\begin{aligned} \forall a \in A, \forall t \in T, 	\\
