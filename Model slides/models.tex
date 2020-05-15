@@ -19,19 +19,19 @@
 \begin{frame}{Initial model for installation}
 \footnotesize
 \begin{equation}
-	\max_{\substack{O_p, N_{rp} \in \mathbb{Z}^* \\ s_{it}, f_{it} \in \{0, 1\}}} \sum_{p \in P} [ DIS^p (O_p \cdot v_p - \sum_{r \in R} N_{rp} \cdot C_{rp}) ]
+	\max_{\substack{O_p, N_{rp} \in \mathbb{Z}^* \\ s_{ait}, f_{ait} \in \{0, 1\}}} \sum_{p \in P} [ DIS^p (O_p \cdot v_p - \sum_{r \in R} N_{rp} \cdot C_{rp}) ]
 \end{equation}
 
 \bigskip
 subject to:
 
 \begin{align}
-1 =& \sum_{t \in T} s_{it}	= \sum_{t \in T} f_{it}										&	\forall i \in I 						\\
-1 \geq& s_{jt_1} + f_{it_2}											&	\begin{aligned} \forall (i, j) \in IP, \\
+1 =& \sum_{t \in T} s_{ait}= \sum_{t \in T} f_{ait}									&	\forall a \in A, \forall i \in I 					\\
+1 \geq& s_{ajt_1} + f_{ait_2}												&	\begin{aligned} \forall a \in A, \forall (i, j) \in IP, \\
 																	\forall t_1, t_2 \in T | t_1 \leq t_2 \end{aligned} \\
-(s_{it_1} + f_{it_2} - 1) \cdot d_i \leq& \frac{s_{it_1} + f_{it_2}}{2} \cdot \sum_{t_3 = t_1}^{t_2} \omega_{it_3} 		& \forall i \in I, \forall t_1, t_2 \in T	\\
-N_{rp} \geq& \sum_{i\in I} \sum_{t_1 = t_0}^t (\rho_{ir} \cdot (s_{it_1} - f_{i(t_1-1)}))			& \forall r \in R, \forall p \in P, \forall t \in T_p 	\\
-O_p =&  \sum_{t = t_0}^{t_p} \sum_{i \in F} f_{it}									& \forall p \in P
+(s_{ait_1} + f_{ait_2} - 1) \cdot d_i \leq& \frac{s_{ait_1} + f_{ait_2}}{2} \cdot \sum_{t_3 = t_1}^{t_2} \omega_{it_3} & \begin{aligned}\forall a \in A, \forall i \in I, \\ \forall t_1, t_2 \in T \end{aligned} \\
+N_{rp} \geq& \sum_{a \in A}\sum_{i\in I} \sum_{t_1 = t_0}^t (\rho_{ir} \cdot (s_{ait_1} - f_{ai(t_1-1)}))	& 	\begin{aligned} \forall r \in R, \\ \forall p \in P, \forall t \in T_p \end{aligned} 	\\
+O_p =&  \sum_{t = t_0}^{t_p} \sum_{a \in A}  f_{ai_Nt}								& \forall p \in P
 \end{align}
 
 \end{frame}
@@ -39,7 +39,7 @@ O_p =&  \sum_{t = t_0}^{t_p} \sum_{i \in F} f_{it}									& \forall p \in P
 \begin{frame}{Installation Model Explanation}
 (1) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
 (2) Forces every task to be starded and finished at some point	\\
-(3) For every precedence relation $(i, j)$ it ensures that if task $i$ finishes at time $t_2$ there is no $t_1 < t_2$ at which task $j$ starts 	\\
+(3) For every precedence relation $(i, j)$ it ensures that if task $i$ finishes at time $t_2$ there is no $t_1 \leq t_2$ at which task $j$ starts 	\\
 (4) Ensures that between the starting and finish times of each task are enough timesteps with acceptable weather	\\
 (5) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
 (6) Counts the number of turbines which finished installing by the end of a period	
@@ -53,20 +53,20 @@ O_p =&  \sum_{t = t_0}^{t_p} \sum_{i \in F} f_{it}									& \forall p \in P
 Sets:
 \begin{itemize}
 \item $P$: All time periods (large scale)
-\item $T$: All time intervals [$t_0, \dots , t_N$]
+\item $T$: All time intervals (small scale) [$t_0, \dots , t_N$]
 \item $T_p \in T$: All time intervals (small scale) in period $p$
 \item $R$: All resources
-\item $I$: All tasks
-\item $F \subset I$: All final tasks that complete a turbine
+\item $I$:  All tasks per asset [$1, \dots , i_N$]
 \item $IP$: All precedency pairs ($i$, $j$)
+\item $A$: All assets
 \end{itemize}
 
 Decision variables:
 \begin{itemize}
 \item $O_{p}$: Number of online turbines after period $p$
 \item $N_{rp}$: Number of resources $r$ used in period $p$
-\item $s_{it}$: Binary variable, 1 if task $i$ starts at time $t$
-\item $f_{it}$: Binary variable, 1 if task $i$ ends at time $t$
+\item $s_{ait}$: Binary variable, 1 if task $i \in I$ for asset $a$ starts at time $t$
+\item $f_{ait}$: Binary variable, 1 if task $i \in I$ for asset $a$ finishes at time $t$
 \end{itemize}
 \end{column}
 
@@ -222,7 +222,7 @@ O_t =& \sum_{a \in A} o_{at}													&	\forall t \in T
 \footnotesize
 (15) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
 (16) Forces every mandatory task to be starded and finished at some point	\\
-(17) For every precedence relation $(i, j)$ it ensures that if task $i$ finishes at time $t_2$ there is no $t_1 < t_2$ at which task $j$ starts 	\\
+(17) For every precedence relation $(i, j)$ it ensures that if task $i$ finishes at time $t_2$ there is no $t_1 \leq t_2$ at which task $j$ starts 	\\
 (18) Ensures each optional maintenance task to be started at most once 	\\
 (19) Ensures that every maintenance task for a particular asset that is started is also finished \\
 (20) Ensures an asset is fully installed before maintenance starts	\\
