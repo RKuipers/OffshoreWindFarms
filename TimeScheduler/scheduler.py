@@ -77,18 +77,20 @@ class Solution:
         self.L = L
         self.N = N
         self.P = P
+        self.valid = False
+        self.score = -1
     
     @staticmethod
-    def fromList(l: list):
+    def fromList(l: list) -> None:
         return Solution(l[0], l[1], l[2], l[3], l[4])
     
     @staticmethod
-    def fromTuple(t: (int, int, int, int, int)):
+    def fromTuple(t: (int, int, int, int, int)) -> None:
         (B, S, L, N, P) = t
         return Solution(B, S, L, N, P)
     
     def asTuple(self) -> (int, int, int, int, int):
-        return (self.B, self.S, self.L, self.N, self.P)
+        return (self.B, self.S, self.L, self.N, self.P)   
 
     #From this the following values can be calcuated
     #WorkTime = B * P * N
@@ -108,6 +110,13 @@ class Solution:
     def ratio(self) -> int:
         return self.workTime() / self.length()
     
+    #Checks validity
+    def valid(self, I: Input) -> bool:
+        self.valid = True #TODO
+    
+    def setScore(self, score :float) -> None:
+        self.score = score
+    
     #Return a string to put into pomodoro-timers
     def pomo(self) -> str:
         res = ""
@@ -121,7 +130,7 @@ class Solution:
         return res[1:]
     
     #Print the values to the console
-    def printOutput(self, available: dt.timedelta, minutes: int):
+    def printOutput(self, available: dt.timedelta, minutes: int) -> None:
         (B, S, L, N, P) = self.asTuple()
         wt = self.workTime()
         length = self.length()
@@ -135,6 +144,39 @@ class Solution:
         if debug:
             print (f"B:{B} N:{N} P:{P} L:{L} S:{S}") 
         
+class ICompare:
+    def __init__(self, I: Input):
+        self.input = I
+        
+    def compare(self, s1: Solution, s2: Solution) -> Solution:
+        if not s1.valid(self.input):            
+            return s2
+        if not s2.valid(self.input):            
+            return s1 
+        
+        self.calcScore(s1)
+        self.calcScore(s2)
+        
+        if s1.score < s2.score:
+            return s1
+        elif s1.score == s2.score:
+            return self.tieBreaker(s1, s2)
+        else:
+            return s2
+    
+    def calcScore(self, s: Solution) -> float:
+        pass
+    
+    def tieBreaker(self, s1: Solution, s2: Solution) -> Solution:
+        pass
+    
+class RatioCompare(ICompare):
+    def calcScore(self, s: Solution) -> float:
+        pass #TODO
+    
+    def tieBreaker(self, s1: Solution, s2: Solution) -> Solution:
+        pass #TODO
+
 def chop_microseconds(delta: dt.timedelta) -> dt.timedelta:
     return delta - dt.timedelta(microseconds=delta.microseconds)
 
@@ -186,25 +228,22 @@ def modifySettings() -> None:
             lows.append(Input.nl[i])
             highs.append(Input.nh[i])
         elif (inp == "N"):
-            for j in range(i, 5):
-                lows.append(Input.nl[j])
-                highs.append(Input.nh[j])
+            lows.extend(Input.nl[i:])
+            highs.extend(Input.nh[i:])
             break
         elif (inp == "d"):
             lows.append(Input.dl[i])
             highs.append(Input.dh[i])
         elif (inp == "D"):
-            for j in range(i, 5):
-                lows.append(Input.dl[j])
-                highs.append(Input.dh[j])
+            lows.extend(Input.dl[i:])
+            highs.extend(Input.dh[i:])
             break
         elif (inp == "k"):
             lows.append(I.lows[i])
             highs.append(I.highs[i])
         elif (inp == "K"):
-            for j in range(i, 5):
-                lows.append(I.lows[j])
-                highs.append(I.highs[j])
+            lows.extend(I.lows[i:])
+            highs.extend(I.highs[i:])
             break
         elif " " in inp:
             (l, h) = inp.split()
