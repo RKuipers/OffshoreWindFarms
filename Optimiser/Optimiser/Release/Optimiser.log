@@ -1,3 +1,0 @@
-﻿  stdafx.cpp
-  Optimiser.cpp
-C:\Users\Robin\OneDrive\Documenten\GitHub\OWFSim\Optimiser\Optimiser\Optimiser.cpp(7,10): fatal error C1083: Cannot open include file: 'ortools/linear_solver/linear_solver.h': No such file or directory
