@@ -17,9 +17,11 @@
 \end{frame}
 
 \begin{frame}{Initial model for installation}
-\footnotesize
+\scriptsize
 \begin{equation}
-	\max_{\substack{O_p, N_{rp} \in \mathbb{Z}^* \\ s_{ait}, f_{ait} \in \{0, 1\}}} \sum_{p \in P} [ DIS^p (O_p \cdot v_p - \sum_{r \in R} N_{rp} \cdot C_{rp}) ]
+	\max_{\substack{O_p, N_{rp} \in \mathbb{Z}^* \\
+	s_{ait}, f_{ait} \in \{0, 1\}}} 
+	\sum_{p \in P} [ DIS^p (O_p \cdot v_p - \sum_{r \in R} N_{rp} \cdot C_{rp}) ]
 \end{equation}
 
 \bigskip
@@ -31,7 +33,8 @@ subject to:
 																	\forall t_1, t_2 \in T | t_1 \leq t_2 \end{aligned} \\
 (s_{ait_1} + f_{ait_2} - 1) \cdot d_i \leq& \frac{s_{ait_1} + f_{ait_2}}{2} \cdot \sum_{t_3 = t_1}^{t_2} \omega_{it_3} & \begin{aligned}\forall a \in A, \forall i \in I, \\ \forall t_1, t_2 \in T \end{aligned} \\
 N_{rp} \geq& \sum_{a \in A}\sum_{i\in I} \sum_{t_1 = t_0}^t (\rho_{ir} \cdot (s_{ait_1} - f_{ai(t_1-1)}))	& 	\begin{aligned} \forall r \in R, \\ \forall p \in P, \forall t \in T_p \end{aligned} 	\\
-O_p =&  \sum_{t = t_0}^{t_p} \sum_{a \in A}  f_{ai_Nt}								& \forall p \in P
+O_p =&  \sum_{t = t_0}^{t_p} \sum_{a \in A}  f_{ai_Nt}								& \forall p \in P\\
+N_{rp} \leq& m_{rp}													& \forall r \in R, \forall p \in P
 \end{align}
 
 \end{frame}
@@ -42,7 +45,8 @@ O_p =&  \sum_{t = t_0}^{t_p} \sum_{a \in A}  f_{ai_Nt}								& \forall p \in P
 (3) For every precedence relation $(i, j)$ it ensures that if task $i$ finishes at time $t_2$ there is no $t_1 \leq t_2$ at which task $j$ starts 	\\
 (4) Ensures that between the starting and finish times of each task are enough timesteps with acceptable weather	\\
 (5) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
-(6) Counts the number of turbines which finished installing by the end of a period	
+(6) Counts the number of turbines which finished installing by the end of a period	\\
+(7) Sets a limit on the amount of vessels that can be charatered in a given period
 \end{frame}
 
 \begin{frame}{Notation overview}
@@ -82,6 +86,7 @@ Parameters:
 \item $\omega_{it}$: Binary parameter representing weather, 1 if task $i$ can be completed at time $t$, 0 otherwise
 \item $\rho_{ir}$: The amount of resource $r$ used by task $i$
 \item $t_p$: The final time interval (from $T$) before period $p$
+\item $m_{rp}$: The maximum amount of resources $r$ that can be charatered in period $p$
 \end{itemize}
 \end{column}
 \end{columns}
@@ -92,7 +97,9 @@ Parameters:
 \begin{frame}{Initial model for maintenance}
 \footnotesize
 \begin{equation}
-	\max_{\substack{O_t, N_{rp} \in \mathbb{Z}^* \\ s_{act}, f_{act}, b_{at} \in \{0, 1\}}} \sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
+	\max_{\substack{O_t, N_{rp} \in \mathbb{Z}^* \\ 
+	s_{act}, f_{act}, b_{at} \in \{0, 1\}}} 
+	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
 \end{equation}
 
 \bigskip
@@ -117,21 +124,23 @@ subject to (2):
 (s_{act_1} + f_{act_2} - 1) \cdot d_c \leq& \frac{s_{act_1} + f_{act_2}}{2} \cdot \sum_{t_3 = t_1}^{t_2} \omega_{ct_3} 	& 	\begin{aligned} \forall a \in A, \forall c \in C, \\						\forall t_1, t_2 \in T \end{aligned}\\
 N_{rp} \geq& \sum_{a\in A} \sum_{c\in C} \sum_{t_1 = t_0}^t (\rho_{ir} \cdot (s_{act_1} - f_{ac(t_1-1)})) 		& \begin{aligned} \forall r \in R, \forall p \in P, \\ \forall t \in T_p 	\end{aligned} \\
 b_{at} >&  \sum_{c \in C} \sum_{t_1 = t - \lambda_a}^t - f_{act_1}								&	\forall a \in A, \forall t \in T 	\\
-O_t =&  |A| - \sum_{a \in A} b_{at}												&	\forall t \in T
+O_t =&  |A| - \sum_{a \in A} b_{at}												&	\forall t \in T \\
+N_{rp} \leq& m_{rp}													& \forall r \in R, \forall p \in P
 \end{align} }
 
 \end{frame}
 
 \begin{frame}{Maintenance  Model Explanation}
 \footnotesize
-(7) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
-(8) Forces every mandatory maintenance cycle to be done at some point	\\
-(9) Ensures each optional maintenance cycle to be started at most once	\\
-(10) Ensures that every maintenance cycle for a particular asset that is started is also finished	\\
-(11) Ensures that between the starting and finish times of each cycle are enough timesteps with acceptable weather	\\
-(12) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
-(13) If no maintenance tasks have finished in the past $\lambda_a$ timesteps this asset is broken	\\
-(14) The number of active (online) turbines is equal to everything that isn't broken
+(8) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
+(9) Forces every mandatory maintenance cycle to be done at some point	\\
+(10) Ensures each optional maintenance cycle to be started at most once	\\
+(11) Ensures that every maintenance cycle for a particular asset that is started is also finished	\\
+(12) Ensures that between the starting and finish times of each cycle are enough timesteps with acceptable weather	\\
+(13) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
+(14) If no maintenance tasks have finished in the past $\lambda_a$ timesteps this asset is broken	\\
+(15) The number of active (online) turbines is equal to everything that isn't broken \\
+(16) Sets a limit on the amount of vessels that can be charatered in a given period
 \end{frame}
 
 \begin{frame}{Notation overview}
@@ -171,6 +180,7 @@ Parameters:
 \item $\lambda_a$: The number of timesteps after the last maintenance before asset $a$ fails
 \item $\omega_{ct}$: Binary parameter representing weather, 1 if maintenance cycle $c$ can be completed at time $t$, 0 otherwise
 \item $\rho_{cr}$: The amount of resource $r$ used per task for maintenance cycle $c$
+\item $m_{rp}$: The maximum amount of resources $r$ that can be charatered in period $p$
 \end{itemize}
 \end{column}
 \end{columns}
@@ -181,7 +191,9 @@ Parameters:
 \scriptsize
 
 \begin{equation}
-	\max_{\substack{O_t, N_{rp} \in \mathbb{Z}^* \\ s_{ait}, f_{ait}, o_{at} \in \{0, 1\}}} \sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
+	\max_{\substack{O_t, N_{rp} \in \mathbb{Z}^* \\ 
+	s_{ait}, f_{ait}, o_{at} \in \{0, 1\}}} 
+	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
 \end{equation}
 
 \bigskip
@@ -213,23 +225,25 @@ subject to (2):
 																	\forall t_1, t_2 \in T \end{aligned}\\
 N_{rp} \geq& \sum_{a\in A} \sum_{i\in \mathcal{I}} \sum_{t_1 = t_0}^t (\rho_{ir} \cdot (s_{ait_1} - f_{ai(t_1-1)})) & \forall r \in R, \forall p \in P, \forall t \in T_p \\
 o_{at} \leq& \frac{1}{2} \cdot (\sum_{t_1 = t_0}^{t} f_{ai_Nt_1} + \sum_{i \in M \cup \{i_N\}} \sum_{t_2 = t - \lambda_a}^t f_{ait_2})	&	\forall a \in A, \forall t \in T \\
-O_t =& \sum_{a \in A} o_{at}													&	\forall t \in T
+O_t =& \sum_{a \in A} o_{at}													&	\forall t \in T \\
+N_{rp} \leq& m_{rp}													& \forall r \in R, \forall p \in P
 \end{align} }
 
 \end{frame}
 
 \begin{frame}{Mixed Model Explanation}
 \footnotesize
-(15) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
-(16) Forces every mandatory task to be starded and finished at some point	\\
-(17) For every precedence relation $(i, j)$ it ensures that if task $i$ finishes at time $t_2$ there is no $t_1 \leq t_2$ at which task $j$ starts 	\\
-(18) Ensures each optional maintenance task to be started at most once 	\\
-(19) Ensures that every maintenance task for a particular asset that is started is also finished \\
-(20) Ensures an asset is fully installed before maintenance starts	\\
-(21) Ensures that between the starting and finish times of each task are enough timesteps with acceptable weather	\\
-(22) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
-(23) Sets an asset to be online if it installed and had work done on it recently \\
-(24) Counts how many assets are online	
+(17) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
+(18) Forces every mandatory task to be starded and finished at some point	\\
+(19) For every precedence relation $(i, j)$ it ensures that if task $i$ finishes at time $t_2$ there is no $t_1 \leq t_2$ at which task $j$ starts 	\\
+(20) Ensures each optional maintenance task to be started at most once 	\\
+(21) Ensures that every maintenance task for a particular asset that is started is also finished \\
+(22) Ensures an asset is fully installed before maintenance starts	\\
+(23) Ensures that between the starting and finish times of each task are enough timesteps with acceptable weather	\\
+(24) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
+(25) Sets an asset to be online if it installed and had work done on it recently \\
+(26) Counts how many assets are online \\
+(27) Sets a limit on the amount of vessels that can be charatered in a given period
 \end{frame}
 
 \begin{frame}{Notation overview}
@@ -272,6 +286,7 @@ Parameters:
 \item $\lambda_a$: The number of timesteps after the last maintenance before asset $a$ fails
 \item $\omega_{it}$: Binary parameter representing weather, 1 if task $i \in \mathcal{I}$ can be completed at time $t$, 0 otherwise
 \item $\rho_{ir}$: The amount of resource $r$ used for task $i \in \mathcal{I}$
+\item $m_{rp}$: The maximum amount of resources $r$ that can be charatered in period $p$
 \end{itemize}
 \end{column}
 \end{columns}
