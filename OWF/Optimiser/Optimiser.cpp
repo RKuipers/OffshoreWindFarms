@@ -1,10 +1,9 @@
-//TODO: readData()
-
 #include <tuple>		// tuple
 #include <iostream>		// cout
 #include <cmath>		// pow
 #include <string>		// string, to_string
 #include <fstream>		// ifstream
+#include <vector>		// vector
 #include "xprb_cpp.h"
 
 using namespace std;
@@ -22,17 +21,50 @@ using namespace ::dashoptimization;
 
 int OMEGA[NTASKS][NTIMES] = { { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1 }, { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1 }, { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1 }, { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1 } }; //TODO: Give right number, set up test case
 int v[NPERIODS];
-int C[NRES][NPERIODS] = { { 20, 20, 30, 20, 15 }, { 15, 15, 5, 10, 5} };
-int d[NTASKS] = { 2, 4, 3, 1 };
-int rho[NTASKS][NRES] = { {0, 1}, {3, 2}, {1, 0}, {1, 1} };
-int m[NRES][NPERIODS] = { {5, 5, 5, 5, 5}, {5, 5, 5, 5, 5} };
+int C[NRES][NPERIODS];
+int d[NTASKS];
+int rho[NRES][NTASKS];
+int m[NRES][NPERIODS];
 tuple<int, int> IP[NIP] = { make_tuple(1, 2), make_tuple(2, 3) };
 
 XPRBprob prob("Install1"); // Initialize a new problem in BCL
 
-void readData(void)
+void readList(ifstream* datafile, string name, int list[], int n)
 {
-	int p;
+	string line;
+	getline(*datafile, line);
+	if (line.compare(name) != 0)
+		cout << "Error reading " << name << endl;
+	for (int i = 0; i < n; ++i)
+	{
+		getline(*datafile, line);
+		list[i] = stoi(line);
+	}
+
+	getline(*datafile, line);
+}
+
+void readLine(ifstream* datafile, int list[], int n)
+{
+	string line;
+	getline(*datafile, line);
+	vector<string> parsed;
+
+	size_t current, previous = 0;
+	current = line.find(' ');
+	while (current <= line.size()) {
+		parsed.push_back(line.substr(previous, current - previous));
+		previous = current + 1;
+		current = line.find(' ', previous);
+	}
+	parsed.push_back(line.substr(previous, current - previous));
+
+	for (int i = 0; i < n; ++i)
+		list[i] = stoi(parsed[i]);
+}
+
+void readData()
+{
 	string line;
 	ifstream datafile(DATAFILE);
 	if (!datafile.is_open())
@@ -42,17 +74,34 @@ void readData(void)
 	}
 
 	// Reads v (values of energy)
-	p = 0;
-	while (getline(datafile, line))
-	{
-		if(line.compare("END") == 0)
-			break;
-		if (p >= NPERIODS)
-			cout << "Indexing error" << endl;
+	readList(&datafile, "VALUES", v, NPERIODS);
 
-		v[p] = stoi(line);
-		++p;
-	}
+	// Reads C (costs of resources)
+	getline(datafile, line);
+	if (line.compare("COSTS") != 0)
+		cout << "Error reading COSTS" << endl;
+	for (int r = 0; r < NRES; ++r)
+		readLine(&datafile, C[r], NPERIODS);
+	getline(datafile, line);
+
+	// Reads d (durations of tasks)
+	readList(&datafile, "DURATIONS", d, NTASKS);
+
+	// Reads rho (required resources)
+	getline(datafile, line);
+	if (line.compare("RESOURCES") != 0)
+		cout << "Error reading RESOURCES" << endl;
+	for (int r = 0; r < NRES; ++r)
+		readLine(&datafile, rho[r], NTASKS);
+	getline(datafile, line);
+
+	// Reads m (maximum chartered resources)
+	getline(datafile, line);
+	if (line.compare("MAXRES") != 0)
+		cout << "Error reading MAXRES" << endl;
+	for (int r = 0; r < NRES; ++r)
+		readLine(&datafile, m[r], NPERIODS);
+	getline(datafile, line);
 
 	datafile.close();
 }
@@ -165,9 +214,9 @@ int main(int argc, char** argv)
 				for (a = 0; a < NASSETS; a++)
 					for (i = 0; i < NTASKS; ++i)
 					{
-						Res[r][p][t - p * TPP] += rho[i][r] * s[a][i][0];
+						Res[r][p][t - p * TPP] += rho[r][i] * s[a][i][0];
 						for (t1 = 1; t1 <= t; ++t1)
-							Res[r][p][t - p * TPP] += rho[i][r] * (s[a][i][t1] - f[a][i][t1 - 1]);
+							Res[r][p][t - p * TPP] += rho[r][i] * (s[a][i][t1] - f[a][i][t1 - 1]);
 					}
 
 				prob.newCtr(("Res_" + to_string(r) + "_" + to_string(p) + "_" + to_string(t)).c_str(), Res[r][p][t - p * TPP] <= N[r][p]);
