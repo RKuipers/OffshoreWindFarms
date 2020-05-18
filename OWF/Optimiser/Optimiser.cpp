@@ -4,6 +4,7 @@
 #include <iostream>		// cout
 #include <cmath>		// pow
 #include <string>		// string, to_string
+#include <fstream>		// ifstream
 #include "xprb_cpp.h"
 
 using namespace std;
@@ -20,7 +21,7 @@ using namespace ::dashoptimization;
 #define DIS 1.0
 
 int OMEGA[NTASKS][NTIMES] = { { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1 }, { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1 }, { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1 }, { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1 } }; //TODO: Give right number, set up test case
-int v[NPERIODS] = { 75, 8, 5, 10, 25 };
+int v[NPERIODS];
 int C[NRES][NPERIODS] = { { 20, 20, 30, 20, 15 }, { 15, 15, 5, 10, 5} };
 int d[NTASKS] = { 2, 4, 3, 1 };
 int rho[NTASKS][NRES] = { {0, 1}, {3, 2}, {1, 0}, {1, 1} };
@@ -29,23 +30,32 @@ tuple<int, int> IP[NIP] = { make_tuple(1, 2), make_tuple(2, 3) };
 
 XPRBprob prob("Install1"); // Initialize a new problem in BCL
 
-/*void readData(void)
+void readData(void)
 {
-	double value;
-	int s;
-	FILE* datafile;
-	char name[100];
-	//SHARES = p.newIndexSet("Shares", NSHARES); // Create the ‘SHARES’ index set
-	// Read ‘RET’ data from file
-	datafile = fopen(DATAFILE, "r");
-	for (s = 0; s < NSHARES; s++)
+	int p;
+	string line;
+	ifstream datafile(DATAFILE);
+	if (!datafile.is_open())
 	{
-		XPRBreadlinecb(XPRB_FGETS, datafile, 200, "T g", name, &value);
-		RET[SHARES += name] = value;
+		cout << "Unable to open file" << endl;
+		return;
 	}
-	fclose(datafile);
-	SHARES.print(); // Print out the set contents
-}*/
+
+	// Reads v (values of energy)
+	p = 0;
+	while (getline(datafile, line))
+	{
+		if(line.compare("END") == 0)
+			break;
+		if (p >= NPERIODS)
+			cout << "Indexing error" << endl;
+
+		v[p] = stoi(line);
+		++p;
+	}
+
+	datafile.close();
+}
 
 int main(int argc, char** argv)
 {
@@ -66,7 +76,7 @@ int main(int argc, char** argv)
 	XPRBvar f[NASSETS][NTASKS][NTIMES];
 
 	// Read data from file
-	//readData();
+	readData();
 
 	//---------------------------Decision Variables---------------------------
 
