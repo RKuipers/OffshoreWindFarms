@@ -61,8 +61,9 @@ class Input:
             4: Input.t4
             }
         self.target = switcher.get(i)
-
-I = Input()    
+        
+    def setMins(self, minutes: int) -> None:
+        self.mins = minutes  
 
 class Solution:
     #B: Length of a work block in minutes
@@ -77,7 +78,6 @@ class Solution:
         self.L = L
         self.N = N
         self.P = P
-        self.valid = False
         self.score = -1
     
     @staticmethod
@@ -112,7 +112,7 @@ class Solution:
     
     #Checks validity
     def valid(self, I: Input) -> bool:
-        self.valid = True #TODO
+        return self.length() <= I.mins and 0.6 <= self.ratio() <= 0.75
     
     def setScore(self, score :float) -> None:
         self.score = score
@@ -149,13 +149,15 @@ class ICompare:
         self.input = I
         
     def compare(self, s1: Solution, s2: Solution) -> Solution:
-        if not s1.valid(self.input):            
+        if (not s1.valid(self.input)):            
             return s2
-        if not s2.valid(self.input):            
+        if (not s2.valid(self.input)):            
             return s1 
         
-        self.calcScore(s1)
-        self.calcScore(s2)
+        if (s1.score == -1):
+            self.calcScore(s1)            
+        if (s2.score == -1):
+            self.calcScore(s2)
         
         if s1.score < s2.score:
             return s1
@@ -172,10 +174,19 @@ class ICompare:
     
 class RatioCompare(ICompare):
     def calcScore(self, s: Solution) -> float:
-        pass #TODO
+        penalty = 1 + (pow(self.input.mins - s.length(), 1.5)/100)
+        val = (abs(self.input.target - s.ratio()) + penalty / 100) * penalty
+        s.setScore(val)
+        return val
     
     def tieBreaker(self, s1: Solution, s2: Solution) -> Solution:
-        pass #TODO
+        global debug
+        if debug:
+            print ("TIE")
+        return s2
+
+I = Input()
+comparer = RatioCompare(I)
 
 def chop_microseconds(delta: dt.timedelta) -> dt.timedelta:
     return delta - dt.timedelta(microseconds=delta.microseconds)
@@ -284,28 +295,23 @@ def getvars(R: int, lows: list, ranges: list) -> Solution:
         
     return Solution.fromList(res)
 
-def calc(minutes: int, lows: list, highs: list, target: float) -> (int, int):    
+def calc(comp: ICompare, lows: list, highs: list, target: float) -> Solution:    
     ranges = [y - x + 1 for x,y in zip(lows, highs)]
     options = np.prod(ranges)
     
     noSol = True
-    bestVal = 1.0
-    bestFull = 0
     bestSol = Solution(-1, -1, -1, -1, -1)
     
     for i in range(options):
         sol = getvars(i, lows, ranges)
-        
-        if sol.length() <= minutes and 0.6 <= sol.ratio() <= 0.75: #Check validity     
-            penalty = 1 + (pow(minutes - sol.length(), 1.5)/100) #Incorporates leftover minutes into objective
-            val = (abs(target - sol.ratio()) + penalty / 100) * penalty
-            #Objective:
-            if noSol or (val <= bestVal or (val == bestVal and sol.length() > bestFull)):
-                bestVal = val
-                bestFull = sol.length()
-                bestSol = sol
-                noSol = False         
-
+        if (not sol.valid(comp.input)):
+            continue
+        if (noSol):
+            bestSol = sol
+            noSol = False
+        else:
+            bestSol = comp.compare(sol, bestSol)
+               
     return bestSol
 
 def main():  
@@ -321,8 +327,9 @@ def main():
             print (f"Target {I.target}")
         
         (available, minutes) = getInput()
+        I.setMins(minutes)
         
-        sol = calc(minutes, I.lows, I.highs, I.target)
+        sol = calc(comparer, I.lows, I.highs, I.target)
 
         sol.printOutput(available, minutes)
 
