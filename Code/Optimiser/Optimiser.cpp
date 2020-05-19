@@ -1,8 +1,10 @@
 #include <tuple>		// tuple
 #include <iostream>		// cout
 #include <cmath>		// pow
+#include <algorithm>    // max
 #include <string>		// string, to_string
-#include <fstream>		// ifstream
+#include <fstream>		// ifstream, ofstream
+#include <stdlib.h>     // srand, rand
 #include <vector>		// vector
 #include "xprb_cpp.h"
 
@@ -10,7 +12,8 @@ using namespace std;
 using namespace ::dashoptimization;
 
 #define DATAFILE "install.dat"
-#define NPERIODS 5
+#define OUTPUTFILE "install.sol"
+#define NPERIODS 10
 #define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
 #define NTASKS 4
@@ -19,7 +22,7 @@ using namespace ::dashoptimization;
 #define NASSETS 2
 #define DIS 1.0
 
-int OMEGA[NTASKS][NTIMES] = { { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1 }, { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1 }, { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1 }, { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1 } }; //TODO: Give right number, set up test case
+int OMEGA[NTASKS][NTIMES];
 int v[NPERIODS];
 int C[NRES][NPERIODS];
 int d[NTASKS];
@@ -28,6 +31,44 @@ int m[NRES][NPERIODS];
 tuple<int, int> IP[NIP];
 
 XPRBprob prob("Install1"); // Initialize a new problem in BCL
+
+void generateWeather(ifstream* datafile)
+{
+	string line;
+	getline(*datafile, line);
+	if (line.compare("WAVEHEIGHT LIMITS") != 0)
+		cout << "Error reading WAVEHEIGHT LIMITS" << endl;
+
+	int limits[NTASKS];
+	for (int i = 0; i < NTASKS; ++i)
+	{
+		getline(*datafile, line);
+		limits[i] = stoi(line);
+	}
+
+	int waveHeight[NTIMES];
+	waveHeight[0] = 140;
+	for (int t = 1; t < NTIMES; ++t)
+	{
+		int bonus = -21;
+		bonus += (100 - waveHeight[t - 1]) / 40;
+
+		waveHeight[t] = max(0, waveHeight[t - 1] + bonus + (rand() % 51));
+		cout << t << ": " << waveHeight[t] << endl;
+	}
+
+
+	for (int i = 0; i < NTASKS; ++i)
+		for (int t = 1; t < NTIMES; ++t)
+		{
+			if (waveHeight[t] < limits[i])
+				OMEGA[i][t] = 1;
+			else
+				OMEGA[i][t] = 0;
+		}
+
+	getline(*datafile, line);
+}
 
 void readList(ifstream* datafile, string name, int list[], int n)
 {
@@ -68,8 +109,8 @@ void readIP(ifstream* datafile)
 {
 	string line;
 	getline(*datafile, line);
-	if (line.compare("PREREQS") != 0)
-		cout << "Error reading PREREQS" << endl;
+	if (line.compare("PREREQUISITES") != 0)
+		cout << "Error reading PREREQUISITES" << endl;
 
 	for (int i = 0; i < NIP; ++i)
 	{
@@ -90,6 +131,11 @@ void readData()
 		cout << "Unable to open file" << endl;
 		return;
 	}
+
+	/* Reads limits (weather limits of tasks), 
+	generates a weather series, 
+	and fills in OMEGA (weather a task can be performed in a certain timestep) */
+	generateWeather(&datafile);
 
 	// Reads v (values of energy)
 	readList(&datafile, "VALUES", v, NPERIODS);
@@ -118,8 +164,8 @@ void readData()
 
 	// Reads m (maximum chartered resources)
 	getline(datafile, line);
-	if (line.compare("MAXRES") != 0)
-		cout << "Error reading MAXRES" << endl;
+	if (line.compare("MAX RESOURCES") != 0)
+		cout << "Error reading MAX RESOURCES" << endl;
 	for (int r = 0; r < NRES; ++r)
 		readLine(&datafile, m[r], NPERIODS);
 	getline(datafile, line);
@@ -144,6 +190,8 @@ int main(int argc, char** argv)
 	XPRBvar N[NRES][NPERIODS];
 	XPRBvar s[NASSETS][NTASKS][NTIMES];
 	XPRBvar f[NASSETS][NTASKS][NTIMES];
+
+	srand(69);
 
 	// Read data from file
 	readData();
@@ -254,7 +302,7 @@ int main(int argc, char** argv)
 	}
 
 	//---------------------------------Solving---------------------------------
-	//p.setMsgLevel(1);
+	//prob.setMsgLevel(1);
 	prob.setSense(XPRB_MAXIM);
 	prob.exportProb(XPRB_LP, "Install1");
 	prob.mipOptimize("");
@@ -263,19 +311,30 @@ int main(int argc, char** argv)
 	cout << "Problem status: " << MIPSTATUS[prob.getMIPStat()] << endl;
 
 	//----------------------------Solution printing----------------------------
+	ofstream file;
+	file.open(OUTPUTFILE);
 	cout << "Total return: " << prob.getObjVal() << endl;
+	file << "Objective: " << prob.getObjVal() << endl;
 
 	cout << "Online turbines per period: " << endl;
 	for (p = 0; p < NPERIODS; ++p)
+	{
 		cout << p << ": " << O[p].getSol() << endl;
+		file << "O_" << p << ": " << O[p].getSol() << endl;
+	}
 
 	cout << "Resources needed per period and type: " << endl;
 	for (p = 0; p < NPERIODS; ++p)
 	{
 		cout << p << ": " << N[0][p].getSol();
+		file << "N_0_" << p << ": " << N[0][p].getSol() << endl;;
+
 
 		for (r = 1; r < NRES; ++r)
+		{
 			cout << ", " << N[r][p].getSol();
+			file << "N_" << r << "_" << p << ": " << N[r][p].getSol() << endl;;
+		}
 		cout << endl;
 	}
 
@@ -287,16 +346,28 @@ int main(int argc, char** argv)
 		{
 			int start = -1;
 			int finish = -1;
+
 			for (t = 0; t < NTIMES; ++t)
 			{
-				if (s[a][i][t].getSol() == 1)
+				double st = s[a][i][t].getSol(); 
+				double fi = f[a][i][t].getSol();
+
+				file << "s_" << a << "_" << i << "_" << t << ": " << st << endl;
+				file << "f_" << a << "_" << i << "_" << t << ": " << fi << endl;
+
+				if (a == 0 && i == 2 && (t == 27 || t == 28 || t == 30))
+					t = t;
+
+				if (st == 1)
 					start = t;
-				if (f[a][i][t].getSol() == 1)
+				if (fi == 1)
 					finish = t;
 			}
 			cout << i << ": " << start << " " << finish << endl;
+			file << "Asset " << a << " task " << i << ": " << start << " " << finish << endl;
 		}
 	}
 
+	file.close();
 	return 0;
 }
