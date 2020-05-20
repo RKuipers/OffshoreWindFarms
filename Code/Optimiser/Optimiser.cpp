@@ -7,6 +7,7 @@
 #include <fstream>		// ifstream, ofstream
 #include <stdlib.h>     // srand, rand
 #include <vector>		// vector
+#include <ctime>		// clock
 #include "xprb_cpp.h"
 
 using namespace std;
@@ -14,15 +15,16 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define WEATHERTYPE 1
+#define VERBOSITY 1
 #define DATAFILE "install.dat"
 #define OUTPUTFILE "install.sol"
 #define NPERIODS 10
 #define TPP 6 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 4
-#define NIP 2
-#define NRES 2
-#define NASSETS 5
+#define NTASKS 5
+#define NIP 4
+#define NRES 3
+#define NASSETS 4
 #define DIS 1.0
 
 // Model parameters
@@ -95,7 +97,6 @@ void generateWeather(ifstream* datafile)
 			}
 		}
 	}
-
 
 	for (int i = 0; i < NTASKS; ++i)
 		for (int t = 1; t < NTIMES; ++t)
@@ -219,9 +220,15 @@ int main(int argc, char** argv)
 	srand(42);
 
 	// Read data from file
+	if (VERBOSITY > 0)
+		cout << "Reading Data" << endl;
 	readData();
 
+	clock_t start = clock();
+
 	//---------------------------Decision Variables---------------------------
+	if (VERBOSITY > 0)
+		cout << "Initialising variables" << endl;
 
 	// Create the period-based decision variables
 	for (p = 0; p < NPERIODS; ++p)
@@ -247,6 +254,8 @@ int main(int argc, char** argv)
 			}
 
 	//--------------------------------Objective--------------------------------
+	if (VERBOSITY > 0)
+		cout << "Initialising objective" << endl;
 
 	for (p = 0; p < NPERIODS; ++p)
 	{
@@ -258,6 +267,8 @@ int main(int argc, char** argv)
 	prob.setObj(Obj); // Set the objective function
 
 	//-------------------------------Constraints-------------------------------
+	if (VERBOSITY > 0)
+		cout << "Initialising constraints" << endl;
 
 	// Forces every task to start and end
 	for (a = 0; a < NASSETS; ++a)
@@ -326,11 +337,20 @@ int main(int argc, char** argv)
 		prob.newCtr(("Onl_" + to_string(p)).c_str(), Onl[p] == O[p]);
 	}
 
+	double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
+	if (VERBOSITY > 0)
+		cout << "Initialising duration: " << duration << " seconds" << endl;
+
 	//---------------------------------Solving---------------------------------
+	if (VERBOSITY > 0)
+		cout << "Solving problem" << endl;
+	start = clock();
 	//prob.setMsgLevel(1);
 	prob.setSense(XPRB_MAXIM);
 	prob.exportProb(XPRB_LP, "Install1");
 	prob.mipOptimize("");
+	duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
+	cout << "Solving duration: " << duration << " seconds" << endl;
 
 	const char* MIPSTATUS[] = { "not loaded", "not optimized", "LP optimized", "unfinished (no solution)", "unfinished (solution found)", "infeasible", "optimal", "unbounded" };
 	cout << "Problem status: " << MIPSTATUS[prob.getMIPStat()] << endl;
