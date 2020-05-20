@@ -1,5 +1,6 @@
 #include <tuple>		// tuple
 #include <iostream>		// cout
+#include <math.h>		// round
 #include <cmath>		// pow
 #include <algorithm>    // max
 #include <string>		// string, to_string
@@ -11,17 +12,20 @@
 using namespace std;
 using namespace ::dashoptimization;
 
+// Program settings
+#define WEATHERTYPE 1
 #define DATAFILE "install.dat"
 #define OUTPUTFILE "install.sol"
 #define NPERIODS 10
-#define TPP 4 // Timesteps per Period
+#define TPP 6 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
 #define NTASKS 4
 #define NIP 2
 #define NRES 2
-#define NASSETS 2
+#define NASSETS 5
 #define DIS 1.0
 
+// Model parameters
 int OMEGA[NTASKS][NTIMES];
 int v[NPERIODS];
 int C[NRES][NPERIODS];
@@ -29,6 +33,22 @@ int d[NTASKS];
 int rho[NRES][NTASKS];
 int m[NRES][NPERIODS];
 tuple<int, int> IP[NIP];
+
+// Model expressions
+XPRBexpr Obj;
+XPRBexpr TaskStart[NASSETS][NTASKS];
+XPRBexpr TaskFinish[NASSETS][NTASKS];
+XPRBexpr Prec[NASSETS][NIP][NTIMES][NTIMES];
+XPRBexpr Weat[NASSETS][NTASKS][NTIMES][NTIMES];
+XPRBexpr Res[NRES][NPERIODS][TPP];
+XPRBexpr Onl[NPERIODS];
+XPRBexpr Cos[NPERIODS];
+
+// Model variables
+XPRBvar O[NPERIODS];
+XPRBvar N[NRES][NPERIODS];
+XPRBvar s[NASSETS][NTASKS][NTIMES];
+XPRBvar f[NASSETS][NTASKS][NTIMES];
 
 XPRBprob prob("Install1"); // Initialize a new problem in BCL
 
@@ -46,15 +66,34 @@ void generateWeather(ifstream* datafile)
 		limits[i] = stoi(line);
 	}
 
+	int base = 130;
+	int variety = 51;
+	int bonus = -21;
 	int waveHeight[NTIMES];
-	waveHeight[0] = 140;
-	for (int t = 1; t < NTIMES; ++t)
+	if (WEATHERTYPE == 0)
 	{
-		int bonus = -21;
-		bonus += (100 - waveHeight[t - 1]) / 40;
+		waveHeight[0] = 120;
+		cout << 0 << ": " << waveHeight[0] << endl;
+		for (int t = 1; t < NTIMES; ++t)
+		{
+			bonus += (base - waveHeight[t - 1]) / 40;
 
-		waveHeight[t] = max(0, waveHeight[t - 1] + bonus + (rand() % 51));
-		cout << t << ": " << waveHeight[t] << endl;
+			waveHeight[t] = max(0, waveHeight[t - 1] + bonus + (rand() % variety));
+			cout << t << ": " << waveHeight[t] << endl;
+		}
+	}
+	else if (WEATHERTYPE == 1)
+	{
+		for (int p = 0; p < NPERIODS; ++p)
+		{
+			waveHeight[p * TPP] = 130;
+			cout << p * TPP << ": " << waveHeight[p * TPP] << endl;
+			for (int t = (p * TPP) + 1; t < (p + 1) * TPP; ++t)
+			{
+				waveHeight[t] = max(0, waveHeight[t - 1] + bonus +  (rand() % variety));
+				cout << t << ": " << waveHeight[t] << endl;
+			}
+		}
 	}
 
 
@@ -177,21 +216,7 @@ int main(int argc, char** argv)
 {
 	int a, p, r, i, x, t, t1, t2, t3;
 
-	XPRBexpr Obj;
-	XPRBexpr TaskStart[NASSETS][NTASKS];
-	XPRBexpr TaskFinish[NASSETS][NTASKS];
-	XPRBexpr Prec[NASSETS][NIP][NTIMES][NTIMES];
-	XPRBexpr Weat[NASSETS][NTASKS][NTIMES][NTIMES];
-	XPRBexpr Res[NRES][NPERIODS][TPP];
-	XPRBexpr Onl[NPERIODS];
-	XPRBexpr Cos[NPERIODS];
-
-	XPRBvar O[NPERIODS];
-	XPRBvar N[NRES][NPERIODS];
-	XPRBvar s[NASSETS][NTASKS][NTIMES];
-	XPRBvar f[NASSETS][NTASKS][NTIMES];
-
-	srand(69);
+	srand(42);
 
 	// Read data from file
 	readData();
@@ -319,21 +344,23 @@ int main(int argc, char** argv)
 	cout << "Online turbines per period: " << endl;
 	for (p = 0; p < NPERIODS; ++p)
 	{
-		cout << p << ": " << O[p].getSol() << endl;
-		file << "O_" << p << ": " << O[p].getSol() << endl;
+		int v = round(O[p].getSol());
+		cout << p << ": " << v << endl;
+		file << "O_" << p << ": " << v << endl;
 	}
 
 	cout << "Resources needed per period and type: " << endl;
 	for (p = 0; p < NPERIODS; ++p)
 	{
-		cout << p << ": " << N[0][p].getSol();
-		file << "N_0_" << p << ": " << N[0][p].getSol() << endl;;
-
+		int v = round(N[0][p].getSol());
+		cout << p << ": " << v;
+		file << "N_0_" << p << ": " << v << endl;;
 
 		for (r = 1; r < NRES; ++r)
 		{
-			cout << ", " << N[r][p].getSol();
-			file << "N_" << r << "_" << p << ": " << N[r][p].getSol() << endl;;
+			v = round(N[r][p].getSol());
+			cout << ", " << v;
+			file << "N_" << r << "_" << p << ": " << v << endl;;
 		}
 		cout << endl;
 	}
@@ -349,18 +376,15 @@ int main(int argc, char** argv)
 
 			for (t = 0; t < NTIMES; ++t)
 			{
-				double st = s[a][i][t].getSol(); 
-				double fi = f[a][i][t].getSol();
+				int sv = round(s[a][i][t].getSol()); 
+				int fv = round(f[a][i][t].getSol());
 
-				file << "s_" << a << "_" << i << "_" << t << ": " << st << endl;
-				file << "f_" << a << "_" << i << "_" << t << ": " << fi << endl;
+				file << "s_" << a << "_" << i << "_" << t << ": " << sv << endl;
+				file << "f_" << a << "_" << i << "_" << t << ": " << fv << endl;
 
-				if (a == 0 && i == 2 && (t == 27 || t == 28 || t == 30))
-					t = t;
-
-				if (st == 1)
+				if (sv == 1)
 					start = t;
-				if (fi == 1)
+				if (fv == 1)
 					finish = t;
 			}
 			cout << i << ": " << start << " " << finish << endl;
