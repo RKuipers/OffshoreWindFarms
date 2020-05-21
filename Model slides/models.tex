@@ -32,9 +32,9 @@ subject to:
 1 \geq& s_{ajt_1} + f_{ait_2}												&	\begin{aligned} \forall a \in A, \forall (i, j) \in IP, \\
 																	\forall t_1, t_2 \in T | t_1 \leq t_2 \end{aligned} \\
 (s_{ait_1} + f_{ait_2} - 1) \cdot d_i \leq& \frac{s_{ait_1} + f_{ait_2}}{2} \cdot \sum_{t_3 = t_1}^{t_2} \omega_{it_3} & \begin{aligned}\forall a \in A, \forall i \in I, \\ \forall t_1, t_2 \in T \end{aligned} \\
-N_{rp} \geq& \sum_{a \in A}\sum_{i\in I} \sum_{t_1 = t_0}^t (\rho_{ir} \cdot (s_{ait_1} - f_{ai(t_1-1)}))	& 	\begin{aligned} \forall r \in R, \\ \forall p \in P, \forall t \in T_p \end{aligned} 	\\
+n_{rt} =& n_{r(t-1)} + \sum_{a \in A}\sum_{i\in I} (\rho_{ir} \cdot (s_{ait} - f_{ai(t-1)}))	& 	\forall r \in R, \forall t \in T	\\
 O_p =&  \sum_{t = t_0}^{t_p} \sum_{a \in A}  f_{ai_Nt}								& \forall p \in P\\
-N_{rp} \leq& m_{rp}													& \forall r \in R, \forall p \in P
+n_{rt} \leq& N_{rp} \leq m_{rp}													& \forall r \in R, \forall p \in P, \forall t \in T_p
 \end{align}
 
 \end{frame}
@@ -69,6 +69,7 @@ Decision variables:
 \begin{itemize}
 \item $O_{p}$: Number of online turbines after period $p$
 \item $N_{rp}$: Number of resources $r$ used in period $p$
+\item $n_{rt}$: Number of resources $r$ needed at time $t$
 \item $s_{ait}$: Binary variable, 1 if task $i \in I$ for asset $a$ starts at time $t$
 \item $f_{ait}$: Binary variable, 1 if task $i \in I$ for asset $a$ finishes at time $t$
 \end{itemize}
