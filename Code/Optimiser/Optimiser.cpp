@@ -16,16 +16,24 @@ using namespace ::dashoptimization;
 // Program settings
 #define WEATHERTYPE 1
 #define VERBOSITY 1
-#define DATAFILE "install.dat"
+#define NAMES 0
+#define DATAFILE "installDays.dat"
 #define OUTPUTFILE "install.sol"
-#define NPERIODS 10
-#define TPP 6 // Timesteps per Period
+
+// Model settings
+#define NPERIODS 5
+#define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
 #define NTASKS 5
 #define NIP 4
 #define NRES 3
-#define NASSETS 4
-#define DIS 1.0
+#define NASSETS 2
+#define DIS 0.99
+
+// Weather characteristics
+int base = 105;
+int variety = 51;
+int bonus = -25;
 
 // Model parameters
 int OMEGA[NTASKS][NTIMES];
@@ -68,10 +76,7 @@ void generateWeather(ifstream* datafile)
 		limits[i] = stoi(line);
 	}
 
-	int base = 130;
-	int variety = 51;
-	int bonus = -21;
-	int waveHeight[NTIMES];
+		int waveHeight[NTIMES];
 	if (WEATHERTYPE == 0)
 	{
 		waveHeight[0] = 120;
@@ -224,6 +229,9 @@ int main(int argc, char** argv)
 		cout << "Reading Data" << endl;
 	readData();
 
+	if (NAMES == 0)
+		prob.setDictionarySize(XPRB_DICT_NAMES, 0);
+
 	clock_t start = clock();
 
 	//---------------------------Decision Variables---------------------------
@@ -231,14 +239,22 @@ int main(int argc, char** argv)
 		cout << "Initialising variables" << endl;
 
 	// Create the period-based decision variables
+
 	for (p = 0; p < NPERIODS; ++p)
 	{
-		O[p] = prob.newVar(("O_" + to_string(p)).c_str(), XPRB_UI);
+		if (NAMES == 0)
+			O[p] = prob.newVar(NULL, XPRB_UI);
+		else
+			O[p] = prob.newVar(("O_" + to_string(p)).c_str(), XPRB_UI);
+
 		O[p].setLB(0);
 
 		for (r = 0; r < NRES; ++r)
 		{
-			N[r][p] = prob.newVar(("N_" + to_string(r) + " " + to_string(p)).c_str(), XPRB_UI);
+			if(NAMES == 0)
+				N[r][p] = prob.newVar(NULL, XPRB_UI);
+			else
+				N[r][p] = prob.newVar(("N_" + to_string(r) + " " + to_string(p)).c_str(), XPRB_UI);
 			N[r][p].setLB(0);
 			N[r][p].setUB(m[r][p]);
 		}
@@ -249,8 +265,16 @@ int main(int argc, char** argv)
 		for (i = 0; i < NTASKS; ++i)
 			for (t = 0; t < NTIMES; ++t)
 			{
-				s[a][i][t] = prob.newVar(("s_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
-				f[a][i][t] = prob.newVar(("f_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
+				if (NAMES == 0)
+				{
+					s[a][i][t] = prob.newVar(NULL, XPRB_BV);
+					f[a][i][t] = prob.newVar(NULL, XPRB_BV);
+				}
+				else
+				{
+					s[a][i][t] = prob.newVar(("s_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
+					f[a][i][t] = prob.newVar(("f_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
+				}
 			}
 
 	//--------------------------------Objective--------------------------------
@@ -279,8 +303,16 @@ int main(int argc, char** argv)
 				TaskStart[a][i] += s[a][i][t];
 				TaskFinish[a][i] += f[a][i][t];
 			}
-			prob.newCtr(("Sta_" + to_string(a) + "_" + to_string(i)).c_str(), TaskStart[a][i] == 1);
-			prob.newCtr(("Fin_" + to_string(a) + "_" + to_string(i)).c_str(), TaskFinish[a][i] == 1);
+			if (NAMES == 0)
+			{
+				prob.newCtr(NULL, TaskStart[a][i] == 1);
+				prob.newCtr(NULL, TaskFinish[a][i] == 1);
+			}
+			else
+			{
+				prob.newCtr(("Sta_" + to_string(a) + "_" + to_string(i)).c_str(), TaskStart[a][i] == 1);
+				prob.newCtr(("Fin_" + to_string(a) + "_" + to_string(i)).c_str(), TaskFinish[a][i] == 1);
+			}
 		}
 
 	// Precedence constraints
@@ -293,7 +325,11 @@ int main(int argc, char** argv)
 					tie(i, j) = IP[x];
 
 					Prec[a][x][t1][t2] = s[a][j][t1] + f[a][i][t2];
-					prob.newCtr(("Prec_" + to_string(a) + "_" + to_string(x) + "_" + to_string(t1) + "_" + to_string(t2)).c_str(), Prec[a][x][t1][t2] <= 1);
+
+					if (NAMES == 0)
+						prob.newCtr(NULL, Prec[a][x][t1][t2] <= 1);
+					else
+						prob.newCtr(("Prec_" + to_string(a) + "_" + to_string(x) + "_" + to_string(t1) + "_" + to_string(t2)).c_str(), Prec[a][x][t1][t2] <= 1);
 				}
 
 	// Weather conditions
@@ -308,7 +344,10 @@ int main(int argc, char** argv)
 
 					Weat[a][i][t1][t2] += (f[a][i][t2] + s[a][i][t1]) * 0.5 * weather - d[i] * (s[a][i][t1] + f[a][i][t2] - 1);
 
-					prob.newCtr(("Weat_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t1) + "_" + to_string(t2)).c_str(), Weat[a][i][t1][t2] >= 0);
+					if (NAMES == 0)
+						prob.newCtr(NULL, Weat[a][i][t1][t2] >= 0);
+					else
+						prob.newCtr(("Weat_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t1) + "_" + to_string(t2)).c_str(), Weat[a][i][t1][t2] >= 0);
 				}
 
 	// Resource amount link
@@ -324,7 +363,10 @@ int main(int argc, char** argv)
 							Res[r][p][t - p * TPP] += rho[r][i] * (s[a][i][t1] - f[a][i][t1 - 1]);
 					}
 
-				prob.newCtr(("Res_" + to_string(r) + "_" + to_string(p) + "_" + to_string(t)).c_str(), Res[r][p][t - p * TPP] <= N[r][p]);
+				if (NAMES == 0)
+					prob.newCtr(NULL, Res[r][p][t - p * TPP] <= N[r][p]);
+				else
+					prob.newCtr(("Res_" + to_string(r) + "_" + to_string(p) + "_" + to_string(t)).c_str(), Res[r][p][t - p * TPP] <= N[r][p]);
 			}
 
 	// Online turbines link
@@ -334,7 +376,10 @@ int main(int argc, char** argv)
 			for (a = 0; a < NASSETS; a++)
 				Onl[p] += f[a][NTASKS - 1][t];
 
-		prob.newCtr(("Onl_" + to_string(p)).c_str(), Onl[p] == O[p]);
+		if (NAMES == 0)
+			prob.newCtr(NULL, Onl[p] == O[p]);
+		else
+			prob.newCtr(("Onl_" + to_string(p)).c_str(), Onl[p] == O[p]);
 	}
 
 	double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
