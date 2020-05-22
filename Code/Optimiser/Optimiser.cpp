@@ -36,7 +36,7 @@ int base = 105;
 int variety = 51;
 int bonus = -25;
 
-int mode = 0;
+int mode = 2;
 
 // Model parameters
 int OMEGA[NTASKS][NTIMES];
@@ -312,19 +312,36 @@ int main(int argc, char** argv)
 		for (x = 0; x < NIP; ++x)
 			for (t = 0; t < NTIMES; ++t)
 			{
-				XPRBctr ctr;
-				int j;
-				tie(i, j) = IP[x];
-
-				if (NAMES == 0)
-					ctr = prob.newCtr(s[a][j][t] <= f[a][i][t]);
-				else
-					ctr = prob.newCtr(("Prec_" + to_string(a) + "_" + to_string(x) + "_" + to_string(t)).c_str(), s[a][j][t] <= f[a][i][t]);
-
-				for (t1 = 0; t1 < t; ++t1)
+				if (mode <= 1)
 				{
-					ctr.addTerm(s[a][j][t1]);
-					ctr.addTerm(f[a][i][t1], -1);
+					XPRBctr ctr;
+					int j;
+					tie(i, j) = IP[x];
+
+					if (NAMES == 0)
+						ctr = prob.newCtr(s[a][j][t] <= f[a][i][t]);
+					else
+						ctr = prob.newCtr(("Prec_" + to_string(a) + "_" + to_string(x) + "_" + to_string(t)).c_str(), s[a][j][t] <= f[a][i][t]);
+
+					for (t1 = 0; t1 < t; ++t1)
+					{
+						ctr.addTerm(s[a][j][t1]);
+						ctr.addTerm(f[a][i][t1], -1);
+					}
+				}
+				else if (mode >= 2)
+				{
+					for (t1 = t; t1 < NTIMES; ++t1)
+					{
+						XPRBctr ctr;
+						int j;
+						tie(i, j) = IP[x];
+
+						if (NAMES == 0)
+							ctr = prob.newCtr(s[a][j][t] + f[a][i][t1] <= 1);
+						else
+							ctr = prob.newCtr(("Prec_" + to_string(a) + "_" + to_string(x) + "_" + to_string(t) + "_" + to_string(t1)).c_str(), s[a][j][t] + f[a][i][t1] <= 1);
+					}
 				}
 			}
 
@@ -333,7 +350,7 @@ int main(int argc, char** argv)
 		for (i = 0; i < NTASKS; ++i)
 			for (t1 = 0; t1 < NTIMES; ++t1)
 			{
-				if (mode == 0)
+				if (mode % 2 == 0)
 				{
 					int worked = 0, reald = 0;
 					while (worked < d[i])
@@ -349,7 +366,7 @@ int main(int argc, char** argv)
 					else
 						ctr = prob.newCtr(("Dur_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t1)).c_str(), s[a][i][t1] <= f[a][i][t1 + reald - 1]);
 				}
-				else if (mode == 1)
+				else if (mode % 2 == 1)
 				{
 					for (t2 = 0; t2 < NTIMES; ++t2)
 					{
