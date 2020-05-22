@@ -8,7 +8,7 @@ modify = False
 #TODO: Set to false/remove
 debug = False
 
-class Input:    
+class Settings:    
     #The Low/High ranges are (in order) for the following 5 values
     #B: Length of a work block in minutes
     #S: Short break length in minutes
@@ -23,20 +23,35 @@ class Input:
     #Ratio = WorkTime / TotalLength
     
     #Default ranges
-    dl = [15, 1, 30, 1, 2]
+    dl = [15, 1, 35, 1, 2]
     dh = [25, 4, 50, 5, 5]
     #"Normal" ranges
     nl = [20, 2, 45, 2, 4]
+    nm = [20, 2, 45, 3, 4]
     nh = [20, 2, 45, 4, 4]
     #Target ratios 
     t2 = (160/(2*86 + 45))
     t3 = (240/(3*86 + 90))
-    t4 = (320/(4*86 + 135))    
+    t4 = (320/(4*86 + 135))   
+    #Dimension Weights
+    dw = [1, 1, 1, 1, 1, 1, 1]
+    #Minute range and default
+    mr = 15  
+    md = 360
+    #Ratio range
+    rl = 0.6
+    rh = 0.75
     
     def __init__(self):
-        self.lows = Input.dl
-        self.highs = Input.dh
-        self.target = Input.t3
+        self.lows = Settings.dl
+        self.highs = Settings.dh
+        self.target = Settings.t3
+        self.weights = Settings.dw
+        self.mins = Settings.md
+        self.ml = self.mins - Settings.mr
+        self.mh = self.mins + Settings.mr
+        self.rl = Settings.rl
+        self.rh = Settings.rh
         
     def setRanges(self, lows: list, highs: list) -> None:
         self.lows = lows
@@ -44,11 +59,11 @@ class Input:
     
     def setRangesF(self, s: str) -> (list, list):
         if (s == "n"):
-            self.lows = Input.nl
-            self.highs = Input.nh
+            self.lows = Settings.nl
+            self.highs = Settings.nh
         else:
-            self.lows = Input.dl
-            self.highs = Input.dh
+            self.lows = Settings.dl
+            self.highs = Settings.dh
         return (self.lows, self.highs)
     
     def setTarget(self, f: float) -> None:
@@ -56,14 +71,35 @@ class Input:
             
     def setTargetF(self, i: int) -> float:
         switcher = {
-            2: Input.t2,
-            3: Input.t3,
-            4: Input.t4
+            2: Settings.t2,
+            3: Settings.t3,
+            4: Settings.t4
             }
         self.target = switcher.get(i)
         
-    def setMins(self, minutes: int) -> None:
-        self.mins = minutes  
+    def setWeights(self, w: list) -> None:
+        self.weights = w
+    
+    def getMinsWeight(self) -> float:
+        return self.weights[5]
+        
+    def getRatioWeight(self) -> float:
+        return self.weights[6]
+    
+    def setMins1(self, minutes: int) -> None:
+        self.mins = minutes        
+        self.ml = minutes - Settings.mr
+        self.mh = minutes + Settings.mr
+        
+    def setMins2(self, low: int, high: int) -> None:
+        self.ml = low
+        self.mh = high
+        self.mins = (low + high) / 2
+        
+    def setMins3(self, minutes: int, low: int, high: int) -> None:
+        self.mins = minutes        
+        self.ml = low
+        self.mh = high
 
 class Solution:
     #B: Length of a work block in minutes
@@ -89,6 +125,9 @@ class Solution:
         (B, S, L, N, P) = t
         return Solution(B, S, L, N, P)
     
+    def asList(self) -> list:
+        return [self.B, self.S, self.L, self.N, self.P]
+    
     def asTuple(self) -> (int, int, int, int, int):
         return (self.B, self.S, self.L, self.N, self.P)   
 
@@ -110,9 +149,12 @@ class Solution:
     def ratio(self) -> int:
         return self.workTime() / self.length()
     
+    def ratioLong(self) -> int:
+        return self.workTime() / (self.workTime() + self.L * (self.N - 1))
+    
     #Checks validity
-    def valid(self, I: Input) -> bool:
-        return self.length() <= I.mins and 0.6 <= self.ratio() <= 0.75
+    def valid(self, S: Settings) -> bool:
+        return S.ml <= self.length() <= S.mh and S.rl <= self.ratio() <= S.rh
     
     def setScore(self, score :float) -> None:
         self.score = score
@@ -131,6 +173,8 @@ class Solution:
     
     #Print the values to the console
     def printOutput(self, available: dt.timedelta, minutes: int) -> None:
+        global S
+        settings = S
         (B, S, L, N, P) = self.asTuple()
         wt = self.workTime()
         length = self.length()
@@ -145,13 +189,13 @@ class Solution:
             print (f"B:{B} N:{N} P:{P} L:{L} S:{S}") 
         
 class ICompare:
-    def __init__(self, I: Input):
-        self.input = I
+    def __init__(self, S: Settings):
+        self.settings = S
         
     def compare(self, s1: Solution, s2: Solution) -> Solution:
-        if (not s1.valid(self.input)):            
+        if (not s1.valid(self.settings)):            
             return s2
-        if (not s2.valid(self.input)):            
+        if (not s2.valid(self.settings)):            
             return s1 
         
         if (s1.score == -1):
@@ -174,8 +218,8 @@ class ICompare:
     
 class RatioCompare(ICompare):
     def calcScore(self, s: Solution) -> float:
-        penalty = 1 + (pow(self.input.mins - s.length(), 1.5)/100)
-        val = (abs(self.input.target - s.ratio()) + penalty / 100) * penalty
+        penalty = 1 + (pow(self.settings.mins - s.length(), 1.5)/100)
+        val = (abs(self.settings.target - s.ratioLong()) + penalty / 100) * penalty
         s.setScore(val)
         return val
     
@@ -183,42 +227,98 @@ class RatioCompare(ICompare):
         global debug
         if debug:
             print ("TIE")
-        return s2
+            
+        if s1.S < s2.S:
+            return s1
+        else:
+            return s2
 
-I = Input()
-comparer = RatioCompare(I)
+class DistanceCompare(ICompare):
+    def calcAttributeScore(v: int, n: int, l: int, h: int, w: float) -> float:
+        dis = v - n
+        if (dis > 0):
+            rang = h - n
+        else:                
+            rang = l - n
+        if rang == 0:
+            print(f"RANGE 0, {v}, {n}, {l}, {h}, {w}")
+            return 0
+        normDis = dis / rang
+        return normDis * w
+    
+    def calcScore(self, s: Solution) -> float:
+        val = DistanceCompare.calcAttributeScore(s.length(), self.settings.mins, self.settings.ml, self.settings.mh, self.settings.getMinsWeight())
+        val += DistanceCompare.calcAttributeScore(s.ratio(), self.settings.target, self.settings.rl, self.settings.rh, self.settings.getRatioWeight())
+        sol = s.asList()
+        for i in range(5):
+            val += DistanceCompare.calcAttributeScore(sol[i], Settings.nm[i], self.settings.lows[i], self.settings.highs[i], self.settings.weights[i])
+        
+        s.setScore(val)
+        return val
+    
+    def tieBreaker(self, s1: Solution, s2: Solution) -> Solution:
+        global debug
+        if debug:
+            print ("TIE")
+            
+        if s1.S < s2.S:
+            return s1
+        else:
+            return s2
+
+S = Settings()
+comparer = DistanceCompare(S)
 
 def chop_microseconds(delta: dt.timedelta) -> dt.timedelta:
     return delta - dt.timedelta(microseconds=delta.microseconds)
 
-def getInput() -> (dt.timedelta, int):    
+def inpStr2min(inpstr: str, start: dt.datetime.time) -> int():
+    end = dt.datetime.strptime(inpstr, "%H:%M").time()            
+    available = dt.datetime.combine(dt.date.today(), end) - dt.datetime.combine(dt.date.today(), start)
+    available = chop_microseconds(available)
+    mins = round(available.seconds / 60)
+    return mins
+
+def getInput() -> dt.timedelta: 
+    global S
+    
     now = dt.datetime.now()
 
     if not debug:
         print ("What time do you need to be done? (HH:MM)")
         endstr = input()
+        start = now.time()
         if endstr.count(":") == 1:
-            start = now.time()
-            end = dt.datetime.strptime(endstr, "%H:%M").time()
+            S.setMins1(inpStr2min(endstr, start))
+            
         elif endstr.count(":") == 2:
-            start = dt.datetime.strptime(endstr.split(" ")[0], "%H:%M").time()
-            end = dt.datetime.strptime(endstr.split(" ")[1], "%H:%M").time()
+            print ("Please explain what you have just entered:")
+            print ("(1) Ranges for the end time")
+            print ("(2) A start and an end time")
+            choice = input()
+            if (choice == "1"): 
+                S.setMins2(inpStr2min(endstr.split(" ")[0], start), inpStr2min(endstr.split(" ")[1], start))
+            elif (choice == "2"):
+                start = dt.datetime.strptime(endstr.split(" ")[0], "%H:%M").time()
+                mins = inpStr2min(endstr.split(" ")[1], start)
+                S.setMins1(mins)
+        elif endstr.count(":") == 3:
+            S.setMins3(inpStr2min(endstr.split(" ")[1], start), inpStr2min(endstr.split(" ")[0], start), inpStr2min(endstr.split(" ")[2], start))
         else:
             print ("Invalid Input") #ERROR
-            endstr = input()
-        available = dt.datetime.combine(dt.date.today(), end) - dt.datetime.combine(dt.date.today(), start)
-        available = chop_microseconds(available)
+            return getInput()
     else: 
         print ("Enter available minutes (q to exit)")
         mins = input()
         if (mins == "q"):
             sys.exit()
         available = dt.timedelta(minutes = int(mins))
+        S.setMins1(round(available.seconds / 60))
         
-    return (available, round(available.seconds / 60))
+    return dt.timedelta(minutes = S.mins)
 
 def modifySettings() -> None:
-    global I
+    global S
     
     lows = []
     highs = []
@@ -236,25 +336,25 @@ def modifySettings() -> None:
         inp = input()
         
         if (inp == "n"):
-            lows.append(Input.nl[i])
-            highs.append(Input.nh[i])
+            lows.append(Settings.nl[i])
+            highs.append(Settings.nh[i])
         elif (inp == "N"):
-            lows.extend(Input.nl[i:])
-            highs.extend(Input.nh[i:])
+            lows.extend(Settings.nl[i:])
+            highs.extend(Settings.nh[i:])
             break
         elif (inp == "d"):
-            lows.append(Input.dl[i])
-            highs.append(Input.dh[i])
+            lows.append(Settings.dl[i])
+            highs.append(Settings.dh[i])
         elif (inp == "D"):
-            lows.extend(Input.dl[i:])
-            highs.extend(Input.dh[i:])
+            lows.extend(Settings.dl[i:])
+            highs.extend(Settings.dh[i:])
             break
         elif (inp == "k"):
-            lows.append(I.lows[i])
-            highs.append(I.highs[i])
+            lows.append(S.lows[i])
+            highs.append(S.highs[i])
         elif (inp == "K"):
-            lows.extend(I.lows[i:])
-            highs.extend(I.highs[i:])
+            lows.extend(S.lows[i:])
+            highs.extend(S.highs[i:])
             break
         elif " " in inp:
             (l, h) = inp.split()
@@ -264,15 +364,15 @@ def modifySettings() -> None:
             lows.append(int(inp))
             highs.append(int(inp))
             
-    I.setRanges(lows, highs)
+    S.setRanges(lows, highs)
     
     print ("Enter 2, 3, or 4 to set the target ratio to the corresponding normal ratio, or enter a float to fix the target.")
     
     inp = input()
     if "." in inp:
-        I.setTarget(float(inp))
+        S.setTarget(float(inp))
     else:
-        I.setTargetF(int(inp))
+        S.setTargetF(int(inp))
 
 def reRun(sol: Solution) -> bool:
     global modify
@@ -304,7 +404,7 @@ def calc(comp: ICompare, lows: list, highs: list, target: float) -> Solution:
     
     for i in range(options):
         sol = getvars(i, lows, ranges)
-        if (not sol.valid(comp.input)):
+        if (not sol.valid(comp.settings)):
             continue
         if (noSol):
             bestSol = sol
@@ -316,22 +416,21 @@ def calc(comp: ICompare, lows: list, highs: list, target: float) -> Solution:
 
 def main():  
     global modify
-    global I
+    global S
     while True:
         if modify:
             modifySettings()
         
         if debug:
-            print (f"Lows {I.lows}")
-            print (f"Highs {I.highs}")
-            print (f"Target {I.target}")
+            print (f"Lows {S.lows}")
+            print (f"Highs {S.highs}")
+            print (f"Target {S.target}")
         
-        (available, minutes) = getInput()
-        I.setMins(minutes)
+        available = getInput()
         
-        sol = calc(comparer, I.lows, I.highs, I.target)
+        sol = calc(comparer, S.lows, S.highs, S.target)
 
-        sol.printOutput(available, minutes)
+        sol.printOutput(available, S.mins)
 
         if reRun(sol):
             break
