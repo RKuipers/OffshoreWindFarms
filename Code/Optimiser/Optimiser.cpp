@@ -14,27 +14,29 @@ using namespace std;
 using namespace ::dashoptimization;
 
 // Program settings
-#define SEED 42
+#define SEED 42 * NTIMES
 #define WEATHERTYPE 1
 #define VERBOSITY 1
 #define NAMES 1
-#define DATAFILE "installDays.dat"
+#define DATAFILE "installSimple.dat"
 #define OUTPUTFILE "install.sol"
 
 // Model settings
-#define NPERIODS 7
-#define TPP 12 // Timesteps per Period
+#define NPERIODS 3
+#define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 5
-#define NIP 4
-#define NRES 3
-#define NASSETS 3
-#define DIS 0.99
+#define NTASKS 4
+#define NIP 3
+#define NRES 2
+#define NASSETS 2
+#define DIS 1.0
 
 // Weather characteristics
 int base = 105;
 int variety = 51;
 int bonus = -25;
+
+int mode = 0;
 
 // Model parameters
 int OMEGA[NTASKS][NTIMES];
@@ -44,16 +46,6 @@ int d[NTASKS];
 int rho[NRES][NTASKS];
 int m[NRES][NPERIODS];
 tuple<int, int> IP[NIP];
-
-// Model expressions
-XPRBexpr Obj;
-XPRBexpr TaskStart[NASSETS][NTASKS];
-XPRBexpr TaskFinish[NASSETS][NTASKS];
-XPRBexpr Prec[NASSETS][NIP][NTIMES][NTIMES];
-XPRBexpr Weat[NASSETS][NTASKS][NTIMES][NTIMES];
-XPRBexpr Res[NRES][NPERIODS][TPP];
-XPRBexpr Onl[NPERIODS];
-XPRBexpr Cos[NPERIODS];
 
 // Model variables
 XPRBvar O[NPERIODS];
@@ -78,7 +70,7 @@ void generateWeather(ifstream* datafile)
 		limits[i] = stoi(line);
 	}
 
-		int waveHeight[NTIMES];
+	int waveHeight[NTIMES];
 	if (WEATHERTYPE == 0)
 	{
 		waveHeight[0] = 120; 
@@ -110,7 +102,7 @@ void generateWeather(ifstream* datafile)
 	}
 
 	for (int i = 0; i < NTASKS; ++i)
-		for (int t = 1; t < NTIMES; ++t)
+		for (int t = 0; t < NTIMES; ++t)
 		{
 			if (waveHeight[t] < limits[i])
 				OMEGA[i][t] = 1;
@@ -277,12 +269,14 @@ int main(int argc, char** argv)
 	if (VERBOSITY > 0)
 		cout << "Initialising objective" << endl;
 
+	XPRBctr Obj = prob.newCtr();
 	for (p = 0; p < NPERIODS; ++p)
 	{
-		for (r = 0; r < NRES; ++r)
-			Cos[p] += N[r][p] * C[r][p];
+		double dis = pow(DIS, p);
+		Obj.addTerm(O[p], v[p] * dis);
 
-		Obj += pow(DIS, p) * (O[p] * v[p] - Cos[p]);
+		for (r = 0; r < NRES; ++r)
+			Obj.addTerm(N[r][p], -C[r][p] * dis);
 	}
 	prob.setObj(Obj); // Set the objective function
 
@@ -316,54 +310,61 @@ int main(int argc, char** argv)
 	// Precedence constraints
 	for (a = 0; a < NASSETS; ++a)
 		for (x = 0; x < NIP; ++x)
-			for (t1 = 0; t1 < NTIMES; ++t1)
+			for (t = 0; t < NTIMES; ++t)
 			{
 				XPRBctr ctr;
 				int j;
 				tie(i, j) = IP[x];
 
 				if (NAMES == 0)
-					ctr = prob.newCtr(s[a][j][t1] <= f[a][i][t1]);
+					ctr = prob.newCtr(s[a][j][t] <= f[a][i][t]);
 				else
-					ctr = prob.newCtr(("Prec_" + to_string(a) + "_" + to_string(x) + "_" + to_string(t1)).c_str(), s[a][j][t1] <= f[a][i][t1]);
+					ctr = prob.newCtr(("Prec_" + to_string(a) + "_" + to_string(x) + "_" + to_string(t)).c_str(), s[a][j][t] <= f[a][i][t]);
 
-				for (t = 0; t < t1; ++t)
+				for (t1 = 0; t1 < t; ++t1)
 				{
-					ctr.addTerm(s[a][j][t]);
-					ctr.addTerm(f[a][i][t], -1);
+					ctr.addTerm(s[a][j][t1]);
+					ctr.addTerm(f[a][i][t1], -1);
 				}
-
-				/*for (t2 = t1; t2 < NTIMES; ++t2)
-				{
-					int j;
-					tie(i, j) = IP[x];
-
-					Prec[a][x][t1][t2] = s[a][j][t1] + f[a][i][t2];
-
-					if (NAMES == 0)
-						prob.newCtr(Prec[a][x][t1][t2] <= 1);
-					else
-						prob.newCtr(("Prec_" + to_string(a) + "_" + to_string(x) + "_" + to_string(t1) + "_" + to_string(t2)).c_str(), Prec[a][x][t1][t2] <= 1);
-				}*/
 			}
 
-	// Weather conditions
+	// Duration constraints
 	for (a = 0; a < NASSETS; ++a)
 		for (i = 0; i < NTASKS; ++i)
 			for (t1 = 0; t1 < NTIMES; ++t1)
-				for (t2 = 0; t2 < NTIMES; ++t2)
+			{
+				if (mode == 0)
 				{
-					int weather = 0;
-					for (t3 = t1; t3 <= t2; ++t3)
-						weather += OMEGA[i][t3];
+					int worked = 0, reald = 0;
+					while (worked < d[i])
+					{
+						if (OMEGA[i][t1 + reald] == 1)
+							worked++;
+						reald++;
+					}
 
-					Weat[a][i][t1][t2] += (f[a][i][t2] + s[a][i][t1]) * 0.5 * weather - d[i] * (s[a][i][t1] + f[a][i][t2] - 1);
-
+					XPRBctr ctr;
 					if (NAMES == 0)
-						prob.newCtr(Weat[a][i][t1][t2] >= 0);
+						ctr = prob.newCtr(s[a][i][t1] <= f[a][i][t1 + reald - 1]);
 					else
-						prob.newCtr(("Weat_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t1) + "_" + to_string(t2)).c_str(), Weat[a][i][t1][t2] >= 0);
+						ctr = prob.newCtr(("Dur_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t1)).c_str(), s[a][i][t1] <= f[a][i][t1 + reald - 1]);
 				}
+				else if (mode == 1)
+				{
+					for (t2 = 0; t2 < NTIMES; ++t2)
+					{
+						int weather = 0;
+						for (t3 = t1; t3 <= t2; ++t3)
+							weather += OMEGA[i][t3];
+
+						XPRBctr ctr;
+						if (NAMES == 0)
+							ctr = prob.newCtr((f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1));
+						else
+							ctr = prob.newCtr(("Dur_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t1) + "_" + to_string(t2)).c_str(), (f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1));
+					}
+				}
+			}
 
 	// Resource amount link
 	for (r = 0; r < NRES; ++r)
