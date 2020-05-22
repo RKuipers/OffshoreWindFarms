@@ -12,7 +12,7 @@ int variety = 51;
 int bonus = -25;
 
 installDays
-#define NPERIODS 5
+#define NPERIODS 7
 #define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
 #define NTASKS 5

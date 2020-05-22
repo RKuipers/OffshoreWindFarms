@@ -22,13 +22,13 @@ using namespace ::dashoptimization;
 #define OUTPUTFILE "install.sol"
 
 // Model settings
-#define NPERIODS 5
+#define NPERIODS 7
 #define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
 #define NTASKS 5
 #define NIP 4
 #define NRES 3
-#define NASSETS 2
+#define NASSETS 3
 #define DIS 0.99
 
 // Weather characteristics
@@ -294,29 +294,46 @@ int main(int argc, char** argv)
 	for (a = 0; a < NASSETS; ++a)
 		for (i = 0; i < NTASKS; ++i)
 		{
-			for (t = 0; t < NTIMES; ++t)
-			{
-				TaskStart[a][i] += s[a][i][t];
-				TaskFinish[a][i] += f[a][i][t];
-			}
-
+			XPRBctr ctrs, ctrf;
 			if (NAMES == 0)
 			{
-				prob.newCtr(TaskStart[a][i] == 1);
-				prob.newCtr(TaskFinish[a][i] == 1);
+				ctrs = prob.newCtr(s[a][i][0] == 1);
+				ctrf = prob.newCtr(f[a][i][0] == 1);
 			}
 			else
 			{
-				prob.newCtr(("Sta_" + to_string(a) + "_" + to_string(i)).c_str(), TaskStart[a][i] == 1);
-				prob.newCtr(("Fin_" + to_string(a) + "_" + to_string(i)).c_str(), TaskFinish[a][i] == 1);
+				ctrs = prob.newCtr(("Sta_" + to_string(a) + "_" + to_string(i)).c_str(), s[a][i][0] == 1);
+				ctrf = prob.newCtr(("Fin_" + to_string(a) + "_" + to_string(i)).c_str(), f[a][i][0] == 1);
 			}
+
+			for (t = 1; t < NTIMES; ++t)
+			{
+				ctrs.addTerm(s[a][i][t]);
+				ctrf.addTerm(f[a][i][t]);
+			}			
 		}
 
 	// Precedence constraints
 	for (a = 0; a < NASSETS; ++a)
 		for (x = 0; x < NIP; ++x)
 			for (t1 = 0; t1 < NTIMES; ++t1)
-				for (t2 = t1; t2 < NTIMES; ++t2)
+			{
+				XPRBctr ctr;
+				int j;
+				tie(i, j) = IP[x];
+
+				if (NAMES == 0)
+					ctr = prob.newCtr(s[a][j][t1] <= f[a][i][t1]);
+				else
+					ctr = prob.newCtr(("Prec_" + to_string(a) + "_" + to_string(x) + "_" + to_string(t1)).c_str(), s[a][j][t1] <= f[a][i][t1]);
+
+				for (t = 0; t < t1; ++t)
+				{
+					ctr.addTerm(s[a][j][t]);
+					ctr.addTerm(f[a][i][t], -1);
+				}
+
+				/*for (t2 = t1; t2 < NTIMES; ++t2)
 				{
 					int j;
 					tie(i, j) = IP[x];
@@ -327,7 +344,8 @@ int main(int argc, char** argv)
 						prob.newCtr(Prec[a][x][t1][t2] <= 1);
 					else
 						prob.newCtr(("Prec_" + to_string(a) + "_" + to_string(x) + "_" + to_string(t1) + "_" + to_string(t2)).c_str(), Prec[a][x][t1][t2] <= 1);
-				}
+				}*/
+			}
 
 	// Weather conditions
 	for (a = 0; a < NASSETS; ++a)
