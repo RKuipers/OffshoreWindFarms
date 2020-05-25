@@ -30,22 +30,24 @@ class Settings:
     nm = [20, 2, 45, 3, 4]
     nh = [20, 2, 45, 4, 4]
     #Target ratios 
-    t2 = (160/(2*86 + 45))
-    t3 = (240/(3*86 + 90))
-    t4 = (320/(4*86 + 135))   
-    #Dimension Weights
+    targets = {
+    2: (160/(2*86 + 45)),
+    3: (240/(3*86 + 90)),
+    4: (320/(4*86 + 135)) 
+    }
+    #Dimension Weights (6th is Mins, 7th is Ratio)
     dw = [1, 1, 1, 1, 1, 1, 1]
     #Minute range and default
     mr = 15  
     md = 360
     #Ratio range
     rl = 0.6
-    rh = 0.75
+    rh = 0.8
     
     def __init__(self):
         self.lows = Settings.dl
         self.highs = Settings.dh
-        self.target = Settings.t3
+        self.target = Settings.targets.get(3)
         self.weights = Settings.dw
         self.mins = Settings.md
         self.ml = self.mins - Settings.mr
@@ -66,16 +68,13 @@ class Settings:
             self.highs = Settings.dh
         return (self.lows, self.highs)
     
-    def setTarget(self, f: float) -> None:
+    def setRatioTarget(self, f: float) -> None:
         self.target = f
-            
-    def setTargetF(self, i: int) -> float:
-        switcher = {
-            2: Settings.t2,
-            3: Settings.t3,
-            4: Settings.t4
-            }
-        self.target = switcher.get(i)
+    
+    def setRatioValues(self, l: float, t: float, h: float) -> None:
+        self.rl = l
+        self.target = t
+        self.rh = h
         
     def setWeights(self, w: list) -> None:
         self.weights = w
@@ -173,8 +172,7 @@ class Solution:
     
     #Print the values to the console
     def printOutput(self, available: dt.timedelta, minutes: int) -> None:
-        global S
-        settings = S
+        global SETS
         (B, S, L, N, P) = self.asTuple()
         wt = self.workTime()
         length = self.length()
@@ -241,10 +239,10 @@ class DistanceCompare(ICompare):
         else:                
             rang = l - n
         if rang == 0:
-            print(f"RANGE 0, {v}, {n}, {l}, {h}, {w}")
             return 0
         normDis = dis / rang
-        return normDis * w
+        score = pow(20, (1 + normDis))
+        return score * w
     
     def calcScore(self, s: Solution) -> float:
         val = DistanceCompare.calcAttributeScore(s.length(), self.settings.mins, self.settings.ml, self.settings.mh, self.settings.getMinsWeight())
@@ -266,8 +264,8 @@ class DistanceCompare(ICompare):
         else:
             return s2
 
-S = Settings()
-comparer = DistanceCompare(S)
+SETS = Settings()
+comparer = DistanceCompare(SETS)
 
 def chop_microseconds(delta: dt.timedelta) -> dt.timedelta:
     return delta - dt.timedelta(microseconds=delta.microseconds)
@@ -280,7 +278,7 @@ def inpStr2min(inpstr: str, start: dt.datetime.time) -> int():
     return mins
 
 def getInput() -> dt.timedelta: 
-    global S
+    global SETS
     
     now = dt.datetime.now()
 
@@ -289,7 +287,7 @@ def getInput() -> dt.timedelta:
         endstr = input()
         start = now.time()
         if endstr.count(":") == 1:
-            S.setMins1(inpStr2min(endstr, start))
+            SETS.setMins1(inpStr2min(endstr, start))
             
         elif endstr.count(":") == 2:
             print ("Please explain what you have just entered:")
@@ -297,13 +295,13 @@ def getInput() -> dt.timedelta:
             print ("(2) A start and an end time")
             choice = input()
             if (choice == "1"): 
-                S.setMins2(inpStr2min(endstr.split(" ")[0], start), inpStr2min(endstr.split(" ")[1], start))
+                SETS.setMins2(inpStr2min(endstr.split(" ")[0], start), inpStr2min(endstr.split(" ")[1], start))
             elif (choice == "2"):
                 start = dt.datetime.strptime(endstr.split(" ")[0], "%H:%M").time()
                 mins = inpStr2min(endstr.split(" ")[1], start)
-                S.setMins1(mins)
+                SETS.setMins1(mins)
         elif endstr.count(":") == 3:
-            S.setMins3(inpStr2min(endstr.split(" ")[1], start), inpStr2min(endstr.split(" ")[0], start), inpStr2min(endstr.split(" ")[2], start))
+            SETS.setMins3(inpStr2min(endstr.split(" ")[1], start), inpStr2min(endstr.split(" ")[0], start), inpStr2min(endstr.split(" ")[2], start))
         else:
             print ("Invalid Input") #ERROR
             return getInput()
@@ -313,12 +311,12 @@ def getInput() -> dt.timedelta:
         if (mins == "q"):
             sys.exit()
         available = dt.timedelta(minutes = int(mins))
-        S.setMins1(round(available.seconds / 60))
+        SETS.setMins1(round(available.seconds / 60))
         
-    return dt.timedelta(minutes = S.mins)
+    return dt.timedelta(minutes = SETS.mins)
 
 def modifySettings() -> None:
-    global S
+    global SETS
     
     lows = []
     highs = []
@@ -350,11 +348,11 @@ def modifySettings() -> None:
             highs.extend(Settings.dh[i:])
             break
         elif (inp == "k"):
-            lows.append(S.lows[i])
-            highs.append(S.highs[i])
+            lows.append(SETS.lows[i])
+            highs.append(SETS.highs[i])
         elif (inp == "K"):
-            lows.extend(S.lows[i:])
-            highs.extend(S.highs[i:])
+            lows.extend(SETS.lows[i:])
+            highs.extend(SETS.highs[i:])
             break
         elif " " in inp:
             (l, h) = inp.split()
@@ -364,15 +362,25 @@ def modifySettings() -> None:
             lows.append(int(inp))
             highs.append(int(inp))
             
-    S.setRanges(lows, highs)
+    SETS.setRanges(lows, highs)
     
     print ("Enter 2, 3, or 4 to set the target ratio to the corresponding normal ratio, or enter a float to fix the target.")
+    print ("Enter three values to serve as the low, target and high ratios respectively")
     
     inp = input()
-    if "." in inp:
-        S.setTarget(float(inp))
+    if " " in inp:
+        (l, t, h) = inp.split()
+        if not "." in l:
+            l = Settings.targets.get(int(l))
+        if not "." in t:
+            l = Settings.targets.get(int(t))
+        if not "." in h:
+            l = Settings.targets.get(int(h))
+        SETS.setRatioValues(float(l), float(t), float(h))
+    elif "." in inp:
+        SETS.setRatioTarget(float(inp))
     else:
-        S.setTargetF(int(inp))
+        SETS.setRatioTarget(Settings.targets.get(int(inp)))
 
 def reRun(sol: Solution) -> bool:
     global modify
@@ -411,26 +419,28 @@ def calc(comp: ICompare, lows: list, highs: list, target: float) -> Solution:
             noSol = False
         else:
             bestSol = comp.compare(sol, bestSol)
-               
+    
+    print(comp.calcScore(bestSol))        
+    
     return bestSol
 
 def main():  
     global modify
-    global S
+    global SETS
     while True:
         if modify:
             modifySettings()
         
         if debug:
-            print (f"Lows {S.lows}")
-            print (f"Highs {S.highs}")
-            print (f"Target {S.target}")
+            print (f"Lows {SETS.lows}")
+            print (f"Highs {SETS.highs}")
+            print (f"Target {SETS.target}")
         
         available = getInput()
         
-        sol = calc(comparer, S.lows, S.highs, S.target)
+        sol = calc(comparer, SETS.lows, SETS.highs, SETS.target)
 
-        sol.printOutput(available, S.mins)
+        sol.printOutput(available, SETS.mins)
 
         if reRun(sol):
             break
