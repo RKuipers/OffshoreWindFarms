@@ -241,7 +241,7 @@ class DistanceCompare(ICompare):
         if rang == 0:
             return 0
         normDis = dis / rang
-        score = pow(20, (1 + normDis))
+        score = pow(2, (1 + normDis))
         return score * w
     
     def calcScore(self, s: Solution) -> float:
