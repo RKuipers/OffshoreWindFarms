@@ -16,20 +16,20 @@ using namespace ::dashoptimization;
 // Program settings
 #define SEED 42 * NTIMES
 #define WEATHERTYPE 1
-#define VERBOSITY 1
+#define VERBOSITY 0
 #define NAMES 1
-#define DATAFILE "installSimple.dat"
+#define DATAFILE "installMonth.dat"
 #define OUTPUTFILE "install.sol"
 
 // Model settings
-#define NPERIODS 3
-#define TPP 4 // Timesteps per Period
+#define NPERIODS 30
+#define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 4
-#define NIP 3
-#define NRES 2
-#define NASSETS 2
-#define DIS 1.0
+#define NTASKS 5
+#define NIP 4
+#define NRES 3
+#define NASSETS 5
+#define DIS 0.99
 
 // Weather characteristics
 int base = 105;
@@ -52,15 +52,13 @@ XPRBvar n[NRES][NTIMES];
 XPRBvar s[NASSETS][NTASKS][NTIMES];
 XPRBvar f[NASSETS][NTASKS][NTIMES];
 
-XPRBprob prob("Install1"); // Initialize a new problem in BCL
-
 class OutputPrinter
 {
 private:
-	void printObj(ofstream* file)
+	void printObj(ofstream* file, XPRBprob* prob)
 	{
-		cout << "Total return: " << prob.getObjVal() << endl;
-		*file << "Objective: " << prob.getObjVal() << endl;
+		cout << "Total return: " << prob->getObjVal() << endl;
+		*file << "Objective: " << prob->getObjVal() << endl;
 	}
 
 	void printTurbines(ofstream* file)
@@ -144,12 +142,12 @@ private:
 	}
 
 public:
-	void printOutput()
+	void printOutput(XPRBprob* prob)
 	{
 		ofstream file;
 		file.open(OUTPUTFILE);
 
-		printObj(&file);
+		printObj(&file, prob);
 		printTurbines(&file);
 		printResources(&file);
 		printTasks(&file);
@@ -341,19 +339,19 @@ public:
 class ProblemGen
 {
 private:
-	void genDecisionVariables()
+	void genDecisionVariables(XPRBprob* prob)
 	{
 		outputPrinter.printer("Initialising variables", 1);
 
 		// Create the period-based decision variables
 		for (int p = 0; p < NPERIODS; ++p)
 		{
-			O[p] = prob.newVar(("O_" + to_string(p)).c_str(), XPRB_UI);
+			O[p] = prob->newVar(("O_" + to_string(p)).c_str(), XPRB_UI);
 			O[p].setLB(0);
 
 			for (int r = 0; r < NRES; ++r)
 			{
-				N[r][p] = prob.newVar(("N_" + to_string(r) + "_" + to_string(p)).c_str(), XPRB_UI);
+				N[r][p] = prob->newVar(("N_" + to_string(r) + "_" + to_string(p)).c_str(), XPRB_UI);
 				N[r][p].setLB(0);
 				N[r][p].setUB(m[r][p]);
 			}
@@ -363,22 +361,22 @@ private:
 		for (int t = 0; t < NTIMES; ++t)
 		{
 			for (int r = 0; r < NRES; ++r)
-				n[r][t] = prob.newVar(("n_" + to_string(r) + "_" + to_string(t)).c_str(), XPRB_UI);
+				n[r][t] = prob->newVar(("n_" + to_string(r) + "_" + to_string(t)).c_str(), XPRB_UI);
 
 			for (int a = 0; a < NASSETS; ++a)
 				for (int i = 0; i < NTASKS; ++i)
 				{
-					s[a][i][t] = prob.newVar(("s_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
-					f[a][i][t] = prob.newVar(("f_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
+					s[a][i][t] = prob->newVar(("s_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
+					f[a][i][t] = prob->newVar(("f_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
 				}
 		}
 	}
 
-	void genObjective()
+	void genObjective(XPRBprob* prob)
 	{
 		outputPrinter.printer("Initialising objective", 1);
 
-		XPRBctr Obj = prob.newCtr();
+		XPRBctr Obj = prob->newCtr();
 		for (int p = 0; p < NPERIODS; ++p)
 		{
 			double dis = pow(DIS, p);
@@ -387,10 +385,10 @@ private:
 			for (int r = 0; r < NRES; ++r)
 				Obj.addTerm(N[r][p], -C[r][p] * dis);
 		}
-		prob.setObj(Obj); // Set the objective function
+		prob->setObj(Obj); // Set the objective function
 	}
 
-	void genSetConstraints()
+	void genSetConstraints(XPRBprob* prob)
 	{
 		// Forces every task to start and end
 		for (int a = 0; a < NASSETS; ++a)
@@ -399,13 +397,13 @@ private:
 				XPRBctr ctrs, ctrf;
 				if (NAMES == 0)
 				{
-					ctrs = prob.newCtr(s[a][i][0] == 1);
-					ctrf = prob.newCtr(f[a][i][0] == 1);
+					ctrs = prob->newCtr(s[a][i][0] == 1);
+					ctrf = prob->newCtr(f[a][i][0] == 1);
 				}
 				else
 				{
-					ctrs = prob.newCtr(("Sta_" + to_string(a) + "_" + to_string(i)).c_str(), s[a][i][0] == 1);
-					ctrf = prob.newCtr(("Fin_" + to_string(a) + "_" + to_string(i)).c_str(), f[a][i][0] == 1);
+					ctrs = prob->newCtr(("Sta_" + to_string(a) + "_" + to_string(i)).c_str(), s[a][i][0] == 1);
+					ctrf = prob->newCtr(("Fin_" + to_string(a) + "_" + to_string(i)).c_str(), f[a][i][0] == 1);
 				}
 
 				for (int t = 1; t < NTIMES; ++t)
@@ -416,7 +414,7 @@ private:
 			}
 	}
 
-	void genPrecedenceConstraints(int mode)
+	void genPrecedenceConstraints(XPRBprob* prob, int mode)
 	{
 		// Precedence constraints
 		for (int a = 0; a < NASSETS; ++a)
@@ -430,9 +428,9 @@ private:
 						tie(i, j) = IP[x];
 
 						if (NAMES == 0)
-							ctr = prob.newCtr(s[a][j][t] <= f[a][i][t]);
+							ctr = prob->newCtr(s[a][j][t] <= f[a][i][t]);
 						else
-							ctr = prob.newCtr(("Prec_" + to_string(a) + "_" + to_string(x) + "_" + to_string(t)).c_str(), s[a][j][t] <= f[a][i][t]);
+							ctr = prob->newCtr(("Prec_" + to_string(a) + "_" + to_string(x) + "_" + to_string(t)).c_str(), s[a][j][t] <= f[a][i][t]);
 
 						for (int t1 = 0; t1 < t; ++t1)
 						{
@@ -449,15 +447,15 @@ private:
 							tie(i, j) = IP[x];
 
 							if (NAMES == 0)
-								ctr = prob.newCtr(s[a][j][t] + f[a][i][t1] <= 1);
+								ctr = prob->newCtr(s[a][j][t] + f[a][i][t1] <= 1);
 							else
-								ctr = prob.newCtr(("Prec_" + to_string(a) + "_" + to_string(x) + "_" + to_string(t) + "_" + to_string(t1)).c_str(), s[a][j][t] + f[a][i][t1] <= 1);
+								ctr = prob->newCtr(("Prec_" + to_string(a) + "_" + to_string(x) + "_" + to_string(t) + "_" + to_string(t1)).c_str(), s[a][j][t] + f[a][i][t1] <= 1);
 						}
 					}
 				}
 	}
 
-	void genDurationConstraints(int mode)
+	void genDurationConstraints(XPRBprob* prob, int mode)
 	{
 		// Duration constraints
 		for (int a = 0; a < NASSETS; ++a)
@@ -476,9 +474,9 @@ private:
 
 						XPRBctr ctr;
 						if (NAMES == 0)
-							ctr = prob.newCtr(s[a][i][t1] <= f[a][i][t1 + reald - 1]);
+							ctr = prob->newCtr(s[a][i][t1] <= f[a][i][t1 + reald - 1]);
 						else
-							ctr = prob.newCtr(("Dur_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t1)).c_str(), s[a][i][t1] <= f[a][i][t1 + reald - 1]);
+							ctr = prob->newCtr(("Dur_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t1)).c_str(), s[a][i][t1] <= f[a][i][t1 + reald - 1]);
 					}
 					else if (mode % 2 == 1)
 					{
@@ -490,9 +488,9 @@ private:
 
 							XPRBctr ctr;
 							if (NAMES == 0)
-								ctr = prob.newCtr((f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1));
+								ctr = prob->newCtr((f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1));
 							else
-								ctr = prob.newCtr(("Dur_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t1) + "_" + to_string(t2)).c_str(), (f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1));
+								ctr = prob->newCtr(("Dur_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t1) + "_" + to_string(t2)).c_str(), (f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1));
 						}
 					}
 				}
@@ -500,7 +498,7 @@ private:
 		
 	}
 
-	void genResourceConstraints()
+	void genResourceConstraints(XPRBprob* prob)
 	{
 		// Resource amount link
 		for (int r = 0; r < NRES; ++r)
@@ -511,9 +509,9 @@ private:
 					if (t == 0)
 					{
 						if (NAMES == 0)
-							ctr = prob.newCtr(n[r][t] == 0);
+							ctr = prob->newCtr(n[r][t] == 0);
 						else
-							ctr = prob.newCtr(("Nee_" + to_string(r) + "_" + to_string(t)).c_str(), n[r][t] == 0);
+							ctr = prob->newCtr(("Nee_" + to_string(r) + "_" + to_string(t)).c_str(), n[r][t] == 0);
 
 						for (int i = 0; i < NTASKS; ++i)
 						{
@@ -527,9 +525,9 @@ private:
 					else
 					{
 						if (NAMES == 0)
-							ctr = prob.newCtr(n[r][t] - n[r][t - 1] == 0);
+							ctr = prob->newCtr(n[r][t] - n[r][t - 1] == 0);
 						else
-							ctr = prob.newCtr(("Nee_" + to_string(r) + "_" + to_string(t)).c_str(), n[r][t] - n[r][t - 1] == 0);
+							ctr = prob->newCtr(("Nee_" + to_string(r) + "_" + to_string(t)).c_str(), n[r][t] - n[r][t - 1] == 0);
 
 						for (int i = 0; i < NTASKS; ++i)
 						{
@@ -545,22 +543,22 @@ private:
 					}
 
 					if (NAMES == 0)
-						ctr = prob.newCtr(N[r][p] >= n[r][t]);
+						ctr = prob->newCtr(N[r][p] >= n[r][t]);
 					else
-						ctr = prob.newCtr(("Hav_" + to_string(r) + "_" + to_string(p) + "_" + to_string(t)).c_str(), N[r][p] >= n[r][t]);
+						ctr = prob->newCtr(("Hav_" + to_string(r) + "_" + to_string(p) + "_" + to_string(t)).c_str(), N[r][p] >= n[r][t]);
 				}
 	}
 
-	void genOnlineConstraints()
+	void genOnlineConstraints(XPRBprob* prob)
 	{
 		// Online turbines link
 		for (int p = 0; p < NPERIODS; ++p)
 		{
 			XPRBctr ctr;
 			if (NAMES == 0)
-				ctr = prob.newCtr(NULL, O[p] == 0);
+				ctr = prob->newCtr(NULL, O[p] == 0);
 			else
-				ctr = prob.newCtr(("Onl_" + to_string(p)).c_str(), O[p] == 0);
+				ctr = prob->newCtr(("Onl_" + to_string(p)).c_str(), O[p] == 0);
 
 			for (int t = 0; t < p * TPP; ++t)
 				for (int a = 0; a < NASSETS; a++)
@@ -569,20 +567,20 @@ private:
 	}
 
 public:
-	void genProblem(int mode)
+	void genProblem(XPRBprob* prob, int mode)
 	{
 		clock_t start = clock();		
 
-		genDecisionVariables();
-		genObjective();
+		genDecisionVariables(prob);
+		genObjective(prob);
 
 		outputPrinter.printer("Initialising constraints", 1);
 
-		genSetConstraints();
-		genPrecedenceConstraints(mode);
-		genDurationConstraints(mode);
-		genResourceConstraints();
-		genOnlineConstraints();
+		genSetConstraints(prob);
+		genPrecedenceConstraints(prob, mode);
+		genDurationConstraints(prob, mode);
+		genResourceConstraints(prob);
+		genOnlineConstraints(prob);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
@@ -592,23 +590,23 @@ public:
 class ProblemSolver
 {
 public:
-	void solveProblem()
+	void solveProblem(XPRBprob* prob)
 	{
 		outputPrinter.printer("Solving problem", 1);
 		if (VERBOSITY == 0)
-			prob.setMsgLevel(1);
+			prob->setMsgLevel(1);
 
 		clock_t start = clock();
 
-		prob.setSense(XPRB_MAXIM);
-		prob.exportProb(XPRB_LP, "Install1");
-		prob.mipOptimize("");
+		prob->setSense(XPRB_MAXIM);
+		prob->exportProb(XPRB_LP, "Install1");
+		prob->mipOptimize("");
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		cout << "Solving duration: " << duration << " seconds" << endl;
 
 		const char* MIPSTATUS[] = { "not loaded", "not optimized", "LP optimized", "unfinished (no solution)", "unfinished (solution found)", "infeasible", "optimal", "unbounded" };
-		cout << "Problem status: " << MIPSTATUS[prob.getMIPStat()] << endl;
+		cout << "Problem status: " << MIPSTATUS[prob->getMIPStat()] << endl;
 	}
 };
 
@@ -624,37 +622,31 @@ int main(int argc, char** argv)
 	problemSolver = ProblemSolver();
 	outputPrinter = OutputPrinter();
 
+	XPRBprob* probs[4]; 
+	XPRBprob p0("Install0"); // Initialize a new problem in BCL
+	probs[0] = &p0;
+	XPRBprob p1("Install1"); // Initialize a new problem in BCL
+	probs[1] = &p1;
+	XPRBprob p2("Install2"); // Initialize a new problem in BCL
+	probs[2] = &p2;
+	XPRBprob p3("Install3"); // Initialize a new problem in BCL
+	probs[3] = &p3;
+
 	srand(SEED);
 
-	if (NAMES == 0)
-		prob.setDictionarySize(XPRB_DICT_NAMES, 0);
+	dataReader.readData();
 
-	for (int mode = 0; mode < 1; ++mode)
+	for (int mode = 3; mode >= 0; --mode)
 	{
-		/*
-		switch (mode)
-		{
-		case 0:
-			prob = XPRBprob("Install0");
-			break;
-		case 1:
-			prob = XPRBprob("Install1");
-			break;
-		case 2:
-			prob = XPRBprob("Install2");
-			break;
-		case 3:
-			prob = XPRBprob("Install3");
-			break;
-		default:
-			break;
-		}
-		*/
+		cout << "----------------------------------------------------------------------------------------" << endl;
 
-		dataReader.readData();
-		problemGen.genProblem(mode);
-		problemSolver.solveProblem();
-		outputPrinter.printOutput();
+		//probs[mode] = XPRBprob("Install");
+		if (NAMES == 0)
+			probs[mode]->setDictionarySize(XPRB_DICT_NAMES, 0);
+
+		problemGen.genProblem(probs[mode], mode);
+		problemSolver.solveProblem(probs[mode]);
+		outputPrinter.printOutput(probs[mode]);
 	}
 
 	return 0;
