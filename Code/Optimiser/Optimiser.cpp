@@ -422,7 +422,7 @@ private:
 			for (int x = 0; x < NIP; ++x)
 				for (int t = 0; t < NTIMES; ++t)
 				{
-					if (mode <= 1)
+					if (mode <= 1) // sum_t1=t0^t s_a_j_t1 <= sum_t1=t0^t f_a_i_t1
 					{
 						XPRBctr ctr;
 						int i, j;
@@ -439,7 +439,7 @@ private:
 							ctr.addTerm(f[a][i][t1], -1);
 						}
 					}
-					else if (mode >= 2)
+					else if (mode >= 2) // s_a_j_t + f_a_t_t1 <= 1    \forall t1
 					{
 						for (int t1 = t; t1 < NTIMES; ++t1)
 						{
@@ -463,7 +463,7 @@ private:
 			for (int i = 0; i < NTASKS; ++i)
 				for (int t1 = 0; t1 < NTIMES; ++t1)
 				{
-					if (mode % 2 == 0)
+					if (mode % 2 == 0) // s_a_i_t1 <= f_a_i_(t1+d_i+weatherdelay)
 					{
 						int worked = 0, reald = 0;
 						while (worked < d[i])
@@ -479,7 +479,7 @@ private:
 						else
 							ctr = prob->newCtr(("Dur_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t1)).c_str(), s[a][i][t1] <= f[a][i][t1 + reald - 1]);
 					}
-					else if (mode % 2 == 1)
+					else if (mode % 2 == 1) // (s_a_i_t1 + f_a_i_t1 - 1) * d_i <= (s_a_i_t1 + f_a_i_t2)/2 * weather
 					{
 						for (int t2 = 0; t2 < NTIMES; ++t2)
 						{
