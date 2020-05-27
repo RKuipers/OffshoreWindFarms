@@ -19,18 +19,18 @@ using namespace ::dashoptimization;
 #define WEATHERTYPE 1
 #define VERBOSITY 1
 #define NAMES 1
-#define DATAFILE "installMonth.dat"
+#define DATAFILE "installSimple.dat"
 #define OUTPUTFILE "install.sol"
 
 // Model settings
-#define NPERIODS 30
-#define TPP 12 // Timesteps per Period
+#define NPERIODS 3
+#define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 5
-#define NIP 4
-#define NRES 3
-#define NASSETS 5
-#define DIS 0.99
+#define NTASKS 4
+#define NIP 3
+#define NRES 2
+#define NASSETS 2
+#define DIS 1.0
 
 // Weather characteristics
 int base = 105;
