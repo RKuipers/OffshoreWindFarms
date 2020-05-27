@@ -19,17 +19,17 @@ using namespace ::dashoptimization;
 #define WEATHERTYPE 1
 #define VERBOSITY 1
 #define NAMES 1
-#define DATAFILE "installWeek.dat"
+#define DATAFILE "installMonth.dat"
 #define OUTPUTFILE "install.sol"
 
 // Model settings
-#define NPERIODS 7
+#define NPERIODS 30
 #define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
 #define NTASKS 5
 #define NIP 4
 #define NRES 3
-#define NASSETS 2
+#define NASSETS 5
 #define DIS 0.99
 
 // Weather characteristics
@@ -629,7 +629,7 @@ int main(int argc, char** argv)
 
 	dataReader.readData();
 
-	for (int mode = 0; mode < NMODES; ++mode)
+	for (int mode = 1; mode < NMODES; mode += 2)
 	{
 		cout << "----------------------------------------------------------------------------------------" << endl;
 		cout << "MODE: " << mode << endl;
@@ -643,6 +643,8 @@ int main(int argc, char** argv)
 		problemGen.genProblem(&probs[mode], mode);
 		problemSolver.solveProblem(&probs[mode], name);
 		outputPrinter.printOutput(&probs[mode]);
+
+		probs[mode].reset();
 	}
 
 	return 0;
