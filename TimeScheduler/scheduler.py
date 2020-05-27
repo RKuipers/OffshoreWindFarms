@@ -36,7 +36,7 @@ class Settings:
     4: (320/(4*86 + 135)) 
     }
     #Dimension Weights (6th is Mins, 7th is Ratio)
-    dw = [1, 1, 1, 1, 1, 1, 1]
+    dw = [1, 2, 1, 1, 1.5, 1.5, 3]
     #Minute range and default
     mr = 15  
     md = 360
@@ -218,8 +218,7 @@ class RatioCompare(ICompare):
     
     def tieBreaker(self, s1: Solution, s2: Solution) -> Solution:
         global debug
-        if debug:
-            print ("TIE")
+        print ("TIE")
             
         if s1.S < s2.S:
             return s1
@@ -367,6 +366,7 @@ def modifySettings() -> None:
     
     print ("Enter the weights as seven values separated by spaces")
     print ("Block Short Long Number Pomos Mins Ratio")
+    print (SETS.weights)
     
     inp = ""
     while inp.count(" ") < 6:
