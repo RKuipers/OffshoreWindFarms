@@ -55,18 +55,13 @@ class Settings:
         self.rl = Settings.rl
         self.rh = Settings.rh
         
-    def setRanges(self, lows: list, highs: list) -> None:
-        self.lows = lows
-        self.highs = highs
-    
-    def setRangesF(self, s: str) -> (list, list):
-        if (s == "n"):
-            self.lows = Settings.nl
-            self.highs = Settings.nh
-        else:
-            self.lows = Settings.dl
-            self.highs = Settings.dh
-        return (self.lows, self.highs)
+    def setRanges(self, lows: list, highs: list, startIndex: int = 0) -> None:
+        self.lows[startIndex:] = lows
+        self.highs[startIndex:] = highs
+        
+    def setRange(self, index: int, low: int, high: int) -> None:
+        self.lows[index] = low
+        self.highs[index] = high
     
     def setRatioTarget(self, f: float) -> None:
         self.target = f
@@ -236,9 +231,9 @@ class DistanceCompare(ICompare):
         dis = v - n
         if (dis > 0):
             rang = h - n
-        else:                
+        elif (dis < 0):                
             rang = l - n
-        if rang == 0:
+        else:
             return 0
         normDis = dis / rang
         score = pow(2, (1 + normDis))
@@ -317,9 +312,6 @@ def getInput() -> dt.timedelta:
 
 def modifySettings() -> None:
     global SETS
-    
-    lows = []
-    highs = []
     vs = ["B (block length)", "S (short break length)", "L (long break length)", "N (number of blocks)", "P (number of pomodoros per block)"]
     
     print ("For each of the following variables enter a range (L H),")
@@ -334,53 +326,59 @@ def modifySettings() -> None:
         inp = input()
         
         if (inp == "n"):
-            lows.append(Settings.nl[i])
-            highs.append(Settings.nh[i])
+            SETS.setRange(i, Settings.nl[i], Settings.nh[i])
         elif (inp == "N"):
-            lows.extend(Settings.nl[i:])
-            highs.extend(Settings.nh[i:])
+            SETS.setRanges(Settings.nl[i:], Settings.nh[i:], i)
             break
         elif (inp == "d"):
-            lows.append(Settings.dl[i])
-            highs.append(Settings.dh[i])
+            SETS.setRange(i, Settings.dl[i], Settings.dh[i])
         elif (inp == "D"):
-            lows.extend(Settings.dl[i:])
-            highs.extend(Settings.dh[i:])
+            SETS.setRanges(Settings.dl[i:], Settings.dh[i:], i)
             break
         elif (inp == "k"):
-            lows.append(SETS.lows[i])
-            highs.append(SETS.highs[i])
+            continue
         elif (inp == "K"):
-            lows.extend(SETS.lows[i:])
-            highs.extend(SETS.highs[i:])
             break
         elif " " in inp:
             (l, h) = inp.split()
-            lows.append(int(l))
-            highs.append(int(h))
-        else:            
-            lows.append(int(inp))
-            highs.append(int(inp))
-            
-    SETS.setRanges(lows, highs)
+            SETS.setRange(i, int(l), int(h))
+        else:
+            SETS.setRange(i, int(inp), int(inp))    
     
     print ("Enter 2, 3, or 4 to set the target ratio to the corresponding normal ratio, or enter a float to fix the target.")
     print ("Enter three values to serve as the low, target and high ratios respectively")
     
     inp = input()
-    if " " in inp:
-        (l, t, h) = inp.split()
-        if not "." in l:
-            l = Settings.targets.get(int(l))
-        if not "." in t:
-            l = Settings.targets.get(int(t))
-        if not "." in h:
-            l = Settings.targets.get(int(h))
-        SETS.setRatioValues(float(l), float(t), float(h))
-    elif "." in inp:
-        SETS.setRatioTarget(float(inp))
-    else:
-        SETS.setRatioTarget(Settings.targets.get(int(inp)))
+    if not inp == "k":
+        if " " in inp:
+            (l, t, h) = inp.split()
+            if not "." in l:
+                l = Settings.targets.get(int(l))
+            if not "." in t:
+                l = Settings.targets.get(int(t))
+            if not "." in h:
+                l = Settings.targets.get(int(h))
+            SETS.setRatioValues(float(l), float(t), float(h))
+        elif "." in inp:
+            SETS.setRatioTarget(float(inp))
+        else:
+            SETS.setRatioTarget(Settings.targets.get(int(inp)))
+        
+    
+    print ("Enter the weights as seven values separated by spaces")
+    print ("Block Short Long Number Pomos Mins Ratio")
+    
+    inp = ""
+    while inp.count(" ") < 6:
+        if inp == "k":
+            break
+        if not inp == "":
+            print ("Invalid input")
+        inp = input()
+    
+    if not inp == "k":
+        spl = inp.split(" ")
+        SETS.setWeights(list(map(float, spl)))
 
 def reRun(sol: Solution) -> bool:
     global modify
