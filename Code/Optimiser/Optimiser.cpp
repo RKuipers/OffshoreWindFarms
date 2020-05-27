@@ -15,21 +15,22 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
+#define NMODES 4
 #define WEATHERTYPE 1
 #define VERBOSITY 0
 #define NAMES 1
-#define DATAFILE "installMonth.dat"
+#define DATAFILE "installSimple.dat"
 #define OUTPUTFILE "install.sol"
 
 // Model settings
-#define NPERIODS 30
-#define TPP 12 // Timesteps per Period
+#define NPERIODS 3
+#define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 5
-#define NIP 4
-#define NRES 3
-#define NASSETS 5
-#define DIS 0.99
+#define NTASKS 4
+#define NIP 3
+#define NRES 2
+#define NASSETS 2
+#define DIS 1.0
 
 // Weather characteristics
 int base = 105;
@@ -590,7 +591,7 @@ public:
 class ProblemSolver
 {
 public:
-	void solveProblem(XPRBprob* prob)
+	void solveProblem(XPRBprob* prob, string name)
 	{
 		outputPrinter.printer("Solving problem", 1);
 		if (VERBOSITY == 0)
@@ -599,7 +600,7 @@ public:
 		clock_t start = clock();
 
 		prob->setSense(XPRB_MAXIM);
-		prob->exportProb(XPRB_LP, "Install1");
+		prob->exportProb(XPRB_LP, name.c_str());
 		prob->mipOptimize("");
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
@@ -622,31 +623,26 @@ int main(int argc, char** argv)
 	problemSolver = ProblemSolver();
 	outputPrinter = OutputPrinter();
 
-	XPRBprob* probs[4]; 
-	XPRBprob p0("Install0"); // Initialize a new problem in BCL
-	probs[0] = &p0;
-	XPRBprob p1("Install1"); // Initialize a new problem in BCL
-	probs[1] = &p1;
-	XPRBprob p2("Install2"); // Initialize a new problem in BCL
-	probs[2] = &p2;
-	XPRBprob p3("Install3"); // Initialize a new problem in BCL
-	probs[3] = &p3;
+	XPRBprob probs[NMODES];		// Initialize new problems in BCL
 
 	srand(SEED);
 
 	dataReader.readData();
 
-	for (int mode = 3; mode >= 0; --mode)
+	for (int mode = 0; mode < NMODES; ++mode)
 	{
 		cout << "----------------------------------------------------------------------------------------" << endl;
+		cout << "MODE: " << mode << endl;
 
-		//probs[mode] = XPRBprob("Install");
+		string name = ("Install" + to_string(mode));
+		probs[mode].setName(name.c_str());
+
 		if (NAMES == 0)
-			probs[mode]->setDictionarySize(XPRB_DICT_NAMES, 0);
+			probs[mode].setDictionarySize(XPRB_DICT_NAMES, 0);
 
-		problemGen.genProblem(probs[mode], mode);
-		problemSolver.solveProblem(probs[mode]);
-		outputPrinter.printOutput(probs[mode]);
+		problemGen.genProblem(&probs[mode], mode);
+		problemSolver.solveProblem(&probs[mode], name);
+		outputPrinter.printOutput(&probs[mode]);
 	}
 
 	return 0;
