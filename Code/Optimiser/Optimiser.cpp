@@ -17,20 +17,20 @@ using namespace ::dashoptimization;
 #define SEED 42 * NTIMES
 #define NMODES 4
 #define WEATHERTYPE 1
-#define VERBOSITY 0
+#define VERBOSITY 1
 #define NAMES 1
-#define DATAFILE "installSimple.dat"
+#define DATAFILE "installWeek.dat"
 #define OUTPUTFILE "install.sol"
 
 // Model settings
-#define NPERIODS 3
-#define TPP 4 // Timesteps per Period
+#define NPERIODS 7
+#define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 4
-#define NIP 3
-#define NRES 2
+#define NTASKS 5
+#define NIP 4
+#define NRES 3
 #define NASSETS 2
-#define DIS 1.0
+#define DIS 0.99
 
 // Weather characteristics
 int base = 105;
@@ -479,7 +479,7 @@ private:
 						else
 							ctr = prob->newCtr(("Dur_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t1)).c_str(), s[a][i][t1] <= f[a][i][t1 + reald - 1]);
 					}
-					else if (mode % 2 == 1) // (s_a_i_t1 + f_a_i_t1 - 1) * d_i <= (s_a_i_t1 + f_a_i_t2)/2 * weather
+					else if (mode % 2 == 1) // (s_a_i_t1 + f_a_i_t1 - 1) * d_i <= (s_a_i_t1 + f_a_i_t2)/2 * weather /forall t2
 					{
 						for (int t2 = 0; t2 < NTIMES; ++t2)
 						{
