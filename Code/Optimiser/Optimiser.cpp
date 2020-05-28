@@ -15,22 +15,22 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-#define NMODES 4
+#define NMODES 1
 #define WEATHERTYPE 1
 #define VERBOSITY 1
 #define NAMES 1
-#define DATAFILE "installSimple.dat"
+#define DATAFILE "installMonth.dat"
 #define OUTPUTFILE "install.sol"
 
 // Model settings
-#define NPERIODS 3
-#define TPP 4 // Timesteps per Period
+#define NPERIODS 30
+#define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 4
-#define NIP 3
-#define NRES 2
-#define NASSETS 2
-#define DIS 1.0
+#define NTASKS 5
+#define NIP 4
+#define NRES 3
+#define NASSETS 5
+#define DIS 0.99
 
 // Weather characteristics
 int base = 105;
@@ -629,18 +629,20 @@ int main(int argc, char** argv)
 
 	dataReader.readData();
 
-	for (int mode = 1; mode < NMODES; mode += 2)
+	for (int mode = 0; mode < NMODES; ++mode)
 	{
+		// TODO: Fix mode depending on what I want to do
+
 		cout << "----------------------------------------------------------------------------------------" << endl;
 		cout << "MODE: " << mode << endl;
 
-		string name = ("Install" + to_string(mode));
+		string name = "Install" + to_string(mode);
 		probs[mode].setName(name.c_str());
 
 		if (NAMES == 0)
 			probs[mode].setDictionarySize(XPRB_DICT_NAMES, 0);
 
-		problemGen.genProblem(&probs[mode], mode);
+		problemGen.genProblem(&probs[mode], 1);
 		problemSolver.solveProblem(&probs[mode], name);
 		outputPrinter.printOutput(&probs[mode]);
 

@@ -36,7 +36,7 @@ class Settings:
     4: (320/(4*86 + 135)) 
     }
     #Dimension Weights (6th is Mins, 7th is Ratio)
-    dw = [1, 2, 1, 1, 1.5, 1.5, 3]
+    dw = [1, 1.25, 1, 0, 1.5, 1.5, 2]
     #Minute range and default
     mr = 15  
     md = 360
@@ -235,7 +235,7 @@ class DistanceCompare(ICompare):
         else:
             return 0
         normDis = dis / rang
-        score = pow(2, (1 + normDis))
+        score = pow(3, (1 + normDis))
         return score * w
     
     def calcScore(self, s: Solution) -> float:
