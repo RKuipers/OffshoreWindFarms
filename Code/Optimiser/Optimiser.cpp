@@ -19,18 +19,18 @@ using namespace ::dashoptimization;
 #define WEATHERTYPE 1
 #define VERBOSITY 1
 #define NAMES 1
-#define DATAFILE "installSimple.dat"
+#define DATAFILE "installWeek.dat"
 #define OUTPUTFILE "install.sol"
 
 // Model settings
-#define NPERIODS 3
-#define TPP 4 // Timesteps per Period
+#define NPERIODS 7
+#define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 4
-#define NIP 3
-#define NRES 2
+#define NTASKS 5
+#define NIP 4
+#define NRES 3
 #define NASSETS 2
-#define DIS 1.0
+#define DIS 0.99
 
 // Weather characteristics
 int base = 105;
@@ -340,6 +340,21 @@ public:
 class ProblemGen
 {
 private:
+	XPRBctr genCon(XPRBprob* prob, const XPRBrelation& ac, string base, int nInd, int* indices)
+	{
+		if (NAMES == 0)
+			return prob->newCtr(ac);
+		else
+		{
+			string name = base;
+
+			for (int i = 0; i < nInd; ++i)
+				name += "_" + to_string(indices[i]);
+
+			return prob->newCtr(name.c_str(), ac);
+		}
+	}
+
 	void genDecisionVariables(XPRBprob* prob)
 	{
 		outputPrinter.printer("Initialising variables", 1);
@@ -396,16 +411,9 @@ private:
 			for (int i = 0; i < NTASKS; ++i)
 			{
 				XPRBctr ctrs, ctrf;
-				if (NAMES == 0)
-				{
-					ctrs = prob->newCtr(s[a][i][0] == 1);
-					ctrf = prob->newCtr(f[a][i][0] == 1);
-				}
-				else
-				{
-					ctrs = prob->newCtr(("Sta_" + to_string(a) + "_" + to_string(i)).c_str(), s[a][i][0] == 1);
-					ctrf = prob->newCtr(("Fin_" + to_string(a) + "_" + to_string(i)).c_str(), f[a][i][0] == 1);
-				}
+				int indices[2] = { a, i };
+				ctrs = genCon(prob, s[a][i][0] == 1, "Sta", 2, indices);
+				ctrf = genCon(prob, f[a][i][0] == 1, "Fin", 2, indices);
 
 				for (int t = 1; t < NTIMES; ++t)
 				{
@@ -428,10 +436,8 @@ private:
 						int i, j;
 						tie(i, j) = IP[x];
 
-						if (NAMES == 0)
-							ctr = prob->newCtr(s[a][j][t] <= f[a][i][t]);
-						else
-							ctr = prob->newCtr(("Prec_" + to_string(a) + "_" + to_string(x) + "_" + to_string(t)).c_str(), s[a][j][t] <= f[a][i][t]);
+						int indices[3] = { a, x, t };
+						ctr = genCon(prob, s[a][j][t] <= f[a][i][t], "Pre", 3, indices);
 
 						for (int t1 = 0; t1 < t; ++t1)
 						{
@@ -446,10 +452,8 @@ private:
 							int i, j;
 							tie(i, j) = IP[x];
 
-							if (NAMES == 0)
-								prob->newCtr(s[a][j][t] + f[a][i][t1] <= 1);
-							else
-								prob->newCtr(("Prec_" + to_string(a) + "_" + to_string(x) + "_" + to_string(t) + "_" + to_string(t1)).c_str(), s[a][j][t] + f[a][i][t1] <= 1);
+							int indices[4] = { a, x, t, t1 };
+							genCon(prob, s[a][j][t] + f[a][i][t1] <= 1, "Pre", 4, indices);
 						}
 					}
 				}
@@ -472,10 +476,8 @@ private:
 							reald++;
 						}
 
-						if (NAMES == 0)
-							prob->newCtr(s[a][i][t1] <= f[a][i][t1 + reald - 1]);
-						else
-							prob->newCtr(("Dur_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t1)).c_str(), s[a][i][t1] <= f[a][i][t1 + reald - 1]);
+						int indices[3] = { a, i, t1 };
+						genCon(prob, s[a][i][t1] <= f[a][i][t1 + reald - 1], "Dur", 3, indices);
 					}
 					else if (mode % 2 == 1) // (s_a_i_t1 + f_a_i_t1 - 1) * d_i <= (s_a_i_t1 + f_a_i_t2)/2 * weather /forall t2
 					{
@@ -485,10 +487,8 @@ private:
 							for (int t3 = t1; t3 <= t2; ++t3)
 								weather += OMEGA[i][t3];
 
-							if (NAMES == 0)
-								prob->newCtr((f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1));
-							else
-								prob->newCtr(("Dur_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t1) + "_" + to_string(t2)).c_str(), (f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1));
+							int indices[4] = { a, i, t1, t2 };
+							genCon(prob, (f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1), "Dur", 4, indices);
 						}
 					}
 				}
@@ -504,12 +504,10 @@ private:
 				for (int t = p * TPP; t < (p + 1) * TPP; ++t)
 				{
 					XPRBctr ctr;
+					int indices[2] = { r, t };
 					if (t == 0)
 					{
-						if (NAMES == 0)
-							ctr = prob->newCtr(n[r][t] == 0);
-						else
-							ctr = prob->newCtr(("Nee_" + to_string(r) + "_" + to_string(t)).c_str(), n[r][t] == 0);
+						ctr = genCon(prob, n[r][t] == 0, "Nee", 2, indices);
 
 						for (int i = 0; i < NTASKS; ++i)
 						{
@@ -522,10 +520,7 @@ private:
 					}
 					else
 					{
-						if (NAMES == 0)
-							ctr = prob->newCtr(n[r][t] - n[r][t - 1] == 0);
-						else
-							ctr = prob->newCtr(("Nee_" + to_string(r) + "_" + to_string(t)).c_str(), n[r][t] - n[r][t - 1] == 0);
+						ctr = genCon(prob, n[r][t] - n[r][t - 1] == 0, "Nee", 2, indices);
 
 						for (int i = 0; i < NTASKS; ++i)
 						{
@@ -553,10 +548,8 @@ private:
 		for (int p = 0; p < NPERIODS; ++p)
 		{
 			XPRBctr ctr;
-			if (NAMES == 0)
-				ctr = prob->newCtr(NULL, O[p] == 0);
-			else
-				ctr = prob->newCtr(("Onl_" + to_string(p)).c_str(), O[p] == 0);
+			int indices[1] = { p };
+			ctr = genCon(prob, O[p] == 0, "Onl", 1, indices);
 
 			for (int t = 0; t < p * TPP; ++t)
 				for (int a = 0; a < NASSETS; a++)
