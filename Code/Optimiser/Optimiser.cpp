@@ -15,22 +15,22 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-#define NMODES 1
+#define NMODES 4
 #define WEATHERTYPE 1
 #define VERBOSITY 1
 #define NAMES 1
-#define DATAFILE "installMonth.dat"
+#define DATAFILE "installSimple.dat"
 #define OUTPUTFILE "install.sol"
 
 // Model settings
-#define NPERIODS 30
-#define TPP 12 // Timesteps per Period
+#define NPERIODS 3
+#define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 5
-#define NIP 4
-#define NRES 3
-#define NASSETS 5
-#define DIS 0.99
+#define NTASKS 4
+#define NIP 3
+#define NRES 2
+#define NASSETS 2
+#define DIS 1.0
 
 // Weather characteristics
 int base = 105;
@@ -443,14 +443,13 @@ private:
 					{
 						for (int t1 = t; t1 < NTIMES; ++t1)
 						{
-							XPRBctr ctr;
 							int i, j;
 							tie(i, j) = IP[x];
 
 							if (NAMES == 0)
-								ctr = prob->newCtr(s[a][j][t] + f[a][i][t1] <= 1);
+								prob->newCtr(s[a][j][t] + f[a][i][t1] <= 1);
 							else
-								ctr = prob->newCtr(("Prec_" + to_string(a) + "_" + to_string(x) + "_" + to_string(t) + "_" + to_string(t1)).c_str(), s[a][j][t] + f[a][i][t1] <= 1);
+								prob->newCtr(("Prec_" + to_string(a) + "_" + to_string(x) + "_" + to_string(t) + "_" + to_string(t1)).c_str(), s[a][j][t] + f[a][i][t1] <= 1);
 						}
 					}
 				}
@@ -473,11 +472,10 @@ private:
 							reald++;
 						}
 
-						XPRBctr ctr;
 						if (NAMES == 0)
-							ctr = prob->newCtr(s[a][i][t1] <= f[a][i][t1 + reald - 1]);
+							prob->newCtr(s[a][i][t1] <= f[a][i][t1 + reald - 1]);
 						else
-							ctr = prob->newCtr(("Dur_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t1)).c_str(), s[a][i][t1] <= f[a][i][t1 + reald - 1]);
+							prob->newCtr(("Dur_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t1)).c_str(), s[a][i][t1] <= f[a][i][t1 + reald - 1]);
 					}
 					else if (mode % 2 == 1) // (s_a_i_t1 + f_a_i_t1 - 1) * d_i <= (s_a_i_t1 + f_a_i_t2)/2 * weather /forall t2
 					{
@@ -487,11 +485,10 @@ private:
 							for (int t3 = t1; t3 <= t2; ++t3)
 								weather += OMEGA[i][t3];
 
-							XPRBctr ctr;
 							if (NAMES == 0)
-								ctr = prob->newCtr((f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1));
+								prob->newCtr((f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1));
 							else
-								ctr = prob->newCtr(("Dur_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t1) + "_" + to_string(t2)).c_str(), (f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1));
+								prob->newCtr(("Dur_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t1) + "_" + to_string(t2)).c_str(), (f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1));
 						}
 					}
 				}
@@ -631,8 +628,6 @@ int main(int argc, char** argv)
 
 	for (int mode = 0; mode < NMODES; ++mode)
 	{
-		// TODO: Fix mode depending on what I want to do
-
 		cout << "----------------------------------------------------------------------------------------" << endl;
 		cout << "MODE: " << mode << endl;
 
@@ -642,7 +637,7 @@ int main(int argc, char** argv)
 		if (NAMES == 0)
 			probs[mode].setDictionarySize(XPRB_DICT_NAMES, 0);
 
-		problemGen.genProblem(&probs[mode], 1);
+		problemGen.genProblem(&probs[mode], mode);
 		problemSolver.solveProblem(&probs[mode], name);
 		outputPrinter.printOutput(&probs[mode]);
 
