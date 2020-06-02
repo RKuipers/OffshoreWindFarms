@@ -18,6 +18,7 @@ using namespace ::dashoptimization;
 #define NCUTMODES 6
 #define NMODES NCUTMODES // Product of all mode types
 #define NSETTINGS NCUTMODES // Sum of all mode types
+string settingNames[NSETTINGS] = { "Sets", "Dur", "Res", "Onl", "No Cuts", "Sets&Dur" };
 #define WEATHERTYPE 1
 #define VERBOSITY 0
 #define NAMES 1
@@ -146,7 +147,7 @@ private:
 	}
 
 public:
-	void printOutput(XPRBprob* prob)
+	void printProbOutput(XPRBprob* prob)
 	{
 		ofstream file;
 		file.open(OUTPUTFILE);
@@ -157,6 +158,32 @@ public:
 		printTasks(&file);
 
 		file.close();
+	}
+
+	void printModeOutput(double* durs, bool opt)
+	{
+		cout << "----------------------------------------------------------------------------------------" << endl;
+
+#ifdef OPTIMAL
+		if (opt)
+			cout << "All solutions are optimal" << endl;
+		else
+			cout << "Not all solutions are optimal" << endl;
+#endif // OPTIMAL
+
+		double tots[NSETTINGS];
+		for (int i = 0; i < NSETTINGS; ++i)
+			tots[i] = 0.0;
+
+		for (int i = 0; i < NCUTMODES; ++i)
+		{
+			cout << "MODE: " << settingNames[i] << " DUR: " << durs[i] << endl;
+
+			tots[i] += durs[i];
+		}
+
+		/*for (int i = 0; i < NCUTMODES; ++i)
+			cout << "SETTING: " << names[i] << " DUR: " << tots[i] / (NMODES / NCUTMODES) << endl;*/
 	}
 
 	int printer(string s, int verbosity, bool end = true)
@@ -699,7 +726,7 @@ int main(int argc, char** argv)
 		problemSolver.solveProblem(&probs[mode], name);
 		problemGen.genFullProblem(&probs[mode], mode);
 		problemSolver.solveProblem(&probs[mode], name);
-		outputPrinter.printOutput(&probs[mode]);
+		outputPrinter.printProbOutput(&probs[mode]);
 
 #ifdef OPTIMAL
 		opt &= round(probs[mode].getObjVal()) == OPTIMAL;
@@ -711,31 +738,8 @@ int main(int argc, char** argv)
 
 		probs[mode].reset();
 	}
-	
-	cout << "----------------------------------------------------------------------------------------" << endl;
 
-#ifdef OPTIMAL
-	if (opt)
-		cout << "All solutions are optimal" << endl;
-	else
-		cout << "Not all solutions are optimal" << endl;
-#endif // OPTIMAL
-
-	double tots[NSETTINGS];
-	for (int i = 0; i < NSETTINGS; ++i)
-		tots[i] = 0.0;
-
-	string names[NSETTINGS] = { "Sets", "Dur", "Res", "Onl", "No Cuts", "Sets&Dur" };
-
-	for (int i = 0; i < NCUTMODES; ++i)
-	{
-		cout << "MODE: " << names[i] << " DUR: " << durs[i] << endl;
-
-		tots[i] += durs[i];
-	}
-
-	/*for (int i = 0; i < NCUTMODES; ++i)
-		cout << "SETTING: " << names[i] << " DUR: " << tots[i] / (NMODES / NCUTMODES) << endl;*/
+	outputPrinter.printModeOutput(durs, opt);
 
 	return 0;
 }
