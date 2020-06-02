@@ -15,9 +15,9 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-#define NMODES 4
+#define NMODES 24
 #define WEATHERTYPE 1
-#define VERBOSITY 1
+#define VERBOSITY 0
 #define NAMES 1
 #define DATAFILE "installWeek.dat"
 #define OUTPUTFILE "install.sol"
@@ -340,6 +340,7 @@ public:
 class ProblemGen
 {
 private:
+
 	XPRBctr genCon(XPRBprob* prob, const XPRBrelation& ac, string base, int nInd, int* indices)
 	{
 		if (NAMES == 0)
@@ -404,69 +405,111 @@ private:
 		prob->setObj(Obj); // Set the objective function
 	}
 
-	void genSetConstraints(XPRBprob* prob)
+	void genSetConstraints(XPRBprob* prob, int mode, bool ctrForce = false)
 	{
 		// Forces every task to start and end
 		for (int a = 0; a < NASSETS; ++a)
 			for (int i = 0; i < NTASKS; ++i)
 			{
-				XPRBctr ctrs, ctrf;
-				int indices[2] = { a, i };
-				ctrs = genCon(prob, s[a][i][0] == 1, "Sta", 2, indices);
-				ctrf = genCon(prob, f[a][i][0] == 1, "Fin", 2, indices);
-
-				for (int t = 1; t < NTIMES; ++t)
+				if (mode % 6 == 0 && !ctrForce)
 				{
-					ctrs.addTerm(s[a][i][t]);
-					ctrf.addTerm(f[a][i][t]);
+					XPRBcut ctrs, ctrf;
+					int indices[2] = { a, i };
+					ctrs = prob->newCut(s[a][i][0] == 1);
+					ctrf = prob->newCut(f[a][i][0] == 1);
+
+					for (int t = 1; t < NTIMES; ++t)
+					{
+						ctrs.addTerm(s[a][i][t]);
+						ctrf.addTerm(f[a][i][t]);
+					}
+				}
+				else
+				{
+					XPRBctr ctrs, ctrf;
+					int indices[2] = { a, i };
+					ctrs = genCon(prob, s[a][i][0] == 1, "Sta", 2, indices);
+					ctrf = genCon(prob, f[a][i][0] == 1, "Fin", 2, indices);
+
+					for (int t = 1; t < NTIMES; ++t)
+					{
+						ctrs.addTerm(s[a][i][t]);
+						ctrf.addTerm(f[a][i][t]);
+					}
 				}
 			}
 	}
 
-	void genPrecedenceConstraints(XPRBprob* prob, int mode)
+	void genPrecedenceConstraints(XPRBprob* prob, int mode, bool ctrForce = false)
 	{
+		int m1 = mode / 6;
+
 		// Precedence constraints
 		for (int a = 0; a < NASSETS; ++a)
 			for (int x = 0; x < NIP; ++x)
 				for (int t = 0; t < NTIMES; ++t)
 				{
-					if (mode <= 1) // sum_t1=t0^t s_a_j_t1 <= sum_t1=t0^t f_a_i_t1
+					if (m1 % 2 == 0) // sum_t1=t0^t s_a_j_t1 <= sum_t1=t0^t f_a_i_t1
 					{
-						XPRBctr ctr;
-						int i, j;
-						tie(i, j) = IP[x];
-
-						int indices[3] = { a, x, t };
-						ctr = genCon(prob, s[a][j][t] <= f[a][i][t], "Pre", 3, indices);
-
-						for (int t1 = 0; t1 < t; ++t1)
+						if (mode % 6 == 1 && !ctrForce)
 						{
-							ctr.addTerm(s[a][j][t1]);
-							ctr.addTerm(f[a][i][t1], -1);
+							XPRBcut cut;
+							int i, j;
+							tie(i, j) = IP[x];
+
+							cut = prob->newCut(s[a][j][t] <= f[a][i][t]);
+
+							for (int t1 = 0; t1 < t; ++t1)
+							{
+								cut.addTerm(s[a][j][t1]);
+								cut.addTerm(f[a][i][t1], -1);
+							}
+						}
+						else
+						{
+							XPRBctr ctr;
+							int i, j;
+							tie(i, j) = IP[x];
+
+							int indices[3] = { a, x, t };
+							ctr = genCon(prob, s[a][j][t] <= f[a][i][t], "Pre", 3, indices);
+
+							for (int t1 = 0; t1 < t; ++t1)
+							{
+								ctr.addTerm(s[a][j][t1]);
+								ctr.addTerm(f[a][i][t1], -1);
+							}
 						}
 					}
-					else if (mode >= 2) // s_a_j_t + f_a_t_t1 <= 1    \forall t1
+					else if (m1 % 2 == 1) // s_a_j_t + f_a_t_t1 <= 1    \forall t1
 					{
 						for (int t1 = t; t1 < NTIMES; ++t1)
 						{
 							int i, j;
 							tie(i, j) = IP[x];
 
-							int indices[4] = { a, x, t, t1 };
-							genCon(prob, s[a][j][t] + f[a][i][t1] <= 1, "Pre", 4, indices);
+							if (mode % 6 == 1 && !ctrForce)
+								prob->newCut(s[a][j][t] + f[a][i][t1] <= 1);
+							else
+							{
+								int indices[4] = { a, x, t, t1 };
+								genCon(prob, s[a][j][t] + f[a][i][t1] <= 1, "Pre", 4, indices);
+							}
 						}
 					}
 				}
 	}
 
-	void genDurationConstraints(XPRBprob* prob, int mode)
+	void genDurationConstraints(XPRBprob* prob, int mode, bool ctrForce = false)
 	{
+		int m1 = mode / 12;
+
 		// Duration constraints
 		for (int a = 0; a < NASSETS; ++a)
 			for (int i = 0; i < NTASKS; ++i)
 				for (int t1 = 0; t1 < NTIMES; ++t1)
 				{
-					if (mode % 2 == 0) // s_a_i_t1 <= f_a_i_(t1+d_i+weatherdelay)
+					if (m1 % 2 == 0) // s_a_i_t1 <= f_a_i_(t1+d_i+weatherdelay)
 					{
 						int worked = 0, reald = 0;
 						while (worked < d[i])
@@ -477,9 +520,12 @@ private:
 						}
 
 						int indices[3] = { a, i, t1 };
-						genCon(prob, s[a][i][t1] <= f[a][i][t1 + reald - 1], "Dur", 3, indices);
+						if (mode % 6 == 2 && !ctrForce)
+							prob->newCut(s[a][i][t1] <= f[a][i][t1 + reald - 1]);
+						else
+							genCon(prob, s[a][i][t1] <= f[a][i][t1 + reald - 1], "Dur", 3, indices);
 					}
-					else if (mode % 2 == 1) // (s_a_i_t1 + f_a_i_t1 - 1) * d_i <= (s_a_i_t1 + f_a_i_t2)/2 * weather /forall t2
+					else if (m1 % 2 == 1) // (s_a_i_t1 + f_a_i_t1 - 1) * d_i <= (s_a_i_t1 + f_a_i_t2)/2 * weather /forall t2
 					{
 						for (int t2 = 0; t2 < NTIMES; ++t2)
 						{
@@ -488,90 +534,167 @@ private:
 								weather += OMEGA[i][t3];
 
 							int indices[4] = { a, i, t1, t2 };
-							genCon(prob, (f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1), "Dur", 4, indices);
+							if (mode % 6 == 2 && !ctrForce)
+								prob->newCut((f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1));
+							else
+								genCon(prob, (f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1), "Dur", 4, indices);
 						}
 					}
 				}
 
-		
+
 	}
 
-	void genResourceConstraints(XPRBprob* prob)
+	void genResourceConstraints(XPRBprob* prob, int mode, bool ctrForce = false)
 	{
 		// Resource amount link
 		for (int r = 0; r < NRES; ++r)
 			for (int p = 0; p < NPERIODS; ++p)
 				for (int t = p * TPP; t < (p + 1) * TPP; ++t)
 				{
-					XPRBctr ctr;
-					int indices[2] = { r, t };
-					if (t == 0)
+					if (mode % 6 == 3 && !ctrForce)
 					{
-						ctr = genCon(prob, n[r][t] == 0, "Nee", 2, indices);
-
-						for (int i = 0; i < NTASKS; ++i)
+						XPRBcut cut;
+						if (t == 0)
 						{
-							if (rho[r][i] == 0)
-								continue;
+							cut = prob->newCut(n[r][t] == 0);
 
-							for (int a = 0; a < NASSETS; a++)
-								ctr.addTerm(s[a][i][t], -rho[r][i]);
+							for (int i = 0; i < NTASKS; ++i)
+							{
+								if (rho[r][i] == 0)
+									continue;
+
+								for (int a = 0; a < NASSETS; a++)
+									cut.addTerm(s[a][i][t], -rho[r][i]);
+							}
+						}
+						else
+						{
+							cut = prob->newCut(n[r][t] - n[r][t - 1] == 0);
+
+							for (int i = 0; i < NTASKS; ++i)
+							{
+								if (rho[r][i] == 0)
+									continue;
+
+								for (int a = 0; a < NASSETS; a++)
+								{
+									cut.addTerm(s[a][i][t], -rho[r][i]);
+									cut.addTerm(f[a][i][t - 1], rho[r][i]);
+								}
+							}
 						}
 					}
 					else
 					{
-						ctr = genCon(prob, n[r][t] - n[r][t - 1] == 0, "Nee", 2, indices);
-
-						for (int i = 0; i < NTASKS; ++i)
+						XPRBctr ctr;
+						int indices[2] = { r, t };
+						if (t == 0)
 						{
-							if (rho[r][i] == 0)
-								continue;
+							ctr = genCon(prob, n[r][t] == 0, "Nee", 2, indices);
 
-							for (int a = 0; a < NASSETS; a++)
+							for (int i = 0; i < NTASKS; ++i)
 							{
-								ctr.addTerm(s[a][i][t], -rho[r][i]);
-								ctr.addTerm(f[a][i][t - 1], rho[r][i]);
+								if (rho[r][i] == 0)
+									continue;
+
+								for (int a = 0; a < NASSETS; a++)
+									ctr.addTerm(s[a][i][t], -rho[r][i]);
+							}
+						}
+						else
+						{
+							ctr = genCon(prob, n[r][t] - n[r][t - 1] == 0, "Nee", 2, indices);
+
+							for (int i = 0; i < NTASKS; ++i)
+							{
+								if (rho[r][i] == 0)
+									continue;
+
+								for (int a = 0; a < NASSETS; a++)
+								{
+									ctr.addTerm(s[a][i][t], -rho[r][i]);
+									ctr.addTerm(f[a][i][t - 1], rho[r][i]);
+								}
 							}
 						}
 					}
 
-					if (NAMES == 0)
-						ctr = prob->newCtr(N[r][p] >= n[r][t]);
+					if (mode % 6 == 3 && !ctrForce)
+					{
+						prob->newCut(N[r][p] >= n[r][t]);
+					}
 					else
-						ctr = prob->newCtr(("Hav_" + to_string(r) + "_" + to_string(p) + "_" + to_string(t)).c_str(), N[r][p] >= n[r][t]);
+					{
+						int indices2[3] = { r, p, t };
+						genCon(prob, N[r][p] >= n[r][t], "Hav", 3, indices2);
+					}
 				}
 	}
 
-	void genOnlineConstraints(XPRBprob* prob)
+	void genOnlineConstraints(XPRBprob* prob, int mode, bool ctrForce = false)
 	{
 		// Online turbines link
 		for (int p = 0; p < NPERIODS; ++p)
 		{
-			XPRBctr ctr;
-			int indices[1] = { p };
-			ctr = genCon(prob, O[p] == 0, "Onl", 1, indices);
+			if (mode % 6 == 4 && !ctrForce)
+			{
+				XPRBcut cut;
+				cut = prob->newCut(O[p] == 0);
 
-			for (int t = 0; t < p * TPP; ++t)
-				for (int a = 0; a < NASSETS; a++)
-					ctr.addTerm(f[a][NTASKS - 1][t], -1);
+				for (int t = 0; t < p * TPP; ++t)
+					for (int a = 0; a < NASSETS; a++)
+						cut.addTerm(f[a][NTASKS - 1][t], -1);
+			}
+			else
+			{
+				XPRBctr ctr;
+				int indices[1] = { p };
+				ctr = genCon(prob, O[p] == 0, "Onl", 1, indices);
+
+				for (int t = 0; t < p * TPP; ++t)
+					for (int a = 0; a < NASSETS; a++)
+						ctr.addTerm(f[a][NTASKS - 1][t], -1);
+			}
 		}
 	}
 
 public:
-	void genProblem(XPRBprob* prob, int mode)
+	void genOriProblem(XPRBprob* prob, int mode)
 	{
-		clock_t start = clock();		
+		clock_t start = clock();
 
 		genDecisionVariables(prob);
 		genObjective(prob);
 
-		outputPrinter.printer("Initialising constraints", 1);
+		outputPrinter.printer("Initialising Original constraints", 1);
 
-		genSetConstraints(prob);
+		genSetConstraints(prob, mode);
 		genPrecedenceConstraints(prob, mode);
 		genDurationConstraints(prob, mode);
-		genResourceConstraints(prob);
-		genOnlineConstraints(prob);
+		genResourceConstraints(prob, mode);
+		genOnlineConstraints(prob, mode);
+
+		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
+		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
+	}
+
+	void genFullProblem(XPRBprob* prob, int mode)
+	{
+		clock_t start = clock();
+
+		outputPrinter.printer("Initialising Full constraints", 1);
+
+		if (mode % 6 == 0)
+			genSetConstraints(prob, mode, true);
+		else if (mode % 6 == 1)
+			genPrecedenceConstraints(prob, mode, true);
+		else if (mode % 6 == 2)
+			genDurationConstraints(prob, mode, true);
+		else if (mode % 6 == 3)
+			genResourceConstraints(prob, mode, true);
+		else if (mode % 6 == 4)
+			genOnlineConstraints(prob, mode, true);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
@@ -614,6 +737,7 @@ int main(int argc, char** argv)
 	outputPrinter = OutputPrinter();
 
 	XPRBprob probs[NMODES];		// Initialize new problems in BCL
+	double durs[NMODES];
 
 	srand(SEED);
 
@@ -630,12 +754,44 @@ int main(int argc, char** argv)
 		if (NAMES == 0)
 			probs[mode].setDictionarySize(XPRB_DICT_NAMES, 0);
 
-		problemGen.genProblem(&probs[mode], mode);
+		clock_t start = clock();
+
+		problemGen.genOriProblem(&probs[mode], mode);
+		problemSolver.solveProblem(&probs[mode], name);
+		problemGen.genFullProblem(&probs[mode], mode);
 		problemSolver.solveProblem(&probs[mode], name);
 		outputPrinter.printOutput(&probs[mode]);
 
+		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
+		cout << "FULL duration: " << duration << " seconds" << endl;
+		durs[mode] = duration;
+
 		probs[mode].reset();
 	}
+	
+	cout << "----------------------------------------------------------------------------------------" << endl;
+
+	double tots[10];
+	for (int i = 0; i < 10; ++i)
+		tots[i] = 0.0;
+
+	for (int i = 0; i < 2; ++i)
+		for (int j = 0; j < 2; ++j)
+			for (int k = 0; k < 6; ++k)
+			{
+				cout << "MODE: " << k << i << j << " (" << (12 * i + 6 * j + k) << ") DUR: " << durs[12 * i + 6 * j + k] << endl;
+
+				tots[i+6] += durs[12 * i + 6 * j + k];
+				tots[j+8] += durs[12 * i + 6 * j + k];
+				tots[k] += durs[12 * i + 6 * j + k];
+			}
+
+	string names[10] = { "Cuts Sets", "Cuts Prec", "Cuts Dur", "Cuts Res", "Cuts Onl", "No Cuts", "Prec 1", "Prec 2", "Dur 1", "Dur 2" };
+
+	for (int i = 0; i < 6; ++i)
+		cout << "SETTING: " << names[i] << " DUR: " << tots[i] / (NMODES / 6) << endl;
+	for (int i = 6; i < 10; ++i)
+		cout << "SETTING: " << names[i] << " DUR: " << tots[i] / (NMODES / 2) << endl;
 
 	return 0;
 }
