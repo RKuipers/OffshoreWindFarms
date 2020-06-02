@@ -1,4 +1,5 @@
 installMonth
+#define DATAFILE "installMonth.dat"
 #define NPERIODS 30
 #define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
@@ -12,6 +13,7 @@ int variety = 51;
 int bonus = -25;
 
 installWeek
+#define DATAFILE "installWeek.dat"
 #define NPERIODS 7
 #define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
@@ -20,11 +22,13 @@ installWeek
 #define NRES 3
 #define NASSETS 2
 #define DIS 0.99
+#define OPTIMAL -631669 // The optimal solution, if known
 int base = 105;
 int variety = 51;
 int bonus = -25;
 
 installSimple
+#define DATAFILE "installSimple.dat"
 #define NPERIODS 3
 #define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
@@ -33,6 +37,7 @@ installSimple
 #define NRES 2
 #define NASSETS 2
 #define DIS 1.0
+#define OPTIMAL -270 // The optimal solution, if known
 int base = 105;
 int variety = 51;
 int bonus = -25;
