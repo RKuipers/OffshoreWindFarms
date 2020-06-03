@@ -34,3 +34,16 @@ Code/x64/Debug/Optimiser.pdb
 Code/.vs/OWF/v16/Browse.VC.opendb
 Code/.vs/OWF/v16/ipch/AutoPCH/37b0d3981935929b/OPTIMISER.ipch
 *.lp
+TimeScheduler/__pycache__/scheduler.cpython-38.pyc
+TimeScheduler/build/scheduler/Analysis-00.toc
+TimeScheduler/build/scheduler/base_library.zip
+TimeScheduler/build/scheduler/EXE-00.toc
+TimeScheduler/build/scheduler/PKG-00.pkg
+TimeScheduler/build/scheduler/PKG-00.toc
+TimeScheduler/build/scheduler/PYZ-00.pyz
+TimeScheduler/build/scheduler/PYZ-00.toc
+TimeScheduler/build/scheduler/scheduler.exe.manifest
+TimeScheduler/build/scheduler/warn-scheduler.txt
+TimeScheduler/build/scheduler/xref-scheduler.html
+TimeScheduler/dist/scheduler.exe
+TimeScheduler/scheduler.spec

@@ -38,7 +38,8 @@ class Settings:
     #Dimension Weights (6th is Mins, 7th is Ratio)
     dw = [1, 1.25, 1, 0, 1.5, 1.5, 2]
     #Minute range and default
-    mr = 15  
+    mlr = 15  
+    mhr = 15  
     md = 360
     #Ratio range
     rl = 0.6
@@ -50,8 +51,10 @@ class Settings:
         self.target = Settings.targets.get(3)
         self.weights = Settings.dw
         self.mins = Settings.md
-        self.ml = self.mins - Settings.mr
-        self.mh = self.mins + Settings.mr
+        self.mlr = Settings.mlr
+        self.mhr = Settings.mhr
+        self.ml = self.mins - self.mlr
+        self.mh = self.mins + self.mhr
         self.rl = Settings.rl
         self.rh = Settings.rh
         
@@ -82,8 +85,8 @@ class Settings:
     
     def setMins1(self, minutes: int) -> None:
         self.mins = minutes        
-        self.ml = minutes - Settings.mr
-        self.mh = minutes + Settings.mr
+        self.ml = minutes - self.mlr
+        self.mh = minutes + self.mhr
         
     def setMins2(self, low: int, high: int) -> None:
         self.ml = low
@@ -226,16 +229,17 @@ class RatioCompare(ICompare):
             return s2
 
 class DistanceCompare(ICompare):
-    def calcAttributeScore(v: int, n: int, l: int, h: int, w: float) -> float:
+    def calcAttributeScore(v: float, n: float, l: float, h: float, w: float) -> float:
         dis = v - n
         if (dis > 0):
             rang = h - n
         elif (dis < 0):                
             rang = l - n
+        if (not dis == 0):
+            normDis = dis / rang
         else:
-            return 0
-        normDis = dis / rang
-        score = pow(3, (1 + normDis))
+            normDis = 0
+        score = pow(4, (1 + normDis)) - 4
         return score * w
     
     def calcScore(self, s: Solution) -> float:
@@ -361,8 +365,23 @@ def modifySettings() -> None:
         elif "." in inp:
             SETS.setRatioTarget(float(inp))
         else:
-            SETS.setRatioTarget(Settings.targets.get(int(inp)))
-        
+            SETS.setRatioTarget(Settings.targets.get(int(inp)))            
+    
+    print ("Enter the minute ranges")
+    print ("Current low, and high:")
+    print (str(SETS.mlr) + ", " + str(SETS.mhr))
+    
+    inp = ""
+    while inp.count(" ") < 1:
+        if inp == "k":
+            break
+        if not inp == "":
+            print ("Invalid input")
+        inp = input()
+    
+    if not inp == "k":
+        SETS.mlr = int(inp.split(" ")[0])
+        SETS.mhr = int(inp.split(" ")[1])
     
     print ("Enter the weights as seven values separated by spaces")
     print ("Block Short Long Number Pomos Mins Ratio")
