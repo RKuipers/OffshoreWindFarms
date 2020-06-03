@@ -29,7 +29,7 @@ subject to:
 
 \begin{align}
 1 =& \sum_{t \in T} s_{ait}= \sum_{t \in T} f_{ait}									&	\forall a \in A, \forall i \in I 					\\
-\sum_{t_1 = t_0}^t s_{ajt_1} \leq& \sum_{t_1 = t_0}^t f_{ait_1}											&	\begin{aligned} \forall a \in A, \forall (i, j) \in IP, \\ \forall t \in T\end{aligned} \\
+1 \geq& s_{ajt_1} + f_{ait_2}											&	\begin{aligned} \forall a \in A, \forall (i, j) \in IP, \\ \forall t_1, t_2 \in T | t_2 \geq t_1\end{aligned}  \\
 (s_{ait_1} + f_{ait_2} - 1) \cdot d_i \leq& \frac{s_{ait_1} + f_{ait_2}}{2} \cdot \sum_{t_3 = t_1}^{t_2} \omega_{it_3} & \begin{aligned}\forall a \in A, \forall i \in I, \\ \forall t_1, t_2 \in T \end{aligned} \\
 n_{rt} =& n_{r(t-1)} + \sum_{a \in A}\sum_{i\in I} (\rho_{ir} \cdot (s_{ait} - f_{ai(t-1)}))	& 	\forall r \in R, \forall t \in T	\\
 O_p =&  \sum_{t = t_0}^{t_p} \sum_{a \in A}  f_{ai_Nt}								& \forall p \in P\\
