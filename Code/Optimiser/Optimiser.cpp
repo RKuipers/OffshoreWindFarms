@@ -19,6 +19,7 @@ using namespace ::dashoptimization;
 #define NMODES NCUTMODES // Product of all mode types
 #define NSETTINGS NCUTMODES // Sum of all mode types
 #define WEATHERTYPE 1
+#define CUTMODE 1
 #define VERBOSITY 1
 #define NAMES 1
 #define OUTPUTFILE "install.sol"
@@ -629,6 +630,28 @@ private:
 		}
 	}
 
+	void genCtrByID(XPRBprob* prob, int id)
+	{
+		switch (id)
+		{
+		case 0:
+			genSetConstraints(prob, false);
+			break;
+		case 1:
+			genPrecedenceConstraints(prob, false);
+			break;
+		case 2:
+			genDurationConstraints(prob, false);
+			break;
+		case 3:
+			genResourceConstraints(prob, false);
+			break;
+		case 4:
+			genOnlineConstraints(prob, false);
+			break;
+		}
+	}
+
 public:
 	void genOriProblem(XPRBprob* prob, int mode)
 	{
@@ -648,6 +671,16 @@ public:
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
+	}
+
+	bool addCtr(XPRBprob* prob, int mode, int id)
+	{
+		if ((mode >> id) % 2 == 1)
+		{
+			genCtrByID(prob, id);
+			return true;
+		}
+		return false;
 	}
 
 	void genFullProblem(XPRBprob* prob, int mode)
@@ -717,7 +750,12 @@ int main(int argc, char** argv)
 
 	for (int mode = 0; mode < NMODES; ++mode)
 	{
-		int realMode = 11;
+#if NMODES == 1
+		int realMode = 16;
+#endif // NMODES == 1
+#if NMODES > 1
+		int realMode = mode;
+#endif // NMODES > 1
 
 		cout << "----------------------------------------------------------------------------------------" << endl;
 		cout << "MODE: " << realMode << endl;
@@ -732,8 +770,17 @@ int main(int argc, char** argv)
 
 		problemGen.genOriProblem(&probs[mode], realMode);
 		problemSolver.solveProblem(&probs[mode], name);
+#if CUTMODE == 0
 		problemGen.genFullProblem(&probs[mode], realMode);
 		problemSolver.solveProblem(&probs[mode], name);
+#endif // CUTMODE == 0
+#if CUTMODE == 1
+		for (int i = 0; i < 5; ++i)
+		{
+			if (problemGen.addCtr(&probs[mode], realMode, i))
+				problemSolver.solveProblem(&probs[mode], name);
+		}
+#endif // CUTMODE == 1
 		outputPrinter.printProbOutput(&probs[mode]);
 
 #ifdef OPTIMAL
