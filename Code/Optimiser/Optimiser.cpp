@@ -25,18 +25,19 @@ using namespace ::dashoptimization;
 #define OUTPUTFILE "install.sol"
 
 // Model settings
-#define DATAFILE "installMonth.dat"
-#define NPERIODS 30
-#define TPP 12 // Timesteps per Period
+#define DATAFILE "installSimple.dat"
+#define NPERIODS 3
+#define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 5
-#define NIP 4
-#define NRES 3
-#define NASSETS 5
-#define DIS 0.99
+#define NTASKS 4
+#define NIP 3
+#define NRES 2
+#define NASSETS 2
+#define DIS 1.0
+#define OPTIMAL -270 // The optimal solution, if known
 
 // Weather characteristics
-int base = 105;
+int base = 240;
 int variety = 51;
 int bonus = -25;
 
@@ -45,6 +46,7 @@ int OMEGA[NTASKS][NTIMES];
 int v[NPERIODS];
 int C[NRES][NPERIODS];
 int d[NTASKS];
+int rd[NTASKS][NTIMES];
 int rho[NRES][NTASKS];
 int m[NRES][NPERIODS];
 tuple<int, int> IP[NIP];
@@ -220,7 +222,7 @@ private:
 		int waveHeight[NTIMES];
 		if (WEATHERTYPE == 0)
 		{
-			waveHeight[0] = 120;
+			waveHeight[0] = base;
 
 			outputPrinter.printer("0: " + to_string(waveHeight[0]), 2);
 			for (int t = 1; t < NTIMES; ++t)
@@ -235,7 +237,7 @@ private:
 		{
 			for (int p = 0; p < NPERIODS; ++p)
 			{
-				waveHeight[p * TPP] = 130;
+				waveHeight[p * TPP] = base;
 				outputPrinter.printer(to_string(p * TPP) + ": " + to_string(waveHeight[p * TPP]), 2);
 				for (int t = (p * TPP) + 1; t < (p + 1) * TPP; ++t)
 				{
@@ -255,6 +257,24 @@ private:
 			}
 
 		getline(*datafile, line);
+	}
+
+	void generateRealDurations()
+	{
+		for(int i = 0; i < NTASKS; ++i)
+			for (int t1 = 0; t1 < NTIMES; ++t1)
+			{
+				int worked = 0;
+				int t2;
+				for (t2 = t1; worked < d[i] && t2 > 0; --t2)
+					if (OMEGA[i][t2] == 1)
+						worked++;
+
+				if (worked == d[i])
+					rd[i][t1] = t1 - t2; // TODO: This leads to positive numbers when OMEGA == 0; could turn those to -1 instead as well
+				else
+					rd[i][t1] = -1; // TODO: Check if this value works
+			}
 	}
 
 	void readList(ifstream* datafile, string name, int list[], int n)
@@ -341,6 +361,7 @@ public:
 
 		// Reads d (durations of tasks)
 		readList(&datafile, "DURATIONS", d, NTASKS);
+		generateRealDurations();
 
 		// Reads IP (prerequisite tasks)
 		readIP(&datafile);
