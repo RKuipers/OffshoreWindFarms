@@ -20,7 +20,7 @@ using namespace ::dashoptimization;
 #define NSETTINGS NCUTMODES // Sum of all mode types
 #define WEATHERTYPE 1
 #define CUTMODE 0
-#define VERBOSITY 1
+#define VERBOSITY 5
 #define NAMES 1
 #define OUTPUTFILE "install.sol"
 
