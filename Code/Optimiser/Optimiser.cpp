@@ -222,7 +222,7 @@ private:
 		int waveHeight[NTIMES];
 		if (WEATHERTYPE == 0)
 		{
-			waveHeight[0] = base;
+			waveHeight[0] = 120;
 
 			outputPrinter.printer("0: " + to_string(waveHeight[0]), 2);
 			for (int t = 1; t < NTIMES; ++t)
@@ -237,7 +237,7 @@ private:
 		{
 			for (int p = 0; p < NPERIODS; ++p)
 			{
-				waveHeight[p * TPP] = base;
+				waveHeight[p * TPP] = 130;
 				outputPrinter.printer(to_string(p * TPP) + ": " + to_string(waveHeight[p * TPP]), 2);
 				for (int t = (p * TPP) + 1; t < (p + 1) * TPP; ++t)
 				{
