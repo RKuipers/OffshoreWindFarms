@@ -36,7 +36,7 @@ class Settings:
     4: (320/(4*86 + 135)) 
     }
     #Dimension Weights (6th is Mins, 7th is Ratio)
-    dw = [1, 1.25, 1, 0, 1.5, 1.5, 2]
+    dw = [1, 2, 0.5, 0.1, 1.5, 1.5, 2]
     #Minute range and default
     mlr = 15  
     mhr = 15  
