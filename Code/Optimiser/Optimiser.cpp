@@ -566,7 +566,10 @@ private:
 						{
 							rel.addTerm(s[a][i][t], -rho[r][i]);
 							if (t > 0)
-								rel.addTerm(f[a][i][t - 1], rho[r][i]); // TODO: Update for newDec
+								if (!newDec)
+									rel.addTerm(f[a][i][t - 1], rho[r][i]);
+								else
+									rel.addTerm(s[a][i][t - rd[i][t-1]], rho[r][i]);
 						}
 					}
 
