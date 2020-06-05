@@ -463,35 +463,28 @@ private:
 		for (int a = 0; a < NASSETS; ++a)
 			for (int i = 0; i < NTASKS; ++i)
 			{
+				XPRBrelation rs = s[a][i][0] == 1;
+				XPRBrelation rf = f[a][i][0] == 1;
+
+				for (int t = 1; t < NTIMES; ++t)
+				{
+					rs.addTerm(s[a][i][t]);
+					if (!newDec)
+						rf.addTerm(f[a][i][t]);
+				}
+
 				if (cut)
 				{
-					XPRBcut cuts, cutf;
-					int indices[2] = { a, i };
-					cuts = prob->newCut(s[a][i][0] == 1);
+					prob->newCut(rs);
 					if (!newDec)
-						cutf = prob->newCut(f[a][i][0] == 1);
-
-					for (int t = 1; t < NTIMES; ++t)
-					{
-						cuts.addTerm(s[a][i][t]);
-						if (!newDec)
-							cutf.addTerm(f[a][i][t]);
-					}
+						prob->newCut(rf);
 				}
 				else
 				{
-					XPRBctr ctrs, ctrf;
 					int indices[2] = { a, i };
-					ctrs = genCon(prob, s[a][i][0] == 1, "Sta", 2, indices);
+					genCon(prob, rs, "Sta", 2, indices);
 					if (!newDec)
-						ctrf = genCon(prob, f[a][i][0] == 1, "Fin", 2, indices);
-
-					for (int t = 1; t < NTIMES; ++t)
-					{
-						ctrs.addTerm(s[a][i][t]);
-						if (!newDec)
-							ctrf.addTerm(f[a][i][t]);
-					}
+						genCon(prob, rf, "Fin", 2, indices);
 				}
 			}
 	}
@@ -539,11 +532,13 @@ private:
 						for (int t3 = t1; t3 <= t2; ++t3)
 							weather += OMEGA[i][t3];
 
+						XPRBrelation rel = (f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1);
+
 						int indices[4] = { a, i, t1, t2 };
 						if (cut)
-							prob->newCut((f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1));
+							prob->newCut(rel);
 						else
-							genCon(prob, (f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1), "Dur", 4, indices);
+							genCon(prob, rel, "Dur", 4, indices);
 					}
 				}
 
@@ -599,7 +594,10 @@ private:
 
 			for (int t = 0; t < p * TPP; ++t)
 				for (int a = 0; a < NASSETS; a++)
-					rel.addTerm(f[a][NTASKS - 1][t], -1);
+					if (!newDec)
+						rel.addTerm(f[a][NTASKS - 1][t], -1);
+					else
+						rel.addTerm(s[a][NTASKS - 1][t - rd[NTASKS - 1][t]], -1);
 
 			if (cut)
 				prob->newCut(rel);
