@@ -554,19 +554,19 @@ private:
 				{
 					XPRBrelation rel = n[r][t] == 0;
 
+					if (t > 0)
+						rel.addTerm(n[r][t - 1], -1);
+
 					for (int i = 0; i < NTASKS; ++i)
 					{
 						if (rho[r][i] == 0)
 							continue;
 
 						for (int a = 0; a < NASSETS; a++)
-							rel.addTerm(s[a][i][t], -rho[r][i]);
-
-						if (t > 0)
 						{
-							rel.addTerm(n[r][t - 1], -1);
-							for (int a = 0; a < NASSETS; a++)
-								rel.addTerm(f[a][i][t - 1], rho[r][i]);
+							rel.addTerm(s[a][i][t], -rho[r][i]);
+							if (t > 0)
+								rel.addTerm(f[a][i][t - 1], rho[r][i]); // TODO: Update for newDec
 						}
 					}
 
