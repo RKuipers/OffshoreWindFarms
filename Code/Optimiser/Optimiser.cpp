@@ -16,9 +16,8 @@ using namespace ::dashoptimization;
 // Program settings
 #define SEED 42 * NTIMES
 #define NCUTMODES 1
-#define NDECVAR 2
-#define NMODES NCUTMODES * NDECVAR // Product of all mode types
-#define NSETTINGS NCUTMODES + NDECVAR // Sum of all mode types
+#define NMODES NCUTMODES // Product of all mode types
+#define NSETTINGS NCUTMODES // Sum of all mode types
 #define WEATHERTYPE 1
 #define CUTMODE 0
 #define VERBOSITY 1
