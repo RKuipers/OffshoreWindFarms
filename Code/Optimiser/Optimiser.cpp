@@ -34,8 +34,8 @@ using namespace ::dashoptimization;
 #define NIP 4
 #define NRES 3
 #define NASSETS 2
-#define DIS 0.99
-#define OPTIMAL -631669 // The optimal solution, if known
+#define DIS 0.999
+#define OPTIMAL -504430 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
