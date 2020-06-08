@@ -18,7 +18,7 @@ using namespace ::dashoptimization;
 #define NCUTMODES 1
 #define NDECVAR 2
 #define NMODES NCUTMODES * NDECVAR // Product of all mode types
-#define NSETTINGS NCUTMODES + NDECVAR // Sum of all mode types
+#define NSETTINGS NDECVAR // Sum of all mode types
 #define WEATHERTYPE 1
 #define CUTMODE 0
 #define VERBOSITY 1
@@ -47,7 +47,7 @@ int OMEGA[NTASKS][NTIMES];
 int v[NPERIODS];
 int C[NRES][NPERIODS];
 int d[NTASKS];
-int rd[NTASKS][NTIMES];
+int sa[NTASKS][NTIMES];
 int rho[NRES][NTASKS];
 int m[NRES][NPERIODS];
 tuple<int, int> IP[NIP];
@@ -118,8 +118,10 @@ private:
 		}
 	}
 
-	void printTasks(ofstream* file)
+	void printTasks(ofstream* file, int mode)
 	{
+		bool fs = mode % 2 == 0;
+
 		cout << "Start and finish time per asset and task: " << endl;
 		for (int a = 0; a < NASSETS; ++a)
 		{
@@ -132,16 +134,31 @@ private:
 				for (int t = 0; t < NTIMES; ++t)
 				{
 					int sv = round(s[a][i][t].getSol());
-					int fv = round(f[a][i][t].getSol());
 
 					*file << "s_" << a << "_" << i << "_" << t << ": " << sv << endl;
-					*file << "f_" << a << "_" << i << "_" << t << ": " << fv << endl;
 
 					if (sv == 1)
 						start = t;
-					if (fv == 1)
-						finish = t;
+
+					if (fs)
+					{
+						int fv = round(f[a][i][t].getSol());
+
+						*file << "f_" << a << "_" << i << "_" << t << ": " << fv << endl;
+
+						if (fv == 1)
+							finish = t;
+					}
 				}
+
+				if (!fs)
+					for (int t1 = start + d[i] - 1; t1 < NTIMES; ++t1)
+						if (sa[i][t1] == start)
+						{
+							finish = t1;
+							break;
+						}
+
 				cout << i << ": " << start << " " << finish << endl;
 				*file << "Asset " << a << " task " << i << ": " << start << " " << finish << endl;
 			}
@@ -149,7 +166,7 @@ private:
 	}
 
 public:
-	void printProbOutput(XPRBprob* prob)
+	void printProbOutput(XPRBprob* prob, int mode)
 	{
 		ofstream file;
 		file.open(OUTPUTFILE);
@@ -157,7 +174,7 @@ public:
 		printObj(&file, prob);
 		printTurbines(&file);
 		printResources(&file);
-		printTasks(&file);
+		printTasks(&file, mode);
 
 		file.close();
 	}
@@ -177,7 +194,7 @@ public:
 		for (int i = 0; i < NSETTINGS; ++i)
 			tots[i] = 0.0;
 
-		for (int i = 0; i < NCUTMODES; ++i)
+		for (int i = 0; i < NDECVAR; ++i)
 		{
 			cout << "MODE: " << i << " DUR: " << durs[i] << endl;
 
@@ -260,21 +277,21 @@ private:
 		getline(*datafile, line);
 	}
 
-	void generateRealDurations()
+	void generateStartAtValues()
 	{
 		for(int i = 0; i < NTASKS; ++i)
 			for (int t1 = 0; t1 < NTIMES; ++t1)
 			{
 				int worked = 0;
 				int t2;
-				for (t2 = t1; worked < d[i] && t2 > 0; --t2)
+				for (t2 = t1; worked < d[i] && t2 >= 0; --t2)
 					if (OMEGA[i][t2] == 1)
 						worked++;
 
 				if (worked == d[i])
-					rd[i][t1] = t1 - t2; // TODO: This leads to positive numbers when OMEGA == 0; could turn those to -1 instead as well
+					sa[i][t1] = t2 + 1; // TODO: This leads to positive numbers when OMEGA == 0; could turn those to -1 instead as well
 				else
-					rd[i][t1] = -1; // TODO: Check if this value works
+					sa[i][t1] = -1; // TODO: Check if this value works
 			}
 	}
 
@@ -362,7 +379,7 @@ public:
 
 		// Reads d (durations of tasks)
 		readList(&datafile, "DURATIONS", d, NTASKS);
-		generateRealDurations();
+		generateStartAtValues();
 
 		// Reads IP (prerequisite tasks)
 		readIP(&datafile);
@@ -466,9 +483,15 @@ private:
 				XPRBrelation rs = s[a][i][0] == 1;
 				XPRBrelation rf = f[a][i][0] == 1;
 
+				int maxT = sa[i][NTIMES - 1];
+
 				for (int t = 1; t < NTIMES; ++t)
 				{
-					rs.addTerm(s[a][i][t]);
+					if (!newDec || (t <= maxT))
+						rs.addTerm(s[a][i][t]);
+					else
+						s[a][i][t].setUB(0);
+
 					if (!newDec)
 						rf.addTerm(f[a][i][t]);
 				}
@@ -500,11 +523,13 @@ private:
 						int i, j;
 						tie(i, j) = IP[x];
 
-						const XPRBrelation oldRel = s[a][j][t1] + f[a][i][t2] <= 1;
-						const XPRBrelation newRel = s[a][j][t1] + s[a][i][t2 - rd[i][t2]] <= 1;
-						XPRBrelation& rel = const_cast<XPRBrelation&>(oldRel);
-						if (newDec)
-							rel = const_cast<XPRBrelation&>(newRel);
+						XPRBrelation rel = s[a][j][t1] <= 1;
+						if (!newDec)
+							rel.addTerm(f[a][i][t2], 1);
+						else if (sa[i][t2] > -1)
+							rel.addTerm(s[a][i][sa[i][t2]], 1);
+						else
+							continue;
 
 						if (cut)
 							prob->newCut(rel);
@@ -568,8 +593,10 @@ private:
 							if (t > 0)
 								if (!newDec)
 									rel.addTerm(f[a][i][t - 1], rho[r][i]);
+								else if (sa[i][t-1] > -1)
+									rel.addTerm(s[a][i][sa[i][t-1]], rho[r][i]);
 								else
-									rel.addTerm(s[a][i][t - rd[i][t-1]], rho[r][i]);
+									continue;
 						}
 					}
 
@@ -599,8 +626,10 @@ private:
 				for (int a = 0; a < NASSETS; a++)
 					if (!newDec)
 						rel.addTerm(f[a][NTASKS - 1][t], -1);
+					else if (sa[NTASKS - 1][t] > -1)
+						rel.addTerm(s[a][NTASKS - 1][sa[NTASKS - 1][t]], -1);
 					else
-						rel.addTerm(s[a][NTASKS - 1][t - rd[NTASKS - 1][t]], -1);
+						continue;
 
 			if (cut)
 				prob->newCut(rel);
@@ -769,7 +798,7 @@ int main(int argc, char** argv)
 				problemSolver.solveProblem(&probs[mode], name);
 		}
 #endif // CUTMODE == 1
-		outputPrinter.printProbOutput(&probs[mode]);
+		outputPrinter.printProbOutput(&probs[mode], realMode);
 
 #ifdef OPTIMAL
 		opt &= round(probs[mode].getObjVal()) == OPTIMAL;
