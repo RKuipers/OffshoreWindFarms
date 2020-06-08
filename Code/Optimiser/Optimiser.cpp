@@ -26,16 +26,16 @@ using namespace ::dashoptimization;
 #define OUTPUTFILE "install.sol"
 
 // Model settings
-#define DATAFILE "installSimple.dat"
-#define NPERIODS 3
-#define TPP 4 // Timesteps per Period
+#define DATAFILE "installWeek.dat"
+#define NPERIODS 7
+#define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 4
-#define NIP 3
-#define NRES 2
+#define NTASKS 5
+#define NIP 4
+#define NRES 3
 #define NASSETS 2
-#define DIS 1.0
-#define OPTIMAL -270 // The optimal solution, if known
+#define DIS 0.99
+#define OPTIMAL -631669 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -282,6 +282,12 @@ private:
 		for(int i = 0; i < NTASKS; ++i)
 			for (int t1 = 0; t1 < NTIMES; ++t1)
 			{
+				if (OMEGA[i][t1] == 0)
+				{
+					sa[i][t1] = -1;
+					continue;
+				}
+
 				int worked = 0;
 				int t2;
 				for (t2 = t1; worked < d[i] && t2 >= 0; --t2)
