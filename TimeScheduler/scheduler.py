@@ -282,7 +282,14 @@ def getInput() -> dt.timedelta:
 
     if not debug:
         print ("What time do you need to be done? (HH:MM)")
-        endstr = input()
+        
+        inp = ""
+        while inp.count(":") < 1:
+            if not inp == "":
+                print ("Invalid input")
+            inp = input()
+        
+        endstr = inp
         start = now.time()
         if endstr.count(":") == 1:
             SETS.setMins1(inpStr2min(endstr, start))
@@ -358,12 +365,14 @@ def modifySettings() -> None:
             if not "." in l:
                 l = Settings.targets.get(int(l))
             if not "." in t:
-                l = Settings.targets.get(int(t))
+                t = Settings.targets.get(int(t))
             if not "." in h:
-                l = Settings.targets.get(int(h))
+                h = Settings.targets.get(int(h))
             SETS.setRatioValues(float(l), float(t), float(h))
         elif "." in inp:
             SETS.setRatioTarget(float(inp))
+        elif inp == "n" or inp == "d":
+            SETS.setRatioTarget(Settings.targets.get(3)) 
         else:
             SETS.setRatioTarget(Settings.targets.get(int(inp)))            
     
@@ -373,15 +382,19 @@ def modifySettings() -> None:
     
     inp = ""
     while inp.count(" ") < 1:
-        if inp == "k":
+        if inp == "k" or inp == "n" or inp == "d":
             break
         if not inp == "":
             print ("Invalid input")
         inp = input()
     
     if not inp == "k":
-        SETS.mlr = int(inp.split(" ")[0])
-        SETS.mhr = int(inp.split(" ")[1])
+        if inp == "n" or inp == "d":
+            SETS.mlr = Settings.mlr
+            SETS.mhr = Settings.mhr    
+        else:
+            SETS.mlr = int(inp.split(" ")[0])
+            SETS.mhr = int(inp.split(" ")[1])
     
     print ("Enter the weights as seven values separated by spaces")
     print ("Block Short Long Number Pomos Mins Ratio")
@@ -389,15 +402,19 @@ def modifySettings() -> None:
     
     inp = ""
     while inp.count(" ") < 6:
-        if inp == "k":
+        if inp == "k" or inp == "n" or inp == "d":
             break
         if not inp == "":
             print ("Invalid input")
         inp = input()
     
     if not inp == "k":
-        spl = inp.split(" ")
-        SETS.setWeights(list(map(float, spl)))
+        if inp == "n" or inp == "d":
+            spl = inp.split(" ")
+            SETS.setWeights(Settings.dw)   
+        else:
+            spl = inp.split(" ")
+            SETS.setWeights(list(map(float, spl)))
 
 def reRun(sol: Solution) -> bool:
     global modify

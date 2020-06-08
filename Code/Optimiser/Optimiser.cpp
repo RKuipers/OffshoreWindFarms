@@ -15,27 +15,27 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-#define NCUTMODES 1
+#define NCUTMODES 32
 #define NDECVAR 2
 #define NMODES NCUTMODES * NDECVAR // Product of all mode types
-#define NSETTINGS NDECVAR // Sum of all mode types
+#define NSETTINGS NCUTMODES + NDECVAR // Sum of all mode types
 #define WEATHERTYPE 1
 #define CUTMODE 0
-#define VERBOSITY 1
+#define VERBOSITY 0
 #define NAMES 1
 #define OUTPUTFILE "install.sol"
 
 // Model settings
-#define DATAFILE "installWeek.dat"
-#define NPERIODS 7
-#define TPP 12 // Timesteps per Period
+#define DATAFILE "installSimple.dat"
+#define NPERIODS 3
+#define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 5
-#define NIP 4
-#define NRES 3
+#define NTASKS 4
+#define NIP 3
+#define NRES 2
 #define NASSETS 2
-#define DIS 0.999
-#define OPTIMAL -504430 // The optimal solution, if known
+#define DIS 1.0
+#define OPTIMAL -270 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -194,15 +194,22 @@ public:
 		for (int i = 0; i < NSETTINGS; ++i)
 			tots[i] = 0.0;
 
-		for (int i = 0; i < NDECVAR; ++i)
+		for (int i = 0; i < NMODES; ++i)
 		{
 			cout << "MODE: " << i << " DUR: " << durs[i] << endl;
 
-			tots[i] += durs[i];
+			int cutSetting = i % NCUTMODES;
+			int decSetting = i >> 5;
+
+			tots[cutSetting] += durs[i];
+			tots[decSetting + NCUTMODES] += durs[i];
 		}
 
-		/*for (int i = 0; i < NCUTMODES; ++i)
-			cout << "SETTING: " << names[i] << " DUR: " << tots[i] / (NMODES / NCUTMODES) << endl;*/
+		for (int i = 0; i < NCUTMODES; ++i)
+			cout << "SETTING: " << i << " DUR: " << tots[i] / (NMODES / NCUTMODES) << endl;
+
+		for (int i = NCUTMODES; i < NDECVAR + NCUTMODES; ++i)
+			cout << "SETTING: " << i << " DUR: " << tots[i] / (NMODES / NDECVAR) << endl;
 	}
 
 	int printer(string s, int verbosity, bool end = true)
@@ -674,22 +681,16 @@ public:
 	{
 		clock_t start = clock();
 
-		genDecisionVariables(prob, mode == 1);
+		genDecisionVariables(prob, (mode >> 5) % 2 == 1);
 		genObjective(prob);
 
 		outputPrinter.printer("Initialising Original constraints", 1);
 
-		/*genSetConstraints(prob, mode % 2 == 1);
-		genPrecedenceConstraints(prob, (mode >> 1) % 2 == 1);
-		genDurationConstraints(prob, (mode >> 2) % 2 == 1);
-		genResourceConstraints(prob, (mode >> 3) % 2 == 1);
-		genOnlineConstraints(prob, (mode >> 4) % 2 == 1);*/
-
-		genSetConstraints(prob, false, mode == 1);
-		genPrecedenceConstraints(prob, false, mode == 1);
-		genDurationConstraints(prob, false, mode == 1);
-		genResourceConstraints(prob, false, mode == 1);
-		genOnlineConstraints(prob, true, mode == 1); // Fixed on CUTMODE 16
+		genSetConstraints(prob, mode % 2 == 1, (mode >> 5) % 2 == 1);
+		genPrecedenceConstraints(prob, (mode >> 1) % 2 == 1, (mode >> 5) % 2 == 1);
+		genDurationConstraints(prob, (mode >> 2) % 2 == 1, (mode >> 5) % 2 == 1);
+		genResourceConstraints(prob, (mode >> 3) % 2 == 1, (mode >> 5) % 2 == 1);
+		genOnlineConstraints(prob, (mode >> 4) % 2 == 1, (mode >> 5) % 2 == 1);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
@@ -711,17 +712,16 @@ public:
 
 		outputPrinter.printer("Initialising Full constraints", 1);
 
-		/*if (mode % 2 == 1)
-			genSetConstraints(prob, false);
+		if (mode % 2 == 1)
+			genSetConstraints(prob, false, (mode >> 5) % 2 == 1);
 		if ((mode >> 1) % 2 == 1)
-			genPrecedenceConstraints(prob, false);
+			genPrecedenceConstraints(prob, false, (mode >> 5) % 2 == 1);
 		if ((mode >> 2) % 2 == 1)
-			genDurationConstraints(prob, false);
+			genDurationConstraints(prob, false, (mode >> 5) % 2 == 1);
 		if ((mode >> 3) % 2 == 1)
-			genResourceConstraints(prob, false);
+			genResourceConstraints(prob, false, (mode >> 5) % 2 == 1);
 		if ((mode >> 4) % 2 == 1)
-			genOnlineConstraints(prob, false);*/
-		genOnlineConstraints(prob, false, mode == 1); // Fixed on CUTMODE 16
+			genOnlineConstraints(prob, false, (mode >> 5) % 2 == 1);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
