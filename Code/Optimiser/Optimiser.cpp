@@ -56,7 +56,6 @@ XPRBvar O[NPERIODS];
 XPRBvar N[NRES][NPERIODS];
 XPRBvar n[NRES][NTIMES];
 XPRBvar s[NASSETS][NTASKS][NTIMES];
-XPRBvar f[NASSETS][NTASKS][NTIMES];
 
 class OutputPrinter
 {
@@ -478,7 +477,6 @@ private:
 			for (int i = 0; i < NTASKS; ++i)
 			{
 				XPRBrelation rs = s[a][i][0] == 1;
-				XPRBrelation rf = f[a][i][0] == 1;
 
 				int maxT = sa[i][NTIMES - 1];
 
