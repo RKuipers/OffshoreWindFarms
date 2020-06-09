@@ -57,6 +57,78 @@ XPRBvar N[NRES][NPERIODS];
 XPRBvar n[NRES][NTIMES];
 XPRBvar s[NASSETS][NTASKS][NTIMES];
 
+class Mode 
+{
+	class ModeDim
+	{
+	protected:
+		int curr, max;
+
+	public:
+		ModeDim(int max = 2)
+		{
+			this->curr = 0;
+			this->max = max;
+		}
+
+		int next() 
+		{
+			if (curr + 1 < max)
+			{
+				++curr;
+				return curr;
+			}
+			else
+			{
+				curr = 0;
+				return -1;
+			}
+		}
+
+		int getCurr()
+		{
+			return curr;
+		}
+		
+		/*string getName(int index = -1)
+		{
+			if (index == -1)
+				return names[curr];
+			else
+				return names[index];
+		}*/
+	};
+
+	class ModeDimComb : ModeDim
+	{
+	private:
+		ModeDim* dims;
+	public:
+		ModeDimComb(int dims)
+		{
+			this->dims[dims];
+			for (int i = 0; i < dims; ++i)
+				this->dims[i] = ModeDim(2);
+		}
+	};
+
+private:
+	int index;
+	enum cut {Set = 0, Prec = 1, Res = 2, Onl = 3};
+	enum test { A, B, C, NTEST};
+	enum direction { East = 11, West = 22, North = 33, South = 44 };
+
+public:
+	void Next()
+	{
+		direction dir;
+		dir = South;
+
+		cut c;
+		c = Prec;
+	}
+};
+
 class OutputPrinter
 {
 private:
