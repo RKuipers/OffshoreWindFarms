@@ -15,10 +15,9 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-#define NCUTMODES 32
-#define NDECVAR 2
-#define NMODES NCUTMODES * NDECVAR // Product of all mode types
-#define NSETTINGS NCUTMODES + NDECVAR // Sum of all mode types
+#define NCUTMODES 16
+#define NMODES NCUTMODES // Product of all mode types
+#define NSETTINGS NCUTMODES // Sum of all mode types
 #define WEATHERTYPE 1
 #define CUTMODE 0
 #define VERBOSITY 0
@@ -26,16 +25,16 @@ using namespace ::dashoptimization;
 #define OUTPUTFILE "install.sol"
 
 // Model settings
-#define DATAFILE "installSimple.dat"
-#define NPERIODS 3
-#define TPP 4 // Timesteps per Period
+#define DATAFILE "installWeek.dat"
+#define NPERIODS 7
+#define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 4
-#define NIP 3
-#define NRES 2
+#define NTASKS 5
+#define NIP 4
+#define NRES 3
 #define NASSETS 2
-#define DIS 1.0
-#define OPTIMAL -270 // The optimal solution, if known
+#define DIS 0.999
+#define OPTIMAL -504430 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -120,8 +119,6 @@ private:
 
 	void printTasks(ofstream* file, int mode)
 	{
-		bool fs = mode % 2 == 0;
-
 		cout << "Start and finish time per asset and task: " << endl;
 		for (int a = 0; a < NASSETS; ++a)
 		{
@@ -139,25 +136,14 @@ private:
 
 					if (sv == 1)
 						start = t;
-
-					if (fs)
-					{
-						int fv = round(f[a][i][t].getSol());
-
-						*file << "f_" << a << "_" << i << "_" << t << ": " << fv << endl;
-
-						if (fv == 1)
-							finish = t;
-					}
 				}
 
-				if (!fs)
-					for (int t1 = start + d[i] - 1; t1 < NTIMES; ++t1)
-						if (sa[i][t1] == start)
-						{
-							finish = t1;
-							break;
-						}
+				for (int t1 = start + d[i] - 1; t1 < NTIMES; ++t1)
+					if (sa[i][t1] == start)
+					{
+						finish = t1;
+						break;
+					}
 
 				cout << i << ": " << start << " " << finish << endl;
 				*file << "Asset " << a << " task " << i << ": " << start << " " << finish << endl;
@@ -199,17 +185,17 @@ public:
 			cout << "MODE: " << i << " DUR: " << durs[i] << endl;
 
 			int cutSetting = i % NCUTMODES;
-			int decSetting = i >> 5;
+			//int decSetting = i >> 5;
 
 			tots[cutSetting] += durs[i];
-			tots[decSetting + NCUTMODES] += durs[i];
+			//tots[decSetting + NCUTMODES] += durs[i];
 		}
 
 		for (int i = 0; i < NCUTMODES; ++i)
 			cout << "SETTING: " << i << " DUR: " << tots[i] / (NMODES / NCUTMODES) << endl;
 
-		for (int i = NCUTMODES; i < NDECVAR + NCUTMODES; ++i)
-			cout << "SETTING: " << i << " DUR: " << tots[i] / (NMODES / NDECVAR) << endl;
+		/*for (int i = NCUTMODES; i < NDECVAR + NCUTMODES; ++i)
+			cout << "SETTING: " << i << " DUR: " << tots[i] / (NMODES / NDECVAR) << endl;*/
 	}
 
 	int printer(string s, int verbosity, bool end = true)
@@ -437,7 +423,7 @@ private:
 		}
 	}
 
-	void genDecisionVariables(XPRBprob* prob, bool newDec)
+	void genDecisionVariables(XPRBprob* prob)
 	{
 		outputPrinter.printer("Initialising variables", 1);
 
@@ -463,11 +449,7 @@ private:
 
 			for (int a = 0; a < NASSETS; ++a)
 				for (int i = 0; i < NTASKS; ++i)
-				{
 					s[a][i][t] = prob->newVar(("s_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
-					if (!newDec)
-						f[a][i][t] = prob->newVar(("f_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
-				}
 		}
 	}
 
@@ -487,7 +469,7 @@ private:
 		prob->setObj(Obj); // Set the objective function
 	}
 
-	void genSetConstraints(XPRBprob* prob, bool cut, bool newDec)
+	void genSetConstraints(XPRBprob* prob, bool cut)
 	{
 		// Forces every task to start and end
 		for (int a = 0; a < NASSETS; ++a)
@@ -500,32 +482,23 @@ private:
 
 				for (int t = 1; t < NTIMES; ++t)
 				{
-					if (!newDec || (t <= maxT))
+					if (t <= maxT)
 						rs.addTerm(s[a][i][t]);
 					else
 						s[a][i][t].setUB(0);
-
-					if (!newDec)
-						rf.addTerm(f[a][i][t]);
 				}
 
 				if (cut)
-				{
 					prob->newCut(rs);
-					if (!newDec)
-						prob->newCut(rf);
-				}
 				else
 				{
 					int indices[2] = { a, i };
 					genCon(prob, rs, "Sta", 2, indices);
-					if (!newDec)
-						genCon(prob, rf, "Fin", 2, indices);
 				}
 			}
 	}
 
-	void genPrecedenceConstraints(XPRBprob* prob, bool cut, bool newDec)
+	void genPrecedenceConstraints(XPRBprob* prob, bool cut)
 	{
 		// Precedence constraints
 		for (int a = 0; a < NASSETS; ++a)
@@ -537,9 +510,7 @@ private:
 						tie(i, j) = IP[x];
 
 						XPRBrelation rel = s[a][j][t1] <= 1;
-						if (!newDec)
-							rel.addTerm(f[a][i][t2], 1);
-						else if (sa[i][t2] > -1)
+						if (sa[i][t2] > -1)
 							rel.addTerm(s[a][i][sa[i][t2]], 1);
 						else
 							continue;
@@ -554,36 +525,7 @@ private:
 					}
 	}
 
-	void genDurationConstraints(XPRBprob* prob, bool cut, bool newDec)
-	{
-		if (newDec)
-			return; // Contraints not needed in new setup as they're baked into the structure of the variables
-
-		// Duration constraints
-		for (int a = 0; a < NASSETS; ++a)
-			for (int i = 0; i < NTASKS; ++i)
-				for (int t1 = 0; t1 < NTIMES; ++t1)
-				{
-					for (int t2 = 0; t2 < NTIMES; ++t2)
-					{
-						int weather = 0;
-						for (int t3 = t1; t3 <= t2; ++t3)
-							weather += OMEGA[i][t3];
-
-						XPRBrelation rel = (f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1);
-
-						int indices[4] = { a, i, t1, t2 };
-						if (cut)
-							prob->newCut(rel);
-						else
-							genCon(prob, rel, "Dur", 4, indices);
-					}
-				}
-
-
-	}
-
-	void genResourceConstraints(XPRBprob* prob, bool cut, bool newDec)
+	void genResourceConstraints(XPRBprob* prob, bool cut)
 	{
 		// Resource amount link
 		for (int r = 0; r < NRES; ++r)
@@ -604,9 +546,7 @@ private:
 						{
 							rel.addTerm(s[a][i][t], -rho[r][i]);
 							if (t > 0)
-								if (!newDec)
-									rel.addTerm(f[a][i][t - 1], rho[r][i]);
-								else if (sa[i][t-1] > -1)
+								if (sa[i][t-1] > -1)
 									rel.addTerm(s[a][i][sa[i][t-1]], rho[r][i]);
 								else
 									continue;
@@ -628,7 +568,7 @@ private:
 				}
 	}
 
-	void genOnlineConstraints(XPRBprob* prob, bool cut, bool newDec)
+	void genOnlineConstraints(XPRBprob* prob, bool cut)
 	{
 		// Online turbines link
 		for (int p = 0; p < NPERIODS; ++p)
@@ -637,9 +577,7 @@ private:
 
 			for (int t = 0; t < p * TPP; ++t)
 				for (int a = 0; a < NASSETS; a++)
-					if (!newDec)
-						rel.addTerm(f[a][NTASKS - 1][t], -1);
-					else if (sa[NTASKS - 1][t] > -1)
+					if (sa[NTASKS - 1][t] > -1)
 						rel.addTerm(s[a][NTASKS - 1][sa[NTASKS - 1][t]], -1);
 					else
 						continue;
@@ -654,24 +592,21 @@ private:
 		}
 	}
 
-	void genCtrByID(XPRBprob* prob, int id, bool newDec)
+	void genCtrByID(XPRBprob* prob, int id)
 	{
 		switch (id)
 		{
 		case 0:
-			genSetConstraints(prob, false, newDec);
+			genSetConstraints(prob, false);
 			break;
 		case 1:
-			genPrecedenceConstraints(prob, false, newDec);
+			genPrecedenceConstraints(prob, false);
 			break;
 		case 2:
-			genDurationConstraints(prob, false, newDec);
+			genResourceConstraints(prob, false);
 			break;
 		case 3:
-			genResourceConstraints(prob, false, newDec);
-			break;
-		case 4:
-			genOnlineConstraints(prob, false, newDec);
+			genOnlineConstraints(prob, false);
 			break;
 		}
 	}
@@ -681,16 +616,15 @@ public:
 	{
 		clock_t start = clock();
 
-		genDecisionVariables(prob, (mode >> 5) % 2 == 1);
+		genDecisionVariables(prob);
 		genObjective(prob);
 
 		outputPrinter.printer("Initialising Original constraints", 1);
 
-		genSetConstraints(prob, mode % 2 == 1, (mode >> 5) % 2 == 1);
-		genPrecedenceConstraints(prob, (mode >> 1) % 2 == 1, (mode >> 5) % 2 == 1);
-		genDurationConstraints(prob, (mode >> 2) % 2 == 1, (mode >> 5) % 2 == 1);
-		genResourceConstraints(prob, (mode >> 3) % 2 == 1, (mode >> 5) % 2 == 1);
-		genOnlineConstraints(prob, (mode >> 4) % 2 == 1, (mode >> 5) % 2 == 1);
+		genSetConstraints(prob, mode % 2 == 1);
+		genPrecedenceConstraints(prob, (mode >> 1) % 2 == 1);
+		genResourceConstraints(prob, (mode >> 2) % 2 == 1);
+		genOnlineConstraints(prob, (mode >> 3) % 2 == 1);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
@@ -700,7 +634,7 @@ public:
 	{
 		if ((mode >> id) % 2 == 1)
 		{
-			genCtrByID(prob, id, mode == 1);
+			genCtrByID(prob, id);
 			return true;
 		}
 		return false;
@@ -713,15 +647,13 @@ public:
 		outputPrinter.printer("Initialising Full constraints", 1);
 
 		if (mode % 2 == 1)
-			genSetConstraints(prob, false, (mode >> 5) % 2 == 1);
+			genSetConstraints(prob, false);
 		if ((mode >> 1) % 2 == 1)
-			genPrecedenceConstraints(prob, false, (mode >> 5) % 2 == 1);
+			genPrecedenceConstraints(prob, false);
 		if ((mode >> 2) % 2 == 1)
-			genDurationConstraints(prob, false, (mode >> 5) % 2 == 1);
+			genResourceConstraints(prob, false);
 		if ((mode >> 3) % 2 == 1)
-			genResourceConstraints(prob, false, (mode >> 5) % 2 == 1);
-		if ((mode >> 4) % 2 == 1)
-			genOnlineConstraints(prob, false, (mode >> 5) % 2 == 1);
+			genOnlineConstraints(prob, false);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
