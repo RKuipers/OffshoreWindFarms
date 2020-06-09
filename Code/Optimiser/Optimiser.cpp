@@ -15,26 +15,26 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-#define NCUTMODES 1
+#define NCUTMODES 16
 #define NMODES NCUTMODES // Product of all mode types
 #define NSETTINGS NCUTMODES // Sum of all mode types
 #define WEATHERTYPE 1
 #define CUTMODE 0
-#define VERBOSITY 5
+#define VERBOSITY 0
 #define NAMES 1
 #define OUTPUTFILE "install.sol"
 
 // Model settings
-#define DATAFILE "installSimple.dat"
-#define NPERIODS 3
-#define TPP 4 // Timesteps per Period
+#define DATAFILE "installWeek.dat"
+#define NPERIODS 7
+#define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 4
-#define NIP 3
-#define NRES 2
+#define NTASKS 5
+#define NIP 4
+#define NRES 3
 #define NASSETS 2
-#define DIS 1.0
-#define OPTIMAL -270 // The optimal solution, if known
+#define DIS 0.999
+#define OPTIMAL -504430 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -46,7 +46,7 @@ int OMEGA[NTASKS][NTIMES];
 int v[NPERIODS];
 int C[NRES][NPERIODS];
 int d[NTASKS];
-int rd[NTASKS][NTIMES];
+int sa[NTASKS][NTIMES];
 int rho[NRES][NTASKS];
 int m[NRES][NPERIODS];
 tuple<int, int> IP[NIP];
@@ -117,7 +117,7 @@ private:
 		}
 	}
 
-	void printTasks(ofstream* file)
+	void printTasks(ofstream* file, int mode)
 	{
 		cout << "Start and finish time per asset and task: " << endl;
 		for (int a = 0; a < NASSETS; ++a)
@@ -131,16 +131,20 @@ private:
 				for (int t = 0; t < NTIMES; ++t)
 				{
 					int sv = round(s[a][i][t].getSol());
-					int fv = round(f[a][i][t].getSol());
 
 					*file << "s_" << a << "_" << i << "_" << t << ": " << sv << endl;
-					*file << "f_" << a << "_" << i << "_" << t << ": " << fv << endl;
 
 					if (sv == 1)
 						start = t;
-					if (fv == 1)
-						finish = t;
 				}
+
+				for (int t1 = start + d[i] - 1; t1 < NTIMES; ++t1)
+					if (sa[i][t1] == start)
+					{
+						finish = t1;
+						break;
+					}
+
 				cout << i << ": " << start << " " << finish << endl;
 				*file << "Asset " << a << " task " << i << ": " << start << " " << finish << endl;
 			}
@@ -148,7 +152,7 @@ private:
 	}
 
 public:
-	void printProbOutput(XPRBprob* prob)
+	void printProbOutput(XPRBprob* prob, int mode)
 	{
 		ofstream file;
 		file.open(OUTPUTFILE);
@@ -156,7 +160,7 @@ public:
 		printObj(&file, prob);
 		printTurbines(&file);
 		printResources(&file);
-		printTasks(&file);
+		printTasks(&file, mode);
 
 		file.close();
 	}
@@ -176,15 +180,22 @@ public:
 		for (int i = 0; i < NSETTINGS; ++i)
 			tots[i] = 0.0;
 
-		for (int i = 0; i < NCUTMODES; ++i)
+		for (int i = 0; i < NMODES; ++i)
 		{
 			cout << "MODE: " << i << " DUR: " << durs[i] << endl;
 
-			tots[i] += durs[i];
+			int cutSetting = i % NCUTMODES;
+			//int decSetting = i >> 5;
+
+			tots[cutSetting] += durs[i];
+			//tots[decSetting + NCUTMODES] += durs[i];
 		}
 
-		/*for (int i = 0; i < NCUTMODES; ++i)
-			cout << "SETTING: " << names[i] << " DUR: " << tots[i] / (NMODES / NCUTMODES) << endl;*/
+		for (int i = 0; i < NCUTMODES; ++i)
+			cout << "SETTING: " << i << " DUR: " << tots[i] / (NMODES / NCUTMODES) << endl;
+
+		/*for (int i = NCUTMODES; i < NDECVAR + NCUTMODES; ++i)
+			cout << "SETTING: " << i << " DUR: " << tots[i] / (NMODES / NDECVAR) << endl;*/
 	}
 
 	int printer(string s, int verbosity, bool end = true)
@@ -259,21 +270,27 @@ private:
 		getline(*datafile, line);
 	}
 
-	void generateRealDurations()
+	void generateStartAtValues()
 	{
 		for(int i = 0; i < NTASKS; ++i)
 			for (int t1 = 0; t1 < NTIMES; ++t1)
 			{
+				if (OMEGA[i][t1] == 0)
+				{
+					sa[i][t1] = -1;
+					continue;
+				}
+
 				int worked = 0;
 				int t2;
-				for (t2 = t1; worked < d[i] && t2 > 0; --t2)
+				for (t2 = t1; worked < d[i] && t2 >= 0; --t2)
 					if (OMEGA[i][t2] == 1)
 						worked++;
 
 				if (worked == d[i])
-					rd[i][t1] = t1 - t2; // TODO: This leads to positive numbers when OMEGA == 0; could turn those to -1 instead as well
+					sa[i][t1] = t2 + 1; // TODO: This leads to positive numbers when OMEGA == 0; could turn those to -1 instead as well
 				else
-					rd[i][t1] = -1; // TODO: Check if this value works
+					sa[i][t1] = -1; // TODO: Check if this value works
 			}
 	}
 
@@ -361,7 +378,7 @@ public:
 
 		// Reads d (durations of tasks)
 		readList(&datafile, "DURATIONS", d, NTASKS);
-		generateRealDurations();
+		generateStartAtValues();
 
 		// Reads IP (prerequisite tasks)
 		readIP(&datafile);
@@ -432,10 +449,7 @@ private:
 
 			for (int a = 0; a < NASSETS; ++a)
 				for (int i = 0; i < NTASKS; ++i)
-				{
 					s[a][i][t] = prob->newVar(("s_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
-					f[a][i][t] = prob->newVar(("f_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
-				}
 		}
 	}
 
@@ -464,22 +478,22 @@ private:
 				XPRBrelation rs = s[a][i][0] == 1;
 				XPRBrelation rf = f[a][i][0] == 1;
 
+				int maxT = sa[i][NTIMES - 1];
+
 				for (int t = 1; t < NTIMES; ++t)
 				{
-					rs.addTerm(s[a][i][t]);
-					rf.addTerm(f[a][i][t]);
+					if (t <= maxT)
+						rs.addTerm(s[a][i][t]);
+					else
+						s[a][i][t].setUB(0);
 				}
 
 				if (cut)
-				{
 					prob->newCut(rs);
-					prob->newCut(rf);
-				}
 				else
 				{
 					int indices[2] = { a, i };
 					genCon(prob, rs, "Sta", 2, indices);
-					genCon(prob, rf, "Fin", 2, indices);
 				}
 			}
 	}
@@ -495,7 +509,11 @@ private:
 						int i, j;
 						tie(i, j) = IP[x];
 
-						const XPRBrelation rel = s[a][j][t1] + f[a][i][t2] <= 1;
+						XPRBrelation rel = s[a][j][t1] <= 1;
+						if (sa[i][t2] > -1)
+							rel.addTerm(s[a][i][sa[i][t2]], 1);
+						else
+							continue;
 
 						if (cut)
 							prob->newCut(rel);
@@ -505,32 +523,6 @@ private:
 							genCon(prob, rel, "Pre", 4, indices);
 						}
 					}
-	}
-
-	void genDurationConstraints(XPRBprob* prob, bool cut)
-	{
-		// Duration constraints
-		for (int a = 0; a < NASSETS; ++a)
-			for (int i = 0; i < NTASKS; ++i)
-				for (int t1 = 0; t1 < NTIMES; ++t1)
-				{
-					for (int t2 = 0; t2 < NTIMES; ++t2)
-					{
-						int weather = 0;
-						for (int t3 = t1; t3 <= t2; ++t3)
-							weather += OMEGA[i][t3];
-
-						XPRBrelation rel = (f[a][i][t2] + s[a][i][t1]) * 0.5 * weather >= d[i] * (s[a][i][t1] + f[a][i][t2] - 1);
-
-						int indices[4] = { a, i, t1, t2 };
-						if (cut)
-							prob->newCut(rel);
-						else
-							genCon(prob, rel, "Dur", 4, indices);
-					}
-				}
-
-
 	}
 
 	void genResourceConstraints(XPRBprob* prob, bool cut)
@@ -554,7 +546,10 @@ private:
 						{
 							rel.addTerm(s[a][i][t], -rho[r][i]);
 							if (t > 0)
-								rel.addTerm(f[a][i][t - 1], rho[r][i]);
+								if (sa[i][t-1] > -1)
+									rel.addTerm(s[a][i][sa[i][t-1]], rho[r][i]);
+								else
+									continue;
 						}
 					}
 
@@ -582,7 +577,10 @@ private:
 
 			for (int t = 0; t < p * TPP; ++t)
 				for (int a = 0; a < NASSETS; a++)
-					rel.addTerm(f[a][NTASKS - 1][t], -1);
+					if (sa[NTASKS - 1][t] > -1)
+						rel.addTerm(s[a][NTASKS - 1][sa[NTASKS - 1][t]], -1);
+					else
+						continue;
 
 			if (cut)
 				prob->newCut(rel);
@@ -605,12 +603,9 @@ private:
 			genPrecedenceConstraints(prob, false);
 			break;
 		case 2:
-			genDurationConstraints(prob, false);
-			break;
-		case 3:
 			genResourceConstraints(prob, false);
 			break;
-		case 4:
+		case 3:
 			genOnlineConstraints(prob, false);
 			break;
 		}
@@ -628,9 +623,8 @@ public:
 
 		genSetConstraints(prob, mode % 2 == 1);
 		genPrecedenceConstraints(prob, (mode >> 1) % 2 == 1);
-		genDurationConstraints(prob, (mode >> 2) % 2 == 1);
-		genResourceConstraints(prob, (mode >> 3) % 2 == 1);
-		genOnlineConstraints(prob, (mode >> 4) % 2 == 1);
+		genResourceConstraints(prob, (mode >> 2) % 2 == 1);
+		genOnlineConstraints(prob, (mode >> 3) % 2 == 1);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
@@ -657,10 +651,8 @@ public:
 		if ((mode >> 1) % 2 == 1)
 			genPrecedenceConstraints(prob, false);
 		if ((mode >> 2) % 2 == 1)
-			genDurationConstraints(prob, false);
-		if ((mode >> 3) % 2 == 1)
 			genResourceConstraints(prob, false);
-		if ((mode >> 4) % 2 == 1)
+		if ((mode >> 3) % 2 == 1)
 			genOnlineConstraints(prob, false);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
@@ -744,7 +736,7 @@ int main(int argc, char** argv)
 				problemSolver.solveProblem(&probs[mode], name);
 		}
 #endif // CUTMODE == 1
-		outputPrinter.printProbOutput(&probs[mode]);
+		outputPrinter.printProbOutput(&probs[mode], realMode);
 
 #ifdef OPTIMAL
 		opt &= round(probs[mode].getObjVal()) == OPTIMAL;
