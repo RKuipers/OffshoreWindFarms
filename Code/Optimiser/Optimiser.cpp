@@ -25,16 +25,16 @@ using namespace ::dashoptimization;
 #define OUTPUTFILE "install.sol"
 
 // Model settings
-#define DATAFILE "installWeek.dat"
-#define NPERIODS 7
-#define TPP 12 // Timesteps per Period
+#define DATAFILE "installSimple.dat"
+#define NPERIODS 3
+#define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 5
-#define NIP 4
-#define NRES 3
+#define NTASKS 4
+#define NIP 3
+#define NRES 2
 #define NASSETS 2
-#define DIS 0.999
-#define OPTIMAL -504430 // The optimal solution, if known
+#define DIS 1.0
+#define OPTIMAL -270 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -194,8 +194,10 @@ public:
 		for (int i = 0; i < NCUTMODES; ++i)
 			cout << "SETTING: " << i << " DUR: " << tots[i] / (NMODES / NCUTMODES) << endl;
 
-		/*for (int i = NCUTMODES; i < NDECVAR + NCUTMODES; ++i)
-			cout << "SETTING: " << i << " DUR: " << tots[i] / (NMODES / NDECVAR) << endl;*/
+#if NCUTMODES != NMODES
+		for (int i = NCUTMODES; i < NDECVAR + NCUTMODES; ++i)
+			cout << "SETTING: " << i << " DUR: " << tots[i] / (NMODES / NDECVAR) << endl;
+#endif
 	}
 
 	int printer(string s, int verbosity, bool end = true)
