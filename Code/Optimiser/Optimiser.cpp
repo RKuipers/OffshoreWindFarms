@@ -25,15 +25,16 @@ using namespace ::dashoptimization;
 #define OUTPUTFILE "install.sol"
 
 // Model settings
-#define DATAFILE "installFortnight.dat"
-#define NPERIODS 14
+#define DATAFILE "installWeek.dat"
+#define NPERIODS 7
 #define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
 #define NTASKS 5
 #define NIP 4
 #define NRES 3
-#define NASSETS 5
+#define NASSETS 2
 #define DIS 0.999
+#define OPTIMAL -504430 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
