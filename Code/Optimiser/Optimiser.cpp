@@ -15,26 +15,25 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-#define NCUTMODES 16
+#define NCUTMODES 1
 #define NMODES NCUTMODES // Product of all mode types
 #define NSETTINGS NCUTMODES // Sum of all mode types
 #define WEATHERTYPE 1
 #define CUTMODE 0
-#define VERBOSITY 0
+#define VERBOSITY 1
 #define NAMES 1
 #define OUTPUTFILE "install.sol"
 
 // Model settings
-#define DATAFILE "installSimple.dat"
-#define NPERIODS 3
-#define TPP 4 // Timesteps per Period
+#define DATAFILE "installFortnight.dat"
+#define NPERIODS 14
+#define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 4
-#define NIP 3
-#define NRES 2
-#define NASSETS 2
-#define DIS 1.0
-#define OPTIMAL -270 // The optimal solution, if known
+#define NTASKS 5
+#define NIP 4
+#define NRES 3
+#define NASSETS 5
+#define DIS 0.999
 
 // Weather characteristics
 int base = 105;
@@ -778,7 +777,7 @@ int main(int argc, char** argv)
 	for (int mode = 0; mode < NMODES; ++mode)
 	{
 #if NMODES == 1
-		int realMode = 16;
+		int realMode = 0;
 #endif // NMODES == 1
 #if NMODES > 1
 		int realMode = mode;
@@ -798,8 +797,11 @@ int main(int argc, char** argv)
 		problemGen.genOriProblem(&probs[mode], realMode);
 		problemSolver.solveProblem(&probs[mode], name);
 #if CUTMODE == 0
-		problemGen.genFullProblem(&probs[mode], realMode);
-		problemSolver.solveProblem(&probs[mode], name);
+		if (realMode != 0) // TODO Test this with CUTMODE = 1
+		{
+			problemGen.genFullProblem(&probs[mode], realMode);
+			problemSolver.solveProblem(&probs[mode], name);
+		}
 #endif // CUTMODE == 0
 #if CUTMODE == 1
 		for (int i = 0; i < 5; ++i)
