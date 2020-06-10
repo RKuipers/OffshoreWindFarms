@@ -23,7 +23,8 @@ using namespace ::dashoptimization;
 #define CUTMODE 0
 #define VERBOSITY 1
 #define NAMES 1
-#define OUTPUTFILE "install.sol"
+#define OUTPUTFILE "install"
+#define OUTPUTEXT ".sol"
 
 // Model settings
 #define DATAFILE "installWeek.dat"
@@ -227,7 +228,7 @@ public:
 	void printProbOutput(XPRBprob* prob, int mode)
 	{
 		ofstream file;
-		file.open(OUTPUTFILE);
+		file.open(OUTPUTFILE + to_string(mode) + OUTPUTEXT);
 
 		printObj(&file, prob);
 		printTurbines(&file);
@@ -356,9 +357,9 @@ private:
 						worked++;
 
 				if (worked == d[i])
-					sa[i][t1] = t2 + 1; // TODO: This leads to positive numbers when OMEGA == 0; could turn those to -1 instead as well
+					sa[i][t1] = t2 + 1;
 				else
-					sa[i][t1] = -1; // TODO: Check if this value works
+					sa[i][t1] = -1;
 			}
 	}
 
@@ -541,8 +542,8 @@ private:
 	{
 		// Forces every task to start and end
 		for (int a = 0; a < NASSETS; ++a)
+		{
 			for (int i = 0; i < NTASKS; ++i)
-			{
 				if (!newVar)
 				{
 					XPRBrelation rel = s[a][i][0] == 1;
@@ -551,7 +552,7 @@ private:
 
 					for (int t = 1; t < NTIMES; ++t)
 					{
-						if (t <= maxT)
+						if (t <= maxT && OMEGA[i][t] == 1)
 							rel.addTerm(s[a][i][t]);
 						else
 							s[a][i][t].setUB(0);
@@ -562,7 +563,7 @@ private:
 					else
 					{
 						int indices[2] = { a, i };
-						genCon(prob, rel, "Sta", 2, indices);
+						genCon(prob, rel, "Set", 2, indices);
 					}
 				}
 				else
@@ -575,10 +576,23 @@ private:
 						else
 						{
 							int indices[3] = { a, i, t };
-							genCon(prob, rel, "Sta", 3, indices);
+							genCon(prob, rel, "Set", 3, indices);
 						}
 					}
+
+			if (newVar)
+			{
+				XPRBrelation rel = s[a][NTASKS - 1][sa[NTASKS - 1][NTIMES - 1]] == 1;
+
+				if (cut)
+					prob->newCut(rel);
+				else
+				{
+					int indices[3] = { a };
+					genCon(prob, rel, "Fin", 3, indices);
+				}
 			}
+		}
 	}
 
 	void genPrecedenceConstraints(XPRBprob* prob, bool cut, bool newVar)
@@ -612,7 +626,7 @@ private:
 						int i, j;
 						tie(i, j) = IP[x];
 
-						XPRBrelation rel = s[a][i][sa[i][t1]] <= s[a][j][t1];
+						XPRBrelation rel = s[a][i][sa[i][t1 - 1]] >= s[a][j][t1];
 						if (sa[i][t1] == -1)
 						{
 							s[a][j][t1].setUB(0);
@@ -682,7 +696,7 @@ private:
 
 							for (int a = 0; a < NASSETS; a++)
 							{
-								rel.addTerm(s[a][i][t], -rho[i][r]);
+								rel.addTerm(s[a][i][t], -rho[r][i]);
 								if (t > 0)
 									if (sa[i][t - 1] > -1)
 										rel.addTerm(s[a][i][sa[i][t - 1]], rho[r][i]);
@@ -704,7 +718,9 @@ private:
 	void genOnlineConstraints(XPRBprob* prob, bool cut, bool newVar)
 	{
 		// Online turbines link
-		for (int p = 0; p < NPERIODS; ++p)
+		O[0].setUB(0);
+
+		for (int p = 1; p < NPERIODS; ++p)
 		{
 			XPRBrelation rel = O[p] == 0;
 
@@ -721,7 +737,7 @@ private:
 			{
 				for (int a = 0; a < NASSETS; a++)
 					if (sa[NTASKS - 1][p * TPP - 1] > -1)
-						rel.addTerm(s[a][NTASKS - 1][sa[NTASKS - 1][p * TPP - 1]]);
+						rel.addTerm(s[a][NTASKS - 1][sa[NTASKS - 1][p * TPP - 1]], -1);
 					else
 						continue;
 			}
