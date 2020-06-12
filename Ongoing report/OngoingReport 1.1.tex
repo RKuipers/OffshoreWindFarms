@@ -337,12 +337,13 @@ In \cite{barlow2017using}, the final paper (so far) on this tool, the researcher
 
 \bigskip
 
-%TODO: Check these texts and references
-In a very recent work \cite{leontaris2019decision}, researchers have looked into reducing the risk of supply disruptions. Due to the absence of sufficient historical data, they use expert judgement to analyse the risk of supply disruptions, using different weights to combine judgements from various experts. It was found that the combined judgement lead to a better outcome than any individual judgement. In general it was found that not taking the estimations of supply disruptions into account could lead to significant overruns in both schedule and budget. 
+%ONGOING: Updated this paragraph
+In a very recent work \cite{leontaris2019decision}, researchers have looked into the effect of supply chain disruptions. Due to the absence of sufficient historical data, they use expert judgment to analyse the risk of supply disruptions, using a framework to combine judgments from various experts. It was found that the combined judgment lead to a better outcome than any individual judgment, but they found it difficult to find many experts willing to participate in the research. In general it was found that not taking the estimations of supply disruptions into account could lead to significant overruns in both schedule and budget, and it was concluded that this risk should be considered and minimised if possible by any project developer for OWFs. 
 
 %ONGOING: Updated this paragraph
 The same authors have written about whether dependencies between task duration \cite{leontaris2018probabilistic} should be considered. They use a non-parametric Bayesian Network to model dependent delays in task duration, so that if a vessel has a delay on a certain task, the task it performs afterwards has a higher chance to be delayed as well. So far they have only tested this technique with the main tasks for installation, but this technique could be used throughout all operations. The initial results show that using constant task duration (based on the mode of historical durations) underestimates the duration, and with it costs of the installation. The reverse seems to happen when the durations are stochastic (using a triangular distribution); the increased variability seems to overestimate the durations. The proposed approach is shown to be a more realistic way to model this. 
 
+%TODO: Check this text and reference
 In another paper \cite{leontaris2016probabilistic} the same authors attempt to generate synthethic weather series, where the different metrics (wave height, wind speed, and potentially more like wave period and wind direction) are dependent on each other. For this they use copulas, which join multivariate distribution functions. They test their method with a project for laying the cables of an OWF. Their initial results show that this method could provide more insights into the realistic durations of offshore projects. 
 
 \bigskip
