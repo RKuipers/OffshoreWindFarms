@@ -664,25 +664,6 @@ private:
 		}
 	}
 
-	void genCtrByID(XPRBprob* prob, int id)
-	{
-		switch (id)
-		{
-		case 0:
-			genSetConstraints(prob, false);
-			break;
-		case 1:
-			genPrecedenceConstraints(prob, false);
-			break;
-		case 2:
-			genResourceConstraints(prob, false);
-			break;
-		case 3:
-			genOnlineConstraints(prob, false);
-			break;
-		}
-	}
-
 public:
 	void genOriProblem(XPRBprob* prob, int mode)
 	{
@@ -700,16 +681,6 @@ public:
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
-	}
-
-	bool addCtr(XPRBprob* prob, int mode, int id)
-	{
-		if ((mode >> id) % 2 == 1)
-		{
-			genCtrByID(prob, id);
-			return true;
-		}
-		return false;
 	}
 
 	void genFullProblem(XPRBprob* prob, int mode)
