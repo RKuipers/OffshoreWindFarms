@@ -36,7 +36,7 @@ class Settings:
     4: (320/(4*86 + 135)) 
     }
     #Dimension Weights (6th is Mins, 7th is Ratio)
-    dw = [1, 2, 0.5, 0.1, 1.5, 1.5, 2]
+    dw = [1, 2, 0.5, 0.1, 1.5, 0.75, 2]
     #Minute range and default
     mlr = 15  
     mhr = 15  
@@ -44,6 +44,8 @@ class Settings:
     #Ratio range
     rl = 0.6
     rh = 0.8
+    #Ground number
+    g = 4.0
     
     def __init__(self):
         self.lows = Settings.dl
@@ -57,6 +59,7 @@ class Settings:
         self.mh = self.mins + self.mhr
         self.rl = Settings.rl
         self.rh = Settings.rh
+        self.g = Settings.g
         
     def setRanges(self, lows: list, highs: list, startIndex: int = 0) -> None:
         self.lows[startIndex:] = lows
@@ -229,7 +232,7 @@ class RatioCompare(ICompare):
             return s2
 
 class DistanceCompare(ICompare):
-    def calcAttributeScore(v: float, n: float, l: float, h: float, w: float) -> float:
+    def calcAttributeScore(v: float, n: float, l: float, h: float, w: float, g: float) -> float:
         dis = v - n
         if (dis > 0):
             rang = h - n
@@ -239,15 +242,15 @@ class DistanceCompare(ICompare):
             normDis = dis / rang
         else:
             normDis = 0
-        score = pow(4, (1 + normDis)) - 4
+        score = pow(g, (1 + normDis)) - g
         return score * w
     
     def calcScore(self, s: Solution) -> float:
-        val = DistanceCompare.calcAttributeScore(s.length(), self.settings.mins, self.settings.ml, self.settings.mh, self.settings.getMinsWeight())
-        val += DistanceCompare.calcAttributeScore(s.ratio(), self.settings.target, self.settings.rl, self.settings.rh, self.settings.getRatioWeight())
+        val = DistanceCompare.calcAttributeScore(s.length(), self.settings.mins, self.settings.ml, self.settings.mh, self.settings.getMinsWeight(), self.settings.g)
+        val += DistanceCompare.calcAttributeScore(s.ratio(), self.settings.target, self.settings.rl, self.settings.rh, self.settings.getRatioWeight(), self.settings.g)
         sol = s.asList()
         for i in range(5):
-            val += DistanceCompare.calcAttributeScore(sol[i], Settings.nm[i], self.settings.lows[i], self.settings.highs[i], self.settings.weights[i])
+            val += DistanceCompare.calcAttributeScore(sol[i], Settings.nm[i], self.settings.lows[i], self.settings.highs[i], self.settings.weights[i], self.settings.g)
         
         s.setScore(val)
         return val
@@ -415,6 +418,16 @@ def modifySettings() -> None:
         else:
             spl = inp.split(" ")
             SETS.setWeights(list(map(float, spl)))
+            
+    print ("Enter the ground number")
+    
+    inp = input()
+    if not inp == "k":
+        if inp == "n" or inp == "d":
+            SETS.g = Settings.g 
+        else:
+            SETS.g = float(inp)
+    
 
 def reRun(sol: Solution) -> bool:
     global modify

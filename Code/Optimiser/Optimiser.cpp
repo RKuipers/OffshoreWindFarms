@@ -22,7 +22,8 @@ using namespace ::dashoptimization;
 #define CUTMODE 0
 #define VERBOSITY 1
 #define NAMES 1
-#define OUTPUTFILE "install.sol"
+#define OUTPUTFILE "install"
+#define OUTPUTEXT ".sol"
 
 // Model settings
 #define DATAFILE "installWeek.dat"
@@ -188,7 +189,7 @@ private:
 		}
 	}
 
-	void printTasks(ofstream* file, int mode)
+	void printTasks(ofstream* file, bool newVar)
 	{
 		cout << "Start and finish time per asset and task: " << endl;
 		for (int a = 0; a < NASSETS; ++a)
@@ -205,12 +206,12 @@ private:
 
 					*file << "s_" << a << "_" << i << "_" << t << ": " << sv << endl;
 
-					if (sv == 1)
+					if (sv == 1 && start == -1)
 						start = t;
 				}
 
 				for (int t1 = start + d[i] - 1; t1 < NTIMES; ++t1)
-					if (sa[i][t1] == start)
+					if (sa[i][t1] >= start)
 					{
 						finish = t1;
 						break;
@@ -226,12 +227,12 @@ public:
 	void printProbOutput(XPRBprob* prob, int mode)
 	{
 		ofstream file;
-		file.open(OUTPUTFILE);
+		file.open(OUTPUTFILE + to_string(mode) + OUTPUTEXT);
 
 		printObj(&file, prob);
 		printTurbines(&file);
 		printResources(&file);
-		printTasks(&file, mode);
+		printTasks(&file,mode % 2 == 0);
 
 		file.close();
 	}
@@ -262,13 +263,13 @@ public:
 			//tots[decSetting + NCUTMODES] += durs[i];
 		}
 
-		for (int i = 0; i < NCUTMODES; ++i)
+		/*for (int i = 0; i < NCUTMODES; ++i)
 			cout << "SETTING: " << i << " DUR: " << tots[i] / (NMODES / NCUTMODES) << endl;
 
 #if NCUTMODES != NMODES
 		for (int i = NCUTMODES; i < NDECVAR + NCUTMODES; ++i)
 			cout << "SETTING: " << i << " DUR: " << tots[i] / (NMODES / NDECVAR) << endl;
-#endif
+#endif*/
 	}
 
 	int printer(string s, int verbosity, bool end = true)
@@ -348,12 +349,6 @@ private:
 		for(int i = 0; i < NTASKS; ++i)
 			for (int t1 = 0; t1 < NTIMES; ++t1)
 			{
-				if (OMEGA[i][t1] == 0)
-				{
-					sa[i][t1] = -1;
-					continue;
-				}
-
 				int worked = 0;
 				int t2;
 				for (t2 = t1; worked < d[i] && t2 >= 0; --t2)
@@ -361,9 +356,9 @@ private:
 						worked++;
 
 				if (worked == d[i])
-					sa[i][t1] = t2 + 1; // TODO: This leads to positive numbers when OMEGA == 0; could turn those to -1 instead as well
+					sa[i][t1] = t2 + 1;
 				else
-					sa[i][t1] = -1; // TODO: Check if this value works
+					sa[i][t1] = -1;
 			}
 	}
 
@@ -546,28 +541,31 @@ private:
 	{
 		// Forces every task to start and end
 		for (int a = 0; a < NASSETS; ++a)
+		{
 			for (int i = 0; i < NTASKS; ++i)
-			{
-				XPRBrelation rs = s[a][i][0] == 1;
-
-				int maxT = sa[i][NTIMES - 1];
-
 				for (int t = 1; t < NTIMES; ++t)
-				{
-					if (t <= maxT)
-						rs.addTerm(s[a][i][t]);
-					else
-						s[a][i][t].setUB(0);
-				}
+					{
+						XPRBrelation rel = s[a][i][t] >= s[a][i][t-1];
 
-				if (cut)
-					prob->newCut(rs);
-				else
-				{
-					int indices[2] = { a, i };
-					genCon(prob, rs, "Sta", 2, indices);
-				}
+						if (cut)
+							prob->newCut(rel);
+						else
+						{
+							int indices[3] = { a, i, t };
+							genCon(prob, rel, "Set", 3, indices);
+						}
+					}
+
+			XPRBrelation rel = s[a][NTASKS - 1][sa[NTASKS - 1][NTIMES - 1]] == 1;
+
+			if (cut)
+				prob->newCut(rel);
+			else
+			{
+				int indices[3] = { a };
+				genCon(prob, rel, "Fin", 3, indices);
 			}
+		}
 	}
 
 	void genPrecedenceConstraints(XPRBprob* prob, bool cut)
@@ -575,26 +573,26 @@ private:
 		// Precedence constraints
 		for (int a = 0; a < NASSETS; ++a)
 			for (int x = 0; x < NIP; ++x)
-				for (int t1 = 0; t1 < NTIMES; ++t1)
-					for (int t2 = t1; t2 < NTIMES; ++t2)
+				for (int t = 0; t < NTIMES; ++t)
+				{
+					int i, j;
+					tie(i, j) = IP[x];
+
+					XPRBrelation rel = s[a][i][sa[i][t - 1]] >= s[a][j][t];
+					if (sa[i][t] == -1 || t - 1 < 0)
 					{
-						int i, j;
-						tie(i, j) = IP[x];
-
-						XPRBrelation rel = s[a][j][t1] <= 1;
-						if (sa[i][t2] > -1)
-							rel.addTerm(s[a][i][sa[i][t2]], 1);
-						else
-							continue;
-
-						if (cut)
-							prob->newCut(rel);
-						else
-						{
-							int indices[4] = { a, x, t1, t2 };
-							genCon(prob, rel, "Pre", 4, indices);
-						}
+						s[a][j][t].setUB(0);
+						continue;
 					}
+
+					if (cut)
+						prob->newCut(rel);
+					else
+					{
+						int indices[3] = { a, x, t };
+						genCon(prob, rel, "Pre", 3, indices);
+					}
+				}
 	}
 
 	void genResourceConstraints(XPRBprob* prob, bool cut)
@@ -604,10 +602,7 @@ private:
 			for (int p = 0; p < NPERIODS; ++p)
 				for (int t = p * TPP; t < (p + 1) * TPP; ++t)
 				{
-					XPRBrelation rel = n[r][t] == 0;
-
-					if (t > 0)
-						rel.addTerm(n[r][t - 1], -1);
+					XPRBrelation rel = N[r][p] >= 0;
 
 					for (int i = 0; i < NTASKS; ++i)
 					{
@@ -618,24 +613,19 @@ private:
 						{
 							rel.addTerm(s[a][i][t], -rho[r][i]);
 							if (t > 0)
-								if (sa[i][t-1] > -1)
-									rel.addTerm(s[a][i][sa[i][t-1]], rho[r][i]);
+								if (sa[i][t - 1] > -1)
+									rel.addTerm(s[a][i][sa[i][t - 1]], rho[r][i]);
 								else
 									continue;
 						}
 					}
 
 					if (cut)
-					{
 						prob->newCut(rel);
-						prob->newCut(N[r][p] >= n[r][t]);
-					}
 					else
 					{
-						int indices[2] = { r, t }; 
-						genCon(prob, rel, "Nee", 2, indices);
-						int indices2[3] = { r, p, t };
-						genCon(prob, N[r][p] >= n[r][t], "Hav", 3, indices2);
+						int indices[3] = { r, p, t };
+						genCon(prob, rel, "Nee", 3, indices);
 					}
 				}
 	}
@@ -643,16 +633,17 @@ private:
 	void genOnlineConstraints(XPRBprob* prob, bool cut)
 	{
 		// Online turbines link
-		for (int p = 0; p < NPERIODS; ++p)
+		O[0].setUB(0);
+
+		for (int p = 1; p < NPERIODS; ++p)
 		{
 			XPRBrelation rel = O[p] == 0;
 
-			for (int t = 0; t < p * TPP; ++t)
-				for (int a = 0; a < NASSETS; a++)
-					if (sa[NTASKS - 1][t] > -1)
-						rel.addTerm(s[a][NTASKS - 1][sa[NTASKS - 1][t]], -1);
-					else
-						continue;
+			for (int a = 0; a < NASSETS; a++)
+				if (sa[NTASKS - 1][p * TPP - 1] > -1)
+					rel.addTerm(s[a][NTASKS - 1][sa[NTASKS - 1][p * TPP - 1]], -1);
+				else
+					continue;
 
 			if (cut)
 				prob->newCut(rel);
@@ -690,7 +681,7 @@ public:
 		outputPrinter.printer("Initialising Full constraints", 1);
 
 		if (mode % 2 == 1)
-			genSetConstraints(prob, false);
+			genSetConstraints(prob, false); 
 		if ((mode >> 1) % 2 == 1)
 			genPrecedenceConstraints(prob, false);
 		if ((mode >> 2) % 2 == 1)
@@ -769,7 +760,7 @@ int main(int argc, char** argv)
 		problemGen.genOriProblem(&probs[mode], realMode);
 		problemSolver.solveProblem(&probs[mode], name);
 #if CUTMODE == 0
-		if (realMode != 0) // TODO Test this with CUTMODE = 1
+		if (false)
 		{
 			problemGen.genFullProblem(&probs[mode], realMode);
 			problemSolver.solveProblem(&probs[mode], name);
