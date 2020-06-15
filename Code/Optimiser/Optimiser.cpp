@@ -760,7 +760,7 @@ int main(int argc, char** argv)
 		problemGen.genOriProblem(&probs[mode], realMode);
 		problemSolver.solveProblem(&probs[mode], name);
 #if CUTMODE == 0
-		if (false) // TODO Test this with CUTMODE = 1
+		if (false)
 		{
 			problemGen.genFullProblem(&probs[mode], realMode);
 			problemSolver.solveProblem(&probs[mode], name);
