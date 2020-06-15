@@ -26,16 +26,15 @@ using namespace ::dashoptimization;
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "installWeek.dat"
-#define NPERIODS 7
-#define TPP 12 // Timesteps per Period
+#define DATAFILE "installTest.dat"
+#define NPERIODS 1
+#define TPP 10 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 5
-#define NIP 4
-#define NRES 3
-#define NASSETS 2
-#define DIS 0.999
-#define OPTIMAL -504430 // The optimal solution, if known
+#define NTASKS 2
+#define NIP 1
+#define NRES 1
+#define NASSETS 1
+#define DIS 1.0
 
 // Weather characteristics
 int base = 105;
@@ -47,7 +46,7 @@ int OMEGA[NTASKS][NTIMES];
 int v[NPERIODS];
 int C[NRES][NPERIODS];
 int d[NTASKS];
-int sa[NTASKS][NTIMES];
+int sa[NTASKS][NTIMES + 1];
 int rho[NRES][NTASKS];
 int m[NRES][NPERIODS];
 tuple<int, int> IP[NIP];
@@ -210,10 +209,10 @@ private:
 						start = t;
 				}
 
-				for (int t1 = start + d[i] - 1; t1 < NTIMES; ++t1)
+				for (int t1 = start + d[i] - 1; t1 <= NTIMES; ++t1)
 					if (sa[i][t1] >= start)
 					{
-						finish = t1;
+						finish = t1 - 1;
 						break;
 					}
 
@@ -346,12 +345,12 @@ private:
 
 	void generateStartAtValues()
 	{
-		for(int i = 0; i < NTASKS; ++i)
-			for (int t1 = 0; t1 < NTIMES; ++t1)
+		for (int i = 0; i < NTASKS; ++i)
+			for (int t1 = 0; t1 <= NTIMES; ++t1)
 			{
 				int worked = 0;
 				int t2;
-				for (t2 = t1; worked < d[i] && t2 >= 0; --t2)
+				for (t2 = t1 - 1; worked < d[i] && t2 >= 0; --t2)
 					if (OMEGA[i][t2] == 1)
 						worked++;
 
@@ -556,7 +555,7 @@ private:
 						}
 					}
 
-			XPRBrelation rel = s[a][NTASKS - 1][sa[NTASKS - 1][NTIMES - 1]] == 1;
+			XPRBrelation rel = s[a][NTASKS - 1][sa[NTASKS - 1][NTIMES]] == 1;
 
 			if (cut)
 				prob->newCut(rel);
@@ -578,8 +577,8 @@ private:
 					int i, j;
 					tie(i, j) = IP[x];
 
-					XPRBrelation rel = s[a][i][sa[i][t - 1]] >= s[a][j][t];
-					if (sa[i][t] == -1 || t - 1 < 0)
+					XPRBrelation rel = s[a][i][sa[i][t]] >= s[a][j][t];
+					if (sa[i][t] == -1)
 					{
 						s[a][j][t].setUB(0);
 						continue;
@@ -613,8 +612,8 @@ private:
 						{
 							rel.addTerm(s[a][i][t], -rho[r][i]);
 							if (t > 0)
-								if (sa[i][t - 1] > -1)
-									rel.addTerm(s[a][i][sa[i][t - 1]], rho[r][i]);
+								if (sa[i][t] > -1)
+									rel.addTerm(s[a][i][sa[i][t]], rho[r][i]);
 								else
 									continue;
 						}
@@ -640,8 +639,8 @@ private:
 			XPRBrelation rel = O[p] == 0;
 
 			for (int a = 0; a < NASSETS; a++)
-				if (sa[NTASKS - 1][p * TPP - 1] > -1)
-					rel.addTerm(s[a][NTASKS - 1][sa[NTASKS - 1][p * TPP - 1]], -1);
+				if (sa[NTASKS - 1][p * TPP] > -1)
+					rel.addTerm(s[a][NTASKS - 1][sa[NTASKS - 1][p * TPP]], -1);
 				else
 					continue;
 

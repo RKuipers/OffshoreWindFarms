@@ -20,7 +20,7 @@
 \scriptsize
 \begin{equation}
 	\max_{\substack{O_p, N_{rp} \in \mathbb{Z}^* \\
-	s_{ait}, f_{ait} \in \{0, 1\}}} 
+	s_{ait} \in \{0, 1\}}} 
 	\sum_{p \in P} [ DIS^p (O_p \cdot v_p - \sum_{r \in R} N_{rp} \cdot C_{rp}) ]
 \end{equation}
 
@@ -28,21 +28,21 @@
 subject to:
 
 \begin{align}
-1 =& \sum_{t \in T} s_{ait}= \sum_{t \in T} f_{ait}									&	\forall a \in A, \forall i \in I 					\\
-1 \geq& s_{ajt_1} + f_{ait_2}											&	\begin{aligned} \forall a \in A, \forall (i, j) \in IP, \\ \forall t_1, t_2 \in T | t_2 \geq t_1\end{aligned}  \\
-(s_{ait_1} + f_{ait_2} - 1) \cdot d_i \leq& \frac{s_{ait_1} + f_{ait_2}}{2} \cdot \sum_{t_3 = t_1}^{t_2} \omega_{it_3} & \begin{aligned}\forall a \in A, \forall i \in I, \\ \forall t_1, t_2 \in T \end{aligned} \\
-n_{rt} =& n_{r(t-1)} + \sum_{a \in A}\sum_{i\in I} (\rho_{ir} \cdot (s_{ait} - f_{ai(t-1)}))	& 	\forall r \in R, \forall t \in T	\\
-O_p =&  \sum_{t = t_0}^{t_p} \sum_{a \in A}  f_{ai_Nt}								& \forall p \in P\\
-n_{rt} \leq& N_{rp} \leq m_{rp}													& \forall r \in R, \forall p \in P, \forall t \in T_p
+s_{ait} \leq& s_{ai(t+1)}											&	\forall a \in A, \forall i \in I, \forall t \in T				\\
+s_{ai\sigma_{it_N}} \geq& 1										&	\forall a \in A, \forall i \in I				\\
+s_{ajt} \leq& s_{ai\sigma_{it}}										&	\forall a \in A, \forall (i, j) \in IP, \forall t \in T 			\\
+N_{rp} \geq& \sum_{a \in A}\sum_{i\in I} (\rho_{ir} \cdot (s_{ait} - s_{ai\sigma_{it}}))		& 	\forall r \in R, \forall p \in P, \forall t \in T_p			\\
+O_p =&  \sum_{a \in A} s_{ai_N\sigma_{it_p}}							& 	\forall p \in P 							\\
+N_{rp} \leq& m_{rp}											& 	\forall r \in R, \forall p \in P
 \end{align}
 
 \end{frame}
 
 \begin{frame}{Installation Model Explanation}
 (1) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
-(2) Forces every task to be starded and finished at some point	\\
-(3) For every precedence relation $(i, j)$ it ensures that if task $i$ finishes at time $t_2$ there is no $t_1 \leq t_2$ at which task $j$ starts 	\\
-(4) Ensures that between the starting and finish times of each task are enough timesteps with acceptable weather	\\
+(2) Makes every task that is finished stay finished 	\\
+(3) Forces every task to be starded and finished by the final timestep	\\
+(4) For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
 (5) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
 (6) Counts the number of turbines which finished installing by the end of a period	\\
 (7) Sets a limit on the amount of vessels that can be charatered in a given period
@@ -68,9 +68,7 @@ Decision variables:
 \begin{itemize}
 \item $O_{p}$: Number of online turbines after period $p$
 \item $N_{rp}$: Number of resources $r$ used in period $p$
-\item $n_{rt}$: Number of resources $r$ needed at time $t$
-\item $s_{ait}$: Binary variable, 1 if task $i \in I$ for asset $a$ starts at time $t$
-\item $f_{ait}$: Binary variable, 1 if task $i \in I$ for asset $a$ finishes at time $t$
+\item $s_{ait}$: Binary variable, 1 if task $i \in I$ for asset $a$ has started at time $t$
 \end{itemize}
 \end{column}
 
@@ -82,8 +80,7 @@ Parameters:
 \item $DIS$: The discount factor per period
 \item $v_p$: The value of energy a single turbine produces in period $p$
 \item $C_{rp}$: The cost of chartering resource $r$ in period $p$
-\item $d_i$: The duration of task $i$
-\item $\omega_{it}$: Binary parameter representing weather, 1 if task $i$ can be completed at time $t$, 0 otherwise
+\item $\sigma_{it}$: Indicates the timestep at which task $i$ should have been started for it to be finished by timestep $t$, taking into account the duration and the weather conditions
 \item $\rho_{ir}$: The amount of resource $r$ used by task $i$
 \item $t_p$: The final time interval (from $T$) before period $p$
 \item $m_{rp}$: The maximum amount of resources $r$ that can be charatered in period $p$
