@@ -24,7 +24,7 @@ class Settings:
     
     #Default ranges
     dl = [15, 1, 35, 1, 2]
-    dh = [25, 4, 50, 5, 5]
+    dh = [25, 4, 55, 5, 5]
     #"Normal" ranges
     nl = [20, 2, 45, 2, 4]
     nm = [20, 2, 45, 3, 4]
