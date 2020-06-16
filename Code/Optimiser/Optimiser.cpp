@@ -2,7 +2,7 @@
 #include <iostream>		// cout
 #include <math.h>		// round
 #include <cmath>		// pow
-#include <algorithm>    // max
+#include <algorithm>    // max, count
 #include <string>		// string, to_string
 #include <fstream>		// ifstream, ofstream
 #include <stdlib.h>     // srand, rand
@@ -289,6 +289,234 @@ public:
 };
 
 OutputPrinter outputPrinter;
+
+class DataReaderNEW
+{
+private:
+	vector<int> limits;
+
+	void splitString(string s, vector<string>* res, char sep = ' ')
+	{
+		res->clear();
+		size_t l = 0;
+
+		while (s.find(sep, l) != string::npos)
+		{
+			size_t t = s.find(sep, l);
+			res->push_back(s.substr(l, t - l));
+			l = t + 1;
+		}
+
+		res->push_back(s.substr(l));
+	}
+
+	size_t parsePeriodical(char type, string line, size_t start, vector<int>* res)
+	{
+		// TODO
+
+		// Switch based on 3 types: U (universal value), I (intervals), S (single values)
+
+		// Possibly change parameter types and stuff
+
+		return 0;
+	}
+
+	void readTasks(ifstream* datafile)
+	{
+		string line;
+		vector<string>* split = new vector<string>();
+
+		getline(*datafile, line);
+		splitString(line, split);
+		if ((*split)[0].compare("TASKS") != 0)
+			cout << "Error reading TASKS" << endl;
+		if (stoi((*split)[1]) != NTASKS)
+			cout << "Error with declared TASKS amount" << endl;
+
+		for (int i = 0; i < NTASKS; ++i)
+		{
+			getline(*datafile, line);
+			splitString(line, split, '\t');
+
+			if (count(line.begin(), line.end(), '\t') != 2 + NRES)
+				cout << "Error with column count on TASKS line " << i << endl;
+
+			d[i] = stoi((*split)[1]);
+			limits[i] = stoi((*split)[2]);
+
+			for (int r = 0; r < NRES; ++r)
+				rho[r][i] = stoi((*split)[r+3]);
+		}
+
+		getline(*datafile, line);
+	}
+
+	void readResources(ifstream* datafile)
+	{
+		// TODO
+	}
+
+	void readValues(ifstream* datafile)
+	{
+		// TODO
+	}
+
+	void readPreqs(ifstream* datafile)
+	{
+		// TODO
+	}
+
+	// TODO: Check which of these old functions are of use
+	void generateWeather(ifstream* datafile)
+	{
+		string line;
+		getline(*datafile, line);
+		if (line.compare("WAVEHEIGHT LIMITS") != 0)
+			cout << "Error reading WAVEHEIGHT LIMITS" << endl;
+
+		int limits[NTASKS];
+		for (int i = 0; i < NTASKS; ++i)
+		{
+			getline(*datafile, line);
+			limits[i] = stoi(line);
+		}
+
+		int waveHeight[NTIMES];
+		if (WEATHERTYPE == 0)
+		{
+			waveHeight[0] = base;
+
+			outputPrinter.printer("0: " + to_string(waveHeight[0]), 2);
+			for (int t = 1; t < NTIMES; ++t)
+			{
+				bonus += (base - waveHeight[t - 1]) / 40;
+
+				waveHeight[t] = max(0, waveHeight[t - 1] + bonus + (rand() % variety));
+				outputPrinter.printer(to_string(t) + ": " + to_string(waveHeight[t]), 2);
+			}
+		}
+		else if (WEATHERTYPE == 1)
+		{
+			for (int p = 0; p < NPERIODS; ++p)
+			{
+				waveHeight[p * TPP] = base;
+				outputPrinter.printer(to_string(p * TPP) + ": " + to_string(waveHeight[p * TPP]), 2);
+				for (int t = (p * TPP) + 1; t < (p + 1) * TPP; ++t)
+				{
+					waveHeight[t] = max(0, waveHeight[t - 1] + bonus + (rand() % variety));
+					outputPrinter.printer(to_string(t) + ": " + to_string(waveHeight[t]), 2);
+				}
+			}
+		}
+
+		for (int i = 0; i < NTASKS; ++i)
+			for (int t = 0; t < NTIMES; ++t)
+			{
+				if (waveHeight[t] < limits[i])
+					OMEGA[i][t] = 1;
+				else
+					OMEGA[i][t] = 0;
+			}
+
+		getline(*datafile, line);
+	}
+
+	void generateStartAtValues()
+	{
+		for (int i = 0; i < NTASKS; ++i)
+			for (int t1 = 0; t1 <= NTIMES; ++t1)
+			{
+				int worked = 0;
+				int t2;
+				for (t2 = t1 - 1; worked < d[i] && t2 >= 0; --t2)
+					if (OMEGA[i][t2] == 1)
+						worked++;
+
+				if (worked == d[i])
+					sa[i][t1] = t2 + 1;
+				else
+					sa[i][t1] = -1;
+			}
+	}
+
+	void readList(ifstream* datafile, string name, int list[], int n)
+	{
+		string line;
+		getline(*datafile, line);
+		if (line.compare(name) != 0)
+			cout << "Error reading " << name << endl;
+
+		for (int i = 0; i < n; ++i)
+		{
+			getline(*datafile, line);
+			list[i] = stoi(line);
+		}
+
+		getline(*datafile, line);
+	}
+
+	void readLine(ifstream* datafile, int list[], int n)
+	{
+		string line;
+		getline(*datafile, line);
+		vector<string> parsed;
+
+		size_t current, previous = 0;
+		current = line.find(' ');
+		while (current <= line.size()) {
+			parsed.push_back(line.substr(previous, current - previous));
+			previous = current + 1;
+			current = line.find(' ', previous);
+		}
+		parsed.push_back(line.substr(previous, current - previous));
+
+		for (int i = 0; i < n; ++i)
+			list[i] = stoi(parsed[i]);
+	}
+
+	void readIP(ifstream* datafile)
+	{
+		string line;
+		getline(*datafile, line);
+		if (line.compare("PREREQUISITES") != 0)
+			cout << "Error reading PREREQUISITES" << endl;
+
+		for (int i = 0; i < NIP; ++i)
+		{
+			getline(*datafile, line);
+			size_t split = line.find(' ');
+			IP[i] = make_tuple(stoi(line.substr(0, split)), stoi(line.substr(split + 1, line.length())));
+		}
+
+		getline(*datafile, line);
+	}
+
+public:
+	DataReaderNEW()
+	{
+		limits = vector<int>(NTASKS);
+	}
+
+	void readData()
+	{
+		// Read data from file
+		outputPrinter.printer("Reading Data", 1);
+
+		string line;
+		ifstream datafile(DATAFILE);
+		if (!datafile.is_open())
+		{
+			cout << "Unable to open file" << endl;
+			return;
+		}
+
+		// Read the task info
+		readTasks(&datafile);
+
+		datafile.close();
+	}
+
+};
 
 class DataReader
 {
