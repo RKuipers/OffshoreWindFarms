@@ -26,15 +26,16 @@ using namespace ::dashoptimization;
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "installTest.dat"
-#define NPERIODS 1
-#define TPP 10 // Timesteps per Period
+#define DATAFILE "installWeek.dat"
+#define NPERIODS 7
+#define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 2
-#define NIP 1
-#define NRES 1
-#define NASSETS 1
-#define DIS 1.0
+#define NTASKS 5
+#define NIP 4
+#define NRES 3
+#define NASSETS 2
+#define DIS 0.999972465
+#define OPTIMAL -474814 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -225,6 +226,9 @@ private:
 public:
 	void printProbOutput(XPRBprob* prob, int mode)
 	{
+		if (prob->getProbStat() == 1)
+			return;
+
 		ofstream file;
 		file.open(OUTPUTFILE + to_string(mode) + OUTPUTEXT);
 
@@ -541,19 +545,19 @@ private:
 		// Forces every task to start and end
 		for (int a = 0; a < NASSETS; ++a)
 		{
-			for (int i = 0; i < NTASKS; ++i)
-				for (int t = 1; t < NTIMES; ++t)
-					{
-						XPRBrelation rel = s[a][i][t] >= s[a][i][t-1];
+			for (int t = 1; t < NTIMES; ++t)
+				for (int i = 0; i < NTASKS; ++i)
+				{
+					XPRBrelation rel = s[a][i][t] >= s[a][i][t - 1];
 
-						if (cut)
-							prob->newCut(rel);
-						else
-						{
-							int indices[3] = { a, i, t };
-							genCon(prob, rel, "Set", 3, indices);
-						}
+					if (cut)
+						prob->newCut(rel);
+					else
+					{
+						int indices[3] = { a, i, t };
+						genCon(prob, rel, "Set", 3, indices);
 					}
+				}
 
 			XPRBrelation rel = s[a][NTASKS - 1][sa[NTASKS - 1][NTIMES]] == 1;
 
