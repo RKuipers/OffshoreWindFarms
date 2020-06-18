@@ -26,21 +26,20 @@ using namespace ::dashoptimization;
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "installWeekNEW.dat"
-#define NPERIODS 7
-#define TPP 12 // Timesteps per Period
+#define DATAFILE "installTwoMonth.dat"
+#define NPERIODS 8
+#define TPP 168 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 5
-#define NIP 4
+#define NTASKS 16
+#define NIP 18
 #define NRES 3
 #define NASSETS 2
-#define DIS 0.999972465
-#define OPTIMAL -474814 // The optimal solution, if known
+#define DIS 0.999806743
 
 // Weather characteristics
-int base = 105;
+int base = 100;
 int variety = 51;
-int bonus = -25;
+int bonus = -28;
 
 // Model parameters
 int OMEGA[NTASKS][NTIMES];
@@ -663,12 +662,13 @@ private:
 					int i, j;
 					tie(i, j) = IP[x];
 
-					XPRBrelation rel = s[a][i][sa[i][t]] >= s[a][j][t];
 					if (sa[i][t] == -1)
 					{
 						s[a][j][t].setUB(0);
 						continue;
 					}
+
+					XPRBrelation rel = s[a][i][sa[i][t]] >= s[a][j][t];
 
 					if (cut)
 						prob->newCut(rel);

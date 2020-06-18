@@ -37,7 +37,7 @@ installFortnight
 #define NRES 3
 #define NASSETS 5
 #define DIS 0.999972465
-#define OPTIMAL -1024042 // The optimal solution, if known
+#define OPTIMAL -1024077 // The optimal solution, if known
 int base = 105;
 int variety = 51;
 int bonus = -25;
