@@ -26,7 +26,7 @@ using namespace ::dashoptimization;
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "installWeek.dat"
+#define DATAFILE "installWeekNEW.dat"
 #define NPERIODS 7
 #define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
@@ -290,7 +290,7 @@ public:
 
 OutputPrinter outputPrinter;
 
-class DataReaderNEW
+class DataReader
 {
 private:
 	vector<int> limits;
@@ -310,15 +310,49 @@ private:
 		res->push_back(s.substr(l));
 	}
 
-	size_t parsePeriodical(char type, string line, size_t start, vector<int>* res)
+	int parsePeriodical(char type, vector<string> line, int start, vector<int>* res, int amount = NPERIODS)
 	{
-		// TODO
-
 		// Switch based on 3 types: U (universal value), I (intervals), S (single values)
 
-		// Possibly change parameter types and stuff
+		res->clear();
+		(*res) = vector<int>(amount);
 
-		return 0;
+		switch (type)
+		{
+		case 'U':
+		{
+			int val = stoi(line[start]);
+			fill(res->begin(), res->begin() + amount, val);
+			return start + 1;
+		}
+		case 'I':
+		{
+			int filled = 0;
+			int loc = start;
+			while (filled < amount)
+			{
+				int intBeg = stoi(line[loc]);
+				int intEnd = stoi(line[loc + 1]);
+				int val = stoi(line[loc + 2]);
+
+				fill(res->begin() + intBeg, res->begin() + intEnd, val);
+				filled += intEnd - intBeg;
+				loc += 3;
+			}
+			return loc;
+		}
+		case 'S':
+		{
+			for (int i = 0; i < amount; ++i)
+				(*res)[i] = stoi(line[i + start]);
+			return start + amount;
+		}
+		default:
+		{
+			cout << "Error reading a Periodical" << endl;
+			return 0;
+		}
+		}
 	}
 
 	void readTasks(ifstream* datafile)
@@ -353,34 +387,80 @@ private:
 
 	void readResources(ifstream* datafile)
 	{
-		// TODO
+		string line;
+		vector<string>* split = new vector<string>();
+
+		getline(*datafile, line);
+		splitString(line, split);
+		if ((*split)[0].compare("RESOURCES") != 0)
+			cout << "Error reading RESOURCES" << endl;
+		if (stoi((*split)[1]) != NRES)
+			cout << "Error with declared RESOURCES amount" << endl;
+
+		for (int r = 0; r < NRES; ++r)
+		{
+			getline(*datafile, line);
+			splitString(line, split, '\t');
+
+			int loc = 1;
+			vector<int> vals = vector<int>(NPERIODS);
+			char type = (*split)[loc][0];
+			loc = parsePeriodical(type, *split, loc+1, &vals);
+			copy(vals.begin(), vals.end(), C[r]);
+			
+			type = (*split)[loc][0];
+			loc = parsePeriodical(type, *split, loc+1, &vals);
+			copy(vals.begin(), vals.end(), m[r]);
+		}
+
+		getline(*datafile, line);
 	}
 
 	void readValues(ifstream* datafile)
 	{
-		// TODO
+		string line;
+		vector<string>* split = new vector<string>();
+
+		getline(*datafile, line);
+		if (line.compare("VALUES") != 0)
+			cout << "Error reading VALUES" << endl;
+
+		getline(*datafile, line);
+		char type = line[0];
+
+		getline(*datafile, line);
+		splitString(line, split);
+		vector<int> vals = vector<int>(NPERIODS);
+		parsePeriodical(type, *split, 0, &vals);
+		copy(vals.begin(), vals.end(), v);
+
+		getline(*datafile, line);
 	}
 
 	void readPreqs(ifstream* datafile)
 	{
-		// TODO
-	}
-
-	// TODO: Check which of these old functions are of use
-	void generateWeather(ifstream* datafile)
-	{
 		string line;
-		getline(*datafile, line);
-		if (line.compare("WAVEHEIGHT LIMITS") != 0)
-			cout << "Error reading WAVEHEIGHT LIMITS" << endl;
+		vector<string>* split = new vector<string>();
 
-		int limits[NTASKS];
-		for (int i = 0; i < NTASKS; ++i)
+		getline(*datafile, line);
+		splitString(line, split);
+		if ((*split)[0].compare("PREREQUISITES") != 0)
+			cout << "Error reading PREREQUISITES" << endl;
+		if (stoi((*split)[1]) != NIP)
+			cout << "Error with declared PREREQUISITES amount" << endl;
+
+		for (int i = 0; i < NIP; ++i)
 		{
 			getline(*datafile, line);
-			limits[i] = stoi(line);
+			splitString(line, split);
+			IP[i] = make_tuple(stoi((*split)[0]), stoi((*split)[1]));
 		}
 
+		getline(*datafile, line);
+	}
+
+	void generateWeather()
+	{
 		int waveHeight[NTIMES];
 		if (WEATHERTYPE == 0)
 		{
@@ -417,8 +497,6 @@ private:
 				else
 					OMEGA[i][t] = 0;
 			}
-
-		getline(*datafile, line);
 	}
 
 	void generateStartAtValues()
@@ -439,60 +517,8 @@ private:
 			}
 	}
 
-	void readList(ifstream* datafile, string name, int list[], int n)
-	{
-		string line;
-		getline(*datafile, line);
-		if (line.compare(name) != 0)
-			cout << "Error reading " << name << endl;
-
-		for (int i = 0; i < n; ++i)
-		{
-			getline(*datafile, line);
-			list[i] = stoi(line);
-		}
-
-		getline(*datafile, line);
-	}
-
-	void readLine(ifstream* datafile, int list[], int n)
-	{
-		string line;
-		getline(*datafile, line);
-		vector<string> parsed;
-
-		size_t current, previous = 0;
-		current = line.find(' ');
-		while (current <= line.size()) {
-			parsed.push_back(line.substr(previous, current - previous));
-			previous = current + 1;
-			current = line.find(' ', previous);
-		}
-		parsed.push_back(line.substr(previous, current - previous));
-
-		for (int i = 0; i < n; ++i)
-			list[i] = stoi(parsed[i]);
-	}
-
-	void readIP(ifstream* datafile)
-	{
-		string line;
-		getline(*datafile, line);
-		if (line.compare("PREREQUISITES") != 0)
-			cout << "Error reading PREREQUISITES" << endl;
-
-		for (int i = 0; i < NIP; ++i)
-		{
-			getline(*datafile, line);
-			size_t split = line.find(' ');
-			IP[i] = make_tuple(stoi(line.substr(0, split)), stoi(line.substr(split + 1, line.length())));
-		}
-
-		getline(*datafile, line);
-	}
-
 public:
-	DataReaderNEW()
+	DataReader()
 	{
 		limits = vector<int>(NTASKS);
 	}
@@ -513,190 +539,18 @@ public:
 		// Read the task info
 		readTasks(&datafile);
 
-		datafile.close();
-	}
+		// Read the resource info
+		readResources(&datafile);
 
-};
+		// Read the energy value info
+		readValues(&datafile);
 
-class DataReader
-{
-private:
-	void generateWeather(ifstream* datafile)
-	{
-		string line;
-		getline(*datafile, line);
-		if (line.compare("WAVEHEIGHT LIMITS") != 0)
-			cout << "Error reading WAVEHEIGHT LIMITS" << endl;
+		// Read the task order info
+		readPreqs(&datafile);
 
-		int limits[NTASKS];
-		for (int i = 0; i < NTASKS; ++i)
-		{
-			getline(*datafile, line);
-			limits[i] = stoi(line);
-		}
-
-		int waveHeight[NTIMES];
-		if (WEATHERTYPE == 0)
-		{
-			waveHeight[0] = base;
-
-			outputPrinter.printer("0: " + to_string(waveHeight[0]), 2);
-			for (int t = 1; t < NTIMES; ++t)
-			{
-				bonus += (base - waveHeight[t - 1]) / 40;
-
-				waveHeight[t] = max(0, waveHeight[t - 1] + bonus + (rand() % variety));
-				outputPrinter.printer(to_string(t) + ": " + to_string(waveHeight[t]), 2);
-			}
-		}
-		else if (WEATHERTYPE == 1)
-		{
-			for (int p = 0; p < NPERIODS; ++p)
-			{
-				waveHeight[p * TPP] = base;
-				outputPrinter.printer(to_string(p * TPP) + ": " + to_string(waveHeight[p * TPP]), 2);
-				for (int t = (p * TPP) + 1; t < (p + 1) * TPP; ++t)
-				{
-					waveHeight[t] = max(0, waveHeight[t - 1] + bonus + (rand() % variety));
-					outputPrinter.printer(to_string(t) + ": " + to_string(waveHeight[t]), 2);
-				}
-			}
-		}
-
-		for (int i = 0; i < NTASKS; ++i)
-			for (int t = 0; t < NTIMES; ++t)
-			{
-				if (waveHeight[t] < limits[i])
-					OMEGA[i][t] = 1;
-				else
-					OMEGA[i][t] = 0;
-			}
-
-		getline(*datafile, line);
-	}
-
-	void generateStartAtValues()
-	{
-		for (int i = 0; i < NTASKS; ++i)
-			for (int t1 = 0; t1 <= NTIMES; ++t1)
-			{
-				int worked = 0;
-				int t2;
-				for (t2 = t1 - 1; worked < d[i] && t2 >= 0; --t2)
-					if (OMEGA[i][t2] == 1)
-						worked++;
-
-				if (worked == d[i])
-					sa[i][t1] = t2 + 1;
-				else
-					sa[i][t1] = -1;
-			}
-	}
-
-	void readList(ifstream* datafile, string name, int list[], int n)
-	{
-		string line;
-		getline(*datafile, line);
-		if (line.compare(name) != 0)
-			cout << "Error reading " << name << endl;
-
-		for (int i = 0; i < n; ++i)
-		{
-			getline(*datafile, line);
-			list[i] = stoi(line);
-		}
-
-		getline(*datafile, line);
-	}
-
-	void readLine(ifstream* datafile, int list[], int n)
-	{
-		string line;
-		getline(*datafile, line);
-		vector<string> parsed;
-
-		size_t current, previous = 0;
-		current = line.find(' ');
-		while (current <= line.size()) {
-			parsed.push_back(line.substr(previous, current - previous));
-			previous = current + 1;
-			current = line.find(' ', previous);
-		}
-		parsed.push_back(line.substr(previous, current - previous));
-
-		for (int i = 0; i < n; ++i)
-			list[i] = stoi(parsed[i]);
-	}
-
-	void readIP(ifstream* datafile)
-	{
-		string line;
-		getline(*datafile, line);
-		if (line.compare("PREREQUISITES") != 0)
-			cout << "Error reading PREREQUISITES" << endl;
-
-		for (int i = 0; i < NIP; ++i)
-		{
-			getline(*datafile, line);
-			size_t split = line.find(' ');
-			IP[i] = make_tuple(stoi(line.substr(0, split)), stoi(line.substr(split + 1, line.length())));
-		}
-
-		getline(*datafile, line);
-	}
-
-public:
-	void readData()
-	{
-		// Read data from file
-		outputPrinter.printer("Reading Data", 1);
-
-		string line;
-		ifstream datafile(DATAFILE);
-		if (!datafile.is_open())
-		{
-			cout << "Unable to open file" << endl;
-			return;
-		}
-
-		/* Reads limits (weather limits of tasks),
-		generates a weather series,
-		and fills in OMEGA (weather a task can be performed in a certain timestep) */
-		generateWeather(&datafile);
-
-		// Reads v (values of energy)
-		readList(&datafile, "VALUES", v, NPERIODS);
-
-		// Reads C (costs of resources)
-		getline(datafile, line);
-		if (line.compare("COSTS") != 0)
-			cout << "Error reading COSTS" << endl;
-		for (int r = 0; r < NRES; ++r)
-			readLine(&datafile, C[r], NPERIODS);
-		getline(datafile, line);
-
-		// Reads d (durations of tasks)
-		readList(&datafile, "DURATIONS", d, NTASKS);
+		// Generate the weather and StartAt values
+		generateWeather();
 		generateStartAtValues();
-
-		// Reads IP (prerequisite tasks)
-		readIP(&datafile);
-
-		// Reads rho (required resources)
-		getline(datafile, line);
-		if (line.compare("RESOURCES") != 0)
-			cout << "Error reading RESOURCES" << endl;
-		for (int r = 0; r < NRES; ++r)
-			readLine(&datafile, rho[r], NTASKS);
-		getline(datafile, line);
-
-		// Reads m (maximum chartered resources)
-		getline(datafile, line);
-		if (line.compare("MAX RESOURCES") != 0)
-			cout << "Error reading MAX RESOURCES" << endl;
-		for (int r = 0; r < NRES; ++r)
-			readLine(&datafile, m[r], NPERIODS);
-		getline(datafile, line);
 
 		datafile.close();
 	}
