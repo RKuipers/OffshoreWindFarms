@@ -26,20 +26,21 @@ using namespace ::dashoptimization;
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "installTwoMonth.dat"
-#define NPERIODS 8
-#define TPP 168 // Timesteps per Period
+#define DATAFILE "installWeek.dat"
+#define NPERIODS 7
+#define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 16
-#define NIP 18
+#define NTASKS 5
+#define NIP 4
 #define NRES 3
 #define NASSETS 2
-#define DIS 0.999806743
+#define DIS 0.999972465
+#define OPTIMAL -474814 // The optimal solution, if known
 
 // Weather characteristics
-int base = 100;
+int base = 105;
 int variety = 51;
-int bonus = -28;
+int bonus = -25;
 
 // Model parameters
 int OMEGA[NTASKS][NTIMES];
@@ -54,7 +55,6 @@ tuple<int, int> IP[NIP];
 // Model variables
 XPRBvar O[NPERIODS];
 XPRBvar N[NRES][NPERIODS];
-XPRBvar n[NRES][NTIMES];
 XPRBvar s[NASSETS][NTASKS][NTIMES];
 
 class Mode 
@@ -167,24 +167,6 @@ private:
 				*file << "N_" << r << "_" << p << ": " << v << endl;;
 			}
 			cout << endl;
-
-			if (VERBOSITY > 1) // Also print resources needed per timestep
-			{
-				for (int t = p * TPP; t < (p + 1) * TPP; ++t)
-				{
-					v = round(n[0][t].getSol());
-					cout << t << ": " << v;
-					*file << "n_0_" << t << ": " << v << endl;;
-
-					for (int r = 1; r < NRES; ++r)
-					{
-						v = round(n[r][t].getSol());
-						cout << ", " << v;
-						*file << "n_" << r << "_" << t << ": " << v << endl;;
-					}
-					cout << endl;
-				}
-			}
 		}
 	}
 
@@ -595,14 +577,9 @@ private:
 
 		// Create the timestep-based decision variables
 		for (int t = 0; t < NTIMES; ++t)
-		{
-			for (int r = 0; r < NRES; ++r)
-				n[r][t] = prob->newVar(("n_" + to_string(r) + "_" + to_string(t)).c_str(), XPRB_UI);
-
 			for (int a = 0; a < NASSETS; ++a)
 				for (int i = 0; i < NTASKS; ++i)
 					s[a][i][t] = prob->newVar(("s_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
-		}
 	}
 
 	void genObjective(XPRBprob* prob)
@@ -646,8 +623,8 @@ private:
 				prob->newCut(rel);
 			else
 			{
-				int indices[3] = { a };
-				genCon(prob, rel, "Fin", 3, indices);
+				int indices[1] = { a };
+				genCon(prob, rel, "Fin", 1, indices);
 			}
 		}
 	}
