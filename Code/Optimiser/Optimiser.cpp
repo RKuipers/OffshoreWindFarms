@@ -26,35 +26,40 @@ using namespace ::dashoptimization;
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "installTwoMonth.dat"
-#define NPERIODS 8
-#define TPP 168 // Timesteps per Period
+#define DATAFILE "installWeek.dat"
+#define NPERIODS 7
+#define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 16
-#define NIP 18
+#define NITASKS 5
+#define NMMTASKS 1
+#define NMOTASKS 1
+#define NMTASKS NMMTASKS + NMOTASKS
+#define NTASKS NITASKS + NMTASKS
+#define NIP 4
 #define NRES 3
 #define NASSETS 2
-#define DIS 0.999806743
+#define DIS 0.999972465
 
 // Weather characteristics
-int base = 100;
+int base = 105;
 int variety = 51;
-int bonus = -28;
+int bonus = -25;
 
 // Model parameters
 int OMEGA[NTASKS][NTIMES];
-int v[NPERIODS];
+int v[NTIMES];
 int C[NRES][NPERIODS];
 int d[NTASKS];
 int sa[NTASKS][NTIMES + 1];
 int rho[NRES][NTASKS];
 int m[NRES][NPERIODS];
+int lambda[NASSETS];
 tuple<int, int> IP[NIP];
 
 // Model variables
-XPRBvar O[NPERIODS];
+XPRBvar O[NTIMES];
 XPRBvar N[NRES][NPERIODS];
-XPRBvar n[NRES][NTIMES];
+XPRBvar o[NASSETS][NTIMES];
 XPRBvar s[NASSETS][NTASKS][NTIMES];
 
 class Mode 
@@ -167,24 +172,6 @@ private:
 				*file << "N_" << r << "_" << p << ": " << v << endl;;
 			}
 			cout << endl;
-
-			if (VERBOSITY > 1) // Also print resources needed per timestep
-			{
-				for (int t = p * TPP; t < (p + 1) * TPP; ++t)
-				{
-					v = round(n[0][t].getSol());
-					cout << t << ": " << v;
-					*file << "n_0_" << t << ": " << v << endl;;
-
-					for (int r = 1; r < NRES; ++r)
-					{
-						v = round(n[r][t].getSol());
-						cout << ", " << v;
-						*file << "n_" << r << "_" << t << ": " << v << endl;;
-					}
-					cout << endl;
-				}
-			}
 		}
 	}
 
@@ -194,7 +181,7 @@ private:
 		for (int a = 0; a < NASSETS; ++a)
 		{
 			cout << "Asset: " << a << endl;
-			for (int i = 0; i < NTASKS; ++i)
+			for (int i = 0; i < NITASKS; ++i)
 			{
 				int start = -1;
 				int finish = -1;
@@ -363,10 +350,10 @@ private:
 		splitString(line, split);
 		if ((*split)[0].compare("TASKS") != 0)
 			cout << "Error reading TASKS" << endl;
-		if (stoi((*split)[1]) != NTASKS)
+		if (stoi((*split)[1]) != NITASKS)
 			cout << "Error with declared TASKS amount" << endl;
 
-		for (int i = 0; i < NTASKS; ++i)
+		for (int i = 0; i < NITASKS; ++i)
 		{
 			getline(*datafile, line);
 			splitString(line, split, '\t');
@@ -488,7 +475,7 @@ private:
 			}
 		}
 
-		for (int i = 0; i < NTASKS; ++i)
+		for (int i = 0; i < NITASKS; ++i)
 			for (int t = 0; t < NTIMES; ++t)
 			{
 				if (waveHeight[t] < limits[i])
@@ -500,7 +487,7 @@ private:
 
 	void generateStartAtValues()
 	{
-		for (int i = 0; i < NTASKS; ++i)
+		for (int i = 0; i < NITASKS; ++i)
 			for (int t1 = 0; t1 <= NTIMES; ++t1)
 			{
 				int worked = 0;
@@ -519,7 +506,7 @@ private:
 public:
 	DataReader()
 	{
-		limits = vector<int>(NTASKS);
+		limits = vector<int>(NITASKS);
 	}
 
 	void readData()
@@ -581,27 +568,26 @@ private:
 
 		// Create the period-based decision variables
 		for (int p = 0; p < NPERIODS; ++p)
-		{
-			O[p] = prob->newVar(("O_" + to_string(p)).c_str(), XPRB_UI);
-			O[p].setLB(0);
-
 			for (int r = 0; r < NRES; ++r)
 			{
 				N[r][p] = prob->newVar(("N_" + to_string(r) + "_" + to_string(p)).c_str(), XPRB_UI);
 				N[r][p].setLB(0);
 				N[r][p].setUB(m[r][p]);
 			}
-		}
 
 		// Create the timestep-based decision variables
 		for (int t = 0; t < NTIMES; ++t)
 		{
-			for (int r = 0; r < NRES; ++r)
-				n[r][t] = prob->newVar(("n_" + to_string(r) + "_" + to_string(t)).c_str(), XPRB_UI);
+			O[t] = prob->newVar(("O_" + to_string(t)).c_str(), XPRB_UI);
+			O[t].setLB(0);
 
 			for (int a = 0; a < NASSETS; ++a)
+			{
+				o[a][t] = prob->newVar(("o_" + to_string(a) + "_" + to_string(t)).c_str(), XPRB_BV);
+
 				for (int i = 0; i < NTASKS; ++i)
 					s[a][i][t] = prob->newVar(("s_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
+			}
 		}
 	}
 
@@ -613,7 +599,9 @@ private:
 		for (int p = 0; p < NPERIODS; ++p)
 		{
 			double dis = pow(DIS, p);
-			Obj.addTerm(O[p], v[p] * dis);
+
+			for (int t = p * TPP; t < (p+1) * TPP; ++t)
+				Obj.addTerm(O[t], v[t] * dis);
 
 			for (int r = 0; r < NRES; ++r)
 				Obj.addTerm(N[r][p], -C[r][p] * dis);
@@ -625,9 +613,9 @@ private:
 	{
 		// Forces every task to start and end
 		for (int a = 0; a < NASSETS; ++a)
-		{
-			for (int t = 1; t < NTIMES; ++t)
-				for (int i = 0; i < NTASKS; ++i)
+			for (int i = 0; i < NTASKS; ++i)
+			{
+				for (int t = 1; t < NTIMES; ++t)
 				{
 					XPRBrelation rel = s[a][i][t] >= s[a][i][t - 1];
 
@@ -640,16 +628,19 @@ private:
 					}
 				}
 
-			XPRBrelation rel = s[a][NTASKS - 1][sa[NTASKS - 1][NTIMES]] == 1;
+				if (i >= NITASKS - 1 && i < NITASKS + NMMTASKS)
+				{
+					XPRBrelation rel = s[a][i][sa[i][NTIMES]] == 1;
 
-			if (cut)
-				prob->newCut(rel);
-			else
-			{
-				int indices[3] = { a };
-				genCon(prob, rel, "Fin", 3, indices);
+					if (cut)
+						prob->newCut(rel);
+					else
+					{
+						int indices[2] = { a, i };
+						genCon(prob, rel, "Fin", 2, indices);
+					}
+				}
 			}
-		}
 	}
 
 	void genPrecedenceConstraints(XPRBprob* prob, bool cut)
@@ -689,7 +680,7 @@ private:
 				{
 					XPRBrelation rel = N[r][p] >= 0;
 
-					for (int i = 0; i < NTASKS; ++i)
+					for (int i = 0; i < NITASKS; ++i)
 					{
 						if (rho[r][i] == 0)
 							continue;
@@ -725,8 +716,8 @@ private:
 			XPRBrelation rel = O[p] == 0;
 
 			for (int a = 0; a < NASSETS; a++)
-				if (sa[NTASKS - 1][p * TPP] > -1)
-					rel.addTerm(s[a][NTASKS - 1][sa[NTASKS - 1][p * TPP]], -1);
+				if (sa[NITASKS - 1][p * TPP] > -1)
+					rel.addTerm(s[a][NITASKS - 1][sa[NITASKS - 1][p * TPP]], -1);
 				else
 					continue;
 
