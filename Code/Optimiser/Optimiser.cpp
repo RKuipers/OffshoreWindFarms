@@ -801,7 +801,7 @@ int main(int argc, char** argv)
 	for (int mode = 0; mode < NMODES; ++mode)
 	{
 #if NMODES == 1
-		int realMode = 0;
+		int realMode = 5;
 #endif // NMODES == 1
 #if NMODES > 1
 		int realMode = mode;
