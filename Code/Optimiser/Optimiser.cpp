@@ -19,7 +19,6 @@ using namespace ::dashoptimization;
 #define NMODES NCUTMODES // Product of all mode types
 #define NSETTINGS NCUTMODES // Sum of all mode types
 #define WEATHERTYPE 1
-#define CUTMODE 0
 #define VERBOSITY 1
 #define NAMES 1
 #define OUTPUTFILE "install"
@@ -673,14 +672,14 @@ private:
 
 	void genResourceConstraints(XPRBprob* prob, bool cut)
 	{
-		// Resource amount link
+		// Resource amount link to starting times
 		for (int r = 0; r < NRES; ++r)
 			for (int p = 0; p < NPERIODS; ++p)
 				for (int t = p * TPP; t < (p + 1) * TPP; ++t)
 				{
 					XPRBrelation rel = N[r][p] >= 0;
 
-					for (int i = 0; i < NITASKS; ++i)
+					for (int i = 0; i < NTASKS; ++i)
 					{
 						if (rho[r][i] == 0)
 							continue;
@@ -708,25 +707,40 @@ private:
 
 	void genOnlineConstraints(XPRBprob* prob, bool cut)
 	{
-		// Online turbines link
-		O[0].setUB(0);
-
-		for (int p = 1; p < NPERIODS; ++p)
+		// Online turbines status link to start times
+		for (int t = 0; t < NTIMES; ++t)
 		{
-			XPRBrelation rel = O[p] == 0;
+			XPRBrelation relL = O[t] == 0;
 
-			for (int a = 0; a < NASSETS; a++)
-				if (sa[NITASKS - 1][p * TPP] > -1)
-					rel.addTerm(s[a][NITASKS - 1][sa[NITASKS - 1][p * TPP]], -1);
+			for (int a = 0; a < NASSETS; ++a)
+			{
+				XPRBrelation relS = o[a][t] <= 0.5 * s[a][NITASKS - 1][sa[NITASKS - 1][t]];
+
+				for (int i = NITASKS - 1; i < NTASKS; i++)
+				{
+					if (sa[i][t] > -1)
+						relS.addTerm(s[a][i][sa[i][t]], -0.5);
+					if (sa[i][t - lambda[a]] > -1)
+						relS.addTerm(s[a][i][sa[i][t - lambda[a]]], 0.5);
+				}
+
+				if (cut)
+					prob->newCut(relS);
 				else
-					continue;
+				{
+					int indices[2] = { a, t };
+					genCon(prob, relS, "Onl", 2, indices);
+				}
+
+				relL.addTerm(o[a][t], -1);
+			}
 
 			if (cut)
-				prob->newCut(rel);
+				prob->newCut(relL);
 			else
 			{
-				int indices[1] = { p };
-				genCon(prob, rel, "Onl", 1, indices);
+				int indices[1] = { t };
+				genCon(prob, relL, "Tur", 1, indices);
 			}
 		}
 	}
@@ -816,7 +830,7 @@ int main(int argc, char** argv)
 	for (int mode = 0; mode < NMODES; ++mode)
 	{
 #if NMODES == 1
-		int realMode = 0;
+		int realMode = 5;
 #endif // NMODES == 1
 #if NMODES > 1
 		int realMode = mode;
@@ -835,20 +849,12 @@ int main(int argc, char** argv)
 
 		problemGen.genOriProblem(&probs[mode], realMode);
 		problemSolver.solveProblem(&probs[mode], name);
-#if CUTMODE == 0
-		if (false)
+
+		if (mode != 0)
 		{
 			problemGen.genFullProblem(&probs[mode], realMode);
 			problemSolver.solveProblem(&probs[mode], name);
 		}
-#endif // CUTMODE == 0
-#if CUTMODE == 1
-		for (int i = 0; i < 5; ++i)
-		{
-			if (problemGen.addCtr(&probs[mode], realMode, i))
-				problemSolver.solveProblem(&probs[mode], name);
-		}
-#endif // CUTMODE == 1
 		outputPrinter.printProbOutput(&probs[mode], realMode);
 
 #ifdef OPTIMAL
