@@ -15,27 +15,26 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-#define NCUTMODES 1
+#define NCUTMODES 16
 #define NMODES NCUTMODES // Product of all mode types
 #define NSETTINGS NCUTMODES // Sum of all mode types
 #define WEATHERTYPE 1
-#define CUTMODE 0
 #define VERBOSITY 1
 #define NAMES 1
 #define OUTPUTFILE "install"
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "installWeek.dat"
-#define NPERIODS 7
+#define DATAFILE "installMonth.dat"
+#define NPERIODS 30
 #define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
 #define NTASKS 5
 #define NIP 4
 #define NRES 3
-#define NASSETS 2
+#define NASSETS 5
 #define DIS 0.999972465
-#define OPTIMAL -474814 // The optimal solution, if known
+#define OPTIMAL -3274199 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -821,20 +820,13 @@ int main(int argc, char** argv)
 
 		problemGen.genOriProblem(&probs[mode], realMode);
 		problemSolver.solveProblem(&probs[mode], name);
-#if CUTMODE == 0
-		if (false)
+
+		if (realMode != 0)
 		{
 			problemGen.genFullProblem(&probs[mode], realMode);
 			problemSolver.solveProblem(&probs[mode], name);
 		}
-#endif // CUTMODE == 0
-#if CUTMODE == 1
-		for (int i = 0; i < 5; ++i)
-		{
-			if (problemGen.addCtr(&probs[mode], realMode, i))
-				problemSolver.solveProblem(&probs[mode], name);
-		}
-#endif // CUTMODE == 1
+
 		outputPrinter.printProbOutput(&probs[mode], realMode);
 
 #ifdef OPTIMAL
