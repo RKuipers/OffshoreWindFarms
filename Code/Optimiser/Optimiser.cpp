@@ -144,12 +144,12 @@ private:
 
 	void printTurbines(ofstream* file)
 	{
-		cout << "Online turbines per period: " << endl;
-		for (int p = 0; p < NPERIODS; ++p)
+		cout << "Online turbines per timestep: " << endl;
+		for (int t = 0; t < NTIMES; ++t)
 		{
-			int v = round(O[p].getSol());
-			cout << p << ": " << v << endl;
-			*file << "O_" << p << ": " << v << endl;
+			int v = round(O[t].getSol());
+			cout << t << ": " << v << endl;
+			*file << "O_" << t << ": " << v << endl;
 		}
 	}
 
@@ -180,7 +180,7 @@ private:
 		for (int a = 0; a < NASSETS; ++a)
 		{
 			cout << "Asset: " << a << endl;
-			for (int i = 0; i < NITASKS; ++i)
+			for (int i = 0; i < NTASKS; ++i)
 			{
 				int start = -1;
 				int finish = -1;
@@ -514,7 +514,7 @@ private:
 			}
 		}
 
-		for (int i = 0; i < NITASKS; ++i)
+		for (int i = 0; i < NTASKS; ++i)
 			for (int t = 0; t < NTIMES; ++t)
 			{
 				if (waveHeight[t] < limits[i])
@@ -526,7 +526,7 @@ private:
 
 	void generateStartAtValues()
 	{
-		for (int i = 0; i < NITASKS; ++i)
+		for (int i = 0; i < NTASKS; ++i)
 			for (int t1 = 0; t1 <= NTIMES; ++t1)
 			{
 				int worked = 0;
@@ -765,7 +765,7 @@ private:
 				{
 					if (sa[i][t] > -1)
 						relS.addTerm(s[a][i][sa[i][t]], -0.5);
-					if (sa[i][t - lambda[a]] > -1)
+					if (t - lambda[a] >= 0 && sa[i][t - lambda[a]] > -1)
 						relS.addTerm(s[a][i][sa[i][t - lambda[a]]], 0.5);
 				}
 
@@ -895,7 +895,7 @@ int main(int argc, char** argv)
 		problemGen.genOriProblem(&probs[mode], realMode);
 		problemSolver.solveProblem(&probs[mode], name);
 
-		if (mode != 0)
+		if (realMode != 0)
 		{
 			problemGen.genFullProblem(&probs[mode], realMode);
 			problemSolver.solveProblem(&probs[mode], name);
