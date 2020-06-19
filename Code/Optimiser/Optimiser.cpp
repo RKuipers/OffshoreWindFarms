@@ -29,12 +29,12 @@ using namespace ::dashoptimization;
 #define NPERIODS 7
 #define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 5
-#define NMMTASKS 1
-#define NMOTASKS 1
+#define NITASKS 3
+#define NMMTASKS 2
+#define NMOTASKS 2
 #define NMTASKS NMMTASKS + NMOTASKS
 #define NTASKS NITASKS + NMTASKS
-#define NIP 4
+#define NIP 6
 #define NRES 3
 #define NASSETS 2
 #define DIS 0.999972465
@@ -340,17 +340,38 @@ private:
 		}
 	}
 
-	void readTasks(ifstream* datafile)
+	void readTasks(ifstream* datafile, int taskType)
 	{
 		string line;
 		vector<string>* split = new vector<string>();
 
+		string name;
+		int ntasks;
+		switch (taskType)
+		{
+		case 0:
+			name = "ITASKS";
+			ntasks = NITASKS;
+			break;
+		case 1:
+			name = "MMTASKS";
+			ntasks = NMMTASKS;
+			break;
+		case 2:
+			name = "MOTASKS";
+			ntasks = NMOTASKS;
+			break;
+		default:
+			name = "";
+			ntasks = -1;
+		}
+
 		getline(*datafile, line);
 		splitString(line, split);
-		if ((*split)[0].compare("TASKS") != 0)
-			cout << "Error reading TASKS" << endl;
-		if (stoi((*split)[1]) != NITASKS)
-			cout << "Error with declared TASKS amount" << endl;
+		if ((*split)[0].compare(name) != 0)
+			cout << "Error reading " << name << endl;
+		if (stoi((*split)[1]) != ntasks)
+			cout << "Error with declared " << name << " amount" << endl;
 
 		for (int i = 0; i < NITASKS; ++i)
 		{
@@ -360,11 +381,22 @@ private:
 			if (count(line.begin(), line.end(), '\t') != 2 + NRES)
 				cout << "Error with column count on TASKS line " << i << endl;
 
-			d[i] = stoi((*split)[1]);
-			limits[i] = stoi((*split)[2]);
+			int copies = 1;
+			if ((*split)[0].find(" ") != string::npos)
+			{
+				vector<string>* dups = new vector<string>();
+				splitString((*split)[0], dups, ' ');
+				copies = stoi((*dups)[1]) - stoi((*dups)[0]);
+			}
 
-			for (int r = 0; r < NRES; ++r)
-				rho[r][i] = stoi((*split)[r+3]);
+			for (int x = 0; x < copies; ++x)
+			{
+				d[i] = stoi((*split)[1]);
+				limits[i] = stoi((*split)[2]);
+
+				for (int r = 0; r < NRES; ++r)
+					rho[r][i] = stoi((*split)[r + 3]);
+			}
 		}
 
 		getline(*datafile, line);
@@ -401,21 +433,21 @@ private:
 		getline(*datafile, line);
 	}
 
-	void readValues(ifstream* datafile)
+	void readSimpleArray(ifstream* datafile, string name, int arrSize)
 	{
 		string line;
 		vector<string>* split = new vector<string>();
 
 		getline(*datafile, line);
-		if (line.compare("VALUES") != 0)
-			cout << "Error reading VALUES" << endl;
+		if (line.compare(name) != 0)
+			cout << "Error reading " << name << endl;
 
 		getline(*datafile, line);
 		char type = line[0];
 
 		getline(*datafile, line);
 		splitString(line, split);
-		vector<int> vals = vector<int>(NPERIODS);
+		vector<int> vals = vector<int>(arrSize);
 		parsePeriodical(type, *split, 0, &vals);
 		copy(vals.begin(), vals.end(), v);
 
@@ -522,13 +554,18 @@ public:
 		}
 
 		// Read the task info
-		readTasks(&datafile);
+		readTasks(&datafile, 0);
+		readTasks(&datafile, 1);
+		readTasks(&datafile, 2);
 
 		// Read the resource info
 		readResources(&datafile);
 
 		// Read the energy value info
-		readValues(&datafile);
+		readSimpleArray(&datafile, "VALUES", NTIMES);
+
+		// Read the lambda info
+		readSimpleArray(&datafile, "LAMBDA", NASSETS);
 
 		// Read the task order info
 		readPreqs(&datafile);
