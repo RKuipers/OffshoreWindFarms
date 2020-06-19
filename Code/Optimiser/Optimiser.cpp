@@ -346,24 +346,29 @@ private:
 		vector<string>* split = new vector<string>();
 
 		string name;
-		int ntasks;
+		int ntasks, start;
 		switch (taskType)
 		{
 		case 0:
 			name = "ITASKS";
 			ntasks = NITASKS;
+			start = 0;
 			break;
 		case 1:
 			name = "MMTASKS";
 			ntasks = NMMTASKS;
+			start = NITASKS;
 			break;
 		case 2:
 			name = "MOTASKS";
 			ntasks = NMOTASKS;
+			start = NITASKS + NMMTASKS;
 			break;
 		default:
 			name = "";
 			ntasks = -1;
+			start = -1;
+			break;
 		}
 
 		getline(*datafile, line);
@@ -373,29 +378,32 @@ private:
 		if (stoi((*split)[1]) != ntasks)
 			cout << "Error with declared " << name << " amount" << endl;
 
-		for (int i = 0; i < NITASKS; ++i)
+		int copies = 1;
+
+		for (int i = start; i < ntasks + start; i += copies)
 		{
 			getline(*datafile, line);
 			splitString(line, split, '\t');
 
 			if (count(line.begin(), line.end(), '\t') != 2 + NRES)
-				cout << "Error with column count on TASKS line " << i << endl;
+				cout << "Error with column count on " << name << " line " << i << endl;
 
-			int copies = 1;
 			if ((*split)[0].find(" ") != string::npos)
 			{
 				vector<string>* dups = new vector<string>();
 				splitString((*split)[0], dups, ' ');
 				copies = stoi((*dups)[1]) - stoi((*dups)[0]);
 			}
+			else
+				copies = 1;
 
 			for (int x = 0; x < copies; ++x)
 			{
-				d[i] = stoi((*split)[1]);
-				limits[i] = stoi((*split)[2]);
+				d[i + x] = stoi((*split)[1]);
+				limits[i + x] = stoi((*split)[2]);
 
 				for (int r = 0; r < NRES; ++r)
-					rho[r][i] = stoi((*split)[r + 3]);
+					rho[r][i + x] = stoi((*split)[r + 3]);
 			}
 		}
 
@@ -433,7 +441,7 @@ private:
 		getline(*datafile, line);
 	}
 
-	void readSimpleArray(ifstream* datafile, string name, int arrSize)
+	void readSimpleArray(ifstream* datafile, string name, int arrSize, int arr[])
 	{
 		string line;
 		vector<string>* split = new vector<string>();
@@ -448,8 +456,8 @@ private:
 		getline(*datafile, line);
 		splitString(line, split);
 		vector<int> vals = vector<int>(arrSize);
-		parsePeriodical(type, *split, 0, &vals);
-		copy(vals.begin(), vals.end(), v);
+		parsePeriodical(type, *split, 0, &vals, NTIMES);
+		copy(vals.begin(), vals.end(), arr);
 
 		getline(*datafile, line);
 	}
@@ -537,7 +545,7 @@ private:
 public:
 	DataReader()
 	{
-		limits = vector<int>(NITASKS);
+		limits = vector<int>(NTASKS);
 	}
 
 	void readData()
@@ -562,10 +570,10 @@ public:
 		readResources(&datafile);
 
 		// Read the energy value info
-		readSimpleArray(&datafile, "VALUES", NTIMES);
+		readSimpleArray(&datafile, "VALUES", NTIMES, v);
 
 		// Read the lambda info
-		readSimpleArray(&datafile, "LAMBDA", NASSETS);
+		readSimpleArray(&datafile, "LAMBDA", NASSETS, lambda);
 
 		// Read the task order info
 		readPreqs(&datafile);
