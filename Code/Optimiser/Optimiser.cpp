@@ -15,7 +15,7 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-#define NCUTMODES 16
+#define NCUTMODES 1
 #define NMODES NCUTMODES // Product of all mode types
 #define NSETTINGS NCUTMODES // Sum of all mode types
 #define WEATHERTYPE 1
@@ -25,16 +25,15 @@ using namespace ::dashoptimization;
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "installMonth.dat"
-#define NPERIODS 30
-#define TPP 12 // Timesteps per Period
+#define DATAFILE "installTwoMonth.dat"
+#define NPERIODS 8
+#define TPP 168 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 5
-#define NIP 4
+#define NTASKS 16
+#define NIP 18
 #define NRES 3
 #define NASSETS 5
-#define DIS 0.999972465
-#define OPTIMAL -3274199 // The optimal solution, if known
+#define DIS 0.999806743
 
 // Weather characteristics
 int base = 105;
@@ -801,7 +800,7 @@ int main(int argc, char** argv)
 	for (int mode = 0; mode < NMODES; ++mode)
 	{
 #if NMODES == 1
-		int realMode = 5;
+		int realMode = 5; // 13 also good, both are ?101 in binary
 #endif // NMODES == 1
 #if NMODES > 1
 		int realMode = mode;
