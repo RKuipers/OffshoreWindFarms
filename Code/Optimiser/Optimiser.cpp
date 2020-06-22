@@ -21,23 +21,24 @@ using namespace ::dashoptimization;
 #define WEATHERTYPE 1
 #define VERBOSITY 1
 #define NAMES 1
-#define OUTPUTFILE "install"
+#define OUTPUTFILE "mixed"
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "installWeek.dat"
-#define NPERIODS 7
+#define DATAFILE "mixedFortnight.dat"
+#define NPERIODS 14
 #define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 3
-#define NMMTASKS 2
+#define NITASKS 4
+#define NMMTASKS 1
 #define NMOTASKS 2
 #define NMTASKS NMMTASKS + NMOTASKS
 #define NTASKS NITASKS + NMTASKS
-#define NIP 6
+#define NIP 3
 #define NRES 3
-#define NASSETS 2
+#define NASSETS 3
 #define DIS 0.999972465
+#define OPTIMAL -589085 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -195,15 +196,24 @@ private:
 						start = t;
 				}
 
-				for (int t1 = start + d[i] - 1; t1 <= NTIMES; ++t1)
-					if (sa[i][t1] >= start)
-					{
-						finish = t1 - 1;
-						break;
-					}
+				if (start == -1)
+				{
+					cout << i << ": Incomplete" << endl;
+					*file << "Asset " << a << " task " << i << ": Incomplete" << endl;
+				}
+				else
+				{
 
-				cout << i << ": " << start << " " << finish << endl;
-				*file << "Asset " << a << " task " << i << ": " << start << " " << finish << endl;
+					for (int t1 = start + d[i] - 1; t1 <= NTIMES; ++t1)
+						if (sa[i][t1] >= start)
+						{
+							finish = t1 - 1;
+							break;
+						}
+
+					cout << i << ": " << start << " " << finish << endl;
+					*file << "Asset " << a << " task " << i << ": " << start << " " << finish << endl;
+				}
 			}
 		}
 	}
@@ -573,7 +583,7 @@ public:
 		readSimpleArray(&datafile, "VALUES", NTIMES, v);
 
 		// Read the lambda info
-		readSimpleArray(&datafile, "LAMBDA", NASSETS, lambda);
+		readSimpleArray(&datafile, "LAMBDAS", NASSETS, lambda);
 
 		// Read the task order info
 		readPreqs(&datafile);
@@ -690,13 +700,20 @@ private:
 	void genPrecedenceConstraints(XPRBprob* prob, bool cut)
 	{
 		// Precedence constraints
-		for (int a = 0; a < NASSETS; ++a)
-			for (int x = 0; x < NIP; ++x)
+		for (int x = 0; x < NIP + NMTASKS; ++x)
+		{
+			int i, j;
+			if (x < NIP)
+				tie(i, j) = IP[x];
+			else
+			{
+				i = NITASKS - 1;
+				j = x - NIP + NITASKS;
+			}
+
+			for (int a = 0; a < NASSETS; ++a)
 				for (int t = 0; t < NTIMES; ++t)
 				{
-					int i, j;
-					tie(i, j) = IP[x];
-
 					if (sa[i][t] == -1)
 					{
 						s[a][j][t].setUB(0);
@@ -713,6 +730,7 @@ private:
 						genCon(prob, rel, "Pre", 3, indices);
 					}
 				}
+		}
 	}
 
 	void genResourceConstraints(XPRBprob* prob, bool cut)
@@ -884,7 +902,7 @@ int main(int argc, char** argv)
 		cout << "----------------------------------------------------------------------------------------" << endl;
 		cout << "MODE: " << realMode << endl;
 
-		string name = "Install" + to_string(realMode);
+		string name = "Mixed" + to_string(realMode);
 		probs[mode].setName(name.c_str());
 
 		if (NAMES == 0)
