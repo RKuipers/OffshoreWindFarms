@@ -800,7 +800,7 @@ int main(int argc, char** argv)
 	for (int mode = 0; mode < NMODES; ++mode)
 	{
 #if NMODES == 1
-		int realMode = 5; // 13 also good, both are ?101 in binary
+		int realMode = 13; // 5 also good, both are ?101 in binary
 #endif // NMODES == 1
 #if NMODES > 1
 		int realMode = mode;
