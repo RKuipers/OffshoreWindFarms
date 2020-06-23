@@ -57,6 +57,8 @@ XPRBvar s[NASSETS][NTASKS][NTIMES];
 
 class Mode 
 {
+	// TODO: Test ALL
+
 	class ModeDim
 	{
 	protected:
@@ -87,21 +89,37 @@ class Mode
 		{
 			return curr;
 		}
+
+		string virtual getName(int index = -1)
+		{
+			return "ERROR: Name of unnamed mode requested";
+		}
 	};
 
-	class NamedModeDim : virtual ModeDim
+	class NamedModeDim : public virtual ModeDim
 	{
 	private:
 		string* names;
+		bool individualNames;
 
 	public:
+		NamedModeDim(string name, int max = 2) : ModeDim(max)
+		{
+			this->names[0] = name;
+			this->individualNames = false;
+		}
+
 		NamedModeDim(string* names, int max = 2) : ModeDim(max)
 		{
 			this->names = names;
+			this->individualNames = true;
 		}
 
-		string getName(int index = -1)
+		string getName(int index = -1) override
 		{
+			if (!individualNames)
+				return names[0];
+
 			if (index == -1)
 				return names[curr];
 			else
@@ -109,7 +127,7 @@ class Mode
 		}
 	};
 
-	class ModeDimComb : virtual ModeDim
+	class ModeDimComb : public virtual ModeDim
 	{
 	protected:
 		int ndims;
@@ -126,7 +144,7 @@ class Mode
 		}
 	};
 
-	class NamedModeDimComb : ModeDimComb, NamedModeDim
+	class NamedModeDimComb : public ModeDimComb, public NamedModeDim
 	{
 	private:
 		string* transformNames(string* names, int dims)
@@ -141,16 +159,98 @@ class Mode
 		}
 
 	public:
+		NamedModeDimComb(string name, int dims) : ModeDimComb(dims), NamedModeDim(name) { }
+
 		NamedModeDimComb(string* names, int dims) : ModeDimComb(dims), NamedModeDim(transformNames(names, dims)) { }
 	};
 
 private:
-	int index;
+	int ndims;
+	ModeDim* dims;
 
 public:
+	// Constructor
+	Mode()
+	{
+		ndims = 0;
+	}
+
+	/* Functions to add Dimensions: */
+
+	// Add nameless regular dimension
+	void AddDim(int max = 2)
+	{
+		dims[ndims] = ModeDim(max);
+		ndims++;
+	}
+
+	// Add named regular dimension
+	void AddDim(string name, int max = 2)
+	{
+		dims[ndims] = NamedModeDim(name, max);
+		ndims++;
+	}
+
+	// Add nameless combination dimension
+	void AddCombDim(int max = 2)
+	{
+		// TODO
+	}
+
+	// Add named combination dimension
+	void AddCombDim(string name, int max = 2)
+	{
+		// TODO
+	}
+
+	/* Functions to get/set states: */
+
+	// Move on to the next state
 	void Next()
 	{
+		for (int i = 0; i < ndims; ++i)
+		{
+			int res = dims[i].next();
+			if (res != -1)
+				break;
+		}
 	}
+
+	// Get current mode for specific dimension
+	int GetCurrent(int dim)
+	{
+		return dims[dim].getCurr();
+	}
+
+	// Get current mode for all dimensions
+	vector<int> GetCurrent()
+	{
+		vector<int> res = vector<int>(ndims);
+
+		for (int i = 0; i < ndims; ++i)
+			res.push_back(dims[i].getCurr());
+
+		return res;
+	}
+
+	// Get names of current mode for specific dimension
+	string GetCurrentName(int dim)
+	{
+		return dims[dim].getName();
+	}
+
+	// Get names current mode for all dimensions
+	vector<string> GetCurrentNames()
+	{
+		vector<string> res = vector<string>(ndims);
+
+		for (int i = 0; i < ndims; ++i)
+			res.push_back(dims[i].getName());
+
+		return res;
+	}
+
+	// Add other getters as needed
 };
 
 class OutputPrinter
