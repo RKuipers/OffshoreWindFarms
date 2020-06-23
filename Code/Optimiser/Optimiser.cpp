@@ -87,43 +87,69 @@ class Mode
 		{
 			return curr;
 		}
-		
-		/*string getName(int index = -1)
+	};
+
+	class NamedModeDim : virtual ModeDim
+	{
+	private:
+		string* names;
+
+	public:
+		NamedModeDim(string* names, int max = 2) : ModeDim(max)
+		{
+			this->names = names;
+		}
+
+		string getName(int index = -1)
 		{
 			if (index == -1)
 				return names[curr];
 			else
 				return names[index];
-		}*/
+		}
 	};
 
-	class ModeDimComb : ModeDim
+	class ModeDimComb : virtual ModeDim
+	{
+	protected:
+		int ndims;
+
+	public:
+		ModeDimComb(int dims) : ModeDim(pow(2, dims))
+		{
+			this->ndims = dims;
+		}
+
+		int getCurr(int dim)
+		{
+			return (curr >> dim) % 2;
+		}
+	};
+
+	class NamedModeDimComb : ModeDimComb, NamedModeDim
 	{
 	private:
-		ModeDim* dims;
-	public:
-		ModeDimComb(int dims)
+		string* transformNames(string* names, int dims)
 		{
-			this->dims[dims];
-			for (int i = 0; i < dims; ++i)
-				this->dims[i] = ModeDim(2);
+			string* res;
+			for (int i = 0; i < dims; i++)
+			{
+				res[2 * i] = "N" + names[i];
+				res[(2 * i) + 1] = "Y" + names[i];
+			}
+			return res;
 		}
+
+	public:
+		NamedModeDimComb(string* names, int dims) : ModeDimComb(dims), NamedModeDim(transformNames(names, dims)) { }
 	};
 
 private:
 	int index;
-	enum cut {Set = 0, Prec = 1, Res = 2, Onl = 3};
-	enum test { A, B, C, NTEST};
-	enum direction { East = 11, West = 22, North = 33, South = 44 };
 
 public:
 	void Next()
 	{
-		direction dir;
-		dir = South;
-
-		cut c;
-		c = Prec;
 	}
 };
 
