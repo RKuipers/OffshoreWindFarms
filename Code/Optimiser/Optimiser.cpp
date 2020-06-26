@@ -66,13 +66,47 @@ class Mode
 	class ModeDim
 	{
 	protected:
-		int curr, max;
+		int curr, max, type;
+		string* names;
+		bool individualNames;
+
+		string* transformNames(string* names, int dims)
+		{
+			string res[8]; // 2 * dims
+			for (int i = 0; i < dims; i++)
+			{
+				res[2 * i] = "N" + names[i];
+				res[(2 * i) + 1] = "Y" + names[i];
+			}
+			return res;
+		}
 
 	public:
-		ModeDim(int max = 2)
+		ModeDim(int type = 0, int max = 2, string name = "Unnamed")
 		{
 			this->curr = 0;
-			this->max = max;
+			if (type == 0)
+				this->max = max;
+			else if (type == 1)
+				this->max = pow(2, max);
+			this->max = type;
+			this->names[0] = name;
+			this->individualNames = false;
+		}
+
+		ModeDim(string* names, int type = 0, int max = 2)
+		{
+			this->curr = 0;
+			if (type == 0)
+				this->max = max;
+			else if (type == 1)
+				this->max = pow(2, max);
+			this->type = type;
+			if (type == 0)
+				this->names = names;
+			else if (type == 1)
+				this->names = transformNames(names, max);
+			this->individualNames = true;
 		}
 
 		int next() 
@@ -89,49 +123,17 @@ class Mode
 			}
 		}
 
-		int getCurr()
+		int getCurr(int dim = -1)
 		{
-			return curr;
+			if (type == 0)
+				return curr;
+			else if (type == 1 && dim >= 0)
+				return (curr >> dim) % 2;
+			else
+				return -1;
 		}
 
-		// Only to be used in ModeDimComb
-		int getCurr(int index)
-		{
-			return -1;
-		}
-
-		// Only to be used in NamedModeDim
-		string virtual getName(int index = -1)
-		{
-			return "ERROR: Name of unnamed mode requested";
-		}
-
-		int getMax()
-		{
-			return max;
-		}
-	};
-
-	class NamedModeDim : public virtual ModeDim
-	{
-	private:
-		string* names;
-		bool individualNames;
-
-	public:
-		NamedModeDim(string name, int max = 2) : ModeDim(max)
-		{
-			this->names[0] = name;
-			this->individualNames = false;
-		}
-
-		NamedModeDim(string* names, int max = 2) : ModeDim(max)
-		{
-			this->names = names;
-			this->individualNames = true;
-		}
-
-		string getName(int index = -1) override
+		string getName(int index = -1)
 		{
 			if (!individualNames)
 				return names[0];
@@ -141,53 +143,21 @@ class Mode
 			else
 				return names[index];
 		}
-	};
 
-	class ModeDimComb : public virtual ModeDim
-	{
-	protected:
-		int ndims;
-
-	public:
-		ModeDimComb(int dims) : ModeDim(pow(2, dims))
+		int getMax()
 		{
-			this->ndims = dims;
+			return max;
 		}
-
-		int getCurr(int dim) 
-		{
-			return (curr >> dim) % 2;
-		}
-	};
-
-	class NamedModeDimComb : public ModeDimComb, public NamedModeDim
-	{
-	private:
-		string* transformNames(string* names, int dims)
-		{
-			string res[8]; // 2 * dims
-			for (int i = 0; i < dims; i++)
-			{
-				res[2 * i] = "N" + names[i];
-				res[(2 * i) + 1] = "Y" + names[i];
-			}
-			return res;
-		}
-
-	public:
-		NamedModeDimComb(string name, int dims) : ModeDim(pow(2, dims)), ModeDimComb(dims), NamedModeDim(name) { }
-
-		NamedModeDimComb(string* names, int dims) : ModeDim(pow(2, dims)), ModeDimComb(dims), NamedModeDim(transformNames(names, dims)) { }
 	};
 
 private:
 	int nDims, nModes, nSettings;
-	ModeDim dims[NMODETYPES];
+	ModeDim* dims[NMODETYPES];
 
 	// Updates the int members after a dimension is added
 	void updateCounters()
 	{
-		int added = dims[nDims].getMax();
+		int added = dims[nDims]->getMax();
 
 		nDims++;
 		if (nModes == 0)
@@ -214,7 +184,7 @@ public:
 #ifdef MODECUTS
 		string names[NCUTMODES2] = { "SetCuts", "PreCuts", "ResCuts", "OnlCuts" };
 
-		mode.AddCombDim(names, NCUTMODES2);
+		mode.AddCombDim(NCUTMODES2, names);
 #endif // MODECUTS
 
 		return mode;
@@ -226,7 +196,7 @@ public:
 		int res = 0;
 		for (int i = 0; i < nDims; ++i)
 		{
-			res = dims[i].next();
+			res = dims[i]->next();
 			if (res != -1)
 				break;
 		}
@@ -235,47 +205,62 @@ public:
 
 	/* Functions to add Dimensions: */
 #pragma region Add Dims
-	// Add nameless regular dimension
-	void AddDim(int max = 2)
+	// Adds a nameless binary dimension
+	void AddDim()
 	{
-		dims[nDims] = ModeDim(max);
+		dims[nDims] = new ModeDim();
 		updateCounters();
 	}
 
-	// Add named regular dimension (with a single name)
-	void AddDim(string name, int max = 2)
+	// Adds a nameless regular dimension
+	void AddDim(int max)
 	{
-		dims[nDims] = NamedModeDim(name, max);
+		dims[nDims] = new ModeDim(0, max);
 		updateCounters();
 	}
 
-	// Add named regular dimension (with individual names)
-	void AddDim(string* names, int max = 2)
+	// Adds a named regular dimension 
+	void AddDim(int max, string name)
 	{
-		dims[nDims] = NamedModeDim(names, max);
+		dims[nDims] = new ModeDim(0, max, name);
 		updateCounters();
 	}
 
-	// Add nameless combination dimension
-	void AddCombDim(int combDims)
+	// Adds a regular dimension with each option named
+	void AddDim(int max, string* names)
 	{
-		dims[nDims] = ModeDimComb(combDims);
+		dims[nDims] = new ModeDim(names, 0, max);
 		updateCounters();
 	}
 
-	// Add named combination dimension (with a single name)
-	void AddCombDim(string name, int combDims)
+	// Adds a nameless combination dimension with 2 binary sub-dims
+	void AddCombDim()
 	{
-		dims[nDims] = NamedModeDimComb(name, combDims);
+		dims[nDims] = new ModeDim(1);
 		updateCounters();
 	}
 
-	// Add named combination dimension (with individual names)
-	void AddCombDim(string* name, int combDims)
+	// Adds a nameless combination dimension
+	void AddCombDim(int max)
 	{
-		dims[nDims] = NamedModeDimComb(name, combDims);
+		dims[nDims] = new ModeDim(1, max);
 		updateCounters();
 	}
+
+	// Adds a named combination dimension
+	void AddCombDim(int max, string name)
+	{
+		dims[nDims] = new ModeDim(1, max, name);
+		updateCounters();
+	}
+
+	// Adds a combination dimension with each option named
+	void AddCombDim(int max, string* names)
+	{
+		dims[nDims] = new ModeDim(names, 1, max);
+		updateCounters();
+	}
+
 #pragma endregion
 	
 	/* Functions to get states: */
@@ -283,7 +268,7 @@ public:
 	// Get current mode for specific dimension
 	int GetCurrent(int dim)
 	{
-		return dims[dim].getCurr();
+		return dims[dim]->getCurr();
 	}
 
 	// Get current mode for all dimensions
@@ -292,7 +277,7 @@ public:
 		vector<int> res = vector<int>(nDims);
 
 		for (int i = 0; i < nDims; ++i)
-			res.push_back(dims[i].getCurr());
+			res.push_back(dims[i]->getCurr());
 
 		return res;
 	}
@@ -300,13 +285,13 @@ public:
 	// Get current mode for specific combination-dimension
 	int GetCurrentComb(int dim, int index)
 	{
-		return dims[dim].getCurr(index);
+		return dims[dim]->getCurr(index);
 	}
 
 	// Get names of current mode for specific dimension
 	string GetCurrentName(int dim)
 	{
-		return dims[dim].getName();
+		return dims[dim]->getName();
 	}
 
 	// Get names current mode for all dimensions
@@ -315,7 +300,7 @@ public:
 		vector<string> res = vector<string>(nDims);
 
 		for (int i = 0; i < nDims; ++i)
-			res.push_back(dims[i].getName());
+			res.push_back(dims[i]->getName());
 
 		return res;
 	}
@@ -1049,9 +1034,9 @@ int main(int argc, char** argv)
 		durs[mode] = duration;
 
 		probs[mode].reset();
-		m.Next();
 		if (m.GetCurrentComb(0, 0) != (mode >> 0) % 2 || m.GetCurrentComb(0, 1) != (mode >> 1) % 2 || m.GetCurrentComb(0, 2) != (mode >> 2) % 2 || m.GetCurrentComb(0, 3) != (mode >> 3) % 2)
 			realMode = mode;
+		m.Next();
 	}
 
 	outputPrinter.printModeOutput(durs, opt);
