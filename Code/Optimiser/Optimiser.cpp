@@ -15,12 +15,14 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-#define NMODETYPES 1
+#define NMODETYPES 2
 #define MODECUTS
+#define MODETESTS
 #define NCUTMODES 16
 #define NCUTMODES2 4
-#define NMODES NCUTMODES // Product of all mode types
-#define NSETTINGS NCUTMODES // Sum of all mode types
+#define NTESTMODES 3
+#define NMODES NCUTMODES * NTESTMODES // Product of all mode types
+#define NSETTINGS NCUTMODES + NTESTMODES // Sum of all mode types
 #define WEATHERTYPE 1
 #define VERBOSITY 1
 #define NAMES 1
@@ -89,8 +91,8 @@ class Mode
 				this->max = max;
 			else if (type == 1)
 				this->max = pow(2, max);
-			this->max = type;
-			this->names[0] = name;
+			this->type = type;
+			this->names = &name;
 			this->individualNames = false;
 		}
 
@@ -136,7 +138,7 @@ class Mode
 		string getName(int index = -1)
 		{
 			if (!individualNames)
-				return names[0];
+				return (*names);
 
 			if (index == -1)
 				return names[curr];
@@ -186,6 +188,10 @@ public:
 
 		mode.AddCombDim(NCUTMODES2, names);
 #endif // MODECUTS
+
+#ifdef MODETESTS
+		mode.AddDim(NTESTMODES);
+#endif // MODETESTS
 
 		return mode;
 	}
@@ -1036,6 +1042,11 @@ int main(int argc, char** argv)
 		probs[mode].reset();
 		if (m.GetCurrentComb(0, 0) != (mode >> 0) % 2 || m.GetCurrentComb(0, 1) != (mode >> 1) % 2 || m.GetCurrentComb(0, 2) != (mode >> 2) % 2 || m.GetCurrentComb(0, 3) != (mode >> 3) % 2)
 			realMode = mode;
+		if (m.GetCurrent(1) != (mode >> 4) % 3)
+			realMode = mode;
+		m.GetCurrentName(0);
+		m.GetCurrentName(1);
+		m.GetCurrentNames();
 		m.Next();
 	}
 
