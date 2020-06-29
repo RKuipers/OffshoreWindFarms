@@ -22,9 +22,9 @@ using namespace ::dashoptimization;
 #define NCUTMODES2 4
 #define NTESTMODES 3
 #define NMODES NCUTMODES * NTESTMODES // Product of all mode types
-#define NSETTINGS NCUTMODES + NTESTMODES // Sum of all mode types
+#define NSETTINGS NCUTMODES2 + NTESTMODES // Sum of all mode types
 #define WEATHERTYPE 1
-#define VERBOSITY 1
+#define VERBOSITY 0
 #define NAMES 1
 #define OUTPUTFILE "install"
 #define OUTPUTEXT ".sol"
@@ -68,14 +68,14 @@ class Mode
 	class ModeDim
 	{
 	protected:
-		int curr, max, type;
-		string* names;
+		int curr, max, type, subdims;
+		vector<string> names;
 		bool individualNames;
 
-		string* transformNames(string* names, int dims)
+		vector<string> transformNames(string* names, int dims)
 		{
-			string res[8]; // 2 * dims
-			for (int i = 0; i < dims; i++)
+			vector<string> res(dims * 2);
+			for (int i = 0; i < dims; ++i)
 			{
 				res[2 * i] = "N" + names[i];
 				res[(2 * i) + 1] = "Y" + names[i];
@@ -88,26 +88,38 @@ class Mode
 		{
 			this->curr = 0;
 			if (type == 0)
+			{
+				this->subdims = 0;
 				this->max = max;
+			}
 			else if (type == 1)
+			{
+				this->subdims = max;
 				this->max = pow(2, max);
+			}
 			this->type = type;
-			this->names = &name;
+			this->names = vector<string>(1);
+			this->names[0] = name;
 			this->individualNames = false;
 		}
 
-		ModeDim(string* names, int type = 0, int max = 2)
+		ModeDim(string names[], int type = 0, int max = 2)
 		{
 			this->curr = 0;
-			if (type == 0)
-				this->max = max;
-			else if (type == 1)
-				this->max = pow(2, max);
 			this->type = type;
 			if (type == 0)
-				this->names = names;
+			{
+				this->subdims = 0;
+				this->max = max;
+				this->names = vector<string>(names, names + max);
+			}
 			else if (type == 1)
-				this->names = transformNames(names, max);
+			{
+				this->subdims = max;
+				this->max = pow(2, max);
+				this->names = vector<string>(names, names + max + 2);
+				//this->names = transformNames(names, max);
+			}
 			this->individualNames = true;
 		}
 
@@ -135,15 +147,39 @@ class Mode
 				return -1;
 		}
 
+		void setCurr(int val)
+		{
+			curr = val;
+		}
+
 		string getName(int index = -1)
 		{
 			if (!individualNames)
-				return (*names);
+				return names[0];
 
-			if (index == -1)
-				return names[curr];
-			else
-				return names[index];
+			int id = index;
+			if (id == -1)
+				id = curr;
+
+			if (type == 0)
+				return names[id];
+
+			if (type == 1)
+			{
+				string name = "";
+				for (int i = 0; i < subdims; ++i)
+				{
+					int shift = id >> i;
+					int mod = shift % 2;
+					if ((id >> i) % 2 == 1)
+						name += names[i + 1];
+				}
+
+				if (name == "")
+					name = names[0];
+
+				return name + names[subdims+1];
+			}
 		}
 
 		int getMax()
@@ -153,8 +189,9 @@ class Mode
 	};
 
 private:
-	int nDims, nModes, nSettings;
+	int nDims, nModes, nSettings, current;
 	ModeDim* dims[NMODETYPES];
+	vector<double> durs;
 
 	// Updates the int members after a dimension is added
 	void updateCounters()
@@ -176,6 +213,8 @@ public:
 		nDims = 0;
 		nModes = 0;
 		nSettings = 0;
+		current = 0;
+		durs = vector<double>();
 	}
 
 	// Initialiser (to update according to specific tests to be run)
@@ -184,7 +223,7 @@ public:
 		Mode mode = Mode();
 
 #ifdef MODECUTS
-		string names[NCUTMODES2] = { "SetCuts", "PreCuts", "ResCuts", "OnlCuts" };
+		string names[NCUTMODES2 + 2] = { "No", "Set", "Pre", "Res", "Onl", "Cuts" };
 
 		mode.AddCombDim(NCUTMODES2, names);
 #endif // MODECUTS
@@ -193,12 +232,15 @@ public:
 		mode.AddDim(NTESTMODES);
 #endif // MODETESTS
 
+		mode.durs.resize(mode.nModes);
+
 		return mode;
 	}
 	
 	// Move on to the next state (returns True if end is reached)
 	bool Next()
 	{
+		current++;
 		int res = 0;
 		for (int i = 0; i < nDims; ++i)
 		{
@@ -207,6 +249,19 @@ public:
 				break;
 		}
 		return res == -1;
+	}
+
+	// Sets everything back to the starting state
+	void Reset()
+	{
+		for (int i = 0; i < NMODETYPES; ++i)
+			dims[i]->setCurr(0);
+	}
+
+	// Sets the duration the current run took
+	void SetCurrDur(double dur)
+	{
+		durs[current] = dur;
 	}
 
 	/* Functions to add Dimensions: */
@@ -321,6 +376,42 @@ public:
 	int GetNSettings()
 	{
 		return nSettings;
+	}
+
+	// Get the duration a given mode took
+	double GetDur(int mode)
+	{
+		return durs[mode];
+	}
+
+	// Gets the maximum value per dimension
+	vector<int> GetMaxValues()
+	{
+		vector<int> maxvals(nDims);
+		for (int i = 0; i < nDims; ++i)
+			maxvals.push_back(dims[i]->getMax());
+	}
+
+	// Get a list of average durations per settings (to be run after all runs are completed)
+	vector<double> GetSettingDurs()
+	{
+		Reset();
+
+		vector<double> res(nSettings);
+		vector<int> maxvals = GetMaxValues();
+
+		bool stop = false;
+
+		for (int i = 0; i < nModes && !stop; ++i)
+		{
+			vector<int> curs = GetCurrent();
+			for (int j = 0; j < nDims; ++j)
+				res[curs[j]] += durs[i];
+
+			stop = Next();
+		}
+
+		// TODO divide values in res by number of values added
 	}
 
 	// Add other getters as needed
@@ -438,12 +529,18 @@ public:
 		{
 			cout << "MODE: " << i << " DUR: " << durs[i] << endl;
 
+			
+
 			int cutSetting = i % NCUTMODES;
 			//int decSetting = i >> 5;
 
 			tots[cutSetting] += durs[i];
 			//tots[decSetting + NCUTMODES] += durs[i];
 		}
+
+#if NMODETYPES > 1
+
+#endif // NMODETYPES > 1
 
 		/*for (int i = 0; i < NCUTMODES; ++i)
 			cout << "SETTING: " << i << " DUR: " << tots[i] / (NMODES / NCUTMODES) << endl;
@@ -1044,8 +1141,8 @@ int main(int argc, char** argv)
 			realMode = mode;
 		if (m.GetCurrent(1) != (mode >> 4) % 3)
 			realMode = mode;
-		m.GetCurrentName(0);
-		m.GetCurrentName(1);
+		cout << m.GetCurrentName(0) << endl;
+		cout << m.GetCurrentName(1) << endl;
 		m.GetCurrentNames();
 		m.Next();
 	}
