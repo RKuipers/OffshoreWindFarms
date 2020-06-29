@@ -143,8 +143,19 @@ class Mode
 				return curr;
 			else if (type == 1 && dim >= 0)
 				return (curr >> dim) % 2;
-			else
-				return -1;
+		}
+
+		vector<int> getCurrVec()
+		{
+			if (type == 0)
+				return vector<int>(1, curr);
+			else if (type == 1)
+			{
+				vector<int> res;
+				for (int i = 0; i < subdims; ++i)
+					res.push_back(getCurr(i));
+				return res;
+			}
 		}
 
 		void setCurr(int val)
@@ -335,10 +346,13 @@ public:
 	// Get current mode for all dimensions
 	vector<int> GetCurrent()
 	{
-		vector<int> res = vector<int>(nDims);
+		vector<int> res = vector<int>();
 
 		for (int i = 0; i < nDims; ++i)
-			res.push_back(dims[i]->getCurr());
+		{
+			vector<int> curr = dims[i]->getCurrVec();
+			res.insert(res.end(), curr.begin(), curr.end());
+		}
 
 		return res;
 	}
@@ -397,21 +411,27 @@ public:
 	{
 		Reset();
 
-		vector<double> res(nSettings);
-		vector<int> maxvals = GetMaxValues();
+		vector<double> res(nSettings, 0.0); 
+		vector<int> counts(nSettings, 0);
 
 		bool stop = false;
 
 		for (int i = 0; i < nModes && !stop; ++i)
 		{
-			vector<int> curs = GetCurrent();
+			vector<int> curs = GetCurrent(); // TODO: Fix this for loop (something goes wrong between Dims and Settings
 			for (int j = 0; j < nDims; ++j)
-				res[curs[j]] += durs[i];
+			{
+				res[curs[j]] += durs[i]; 
+				counts[curs[j]] += 1;
+			}
 
 			stop = Next();
 		}
 
-		// TODO divide values in res by number of values added
+		for (int i = 0; i < nSettings; ++i)
+			res[i] = res[i] / counts[i];
+
+		return res;
 	}
 
 	// Add other getters as needed
@@ -510,7 +530,7 @@ public:
 		file.close();
 	}
 
-	void printModeOutput(double* durs, bool opt)
+	void printModeOutput(Mode* m, double* durs, bool opt)
 	{
 		cout << "----------------------------------------------------------------------------------------" << endl;
 
@@ -521,6 +541,8 @@ public:
 			cout << "Not all solutions are optimal" << endl;
 #endif // OPTIMAL
 
+		vector<double> setAvgs = m->GetSettingDurs();
+
 		double tots[NSETTINGS];
 		for (int i = 0; i < NSETTINGS; ++i)
 			tots[i] = 0.0;
@@ -528,6 +550,9 @@ public:
 		for (int i = 0; i < NMODES; ++i)
 		{
 			cout << "MODE: " << i << " DUR: " << durs[i] << endl;
+
+			if (durs[i] != m->GetDur(i))
+				m = m;
 
 			
 
@@ -1135,6 +1160,7 @@ int main(int argc, char** argv)
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		cout << "FULL duration: " << duration << " seconds" << endl;
 		durs[mode] = duration;
+		m.SetCurrDur(duration);
 
 		probs[mode].reset();
 		if (m.GetCurrentComb(0, 0) != (mode >> 0) % 2 || m.GetCurrentComb(0, 1) != (mode >> 1) % 2 || m.GetCurrentComb(0, 2) != (mode >> 2) % 2 || m.GetCurrentComb(0, 3) != (mode >> 3) % 2)
@@ -1147,7 +1173,7 @@ int main(int argc, char** argv)
 		m.Next();
 	}
 
-	outputPrinter.printModeOutput(durs, opt);
+	outputPrinter.printModeOutput(&m, durs, opt);
 
 	return 0;
 }
