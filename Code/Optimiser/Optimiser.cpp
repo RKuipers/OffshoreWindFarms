@@ -16,13 +16,8 @@ using namespace ::dashoptimization;
 // Program settings
 #define SEED 42 * NTIMES
 #define NMODETYPES 2
-#define MODECUTS
-#define MODETESTS
-#define NCUTMODES 16
-#define NCUTMODES2 4
-#define NTESTMODES 3
-#define NMODES NCUTMODES * NTESTMODES // Product of all mode types
-#define NSETTINGS NCUTMODES2 + NTESTMODES // Sum of all mode types
+#define MODECUTS 4
+#define MODETESTS 3
 #define WEATHERTYPE 1
 #define VERBOSITY 0
 #define NAMES 1
@@ -68,18 +63,40 @@ class Mode
 	class ModeDim
 	{
 	protected:
-		int curr, max, type, subdims;
-		vector<string> names;
+		int curr, max, type, settings;
+		vector<string> modeNames, settingNames;
 		bool individualNames;
 
-		vector<string> transformNames(string* names, int dims)
+		vector<string> genModeNames(string names[], int sets)
 		{
-			vector<string> res(dims * 2);
-			for (int i = 0; i < dims; ++i)
+			vector<string> res;
+
+			for (int i = 0; i < max; ++i)
 			{
-				res[2 * i] = "N" + names[i];
-				res[(2 * i) + 1] = "Y" + names[i];
+				string name = "";
+				for (int j = 0; j < sets; ++j)
+					if ((i >> j) % 2 == 1)
+						name += names[j + 1];
+
+				if (name == "")
+					name = names[0];
+
+				res.push_back(name + names[sets + 1]);
 			}
+
+			return res;
+		}
+
+		vector<string> genSettingNames(string names[], int sets)
+		{
+			vector<string> res;
+
+			for (int i = 0; i < sets; ++i)
+			{
+				res.push_back("N" + names[i+1] + names[sets + 1]);
+				res.push_back("Y" + names[i+1] + names[sets + 1]);
+			}
+
 			return res;
 		}
 
@@ -89,17 +106,17 @@ class Mode
 			this->curr = 0;
 			if (type == 0)
 			{
-				this->subdims = 0;
+				this->settings = max;
 				this->max = max;
 			}
 			else if (type == 1)
 			{
-				this->subdims = max;
+				this->settings = 2 * max;
 				this->max = pow(2, max);
 			}
 			this->type = type;
-			this->names = vector<string>(1);
-			this->names[0] = name;
+			this->modeNames = vector<string>(1, name);
+			this->settingNames = vector<string>(1, name);
 			this->individualNames = false;
 		}
 
@@ -109,16 +126,17 @@ class Mode
 			this->type = type;
 			if (type == 0)
 			{
-				this->subdims = 0;
+				this->settings = max;
 				this->max = max;
-				this->names = vector<string>(names, names + max);
+				this->modeNames = vector<string>(names, names + max);
+				this->settingNames = vector<string>(names, names + max);
 			}
 			else if (type == 1)
 			{
-				this->subdims = max;
+				this->settings = 2 * max;
 				this->max = pow(2, max);
-				this->names = vector<string>(names, names + max + 2);
-				//this->names = transformNames(names, max);
+				this->modeNames = genModeNames(names, max);
+				this->settingNames = genSettingNames(names, max);
 			}
 			this->individualNames = true;
 		}
@@ -152,10 +170,26 @@ class Mode
 			else if (type == 1)
 			{
 				vector<int> res;
-				for (int i = 0; i < subdims; ++i)
+				for (int i = 0; i < settings; ++i)
 					res.push_back(getCurr(i));
 				return res;
 			}
+		}
+
+		vector<bool> getSetStat()
+		{
+			vector<bool> res(settings, false);
+
+			if (type == 0)
+				res[curr] = true;
+			else if (type == 1)
+				for (int i = 0; i < settings / 2; ++i)
+					if (getCurr(i) == 0)
+						res[2 * i] = true;
+					else
+						res[(2 * i) + 1] = true;
+
+			return res;
 		}
 
 		void setCurr(int val)
@@ -163,39 +197,38 @@ class Mode
 			curr = val;
 		}
 
-		string getName(int index = -1)
+		string getModeName(int mode = -1)
 		{
 			if (!individualNames)
-				return names[0];
+				return modeNames[0];
 
-			int id = index;
+			int id = mode;
 			if (id == -1)
 				id = curr;
 
-			if (type == 0)
-				return names[id];
+			return modeNames[id];
+		}
 
-			if (type == 1)
-			{
-				string name = "";
-				for (int i = 0; i < subdims; ++i)
-				{
-					int shift = id >> i;
-					int mod = shift % 2;
-					if ((id >> i) % 2 == 1)
-						name += names[i + 1];
-				}
+		string getSetName(int set = -1)
+		{
+			if (!individualNames)
+				return settingNames[0];
 
-				if (name == "")
-					name = names[0];
+			int id = set;
+			if (id == -1)
+				id = curr;
 
-				return name + names[subdims+1];
-			}
+			return settingNames[id];
 		}
 
 		int getMax()
 		{
-			return max;
+			return this->max;
+		}
+		
+		int getSettings()
+		{
+			return this->settings;
 		}
 	};
 
@@ -207,14 +240,14 @@ private:
 	// Updates the int members after a dimension is added
 	void updateCounters()
 	{
-		int added = dims[nDims]->getMax();
+		int newModes = dims[nDims]->getMax();
 
-		nDims++;
 		if (nModes == 0)
-			nModes += added;
+			nModes += newModes;
 		else
-			nModes *= added;
-		nSettings += added;
+			nModes *= newModes;
+		nSettings += dims[nDims]->getSettings();
+		nDims++;
 	}
 
 public:
@@ -234,13 +267,13 @@ public:
 		Mode mode = Mode();
 
 #ifdef MODECUTS
-		string names[NCUTMODES2 + 2] = { "No", "Set", "Pre", "Res", "Onl", "Cuts" };
+		string names[MODECUTS + 2] = { "No", "Set", "Pre", "Res", "Onl", "Cuts" };
 
-		mode.AddCombDim(NCUTMODES2, names);
+		mode.AddCombDim(MODECUTS, names);
 #endif // MODECUTS
 
 #ifdef MODETESTS
-		mode.AddDim(NTESTMODES);
+		mode.AddDim(MODETESTS);
 #endif // MODETESTS
 
 		mode.durs.resize(mode.nModes);
@@ -343,6 +376,12 @@ public:
 		return dims[dim]->getCurr();
 	}
 
+	// Get current mode for combinatorial dimension
+	int GetCurrent(int dim, int subdim)
+	{
+		return dims[dim]->getCurr(subdim);
+	}
+
 	// Get current mode for all dimensions
 	vector<int> GetCurrent()
 	{
@@ -363,19 +402,25 @@ public:
 		return dims[dim]->getCurr(index);
 	}
 
-	// Get names of current mode for specific dimension
-	string GetCurrentName(int dim)
+	// Get (mode)name of current mode for specific dimension
+	string GetCurrentModeName(int dim)
 	{
-		return dims[dim]->getName();
+		return dims[dim]->getModeName();
 	}
 
-	// Get names current mode for all dimensions
+	// Get (setting)name of current mode for specific dimension
+	string GetCurrentSettingName(int dim)
+	{
+		return dims[dim]->getSetName();
+	}
+
+	// Get (mode)names current mode for all dimensions
 	vector<string> GetCurrentNames()
 	{
 		vector<string> res = vector<string>(nDims);
 
 		for (int i = 0; i < nDims; ++i)
-			res.push_back(dims[i]->getName());
+			res.push_back(dims[i]->getModeName());
 
 		return res;
 	}
@@ -406,6 +451,19 @@ public:
 			maxvals.push_back(dims[i]->getMax());
 	}
 
+	vector<bool> GetSettingStatus()
+	{
+		vector<bool> res = vector<bool>();
+
+		for (int i = 0; i < nDims; ++i)
+		{
+			vector<bool> curr = dims[i]->getSetStat();
+			res.insert(res.end(), curr.begin(), curr.end());
+		}
+
+		return res;
+	}
+
 	// Get a list of average durations per settings (to be run after all runs are completed)
 	vector<double> GetSettingDurs()
 	{
@@ -418,12 +476,14 @@ public:
 
 		for (int i = 0; i < nModes && !stop; ++i)
 		{
-			vector<int> curs = GetCurrent(); // TODO: Fix this for loop (something goes wrong between Dims and Settings
-			for (int j = 0; j < nDims; ++j)
-			{
-				res[curs[j]] += durs[i]; 
-				counts[curs[j]] += 1;
-			}
+			vector<bool> curs = GetSettingStatus();
+
+			for (int j = 0; j < nSettings; ++j)
+				if (curs[j])
+				{
+					res[j] += durs[i];
+					counts[j] += 1;
+				}
 
 			stop = Next();
 		}
@@ -540,40 +600,16 @@ public:
 		else
 			cout << "Not all solutions are optimal" << endl;
 #endif // OPTIMAL
-
-		vector<double> setAvgs = m->GetSettingDurs();
-
-		double tots[NSETTINGS];
-		for (int i = 0; i < NSETTINGS; ++i)
-			tots[i] = 0.0;
-
-		for (int i = 0; i < NMODES; ++i)
-		{
-			cout << "MODE: " << i << " DUR: " << durs[i] << endl;
-
-			if (durs[i] != m->GetDur(i))
-				m = m;
-
-			
-
-			int cutSetting = i % NCUTMODES;
-			//int decSetting = i >> 5;
-
-			tots[cutSetting] += durs[i];
-			//tots[decSetting + NCUTMODES] += durs[i];
-		}
+		
+		for (int i = 0; i < m->GetNModes(); ++i)
+			cout << "MODE: " << i << " DUR: " << m->GetDur(i) << endl;
 
 #if NMODETYPES > 1
+		vector<double> setAvgs = m->GetSettingDurs();
 
+		for (int i = 0; i < m->GetNSettings(); ++i)
+			cout << "SETTING: " << i << " DUR: " << setAvgs[i] << endl;
 #endif // NMODETYPES > 1
-
-		/*for (int i = 0; i < NCUTMODES; ++i)
-			cout << "SETTING: " << i << " DUR: " << tots[i] / (NMODES / NCUTMODES) << endl;
-
-#if NCUTMODES != NMODES
-		for (int i = NCUTMODES; i < NDECVAR + NCUTMODES; ++i)
-			cout << "SETTING: " << i << " DUR: " << tots[i] / (NMODES / NDECVAR) << endl;
-#endif*/
 	}
 
 	int printer(string s, int verbosity, bool end = true)
@@ -1038,7 +1074,7 @@ private:
 	}
 
 public:
-	void genOriProblem(XPRBprob* prob, int mode)
+	void genOriProblem(XPRBprob* prob, Mode* m)
 	{
 		clock_t start = clock();
 
@@ -1047,28 +1083,28 @@ public:
 
 		outputPrinter.printer("Initialising Original constraints", 1);
 
-		genSetConstraints(prob, mode % 2 == 1);
-		genPrecedenceConstraints(prob, (mode >> 1) % 2 == 1);
-		genResourceConstraints(prob, (mode >> 2) % 2 == 1);
-		genOnlineConstraints(prob, (mode >> 3) % 2 == 1);
+		genSetConstraints(prob, m->GetCurrent(0, 0));
+		genPrecedenceConstraints(prob, m->GetCurrent(0, 1));
+		genResourceConstraints(prob, m->GetCurrent(0, 2));
+		genOnlineConstraints(prob, m->GetCurrent(0, 3));
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
 	}
 
-	void genFullProblem(XPRBprob* prob, int mode)
+	void genFullProblem(XPRBprob* prob, Mode* m)
 	{
 		clock_t start = clock();
 
 		outputPrinter.printer("Initialising Full constraints", 1);
 
-		if (mode % 2 == 1)
+		if (m->GetCurrent(0, 0))
 			genSetConstraints(prob, false); 
-		if ((mode >> 1) % 2 == 1)
+		if (m->GetCurrent(0, 1))
 			genPrecedenceConstraints(prob, false);
-		if ((mode >> 2) % 2 == 1)
+		if (m->GetCurrent(0, 2))
 			genResourceConstraints(prob, false);
-		if ((mode >> 3) % 2 == 1)
+		if (m->GetCurrent(0, 3))
 			genOnlineConstraints(prob, false);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
@@ -1106,8 +1142,6 @@ ProblemSolver problemSolver;
 
 int main(int argc, char** argv)
 {
-	Mode m;
-	m = Mode::Init();
 
 	dataReader = DataReader();
 	problemGen = ProblemGen();
@@ -1122,19 +1156,16 @@ int main(int argc, char** argv)
 
 	dataReader.readData();
 
-	for (int mode = 0; mode < NMODES; ++mode)
+	Mode m;
+	m = Mode::Init();
+	bool stop = false;
+
+	for (int mode = 0; !stop; stop = m.Next())
 	{
-#if NMODES == 1
-		int realMode = 13; // 5 also good, both are ?101 in binary
-#endif // NMODES == 1
-#if NMODES > 1
-		int realMode = mode;
-#endif // NMODES > 1
-
 		cout << "----------------------------------------------------------------------------------------" << endl;
-		cout << "MODE: " << realMode << endl;
+		cout << "MODE: " << mode << endl; // TODO: Change to mode name
 
-		string name = "Install" + to_string(realMode);
+		string name = "Install" + to_string(mode); // TODO: Change to mode name
 		probs[mode].setName(name.c_str());
 
 		if (NAMES == 0)
@@ -1142,12 +1173,12 @@ int main(int argc, char** argv)
 
 		clock_t start = clock();
 
-		problemGen.genOriProblem(&probs[mode], realMode);
+		problemGen.genOriProblem(&probs[mode], &m);
 		problemSolver.solveProblem(&probs[mode], name);
 
 		if (realMode != 0)
 		{
-			problemGen.genFullProblem(&probs[mode], realMode);
+			problemGen.genFullProblem(&probs[mode], &m);
 			problemSolver.solveProblem(&probs[mode], name);
 		}
 
@@ -1161,16 +1192,6 @@ int main(int argc, char** argv)
 		cout << "FULL duration: " << duration << " seconds" << endl;
 		durs[mode] = duration;
 		m.SetCurrDur(duration);
-
-		probs[mode].reset();
-		if (m.GetCurrentComb(0, 0) != (mode >> 0) % 2 || m.GetCurrentComb(0, 1) != (mode >> 1) % 2 || m.GetCurrentComb(0, 2) != (mode >> 2) % 2 || m.GetCurrentComb(0, 3) != (mode >> 3) % 2)
-			realMode = mode;
-		if (m.GetCurrent(1) != (mode >> 4) % 3)
-			realMode = mode;
-		cout << m.GetCurrentName(0) << endl;
-		cout << m.GetCurrentName(1) << endl;
-		m.GetCurrentNames();
-		m.Next();
 	}
 
 	outputPrinter.printModeOutput(&m, durs, opt);
