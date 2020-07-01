@@ -18,6 +18,7 @@ using namespace ::dashoptimization;
 #define NMODETYPES 2
 #define MODECUTS 4
 #define MODETESTS 3
+#define NMODES 16 * MODETESTS // 2^MODECUTS * MODETESTS    // Product of all mode types (2^x for combination modes)
 #define WEATHERTYPE 1
 #define VERBOSITY 0
 #define NAMES 1
@@ -376,30 +377,16 @@ public:
 		return dims[dim]->getCurr();
 	}
 
-	// Get current mode for combinatorial dimension
-	int GetCurrent(int dim, int subdim)
-	{
-		return dims[dim]->getCurr(subdim);
-	}
-
-	// Get current mode for all dimensions
-	vector<int> GetCurrent()
-	{
-		vector<int> res = vector<int>();
-
-		for (int i = 0; i < nDims; ++i)
-		{
-			vector<int> curr = dims[i]->getCurrVec();
-			res.insert(res.end(), curr.begin(), curr.end());
-		}
-
-		return res;
-	}
-
 	// Get current mode for specific combination-dimension
 	int GetCurrentComb(int dim, int index)
 	{
 		return dims[dim]->getCurr(index);
+	}
+
+	// Gets the ID of the current state
+	int GetID()
+	{
+		return current;
 	}
 
 	// Get (mode)name of current mode for specific dimension
@@ -412,17 +399,6 @@ public:
 	string GetCurrentSettingName(int dim)
 	{
 		return dims[dim]->getSetName();
-	}
-
-	// Get (mode)names current mode for all dimensions
-	vector<string> GetCurrentNames()
-	{
-		vector<string> res = vector<string>(nDims);
-
-		for (int i = 0; i < nDims; ++i)
-			res.push_back(dims[i]->getModeName());
-
-		return res;
 	}
 
 	// Get the number of different modes (i.e. adding a binary dimension DOUBLES number of modes)
@@ -443,14 +419,7 @@ public:
 		return durs[mode];
 	}
 
-	// Gets the maximum value per dimension
-	vector<int> GetMaxValues()
-	{
-		vector<int> maxvals(nDims);
-		for (int i = 0; i < nDims; ++i)
-			maxvals.push_back(dims[i]->getMax());
-	}
-
+	// Gets a list of bools indexed by setting to show which setting is on and which is off, in the current status
 	vector<bool> GetSettingStatus()
 	{
 		vector<bool> res = vector<bool>();
@@ -539,7 +508,7 @@ private:
 		}
 	}
 
-	void printTasks(ofstream* file, bool newVar)
+	void printTasks(ofstream* file)
 	{
 		cout << "Start and finish time per asset and task: " << endl;
 		for (int a = 0; a < NASSETS; ++a)
@@ -574,23 +543,23 @@ private:
 	}
 
 public:
-	void printProbOutput(XPRBprob* prob, int mode)
+	void printProbOutput(XPRBprob* prob, int id)
 	{
 		if (prob->getProbStat() == 1)
 			return;
 
 		ofstream file;
-		file.open(OUTPUTFILE + to_string(mode) + OUTPUTEXT);
+		file.open(OUTPUTFILE + to_string(id) + OUTPUTEXT);
 
 		printObj(&file, prob);
 		printTurbines(&file);
 		printResources(&file);
-		printTasks(&file,mode % 2 == 0);
+		printTasks(&file);
 
 		file.close();
 	}
 
-	void printModeOutput(Mode* m, double* durs, bool opt)
+	void printModeOutput(Mode* m, bool opt)
 	{
 		cout << "----------------------------------------------------------------------------------------" << endl;
 
@@ -1083,10 +1052,10 @@ public:
 
 		outputPrinter.printer("Initialising Original constraints", 1);
 
-		genSetConstraints(prob, m->GetCurrent(0, 0));
-		genPrecedenceConstraints(prob, m->GetCurrent(0, 1));
-		genResourceConstraints(prob, m->GetCurrent(0, 2));
-		genOnlineConstraints(prob, m->GetCurrent(0, 3));
+		genSetConstraints(prob, m->GetCurrentComb(0, 0));
+		genPrecedenceConstraints(prob, m->GetCurrentComb(0, 1));
+		genResourceConstraints(prob, m->GetCurrentComb(0, 2));
+		genOnlineConstraints(prob, m->GetCurrentComb(0, 3));
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
@@ -1098,13 +1067,13 @@ public:
 
 		outputPrinter.printer("Initialising Full constraints", 1);
 
-		if (m->GetCurrent(0, 0))
+		if (m->GetCurrentComb(0, 0))
 			genSetConstraints(prob, false); 
-		if (m->GetCurrent(0, 1))
+		if (m->GetCurrentComb(0, 1))
 			genPrecedenceConstraints(prob, false);
-		if (m->GetCurrent(0, 2))
+		if (m->GetCurrentComb(0, 2))
 			genResourceConstraints(prob, false);
-		if (m->GetCurrent(0, 3))
+		if (m->GetCurrentComb(0, 3))
 			genOnlineConstraints(prob, false);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
@@ -1142,59 +1111,57 @@ ProblemSolver problemSolver;
 
 int main(int argc, char** argv)
 {
-
 	dataReader = DataReader();
 	problemGen = ProblemGen();
 	problemSolver = ProblemSolver();
 	outputPrinter = OutputPrinter();
 
 	XPRBprob probs[NMODES];		// Initialize new problems in BCL
-	double durs[NMODES];
 	bool opt = true;
 
 	srand(SEED);
 
 	dataReader.readData();
 
-	Mode m;
-	m = Mode::Init();
-	bool stop = false;
+	Mode m = Mode::Init();
 
-	for (int mode = 0; !stop; stop = m.Next())
+	for (bool stop = false; !stop; stop = m.Next())
 	{
-		cout << "----------------------------------------------------------------------------------------" << endl;
-		cout << "MODE: " << mode << endl; // TODO: Change to mode name
+		int id = m.GetID();
+		XPRBprob* p = &probs[id];
 
-		string name = "Install" + to_string(mode); // TODO: Change to mode name
-		probs[mode].setName(name.c_str());
+		cout << "----------------------------------------------------------------------------------------" << endl;
+		cout << "MODE: " << id << endl; // TODO: Change to mode name
+
+		string name = "Install" + to_string(id); // TODO: Change to mode name
+		p->setName(name.c_str());
 
 		if (NAMES == 0)
-			probs[mode].setDictionarySize(XPRB_DICT_NAMES, 0);
+			p->setDictionarySize(XPRB_DICT_NAMES, 0);
 
 		clock_t start = clock();
 
-		problemGen.genOriProblem(&probs[mode], &m);
-		problemSolver.solveProblem(&probs[mode], name);
+		problemGen.genOriProblem(p, &m);
+		problemSolver.solveProblem(p, name);
 
-		if (realMode != 0)
+		if (id != 0) // TODO: Change to mode name or so
 		{
-			problemGen.genFullProblem(&probs[mode], &m);
-			problemSolver.solveProblem(&probs[mode], name);
+			problemGen.genFullProblem(p, &m);
+			problemSolver.solveProblem(p, name);
 		}
 
-		outputPrinter.printProbOutput(&probs[mode], realMode);
+		outputPrinter.printProbOutput(p, id); // TODO: Change to mode name or so
 
 #ifdef OPTIMAL
-		opt &= round(probs[mode].getObjVal()) == OPTIMAL;
+		opt &= round(p->getObjVal()) == OPTIMAL;
 #endif // OPTIMAL
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		cout << "FULL duration: " << duration << " seconds" << endl;
-		durs[mode] = duration;
 		m.SetCurrDur(duration);
 	}
 
-	outputPrinter.printModeOutput(&m, durs, opt);
+	outputPrinter.printModeOutput(&m, opt);
 
 	return 0;
 }
