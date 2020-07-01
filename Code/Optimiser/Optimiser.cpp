@@ -59,8 +59,6 @@ XPRBvar s[NASSETS][NTASKS][NTIMES];
 
 class Mode 
 {
-	// TODO: Test ALL
-
 	class ModeDim
 	{
 	protected:
@@ -171,34 +169,32 @@ class Mode
 				return (curr >> dim) % 2;
 		}
 
-		int getCurr(string name) // TODO: Fix so that it works for type 1 and type 0 both
+		int getCurr(string name)
 		{
-			if (type == 0)
-			{
-			}
-			else if (type == 1)
-			{
+			if (type == 1)
 				name = "Y" + name;
 
-				for (int i = 0; i < settings; ++i)
-					if (name.compare(settingNames[i]) == 0)
-						return getCurr(i);
-			}
+			for (int i = 0; i < settings; ++i)
+				if (name.compare(settingNames[i]) == 0)
+					return getCurrBySet(i);
+
 			return -1;
+		}
+
+		bool getCurrBySet(int set)
+		{
+			if (type == 0)
+				return curr == set;
+			else if (type == 1)
+				return getCurr(set / 2) == set % 2;
 		}
 
 		vector<bool> getSetStat()
 		{
-			vector<bool> res(settings, false);
+			vector<bool> res;
 
-			if (type == 0)
-				res[curr] = true;
-			else if (type == 1)
-				for (int i = 0; i < settings / 2; ++i)
-					if (getCurr(i) == 0)
-						res[2 * i] = true;
-					else
-						res[(2 * i) + 1] = true;
+			for (int i = 0; i < settings; ++i)
+				res.push_back(getCurrBySet(i));
 
 			return res;
 		}
@@ -210,9 +206,6 @@ class Mode
 
 		string getModeName(int mode = -1)
 		{
-			if (!individualNames)
-				return modeNames[0];
-
 			int id = mode;
 			if (id == -1)
 				id = curr;
@@ -222,9 +215,6 @@ class Mode
 
 		string getSetName(int set = -1)
 		{
-			if (!individualNames)
-				return settingNames[0];
-
 			int id = set;
 			if (id == -1)
 				id = curr;
@@ -322,24 +312,10 @@ public:
 
 	/* Functions to add Dimensions: */
 #pragma region Add Dims
-	// Adds a nameless binary dimension
-	void AddDim()
-	{
-		dims[nDims] = new ModeDim();
-		updateCounters();
-	}
-
-	// Adds a nameless regular dimension
-	void AddDim(int max)
-	{
-		dims[nDims] = new ModeDim(0, max);
-		updateCounters();
-	}
-
 	// Adds a named regular dimension 
 	void AddDim(int max, string name)
 	{
-		dims[nDims] = new ModeDim(0, max, name);
+		dims[nDims] = new ModeDim(name, 0, max);
 		updateCounters();
 	}
 
@@ -350,24 +326,10 @@ public:
 		updateCounters();
 	}
 
-	// Adds a nameless combination dimension with 2 binary sub-dims
-	void AddCombDim()
-	{
-		dims[nDims] = new ModeDim(1);
-		updateCounters();
-	}
-
-	// Adds a nameless combination dimension
-	void AddCombDim(int max)
-	{
-		dims[nDims] = new ModeDim(1, max);
-		updateCounters();
-	}
-
 	// Adds a named combination dimension
 	void AddCombDim(int max, string name)
 	{
-		dims[nDims] = new ModeDim(1, max, name);
+		dims[nDims] = new ModeDim(name, 1, max);
 		updateCounters();
 	}
 
@@ -394,6 +356,7 @@ public:
 		return dims[dim]->getCurr(index);
 	}
 
+	// Get current value of a named setting
 	int GetCurrentBySettingName(string name)
 	{
 		for (int i = 0; i < nDims; ++i)
@@ -409,6 +372,15 @@ public:
 	int GetID()
 	{
 		return current;
+	}
+
+	// Get (mode)name of current mode
+	string GetCurrentModeName()
+	{
+		string name = "";
+		for (int i = 0; i < nDims; ++i)
+			name += " " + dims[i]->getModeName();
+		return name.substr(1);
 	}
 
 	// Get (mode)name of current mode for specific dimension
@@ -1153,10 +1125,11 @@ int main(int argc, char** argv)
 	for (bool stop = false; !stop; stop = m.Next())
 	{
 		int id = m.GetID();
+		string modeName = m.GetCurrentModeName();
 		XPRBprob* p = &probs[id];
 
 		cout << "----------------------------------------------------------------------------------------" << endl;
-		cout << "MODE: " << id << endl; // TODO: Change to mode name
+		cout << "MODE: " << id << " (" << modeName << ")" << endl;
 
 		string name = "Install" + to_string(id); // TODO: Change to mode name
 		p->setName(name.c_str());
@@ -1169,7 +1142,7 @@ int main(int argc, char** argv)
 		problemGen.genOriProblem(p, &m);
 		problemSolver.solveProblem(p, name);
 
-		if (id != 0) // TODO: Change to mode name or so
+		if (m.GetCurrentModeName(0).compare("NoCuts") != 0)
 		{
 			problemGen.genFullProblem(p, &m);
 			problemSolver.solveProblem(p, name);
