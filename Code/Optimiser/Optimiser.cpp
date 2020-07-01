@@ -66,7 +66,16 @@ class Mode
 	protected:
 		int curr, max, type, settings;
 		vector<string> modeNames, settingNames;
-		bool individualNames;
+
+		vector<string> expandFromName(string name, int sets)
+		{
+			vector<string> res;
+
+			for (int i = 0; i < max; ++i)
+				res.push_back(name + to_string(i));
+
+			return res;
+		}
 
 		vector<string> genModeNames(string names[], int sets)
 		{
@@ -102,7 +111,7 @@ class Mode
 		}
 
 	public:
-		ModeDim(int type = 0, int max = 2, string name = "Unnamed")
+		ModeDim(string name, int type = 0, int max = 2)
 		{
 			this->curr = 0;
 			if (type == 0)
@@ -116,9 +125,8 @@ class Mode
 				this->max = pow(2, max);
 			}
 			this->type = type;
-			this->modeNames = vector<string>(1, name);
-			this->settingNames = vector<string>(1, name);
-			this->individualNames = false;
+			this->modeNames = expandFromName(name, max);
+			this->settingNames = modeNames;
 		}
 
 		ModeDim(string names[], int type = 0, int max = 2)
@@ -139,7 +147,6 @@ class Mode
 				this->modeNames = genModeNames(names, max);
 				this->settingNames = genSettingNames(names, max);
 			}
-			this->individualNames = true;
 		}
 
 		int next() 
@@ -164,17 +171,20 @@ class Mode
 				return (curr >> dim) % 2;
 		}
 
-		vector<int> getCurrVec()
+		int getCurr(string name) // TODO: Fix so that it works for type 1 and type 0 both
 		{
 			if (type == 0)
-				return vector<int>(1, curr);
+			{
+			}
 			else if (type == 1)
 			{
-				vector<int> res;
+				name = "Y" + name;
+
 				for (int i = 0; i < settings; ++i)
-					res.push_back(getCurr(i));
-				return res;
+					if (name.compare(settingNames[i]) == 0)
+						return getCurr(i);
 			}
+			return -1;
 		}
 
 		vector<bool> getSetStat()
@@ -274,7 +284,8 @@ public:
 #endif // MODECUTS
 
 #ifdef MODETESTS
-		mode.AddDim(MODETESTS);
+		string names2[3] = {"Test1", "Test2", "Test3"};
+		mode.AddDim(MODETESTS, names2);
 #endif // MODETESTS
 
 		mode.durs.resize(mode.nModes);
@@ -381,6 +392,17 @@ public:
 	int GetCurrentComb(int dim, int index)
 	{
 		return dims[dim]->getCurr(index);
+	}
+
+	int GetCurrentBySettingName(string name)
+	{
+		for (int i = 0; i < nDims; ++i)
+		{
+			int res = dims[i]->getCurr(name);
+			if (res != -1)
+				return res;
+		}
+		return -1;
 	}
 
 	// Gets the ID of the current state
@@ -1051,6 +1073,9 @@ public:
 		genObjective(prob);
 
 		outputPrinter.printer("Initialising Original constraints", 1);
+
+		int x = m->GetCurrentBySettingName("SetCuts");
+		int y = m->GetCurrentBySettingName("Test1");
 
 		genSetConstraints(prob, m->GetCurrentComb(0, 0));
 		genPrecedenceConstraints(prob, m->GetCurrentComb(0, 1));
