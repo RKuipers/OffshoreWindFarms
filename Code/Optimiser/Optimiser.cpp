@@ -413,6 +413,31 @@ public:
 		return durs[mode];
 	}
 
+	// Gets the list of names for each mode
+	vector<string> GetModeNames()
+	{
+		Reset();
+
+		vector<string> res;
+
+		for (bool stop = false; !stop; stop = Next())
+			res.push_back(GetCurrentModeName());
+
+		return res;
+	}
+
+	// Gets the list of names for each setting
+	vector<string> GetSettingNames()
+	{
+		vector<string> res = vector<string>();
+
+		for (int i = 0; i < nDims; ++i)
+			for (int j = 0; j < dims[i]->getSettings(); ++j)
+				res.push_back(dims[i]->getSetName(j));
+
+		return res;
+	}
+
 	// Gets a list of bools indexed by setting to show which setting is on and which is off, in the current status
 	vector<bool> GetSettingStatus()
 	{
@@ -564,14 +589,17 @@ public:
 			cout << "Not all solutions are optimal" << endl;
 #endif // OPTIMAL
 		
+		vector<string> modeNames = m->GetModeNames();
+
 		for (int i = 0; i < m->GetNModes(); ++i)
-			cout << "MODE: " << i << " DUR: " << m->GetDur(i) << endl;
+			cout << "MODE: " << i << " (" << modeNames[i] << ") DUR: " << m->GetDur(i) << endl;
 
 #if NMODETYPES > 1
 		vector<double> setAvgs = m->GetSettingDurs();
+		vector<string> settingNames = m->GetSettingNames();
 
 		for (int i = 0; i < m->GetNSettings(); ++i)
-			cout << "SETTING: " << i << " DUR: " << setAvgs[i] << endl;
+			cout << "SETTING: " << settingNames[i] << " DUR: " << setAvgs[i] << endl;
 #endif // NMODETYPES > 1
 	}
 
@@ -1046,13 +1074,10 @@ public:
 
 		outputPrinter.printer("Initialising Original constraints", 1);
 
-		int x = m->GetCurrentBySettingName("SetCuts");
-		int y = m->GetCurrentBySettingName("Test1");
-
-		genSetConstraints(prob, m->GetCurrentComb(0, 0));
-		genPrecedenceConstraints(prob, m->GetCurrentComb(0, 1));
-		genResourceConstraints(prob, m->GetCurrentComb(0, 2));
-		genOnlineConstraints(prob, m->GetCurrentComb(0, 3));
+		genSetConstraints(prob, m->GetCurrentBySettingName("SetCuts") == 1);
+		genPrecedenceConstraints(prob, m->GetCurrentBySettingName("PreCuts") == 1);
+		genResourceConstraints(prob, m->GetCurrentBySettingName("ResCuts") == 1);
+		genOnlineConstraints(prob, m->GetCurrentBySettingName("OnlCuts") == 1);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
@@ -1064,13 +1089,13 @@ public:
 
 		outputPrinter.printer("Initialising Full constraints", 1);
 
-		if (m->GetCurrentComb(0, 0))
+		if (m->GetCurrentBySettingName("SetCuts") == 1)
 			genSetConstraints(prob, false); 
-		if (m->GetCurrentComb(0, 1))
+		if (m->GetCurrentBySettingName("PreCuts") == 1)
 			genPrecedenceConstraints(prob, false);
-		if (m->GetCurrentComb(0, 2))
+		if (m->GetCurrentBySettingName("ResCuts") == 1)
 			genResourceConstraints(prob, false);
-		if (m->GetCurrentComb(0, 3))
+		if (m->GetCurrentBySettingName("OnlCuts") == 1)
 			genOnlineConstraints(prob, false);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
@@ -1131,7 +1156,7 @@ int main(int argc, char** argv)
 		cout << "----------------------------------------------------------------------------------------" << endl;
 		cout << "MODE: " << id << " (" << modeName << ")" << endl;
 
-		string name = "Install" + to_string(id); // TODO: Change to mode name
+		string name = "Install" + to_string(id);
 		p->setName(name.c_str());
 
 		if (NAMES == 0)
