@@ -22,6 +22,7 @@ using namespace ::dashoptimization;
 #define WEATHERTYPE 1
 #define VERBOSITY 0
 #define NAMES 1
+#define OUTPUTFOLDER "Output files/"
 #define OUTPUTFILE "install"
 #define OUTPUTEXT ".sol"
 
@@ -568,7 +569,7 @@ public:
 			return;
 
 		ofstream file;
-		file.open(OUTPUTFILE + to_string(id) + OUTPUTEXT);
+		file.open(string() + OUTPUTFOLDER + OUTPUTFILE + to_string(id) + OUTPUTEXT);
 
 		printObj(&file, prob);
 		printTurbines(&file);
@@ -1115,7 +1116,7 @@ public:
 		clock_t start = clock();
 
 		prob->setSense(XPRB_MAXIM);
-		prob->exportProb(XPRB_LP, name.c_str());
+		prob->exportProb(XPRB_LP, (OUTPUTFOLDER + name).c_str());
 		prob->mipOptimize("");
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
