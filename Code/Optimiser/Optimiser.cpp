@@ -15,7 +15,7 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-#define LOCKMODE "SetResCuts Test1"
+#define LOCKMODE "SetCuts Test1"
 #define NMODETYPES 2
 #define MODECUTS 4
 #define MODETESTS 2
@@ -39,13 +39,13 @@ using namespace ::dashoptimization;
 #define NTASKS NITASKS + NMTASKS
 #define NIP 4
 #define NRES 3
-#define NASSETS 1
+#define NASSETS 5
 #define DIS 0.999972465
 
 // Weather characteristics
-int base = 100;
+int base = 105;
 int variety = 51;
-int bonus = -28;
+int bonus = -25;
 
 // Model parameters
 int OMEGA[NTASKS][NTIMES];
@@ -846,7 +846,7 @@ private:
 		getline(*datafile, line);
 		splitString(line, split);
 		vector<int> vals = vector<int>(arrSize);
-		parsePeriodical(type, *split, 0, &vals, NTIMES);
+		parsePeriodical(type, *split, 0, &vals, arrSize);
 		copy(vals.begin(), vals.end(), arr);
 
 		getline(*datafile, line);
@@ -1269,12 +1269,12 @@ int main(int argc, char** argv)
 
 	dataReader.readData();
 
-	Mode m = Mode::Init();
+	Mode mode = Mode::Init();
 
-	for (bool stop = false; !stop; stop = m.Next())
+	for (bool stop = false; !stop; stop = mode.Next())
 	{
-		int id = m.GetID();
-		string modeName = m.GetCurrentModeName();
+		int id = mode.GetID();
+		string modeName = mode.GetCurrentModeName();
 		XPRBprob* p = &probs[id];
 
 		cout << "----------------------------------------------------------------------------------------" << endl;
@@ -1288,12 +1288,12 @@ int main(int argc, char** argv)
 
 		clock_t start = clock();
 
-		problemGen.genOriProblem(p, &m);
+		problemGen.genOriProblem(p, &mode);
 		problemSolver.solveProblem(p, name);
 
-		if (m.GetCurrentModeName(0).compare("NoCuts") != 0)
+		if (mode.GetCurrentModeName(0).compare("NoCuts") != 0)
 		{
-			problemGen.genFullProblem(p, &m);
+			problemGen.genFullProblem(p, &mode);
 			problemSolver.solveProblem(p, name);
 		}
 
@@ -1305,11 +1305,11 @@ int main(int argc, char** argv)
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		cout << "FULL duration: " << duration << " seconds" << endl;
-		m.SetCurrDur(duration);
+		mode.SetCurrDur(duration);
 	}
 
 #ifndef LOCKMODE
-	outputPrinter.printModeOutput(&m, opt);
+	outputPrinter.printModeOutput(&mode, opt);
 #endif // !LOCKMODE
 
 	return 0;
