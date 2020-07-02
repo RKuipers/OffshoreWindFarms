@@ -15,6 +15,7 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
+//#define LOCKMODE "SetResCuts Test2"
 #define NMODETYPES 2
 #define MODECUTS 4
 #define MODETESTS 3
@@ -238,6 +239,7 @@ private:
 	int nDims, nModes, nSettings, current;
 	ModeDim* dims[NMODETYPES];
 	vector<double> durs;
+	bool locked;
 
 	// Updates the int members after a dimension is added
 	void updateCounters()
@@ -261,6 +263,7 @@ public:
 		nSettings = 0;
 		current = 0;
 		durs = vector<double>();
+		locked = false;
 	}
 
 	// Initialiser (to update according to specific tests to be run)
@@ -281,12 +284,19 @@ public:
 
 		mode.durs.resize(mode.nModes);
 
+#ifdef LOCKMODE
+		mode.LockMode(LOCKMODE);
+#endif // LOCKMODE
+
 		return mode;
 	}
 	
 	// Move on to the next state (returns True if end is reached)
 	bool Next()
 	{
+		if (locked)
+			return true;
+
 		current++;
 		int res = 0;
 		for (int i = 0; i < nDims; ++i)
@@ -301,6 +311,9 @@ public:
 	// Sets everything back to the starting state
 	void Reset()
 	{
+		if (locked)
+			return;
+
 		for (int i = 0; i < NMODETYPES; ++i)
 			dims[i]->setCurr(0);
 	}
@@ -309,6 +322,21 @@ public:
 	void SetCurrDur(double dur)
 	{
 		durs[current] = dur;
+	}
+
+	// Locks the setup into a given moden
+	void LockMode(string modeName)
+	{
+		Reset();
+
+		for (bool stop = false; !stop; stop = Next())
+			if (GetCurrentModeName().compare(modeName) == 0)
+			{
+				locked = true;
+				return;
+			}
+
+		cout << "ERROR: Locking mode failed; requested mode (" << modeName << ") not found!" << endl;
 	}
 
 	/* Functions to add Dimensions: */
@@ -399,12 +427,16 @@ public:
 	// Get the number of different modes (i.e. adding a binary dimension DOUBLES number of modes)
 	int GetNModes()
 	{
+		if (locked)
+			return 1;
 		return nModes;
 	}
 
 	// Get the number of different settings (i.e. adding a binary dimension ADDS TWO to the number of settings)
 	int GetNSettings()
 	{
+		if (locked)
+			return nDims;
 		return nSettings;
 	}
 
@@ -1185,7 +1217,9 @@ int main(int argc, char** argv)
 		m.SetCurrDur(duration);
 	}
 
+#ifndef LOCKMODE
 	outputPrinter.printModeOutput(&m, opt);
+#endif // !LOCKMODE
 
 	return 0;
 }
