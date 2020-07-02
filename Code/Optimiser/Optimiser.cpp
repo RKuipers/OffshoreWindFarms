@@ -1173,7 +1173,7 @@ int main(int argc, char** argv)
 			problemSolver.solveProblem(p, name);
 		}
 
-		outputPrinter.printProbOutput(p, id); // TODO: Change to mode name or so
+		outputPrinter.printProbOutput(p, id);
 
 #ifdef OPTIMAL
 		opt &= round(p->getObjVal()) == OPTIMAL;
