@@ -15,48 +15,53 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-//#define LOCKMODE "SetResCuts Test2"
+#define LOCKMODE "SetResCuts Test1"
 #define NMODETYPES 2
 #define MODECUTS 4
-#define MODETESTS 3
+#define MODETESTS 2
 #define NMODES 16 * MODETESTS // 2^MODECUTS * MODETESTS    // Product of all mode types (2^x for combination modes)
 #define WEATHERTYPE 1
-#define VERBOSITY 0
+#define VERBOSITY 1
 #define NAMES 1
 #define OUTPUTFOLDER "Output files/"
-#define OUTPUTFILE "install"
+#define OUTPUTFILE "mixed"
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "installWeek.dat"
-#define NPERIODS 7
+#define DATAFILE "mixedMonth.dat"
+#define NPERIODS 30
 #define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NTASKS 5
+#define NITASKS 5
+#define NMMTASKS 1
+#define NMOTASKS 4
+#define NMTASKS NMMTASKS + NMOTASKS
+#define NTASKS NITASKS + NMTASKS
 #define NIP 4
 #define NRES 3
-#define NASSETS 2
+#define NASSETS 1
 #define DIS 0.999972465
-#define OPTIMAL -474814 // The optimal solution, if known
 
 // Weather characteristics
-int base = 105;
+int base = 100;
 int variety = 51;
-int bonus = -25;
+int bonus = -28;
 
 // Model parameters
 int OMEGA[NTASKS][NTIMES];
-int v[NPERIODS];
+int v[NTIMES];
 int C[NRES][NPERIODS];
 int d[NTASKS];
 int sa[NTASKS][NTIMES + 1];
 int rho[NRES][NTASKS];
 int m[NRES][NPERIODS];
+int lambda[NASSETS];
 tuple<int, int> IP[NIP];
 
 // Model variables
-XPRBvar O[NPERIODS];
+XPRBvar O[NTIMES];
 XPRBvar N[NRES][NPERIODS];
+XPRBvar o[NASSETS][NTIMES];
 XPRBvar s[NASSETS][NTASKS][NTIMES];
 
 class Mode 
@@ -273,12 +278,11 @@ public:
 
 #ifdef MODECUTS
 		string names[MODECUTS + 2] = { "No", "Set", "Pre", "Res", "Onl", "Cuts" };
-
 		mode.AddCombDim(MODECUTS, names);
 #endif // MODECUTS
 
 #ifdef MODETESTS
-		string names2[3] = {"Test1", "Test2", "Test3"};
+		string names2[MODETESTS] = {"Test1", "Test2"};
 		mode.AddDim(MODETESTS, names2);
 #endif // MODETESTS
 
@@ -305,6 +309,7 @@ public:
 			if (res != -1)
 				break;
 		}
+
 		return res == -1;
 	}
 
@@ -530,12 +535,12 @@ private:
 
 	void printTurbines(ofstream* file)
 	{
-		cout << "Online turbines per period: " << endl;
-		for (int p = 0; p < NPERIODS; ++p)
+		cout << "Online turbines per timestep: " << endl;
+		for (int t = 0; t < NTIMES; ++t)
 		{
-			int v = round(O[p].getSol());
-			cout << p << ": " << v << endl;
-			*file << "O_" << p << ": " << v << endl;
+			int v = round(O[t].getSol());
+			cout << t << ": " << v << endl;
+			*file << "O_" << t << ": " << v << endl;
 		}
 	}
 
@@ -581,15 +586,24 @@ private:
 						start = t;
 				}
 
-				for (int t1 = start + d[i] - 1; t1 <= NTIMES; ++t1)
-					if (sa[i][t1] >= start)
-					{
-						finish = t1 - 1;
-						break;
-					}
+				if (start == -1)
+				{
+					cout << i << ": Incomplete" << endl;
+					*file << "Asset " << a << " task " << i << ": Incomplete" << endl;
+				}
+				else
+				{
 
-				cout << i << ": " << start << " " << finish << endl;
-				*file << "Asset " << a << " task " << i << ": " << start << " " << finish << endl;
+					for (int t1 = start + d[i] - 1; t1 <= NTIMES; ++t1)
+						if (sa[i][t1] >= start)
+						{
+							finish = t1 - 1;
+							break;
+						}
+
+					cout << i << ": " << start << " " << finish << endl;
+					*file << "Asset " << a << " task " << i << ": " << start << " " << finish << endl;
+				}
 			}
 		}
 	}
@@ -716,31 +730,71 @@ private:
 		}
 	}
 
-	void readTasks(ifstream* datafile)
+	void readTasks(ifstream* datafile, int taskType)
 	{
 		string line;
 		vector<string>* split = new vector<string>();
 
+		string name;
+		int ntasks, start;
+		switch (taskType)
+		{
+		case 0:
+			name = "ITASKS";
+			ntasks = NITASKS;
+			start = 0;
+			break;
+		case 1:
+			name = "MMTASKS";
+			ntasks = NMMTASKS;
+			start = NITASKS;
+			break;
+		case 2:
+			name = "MOTASKS";
+			ntasks = NMOTASKS;
+			start = NITASKS + NMMTASKS;
+			break;
+		default:
+			name = "";
+			ntasks = -1;
+			start = -1;
+			break;
+		}
+
 		getline(*datafile, line);
 		splitString(line, split);
-		if ((*split)[0].compare("TASKS") != 0)
-			cout << "Error reading TASKS" << endl;
-		if (stoi((*split)[1]) != NTASKS)
-			cout << "Error with declared TASKS amount" << endl;
+		if ((*split)[0].compare(name) != 0)
+			cout << "Error reading " << name << endl;
+		if (stoi((*split)[1]) != ntasks)
+			cout << "Error with declared " << name << " amount" << endl;
 
-		for (int i = 0; i < NTASKS; ++i)
+		int copies = 1;
+
+		for (int i = start; i < ntasks + start; i += copies)
 		{
 			getline(*datafile, line);
 			splitString(line, split, '\t');
 
 			if (count(line.begin(), line.end(), '\t') != 2 + NRES)
-				cout << "Error with column count on TASKS line " << i << endl;
+				cout << "Error with column count on " << name << " line " << i << endl;
 
-			d[i] = stoi((*split)[1]);
-			limits[i] = stoi((*split)[2]);
+			if ((*split)[0].find(" ") != string::npos)
+			{
+				vector<string>* dups = new vector<string>();
+				splitString((*split)[0], dups, ' ');
+				copies = stoi((*dups)[1]) - stoi((*dups)[0]);
+			}
+			else
+				copies = 1;
 
-			for (int r = 0; r < NRES; ++r)
-				rho[r][i] = stoi((*split)[r+3]);
+			for (int x = 0; x < copies; ++x)
+			{
+				d[i + x] = stoi((*split)[1]);
+				limits[i + x] = stoi((*split)[2]);
+
+				for (int r = 0; r < NRES; ++r)
+					rho[r][i + x] = stoi((*split)[r + 3]);
+			}
 		}
 
 		getline(*datafile, line);
@@ -777,23 +831,23 @@ private:
 		getline(*datafile, line);
 	}
 
-	void readValues(ifstream* datafile)
+	void readSimpleArray(ifstream* datafile, string name, int arrSize, int arr[])
 	{
 		string line;
 		vector<string>* split = new vector<string>();
 
 		getline(*datafile, line);
-		if (line.compare("VALUES") != 0)
-			cout << "Error reading VALUES" << endl;
+		if (line.compare(name) != 0)
+			cout << "Error reading " << name << endl;
 
 		getline(*datafile, line);
 		char type = line[0];
 
 		getline(*datafile, line);
 		splitString(line, split);
-		vector<int> vals = vector<int>(NPERIODS);
-		parsePeriodical(type, *split, 0, &vals);
-		copy(vals.begin(), vals.end(), v);
+		vector<int> vals = vector<int>(arrSize);
+		parsePeriodical(type, *split, 0, &vals, NTIMES);
+		copy(vals.begin(), vals.end(), arr);
 
 		getline(*datafile, line);
 	}
@@ -898,13 +952,18 @@ public:
 		}
 
 		// Read the task info
-		readTasks(&datafile);
+		readTasks(&datafile, 0);
+		readTasks(&datafile, 1);
+		readTasks(&datafile, 2);
 
 		// Read the resource info
 		readResources(&datafile);
 
 		// Read the energy value info
-		readValues(&datafile);
+		readSimpleArray(&datafile, "VALUES", NTIMES, v);
+
+		// Read the lambda info
+		readSimpleArray(&datafile, "LAMBDAS", NASSETS, lambda);
 
 		// Read the task order info
 		readPreqs(&datafile);
@@ -943,23 +1002,27 @@ private:
 
 		// Create the period-based decision variables
 		for (int p = 0; p < NPERIODS; ++p)
-		{
-			O[p] = prob->newVar(("O_" + to_string(p)).c_str(), XPRB_UI);
-			O[p].setLB(0);
-
 			for (int r = 0; r < NRES; ++r)
 			{
 				N[r][p] = prob->newVar(("N_" + to_string(r) + "_" + to_string(p)).c_str(), XPRB_UI);
 				N[r][p].setLB(0);
 				N[r][p].setUB(m[r][p]);
 			}
-		}
 
 		// Create the timestep-based decision variables
 		for (int t = 0; t < NTIMES; ++t)
+		{
+			O[t] = prob->newVar(("O_" + to_string(t)).c_str(), XPRB_UI);
+			O[t].setLB(0);
+
 			for (int a = 0; a < NASSETS; ++a)
+			{
+				o[a][t] = prob->newVar(("o_" + to_string(a) + "_" + to_string(t)).c_str(), XPRB_BV);
+
 				for (int i = 0; i < NTASKS; ++i)
 					s[a][i][t] = prob->newVar(("s_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
+			}
+		}
 	}
 
 	void genObjective(XPRBprob* prob)
@@ -970,7 +1033,9 @@ private:
 		for (int p = 0; p < NPERIODS; ++p)
 		{
 			double dis = pow(DIS, p);
-			Obj.addTerm(O[p], v[p] * dis);
+
+			for (int t = p * TPP; t < (p+1) * TPP; ++t)
+				Obj.addTerm(O[t], v[t] * dis);
 
 			for (int r = 0; r < NRES; ++r)
 				Obj.addTerm(N[r][p], -C[r][p] * dis);
@@ -982,9 +1047,9 @@ private:
 	{
 		// Forces every task to start and end
 		for (int a = 0; a < NASSETS; ++a)
-		{
-			for (int t = 1; t < NTIMES; ++t)
-				for (int i = 0; i < NTASKS; ++i)
+			for (int i = 0; i < NTASKS; ++i)
+			{
+				for (int t = 1; t < NTIMES; ++t)
 				{
 					XPRBrelation rel = s[a][i][t] >= s[a][i][t - 1];
 
@@ -997,28 +1062,38 @@ private:
 					}
 				}
 
-			XPRBrelation rel = s[a][NTASKS - 1][sa[NTASKS - 1][NTIMES]] == 1;
+				if (i >= NITASKS - 1 && i < NITASKS + NMMTASKS)
+				{
+					XPRBrelation rel = s[a][i][sa[i][NTIMES]] == 1;
 
-			if (cut)
-				prob->newCut(rel);
-			else
-			{
-				int indices[1] = { a };
-				genCon(prob, rel, "Fin", 1, indices);
+					if (cut)
+						prob->newCut(rel);
+					else
+					{
+						int indices[2] = { a, i };
+						genCon(prob, rel, "Fin", 2, indices);
+					}
+				}
 			}
-		}
 	}
 
 	void genPrecedenceConstraints(XPRBprob* prob, bool cut)
 	{
 		// Precedence constraints
-		for (int a = 0; a < NASSETS; ++a)
-			for (int x = 0; x < NIP; ++x)
+		for (int x = 0; x < NIP + NMTASKS; ++x)
+		{
+			int i, j;
+			if (x < NIP)
+				tie(i, j) = IP[x];
+			else
+			{
+				i = NITASKS - 1;
+				j = x - NIP + NITASKS;
+			}
+
+			for (int a = 0; a < NASSETS; ++a)
 				for (int t = 0; t < NTIMES; ++t)
 				{
-					int i, j;
-					tie(i, j) = IP[x];
-
 					if (sa[i][t] == -1)
 					{
 						s[a][j][t].setUB(0);
@@ -1035,11 +1110,12 @@ private:
 						genCon(prob, rel, "Pre", 3, indices);
 					}
 				}
+		}
 	}
 
 	void genResourceConstraints(XPRBprob* prob, bool cut)
 	{
-		// Resource amount link
+		// Resource amount link to starting times
 		for (int r = 0; r < NRES; ++r)
 			for (int p = 0; p < NPERIODS; ++p)
 				for (int t = p * TPP; t < (p + 1) * TPP; ++t)
@@ -1074,25 +1150,40 @@ private:
 
 	void genOnlineConstraints(XPRBprob* prob, bool cut)
 	{
-		// Online turbines link
-		O[0].setUB(0);
-
-		for (int p = 1; p < NPERIODS; ++p)
+		// Online turbines status link to start times
+		for (int t = 0; t < NTIMES; ++t)
 		{
-			XPRBrelation rel = O[p] == 0;
+			XPRBrelation relL = O[t] == 0;
 
-			for (int a = 0; a < NASSETS; a++)
-				if (sa[NTASKS - 1][p * TPP] > -1)
-					rel.addTerm(s[a][NTASKS - 1][sa[NTASKS - 1][p * TPP]], -1);
+			for (int a = 0; a < NASSETS; ++a)
+			{
+				XPRBrelation relS = o[a][t] <= 0.5 * s[a][NITASKS - 1][sa[NITASKS - 1][t]];
+
+				for (int i = NITASKS - 1; i < NTASKS; i++)
+				{
+					if (sa[i][t] > -1)
+						relS.addTerm(s[a][i][sa[i][t]], -0.5);
+					if (t - lambda[a] >= 0 && sa[i][t - lambda[a]] > -1)
+						relS.addTerm(s[a][i][sa[i][t - lambda[a]]], 0.5);
+				}
+
+				if (cut)
+					prob->newCut(relS);
 				else
-					continue;
+				{
+					int indices[2] = { a, t };
+					genCon(prob, relS, "Onl", 2, indices);
+				}
+
+				relL.addTerm(o[a][t], -1);
+			}
 
 			if (cut)
-				prob->newCut(rel);
+				prob->newCut(relL);
 			else
 			{
-				int indices[1] = { p };
-				genCon(prob, rel, "Onl", 1, indices);
+				int indices[1] = { t };
+				genCon(prob, relL, "Tur", 1, indices);
 			}
 		}
 	}
@@ -1189,7 +1280,7 @@ int main(int argc, char** argv)
 		cout << "----------------------------------------------------------------------------------------" << endl;
 		cout << "MODE: " << id << " (" << modeName << ")" << endl;
 
-		string name = "Install" + to_string(id);
+		string name = "Mixed" + to_string(id);
 		p->setName(name.c_str());
 
 		if (NAMES == 0)
