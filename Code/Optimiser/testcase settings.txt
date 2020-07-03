@@ -87,6 +87,21 @@ mixedWeek
 #define DIS 0.999972465
 #define OPTIMAL -468925 // The optimal solution, if known
 
+installWeek
+#define DATAFILE "installWeek.dat"
+#define NPERIODS 7
+#define TPP 12 // Timesteps per Period
+#define NTIMES NPERIODS * TPP
+#define NITASKS 5
+#define NMMTASKS 0
+#define NMOTASKS 0
+#define NMTASKS NMMTASKS + NMOTASKS
+#define NTASKS NITASKS + NMTASKS
+#define NIP 4
+#define NRES 3
+#define NASSETS 2
+#define DIS 0.999972465
+
 mixedSimple
 #define DATAFILE "mixedSimple.dat"
 #define NPERIODS 3

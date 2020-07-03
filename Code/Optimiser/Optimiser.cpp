@@ -28,19 +28,20 @@ using namespace ::dashoptimization;
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "mixedMonth.dat"
-#define NPERIODS 30
+#define DATAFILE "mixedWeek.dat"
+#define NPERIODS 7
 #define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 5
-#define NMMTASKS 1
-#define NMOTASKS 4
+#define NITASKS 3
+#define NMMTASKS 2
+#define NMOTASKS 2
 #define NMTASKS NMMTASKS + NMOTASKS
 #define NTASKS NITASKS + NMTASKS
-#define NIP 4
+#define NIP 2
 #define NRES 3
-#define NASSETS 5
+#define NASSETS 2
 #define DIS 0.999972465
+#define OPTIMAL -468925 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
