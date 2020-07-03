@@ -101,6 +101,7 @@ installWeek
 #define NRES 3
 #define NASSETS 2
 #define DIS 0.999972465
+#define OPTIMAL -43733 // The optimal solution, if known
 
 mixedSimple
 #define DATAFILE "mixedSimple.dat"
