@@ -32,7 +32,7 @@ s_{ait} \leq& s_{ai(t+1)}											&	\forall a \in A, \forall i \in I, \forall 
 s_{ai\sigma_{it_N}} \geq& 1										&	\forall a \in A, \forall i \in I						\\
 s_{ajt} \leq& s_{ai\sigma_{it}}										&	\forall a \in A, \forall (i, j) \in IP, \forall t \in T 			\\
 N_{rp} \geq& \sum_{a \in A}\sum_{i\in I} (\rho_{ir} \cdot (s_{ait} - s_{ai\sigma_{it}}))		& 	\forall r \in R, \forall p \in P, \forall t \in T_p			\\
-O_p =&  \sum_{a \in A} s_{ai_N\sigma_{it_p}}							& 	\forall p \in P 							\\
+O_p =&  \sum_{a \in A} s_{ai_N\sigma_{i_Nt_p}}							& 	\forall p \in P 							\\
 N_{rp} \leq& m_{rp}											& 	\forall r \in R, \forall p \in P
 \end{align}
 
@@ -166,7 +166,7 @@ Parameters:
 
 \end{frame}
 
-\begin{frame}{Initial mixed model}
+\begin{frame}{Initial 2-mixed model}
 \scriptsize
 
 \begin{equation}
@@ -191,7 +191,7 @@ N_{rp} \leq& m_{rp}																	& \forall r \in R, \forall p \in P
 
 \end{frame}
 
-\begin{frame}{Mixed Model Explanation}
+\begin{frame}{2-Mixed Model Explanation}
 (15) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
 (16) Makes every task that is started stay started 	\\
 (17) Forces every installation and mandatory maintenance task to be starded and finished by the final timestep	\\
@@ -240,6 +240,80 @@ Parameters:
 \item $\lambda_a$: The number of timesteps after the last maintenance before asset $a$ fails
 \item $\sigma_{it}$: Indicates the timestep at which task $i$ should have been started for it to be finished by timestep $t$, taking into account the duration and the weather conditions
 \item $\rho_{ir}$: The amount of resource $r$ used for task $i \in \mathcal{I}$
+\item $m_{rp}$: The maximum amount of resources $r$ that can be charatered in period $p$
+\end{itemize}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}{Initial model for decommission}
+\scriptsize
+\begin{equation}
+	\max_{\substack{O_t, N_{rp} \in \mathbb{Z}^* \\ 
+	s_{ait}, o_{at} \in \{0, 1\}}} 
+	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
+\end{equation}
+
+\bigskip
+subject to:
+
+\begin{align}
+s_{ait} \leq& s_{ai(t+1)}											&	\forall a \in A, \forall i \in D, \forall t \in T			\\
+s_{ai\sigma_{it_N}} \geq& 1										&	\forall a \in A, \forall i \in D						\\
+s_{ajt} \leq& s_{ai\sigma_{it}}										&	\forall a \in A, \forall (i, j) \in IP, \forall t \in T 			\\
+N_{rp} \geq& \sum_{a \in A}\sum_{i\in I} (\rho_{ir} \cdot (s_{ait} - s_{ai\sigma_{it}}))		& 	\forall r \in R, \forall p \in P, \forall t \in T_p			\\
+O_t =&  \sum_{a \in A} (1 - s_{ai_0t} )									& 	\forall t \in T								\\
+N_{rp} \leq& m_{rp}											& 	\forall r \in R, \forall p \in P
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Installation Model Explanation}
+(23) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
+(24) Makes every task that is started stay started 	\\
+(25) Forces every task to be starded and finished by the final timestep	\\
+(26) For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
+(27) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
+(28) Counts the number of turbines which have not started decomissioning by a given timestep	\\
+(29) Sets a limit on the amount of vessels that can be charatered in a given period
+\end{frame}
+
+\begin{frame}{Notation overview}
+\scriptsize
+
+\begin{columns}
+\begin{column}{.48\textwidth}
+Sets:
+\begin{itemize}
+\item $P$: All time periods (large scale)
+\item $T$: All time intervals (small scale) [$t_0, \dots , t_N$]
+\item $T_p \in T$: All time intervals (small scale) in period $p$
+\item $R$: All resources
+\item $D$:  All tasks per asset [$i_0, \dots , i_N$]
+\item $IP$: All precedency pairs ($i$, $j$)
+\item $A$: All assets
+\end{itemize}
+
+Decision variables:
+\begin{itemize}
+\item $O_{t}$: Number of online turbines at timestep $t$
+\item $N_{rp}$: Number of resources $r$ used in period $p$
+\item $s_{ait}$: Binary variable, 1 if task $i \in I$ for asset $a$ has started at or before time $t$
+\end{itemize}
+\end{column}
+
+\hfill
+
+\begin{column}{.48\textwidth}
+Parameters:
+\begin{itemize}
+\item $DIS$: The discount factor per period
+\item $v_t$: The value of energy a single turbine produces in timestep $t$
+\item $C_{rp}$: The cost of chartering resource $r$ in period $p$
+\item $\sigma_{it}$: Indicates the timestep at which task $i$ should have been started for it to be finished by timestep $t$, taking into account the duration and the weather conditions
+\item $\rho_{ir}$: The amount of resource $r$ used by task $i$
+\item $t_p$: The final time interval (from $T$) before period $p$
 \item $m_{rp}$: The maximum amount of resources $r$ that can be charatered in period $p$
 \end{itemize}
 \end{column}
