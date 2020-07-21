@@ -15,11 +15,13 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-#define LOCKMODE "SetCuts Test1"
+//#define LOCKMODE "SetCuts MergeOnl1"
+#define LOCKCUTS "SetCuts"
 #define NMODETYPES 2
 #define MODECUTS 4
-#define MODETESTS 2
-#define NMODES 16 * MODETESTS // 2^MODECUTS * MODETESTS    // Product of all mode types (2^x for combination modes)
+#define MODEONLCON 2
+#define MODETEST 5
+#define NMODES MODEONLCON * MODETEST // 2^MODECUTS * MODEONLCON * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
 #define WEATHERTYPE 1
 #define VERBOSITY 1
 #define NAMES 1
@@ -28,20 +30,20 @@ using namespace ::dashoptimization;
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "mixedWeek.dat"
-#define NPERIODS 7
+#define DATAFILE "mixedFortnight.dat"
+#define NPERIODS 14
 #define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 3
-#define NMMTASKS 2
+#define NITASKS 4
+#define NMMTASKS 1
 #define NMOTASKS 2
 #define NMTASKS NMMTASKS + NMOTASKS
 #define NTASKS NITASKS + NMTASKS
-#define NIP 2
+#define NIP 3
 #define NRES 3
-#define NASSETS 2
+#define NASSETS 3
 #define DIS 0.999972465
-#define OPTIMAL -468925 // The optimal solution, if known
+#define OPTIMAL -589085 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -272,29 +274,8 @@ public:
 		locked = false;
 	}
 
-	// Initialiser (to update according to specific tests to be run)
-	static Mode Init()
-	{
-		Mode mode = Mode();
-
-#ifdef MODECUTS
-		string names[MODECUTS + 2] = { "No", "Set", "Pre", "Res", "Onl", "Cuts" };
-		mode.AddCombDim(MODECUTS, names);
-#endif // MODECUTS
-
-#ifdef MODETESTS
-		string names2[MODETESTS] = {"Test1", "Test2"};
-		mode.AddDim(MODETESTS, names2);
-#endif // MODETESTS
-
-		mode.durs.resize(mode.nModes);
-
-#ifdef LOCKMODE
-		mode.LockMode(LOCKMODE);
-#endif // LOCKMODE
-
-		return mode;
-	}
+	// Initialiser (stub)
+	static Mode Init();
 	
 	// Move on to the next state (returns True if end is reached)
 	bool Next()
@@ -330,8 +311,23 @@ public:
 		durs[current] = dur;
 	}
 
-	// Locks the setup into a given moden
+	// Locks the setup into a given mode
 	void LockMode(string modeName)
+	{
+		Reset();
+
+		for (bool stop = false; !stop; stop = Next())
+			if (GetCurrentModeName().compare(modeName) == 0)
+			{
+				locked = true;
+				return;
+			}
+
+		cout << "ERROR: Locking mode failed; requested mode (" << modeName << ") not found!" << endl;
+	}
+
+	// Locks a dimension into a given setting
+	void LockDim(string setName) // TODO
 	{
 		Reset();
 
@@ -524,6 +520,33 @@ public:
 	// Add other getters as needed
 #pragma endregion
 };
+
+// Initialiser (to update according to specific tests to be run)
+Mode Mode::Init()
+{
+	Mode mode = Mode();
+
+#ifdef MODECUTS
+	string names[MODECUTS + 2] = { "No", "Set", "Pre", "Res", "Onl", "Cuts" };
+	mode.AddCombDim(MODECUTS, names);
+#endif // MODECUTS
+
+#ifdef LOCKCUTS
+	mode.LockDim(LOCKCUTS);
+#endif // LOCKCUTS
+
+#ifdef MODEONLCON
+	mode.AddDim(MODEONLCON, "MergeOnl");
+#endif // MODEONLCON
+
+	mode.durs.resize(mode.nModes);
+
+#ifdef LOCKMODE
+	mode.LockMode(LOCKMODE);
+#endif // LOCKMODE
+
+	return mode;
+}
 
 class OutputPrinter
 {
@@ -1149,7 +1172,7 @@ private:
 				}
 	}
 
-	void genOnlineConstraints(XPRBprob* prob, bool cut)
+	void genOnlineConstraints(XPRBprob* prob, bool cut, bool split)
 	{
 		// Online turbines status link to start times
 		for (int t = 0; t < NTIMES; ++t)
@@ -1158,22 +1181,36 @@ private:
 
 			for (int a = 0; a < NASSETS; ++a)
 			{
-				XPRBrelation relS = o[a][t] <= 0.5 * s[a][NITASKS - 1][sa[NITASKS - 1][t]];
+				XPRBrelation relI = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]];
+				XPRBrelation relM = o[a][t] <= 0;
+
+				if (!split)
+					relM = o[a][t] <= 0.5 * s[a][NITASKS - 1][sa[NITASKS - 1][t]];
 
 				for (int i = NITASKS - 1; i < NTASKS; i++)
 				{
 					if (sa[i][t] > -1)
-						relS.addTerm(s[a][i][sa[i][t]], -0.5);
+						relM.addTerm(s[a][i][sa[i][t]], -0.5);
 					if (t - lambda[a] >= 0 && sa[i][t - lambda[a]] > -1)
-						relS.addTerm(s[a][i][sa[i][t - lambda[a]]], 0.5);
+						relM.addTerm(s[a][i][sa[i][t - lambda[a]]], 0.5);
 				}
 
 				if (cut)
-					prob->newCut(relS);
+				{
+					prob->newCut(relM);
+					if (split)
+						prob->newCut(relI);
+				}
 				else
 				{
 					int indices[2] = { a, t };
-					genCon(prob, relS, "Onl", 2, indices);
+					if (!split)
+						genCon(prob, relM, "Onl", 2, indices);
+					else
+					{
+						genCon(prob, relI, "OnlI", 2, indices);
+						genCon(prob, relM, "OnlM", 2, indices);
+					}
 				}
 
 				relL.addTerm(o[a][t], -1);
@@ -1202,7 +1239,7 @@ public:
 		genSetConstraints(prob, m->GetCurrentBySettingName("SetCuts") == 1);
 		genPrecedenceConstraints(prob, m->GetCurrentBySettingName("PreCuts") == 1);
 		genResourceConstraints(prob, m->GetCurrentBySettingName("ResCuts") == 1);
-		genOnlineConstraints(prob, m->GetCurrentBySettingName("OnlCuts") == 1);
+		genOnlineConstraints(prob, m->GetCurrentBySettingName("OnlCuts") == 1, m->GetCurrentBySettingName("MergeOnl") == 0);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
@@ -1221,7 +1258,7 @@ public:
 		if (m->GetCurrentBySettingName("ResCuts") == 1)
 			genResourceConstraints(prob, false);
 		if (m->GetCurrentBySettingName("OnlCuts") == 1)
-			genOnlineConstraints(prob, false);
+			genOnlineConstraints(prob, false, m->GetCurrentBySettingName("MergeOnl") == 0);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
