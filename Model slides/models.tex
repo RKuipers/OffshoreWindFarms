@@ -347,11 +347,11 @@ subject to:
 s_{ait} \leq& s_{ai(t+1)}																	& \forall a \in A, \forall i \in \mathcal{I}, \forall t \in T	\\
 s_{ai\sigma_{it_N}} \geq& 1																& \forall a \in A, \forall i \in \mathcal{I} - M^O		\\
 s_{ajt} \leq& s_{ai\sigma_{it}}																& \forall a \in A, \forall (i, j) \in IP, \forall t \in T 	\\
-N_{rp} \geq& \sum_{a\in A} \sum_{i\in \mathcal{I}} (\rho_{ir} \cdot (s_{ait} - s_{ai\sigma_{it}})) 						& \forall r \in R, \forall p \in P, \forall t \in T_p 		\\
+m_{rp} \geq N_{rp} \geq& \sum_{a\in A} \sum_{i\in \mathcal{I}} (\rho_{ir} \cdot (s_{ait} - s_{ai\sigma_{it}})) 				& \forall r \in R, \forall p \in P, \forall t \in T_p 		\\
 o_{at} \leq& s_{ai^I_N\sigma_{i^I_Nt}} - s_{ai^D_0t}												& \forall a \in A, \forall t \in T				\\
 o_{at} \leq& \sum_{i \in M \cup \{i^I_N\}} (s_{ai\sigma_{it}} - s_{ai\sigma_{i(t-\lambda_a)}})						& \forall a \in A, \forall t \in T				\\
-O_t =& \sum_{a \in A} o_{at}																& \forall t \in T 						\\
-N_{rp} \leq& m_{rp}																	& \forall r \in R, \forall p \in P
+o_{at} \leq& 1 + s_{ai\sigma_{it}} - s_{ait}														& \forall i \in M, \forall a \in A, \forall t \in T		\\
+O_t =& \sum_{a \in A} o_{at}																& \forall t \in T 						
 \end{align}
 
 \end{frame}
@@ -362,11 +362,11 @@ N_{rp} \leq& m_{rp}																	& \forall r \in R, \forall p \in P
 (31) Makes every task that is started stay started 	\\
 (32) Forces every installation and mandatory maintenance task to be starded and finished by the final timestep	\\
 (33) For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
-(34) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
+(34) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished. It also sets a limit on the amount of vessels that can be charatered in a given period	\\
 (35) An asset can only be online if installation is complete and decomission has not started yet \\
 (36) An asset can only be online if it had maintenance done recently (or only completed installation recently) \\
-(37) Counts how many assets are online \\
-(38) Sets a limit on the amount of vessels that can be charatered in a given period
+(37) Ensures an asset if offline is maintenance work is going on at this moment \\
+(38) Counts how many assets are online
 \end{frame}
 
 \begin{frame}{Notation overview}
