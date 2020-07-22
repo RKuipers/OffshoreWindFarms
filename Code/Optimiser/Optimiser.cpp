@@ -17,13 +17,13 @@ using namespace ::dashoptimization;
 #define SEED 42 * NTIMES
 //#define LOCKMODE "SetCuts MergeOnl1"
 #define LOCKCUTS "SetCuts"
-#define NMODETYPES 2
+#define NMODETYPES 3
 #define MODECUTS 4
 #define MODEONLCON 2
 #define MODETEST 5
 #define NMODES MODEONLCON * MODETEST // 2^MODECUTS * MODEONLCON * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
 #define WEATHERTYPE 1
-#define VERBOSITY 1
+#define VERBOSITY 0
 #define NAMES 1
 #define OUTPUTFOLDER "Output files/"
 #define OUTPUTFILE "mixed"
@@ -73,6 +73,7 @@ class Mode
 	{
 	protected:
 		int curr, max, type, settings;
+		bool locked;
 		vector<string> modeNames, settingNames;
 
 		vector<string> expandFromName(string name, int sets)
@@ -133,6 +134,7 @@ class Mode
 				this->max = pow(2, max);
 			}
 			this->type = type;
+			this->locked = false;
 			this->modeNames = expandFromName(name, max);
 			this->settingNames = modeNames;
 		}
@@ -141,6 +143,7 @@ class Mode
 		{
 			this->curr = 0;
 			this->type = type;
+			this->locked = false;
 			if (type == 0)
 			{
 				this->settings = max;
@@ -159,6 +162,9 @@ class Mode
 
 		int next() 
 		{
+			if (locked)
+				return -1;
+
 			if (curr + 1 < max)
 			{
 				++curr;
@@ -211,7 +217,14 @@ class Mode
 
 		void setCurr(int val)
 		{
+			if (!locked)
+				curr = val;
+		}
+
+		void lock(int val)
+		{
 			curr = val;
+			locked = true;
 		}
 
 		string getModeName(int mode = -1)
@@ -277,6 +290,8 @@ public:
 	// Initialiser (stub)
 	static Mode Init();
 	
+	/* Functions to set states: */
+#pragma region Setters
 	// Move on to the next state (returns True if end is reached)
 	bool Next()
 	{
@@ -327,19 +342,28 @@ public:
 	}
 
 	// Locks a dimension into a given setting
-	void LockDim(string setName) // TODO
+	void LockDim(string setName)
 	{
 		Reset();
 
-		for (bool stop = false; !stop; stop = Next())
-			if (GetCurrentModeName().compare(modeName) == 0)
-			{
-				locked = true;
-				return;
-			}
+		for (int i = 0; i < nDims; ++i)
+		{
+			int j;
+			for (j = 0; j <= dims[i]->getMax(); ++j)
+				if (dims[i]->getModeName(j).compare(setName) == 0)
+					break;
 
-		cout << "ERROR: Locking mode failed; requested mode (" << modeName << ") not found!" << endl;
+			if (dims[i]->getModeName(j).compare(setName) == 0)
+			{
+				dims[i]->lock(j);
+				nModes /= dims[i]->getMax();
+				return;
+			}			
+		}
+
+		cout << "ERROR: Locking dim failed; requested setting (" << setName << ") not found!" << endl;
 	}
+#pragma endregion
 
 	/* Functions to add Dimensions: */
 #pragma region Add Dims
@@ -531,19 +555,24 @@ Mode Mode::Init()
 	mode.AddCombDim(MODECUTS, names);
 #endif // MODECUTS
 
-#ifdef LOCKCUTS
-	mode.LockDim(LOCKCUTS);
-#endif // LOCKCUTS
-
 #ifdef MODEONLCON
-	mode.AddDim(MODEONLCON, "MergeOnl");
+	string names2[MODEONLCON] = { "MergeOnl", "SplitOnl" };
+	mode.AddDim(MODEONLCON, names2);
 #endif // MODEONLCON
+
+#ifdef MODETEST
+	mode.AddDim(MODETEST, "TEST");
+#endif // MODETEST
 
 	mode.durs.resize(mode.nModes);
 
 #ifdef LOCKMODE
 	mode.LockMode(LOCKMODE);
 #endif // LOCKMODE
+
+#ifdef LOCKCUTS
+	mode.LockDim(LOCKCUTS);
+#endif // LOCKCUTS
 
 	return mode;
 }
@@ -1239,7 +1268,7 @@ public:
 		genSetConstraints(prob, m->GetCurrentBySettingName("SetCuts") == 1);
 		genPrecedenceConstraints(prob, m->GetCurrentBySettingName("PreCuts") == 1);
 		genResourceConstraints(prob, m->GetCurrentBySettingName("ResCuts") == 1);
-		genOnlineConstraints(prob, m->GetCurrentBySettingName("OnlCuts") == 1, m->GetCurrentBySettingName("MergeOnl") == 0);
+		genOnlineConstraints(prob, m->GetCurrentBySettingName("OnlCuts") == 1, m->GetCurrentBySettingName("SplitOnl") == 1);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
