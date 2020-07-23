@@ -30,20 +30,20 @@ using namespace ::dashoptimization;
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "mixedFortnight.dat"
-#define NPERIODS 14
+#define DATAFILE "mixedWeek.dat"
+#define NPERIODS 7
 #define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 4
-#define NMMTASKS 1
+#define NITASKS 3
+#define NMMTASKS 2
 #define NMOTASKS 2
 #define NMTASKS NMMTASKS + NMOTASKS
 #define NTASKS NITASKS + NMTASKS
-#define NIP 3
+#define NIP 2
 #define NRES 3
-#define NASSETS 3
+#define NASSETS 2
 #define DIS 0.999972465
-#define OPTIMAL -589085 // The optimal solution, if known
+#define OPTIMAL -468925 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -592,7 +592,8 @@ private:
 		for (int t = 0; t < NTIMES; ++t)
 		{
 			int v = round(O[t].getSol());
-			cout << t << ": " << v << endl;
+			if (t == 0 || v != round(O[t-1].getSol()))
+				cout << t << ": " << v << endl;
 			*file << "O_" << t << ": " << v << endl;
 		}
 	}
@@ -1213,15 +1214,20 @@ private:
 				XPRBrelation relI = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]];
 				XPRBrelation relM = o[a][t] <= 0;
 
+				double coef = 1.0;
+
 				if (!split)
+				{
 					relM = o[a][t] <= 0.5 * s[a][NITASKS - 1][sa[NITASKS - 1][t]];
+					coef = 0.5;
+				}
 
 				for (int i = NITASKS - 1; i < NTASKS; i++)
 				{
 					if (sa[i][t] > -1)
-						relM.addTerm(s[a][i][sa[i][t]], -0.5);
+						relM.addTerm(s[a][i][sa[i][t]], -coef);
 					if (t - lambda[a] >= 0 && sa[i][t - lambda[a]] > -1)
-						relM.addTerm(s[a][i][sa[i][t - lambda[a]]], 0.5);
+						relM.addTerm(s[a][i][sa[i][t - lambda[a]]], coef);
 				}
 
 				if (cut)
