@@ -17,14 +17,12 @@ using namespace ::dashoptimization;
 #define SEED 42 * NTIMES
 //#define LOCKMODE "SetCuts MergeOnl1"
 #define LOCKCUTS "SetCuts"
-//#define LOCKSPLIT "SplitOnl"
-//#define LOCKVAR "OnlSum"
+//#define LOCKONL "SplitSumOnl"
 #define NMODETYPES 3
 #define MODECUTS 4
-//#define MODEONLSPL 2
-//#define MODEONLVAR 2
+#define MODEONL 2
 #define MODETEST 3
-#define NMODES 4 * MODETEST // 2^MODECUTS * MODEONLSPL * MODEONLVAR * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
+#define NMODES 4 * MODETEST // 2^MODECUTS * 2^MODEONL * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
 #define WEATHERTYPE 1
 #define VERBOSITY 0
 #define NAMES 1
@@ -33,20 +31,20 @@ using namespace ::dashoptimization;
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "mixedFortnight.dat"
-#define NPERIODS 14
+#define DATAFILE "mixedWeek.dat"
+#define NPERIODS 7
 #define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 4
-#define NMMTASKS 1
+#define NITASKS 3
+#define NMMTASKS 2
 #define NMOTASKS 2
 #define NMTASKS NMMTASKS + NMOTASKS
 #define NTASKS NITASKS + NMTASKS
-#define NIP 3
+#define NIP 2
 #define NRES 3
-#define NASSETS 3
+#define NASSETS 2
 #define DIS 0.999972465
-#define OPTIMAL -589085 // The optimal solution, if known
+#define OPTIMAL -468925 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -616,18 +614,10 @@ Mode Mode::Init()
 	mode.AddCombDim(MODECUTS, names);
 #endif // MODECUTS
 
-#ifdef MODEONLSPL
-	string names2[MODEONLSPL] = { "MergeOnl", "SplitOnl" };
-	mode.AddDim(MODEONLSPL, names2);
-#endif // MODEONLSPL
-
-#ifdef MODEONLVAR
-	string names3[MODEONLVAR] = { "OnlVar", "OnlSum" };
-	mode.AddDim(MODEONLVAR, names3);
-#endif // MODEONLVAR
-
-	string names4[2 + 2] = { "MergeVar", "Split", "Sum", "Onl" };
-	mode.AddCombDim(2, names4);
+#ifdef MODEONL
+	string names2[MODEONL + 2] = { "MergeVar", "Split", "Sum", "Onl" };
+	mode.AddCombDim(MODEONL, names2);
+#endif // MODEONL
 
 #ifdef MODETEST
 	mode.AddDim(MODETEST, "TEST");
@@ -643,13 +633,9 @@ Mode Mode::Init()
 	mode.LockDim(LOCKCUTS);
 #endif // LOCKCUTS
 
-#ifdef LOCKSPLIT
-	mode.LockDim(LOCKSPLIT);
-#endif // LOCKSPLIT
-
-#ifdef LOCKVAR
-	mode.LockDim(LOCKVAR);
-#endif // LOCKVAR
+#ifdef LOCKONL
+	mode.LockDim(LOCKONL);
+#endif // LOCKONL
 
 	return mode;
 }
