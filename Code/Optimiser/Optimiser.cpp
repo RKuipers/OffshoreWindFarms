@@ -17,12 +17,14 @@ using namespace ::dashoptimization;
 #define SEED 42 * NTIMES
 //#define LOCKMODE "SetCuts MergeOnl1"
 #define LOCKCUTS "SetCuts"
+#define LOCKSPLIT "SplitOnl"
+//#define LOCKVAR "OnlSum"
 #define NMODETYPES 4
 #define MODECUTS 4
-#define MODEONLMER 2
+#define MODEONLSPL 2
 #define MODEONLVAR 2
-#define MODETEST 3
-#define NMODES MODEONLMER * MODEONLVAR * MODETEST // 2^MODECUTS * MODEONLCON * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
+#define MODETEST 5
+#define NMODES MODEONLVAR * MODETEST // 2^MODECUTS * MODEONLSPL * MODEONLVAR * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
 #define WEATHERTYPE 1
 #define VERBOSITY 0
 #define NAMES 1
@@ -31,20 +33,20 @@ using namespace ::dashoptimization;
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "mixedWeek.dat"
-#define NPERIODS 7
+#define DATAFILE "mixedFortnight.dat"
+#define NPERIODS 14
 #define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 3
-#define NMMTASKS 2
+#define NITASKS 4
+#define NMMTASKS 1
 #define NMOTASKS 2
 #define NMTASKS NMMTASKS + NMOTASKS
 #define NTASKS NITASKS + NMTASKS
-#define NIP 2
+#define NIP 3
 #define NRES 3
-#define NASSETS 2
+#define NASSETS 3
 #define DIS 0.999972465
-#define OPTIMAL -468925 // The optimal solution, if known
+#define OPTIMAL -589085 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -350,11 +352,12 @@ public:
 		for (int i = 0; i < nDims; ++i)
 		{
 			int j;
-			for (j = 0; j <= dims[i]->getMax(); ++j)
+			int max = dims[i]->getMax();
+			for (j = 0; j < max; ++j)
 				if (dims[i]->getModeName(j).compare(setName) == 0)
 					break;
 
-			if (dims[i]->getModeName(j).compare(setName) == 0)
+			if (j < max && dims[i]->getModeName(j).compare(setName) == 0)
 			{
 				dims[i]->lock(j);
 				nModes /= dims[i]->getMax();
@@ -556,10 +559,10 @@ Mode Mode::Init()
 	mode.AddCombDim(MODECUTS, names);
 #endif // MODECUTS
 
-#ifdef MODEONLMER
-	string names2[MODEONLMER] = { "MergeOnl", "SplitOnl" };
-	mode.AddDim(MODEONLMER, names2);
-#endif // MODEONLMER
+#ifdef MODEONLSPL
+	string names2[MODEONLSPL] = { "MergeOnl", "SplitOnl" };
+	mode.AddDim(MODEONLSPL, names2);
+#endif // MODEONLSPL
 
 #ifdef MODEONLVAR
 	string names3[MODEONLVAR] = { "OnlVar", "OnlSum" };
@@ -579,6 +582,14 @@ Mode Mode::Init()
 #ifdef LOCKCUTS
 	mode.LockDim(LOCKCUTS);
 #endif // LOCKCUTS
+
+#ifdef LOCKSPLIT
+	mode.LockDim(LOCKSPLIT);
+#endif // LOCKSPLIT
+
+#ifdef LOCKVAR
+	mode.LockDim(LOCKVAR);
+#endif // LOCKVAR
 
 	return mode;
 }
