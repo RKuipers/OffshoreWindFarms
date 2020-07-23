@@ -17,7 +17,7 @@ using namespace ::dashoptimization;
 #define SEED 42 * NTIMES
 //#define LOCKMODE "SetCuts MergeOnl1"
 #define LOCKCUTS "SetCuts"
-#define LOCKSPLIT "SplitOnl"
+//#define LOCKSPLIT "SplitOnl"
 //#define LOCKVAR "OnlSum"
 #define NMODETYPES 3
 #define MODECUTS 4
@@ -33,20 +33,20 @@ using namespace ::dashoptimization;
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "mixedWeek.dat"
-#define NPERIODS 7
+#define DATAFILE "mixedFortnight.dat"
+#define NPERIODS 14
 #define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 3
-#define NMMTASKS 2
+#define NITASKS 4
+#define NMMTASKS 1
 #define NMOTASKS 2
 #define NMTASKS NMMTASKS + NMOTASKS
 #define NTASKS NITASKS + NMTASKS
-#define NIP 2
+#define NIP 3
 #define NRES 3
-#define NASSETS 2
+#define NASSETS 3
 #define DIS 0.999972465
-#define OPTIMAL -468925 // The optimal solution, if known
+#define OPTIMAL -589085 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -246,6 +246,14 @@ class Mode
 				id = curr;
 
 			return settingNames[id];
+		}
+
+		vector<string> getSubModeNames()
+		{
+			if (type == 0)
+				return vector<string>();
+			else if (type == 1)
+				return modeNames;
 		}
 
 		int getMax()
@@ -501,6 +509,20 @@ public:
 		return res;
 	}
 
+	// Gets the list of names for each submode of a combmode
+	vector<string> GetCombModeNames()
+	{
+		vector<string> res = vector<string>();
+
+		for (int i = 0; i < nDims; ++i)
+		{
+			vector<string> curr = dims[i]->getSubModeNames();
+			res.insert(res.end(), curr.begin(), curr.end());
+		}
+
+		return res;
+	}
+
 	// Gets a list of bools indexed by setting to show which setting is on and which is off, in the current status
 	vector<bool> GetSettingStatus()
 	{
@@ -540,6 +562,41 @@ public:
 		}
 
 		for (int i = 0; i < nSettings; ++i)
+			res[i] = res[i] / counts[i];
+
+		return res;
+	}
+
+	// Get a list of average durations per mode (to be run after all runs are completed)
+	vector<double> GetModeDurs(vector<string> modeNames)
+	{
+		Reset();
+
+		int size = modeNames.size();
+
+		vector<double> res(size, 0.0); 
+		vector<int> counts(size, 0);
+
+		bool stop = false;
+
+		for (int i = 0; i < nModes && !stop; ++i)
+		{
+			for (int j = 0; j < nDims; ++j)
+			{
+				string name = GetCurrentModeName(j);
+				int id = find(modeNames.begin(), modeNames.end(), GetCurrentModeName(j)) - modeNames.begin();
+
+				if (id == size)
+					continue;
+
+				res[id] += durs[i];
+				counts[id] += 1;
+			}
+
+			stop = Next();
+		}
+
+		for (int i = 0; i < size; ++i)
 			res[i] = res[i] / counts[i];
 
 		return res;
@@ -606,13 +663,25 @@ private:
 		*file << "Objective: " << prob->getObjVal() << endl;
 	}
 
-	void printTurbines(ofstream* file)
+	void printTurbines(ofstream* file, bool oVars)
 	{
+		vector<int> vals = vector<int>();
+
 		cout << "Online turbines per timestep: " << endl;
 		for (int t = 0; t < NTIMES; ++t)
 		{
-			int v = round(O[t].getSol());
-			if (t == 0 || v != round(O[t-1].getSol()))
+			if (oVars)
+				vals.push_back(round(O[t].getSol()));
+			else
+			{
+				vals.push_back(0);
+				for (int a = 0; a < NASSETS; ++a)
+					vals[t] += round(o[a][t].getSol());
+			}
+
+
+			int v = vals[t];
+			if (t == 0 || v != vals[t-1])
 				cout << t << ": " << v << endl;
 			*file << "O_" << t << ": " << v << endl;
 		}
@@ -683,7 +752,7 @@ private:
 	}
 
 public:
-	void printProbOutput(XPRBprob* prob, int id)
+	void printProbOutput(XPRBprob* prob, Mode* m, int id)
 	{
 		if (prob->getProbStat() == 1)
 			return;
@@ -692,7 +761,7 @@ public:
 		file.open(string() + OUTPUTFOLDER + OUTPUTFILE + to_string(id) + OUTPUTEXT);
 
 		printObj(&file, prob);
-		printTurbines(&file);
+		printTurbines(&file, m->GetCurrentBySettingName("SumOnl") == 0);
 		printResources(&file);
 		printTasks(&file);
 
@@ -716,11 +785,17 @@ public:
 			cout << "MODE: " << i << " (" << modeNames[i] << ") DUR: " << m->GetDur(i) << endl;
 
 #if NMODETYPES > 1
-		vector<double> setAvgs = m->GetSettingDurs();
 		vector<string> settingNames = m->GetSettingNames();
+		vector<double> setAvgs = m->GetSettingDurs();
 
 		for (int i = 0; i < m->GetNSettings(); ++i)
 			cout << "SETTING: " << settingNames[i] << " DUR: " << setAvgs[i] << endl;
+
+		vector<string> subModeNames = m->GetCombModeNames();
+		vector<double> subModeAvgs = m->GetModeDurs(subModeNames);
+
+		for (int i = 0; i < subModeNames.size(); ++i)
+			cout << "SUBMODE: " << subModeNames[i] << " DUR: " << subModeAvgs[i] << endl;
 #endif // NMODETYPES > 1
 	}
 
@@ -1296,7 +1371,7 @@ public:
 	{
 		clock_t start = clock();
 
-		bool oVars = m->GetCurrentBySettingName("SumOnl") == 1;
+		bool oVars = m->GetCurrentBySettingName("SumOnl") == 0;
 
 		genDecisionVariables(prob, oVars);
 		genObjective(prob, oVars);
@@ -1325,7 +1400,7 @@ public:
 		if (m->GetCurrentBySettingName("ResCuts") == 1)
 			genResourceConstraints(prob, false);
 		if (m->GetCurrentBySettingName("OnlCuts") == 1)
-			genOnlineConstraints(prob, false, m->GetCurrentBySettingName("MergeOnl") == 0, m->GetCurrentBySettingName("SumOnl") == 1);
+			genOnlineConstraints(prob, false, m->GetCurrentBySettingName("MergeOnl") == 0, m->GetCurrentBySettingName("SumOnl") == 0);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
@@ -1402,7 +1477,7 @@ int main(int argc, char** argv)
 			problemSolver.solveProblem(p, name);
 		}
 
-		outputPrinter.printProbOutput(p, id);
+		outputPrinter.printProbOutput(p, &mode, id);
 
 #ifdef OPTIMAL
 		opt &= round(p->getObjVal()) == OPTIMAL;
