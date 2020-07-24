@@ -7,7 +7,7 @@
 %\usetheme{Warsaw}
 
 \newcounter{expl}
-\newcommand{\expl}{\refstepcounter{expl} (\theexpl)}
+\newcommand{\expl}{\refstepcounter{expl} (\theexpl) }
 
 \title[Initial models for optimisation]{Initial models for optimisation}
 
@@ -178,9 +178,9 @@ Parameters:
 \scriptsize
 
 \begin{equation}
-	\max_{\substack{O_t, N_{rp} \in \mathbb{Z}^* \\ 
+	\max_{\substack{N_{rp} \in \mathbb{Z}^* \\ 
 	s_{ait}, o_{at} \in \{0, 1\}}} 
-	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
+	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p}\sum_{a \in A} (o_{at} \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
 \end{equation}
 
 \bigskip
@@ -193,7 +193,6 @@ s_{ai\sigma_{it_N}} \geq& 1																& \forall a \in A, \forall i \in I\cu
 s_{ajt} \leq& s_{ai\sigma_{it}}																& \forall a \in A, \forall (i, j) \in IP, \forall t \in T 	\\
 N_{rp} \geq& \sum_{a\in A} \sum_{i\in \mathcal{I}} (\rho_{ir} \cdot (s_{ait} - s_{ai\sigma_{it}})) 						& \forall r \in R, \forall p \in P, \forall t \in T_p 		\\
 o_{at} \leq& \frac{1}{2} \cdot (s_{ai_N\sigma_{i_Nt}} + \sum_{i \in M \cup \{i_N\}} [s_{ai\sigma_{it}} - s_{ai\sigma_{i(t-\lambda_a)}}])	& \forall a \in A, \forall t \in T			\\
-O_t =& \sum_{a \in A} o_{at}																& \forall t \in T 						\\
 N_{rp} \leq& m_{rp}																	& \forall r \in R, \forall p \in P
 \end{align}
 
@@ -206,7 +205,6 @@ N_{rp} \leq& m_{rp}																	& \forall r \in R, \forall p \in P
 \expl For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
 \expl Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
 \expl Sets an asset to be online if it installed and had work done on it recently \\
-\expl Counts how many assets are online \\
 \expl Sets a limit on the amount of vessels that can be charatered in a given period
 \end{frame}
 
@@ -230,7 +228,6 @@ Sets:
 
 Decision variables:
 \begin{itemize}
-\item $O_{t}$: Number of online turbines at timestep $t$
 \item $o_{at}$: Binary variable, 1 if asset $a$ is online at timestep $t$
 \item $N_{rp}$: Number of resources $r$ used in period $p$
 \item $s_{ait}$: Binary variable, 1 if task $i \in \mathcal{I}$ for asset $a$ has started at or before time $t$
@@ -260,9 +257,9 @@ Parameters:
 \begin{frame}{Initial model for decommission}
 \scriptsize
 \begin{equation}
-	\max_{\substack{O_t, N_{rp} \in \mathbb{Z}^* \\ 
-	s_{ait}, o_{at} \in \{0, 1\}}} 
-	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
+	\max_{\substack{N_{rp} \in \mathbb{Z}^* \\ 
+	s_{ait} \in \{0, 1\}}} 
+	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p} \sum_{a \in A} ((1 - s_{ai_0t}) \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
 \end{equation}
 
 \bigskip
@@ -273,7 +270,6 @@ s_{ait} \leq& s_{ai(t+1)}											&	\forall a \in A, \forall i \in D, \forall 
 s_{ai\sigma_{it_N}} \geq& 1										&	\forall a \in A, \forall i \in D						\\
 s_{ajt} \leq& s_{ai\sigma_{it}}										&	\forall a \in A, \forall (i, j) \in IP, \forall t \in T 			\\
 N_{rp} \geq& \sum_{a \in A}\sum_{i\in I} (\rho_{ir} \cdot (s_{ait} - s_{ai\sigma_{it}}))		& 	\forall r \in R, \forall p \in P, \forall t \in T_p			\\
-O_t =&  \sum_{a \in A} (1 - s_{ai_0t} )									& 	\forall t \in T								\\
 N_{rp} \leq& m_{rp}											& 	\forall r \in R, \forall p \in P
 \end{align}
 
@@ -285,7 +281,6 @@ N_{rp} \leq& m_{rp}											& 	\forall r \in R, \forall p \in P
 \expl Forces every task to be starded and finished by the final timestep	\\
 \expl For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
 \expl Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
-\expl Counts the number of turbines which have not started decomissioning by a given timestep	\\
 \expl Sets a limit on the amount of vessels that can be charatered in a given period
 \end{frame}
 
@@ -307,7 +302,6 @@ Sets:
 
 Decision variables:
 \begin{itemize}
-\item $O_{t}$: Number of online turbines at timestep $t$
 \item $N_{rp}$: Number of resources $r$ used in period $p$
 \item $s_{ait}$: Binary variable, 1 if task $i \in I$ for asset $a$ has started at or before time $t$
 \end{itemize}
@@ -337,9 +331,9 @@ Parameters:
 \scriptsize
 
 \begin{equation}
-	\max_{\substack{O_t, N_{rp} \in \mathbb{Z}^* \\ 
+	\max_{\substack{N_{rp} \in \mathbb{Z}^* \\ 
 	s_{ait}, o_{at} \in \{0, 1\}}} 
-	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
+	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p} \sum_{a \in A} (o_{at} \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
 \end{equation}
 
 \bigskip
@@ -353,8 +347,7 @@ s_{ajt} \leq& s_{ai\sigma_{it}}																& \forall a \in A, \forall (i, j)
 m_{rp} \geq N_{rp} \geq& \sum_{a\in A} \sum_{i\in \mathcal{I}} (\rho_{ir} \cdot (s_{ait} - s_{ai\sigma_{it}})) 				& \forall r \in R, \forall p \in P, \forall t \in T_p 		\\
 o_{at} \leq& s_{ai^I_N\sigma_{i^I_Nt}} - s_{ai^D_0t}												& \forall a \in A, \forall t \in T				\\
 o_{at} \leq& \sum_{i \in M \cup \{i^I_N\}} (s_{ai\sigma_{it}} - s_{ai\sigma_{i(t-\lambda_a)}})						& \forall a \in A, \forall t \in T				\\
-o_{at} \leq& 1 + s_{ai\sigma_{it}} - s_{ait}														& \forall i \in M, \forall a \in A, \forall t \in T		\\
-O_t =& \sum_{a \in A} o_{at}																& \forall t \in T 						
+o_{at} \leq& 1 + s_{ai\sigma_{it}} - s_{ait}														& \forall i \in M, \forall a \in A, \forall t \in T		
 \end{align}
 
 \end{frame}
@@ -368,8 +361,7 @@ O_t =& \sum_{a \in A} o_{at}																& \forall t \in T
 \expl Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished. It also sets a limit on the amount of vessels that can be charatered in a given period	\\
 \expl An asset can only be online if installation is complete and decomission has not started yet \\
 \expl An asset can only be online if it had maintenance done recently (or only completed installation recently) \\
-\expl Ensures an asset if offline is maintenance work is going on at this moment \\
-\expl Counts how many assets are online
+\expl Ensures an asset if offline is maintenance work is going on at this moment 
 \end{frame}
 
 \begin{frame}{Notation overview}
@@ -393,7 +385,6 @@ Sets:
 
 Decision variables:
 \begin{itemize}
-\item $O_{t}$: Number of online turbines at timestep $t$
 \item $o_{at}$: Binary variable, 1 if asset $a$ is online at timestep $t$
 \item $N_{rp}$: Number of resources $r$ used in period $p$
 \item $s_{ait}$: Binary variable, 1 if task $i \in \mathcal{I}$ for asset $a$ has started at or before time $t$
