@@ -6,6 +6,9 @@
 \usetheme{Madrid}
 %\usetheme{Warsaw}
 
+\newcounter{expl}
+\newcommand{\expl}{\refstepcounter{expl} (\theexpl)}
+
 \title[Initial models for optimisation]{Initial models for optimisation}
 
 \author{R. Kuipers}
@@ -41,13 +44,13 @@ N_{rp} \leq& m_{rp}											& 	\forall r \in R, \forall p \in P
 \end{frame}
 
 \begin{frame}{Installation Model Explanation}
-(1) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
-(2) Makes every task that is started stay started 	\\
-(3) Forces every task to be starded and finished by the final timestep	\\
-(4) For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
-(5) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
-(6) Counts the number of turbines which finished installing by the end of a period	\\
-(7) Sets a limit on the amount of vessels that can be charatered in a given period
+\expl Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
+\expl Makes every task that is started stay started 	\\
+\expl Forces every task to be starded and finished by the final timestep	\\
+\expl For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
+\expl Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
+\expl Counts the number of turbines which finished installing by the end of a period	\\
+\expl Sets a limit on the amount of vessels that can be charatered in a given period
 \end{frame}
 
 \begin{frame}{Notation overview}
@@ -118,13 +121,13 @@ N_{rp} \leq& m_{rp}													&	 \forall r \in R, \forall p \in P
 \end{frame}
 
 \begin{frame}{Maintenance  Model Explanation}
-(8) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
-(9) Makes every task that is finished stay finished 	\\
-(10) Forces every mandatory maintenance task to be done at some point	\\
-(11) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
-(12) If no maintenance tasks have finished in the past $\lambda_a$ timesteps this asset is broken	\\
-(13) The number of active (online) turbines is equal to everything that isn't broken \\
-(14) Sets a limit on the amount of vessels that can be charatered in a given period
+\expl Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
+\expl Makes every task that is finished stay finished 	\\
+\expl Forces every mandatory maintenance task to be done at some point	\\
+\expl Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
+\expl If no maintenance tasks have finished in the past $\lambda_a$ timesteps this asset is broken	\\
+\expl The number of active (online) turbines is equal to everything that isn't broken \\
+\expl Sets a limit on the amount of vessels that can be charatered in a given period
 \end{frame}
 
 \begin{frame}{Notation overview}
@@ -197,14 +200,14 @@ N_{rp} \leq& m_{rp}																	& \forall r \in R, \forall p \in P
 \end{frame}
 
 \begin{frame}{2-Mixed Model Explanation}
-(15) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
-(16) Makes every task that is started stay started 	\\
-(17) Forces every installation and mandatory maintenance task to be starded and finished by the final timestep	\\
-(18) For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
-(19) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
-(20) Sets an asset to be online if it installed and had work done on it recently \\
-(21) Counts how many assets are online \\
-(22) Sets a limit on the amount of vessels that can be charatered in a given period
+\expl Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
+\expl Makes every task that is started stay started 	\\
+\expl Forces every installation and mandatory maintenance task to be starded and finished by the final timestep	\\
+\expl For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
+\expl Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
+\expl Sets an asset to be online if it installed and had work done on it recently \\
+\expl Counts how many assets are online \\
+\expl Sets a limit on the amount of vessels that can be charatered in a given period
 \end{frame}
 
 \begin{frame}{Notation overview}
@@ -277,13 +280,13 @@ N_{rp} \leq& m_{rp}											& 	\forall r \in R, \forall p \in P
 \end{frame}
 
 \begin{frame}{Installation Model Explanation}
-(23) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
-(24) Makes every task that is started stay started 	\\
-(25) Forces every task to be starded and finished by the final timestep	\\
-(26) For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
-(27) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
-(28) Counts the number of turbines which have not started decomissioning by a given timestep	\\
-(29) Sets a limit on the amount of vessels that can be charatered in a given period
+\expl Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
+\expl Makes every task that is started stay started 	\\
+\expl Forces every task to be starded and finished by the final timestep	\\
+\expl For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
+\expl Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
+\expl Counts the number of turbines which have not started decomissioning by a given timestep	\\
+\expl Sets a limit on the amount of vessels that can be charatered in a given period
 \end{frame}
 
 \begin{frame}{Notation overview}
@@ -358,15 +361,15 @@ O_t =& \sum_{a \in A} o_{at}																& \forall t \in T
 
 \begin{frame}{3-Mixed Model Explanation}
 \small
-(30) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
-(31) Makes every task that is started stay started 	\\
-(32) Forces every installation and mandatory maintenance task to be starded and finished by the final timestep	\\
-(33) For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
-(34) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished. It also sets a limit on the amount of vessels that can be charatered in a given period	\\
-(35) An asset can only be online if installation is complete and decomission has not started yet \\
-(36) An asset can only be online if it had maintenance done recently (or only completed installation recently) \\
-(37) Ensures an asset if offline is maintenance work is going on at this moment \\
-(38) Counts how many assets are online
+\expl Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
+\expl Makes every task that is started stay started 	\\
+\expl Forces every installation and mandatory maintenance task to be starded and finished by the final timestep	\\
+\expl For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
+\expl Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished. It also sets a limit on the amount of vessels that can be charatered in a given period	\\
+\expl An asset can only be online if installation is complete and decomission has not started yet \\
+\expl An asset can only be online if it had maintenance done recently (or only completed installation recently) \\
+\expl Ensures an asset if offline is maintenance work is going on at this moment \\
+\expl Counts how many assets are online
 \end{frame}
 
 \begin{frame}{Notation overview}
