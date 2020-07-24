@@ -21,8 +21,8 @@ using namespace ::dashoptimization;
 #define NMODETYPES 3
 #define MODECUTS 4
 #define MODEONL 2
-#define MODETEST 3
-#define NMODES 4 * MODETEST // 2^MODECUTS * 2^MODEONL * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
+#define MODETEST 10
+#define NMODES MODEONL * MODETEST // 2^MODECUTS * MODEONL * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
 #define WEATHERTYPE 1
 #define VERBOSITY 0
 #define NAMES 1
@@ -31,20 +31,20 @@ using namespace ::dashoptimization;
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "mixedWeek.dat"
-#define NPERIODS 7
+#define DATAFILE "mixedFortnight.dat"
+#define NPERIODS 14
 #define TPP 12 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 3
-#define NMMTASKS 2
+#define NITASKS 4
+#define NMMTASKS 1
 #define NMOTASKS 2
 #define NMTASKS NMMTASKS + NMOTASKS
 #define NTASKS NITASKS + NMTASKS
-#define NIP 2
+#define NIP 3
 #define NRES 3
-#define NASSETS 2
+#define NASSETS 3
 #define DIS 0.999972465
-#define OPTIMAL -468925 // The optimal solution, if known
+#define OPTIMAL -589085 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -615,8 +615,8 @@ Mode Mode::Init()
 #endif // MODECUTS
 
 #ifdef MODEONL
-	string names2[MODEONL + 2] = { "MergeVar", "Split", "Sum", "Onl" };
-	mode.AddCombDim(MODEONL, names2);
+	string names2[MODEONL] = { "Merge", "Split" };
+	mode.AddDim(MODEONL, names2);
 #endif // MODEONL
 
 #ifdef MODETEST
@@ -1367,7 +1367,7 @@ public:
 		genSetConstraints(prob, m->GetCurrentBySettingName("SetCuts") == 1);
 		genPrecedenceConstraints(prob, m->GetCurrentBySettingName("PreCuts") == 1);
 		genResourceConstraints(prob, m->GetCurrentBySettingName("ResCuts") == 1);
-		genOnlineConstraints(prob, m->GetCurrentBySettingName("OnlCuts") == 1, m->GetCurrentBySettingName("SplitOnl") == 1, oVars);
+		genOnlineConstraints(prob, m->GetCurrentBySettingName("OnlCuts") == 1, m->GetCurrentBySettingName("Split") == 1, oVars);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
@@ -1386,7 +1386,7 @@ public:
 		if (m->GetCurrentBySettingName("ResCuts") == 1)
 			genResourceConstraints(prob, false);
 		if (m->GetCurrentBySettingName("OnlCuts") == 1)
-			genOnlineConstraints(prob, false, m->GetCurrentBySettingName("MergeOnl") == 0, m->GetCurrentBySettingName("SumOnl") == 0);
+			genOnlineConstraints(prob, false, m->GetCurrentBySettingName("Merge") == 0, m->GetCurrentBySettingName("SumOnl") == 0);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
