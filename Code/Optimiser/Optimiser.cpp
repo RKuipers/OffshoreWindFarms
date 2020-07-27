@@ -37,8 +37,9 @@ using namespace ::dashoptimization;
 #define NITASKS 4
 #define NMMTASKS 1
 #define NMOTASKS 2
+#define NDTASKS 4
 #define NMTASKS NMMTASKS + NMOTASKS
-#define NTASKS NITASKS + NMTASKS
+#define NTASKS NITASKS + NMTASKS + NDTASKS
 #define NIP 3
 #define NRES 3
 #define NASSETS 3
@@ -1107,6 +1108,10 @@ public:
 class ProblemGen
 {
 private:
+	bool OptionalTask(int i)
+	{
+		return i < NITASKS + NMMTASKS || i >= NITASKS + NMTASKS;
+	}
 
 	XPRBctr genCon(XPRBprob* prob, const XPRBrelation& ac, string base, int nInd, int* indices)
 	{
@@ -1183,9 +1188,22 @@ private:
 						int indices[3] = { a, i, t };
 						genCon(prob, rel, "Set", 3, indices);
 					}
+
+					if (i < NITASKS + NMTASKS) // If it's not a decommission task, it can't be done during decomission
+					{
+						XPRBrelation rel2 = s[a][i][t] + s[a][NITASKS + NMTASKS][t] - s[a][i][sa[i][t]];
+
+						if (cut)
+							prob->newCut(rel2);
+						else
+						{
+							int indices[3] = { a, i, t };
+							genCon(prob, rel2, "Ord", 3, indices);
+						}
+					}
 				}
 
-				if (i >= NITASKS - 1 && i < NITASKS + NMMTASKS)
+				if (!OptionalTask(i))
 				{
 					XPRBrelation rel = s[a][i][sa[i][NTIMES]] == 1;
 
@@ -1203,15 +1221,23 @@ private:
 	void genPrecedenceConstraints(XPRBprob* prob, bool cut)
 	{
 		// Precedence constraints
-		for (int x = 0; x < NIP + NMTASKS; ++x)
+		for (int x = 0; x < NIP + NMTASKS + 1; ++x)
 		{
 			int i, j;
-			if (x < NIP)
+			if (x < NIP) // Normal precedence
 				tie(i, j) = IP[x];
-			else
+			else if (x < NIP + NMTASKS) // Finish installation before maintenance
 			{
 				i = NITASKS - 1;
-				j = x - NIP + NITASKS;
+				j = x - NIP + NITASKS; 
+			}
+			else
+			{
+				if (NITASKS <= 0 || NDTASKS <= 0)
+					continue;
+
+				i = NITASKS - 1;
+				j = NITASKS + NMTASKS;
 			}
 
 			for (int a = 0; a < NASSETS; ++a)
