@@ -17,7 +17,6 @@ using namespace ::dashoptimization;
 #define SEED 42 * NTIMES
 //#define LOCKMODE "SetCuts MergeOnl1"
 #define LOCKCUTS "SetCuts"
-//#define LOCKONL "SplitSumOnl"
 #define NMODETYPES 3
 #define MODECUTS 4
 #define MODEONL 2
@@ -63,7 +62,6 @@ int lambda[NASSETS];
 tuple<int, int> IP[NIP];
 
 // Model variables
-XPRBvar O[NTIMES];
 XPRBvar N[NRES][NPERIODS];
 XPRBvar o[NASSETS][NTIMES];
 XPRBvar s[NASSETS][NTASKS][NTIMES];
@@ -649,22 +647,16 @@ private:
 		*file << "Objective: " << prob->getObjVal() << endl;
 	}
 
-	void printTurbines(ofstream* file, bool oVars)
+	void printTurbines(ofstream* file)
 	{
 		vector<int> vals = vector<int>();
 
 		cout << "Online turbines per timestep: " << endl;
 		for (int t = 0; t < NTIMES; ++t)
 		{
-			if (oVars)
-				vals.push_back(round(O[t].getSol()));
-			else
-			{
-				vals.push_back(0);
-				for (int a = 0; a < NASSETS; ++a)
-					vals[t] += round(o[a][t].getSol());
-			}
-
+			vals.push_back(0);
+			for (int a = 0; a < NASSETS; ++a)
+				vals[t] += round(o[a][t].getSol());
 
 			int v = vals[t];
 			if (t == 0 || v != vals[t-1])
@@ -747,7 +739,7 @@ public:
 		file.open(string() + OUTPUTFOLDER + OUTPUTFILE + to_string(id) + OUTPUTEXT);
 
 		printObj(&file, prob);
-		printTurbines(&file, m->GetCurrentBySettingName("SumOnl") == 0);
+		printTurbines(&file);
 		printResources(&file);
 		printTasks(&file);
 
@@ -1131,7 +1123,7 @@ private:
 		}
 	}
 
-	void genDecisionVariables(XPRBprob* prob, bool oVars)
+	void genDecisionVariables(XPRBprob* prob)
 	{
 		outputPrinter.printer("Initialising variables", 1);
 
@@ -1146,13 +1138,6 @@ private:
 
 		// Create the timestep-based decision variables
 		for (int t = 0; t < NTIMES; ++t)
-		{
-			if (oVars)
-			{
-				O[t] = prob->newVar(("O_" + to_string(t)).c_str(), XPRB_UI);
-				O[t].setLB(0);
-			}
-
 			for (int a = 0; a < NASSETS; ++a)
 			{
 				o[a][t] = prob->newVar(("o_" + to_string(a) + "_" + to_string(t)).c_str(), XPRB_BV);
@@ -1160,10 +1145,9 @@ private:
 				for (int i = 0; i < NTASKS; ++i)
 					s[a][i][t] = prob->newVar(("s_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
 			}
-		}
 	}
 
-	void genObjective(XPRBprob* prob, bool oVars)
+	void genObjective(XPRBprob* prob)
 	{
 		outputPrinter.printer("Initialising objective", 1);
 
@@ -1173,11 +1157,8 @@ private:
 			double dis = pow(DIS, p);
 
 			for (int t = p * TPP; t < (p + 1) * TPP; ++t)
-				if (oVars)
-					Obj.addTerm(O[t], v[t] * dis);
-				else
-					for (int a = 0; a < NASSETS; ++a)
-						Obj.addTerm(o[a][t], v[t] * dis);
+				for (int a = 0; a < NASSETS; ++a)
+					Obj.addTerm(o[a][t], v[t] * dis);
 
 			for (int r = 0; r < NRES; ++r)
 				Obj.addTerm(N[r][p], -C[r][p] * dis);
@@ -1290,13 +1271,10 @@ private:
 				}
 	}
 
-	void genOnlineConstraints(XPRBprob* prob, bool cut, bool split, bool oVars)
+	void genOnlineConstraints(XPRBprob* prob, bool cut, bool split)
 	{
 		// Online turbines status link to start times
 		for (int t = 0; t < NTIMES; ++t)
-		{
-			XPRBrelation relL = O[t] == 0;
-
 			for (int a = 0; a < NASSETS; ++a)
 			{
 				XPRBrelation relI = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]];
@@ -1335,21 +1313,7 @@ private:
 						genCon(prob, relM, "OnlM", 2, indices);
 					}
 				}
-
-				relL.addTerm(o[a][t], -1);
 			}
-
-			if (!oVars)
-				continue;
-
-			if (cut)
-				prob->newCut(relL);
-			else
-			{
-				int indices[1] = { t };
-				genCon(prob, relL, "Tur", 1, indices);
-			}
-		}
 	}
 
 public:
@@ -1357,17 +1321,12 @@ public:
 	{
 		clock_t start = clock();
 
-		bool oVars = m->GetCurrentBySettingName("SumOnl") == 0;
-
-		genDecisionVariables(prob, oVars);
-		genObjective(prob, oVars);
-
 		outputPrinter.printer("Initialising Original constraints", 1);
 
 		genSetConstraints(prob, m->GetCurrentBySettingName("SetCuts") == 1);
 		genPrecedenceConstraints(prob, m->GetCurrentBySettingName("PreCuts") == 1);
 		genResourceConstraints(prob, m->GetCurrentBySettingName("ResCuts") == 1);
-		genOnlineConstraints(prob, m->GetCurrentBySettingName("OnlCuts") == 1, m->GetCurrentBySettingName("Split") == 1, oVars);
+		genOnlineConstraints(prob, m->GetCurrentBySettingName("OnlCuts") == 1, m->GetCurrentBySettingName("Split") == 1);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
@@ -1386,7 +1345,7 @@ public:
 		if (m->GetCurrentBySettingName("ResCuts") == 1)
 			genResourceConstraints(prob, false);
 		if (m->GetCurrentBySettingName("OnlCuts") == 1)
-			genOnlineConstraints(prob, false, m->GetCurrentBySettingName("Merge") == 0, m->GetCurrentBySettingName("SumOnl") == 0);
+			genOnlineConstraints(prob, false, m->GetCurrentBySettingName("Merge") == 0);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
