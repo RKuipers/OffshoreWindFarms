@@ -15,8 +15,8 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-//#define LOCKMODE "SetCuts MergeOnl1"
-#define LOCKCUTS "SetCuts"
+#define LOCKMODE "SetCuts Split TEST0"
+//#define LOCKCUTS "SetCuts"
 #define NMODETYPES 3
 #define MODECUTS 4
 #define MODEONL 2
@@ -26,25 +26,24 @@ using namespace ::dashoptimization;
 #define VERBOSITY 0
 #define NAMES 1
 #define OUTPUTFOLDER "Output files/"
-#define OUTPUTFILE "mixed"
+#define OUTPUTFILE "life"
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "mixedFortnight.dat"
-#define NPERIODS 14
-#define TPP 12 // Timesteps per Period
+#define DATAFILE "lifeSimple.dat"
+#define NPERIODS 6
+#define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 4
+#define NITASKS 2
 #define NMMTASKS 1
-#define NMOTASKS 2
-#define NDTASKS 4
+#define NMOTASKS 1
+#define NDTASKS 2
 #define NMTASKS NMMTASKS + NMOTASKS
 #define NTASKS NITASKS + NMTASKS + NDTASKS
-#define NIP 3
-#define NRES 3
-#define NASSETS 3
-#define DIS 0.999972465
-#define OPTIMAL -589085 // The optimal solution, if known
+#define NIP 2
+#define NRES 2
+#define NASSETS 2
+#define DIS 1.0
 
 // Weather characteristics
 int base = 105;
@@ -822,13 +821,13 @@ private:
 
 		switch (type)
 		{
-		case 'U':
+		case 'U': // U x -> x used for all periods
 		{
 			int val = stoi(line[start]);
 			fill(res->begin(), res->begin() + amount, val);
 			return start + 1;
 		}
-		case 'I':
+		case 'I': // I s1 e1 v1 s2 e2 v2 ... sn en vn -> Periods sx (inclusive) through ex (exclusive) use vx, s1 through en should cover all periods
 		{
 			int filled = 0;
 			int loc = start;
@@ -844,7 +843,7 @@ private:
 			}
 			return loc;
 		}
-		case 'S':
+		case 'S': // p1 v1 p2 v2 ... pn vn -> Period px uses vx, every period should be mentioned
 		{
 			for (int i = 0; i < amount; ++i)
 				(*res)[i] = stoi(line[i + start]);
@@ -881,6 +880,11 @@ private:
 			name = "MOTASKS";
 			ntasks = NMOTASKS;
 			start = NITASKS + NMMTASKS;
+			break; 
+		case 3:
+			name = "DTASKS";
+			ntasks = NDTASKS;
+			start = NITASKS + NMTASKS;
 			break;
 		default:
 			name = "";
@@ -1083,6 +1087,7 @@ public:
 		readTasks(&datafile, 0);
 		readTasks(&datafile, 1);
 		readTasks(&datafile, 2);
+		readTasks(&datafile, 3);
 
 		// Read the resource info
 		readResources(&datafile);
@@ -1110,7 +1115,7 @@ class ProblemGen
 private:
 	bool OptionalTask(int i)
 	{
-		return i < NITASKS + NMMTASKS || i >= NITASKS + NMTASKS;
+		return i >= NITASKS + NMMTASKS && i < NITASKS + NMTASKS;
 	}
 
 	XPRBctr genCon(XPRBprob* prob, const XPRBrelation& ac, string base, int nInd, int* indices)
@@ -1177,21 +1182,26 @@ private:
 		for (int a = 0; a < NASSETS; ++a)
 			for (int i = 0; i < NTASKS; ++i)
 			{
-				for (int t = 1; t < NTIMES; ++t)
+				for (int t = 0; t < NTIMES; ++t)
 				{
-					XPRBrelation rel = s[a][i][t] >= s[a][i][t - 1];
-
-					if (cut)
-						prob->newCut(rel);
-					else
+					if (t > 0)
 					{
-						int indices[3] = { a, i, t };
-						genCon(prob, rel, "Set", 3, indices);
+						XPRBrelation rel = s[a][i][t] >= s[a][i][t - 1];
+
+						if (cut)
+							prob->newCut(rel);
+						else
+						{
+							int indices[3] = { a, i, t };
+							genCon(prob, rel, "Set", 3, indices);
+						}
 					}
 
 					if (i < NITASKS + NMTASKS) // If it's not a decommission task, it can't be done during decomission
 					{
-						XPRBrelation rel2 = s[a][i][t] + s[a][NITASKS + NMTASKS][t] - s[a][i][sa[i][t]];
+						XPRBrelation rel2 = -s[a][i][t] >= s[a][NITASKS + NMTASKS][t] - 1;
+						if (sa[i][t] >= 0)
+							rel2.addTerm(s[a][i][sa[i][t]]);
 
 						if (cut)
 							prob->newCut(rel2);
@@ -1342,7 +1352,9 @@ private:
 
 				for (int i = NITASKS; i < NITASKS + NMTASKS; ++i)
 				{
-					XPRBrelation relD = o[a][t] <= 1 + s[a][i][sa[i][t]] - s[a][i][t];
+					XPRBrelation relD = o[a][t] <= 1 - s[a][i][t];
+					if (sa[i][t] >= 0)
+						relD.addTerm(s[a][i][sa[i][t]], -1);
 
 					if (cut)
 						prob->newCut(relD);
@@ -1359,6 +1371,9 @@ public:
 	void genOriProblem(XPRBprob* prob, Mode* m)
 	{
 		clock_t start = clock();
+
+		genDecisionVariables(prob);
+		genObjective(prob);
 
 		outputPrinter.printer("Initialising Original constraints", 1);
 
