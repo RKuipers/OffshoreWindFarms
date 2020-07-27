@@ -1303,7 +1303,7 @@ private:
 		for (int t = 0; t < NTIMES; ++t)
 			for (int a = 0; a < NASSETS; ++a)
 			{
-				XPRBrelation relI = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]];
+				XPRBrelation relA = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]] - s[a][NITASKS + NMTASKS][t];
 				XPRBrelation relM = o[a][t] <= 0;
 
 				double coef = 1.0;
@@ -1326,7 +1326,7 @@ private:
 				{
 					prob->newCut(relM);
 					if (split)
-						prob->newCut(relI);
+						prob->newCut(relA);
 				}
 				else
 				{
@@ -1335,8 +1335,21 @@ private:
 						genCon(prob, relM, "Onl", 2, indices);
 					else
 					{
-						genCon(prob, relI, "OnlI", 2, indices);
+						genCon(prob, relA, "OnlA", 2, indices);
 						genCon(prob, relM, "OnlM", 2, indices);
+					}
+				}
+
+				for (int i = NITASKS; i < NITASKS + NMTASKS; ++i)
+				{
+					XPRBrelation relD = o[a][t] <= 1 + s[a][i][sa[i][t]] - s[a][i][t];
+
+					if (cut)
+						prob->newCut(relD);
+					else
+					{
+						int indices[3] = { a, i, t };
+						genCon(prob, relM, "Down", 3, indices);
 					}
 				}
 			}
