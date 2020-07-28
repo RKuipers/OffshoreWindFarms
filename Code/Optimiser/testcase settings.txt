@@ -1,123 +1,39 @@
-mixedTwoMonth
-#define DATAFILE "mixedTwoMonth.dat"
-#define NPERIODS 8
-#define TPP 168 // Timesteps per Period
-#define NTIMES NPERIODS * TPP
-#define NITASKS 16
-#define NMMTASKS 2
-#define NMOTASKS 4
-#define NMTASKS NMMTASKS + NMOTASKS
-#define NTASKS NITASKS + NMTASKS
-#define NIP 18
-#define NRES 3
-#define NASSETS 10
-#define DIS 0.999806743
-int base = 100;
-int variety = 51;
-int bonus = -28;
-
-mixedEuan
-#define DATAFILE "mixedEuan.dat"
-#define NPERIODS 30
+lifeWeek
+#define DATAFILE "lifeWeek.dat"
+#define NPERIODS 7
 #define TPP 24 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
 #define NITASKS 3
 #define NMMTASKS 1
-#define NMOTASKS 4
+#define NMOTASKS 3
+#define NDTASKS 3
 #define NMTASKS NMMTASKS + NMOTASKS
-#define NTASKS NITASKS + NMTASKS
-#define NIP 2
-#define NRES 3
-#define NASSETS 5
-#define DIS 0.999972465
-int base = 105;
-int variety = 51;
-int bonus = -25;
-
-mixedMonth
-#define DATAFILE "mixedMonth.dat"
-#define NPERIODS 30
-#define TPP 12 // Timesteps per Period
-#define NTIMES NPERIODS * TPP
-#define NITASKS 5
-#define NMMTASKS 1
-#define NMOTASKS 4
-#define NMTASKS NMMTASKS + NMOTASKS
-#define NTASKS NITASKS + NMTASKS
-#define NIP 4
-#define NRES 3
-#define NASSETS 5
-#define DIS 0.999972465
-int base = 105;
-int variety = 51;
-int bonus = -25;
-
-mixedFortnight
-#define DATAFILE "mixedFortnight.dat"
-#define NPERIODS 14
-#define TPP 12 // Timesteps per Period
-#define NTIMES NPERIODS * TPP
-#define NITASKS 4
-#define NMMTASKS 1
-#define NMOTASKS 2
-#define NMTASKS NMMTASKS + NMOTASKS
-#define NTASKS NITASKS + NMTASKS
-#define NIP 3
-#define NRES 3
-#define NASSETS 3
-#define DIS 0.999972465
-#define OPTIMAL -589085 // The optimal solution, if known
-int base = 105;
-int variety = 51;
-int bonus = -25;
-
-mixedWeek
-#define DATAFILE "mixedWeek.dat"
-#define NPERIODS 7
-#define TPP 12 // Timesteps per Period
-#define NTIMES NPERIODS * TPP
-#define NITASKS 3
-#define NMMTASKS 2
-#define NMOTASKS 2
-#define NMTASKS NMMTASKS + NMOTASKS
-#define NTASKS NITASKS + NMTASKS
-#define NIP 2
-#define NRES 3
-#define NASSETS 2
-#define DIS 0.999972465
-#define OPTIMAL -468925 // The optimal solution, if known
-
-installWeek
-#define DATAFILE "installWeek.dat"
-#define NPERIODS 7
-#define TPP 12 // Timesteps per Period
-#define NTIMES NPERIODS * TPP
-#define NITASKS 5
-#define NMMTASKS 0
-#define NMOTASKS 0
-#define NMTASKS NMMTASKS + NMOTASKS
-#define NTASKS NITASKS + NMTASKS
+#define NTASKS NITASKS + NMTASKS + NDTASKS
 #define NIP 4
 #define NRES 3
 #define NASSETS 2
 #define DIS 0.999972465
-#define OPTIMAL -43733 // The optimal solution, if known
+#define OPTIMAL -418758 // The optimal solution, if known
+int base = 105;
+int variety = 51;
+int bonus = -25;
 
-mixedSimple
-#define DATAFILE "mixedSimple.dat"
-#define NPERIODS 3
+lifeSimple
+#define DATAFILE "lifeSimple.dat"
+#define NPERIODS 6
 #define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
 #define NITASKS 2
 #define NMMTASKS 1
 #define NMOTASKS 1
+#define NDTASKS 2
 #define NMTASKS NMMTASKS + NMOTASKS
-#define NTASKS NITASKS + NMTASKS
-#define NIP 1
+#define NTASKS NITASKS + NMTASKS + NDTASKS
+#define NIP 2
 #define NRES 2
 #define NASSETS 2
 #define DIS 1.0
-#define OPTIMAL 20 // The optimal solution, if known
+#define OPTIMAL -120 // The optimal solution, if known
 int base = 105;
 int variety = 51;
 int bonus = -25;
