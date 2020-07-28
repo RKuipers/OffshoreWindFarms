@@ -23,27 +23,27 @@ using namespace ::dashoptimization;
 #define MODETEST 10
 #define NMODES MODEONL * MODETEST // 2^MODECUTS * MODEONL * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
 #define WEATHERTYPE 1
-#define VERBOSITY 0
+#define VERBOSITY 1
 #define NAMES 1
 #define OUTPUTFOLDER "Output files/"
 #define OUTPUTFILE "life"
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "lifeSimple.dat"
-#define NPERIODS 6
-#define TPP 4 // Timesteps per Period
+#define DATAFILE "lifeWeek.dat"
+#define NPERIODS 7
+#define TPP 24 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 2
+#define NITASKS 3
 #define NMMTASKS 1
-#define NMOTASKS 1
-#define NDTASKS 2
+#define NMOTASKS 3
+#define NDTASKS 3
 #define NMTASKS NMMTASKS + NMOTASKS
 #define NTASKS NITASKS + NMTASKS + NDTASKS
-#define NIP 2
-#define NRES 2
+#define NIP 4
+#define NRES 3
 #define NASSETS 2
-#define DIS 1.0
+#define DIS 0.999972465
 
 // Weather characteristics
 int base = 105;
@@ -1313,7 +1313,7 @@ private:
 		for (int t = 0; t < NTIMES; ++t)
 			for (int a = 0; a < NASSETS; ++a)
 			{
-				XPRBrelation relA = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]] - s[a][NITASKS + NMTASKS][t];
+				XPRBrelation relA = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]] - s[a][NITASKS + NMTASKS][t]; // Active constraints
 				XPRBrelation relM = o[a][t] <= 0;
 
 				double coef = 1.0;
@@ -1324,7 +1324,7 @@ private:
 					coef = 0.5;
 				}
 
-				for (int i = NITASKS - 1; i < NTASKS; i++)
+				for (int i = NITASKS - 1; i < NTASKS; i++) // Regular maintenance constraints
 				{
 					if (sa[i][t] > -1)
 						relM.addTerm(s[a][i][sa[i][t]], -coef);
@@ -1350,7 +1350,7 @@ private:
 					}
 				}
 
-				for (int i = NITASKS; i < NITASKS + NMTASKS; ++i)
+				for (int i = NITASKS; i < NITASKS + NMTASKS; ++i) // Downtime constraints
 				{
 					XPRBrelation relD = o[a][t] <= 1 - s[a][i][t];
 					if (sa[i][t] >= 0)
@@ -1361,7 +1361,7 @@ private:
 					else
 					{
 						int indices[3] = { a, i, t };
-						genCon(prob, relM, "Down", 3, indices);
+						genCon(prob, relD, "Down", 3, indices);
 					}
 				}
 			}
@@ -1459,7 +1459,7 @@ int main(int argc, char** argv)
 		cout << "----------------------------------------------------------------------------------------" << endl;
 		cout << "MODE: " << id << " (" << modeName << ")" << endl;
 
-		string name = "Mixed" + to_string(id);
+		string name = "Life" + to_string(id);
 		p->setName(name.c_str());
 
 		if (NAMES == 0)
