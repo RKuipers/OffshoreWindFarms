@@ -30,21 +30,21 @@ using namespace ::dashoptimization;
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "lifeSimple.dat"
-#define NPERIODS 6
-#define TPP 4 // Timesteps per Period
+#define DATAFILE "lifeWeek.dat"
+#define NPERIODS 7
+#define TPP 24 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 2
+#define NITASKS 3
 #define NMMTASKS 1
-#define NMOTASKS 1
-#define NDTASKS 2
+#define NMOTASKS 3
+#define NDTASKS 3
 #define NMTASKS NMMTASKS + NMOTASKS
 #define NTASKS NITASKS + NMTASKS + NDTASKS
-#define NIP 2
-#define NRES 2
+#define NIP 4
+#define NRES 3
 #define NASSETS 2
-#define DIS 1.0
-#define OPTIMAL -120 // The optimal solution, if known
+#define DIS 0.999972465
+#define OPTIMAL -418758 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
