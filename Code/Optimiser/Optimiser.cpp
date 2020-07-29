@@ -1119,10 +1119,12 @@ private:
 		return i >= NITASKS + NMMTASKS && i < NITASKS + NMTASKS;
 	}
 
-	XPRBctr genCon(XPRBprob* prob, const XPRBrelation& ac, string base, int nInd, int* indices)
+	void genCon(XPRBprob* prob, const XPRBrelation& ac, string base, int nInd, int* indices, bool cut)
 	{
-		if (NAMES == 0)
-			return prob->newCtr(ac);
+		if (cut)
+			prob->newCut(ac);
+		else if (NAMES == 0)
+			prob->newCtr(ac);
 		else
 		{
 			string name = base;
@@ -1130,7 +1132,7 @@ private:
 			for (int i = 0; i < nInd; ++i)
 				name += "_" + to_string(indices[i]);
 
-			return prob->newCtr(name.c_str(), ac);
+			prob->newCtr(name.c_str(), ac);
 		}
 	}
 
@@ -1189,13 +1191,8 @@ private:
 					{
 						XPRBrelation rel = s[a][i][t] >= s[a][i][t - 1];
 
-						if (cut)
-							prob->newCut(rel);
-						else
-						{
-							int indices[3] = { a, i, t };
-							genCon(prob, rel, "Set", 3, indices);
-						}
+						int indices[3] = { a, i, t };
+						genCon(prob, rel, "Set", 3, indices, cut);
 					}
 
 					if (i < NITASKS + NMTASKS) // If it's not a decommission task, it can't be done during decomission
@@ -1204,13 +1201,8 @@ private:
 						if (sa[i][t] >= 0)
 							rel2.addTerm(s[a][i][sa[i][t]]);
 
-						if (cut)
-							prob->newCut(rel2);
-						else
-						{
-							int indices[3] = { a, i, t };
-							genCon(prob, rel2, "Ord", 3, indices);
-						}
+						int indices[3] = { a, i, t };
+						genCon(prob, rel2, "Ord", 3, indices, cut);
 					}
 				}
 
@@ -1218,13 +1210,8 @@ private:
 				{
 					XPRBrelation rel = s[a][i][sa[i][NTIMES]] == 1;
 
-					if (cut)
-						prob->newCut(rel);
-					else
-					{
-						int indices[2] = { a, i };
-						genCon(prob, rel, "Fin", 2, indices);
-					}
+					int indices[2] = { a, i };
+					genCon(prob, rel, "Fin", 2, indices, cut);
 				}
 			}
 	}
@@ -1262,13 +1249,8 @@ private:
 
 					XPRBrelation rel = s[a][i][sa[i][t]] >= s[a][j][t];
 
-					if (cut)
-						prob->newCut(rel);
-					else
-					{
-						int indices[3] = { a, x, t };
-						genCon(prob, rel, "Pre", 3, indices);
-					}
+					int indices[3] = { a, x, t };
+					genCon(prob, rel, "Pre", 3, indices, cut);
 				}
 		}
 	}
@@ -1298,13 +1280,8 @@ private:
 						}
 					}
 
-					if (cut)
-						prob->newCut(rel);
-					else
-					{
-						int indices[3] = { r, p, t };
-						genCon(prob, rel, "Nee", 3, indices);
-					}
+					int indices[3] = { r, p, t };
+					genCon(prob, rel, "Nee", 3, indices, cut);
 				}
 	}
 
@@ -1333,23 +1310,10 @@ private:
 						relM.addTerm(s[a][i][sa[i][t - lambda[a]]], coef);
 				}
 
-				if (cut)
-				{
-					prob->newCut(relM);
-					if (split)
-						prob->newCut(relA);
-				}
-				else
-				{
-					int indices[2] = { a, t };
-					if (!split)
-						genCon(prob, relM, "Onl", 2, indices);
-					else
-					{
-						genCon(prob, relA, "OnlA", 2, indices);
-						genCon(prob, relM, "OnlM", 2, indices);
-					}
-				}
+				int indices[2] = { a, t };
+				genCon(prob, relM, "OnlM", 2, indices, cut);
+				if (split)
+					genCon(prob, relA, "OnlA", 2, indices, cut);
 
 				for (int i = NITASKS; i < NITASKS + NMTASKS; ++i) // Downtime constraints
 				{
@@ -1357,13 +1321,8 @@ private:
 					if (sa[i][t] >= 0)
 						relD.addTerm(s[a][i][sa[i][t]], -1);
 
-					if (cut)
-						prob->newCut(relD);
-					else
-					{
-						int indices[3] = { a, i, t };
-						genCon(prob, relD, "Down", 3, indices);
-					}
+					int indices[3] = { a, i, t };
+					genCon(prob, relD, "Down", 3, indices, cut);
 				}
 			}
 	}
