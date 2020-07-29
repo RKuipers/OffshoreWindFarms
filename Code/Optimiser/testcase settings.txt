@@ -1,3 +1,41 @@
+lifeMonth
+#define DATAFILE "lifeMonth.dat"
+#define NPERIODS 30
+#define TPP 24 // Timesteps per Period
+#define NTIMES NPERIODS * TPP
+#define NITASKS 5
+#define NMMTASKS 1
+#define NMOTASKS 4
+#define NDTASKS 4
+#define NMTASKS NMMTASKS + NMOTASKS
+#define NTASKS NITASKS + NMTASKS + NDTASKS
+#define NIP 7
+#define NRES 3
+#define NASSETS 5
+#define DIS 0.999972465
+int base = 105;
+int variety = 51;
+int bonus = -25;
+
+lifeFortnight
+#define DATAFILE "lifeFortnight.dat"
+#define NPERIODS 14
+#define TPP 24 // Timesteps per Period
+#define NTIMES NPERIODS * TPP
+#define NITASKS 4
+#define NMMTASKS 1
+#define NMOTASKS 3
+#define NITASKS 3
+#define NMTASKS NMMTASKS + NMOTASKS
+#define NTASKS NDTASKS + NMTASKS + NDTASKS
+#define NIP 5
+#define NRES 3
+#define NASSETS 3
+#define DIS 0.999972465
+int base = 105;
+int variety = 51;
+int bonus = -25;
+
 lifeWeek
 #define DATAFILE "lifeWeek.dat"
 #define NPERIODS 7
