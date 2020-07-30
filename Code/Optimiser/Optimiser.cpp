@@ -15,14 +15,12 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-//#define LOCKMODE "SetCuts Split TEST0"
+//#define LOCKMODE "SetCuts TEST0"
 //#define LOCKCUTS "SetCuts"
-#define LOCKSPLIT "Split"
-#define NMODETYPES 3
+#define NMODETYPES 2
 #define MODECUTS 8
-#define MODESPLIT 2
-#define MODETEST 1
-#define NMODES 256 * MODESPLIT * MODETEST // 2^MODECUTS * MODESPLIT * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
+#define MODETEST 3
+#define NMODES 256 * MODETEST // 2^MODECUTS * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
 #define WEATHERTYPE 1
 #define VERBOSITY 0
 #define NAMES 1
@@ -614,11 +612,6 @@ Mode Mode::Init()
 	mode.AddCombDim(MODECUTS, names);
 #endif // MODECUTS
 
-#ifdef MODESPLIT
-	string names2[MODESPLIT] = { "Merge", "Split" };
-	mode.AddDim(MODESPLIT, names2);
-#endif // MODESPLIT
-
 #ifdef MODETEST
 	mode.AddDim(MODETEST, "TEST");
 #endif // MODETEST
@@ -632,10 +625,6 @@ Mode Mode::Init()
 #ifdef LOCKCUTS
 	mode.LockDim(LOCKCUTS);
 #endif // LOCKCUTS
-
-#ifdef LOCKSPLIT
-	mode.LockDim(LOCKSPLIT);
-#endif // LOCKSPLIT
 
 	return mode;
 }
@@ -1291,49 +1280,28 @@ private:
 				}
 	}
 
-	void genActiveConstraints(XPRBprob* prob, bool cut, bool split)
+	void genActiveConstraints(XPRBprob* prob, bool cut)
 	{
 		// Ensures turbines are only active after installation finishes and before decomission begins
 		for (int t = 0; t < NTIMES; ++t)
 			for (int a = 0; a < NASSETS; ++a)
 			{
-				if (!split)
-				{
-					XPRBrelation rel = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]] - s[a][NITASKS + NMTASKS][t];
+				XPRBrelation rel = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]] - s[a][NITASKS + NMTASKS][t];
 
-					int indices[2] = { a, t };
-					genCon(prob, rel, "Act", 2, indices, cut);
-				}
-				else
-				{
-					XPRBrelation rel = o[a][t] <= 0.5 * s[a][NITASKS - 1][sa[NITASKS - 1][t]];
-
-					for (int i = NITASKS - 1; i < NTASKS; i++)
-					{
-						if (sa[i][t] > -1)
-							rel.addTerm(s[a][i][sa[i][t]], -0.5);
-						if (t - lambda[a] >= 0 && sa[i][t - lambda[a]] > -1)
-							rel.addTerm(s[a][i][sa[i][t - lambda[a]]], 0.5);
-					}
-
-					int indices[2] = { a, t };
-					genCon(prob, rel, "Act", 2, indices, cut);
-				}
+				int indices[2] = { a, t };
+				genCon(prob, rel, "Act", 2, indices, cut);
 			}
 	}
 
-	void genBrokenConstraints(XPRBprob* prob, bool cut, bool split)
+	void genBrokenConstraints(XPRBprob* prob, bool cut)
 	{
-		if (split)
-			return;
-
 		// Turbines can only be online if they're not broken
 		for (int t = 0; t < NTIMES; ++t)
 			for (int a = 0; a < NASSETS; ++a)
 			{
 				XPRBrelation rel = o[a][t] <= 0;
 
-				for (int i = NITASKS - 1; i < NTASKS; i++)
+				for (int i = NITASKS - 1; i < NITASKS + NMTASKS; i++)
 				{
 					if (sa[i][t] > -1)
 						rel.addTerm(s[a][i][sa[i][t]], -1);
@@ -1367,8 +1335,6 @@ public:
 	{
 		clock_t start = clock();
 
-		bool split = m->GetCurrentBySettingName("Split") == 1;
-
 		genDecisionVariables(prob);
 		genObjective(prob);
 
@@ -1379,8 +1345,8 @@ public:
 		genFinishConstraints(prob, m->GetCurrentBySettingName("FinCuts") == 1);
 		genPrecedenceConstraints(prob, m->GetCurrentBySettingName("PreCuts") == 1);
 		genResourceConstraints(prob, m->GetCurrentBySettingName("ResCuts") == 1);
-		genActiveConstraints(prob, m->GetCurrentBySettingName("ActCuts") == 1, split);
-		genBrokenConstraints(prob, m->GetCurrentBySettingName("BroCuts") == 1, split);
+		genActiveConstraints(prob, m->GetCurrentBySettingName("ActCuts") == 1);
+		genBrokenConstraints(prob, m->GetCurrentBySettingName("BroCuts") == 1);
 		genDowntimeConstraints(prob, m->GetCurrentBySettingName("DowCuts") == 1);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
@@ -1390,8 +1356,6 @@ public:
 	void genFullProblem(XPRBprob* prob, Mode* m)
 	{
 		clock_t start = clock();
-
-		bool split = m->GetCurrentBySettingName("Split") == 1;
 
 		outputPrinter.printer("Initialising Full constraints", 1);
 
@@ -1406,9 +1370,9 @@ public:
 		if (m->GetCurrentBySettingName("ResCuts") == 1)
 			genResourceConstraints(prob, false);
 		if (m->GetCurrentBySettingName("ActCuts") == 1)
-			genActiveConstraints(prob, false, split);
+			genActiveConstraints(prob, false);
 		if (m->GetCurrentBySettingName("BroCuts") == 1)
-			genBrokenConstraints(prob, false, split);
+			genBrokenConstraints(prob, false);
 		if (m->GetCurrentBySettingName("DowCuts") == 1)
 			genDowntimeConstraints(prob, false);
 
@@ -1464,6 +1428,7 @@ int main(int argc, char** argv)
 	for (bool stop = false; !stop; stop = mode.Next())
 	{
 		int id = mode.GetID();
+
 		string modeName = mode.GetCurrentModeName();
 		XPRBprob* p = &probs[id];
 
