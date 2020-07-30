@@ -15,36 +15,37 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-#define LOCKMODE "SetCuts Split TEST0"
+//#define LOCKMODE "SetCuts Split TEST0"
 //#define LOCKCUTS "SetCuts"
+#define LOCKSPLIT "Split"
 #define NMODETYPES 3
-#define MODECUTS 4
-#define MODEONL 2
-#define MODETEST 10
-#define NMODES MODEONL * MODETEST // 2^MODECUTS * MODEONL * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
+#define MODECUTS 8
+#define MODESPLIT 2
+#define MODETEST 1
+#define NMODES 256 * MODESPLIT * MODETEST // 2^MODECUTS * MODESPLIT * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
 #define WEATHERTYPE 1
-#define VERBOSITY 1
+#define VERBOSITY 0
 #define NAMES 1
 #define OUTPUTFOLDER "Output files/"
 #define OUTPUTFILE "life"
 #define OUTPUTEXT ".sol"
 
 // Model settings
-#define DATAFILE "lifeWeek.dat"
-#define NPERIODS 7
-#define TPP 24 // Timesteps per Period
+#define DATAFILE "lifeSimple.dat"
+#define NPERIODS 6
+#define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 3
+#define NITASKS 2
 #define NMMTASKS 1
-#define NMOTASKS 3
-#define NDTASKS 3
+#define NMOTASKS 1
+#define NDTASKS 2
 #define NMTASKS NMMTASKS + NMOTASKS
 #define NTASKS NITASKS + NMTASKS + NDTASKS
-#define NIP 4
-#define NRES 3
+#define NIP 2
+#define NRES 2
 #define NASSETS 2
-#define DIS 0.999972465
-#define OPTIMAL -418758 // The optimal solution, if known
+#define DIS 1.0
+#define OPTIMAL -120 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -609,14 +610,14 @@ Mode Mode::Init()
 	Mode mode = Mode();
 
 #ifdef MODECUTS
-	string names[MODECUTS + 2] = { "No", "Set", "Pre", "Res", "Onl", "Cuts" };
+	string names[MODECUTS + 2] = { "No", "Set", "Ord", "Fin", "Pre", "Res", "Act", "Bro", "Dow", "Cuts" };
 	mode.AddCombDim(MODECUTS, names);
 #endif // MODECUTS
 
-#ifdef MODEONL
-	string names2[MODEONL] = { "Merge", "Split" };
-	mode.AddDim(MODEONL, names2);
-#endif // MODEONL
+#ifdef MODESPLIT
+	string names2[MODESPLIT] = { "Merge", "Split" };
+	mode.AddDim(MODESPLIT, names2);
+#endif // MODESPLIT
 
 #ifdef MODETEST
 	mode.AddDim(MODETEST, "TEST");
@@ -632,9 +633,9 @@ Mode Mode::Init()
 	mode.LockDim(LOCKCUTS);
 #endif // LOCKCUTS
 
-#ifdef LOCKONL
-	mode.LockDim(LOCKONL);
-#endif // LOCKONL
+#ifdef LOCKSPLIT
+	mode.LockDim(LOCKSPLIT);
+#endif // LOCKSPLIT
 
 	return mode;
 }
@@ -1114,11 +1115,6 @@ public:
 class ProblemGen
 {
 private:
-	bool OptionalTask(int i)
-	{
-		return i >= NITASKS + NMMTASKS && i < NITASKS + NMTASKS;
-	}
-
 	void genCon(XPRBprob* prob, const XPRBrelation& ac, string base, int nInd, int* indices, bool cut)
 	{
 		if (cut)
@@ -1181,39 +1177,48 @@ private:
 
 	void genSetConstraints(XPRBprob* prob, bool cut)
 	{
-		// Forces every task to start and end
+		// Once a task has started it stays started
+		for (int a = 0; a < NASSETS; ++a)
+			for (int i = 0; i < NTASKS; ++i)
+				for (int t = 1; t < NTIMES; ++t)
+				{
+					XPRBrelation rel = s[a][i][t] >= s[a][i][t - 1];
+
+					int indices[3] = { a, i, t };
+					genCon(prob, rel, "Set", 3, indices, cut);
+				}
+	}
+
+	void genOrderConstraints(XPRBprob* prob, bool cut)
+	{
+		// Forces every non-decomission task inactive after decomission starts
+		for (int a = 0; a < NASSETS; ++a)
+			for (int i = 0; i < NITASKS + NMTASKS; ++i)
+				for (int t = 0; t < NTIMES; ++t)
+				{
+					if (sa[i][t] < 0)
+						continue;
+
+					XPRBrelation rel = s[a][i][sa[i][t]] - s[a][i][t] >= s[a][NITASKS + NMTASKS][t] - 1;
+
+					int indices[3] = { a, i, t };
+					genCon(prob, rel, "Ord", 3, indices, cut);
+				}
+	}
+
+	void genFinishConstraints(XPRBprob* prob, bool cut)
+	{
+		// Forces every non-optional task to finish
 		for (int a = 0; a < NASSETS; ++a)
 			for (int i = 0; i < NTASKS; ++i)
 			{
-				for (int t = 0; t < NTIMES; ++t)
-				{
-					if (t > 0)
-					{
-						XPRBrelation rel = s[a][i][t] >= s[a][i][t - 1];
+				if (i >= NITASKS + NMMTASKS && i < NITASKS + NMTASKS)
+					continue;
+				
+				XPRBrelation rel = s[a][i][sa[i][NTIMES]] == 1;
 
-						int indices[3] = { a, i, t };
-						genCon(prob, rel, "Set", 3, indices, cut);
-					}
-
-					if (i < NITASKS + NMTASKS) // If it's not a decommission task, it can't be done during decomission
-					{
-						if (sa[i][t] < 0)
-							continue;
-
-						XPRBrelation rel2 = s[a][i][sa[i][t]] - s[a][i][t] >= s[a][NITASKS + NMTASKS][t] - 1;
-
-						int indices[3] = { a, i, t };
-						genCon(prob, rel2, "Ord", 3, indices, cut);
-					}
-				}
-
-				if (!OptionalTask(i))
-				{
-					XPRBrelation rel = s[a][i][sa[i][NTIMES]] == 1;
-
-					int indices[2] = { a, i };
-					genCon(prob, rel, "Fin", 2, indices, cut);
-				}
+				int indices[2] = { a, i };
+				genCon(prob, rel, "Fin", 2, indices, cut);
 			}
 	}
 
@@ -1286,46 +1291,75 @@ private:
 				}
 	}
 
-	void genOnlineConstraints(XPRBprob* prob, bool cut, bool split)
+	void genActiveConstraints(XPRBprob* prob, bool cut, bool split)
 	{
-		// Online turbines status link to start times
+		// Ensures turbines are only active after installation finishes and before decomission begins
 		for (int t = 0; t < NTIMES; ++t)
 			for (int a = 0; a < NASSETS; ++a)
 			{
-				XPRBrelation relA = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]] - s[a][NITASKS + NMTASKS][t]; // Active constraints
-				XPRBrelation relM = o[a][t] <= 0;
-
-				double coef = 1.0;
-
 				if (!split)
 				{
-					relM = o[a][t] <= 0.5 * s[a][NITASKS - 1][sa[NITASKS - 1][t]];
-					coef = 0.5;
-				}
+					XPRBrelation rel = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]] - s[a][NITASKS + NMTASKS][t];
 
-				for (int i = NITASKS - 1; i < NTASKS; i++) // Regular maintenance constraints
+					int indices[2] = { a, t };
+					genCon(prob, rel, "Act", 2, indices, cut);
+				}
+				else
+				{
+					XPRBrelation rel = o[a][t] <= 0.5 * s[a][NITASKS - 1][sa[NITASKS - 1][t]];
+
+					for (int i = NITASKS - 1; i < NTASKS; i++)
+					{
+						if (sa[i][t] > -1)
+							rel.addTerm(s[a][i][sa[i][t]], -0.5);
+						if (t - lambda[a] >= 0 && sa[i][t - lambda[a]] > -1)
+							rel.addTerm(s[a][i][sa[i][t - lambda[a]]], 0.5);
+					}
+
+					int indices[2] = { a, t };
+					genCon(prob, rel, "Act", 2, indices, cut);
+				}
+			}
+	}
+
+	void genBrokenConstraints(XPRBprob* prob, bool cut, bool split)
+	{
+		if (split)
+			return;
+
+		// Turbines can only be online if they're not broken
+		for (int t = 0; t < NTIMES; ++t)
+			for (int a = 0; a < NASSETS; ++a)
+			{
+				XPRBrelation rel = o[a][t] <= 0;
+
+				for (int i = NITASKS - 1; i < NTASKS; i++)
 				{
 					if (sa[i][t] > -1)
-						relM.addTerm(s[a][i][sa[i][t]], -coef);
+						rel.addTerm(s[a][i][sa[i][t]], -1);
 					if (t - lambda[a] >= 0 && sa[i][t - lambda[a]] > -1)
-						relM.addTerm(s[a][i][sa[i][t - lambda[a]]], coef);
+						rel.addTerm(s[a][i][sa[i][t - lambda[a]]]);
 				}
 
 				int indices[2] = { a, t };
-				genCon(prob, relM, "OnlM", 2, indices, cut);
-				if (split)
-					genCon(prob, relA, "OnlA", 2, indices, cut);
+				genCon(prob, rel, "Bro", 2, indices, cut);
+			}
+	}
 
-				for (int i = NITASKS; i < NITASKS + NMTASKS; ++i) // Downtime constraints
+	void genDowntimeConstraints(XPRBprob* prob, bool cut)
+	{
+		// Turbines are offline while maintenance work is ongoing
+		for (int t = 0; t < NTIMES; ++t)
+			for (int a = 0; a < NASSETS; ++a)
+				for (int i = NITASKS; i < NITASKS + NMTASKS; ++i)
 				{
-					XPRBrelation relD = o[a][t] <= 1 - s[a][i][t];
+					XPRBrelation rel = o[a][t] <= 1 - s[a][i][t];
 					if (sa[i][t] >= 0)
-						relD.addTerm(s[a][i][sa[i][t]], -1);
+						rel.addTerm(s[a][i][sa[i][t]], -1);
 
 					int indices[3] = { a, i, t };
-					genCon(prob, relD, "Down", 3, indices, cut);
+					genCon(prob, rel, "Down", 3, indices, cut);
 				}
-			}
 	}
 
 public:
@@ -1333,15 +1367,21 @@ public:
 	{
 		clock_t start = clock();
 
+		bool split = m->GetCurrentBySettingName("Split") == 1;
+
 		genDecisionVariables(prob);
 		genObjective(prob);
 
 		outputPrinter.printer("Initialising Original constraints", 1);
 
 		genSetConstraints(prob, m->GetCurrentBySettingName("SetCuts") == 1);
+		genOrderConstraints(prob, m->GetCurrentBySettingName("OrdCuts") == 1);
+		genFinishConstraints(prob, m->GetCurrentBySettingName("FinCuts") == 1);
 		genPrecedenceConstraints(prob, m->GetCurrentBySettingName("PreCuts") == 1);
 		genResourceConstraints(prob, m->GetCurrentBySettingName("ResCuts") == 1);
-		genOnlineConstraints(prob, m->GetCurrentBySettingName("OnlCuts") == 1, m->GetCurrentBySettingName("Split") == 1);
+		genActiveConstraints(prob, m->GetCurrentBySettingName("ActCuts") == 1, split);
+		genBrokenConstraints(prob, m->GetCurrentBySettingName("BroCuts") == 1, split);
+		genDowntimeConstraints(prob, m->GetCurrentBySettingName("DowCuts") == 1);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
@@ -1351,16 +1391,26 @@ public:
 	{
 		clock_t start = clock();
 
+		bool split = m->GetCurrentBySettingName("Split") == 1;
+
 		outputPrinter.printer("Initialising Full constraints", 1);
 
 		if (m->GetCurrentBySettingName("SetCuts") == 1)
 			genSetConstraints(prob, false); 
+		if (m->GetCurrentBySettingName("OrdCuts") == 1)
+			genOrderConstraints(prob, false);
+		if (m->GetCurrentBySettingName("FinCuts") == 1)
+			genFinishConstraints(prob, false);
 		if (m->GetCurrentBySettingName("PreCuts") == 1)
 			genPrecedenceConstraints(prob, false);
 		if (m->GetCurrentBySettingName("ResCuts") == 1)
 			genResourceConstraints(prob, false);
-		if (m->GetCurrentBySettingName("OnlCuts") == 1)
-			genOnlineConstraints(prob, false, m->GetCurrentBySettingName("Merge") == 0);
+		if (m->GetCurrentBySettingName("ActCuts") == 1)
+			genActiveConstraints(prob, false, split);
+		if (m->GetCurrentBySettingName("BroCuts") == 1)
+			genBrokenConstraints(prob, false, split);
+		if (m->GetCurrentBySettingName("DowCuts") == 1)
+			genDowntimeConstraints(prob, false);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
