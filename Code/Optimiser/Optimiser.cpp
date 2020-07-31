@@ -26,7 +26,7 @@ using namespace ::dashoptimization;
 #define VERBOSITY 0
 #define NAMES 1
 #define MAXPRETIME 5
-#define MAXFULLTIME 20
+#define MAXFULLTIME 10
 #define OUTPUTFOLDER "Output files/"
 #define OUTPUTFILE "life"
 #define OUTPUTEXT ".sol"
@@ -1334,12 +1334,22 @@ private:
 	}
 
 public:
-	void genOriProblem(XPRBprob* prob, Mode* m)
+	void genBasicProblem(XPRBprob* prob, Mode* m)
 	{
 		clock_t start = clock();
 
+		outputPrinter.printer("Initialising variables and objective", 1);
+
 		genDecisionVariables(prob);
 		genObjective(prob);
+
+		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
+		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
+	}
+
+	void genOriProblem(XPRBprob* prob, Mode* m)
+	{
+		clock_t start = clock();
 
 		outputPrinter.printer("Initialising Original constraints", 1);
 
@@ -1453,14 +1463,16 @@ int main(int argc, char** argv)
 
 		clock_t start = clock();
 
+		problemGen.genBasicProblem(p, &mode);
 		problemGen.genOriProblem(p, &mode);
-		problemSolver.solveProblem(p, name, MAXPRETIME);
 
 		if (mode.GetCurrentModeName(0).compare("NoCuts") != 0)
 		{
+			problemSolver.solveProblem(p, name, MAXPRETIME);
 			problemGen.genFullProblem(p, &mode);
-			problemSolver.solveProblem(p, name, MAXFULLTIME);
 		}
+
+		problemSolver.solveProblem(p, name, MAXFULLTIME);
 
 		outputPrinter.printProbOutput(p, &mode, id);
 
