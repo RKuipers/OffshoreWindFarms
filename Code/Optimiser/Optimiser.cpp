@@ -9,6 +9,7 @@
 #include <vector>		// vector
 #include <ctime>		// clock
 #include "xprb_cpp.h"
+#include "xprs.h"
 
 using namespace std;
 using namespace ::dashoptimization;
@@ -19,11 +20,13 @@ using namespace ::dashoptimization;
 //#define LOCKCUTS "SetCuts"
 #define NMODETYPES 2
 #define MODECUTS 8
-#define MODETEST 3
+#define MODETEST 1
 #define NMODES 256 * MODETEST // 2^MODECUTS * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
 #define WEATHERTYPE 1
 #define VERBOSITY 0
 #define NAMES 1
+#define MAXPRETIME 5
+#define MAXFULLTIME 20
 #define OUTPUTFOLDER "Output files/"
 #define OUTPUTFILE "life"
 #define OUTPUTEXT ".sol"
@@ -1384,13 +1387,20 @@ public:
 class ProblemSolver
 {
 public:
-	void solveProblem(XPRBprob* prob, string name)
+	void solveProblem(XPRBprob* prob, string name, int maxTime = 0)
 	{
 		outputPrinter.printer("Solving problem", 1);
 		if (VERBOSITY == 0)
 			prob->setMsgLevel(1);
 
 		clock_t start = clock();
+
+		if (maxTime != 0)
+		{
+			XPRBloadmat(prob->getCRef());
+			XPRSprob opt_prob = XPRBgetXPRSprob(prob->getCRef());
+			XPRSsetintcontrol(opt_prob, XPRS_MAXTIME, maxTime);
+		}
 
 		prob->setSense(XPRB_MAXIM);
 		prob->exportProb(XPRB_LP, (OUTPUTFOLDER + name).c_str());
@@ -1444,12 +1454,12 @@ int main(int argc, char** argv)
 		clock_t start = clock();
 
 		problemGen.genOriProblem(p, &mode);
-		problemSolver.solveProblem(p, name);
+		problemSolver.solveProblem(p, name, MAXPRETIME);
 
 		if (mode.GetCurrentModeName(0).compare("NoCuts") != 0)
 		{
 			problemGen.genFullProblem(p, &mode);
-			problemSolver.solveProblem(p, name);
+			problemSolver.solveProblem(p, name, MAXFULLTIME);
 		}
 
 		outputPrinter.printProbOutput(p, &mode, id);
