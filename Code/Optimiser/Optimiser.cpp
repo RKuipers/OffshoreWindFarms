@@ -25,11 +25,11 @@ using namespace ::dashoptimization;
 #define WEATHERTYPE 1
 #define VERBOSITY 0
 #define NAMES 1
-#define MAXPRETIME 300
-#define MAXFULLTIME 300
+#define MAXPRETIME 5
+#define MAXFULLTIME 25
 #define OUTPUTFOLDER "Output files/"
-#define OUTPUTFILE "life"
-#define OUTPUTEXT ".sol"
+#define PROBOUTPUTEXT ".sol"
+#define MODEOUTPUTEXT ".csv"
 #define DATAEXT ".dat"
 
 // Model settings
@@ -731,7 +731,7 @@ public:
 			return;
 
 		ofstream file;
-		file.open(string() + OUTPUTFOLDER + OUTPUTFILE + to_string(id) + OUTPUTEXT);
+		file.open(string() + OUTPUTFOLDER + PROBNAME + to_string(id) + PROBOUTPUTEXT);
 
 		printObj(&file, prob);
 		printTurbines(&file);
@@ -744,7 +744,7 @@ public:
 	void printModeOutput(Mode* m, bool opt)
 	{
 		ofstream file;
-		file.open(string() + OUTPUTFOLDER + OUTPUTFILE + "Modes");
+		file.open(string() + OUTPUTFOLDER + PROBNAME + "Modes" + MODEOUTPUTEXT);
 
 		cout << "----------------------------------------------------------------------------------------" << endl;
 
@@ -758,20 +758,39 @@ public:
 		vector<string> modeNames = m->GetModeNames();
 
 		for (int i = 0; i < m->GetNModes(); ++i)
-			cout << "MODE: " << i << " (" << modeNames[i] << ") DUR: " << m->GetDur(i) << endl;
+		{
+			double dur = m->GetDur(i);
+			cout << "MODE: " << i << " (" << modeNames[i] << ") DUR: " << dur << endl;
+			file << i << ";" << modeNames[i] << ";" << dur << endl;
+		}
+
+		file.close();
 
 #if NMODETYPES > 1
+		file.open(string() + OUTPUTFOLDER + PROBNAME + "Settings" + MODEOUTPUTEXT);
+
 		vector<string> settingNames = m->GetSettingNames();
 		vector<double> setAvgs = m->GetSettingDurs();
 
 		for (int i = 0; i < m->GetNSettings(); ++i)
+		{
 			cout << "SETTING: " << settingNames[i] << " DUR: " << setAvgs[i] << endl;
+			file << settingNames[i] << ";" << setAvgs[i] << endl;
+		}
+
+		file.close();
+		file.open(string() + OUTPUTFOLDER + PROBNAME + "Submodes" + MODEOUTPUTEXT);
 
 		vector<string> subModeNames = m->GetCombModeNames();
 		vector<double> subModeAvgs = m->GetModeDurs(subModeNames);
 
 		for (int i = 0; i < subModeNames.size(); ++i)
+		{
 			cout << "SUBMODE: " << subModeNames[i] << " DUR: " << subModeAvgs[i] << endl;
+			file << subModeNames[i] << ";" << subModeAvgs[i] << endl;
+		}
+
+		file.close();
 #endif // NMODETYPES > 1
 	}
 
@@ -1074,9 +1093,7 @@ public:
 		outputPrinter.printer("Reading Data", 1);
 
 		string line;
-		string fileName = PROBNAME;
-		fileName.append(DATAEXT);
-		ifstream datafile(fileName);
+		ifstream datafile(string() + PROBNAME + DATAEXT);
 		if (!datafile.is_open())
 		{
 			cout << "Unable to open file" << endl;
