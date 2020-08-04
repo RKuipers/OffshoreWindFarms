@@ -25,14 +25,15 @@ using namespace ::dashoptimization;
 #define WEATHERTYPE 1
 #define VERBOSITY 0
 #define NAMES 1
-#define MAXPRETIME 5
-#define MAXFULLTIME 10
+#define MAXPRETIME 300
+#define MAXFULLTIME 300
 #define OUTPUTFOLDER "Output files/"
 #define OUTPUTFILE "life"
 #define OUTPUTEXT ".sol"
+#define DATAEXT ".dat"
 
 // Model settings
-#define DATAFILE "lifeSimple.dat"
+#define PROBNAME "lifeSimple"
 #define NPERIODS 6
 #define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
@@ -742,6 +743,9 @@ public:
 
 	void printModeOutput(Mode* m, bool opt)
 	{
+		ofstream file;
+		file.open(string() + OUTPUTFOLDER + OUTPUTFILE + "Modes");
+
 		cout << "----------------------------------------------------------------------------------------" << endl;
 
 #ifdef OPTIMAL
@@ -1070,7 +1074,9 @@ public:
 		outputPrinter.printer("Reading Data", 1);
 
 		string line;
-		ifstream datafile(DATAFILE);
+		string fileName = PROBNAME;
+		fileName.append(DATAEXT);
+		ifstream datafile(fileName);
 		if (!datafile.is_open())
 		{
 			cout << "Unable to open file" << endl;

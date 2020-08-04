@@ -1,5 +1,5 @@
 lifeMonth
-#define DATAFILE "lifeMonth.dat"
+#define PROBNAME "lifeMonth"
 #define NPERIODS 30
 #define TPP 24 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
@@ -18,7 +18,7 @@ int variety = 51;
 int bonus = -25;
 
 lifeFortnight
-#define DATAFILE "lifeFortnight.dat"
+#define PROBNAME "lifeFortnight"
 #define NPERIODS 14
 #define TPP 24 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
@@ -37,7 +37,7 @@ int variety = 51;
 int bonus = -25;
 
 lifeWeek
-#define DATAFILE "lifeWeek.dat"
+#define PROBNAME "lifeWeek"
 #define NPERIODS 7
 #define TPP 24 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
@@ -57,7 +57,7 @@ int variety = 51;
 int bonus = -25;
 
 lifeSimple
-#define DATAFILE "lifeSimple.dat"
+#define PROBNAME "lifeSimple"
 #define NPERIODS 6
 #define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
