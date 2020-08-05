@@ -26,6 +26,10 @@ using namespace ::dashoptimization;
 #define NMODES 64 * MODETEST // 2^MODECUTS * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
 #define WEATHERTYPE 1
 #define VERBOSITY 0
+#define VERBMODE 1
+#define VERBSOL 2
+#define VERBPROG 3
+#define VERBWEAT 4
 #define NAMES 1
 #define MAXPRETIME 180
 #define MAXFULLTIME 180
@@ -395,7 +399,7 @@ public:
 				return;
 			}
 
-		cout << "ERROR: Locking mode failed; requested mode (" << modeName << ") not found!" << endl;
+		outputPrinter.printer("ERROR: Locking mode failed; requested mode (" + modeName + ") not found!", 0);
 	}
 
 	// Locks a dimension into a given setting
@@ -419,7 +423,7 @@ public:
 			}			
 		}
 
-		cout << "ERROR: Locking dim failed; requested setting (" << setName << ") not found!" << endl;
+		outputPrinter.printer("ERROR: Locking dim failed; requested setting (" + setName + ") not found!", 0);
 	}
 
 	// Locks a specific setting into being ON or OFF
@@ -439,7 +443,7 @@ public:
 
 		}
 
-		cout << "ERROR: Locking setting failed; requested setting (" << setName << ") not found!" << endl;
+		outputPrinter.printer("ERROR: Locking setting failed; requested setting (" + setName + ") not found!", 0);
 	}
 #pragma endregion
 
@@ -712,7 +716,7 @@ class OutputPrinter
 private:
 	void printObj(ofstream* file, XPRBprob* prob)
 	{
-		cout << "Total return: " << prob->getObjVal() << endl;
+		printer("Total return: " + to_string(prob->getObjVal()), VERBSOL);
 		*file << "Objective: " << prob->getObjVal() << endl;
 	}
 
@@ -720,7 +724,7 @@ private:
 	{
 		vector<int> vals = vector<int>();
 
-		cout << "Online turbines per timestep: " << endl;
+		printer("Online turbines per timestep: ", VERBSOL);
 		for (int t = 0; t < NTIMES; ++t)
 		{
 			vals.push_back(0);
@@ -729,38 +733,38 @@ private:
 
 			int v = vals[t];
 			if (t == 0 || v != vals[t-1])
-				cout << t << ": " << v << endl;
+				printer(to_string(t) + ": "+ to_string(v), VERBSOL);
 			*file << "O_" << t << ": " << v << endl;
 		}
 	}
 
 	void printResources(ofstream* file)
 	{
-		cout << "Resources needed per period and type: " << endl;
+		printer("Resources needed per period and type: ", VERBSOL);
 		for (int p = 0; p < NPERIODS; ++p)
 		{
-			printer("Period ", 2, false);
+			printer("Period ", VERBSOL, false);
 
 			int v = round(N[0][p].getSol());
-			cout << p << ": " << v;
+			printer(to_string(p) + ": " + to_string(v), VERBSOL, false);
 			*file << "N_0_" << p << ": " << v << endl;;
 
 			for (int r = 1; r < NRES; ++r)
 			{
 				v = round(N[r][p].getSol());
-				cout << ", " << v;
+				printer(", " + to_string(v), VERBSOL, false);
 				*file << "N_" << r << "_" << p << ": " << v << endl;;
 			}
-			cout << endl;
+			printer("", VERBSOL);
 		}
 	}
 
 	void printTasks(ofstream* file)
 	{
-		cout << "Start and finish time per asset and task: " << endl;
+		printer("Start and finish time per asset and task: ", VERBSOL);
 		for (int a = 0; a < NASSETS; ++a)
 		{
-			cout << "Asset: " << a << endl;
+			printer("Asset: " + to_string(a), VERBSOL);
 			for (int i = 0; i < NTASKS; ++i)
 			{
 				int start = -1;
@@ -778,12 +782,11 @@ private:
 
 				if (start == -1)
 				{
-					cout << i << ": Incomplete" << endl;
+					printer(to_string(i) + ": Incomplete", VERBSOL);
 					*file << "Asset " << a << " task " << i << ": Incomplete" << endl;
 				}
 				else
 				{
-
 					for (int t1 = start + d[i] - 1; t1 <= NTIMES; ++t1)
 						if (sa[i][t1] >= start)
 						{
@@ -791,7 +794,7 @@ private:
 							break;
 						}
 
-					cout << i << ": " << start << " " << finish << endl;
+					printer(to_string(i) + ": " + to_string(start) + " " + to_string(finish), VERBSOL);
 					*file << "Asset " << a << " task " << i << ": " << start << " " << finish << endl;
 				}
 			}
@@ -835,13 +838,13 @@ public:
 		ofstream file;
 		file.open(string() + OUTPUTFOLDER + PROBNAME + "Modes" + MODEOUTPUTEXT);
 
-		cout << "----------------------------------------------------------------------------------------" << endl;
+		printer("----------------------------------------------------------------------------------------", VERBMODE);
 
 #ifdef OPTIMAL
 		if (opt)
-			cout << "All solutions are optimal" << endl;
+			printer("All solutions are optimal", VERBMODE);
 		else
-			cout << "Not all solutions are optimal" << endl;
+			printer("Not all solutions are optimal", VERBMODE);
 #endif // OPTIMAL
 		
 		vector<string> modeNames = m->GetModeNames();
@@ -1122,13 +1125,13 @@ private:
 		{
 			waveHeight[0] = base;
 
-			outputPrinter.printer("0: " + to_string(waveHeight[0]), 2);
+			outputPrinter.printer("0: " + to_string(waveHeight[0]), VERBWEAT);
 			for (int t = 1; t < NTIMES; ++t)
 			{
 				bonus += (base - waveHeight[t - 1]) / 40;
 
 				waveHeight[t] = max(0, waveHeight[t - 1] + bonus + (rand() % variety));
-				outputPrinter.printer(to_string(t) + ": " + to_string(waveHeight[t]), 2);
+				outputPrinter.printer(to_string(t) + ": " + to_string(waveHeight[t]), VERBWEAT);
 			}
 		}
 		else if (WEATHERTYPE == 1)
@@ -1136,11 +1139,11 @@ private:
 			for (int p = 0; p < NPERIODS; ++p)
 			{
 				waveHeight[p * TPP] = base;
-				outputPrinter.printer(to_string(p * TPP) + ": " + to_string(waveHeight[p * TPP]), 2);
+				outputPrinter.printer(to_string(p * TPP) + ": " + to_string(waveHeight[p * TPP]), VERBWEAT);
 				for (int t = (p * TPP) + 1; t < (p + 1) * TPP; ++t)
 				{
 					waveHeight[t] = max(0, waveHeight[t - 1] + bonus + (rand() % variety));
-					outputPrinter.printer(to_string(t) + ": " + to_string(waveHeight[t]), 2);
+					outputPrinter.printer(to_string(t) + ": " + to_string(waveHeight[t]), VERBWEAT);
 				}
 			}
 		}
@@ -1182,7 +1185,7 @@ public:
 	void readData()
 	{
 		// Read data from file
-		outputPrinter.printer("Reading Data", 1);
+		outputPrinter.printer("Reading Data", VERBSOL);
 
 		string line;
 		ifstream datafile(string() + PROBNAME + DATAEXT);
@@ -1241,7 +1244,7 @@ private:
 
 	void genDecisionVariables(XPRBprob* prob)
 	{
-		outputPrinter.printer("Initialising variables", 1);
+		outputPrinter.printer("Initialising variables", VERBSOL);
 
 		// Create the period-based decision variables
 		for (int p = 0; p < NPERIODS; ++p)
@@ -1265,7 +1268,7 @@ private:
 
 	void genObjective(XPRBprob* prob)
 	{
-		outputPrinter.printer("Initialising objective", 1);
+		outputPrinter.printer("Initialising objective", VERBSOL);
 
 		XPRBctr Obj = prob->newCtr();
 		for (int p = 0; p < NPERIODS; ++p)
@@ -1453,20 +1456,20 @@ public:
 	{
 		clock_t start = clock();
 
-		outputPrinter.printer("Initialising variables and objective", 1);
+		outputPrinter.printer("Initialising variables and objective", VERBSOL);
 
 		genDecisionVariables(prob);
 		genObjective(prob);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
-		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
+		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", VERBSOL);
 	}
 
 	void genOriProblem(XPRBprob* prob, Mode* m)
 	{
 		clock_t start = clock();
 
-		outputPrinter.printer("Initialising Original constraints", 1);
+		outputPrinter.printer("Initialising Original constraints", VERBSOL);
 
 		genSetConstraints(prob, m->GetCurrentBySettingName("SetCuts") == 1);
 		genOrderConstraints(prob, m->GetCurrentBySettingName("OrdCuts") == 1);
@@ -1478,14 +1481,14 @@ public:
 		genDowntimeConstraints(prob, m->GetCurrentBySettingName("DowCuts") == 1);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
-		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
+		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", VERBSOL);
 	}
 
 	void genFullProblem(XPRBprob* prob, Mode* m)
 	{
 		clock_t start = clock();
 
-		outputPrinter.printer("Initialising Full constraints", 1);
+		outputPrinter.printer("Initialising Full constraints", VERBSOL);
 
 		if (m->GetCurrentBySettingName("SetCuts") == 1)
 			genSetConstraints(prob, false); 
@@ -1505,7 +1508,7 @@ public:
 			genDowntimeConstraints(prob, false);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
-		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
+		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", VERBSOL);
 	}
 };
 
@@ -1514,8 +1517,8 @@ class ProblemSolver
 public:
 	void solveProblem(XPRBprob* prob, string name, int maxTime = 0)
 	{
-		outputPrinter.printer("Solving problem", 1);
-		if (VERBOSITY == 0)
+		outputPrinter.printer("Solving problem", VERBSOL);
+		if (VERBOSITY < VERBPROG)
 			prob->setMsgLevel(1);
 
 		clock_t start = clock();
