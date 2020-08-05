@@ -16,17 +16,19 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-//#define LOCKMODE "SetCuts TEST0"
-//#define LOCKCUTS "SetCuts"
+//#define LOCKMODE "ResCuts TEST0"
+//#define LOCKDIM "SetCuts"
+#define LOCKSETON "ResCuts"
+#define LOCKSETOFF "PreCuts"
 #define NMODETYPES 2
 #define MODECUTS 8
-#define MODETEST 1
-#define NMODES 256 * MODETEST // 2^MODECUTS * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
+#define MODETEST 2
+#define NMODES 64 * MODETEST // 2^MODECUTS * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
 #define WEATHERTYPE 1
 #define VERBOSITY 0
 #define NAMES 1
-#define MAXPRETIME 5
-#define MAXFULLTIME 25
+#define MAXPRETIME 180
+#define MAXFULLTIME 180
 #define OUTPUTFOLDER "Output files/"
 #define PROBOUTPUTEXT ".sol"
 #define MODEOUTPUTEXT ".csv"
@@ -78,6 +80,7 @@ class Mode
 		int curr, max, type, settings;
 		bool locked;
 		vector<string> modeNames, settingNames;
+		vector<int> locks;
 
 		vector<string> expandFromName(string name, int sets)
 		{
@@ -130,11 +133,13 @@ class Mode
 			{
 				this->settings = max;
 				this->max = max;
+				this->locks = vector<int>(1, -1);
 			}
 			else if (type == 1)
 			{
 				this->settings = 2 * max;
 				this->max = pow(2, max);
+				this->locks = vector<int>(max, -1);
 			}
 			this->type = type;
 			this->locked = false;
@@ -153,6 +158,7 @@ class Mode
 				this->max = max;
 				this->modeNames = vector<string>(names, names + max);
 				this->settingNames = vector<string>(names, names + max);
+				this->locks = vector<int>(1, -1);
 			}
 			else if (type == 1)
 			{
@@ -160,6 +166,7 @@ class Mode
 				this->max = pow(2, max);
 				this->modeNames = genModeNames(names, max);
 				this->settingNames = genSettingNames(names, max);
+				this->locks = vector<int>(max, -1);
 			}
 		}
 
@@ -168,16 +175,27 @@ class Mode
 			if (locked)
 				return -1;
 
-			if (curr + 1 < max)
-			{
+			do
 				++curr;
+			while (!checkLocks());
+
+			if (curr < max)				
 				return curr;
-			}
 			else
 			{
 				curr = 0;
+				if (!checkLocks())
+					curr = next();
 				return -1;
 			}
+		}
+
+		bool checkLocks()
+		{
+			for (int i = 0; i < locks.size(); ++i)
+				if (locks[i] != -1 && getCurr(i) != locks[i])
+					return false;
+			return true;
 		}
 
 		int getCurr(int dim = -1)
@@ -218,6 +236,25 @@ class Mode
 			return res;
 		}
 
+		int getSetID(string name)
+		{
+			if (type == 1)
+				name = "Y" + name;
+
+			int res;
+
+			for (int i = 0; i < settingNames.size(); ++i)
+				if (settingNames[i].compare(name) == 0)
+				{
+					res = i;
+					if (type == 1)
+						res /= 2;
+					return res;
+				}
+
+			return -1;
+		}
+
 		void setCurr(int val)
 		{
 			if (!locked)
@@ -228,6 +265,11 @@ class Mode
 		{
 			curr = val;
 			locked = true;
+		}
+
+		void lockSetting(int set, int val)
+		{
+			locks[set] = val;
 		}
 
 		string getModeName(int mode = -1)
@@ -328,7 +370,11 @@ public:
 			return;
 
 		for (int i = 0; i < NMODETYPES; ++i)
+		{
 			dims[i]->setCurr(0);
+			if (!dims[i]->checkLocks())
+				dims[i]->next();
+		}
 	}
 
 	// Sets the duration the current run took
@@ -374,6 +420,26 @@ public:
 		}
 
 		cout << "ERROR: Locking dim failed; requested setting (" << setName << ") not found!" << endl;
+	}
+
+	// Locks a specific setting into being ON or OFF
+	void LockSetting(string setName, int val)
+	{
+		Reset();
+
+		for (int i = 0; i < nDims; ++i)
+		{
+			int id = dims[i]->getSetID(setName);
+			if (id != -1)
+			{
+				dims[i]->lockSetting(id, val);
+				nModes /= 2;
+				return;
+			}
+
+		}
+
+		cout << "ERROR: Locking setting failed; requested setting (" << setName << ") not found!" << endl;
 	}
 #pragma endregion
 
@@ -620,15 +686,23 @@ Mode Mode::Init()
 	mode.AddDim(MODETEST, "TEST");
 #endif // MODETEST
 
-	mode.durs.resize(mode.nModes);
-
 #ifdef LOCKMODE
 	mode.LockMode(LOCKMODE);
 #endif // LOCKMODE
 
-#ifdef LOCKCUTS
-	mode.LockDim(LOCKCUTS);
-#endif // LOCKCUTS
+#ifdef LOCKDIM
+	mode.LockDim(LOCKDIM);
+#endif // LOCKDIM
+
+#ifdef LOCKSETON
+	mode.LockSetting(LOCKSETON, 1);
+#endif // LOCKSETON
+
+#ifdef LOCKSETOFF
+	mode.LockSetting(LOCKSETOFF, 0);
+#endif // LOCKSETOFF
+
+	mode.durs.resize(mode.nModes);
 
 	return mode;
 }
@@ -724,6 +798,21 @@ private:
 		}
 	}
 
+	string boolVec2Str(vector<bool> vec)
+	{
+		string res = "";
+		for (int i = 0; i < vec.size(); ++i)
+		{
+			if (vec[i])
+				res.append("1");
+			else
+				res.append("0");
+			if (i < vec.size() - 1)
+				res.append(";");
+		}
+		return res;
+	}
+
 public:
 	void printProbOutput(XPRBprob* prob, Mode* m, int id)
 	{
@@ -756,12 +845,15 @@ public:
 #endif // OPTIMAL
 		
 		vector<string> modeNames = m->GetModeNames();
+		m->Reset();
 
 		for (int i = 0; i < m->GetNModes(); ++i)
 		{
 			double dur = m->GetDur(i);
+			string setStr = boolVec2Str(m->GetSettingStatus());
 			cout << "MODE: " << i << " (" << modeNames[i] << ") DUR: " << dur << endl;
-			file << i << ";" << modeNames[i] << ";" << dur << endl;
+			file << i << ";" << modeNames[i] << ";" << dur << ";" << setStr << endl;
+			m->Next();
 		}
 
 		file.close();
