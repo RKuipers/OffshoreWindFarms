@@ -16,22 +16,28 @@ using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-//#define LOCKMODE "ResCuts TEST0"
-//#define LOCKDIM "SetCuts"
-#define LOCKSETON "ResCuts"
-#define LOCKSETOFF "PreCuts"
+//#define LOCKMODE "ResCuts TEST0" 
+//#define LOCKDIM "SetCuts"		// Current best: SetOrdFinResBroCuts, SetOrdResBroCuts
+#define LOCKSET 1	// Strong
+#define LOCKORD 1	// Weak
+//#define LOCKFIN	// Disputed
+#define LOCKPRE 0	// Strong (to test more)
+#define LOCKRES 1	// Strong (to test more)
+#define LOCKACT 0	// Strong
+#define LOCKBRO 1	// Weak
+//#define LOCKDOW	// Disputed
 #define NMODETYPES 2
 #define MODECUTS 8
 #define MODETEST 2
-#define NMODES 64 * MODETEST // 2^MODECUTS * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
+#define NMODES 4 * MODETEST // 2^MODECUTS * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
 #define WEATHERTYPE 1
-#define VERBOSITY 0
+#define VERBOSITY 2
 #define VERBMODE 1
 #define VERBSOL 2
 #define VERBPROG 3
 #define VERBWEAT 4
 #define NAMES 1
-#define MAXPRETIME 180
+#define MAXPRETIME 120
 #define MAXFULLTIME 180
 #define OUTPUTFOLDER "Output files/"
 #define PROBOUTPUTEXT ".sol"
@@ -39,21 +45,21 @@ using namespace ::dashoptimization;
 #define DATAEXT ".dat"
 
 // Model settings
-#define PROBNAME "lifeSimple"
-#define NPERIODS 6
-#define TPP 4 // Timesteps per Period
+#define PROBNAME "lifeWeek"
+#define NPERIODS 7
+#define TPP 24 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 2
+#define NITASKS 3
 #define NMMTASKS 1
-#define NMOTASKS 1
-#define NDTASKS 2
+#define NMOTASKS 3
+#define NDTASKS 3
 #define NMTASKS NMMTASKS + NMOTASKS
 #define NTASKS NITASKS + NMTASKS + NDTASKS
-#define NIP 2
-#define NRES 2
+#define NIP 4
+#define NRES 3
 #define NASSETS 2
-#define DIS 1.0
-#define OPTIMAL -120 // The optimal solution, if known
+#define DIS 0.999972465
+#define OPTIMAL -441120 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -399,7 +405,7 @@ public:
 				return;
 			}
 
-		outputPrinter.printer("ERROR: Locking mode failed; requested mode (" + modeName + ") not found!", 0);
+		cout << "ERROR: Locking mode failed; requested mode (" << modeName << ") not found!" << endl;
 	}
 
 	// Locks a dimension into a given setting
@@ -423,7 +429,7 @@ public:
 			}			
 		}
 
-		outputPrinter.printer("ERROR: Locking dim failed; requested setting (" + setName + ") not found!", 0);
+		cout << "ERROR: Locking dim failed; requested setting (" << setName << ") not found!" << endl;
 	}
 
 	// Locks a specific setting into being ON or OFF
@@ -443,7 +449,7 @@ public:
 
 		}
 
-		outputPrinter.printer("ERROR: Locking setting failed; requested setting (" + setName + ") not found!", 0);
+		cout << "ERROR: Locking setting failed; requested setting (" << setName << ") not found!" << endl;
 	}
 #pragma endregion
 
@@ -690,6 +696,7 @@ Mode Mode::Init()
 	mode.AddDim(MODETEST, "TEST");
 #endif // MODETEST
 
+#pragma region Locks
 #ifdef LOCKMODE
 	mode.LockMode(LOCKMODE);
 #endif // LOCKMODE
@@ -698,13 +705,38 @@ Mode Mode::Init()
 	mode.LockDim(LOCKDIM);
 #endif // LOCKDIM
 
-#ifdef LOCKSETON
-	mode.LockSetting(LOCKSETON, 1);
-#endif // LOCKSETON
+#ifdef LOCKSET
+	mode.LockSetting("SetCuts", LOCKSET);
+#endif // LOCKSET
 
-#ifdef LOCKSETOFF
-	mode.LockSetting(LOCKSETOFF, 0);
-#endif // LOCKSETOFF
+#ifdef LOCKORD
+	mode.LockSetting("OrdCuts", LOCKORD);
+#endif // LOCKORD
+
+#ifdef LOCKFIN
+	mode.LockSetting("FinCuts", LOCKFIN);
+#endif // LOCKFIN
+
+#ifdef LOCKPRE
+	mode.LockSetting("PreCuts", LOCKPRE);
+#endif // LOCKPRE
+
+#ifdef LOCKRES
+	mode.LockSetting("ResCuts", LOCKRES);
+#endif // LOCKRES
+
+#ifdef LOCKACT
+	mode.LockSetting("ActCuts", LOCKACT);
+#endif // LOCKACT
+
+#ifdef LOCKBRO
+	mode.LockSetting("BroCuts", LOCKBRO);
+#endif // LOCKBRO
+
+#ifdef LOCKDOW
+	mode.LockSetting("DowCuts", LOCKDOW);
+#endif // LOCKDOW
+#pragma endregion 
 
 	mode.durs.resize(mode.nModes);
 

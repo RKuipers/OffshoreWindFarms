@@ -51,7 +51,7 @@ lifeWeek
 #define NRES 3
 #define NASSETS 2
 #define DIS 0.999972465
-#define OPTIMAL -418758 // The optimal solution, if known
+#define OPTIMAL -441120 // The optimal solution, if known
 int base = 105;
 int variety = 51;
 int bonus = -25;
