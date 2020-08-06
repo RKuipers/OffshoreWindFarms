@@ -29,6 +29,10 @@ class Settings:
     nl = [20, 2, 45, 2, 4]
     nm = [20, 2, 45, 3, 4]
     nh = [20, 2, 45, 4, 4]
+    #"Free" ranges
+    fl = [15, 2, 30, 1, 1]
+    fn = [40, 3, 45, 4, 2]
+    fh = [50, 4, 60, 10, 10]
     #Target ratios 
     targets = {
     2: (160/(2*86 + 45)),
@@ -37,6 +41,7 @@ class Settings:
     }
     #Dimension Weights (6th is Mins, 7th is Ratio)
     dw = [1, 2, 0.5, 0.1, 1.5, 0.75, 2]
+    fw = [0, 0, 0, 0, 0, 0.5, 2]
     #Minute range and default
     mlr = 15  
     mhr = 15  
@@ -52,6 +57,7 @@ class Settings:
         self.highs = Settings.dh
         self.target = Settings.targets.get(3)
         self.weights = Settings.dw
+        self.norms = Settings.nm
         self.mins = Settings.md
         self.mlr = Settings.mlr
         self.mhr = Settings.mhr
@@ -65,9 +71,19 @@ class Settings:
         self.lows[startIndex:] = lows
         self.highs[startIndex:] = highs
         
+    def setFullRanges(self, lows: list, highs: list, norms: list, startIndex: int = 0) -> None:
+        self.lows[startIndex:] = lows
+        self.highs[startIndex:] = highs
+        self.norms[startIndex:] = norms
+        
     def setRange(self, index: int, low: int, high: int) -> None:
         self.lows[index] = low
         self.highs[index] = high
+        
+    def setFullRange(self, index: int, low: int, high: int, norm: int) -> None:
+        self.lows[index] = low
+        self.highs[index] = high
+        self.norms[index] = norm
     
     def setRatioTarget(self, f: float) -> None:
         self.target = f
@@ -238,7 +254,7 @@ class DistanceCompare(ICompare):
             rang = h - n
         elif (dis < 0):                
             rang = l - n
-        if (not dis == 0):
+        if (not dis == 0) and (not rang == 0):
             normDis = dis / rang
         else:
             normDis = 0
@@ -250,7 +266,7 @@ class DistanceCompare(ICompare):
         val += DistanceCompare.calcAttributeScore(s.ratio(), self.settings.target, self.settings.rl, self.settings.rh, self.settings.getRatioWeight(), self.settings.g)
         sol = s.asList()
         for i in range(5):
-            val += DistanceCompare.calcAttributeScore(sol[i], Settings.nm[i], self.settings.lows[i], self.settings.highs[i], self.settings.weights[i], self.settings.g)
+            val += DistanceCompare.calcAttributeScore(sol[i], self.settings.norms[i], self.settings.lows[i], self.settings.highs[i], self.settings.weights[i], self.settings.g)
         
         s.setScore(val)
         return val
@@ -339,20 +355,28 @@ def modifySettings() -> None:
         inp = input()
         
         if (inp == "n"):
-            SETS.setRange(i, Settings.nl[i], Settings.nh[i])
+            SETS.setFullRange(i, Settings.nl[i], Settings.nh[i], Settings.nm[i])
         elif (inp == "N"):
-            SETS.setRanges(Settings.nl[i:], Settings.nh[i:], i)
+            SETS.setFullRanges(Settings.nl[i:], Settings.nh[i:], Settings.nm[i:], i)
             break
         elif (inp == "d"):
-            SETS.setRange(i, Settings.dl[i], Settings.dh[i])
+            SETS.setFullRange(i, Settings.dl[i], Settings.dh[i], Settings.nm[i])
         elif (inp == "D"):
-            SETS.setRanges(Settings.dl[i:], Settings.dh[i:], i)
+            SETS.setFullRanges(Settings.dl[i:], Settings.dh[i:], Settings.nm[i:], i)
+            break
+        elif (inp == "f"):
+            SETS.setFullRange(i, Settings.fl[i], Settings.fh[i], Settings.fn[i])
+        elif (inp == "F"):
+            SETS.setFullRanges(Settings.fl[i:], Settings.fh[i:], Settings.fn[i:], i)
             break
         elif (inp == "k"):
             continue
         elif (inp == "K"):
             break
-        elif " " in inp:
+        elif (inp.count(" ") == 2):
+            (l, n, h) = inp.split()
+            SETS.setFullRange(i, int(l), int(h), int(n))
+        elif (inp.count(" ") == 1):
             (l, h) = inp.split()
             SETS.setRange(i, int(l), int(h))
         else:
@@ -405,7 +429,7 @@ def modifySettings() -> None:
     
     inp = ""
     while inp.count(" ") < 6:
-        if inp == "k" or inp == "n" or inp == "d":
+        if inp == "k" or inp == "n" or inp == "d" or inp == "f":
             break
         if not inp == "":
             print ("Invalid input")
@@ -413,8 +437,9 @@ def modifySettings() -> None:
     
     if not inp == "k":
         if inp == "n" or inp == "d":
-            spl = inp.split(" ")
-            SETS.setWeights(Settings.dw)   
+            SETS.setWeights(Settings.dw) 
+        elif inp == "f":
+            SETS.setWeights(Settings.fw)             
         else:
             spl = inp.split(" ")
             SETS.setWeights(list(map(float, spl)))
@@ -426,8 +451,7 @@ def modifySettings() -> None:
         if inp == "n" or inp == "d":
             SETS.g = Settings.g 
         else:
-            SETS.g = float(inp)
-    
+            SETS.g = float(inp)    
 
 def reRun(sol: Solution) -> bool:
     global modify
