@@ -17,7 +17,7 @@ using namespace ::dashoptimization;
 // Program settings
 #define SEED 42 * NTIMES
 #define WEATHERTYPE 1
-#define VERBOSITY 1
+#define VERBOSITY 1		// The one to edit
 #define VERBMODE 1
 #define VERBSOL 2
 #define VERBINIT 3
@@ -30,7 +30,7 @@ using namespace ::dashoptimization;
 #define DATAEXT ".dat"
 
 // Mode related settings
-//#define LOCKMODE "ResCuts TEST0" 
+//#define LOCKMODE "SetOrdFinResBroCuts TEST0" 
 //#define LOCKDIM "SetCuts"		// Current best: SetOrdFinResBroCuts, SetOrdResBroCuts
 #define LOCKSET 1	// Strong
 #define LOCKORD 1	// Weak
@@ -40,29 +40,30 @@ using namespace ::dashoptimization;
 #define LOCKACT 0	// Strong
 #define LOCKBRO 1	// Weak
 //#define LOCKDOW	// Disputed
-#define NMODETYPES 2
+#define NMODETYPES 3
 #define MODECUTS 8
-#define MODETEST 2
-#define NMODES 4 * MODETEST // 2^MODECUTS * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
-#define MAXPRETIME 120
-#define MAXFULLTIME 180
+#define MODEFIN 2
+#define MODETEST 3
+#define NMODES 4 * MODEFIN * MODETEST // 2^MODECUTS * MODEFIN * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
+#define MAXPRETIME 12000000
+#define MAXFULLTIME 18000000
 
 // Model settings
-#define PROBNAME "lifeSimple"
-#define NPERIODS 6
-#define TPP 4 // Timesteps per Period
+#define PROBNAME "lifeWeek"
+#define NPERIODS 7
+#define TPP 24 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 2
+#define NITASKS 3
 #define NMMTASKS 1
-#define NMOTASKS 1
-#define NDTASKS 2
+#define NMOTASKS 3
+#define NDTASKS 3
 #define NMTASKS NMMTASKS + NMOTASKS
 #define NTASKS NITASKS + NMTASKS + NDTASKS
-#define NIP 2
-#define NRES 2
+#define NIP 4
+#define NRES 3
 #define NASSETS 2
-#define DIS 1.0
-#define OPTIMAL -120 // The optimal solution, if known
+#define DIS 0.999972465
+#define OPTIMAL -441120 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -693,6 +694,11 @@ Mode Mode::Init()
 	string names[MODECUTS + 2] = { "No", "Set", "Ord", "Fin", "Pre", "Res", "Act", "Bro", "Dow", "Cuts" };
 	mode.AddCombDim(MODECUTS, names);
 #endif // MODECUTS
+
+#ifdef MODEFIN
+	string names2[MODEFIN] = { "FinAll", "FinMin" };
+	mode.AddDim(MODEFIN, names2);
+#endif // MODEFIN
 
 #ifdef MODETEST
 	mode.AddDim(MODETEST, "TEST");
@@ -1348,13 +1354,13 @@ private:
 				}
 	}
 
-	void genFinishConstraints(XPRBprob* prob, bool cut)
+	void genFinishConstraints(XPRBprob* prob, bool cut, bool finAll)
 	{
 		// Forces every non-optional task to finish
 		for (int a = 0; a < NASSETS; ++a)
 			for (int i = 0; i < NTASKS; ++i)
 			{
-				if (i >= NITASKS + NMMTASKS && i < NITASKS + NMTASKS)
+				if ((i >= NITASKS + NMMTASKS && i < NITASKS + NMTASKS) || (!finAll && (i < NITASKS - 1 || (i >= NITASKS + NMTASKS && i != NTASKS - 1))))
 					continue;
 				
 				XPRBrelation rel = s[a][i][sa[i][NTIMES]] == 1;
@@ -1498,7 +1504,7 @@ public:
 
 		genSetConstraints(prob, m->GetCurrentBySettingName("SetCuts") == 1);
 		genOrderConstraints(prob, m->GetCurrentBySettingName("OrdCuts") == 1);
-		genFinishConstraints(prob, m->GetCurrentBySettingName("FinCuts") == 1);
+		genFinishConstraints(prob, m->GetCurrentBySettingName("FinCuts") == 1, m->GetCurrentBySettingName("FinAll") == 1);
 		genPrecedenceConstraints(prob, m->GetCurrentBySettingName("PreCuts") == 1);
 		genResourceConstraints(prob, m->GetCurrentBySettingName("ResCuts") == 1);
 		genActiveConstraints(prob, m->GetCurrentBySettingName("ActCuts") == 1);
@@ -1517,7 +1523,7 @@ public:
 		if (m->GetCurrentBySettingName("OrdCuts") == 1)
 			genOrderConstraints(prob, false);
 		if (m->GetCurrentBySettingName("FinCuts") == 1)
-			genFinishConstraints(prob, false);
+			genFinishConstraints(prob, false, m->GetCurrentBySettingName("FinAll") == 1);
 		if (m->GetCurrentBySettingName("PreCuts") == 1)
 			genPrecedenceConstraints(prob, false);
 		if (m->GetCurrentBySettingName("ResCuts") == 1)
