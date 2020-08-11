@@ -49,21 +49,21 @@ using namespace ::dashoptimization;
 #define MAXFULLTIME 18000000
 
 // Model settings
-#define PROBNAME "lifeWeek"
-#define NPERIODS 7
-#define TPP 24 // Timesteps per Period
+#define PROBNAME "lifeSimple"
+#define NPERIODS 6
+#define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 3
-#define NMMTASKS 1
-#define NMOTASKS 3
-#define NDTASKS 3
-#define NMTASKS NMMTASKS + NMOTASKS
+#define NITASKS 2
+#define NMPTASKS 1
+#define NMCTASKS 1
+#define NDTASKS 2
+#define NMTASKS NMPTASKS + NMCTASKS
 #define NTASKS NITASKS + NMTASKS + NDTASKS
-#define NIP 4
-#define NRES 3
+#define NIP 2
+#define NRES 2
 #define NASSETS 2
-#define DIS 0.999972465
-#define OPTIMAL -441120 // The optimal solution, if known
+#define DIS 1.0
+#define OPTIMAL -120 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -78,13 +78,14 @@ int d[NTASKS];
 int sa[NTASKS][NTIMES + 1];
 int rho[NRES][NTASKS];
 int m[NRES][NPERIODS];
-int lambda[NASSETS];
+int lambda[NASSETS][NTASKS];
 tuple<int, int> IP[NIP];
 
 // Model variables
 XPRBvar N[NRES][NPERIODS];
 XPRBvar o[NASSETS][NTIMES];
 XPRBvar s[NASSETS][NTASKS][NTIMES];
+XPRBvar f[NTIMES][NASSETS];
 
 class Mode 
 {
@@ -1024,14 +1025,14 @@ private:
 			start = 0;
 			break;
 		case 1:
-			name = "MMTASKS";
-			ntasks = NMMTASKS;
+			name = "MPTASKS";
+			ntasks = NMPTASKS;
 			start = NITASKS;
 			break;
 		case 2:
-			name = "MOTASKS";
-			ntasks = NMOTASKS;
-			start = NITASKS + NMMTASKS;
+			name = "MCTASKS";
+			ntasks = NMCTASKS;
+			start = NITASKS + NMPTASKS;
 			break; 
 		case 3:
 			name = "DTASKS";
@@ -1132,6 +1133,51 @@ private:
 		vector<int> vals = vector<int>(arrSize);
 		parsePeriodical(type, *split, 0, &vals, arrSize);
 		copy(vals.begin(), vals.end(), arr);
+
+		getline(*datafile, line);
+	}
+
+	void readLambdas(ifstream* datafile) // TODO: Test
+	{
+		string line;
+		vector<string>* split = new vector<string>();
+
+		getline(*datafile, line);
+		splitString(line, split);
+		if ((*split)[0].compare("LAMBDAS") != 0)
+			cout << "Error reading LAMBDAS" << endl;
+		if (stoi((*split)[1]) != NMTASKS)
+			cout << "Error with declared LAMBDAS amount" << endl;
+
+		int copies = 1;
+
+		for (int i = 0; i < NTASKS; i += copies)
+		{
+			if (i < NITASKS || i >= NITASKS + NMTASKS)
+			{
+				for (int a = 0; a < NASSETS; ++a)
+					lambda[a][i] = 0;
+				copies = 1;
+				continue;
+			}
+
+			getline(*datafile, line);
+			splitString(line, split, '\t');
+
+			if ((*split)[0].find(" ") != string::npos)
+			{
+				vector<string>* dups = new vector<string>();
+				splitString((*split)[0], dups, ' ');
+				copies = stoi((*dups)[1]) - stoi((*dups)[0]);
+			}
+			else
+				copies = 1;
+
+			vector<int> vals = vector<int>(NASSETS);
+			parsePeriodical((*split)[1][0], *split, 2, &vals, NASSETS);
+
+			copy(vals.begin(), vals.end(), lambda[i]);
+		}
 
 		getline(*datafile, line);
 	}
@@ -1250,7 +1296,7 @@ public:
 		readSimpleArray(&datafile, "VALUES", NTIMES, v);
 
 		// Read the lambda info
-		readSimpleArray(&datafile, "LAMBDAS", NASSETS, lambda);
+		readLambdas(&datafile);
 
 		// Read the task order info
 		readPreqs(&datafile);
