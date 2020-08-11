@@ -1,5 +1,5 @@
 lifeMonth
-#define DATAFILE "lifeMonth.dat"
+#define PROBNAME "lifeMonth"
 #define NPERIODS 30
 #define TPP 24 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
@@ -18,16 +18,16 @@ int variety = 51;
 int bonus = -25;
 
 lifeFortnight
-#define DATAFILE "lifeFortnight.dat"
+#define PROBNAME "lifeFortnight"
 #define NPERIODS 14
 #define TPP 24 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
 #define NITASKS 4
 #define NMMTASKS 1
 #define NMOTASKS 3
-#define NITASKS 3
+#define NDTASKS 3
 #define NMTASKS NMMTASKS + NMOTASKS
-#define NTASKS NDTASKS + NMTASKS + NDTASKS
+#define NTASKS NITASKS + NMTASKS + NDTASKS
 #define NIP 5
 #define NRES 3
 #define NASSETS 3
@@ -37,7 +37,7 @@ int variety = 51;
 int bonus = -25;
 
 lifeWeek
-#define DATAFILE "lifeWeek.dat"
+#define PROBNAME "lifeWeek"
 #define NPERIODS 7
 #define TPP 24 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
@@ -51,13 +51,13 @@ lifeWeek
 #define NRES 3
 #define NASSETS 2
 #define DIS 0.999972465
-#define OPTIMAL -418758 // The optimal solution, if known
+#define OPTIMAL -441120 // The optimal solution, if known
 int base = 105;
 int variety = 51;
 int bonus = -25;
 
 lifeSimple
-#define DATAFILE "lifeSimple.dat"
+#define PROBNAME "lifeSimple"
 #define NPERIODS 6
 #define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP

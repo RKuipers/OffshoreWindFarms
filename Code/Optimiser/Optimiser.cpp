@@ -9,28 +9,47 @@
 #include <vector>		// vector
 #include <ctime>		// clock
 #include "xprb_cpp.h"
+#include "xprs.h"
 
 using namespace std;
 using namespace ::dashoptimization;
 
 // Program settings
 #define SEED 42 * NTIMES
-#define LOCKMODE "SetCuts Split TEST0"
-//#define LOCKCUTS "SetCuts"
-#define NMODETYPES 3
-#define MODECUTS 4
-#define MODEONL 2
-#define MODETEST 10
-#define NMODES MODEONL * MODETEST // 2^MODECUTS * MODEONL * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
 #define WEATHERTYPE 1
-#define VERBOSITY 1
+#define VERBOSITY 1		// The one to edit
+#define VERBMODE 1
+#define VERBSOL 2
+#define VERBINIT 3
+#define VERBPROG 4
+#define VERBWEAT 5
 #define NAMES 1
 #define OUTPUTFOLDER "Output files/"
-#define OUTPUTFILE "life"
-#define OUTPUTEXT ".sol"
+#define PROBOUTPUTEXT ".sol"
+#define MODEOUTPUTEXT ".csv"
+#define DATAEXT ".dat"
+
+// Mode related settings
+//#define LOCKMODE "SetOrdFinResBroCuts TEST0" 
+//#define LOCKDIM "SetCuts"		// Current best: SetOrdFinResBroCuts, SetOrdResBroCuts
+#define LOCKSET 1	// Strong
+#define LOCKORD 1	// Weak
+//#define LOCKFIN	// Disputed
+#define LOCKPRE 0	// Strong (to test more)
+#define LOCKRES 1	// Strong (to test more)
+#define LOCKACT 0	// Strong
+#define LOCKBRO 1	// Weak
+//#define LOCKDOW	// Disputed
+#define NMODETYPES 3
+#define MODECUTS 8
+#define MODEFIN 2
+#define MODETEST 3
+#define NMODES 4 * MODEFIN * MODETEST // 2^MODECUTS * MODEFIN * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
+#define MAXPRETIME 12000000
+#define MAXFULLTIME 18000000
 
 // Model settings
-#define DATAFILE "lifeWeek.dat"
+#define PROBNAME "lifeWeek"
 #define NPERIODS 7
 #define TPP 24 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
@@ -44,7 +63,7 @@ using namespace ::dashoptimization;
 #define NRES 3
 #define NASSETS 2
 #define DIS 0.999972465
-#define OPTIMAL -418758 // The optimal solution, if known
+#define OPTIMAL -441120 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -75,6 +94,7 @@ class Mode
 		int curr, max, type, settings;
 		bool locked;
 		vector<string> modeNames, settingNames;
+		vector<int> locks;
 
 		vector<string> expandFromName(string name, int sets)
 		{
@@ -127,11 +147,13 @@ class Mode
 			{
 				this->settings = max;
 				this->max = max;
+				this->locks = vector<int>(1, -1);
 			}
 			else if (type == 1)
 			{
 				this->settings = 2 * max;
 				this->max = pow(2, max);
+				this->locks = vector<int>(max, -1);
 			}
 			this->type = type;
 			this->locked = false;
@@ -150,6 +172,7 @@ class Mode
 				this->max = max;
 				this->modeNames = vector<string>(names, names + max);
 				this->settingNames = vector<string>(names, names + max);
+				this->locks = vector<int>(1, -1);
 			}
 			else if (type == 1)
 			{
@@ -157,6 +180,7 @@ class Mode
 				this->max = pow(2, max);
 				this->modeNames = genModeNames(names, max);
 				this->settingNames = genSettingNames(names, max);
+				this->locks = vector<int>(max, -1);
 			}
 		}
 
@@ -165,16 +189,27 @@ class Mode
 			if (locked)
 				return -1;
 
-			if (curr + 1 < max)
-			{
+			do
 				++curr;
+			while (!checkLocks());
+
+			if (curr < max)				
 				return curr;
-			}
 			else
 			{
 				curr = 0;
+				if (!checkLocks())
+					curr = next();
 				return -1;
 			}
+		}
+
+		bool checkLocks()
+		{
+			for (int i = 0; i < locks.size(); ++i)
+				if (locks[i] != -1 && getCurr(i) != locks[i])
+					return false;
+			return true;
 		}
 
 		int getCurr(int dim = -1)
@@ -215,6 +250,25 @@ class Mode
 			return res;
 		}
 
+		int getSetID(string name)
+		{
+			if (type == 1)
+				name = "Y" + name;
+
+			int res;
+
+			for (int i = 0; i < settingNames.size(); ++i)
+				if (settingNames[i].compare(name) == 0)
+				{
+					res = i;
+					if (type == 1)
+						res /= 2;
+					return res;
+				}
+
+			return -1;
+		}
+
 		void setCurr(int val)
 		{
 			if (!locked)
@@ -225,6 +279,11 @@ class Mode
 		{
 			curr = val;
 			locked = true;
+		}
+
+		void lockSetting(int set, int val)
+		{
+			locks[set] = val;
 		}
 
 		string getModeName(int mode = -1)
@@ -325,7 +384,11 @@ public:
 			return;
 
 		for (int i = 0; i < NMODETYPES; ++i)
+		{
 			dims[i]->setCurr(0);
+			if (!dims[i]->checkLocks())
+				dims[i]->next();
+		}
 	}
 
 	// Sets the duration the current run took
@@ -371,6 +434,25 @@ public:
 		}
 
 		cout << "ERROR: Locking dim failed; requested setting (" << setName << ") not found!" << endl;
+	}
+
+	// Locks a specific setting into being ON or OFF
+	void LockSetting(string setName, int val)
+	{
+		Reset();
+
+		for (int i = 0; i < nDims; ++i)
+		{
+			int id = dims[i]->getSetID(setName);
+			if (id != -1)
+			{
+				dims[i]->lockSetting(id, val);
+				nModes /= 2;
+				return;
+			}
+		}
+
+		cout << "ERROR: Locking setting failed; requested setting (" << setName << ") not found!" << endl;
 	}
 #pragma endregion
 
@@ -609,32 +691,63 @@ Mode Mode::Init()
 	Mode mode = Mode();
 
 #ifdef MODECUTS
-	string names[MODECUTS + 2] = { "No", "Set", "Pre", "Res", "Onl", "Cuts" };
+	string names[MODECUTS + 2] = { "No", "Set", "Ord", "Fin", "Pre", "Res", "Act", "Bro", "Dow", "Cuts" };
 	mode.AddCombDim(MODECUTS, names);
 #endif // MODECUTS
 
-#ifdef MODEONL
-	string names2[MODEONL] = { "Merge", "Split" };
-	mode.AddDim(MODEONL, names2);
-#endif // MODEONL
+#ifdef MODEFIN
+	string names2[MODEFIN] = { "FinAll", "FinMin" };
+	mode.AddDim(MODEFIN, names2);
+#endif // MODEFIN
 
 #ifdef MODETEST
 	mode.AddDim(MODETEST, "TEST");
 #endif // MODETEST
 
-	mode.durs.resize(mode.nModes);
-
+#pragma region Locks
 #ifdef LOCKMODE
 	mode.LockMode(LOCKMODE);
 #endif // LOCKMODE
 
-#ifdef LOCKCUTS
-	mode.LockDim(LOCKCUTS);
-#endif // LOCKCUTS
+#ifdef LOCKDIM
+	mode.LockDim(LOCKDIM);
+#endif // LOCKDIM
 
-#ifdef LOCKONL
-	mode.LockDim(LOCKONL);
-#endif // LOCKONL
+#ifdef LOCKSET
+	mode.LockSetting("SetCuts", LOCKSET);
+#endif // LOCKSET
+
+#ifdef LOCKORD
+	mode.LockSetting("OrdCuts", LOCKORD);
+#endif // LOCKORD
+
+#ifdef LOCKFIN
+	mode.LockSetting("FinCuts", LOCKFIN);
+#endif // LOCKFIN
+
+#ifdef LOCKPRE
+	mode.LockSetting("PreCuts", LOCKPRE);
+#endif // LOCKPRE
+
+#ifdef LOCKRES
+	mode.LockSetting("ResCuts", LOCKRES);
+#endif // LOCKRES
+
+#ifdef LOCKACT
+	mode.LockSetting("ActCuts", LOCKACT);
+#endif // LOCKACT
+
+#ifdef LOCKBRO
+	mode.LockSetting("BroCuts", LOCKBRO);
+#endif // LOCKBRO
+
+#ifdef LOCKDOW
+	mode.LockSetting("DowCuts", LOCKDOW);
+#endif // LOCKDOW
+#pragma endregion 
+
+	mode.durs.resize(mode.nModes);
+	mode.Reset();
 
 	return mode;
 }
@@ -644,7 +757,7 @@ class OutputPrinter
 private:
 	void printObj(ofstream* file, XPRBprob* prob)
 	{
-		cout << "Total return: " << prob->getObjVal() << endl;
+		printer("Total return: " + to_string(round(prob->getObjVal())), VERBSOL);
 		*file << "Objective: " << prob->getObjVal() << endl;
 	}
 
@@ -652,7 +765,7 @@ private:
 	{
 		vector<int> vals = vector<int>();
 
-		cout << "Online turbines per timestep: " << endl;
+		printer("Online turbines per timestep: ", VERBSOL);
 		for (int t = 0; t < NTIMES; ++t)
 		{
 			vals.push_back(0);
@@ -661,38 +774,36 @@ private:
 
 			int v = vals[t];
 			if (t == 0 || v != vals[t-1])
-				cout << t << ": " << v << endl;
+				printer(to_string(t) + ": "+ to_string(v), VERBSOL);
 			*file << "O_" << t << ": " << v << endl;
 		}
 	}
 
 	void printResources(ofstream* file)
 	{
-		cout << "Resources needed per period and type: " << endl;
+		printer("Resources needed per period and type: ", VERBSOL);
 		for (int p = 0; p < NPERIODS; ++p)
 		{
-			printer("Period ", 2, false);
-
 			int v = round(N[0][p].getSol());
-			cout << p << ": " << v;
+			printer(to_string(p) + ": " + to_string(v), VERBSOL, false);
 			*file << "N_0_" << p << ": " << v << endl;;
 
 			for (int r = 1; r < NRES; ++r)
 			{
 				v = round(N[r][p].getSol());
-				cout << ", " << v;
+				printer(", " + to_string(v), VERBSOL, false);
 				*file << "N_" << r << "_" << p << ": " << v << endl;;
 			}
-			cout << endl;
+			printer("", VERBSOL);
 		}
 	}
 
 	void printTasks(ofstream* file)
 	{
-		cout << "Start and finish time per asset and task: " << endl;
+		printer("Start and finish time per asset and task: ", VERBSOL);
 		for (int a = 0; a < NASSETS; ++a)
 		{
-			cout << "Asset: " << a << endl;
+			printer("Asset: " + to_string(a), VERBSOL);
 			for (int i = 0; i < NTASKS; ++i)
 			{
 				int start = -1;
@@ -710,12 +821,11 @@ private:
 
 				if (start == -1)
 				{
-					cout << i << ": Incomplete" << endl;
+					printer(to_string(i) + ": Incomplete", VERBSOL);
 					*file << "Asset " << a << " task " << i << ": Incomplete" << endl;
 				}
 				else
 				{
-
 					for (int t1 = start + d[i] - 1; t1 <= NTIMES; ++t1)
 						if (sa[i][t1] >= start)
 						{
@@ -723,11 +833,26 @@ private:
 							break;
 						}
 
-					cout << i << ": " << start << " " << finish << endl;
+					printer(to_string(i) + ": " + to_string(start) + " " + to_string(finish), VERBSOL);
 					*file << "Asset " << a << " task " << i << ": " << start << " " << finish << endl;
 				}
 			}
 		}
+	}
+
+	string boolVec2Str(vector<bool> vec)
+	{
+		string res = "";
+		for (int i = 0; i < vec.size(); ++i)
+		{
+			if (vec[i])
+				res.append("1");
+			else
+				res.append("0");
+			if (i < vec.size() - 1)
+				res.append(";");
+		}
+		return res;
 	}
 
 public:
@@ -737,7 +862,7 @@ public:
 			return;
 
 		ofstream file;
-		file.open(string() + OUTPUTFOLDER + OUTPUTFILE + to_string(id) + OUTPUTEXT);
+		file.open(string() + OUTPUTFOLDER + PROBNAME + to_string(id) + PROBOUTPUTEXT);
 
 		printObj(&file, prob);
 		printTurbines(&file);
@@ -749,38 +874,64 @@ public:
 
 	void printModeOutput(Mode* m, bool opt)
 	{
-		cout << "----------------------------------------------------------------------------------------" << endl;
+		ofstream file;
+		file.open(string() + OUTPUTFOLDER + PROBNAME + "Modes" + MODEOUTPUTEXT);
+
+		printer("----------------------------------------------------------------------------------------", VERBMODE);
 
 #ifdef OPTIMAL
 		if (opt)
-			cout << "All solutions are optimal" << endl;
+			printer("All solutions are optimal", VERBMODE);
 		else
-			cout << "Not all solutions are optimal" << endl;
+			printer("Not all solutions are optimal", VERBMODE);
 #endif // OPTIMAL
 		
 		vector<string> modeNames = m->GetModeNames();
+		m->Reset();
 
 		for (int i = 0; i < m->GetNModes(); ++i)
-			cout << "MODE: " << i << " (" << modeNames[i] << ") DUR: " << m->GetDur(i) << endl;
+		{
+			double dur = m->GetDur(i);
+			string setStr = boolVec2Str(m->GetSettingStatus());
+			printer("MODE: " + to_string(i) + " (" + modeNames[i] + ") DUR: " + to_string(dur), VERBMODE);
+			file << i << ";" << modeNames[i] << ";" << dur << ";" << setStr << endl;
+			m->Next();
+		}
+
+		file.close();
 
 #if NMODETYPES > 1
+		file.open(string() + OUTPUTFOLDER + PROBNAME + "Settings" + MODEOUTPUTEXT);
+
 		vector<string> settingNames = m->GetSettingNames();
 		vector<double> setAvgs = m->GetSettingDurs();
 
 		for (int i = 0; i < m->GetNSettings(); ++i)
-			cout << "SETTING: " << settingNames[i] << " DUR: " << setAvgs[i] << endl;
+		{
+			printer("SETTING: " + settingNames[i] + " DUR: " + to_string(setAvgs[i]), VERBMODE);
+			file << settingNames[i] << ";" << setAvgs[i] << endl;
+		}
+
+		file.close();
+		file.open(string() + OUTPUTFOLDER + PROBNAME + "Submodes" + MODEOUTPUTEXT);
 
 		vector<string> subModeNames = m->GetCombModeNames();
 		vector<double> subModeAvgs = m->GetModeDurs(subModeNames);
 
 		for (int i = 0; i < subModeNames.size(); ++i)
-			cout << "SUBMODE: " << subModeNames[i] << " DUR: " << subModeAvgs[i] << endl;
+		{
+			if (!isnan(subModeAvgs[i]))
+				printer("SUBMODE: " + subModeNames[i] + " DUR: " + to_string(subModeAvgs[i]), VERBMODE);
+			file << subModeNames[i] << ";" << subModeAvgs[i] << endl;
+		}
+
+		file.close();
 #endif // NMODETYPES > 1
 	}
 
-	int printer(string s, int verbosity, bool end = true)
+	int printer(string s, int verbosity, bool end = true, int maxVerb = 999)
 	{
-		if (VERBOSITY >= verbosity)
+		if (VERBOSITY >= verbosity && VERBOSITY < maxVerb)
 		{
 			cout << s;
 			if (end)
@@ -1009,18 +1160,20 @@ private:
 
 	void generateWeather()
 	{
+		outputPrinter.printer("Wave heights per timestep:", VERBWEAT);
+
 		int waveHeight[NTIMES];
 		if (WEATHERTYPE == 0)
 		{
 			waveHeight[0] = base;
 
-			outputPrinter.printer("0: " + to_string(waveHeight[0]), 2);
+			outputPrinter.printer("0: " + to_string(waveHeight[0]), VERBWEAT);
 			for (int t = 1; t < NTIMES; ++t)
 			{
 				bonus += (base - waveHeight[t - 1]) / 40;
 
 				waveHeight[t] = max(0, waveHeight[t - 1] + bonus + (rand() % variety));
-				outputPrinter.printer(to_string(t) + ": " + to_string(waveHeight[t]), 2);
+				outputPrinter.printer(to_string(t) + ": " + to_string(waveHeight[t]), VERBWEAT);
 			}
 		}
 		else if (WEATHERTYPE == 1)
@@ -1028,11 +1181,11 @@ private:
 			for (int p = 0; p < NPERIODS; ++p)
 			{
 				waveHeight[p * TPP] = base;
-				outputPrinter.printer(to_string(p * TPP) + ": " + to_string(waveHeight[p * TPP]), 2);
+				outputPrinter.printer(to_string(p * TPP) + ": " + to_string(waveHeight[p * TPP]), VERBWEAT);
 				for (int t = (p * TPP) + 1; t < (p + 1) * TPP; ++t)
 				{
 					waveHeight[t] = max(0, waveHeight[t - 1] + bonus + (rand() % variety));
-					outputPrinter.printer(to_string(t) + ": " + to_string(waveHeight[t]), 2);
+					outputPrinter.printer(to_string(t) + ": " + to_string(waveHeight[t]), VERBWEAT);
 				}
 			}
 		}
@@ -1074,10 +1227,10 @@ public:
 	void readData()
 	{
 		// Read data from file
-		outputPrinter.printer("Reading Data", 1);
+		outputPrinter.printer("Reading Data", VERBMODE);
 
 		string line;
-		ifstream datafile(DATAFILE);
+		ifstream datafile(string() + PROBNAME + DATAEXT);
 		if (!datafile.is_open())
 		{
 			cout << "Unable to open file" << endl;
@@ -1114,15 +1267,12 @@ public:
 class ProblemGen
 {
 private:
-	bool OptionalTask(int i)
+	void genCon(XPRBprob* prob, const XPRBrelation& ac, string base, int nInd, int* indices, bool cut)
 	{
-		return i >= NITASKS + NMMTASKS && i < NITASKS + NMTASKS;
-	}
-
-	XPRBctr genCon(XPRBprob* prob, const XPRBrelation& ac, string base, int nInd, int* indices)
-	{
-		if (NAMES == 0)
-			return prob->newCtr(ac);
+		if (cut)
+			prob->newCut(ac);
+		else if (NAMES == 0)
+			prob->newCtr(ac);
 		else
 		{
 			string name = base;
@@ -1130,14 +1280,12 @@ private:
 			for (int i = 0; i < nInd; ++i)
 				name += "_" + to_string(indices[i]);
 
-			return prob->newCtr(name.c_str(), ac);
+			prob->newCtr(name.c_str(), ac);
 		}
 	}
 
 	void genDecisionVariables(XPRBprob* prob)
 	{
-		outputPrinter.printer("Initialising variables", 1);
-
 		// Create the period-based decision variables
 		for (int p = 0; p < NPERIODS; ++p)
 			for (int r = 0; r < NRES; ++r)
@@ -1160,8 +1308,6 @@ private:
 
 	void genObjective(XPRBprob* prob)
 	{
-		outputPrinter.printer("Initialising objective", 1);
-
 		XPRBctr Obj = prob->newCtr();
 		for (int p = 0; p < NPERIODS; ++p)
 		{
@@ -1179,53 +1325,48 @@ private:
 
 	void genSetConstraints(XPRBprob* prob, bool cut)
 	{
-		// Forces every task to start and end
+		// Once a task has started it stays started
+		for (int a = 0; a < NASSETS; ++a)
+			for (int i = 0; i < NTASKS; ++i)
+				for (int t = 1; t < NTIMES; ++t)
+				{
+					XPRBrelation rel = s[a][i][t] >= s[a][i][t - 1];
+
+					int indices[3] = { a, i, t };
+					genCon(prob, rel, "Set", 3, indices, cut);
+				}
+	}
+
+	void genOrderConstraints(XPRBprob* prob, bool cut)
+	{
+		// Forces every non-decomission task inactive after decomission starts
+		for (int a = 0; a < NASSETS; ++a)
+			for (int i = 0; i < NITASKS + NMTASKS; ++i)
+				for (int t = 0; t < NTIMES; ++t)
+				{
+					if (sa[i][t] < 0)
+						continue;
+
+					XPRBrelation rel = s[a][i][sa[i][t]] - s[a][i][t] >= s[a][NITASKS + NMTASKS][t] - 1;
+
+					int indices[3] = { a, i, t };
+					genCon(prob, rel, "Ord", 3, indices, cut);
+				}
+	}
+
+	void genFinishConstraints(XPRBprob* prob, bool cut, bool finAll)
+	{
+		// Forces every non-optional task to finish
 		for (int a = 0; a < NASSETS; ++a)
 			for (int i = 0; i < NTASKS; ++i)
 			{
-				for (int t = 0; t < NTIMES; ++t)
-				{
-					if (t > 0)
-					{
-						XPRBrelation rel = s[a][i][t] >= s[a][i][t - 1];
+				if ((i >= NITASKS + NMMTASKS && i < NITASKS + NMTASKS) || (!finAll && (i < NITASKS - 1 || (i >= NITASKS + NMTASKS && i != NTASKS - 1))))
+					continue;
+				
+				XPRBrelation rel = s[a][i][sa[i][NTIMES]] == 1;
 
-						if (cut)
-							prob->newCut(rel);
-						else
-						{
-							int indices[3] = { a, i, t };
-							genCon(prob, rel, "Set", 3, indices);
-						}
-					}
-
-					if (i < NITASKS + NMTASKS) // If it's not a decommission task, it can't be done during decomission
-					{
-						XPRBrelation rel2 = -s[a][i][t] >= s[a][NITASKS + NMTASKS][t] - 1;
-						if (sa[i][t] >= 0)
-							rel2.addTerm(s[a][i][sa[i][t]]);
-
-						if (cut)
-							prob->newCut(rel2);
-						else
-						{
-							int indices[3] = { a, i, t };
-							genCon(prob, rel2, "Ord", 3, indices);
-						}
-					}
-				}
-
-				if (!OptionalTask(i))
-				{
-					XPRBrelation rel = s[a][i][sa[i][NTIMES]] == 1;
-
-					if (cut)
-						prob->newCut(rel);
-					else
-					{
-						int indices[2] = { a, i };
-						genCon(prob, rel, "Fin", 2, indices);
-					}
-				}
+				int indices[2] = { a, i };
+				genCon(prob, rel, "Fin", 2, indices, cut);
 			}
 	}
 
@@ -1262,13 +1403,8 @@ private:
 
 					XPRBrelation rel = s[a][i][sa[i][t]] >= s[a][j][t];
 
-					if (cut)
-						prob->newCut(rel);
-					else
-					{
-						int indices[3] = { a, x, t };
-						genCon(prob, rel, "Pre", 3, indices);
-					}
+					int indices[3] = { a, x, t };
+					genCon(prob, rel, "Pre", 3, indices, cut);
 				}
 		}
 	}
@@ -1298,135 +1434,139 @@ private:
 						}
 					}
 
-					if (cut)
-						prob->newCut(rel);
-					else
-					{
-						int indices[3] = { r, p, t };
-						genCon(prob, rel, "Nee", 3, indices);
-					}
+					int indices[3] = { r, p, t };
+					genCon(prob, rel, "Nee", 3, indices, cut);
 				}
 	}
 
-	void genOnlineConstraints(XPRBprob* prob, bool cut, bool split)
+	void genActiveConstraints(XPRBprob* prob, bool cut)
 	{
-		// Online turbines status link to start times
+		// Ensures turbines are only active after installation finishes and before decomission begins
 		for (int t = 0; t < NTIMES; ++t)
 			for (int a = 0; a < NASSETS; ++a)
 			{
-				XPRBrelation relA = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]] - s[a][NITASKS + NMTASKS][t]; // Active constraints
-				XPRBrelation relM = o[a][t] <= 0;
+				XPRBrelation rel = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]] - s[a][NITASKS + NMTASKS][t];
 
-				double coef = 1.0;
-
-				if (!split)
-				{
-					relM = o[a][t] <= 0.5 * s[a][NITASKS - 1][sa[NITASKS - 1][t]];
-					coef = 0.5;
-				}
-
-				for (int i = NITASKS - 1; i < NTASKS; i++) // Regular maintenance constraints
-				{
-					if (sa[i][t] > -1)
-						relM.addTerm(s[a][i][sa[i][t]], -coef);
-					if (t - lambda[a] >= 0 && sa[i][t - lambda[a]] > -1)
-						relM.addTerm(s[a][i][sa[i][t - lambda[a]]], coef);
-				}
-
-				if (cut)
-				{
-					prob->newCut(relM);
-					if (split)
-						prob->newCut(relA);
-				}
-				else
-				{
-					int indices[2] = { a, t };
-					if (!split)
-						genCon(prob, relM, "Onl", 2, indices);
-					else
-					{
-						genCon(prob, relA, "OnlA", 2, indices);
-						genCon(prob, relM, "OnlM", 2, indices);
-					}
-				}
-
-				for (int i = NITASKS; i < NITASKS + NMTASKS; ++i) // Downtime constraints
-				{
-					XPRBrelation relD = o[a][t] <= 1 - s[a][i][t];
-					if (sa[i][t] >= 0)
-						relD.addTerm(s[a][i][sa[i][t]], -1);
-
-					if (cut)
-						prob->newCut(relD);
-					else
-					{
-						int indices[3] = { a, i, t };
-						genCon(prob, relD, "Down", 3, indices);
-					}
-				}
+				int indices[2] = { a, t };
+				genCon(prob, rel, "Act", 2, indices, cut);
 			}
 	}
 
-public:
-	void genOriProblem(XPRBprob* prob, Mode* m)
+	void genBrokenConstraints(XPRBprob* prob, bool cut)
 	{
-		clock_t start = clock();
+		// Turbines can only be online if they're not broken
+		for (int t = 0; t < NTIMES; ++t)
+			for (int a = 0; a < NASSETS; ++a)
+			{
+				XPRBrelation rel = o[a][t] <= 0;
+
+				for (int i = NITASKS - 1; i < NITASKS + NMTASKS; i++)
+				{
+					if (sa[i][t] > -1)
+						rel.addTerm(s[a][i][sa[i][t]], -1);
+					if (t - lambda[a] >= 0 && sa[i][t - lambda[a]] > -1)
+						rel.addTerm(s[a][i][sa[i][t - lambda[a]]]);
+				}
+
+				int indices[2] = { a, t };
+				genCon(prob, rel, "Bro", 2, indices, cut);
+			}
+	}
+
+	void genDowntimeConstraints(XPRBprob* prob, bool cut)
+	{
+		// Turbines are offline while maintenance work is ongoing
+		for (int t = 0; t < NTIMES; ++t)
+			for (int a = 0; a < NASSETS; ++a)
+				for (int i = NITASKS; i < NITASKS + NMTASKS; ++i)
+				{
+					XPRBrelation rel = o[a][t] <= 1 - s[a][i][t];
+					if (sa[i][t] >= 0)
+						rel.addTerm(s[a][i][sa[i][t]], -1);
+
+					int indices[3] = { a, i, t };
+					genCon(prob, rel, "Down", 3, indices, cut);
+				}
+	}
+
+public:
+	void genBasicProblem(XPRBprob* prob, Mode* m)
+	{
+		outputPrinter.printer("Initialising variables and objective", VERBINIT);
 
 		genDecisionVariables(prob);
 		genObjective(prob);
+	}
 
-		outputPrinter.printer("Initialising Original constraints", 1);
+	void genOriProblem(XPRBprob* prob, Mode* m)
+	{
+		outputPrinter.printer("Initialising Original constraints", VERBINIT);
 
 		genSetConstraints(prob, m->GetCurrentBySettingName("SetCuts") == 1);
+		genOrderConstraints(prob, m->GetCurrentBySettingName("OrdCuts") == 1);
+		genFinishConstraints(prob, m->GetCurrentBySettingName("FinCuts") == 1, m->GetCurrentBySettingName("FinAll") == 1);
 		genPrecedenceConstraints(prob, m->GetCurrentBySettingName("PreCuts") == 1);
 		genResourceConstraints(prob, m->GetCurrentBySettingName("ResCuts") == 1);
-		genOnlineConstraints(prob, m->GetCurrentBySettingName("OnlCuts") == 1, m->GetCurrentBySettingName("Split") == 1);
-
-		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
-		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
+		genActiveConstraints(prob, m->GetCurrentBySettingName("ActCuts") == 1);
+		genBrokenConstraints(prob, m->GetCurrentBySettingName("BroCuts") == 1);
+		genDowntimeConstraints(prob, m->GetCurrentBySettingName("DowCuts") == 1);
 	}
 
 	void genFullProblem(XPRBprob* prob, Mode* m)
 	{
 		clock_t start = clock();
 
-		outputPrinter.printer("Initialising Full constraints", 1);
+		outputPrinter.printer("Initialising Full constraints", VERBINIT);
 
 		if (m->GetCurrentBySettingName("SetCuts") == 1)
 			genSetConstraints(prob, false); 
+		if (m->GetCurrentBySettingName("OrdCuts") == 1)
+			genOrderConstraints(prob, false);
+		if (m->GetCurrentBySettingName("FinCuts") == 1)
+			genFinishConstraints(prob, false, m->GetCurrentBySettingName("FinAll") == 1);
 		if (m->GetCurrentBySettingName("PreCuts") == 1)
 			genPrecedenceConstraints(prob, false);
 		if (m->GetCurrentBySettingName("ResCuts") == 1)
 			genResourceConstraints(prob, false);
-		if (m->GetCurrentBySettingName("OnlCuts") == 1)
-			genOnlineConstraints(prob, false, m->GetCurrentBySettingName("Merge") == 0);
+		if (m->GetCurrentBySettingName("ActCuts") == 1)
+			genActiveConstraints(prob, false);
+		if (m->GetCurrentBySettingName("BroCuts") == 1)
+			genBrokenConstraints(prob, false);
+		if (m->GetCurrentBySettingName("DowCuts") == 1)
+			genDowntimeConstraints(prob, false);
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
-		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", 1);
+		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", VERBINIT);
 	}
 };
 
 class ProblemSolver
 {
 public:
-	void solveProblem(XPRBprob* prob, string name)
+	void solveProblem(XPRBprob* prob, string name, int maxTime = 0)
 	{
-		outputPrinter.printer("Solving problem", 1);
-		if (VERBOSITY == 0)
+		outputPrinter.printer("Solving problem", VERBINIT);
+		if (VERBOSITY < VERBPROG)
 			prob->setMsgLevel(1);
 
 		clock_t start = clock();
+
+		if (maxTime != 0)
+		{
+			XPRBloadmat(prob->getCRef());
+			XPRSprob opt_prob = XPRBgetXPRSprob(prob->getCRef());
+			XPRSsetintcontrol(opt_prob, XPRS_MAXTIME, maxTime);
+		}
 
 		prob->setSense(XPRB_MAXIM);
 		prob->exportProb(XPRB_LP, (OUTPUTFOLDER + name).c_str());
 		prob->mipOptimize("");
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
-		cout << "Solving duration: " << duration << " seconds" << endl;
+		outputPrinter.printer("Solving duration: " + to_string(duration) + " seconds", VERBSOL);
 
 		const char* MIPSTATUS[] = { "not loaded", "not optimized", "LP optimized", "unfinished (no solution)", "unfinished (solution found)", "infeasible", "optimal", "unbounded" };
-		cout << "Problem status: " << MIPSTATUS[prob->getMIPStat()] << endl;
+		outputPrinter.printer(string() + "Problem status: " + MIPSTATUS[prob->getMIPStat()], VERBSOL);
 	}
 };
 
@@ -1454,11 +1594,12 @@ int main(int argc, char** argv)
 	for (bool stop = false; !stop; stop = mode.Next())
 	{
 		int id = mode.GetID();
+
 		string modeName = mode.GetCurrentModeName();
 		XPRBprob* p = &probs[id];
 
-		cout << "----------------------------------------------------------------------------------------" << endl;
-		cout << "MODE: " << id << " (" << modeName << ")" << endl;
+		outputPrinter.printer("----------------------------------------------------------------------------------------", VERBSOL);
+		outputPrinter.printer("MODE: " + to_string(id) + " (" + modeName + ")", VERBSOL);
 
 		string name = "Life" + to_string(id);
 		p->setName(name.c_str());
@@ -1468,14 +1609,19 @@ int main(int argc, char** argv)
 
 		clock_t start = clock();
 
+		problemGen.genBasicProblem(p, &mode);
 		problemGen.genOriProblem(p, &mode);
-		problemSolver.solveProblem(p, name);
+
+		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
+		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", VERBINIT);
 
 		if (mode.GetCurrentModeName(0).compare("NoCuts") != 0)
 		{
+			problemSolver.solveProblem(p, name, MAXPRETIME);
 			problemGen.genFullProblem(p, &mode);
-			problemSolver.solveProblem(p, name);
 		}
+
+		problemSolver.solveProblem(p, name, MAXFULLTIME);
 
 		outputPrinter.printProbOutput(p, &mode, id);
 
@@ -1483,8 +1629,9 @@ int main(int argc, char** argv)
 		opt &= round(p->getObjVal()) == OPTIMAL;
 #endif // OPTIMAL
 
-		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
-		cout << "FULL duration: " << duration << " seconds" << endl;
+		duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
+		outputPrinter.printer("FULL duration: " + to_string(duration) + " seconds", VERBSOL);
+		outputPrinter.printer("Mode: " + to_string(id) + ", duration: " + to_string(duration) + " seconds, Solution: " + to_string(round(p->getObjVal())), VERBMODE, true, VERBSOL);
 		mode.SetCurrDur(duration);
 	}
 
