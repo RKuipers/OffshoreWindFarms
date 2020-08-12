@@ -17,7 +17,7 @@ using namespace ::dashoptimization;
 // Program settings
 #define SEED 42 * NTIMES
 #define WEATHERTYPE 1
-#define VERBOSITY 1		// The one to edit
+#define VERBOSITY 3		// The one to edit
 #define VERBMODE 1
 #define VERBSOL 2
 #define VERBINIT 3
@@ -30,40 +30,40 @@ using namespace ::dashoptimization;
 #define DATAEXT ".dat"
 
 // Mode related settings
-//#define LOCKMODE "SetOrdFinResBroCuts TEST0" 
+#define LOCKMODE "SetOrdFinResFaiCuts FinAll TEST0" 
 //#define LOCKDIM "SetCuts"		// Current best: SetOrdFinResBroCuts, SetOrdResBroCuts
-#define LOCKSET 1	// Strong
-#define LOCKORD 1	// Weak
+//#define LOCKSET 1	// Strong
+//#define LOCKORD 1	// Weak
 //#define LOCKFIN	// Disputed
-#define LOCKPRE 0	// Strong (to test more)
-#define LOCKRES 1	// Strong (to test more)
-#define LOCKACT 0	// Strong
-#define LOCKBRO 1	// Weak
+//#define LOCKPRE 0	// Strong (to test more)
+//#define LOCKRES 1	// Strong (to test more)
+//#define LOCKACT 0	// Strong
+//#define LOCKFAI	// Unknown
+//#define LOCKCOR	// Unknown
 //#define LOCKDOW	// Disputed
 #define NMODETYPES 3
-#define MODECUTS 8
+#define MODECUTS 9
 #define MODEFIN 2
-#define MODETEST 3
-#define NMODES 4 * MODEFIN * MODETEST // 2^MODECUTS * MODEFIN * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
-#define MAXPRETIME 12000000
-#define MAXFULLTIME 18000000
+#define MODETEST 1
+#define NMODES 512 * MODEFIN * MODETEST // 2^MODECUTS * MODEFIN * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
+#define MAXPRETIME 300
+#define MAXFULLTIME 300
 
 // Model settings
-#define PROBNAME "lifeSimple"
-#define NPERIODS 6
-#define TPP 4 // Timesteps per Period
+#define PROBNAME "lifeMonth"
+#define NPERIODS 30
+#define TPP 24 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 2
+#define NITASKS 5
 #define NMPTASKS 1
-#define NMCTASKS 1
-#define NDTASKS 2
+#define NMCTASKS 4
+#define NDTASKS 4
 #define NMTASKS NMPTASKS + NMCTASKS
 #define NTASKS NITASKS + NMTASKS + NDTASKS
-#define NIP 2
-#define NRES 2
-#define NASSETS 2
-#define DIS 1.0
-#define OPTIMAL -120 // The optimal solution, if known
+#define NIP 7
+#define NRES 3
+#define NASSETS 5
+#define DIS 0.999972465
 
 // Weather characteristics
 int base = 105;
@@ -85,7 +85,7 @@ tuple<int, int> IP[NIP];
 XPRBvar N[NRES][NPERIODS];
 XPRBvar o[NASSETS][NTIMES];
 XPRBvar s[NASSETS][NTASKS][NTIMES];
-XPRBvar f[NTIMES][NASSETS];
+XPRBvar f[NASSETS][NTIMES];
 
 class Mode 
 {
@@ -692,7 +692,7 @@ Mode Mode::Init()
 	Mode mode = Mode();
 
 #ifdef MODECUTS
-	string names[MODECUTS + 2] = { "No", "Set", "Ord", "Fin", "Pre", "Res", "Act", "Bro", "Dow", "Cuts" };
+	string names[MODECUTS + 2] = { "No", "Set", "Ord", "Fin", "Pre", "Res", "Act", "Fai", "Cor", "Dow", "Cuts" };
 	mode.AddCombDim(MODECUTS, names);
 #endif // MODECUTS
 
@@ -738,9 +738,13 @@ Mode Mode::Init()
 	mode.LockSetting("ActCuts", LOCKACT);
 #endif // LOCKACT
 
-#ifdef LOCKBRO
-	mode.LockSetting("BroCuts", LOCKBRO);
-#endif // LOCKBRO
+#ifdef LOCKFAI
+	mode.LockSetting("FaiCuts", LOCKFAI);
+#endif // LOCKFAI
+
+#ifdef LOCKCOR
+	mode.LockSetting("CorCuts", LOCKCOR);
+#endif // LOCKCOR
 
 #ifdef LOCKDOW
 	mode.LockSetting("DowCuts", LOCKDOW);
@@ -1137,7 +1141,7 @@ private:
 		getline(*datafile, line);
 	}
 
-	void readLambdas(ifstream* datafile) // TODO: Test
+	void readLambdas(ifstream* datafile)
 	{
 		string line;
 		vector<string>* split = new vector<string>();
@@ -1146,14 +1150,14 @@ private:
 		splitString(line, split);
 		if ((*split)[0].compare("LAMBDAS") != 0)
 			cout << "Error reading LAMBDAS" << endl;
-		if (stoi((*split)[1]) != NMTASKS)
+		if (stoi((*split)[1]) != NMTASKS + 1)
 			cout << "Error with declared LAMBDAS amount" << endl;
 
 		int copies = 1;
 
 		for (int i = 0; i < NTASKS; i += copies)
 		{
-			if (i < NITASKS || i >= NITASKS + NMTASKS)
+			if (i < NITASKS - 1 || i >= NITASKS + NMTASKS)
 			{
 				for (int a = 0; a < NASSETS; ++a)
 					lambda[a][i] = 0;
@@ -1176,7 +1180,9 @@ private:
 			vector<int> vals = vector<int>(NASSETS);
 			parsePeriodical((*split)[1][0], *split, 2, &vals, NASSETS);
 
-			copy(vals.begin(), vals.end(), lambda[i]);
+			for (int a = 0; a < NASSETS; ++a)
+				for (int j = i; j < i + copies; ++j)
+					lambda[a][j] = vals[a];
 		}
 
 		getline(*datafile, line);
@@ -1345,7 +1351,8 @@ private:
 		for (int t = 0; t < NTIMES; ++t)
 			for (int a = 0; a < NASSETS; ++a)
 			{
-				o[a][t] = prob->newVar(("o_" + to_string(a) + "_" + to_string(t)).c_str(), XPRB_BV);
+				o[a][t] = prob->newVar(("o_" + to_string(a) + "_" + to_string(t)).c_str(), XPRB_BV); 
+				f[a][t] = prob->newVar(("f_" + to_string(a) + "_" + to_string(t)).c_str(), XPRB_BV);
 
 				for (int i = 0; i < NTASKS; ++i)
 					s[a][i][t] = prob->newVar(("s_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
@@ -1406,7 +1413,7 @@ private:
 		for (int a = 0; a < NASSETS; ++a)
 			for (int i = 0; i < NTASKS; ++i)
 			{
-				if ((i >= NITASKS + NMMTASKS && i < NITASKS + NMTASKS) || (!finAll && (i < NITASKS - 1 || (i >= NITASKS + NMTASKS && i != NTASKS - 1))))
+				if ((i >= NITASKS + NMPTASKS && i < NITASKS + NMTASKS) || (!finAll && (i < NITASKS - 1 || (i >= NITASKS + NMTASKS && i != NTASKS - 1))))
 					continue;
 				
 				XPRBrelation rel = s[a][i][sa[i][NTIMES]] == 1;
@@ -1424,10 +1431,15 @@ private:
 			int i, j;
 			if (x < NIP) // Normal precedence
 				tie(i, j) = IP[x];
-			else if (x < NIP + NMTASKS) // Finish installation before maintenance
+			else if (x < NIP + NMPTASKS) // Perform preventive maintenance tasks in order
+			{
+				i = x - NIP + NITASKS - 1;
+				j = x - NIP + NITASKS; 
+			}
+			else if (x < NIP + NMTASKS) // Finish installation before corrective maintenance can take place
 			{
 				i = NITASKS - 1;
-				j = x - NIP + NITASKS; 
+				j = x - NIP + NITASKS;
 			}
 			else
 			{
@@ -1491,32 +1503,64 @@ private:
 		for (int t = 0; t < NTIMES; ++t)
 			for (int a = 0; a < NASSETS; ++a)
 			{
-				XPRBrelation rel = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]] - s[a][NITASKS + NMTASKS][t];
+				if (sa[NITASKS - 1][t] < 0)
+				{
+					o[a][t].setUB(0);
+					continue;
+				}
+
+				XPRBrelation rel = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]] - s[a][NITASKS + NMTASKS][t] - f[a][t];
 
 				int indices[2] = { a, t };
 				genCon(prob, rel, "Act", 2, indices, cut);
 			}
 	}
 
-	void genBrokenConstraints(XPRBprob* prob, bool cut)
+	void genFailureConstraints(XPRBprob* prob, bool cut)
 	{
 		// Turbines can only be online if they're not broken
 		for (int t = 0; t < NTIMES; ++t)
 			for (int a = 0; a < NASSETS; ++a)
 			{
-				XPRBrelation rel = o[a][t] <= 0;
+				if (sa[NITASKS - 1][t] < 0)
+				{
+					f[a][t].setUB(0);
+					continue;
+				}
+
+				XPRBrelation rel = f[a][t] >= s[a][NITASKS - 1][sa[NITASKS - 1][t]] - s[a][NITASKS + NMTASKS][t];
 
 				for (int i = NITASKS - 1; i < NITASKS + NMTASKS; i++)
 				{
 					if (sa[i][t] > -1)
-						rel.addTerm(s[a][i][sa[i][t]], -1);
-					if (t - lambda[a] >= 0 && sa[i][t - lambda[a]] > -1)
-						rel.addTerm(s[a][i][sa[i][t - lambda[a]]]);
+						rel.addTerm(s[a][i][sa[i][t]]);
+					if (t - lambda[a][i] >= 0 && sa[i][t - lambda[a][i]] > -1)
+						rel.addTerm(s[a][i][sa[i][t - lambda[a][i]]], -1);
 				}
 
 				int indices[2] = { a, t };
-				genCon(prob, rel, "Bro", 2, indices, cut);
+				genCon(prob, rel, "Fai", 2, indices, cut);
 			}
+	}
+
+	void genCorrectiveConstraints(XPRBprob* prob, bool cut)
+	{
+		// Turbines can only be correctively repaired if they are broken
+		for (int t = 0; t < NTIMES; ++t)
+			for (int a = 0; a < NASSETS; ++a)
+				for (int i = NITASKS + NMPTASKS; i < NITASKS + NMTASKS; ++i)
+				{
+					if (t == 0)
+					{
+						s[a][i][t].setUB(0);
+						continue;
+					}
+
+					XPRBrelation rel = f[a][t-1] >= s[a][i][t] - s[a][i][t-1];
+
+					int indices[3] = { a, i, t };
+					genCon(prob, rel, "Cor", 3, indices, cut);
+				}
 	}
 
 	void genDowntimeConstraints(XPRBprob* prob, bool cut)
@@ -1554,7 +1598,8 @@ public:
 		genPrecedenceConstraints(prob, m->GetCurrentBySettingName("PreCuts") == 1);
 		genResourceConstraints(prob, m->GetCurrentBySettingName("ResCuts") == 1);
 		genActiveConstraints(prob, m->GetCurrentBySettingName("ActCuts") == 1);
-		genBrokenConstraints(prob, m->GetCurrentBySettingName("BroCuts") == 1);
+		genFailureConstraints(prob, m->GetCurrentBySettingName("FaiCuts") == 1);
+		genCorrectiveConstraints(prob, m->GetCurrentBySettingName("CorCuts") == 1);
 		genDowntimeConstraints(prob, m->GetCurrentBySettingName("DowCuts") == 1);
 	}
 
@@ -1576,8 +1621,10 @@ public:
 			genResourceConstraints(prob, false);
 		if (m->GetCurrentBySettingName("ActCuts") == 1)
 			genActiveConstraints(prob, false);
-		if (m->GetCurrentBySettingName("BroCuts") == 1)
-			genBrokenConstraints(prob, false);
+		if (m->GetCurrentBySettingName("FaiCuts") == 1)
+			genFailureConstraints(prob, false);
+		if (m->GetCurrentBySettingName("CorCuts") == 1)
+			genCorrectiveConstraints(prob, false);
 		if (m->GetCurrentBySettingName("DowCuts") == 1)
 			genDowntimeConstraints(prob, false);
 
