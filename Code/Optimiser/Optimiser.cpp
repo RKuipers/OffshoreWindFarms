@@ -17,7 +17,7 @@ using namespace ::dashoptimization;
 // Program settings
 #define SEED 42 * NTIMES
 #define WEATHERTYPE 1
-#define VERBOSITY 4		// The one to edit
+#define VERBOSITY 5		// The one to edit
 #define VERBMODE 1
 #define VERBSOL 2
 #define VERBINIT 3
@@ -1551,12 +1551,12 @@ private:
 
 					XPRBrelation rel = s[a][i][t] - s[a][i][t-1] <= 1;
 
-					for (int i = NITASKS - 1; i < NITASKS + NMTASKS; i++)
+					for (int j = NITASKS - 1; j < NITASKS + NMTASKS; j++)
 					{
-						if (sa[i][t] > -1)
-							rel.addTerm(s[a][i][sa[i][t]], -1);
-						if (t - lambda[a][i] >= 0 && sa[i][t - lambda[a][i]] > -1)
-							rel.addTerm(s[a][i][sa[i][t - lambda[a][i]]]);
+						if (sa[j][t] > -1)
+							rel.addTerm(s[a][j][sa[j][t]]);
+						if (t - lambda[a][j] >= 0 && sa[j][t - lambda[a][j]] > -1)
+							rel.addTerm(s[a][j][sa[j][t - lambda[a][j]]], -1);
 					}
 
 					int indices[3] = { a, i, t };
