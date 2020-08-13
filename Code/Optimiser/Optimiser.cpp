@@ -50,20 +50,21 @@ using namespace ::dashoptimization;
 #define MAXFULLTIME 300
 
 // Model settings
-#define PROBNAME "lifeTest"
+#define PROBNAME "lifeSimple"
 #define NPERIODS 7
-#define TPP 24 // Timesteps per Period
+#define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
 #define NITASKS 2
-#define NMPTASKS 5
-#define NMCTASKS 2
+#define NMPTASKS 1
+#define NMCTASKS 3
 #define NDTASKS 2
 #define NMTASKS NMPTASKS + NMCTASKS
 #define NTASKS NITASKS + NMTASKS + NDTASKS
 #define NIP 2
 #define NRES 2
 #define NASSETS 2
-#define DIS 0.99
+#define DIS 1.0
+#define OPTIMAL 280 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -1537,7 +1538,7 @@ private:
 
 	void genCorrectiveConstraints(XPRBprob* prob, bool cut)
 	{
-		double factor = 1 / NTASKS;
+		double factor = 1 / ((double)NTASKS);
 
 		// Turbines can only be correctively repaired if they are broken
 		for (int t = 0; t < NTIMES; ++t)

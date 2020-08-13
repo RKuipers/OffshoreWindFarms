@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.8)  11 AUG 2020 10:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.8)  13 AUG 2020 15:51
 entering extended mode
 **./models.tex
 (models.tex
@@ -983,7 +983,11 @@ thkerncmss.
 
 ] [16
 
-] [17
+]
+Overfull \vbox (0.69576pt too high) detected at line 421
+ []
+
+[17
 
 ] [18
 
@@ -1010,7 +1014,7 @@ Package rerunfilecheck Info: File `models.out' has not changed.
 Here is how much of TeX's memory you used:
  17416 strings out of 492895
  338814 string characters out of 3123736
- 426038 words of memory out of 3000000
+ 425929 words of memory out of 3000000
  20893 multiletter control sequences out of 15000+200000
  16137 words of font info for 59 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1038,7 +1042,7 @@ cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Robi
 n/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C
 :/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/sym
 bols/msbm7.pfb>
-Output written on models.pdf (19 pages, 307588 bytes).
+Output written on models.pdf (19 pages, 307911 bytes).
 PDF statistics:
  608 PDF objects out of 1000 (max. 8388607)
  39 named destinations out of 1000 (max. 500000)
