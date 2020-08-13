@@ -50,20 +50,21 @@ using namespace ::dashoptimization;
 #define MAXFULLTIME 300
 
 // Model settings
-#define PROBNAME "lifeMonth"
-#define NPERIODS 30
+#define PROBNAME "lifeWeek"
+#define NPERIODS 7
 #define TPP 24 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 5
+#define NITASKS 3
 #define NMPTASKS 1
-#define NMCTASKS 4
-#define NDTASKS 4
+#define NMCTASKS 3
+#define NDTASKS 3
 #define NMTASKS NMPTASKS + NMCTASKS
 #define NTASKS NITASKS + NMTASKS + NDTASKS
-#define NIP 7
+#define NIP 4
 #define NRES 3
-#define NASSETS 5
+#define NASSETS 2
 #define DIS 0.999972465
+#define OPTIMAL -442200 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -85,7 +86,7 @@ tuple<int, int> IP[NIP];
 XPRBvar N[NRES][NPERIODS];
 XPRBvar o[NASSETS][NTIMES];
 XPRBvar s[NASSETS][NTASKS][NTIMES];
-XPRBvar f[NASSETS][NTIMES];
+XPRBvar f[NASSETS][NTIMES];	// Auxiliary variable, impossible to do without
 
 class Mode 
 {
@@ -782,6 +783,10 @@ private:
 				printer(to_string(t) + ": "+ to_string(v), VERBSOL);
 			*file << "O_" << t << ": " << v << endl;
 		}
+
+		for (int t = 0; t < NTIMES; ++t)
+			for (int a = 0; a < NASSETS; ++a)
+				*file << "f_" << a << "_" << t << ": " << round(f[a][t].getSol()) << endl;
 	}
 
 	void printResources(ofstream* file)
