@@ -46,25 +46,24 @@ using namespace ::dashoptimization;
 #define MODEFIN 2
 #define MODETEST 1
 #define NMODES 512 * MODEFIN * MODETEST // 2^MODECUTS * MODEFIN * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
-#define MAXPRETIME 3000
-#define MAXFULLTIME 3000
+#define MAXPRETIME 300
+#define MAXFULLTIME 300
 
 // Model settings
-#define PROBNAME "lifeWeek"
+#define PROBNAME "lifeTest"
 #define NPERIODS 7
 #define TPP 24 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 3
-#define NMPTASKS 1
-#define NMCTASKS 3
-#define NDTASKS 3
+#define NITASKS 2
+#define NMPTASKS 5
+#define NMCTASKS 2
+#define NDTASKS 2
 #define NMTASKS NMPTASKS + NMCTASKS
 #define NTASKS NITASKS + NMTASKS + NDTASKS
-#define NIP 4
-#define NRES 3
+#define NIP 2
+#define NRES 2
 #define NASSETS 2
-#define DIS 0.999972465
-#define OPTIMAL -442200 // The optimal solution, if known
+#define DIS 0.99
 
 // Weather characteristics
 int base = 105;
@@ -1538,6 +1537,8 @@ private:
 
 	void genCorrectiveConstraints(XPRBprob* prob, bool cut)
 	{
+		double factor = 1 / NTASKS;
+
 		// Turbines can only be correctively repaired if they are broken
 		for (int t = 0; t < NTIMES; ++t)
 			for (int a = 0; a < NASSETS; ++a)
@@ -1554,9 +1555,9 @@ private:
 					for (int j = NITASKS - 1; j < NITASKS + NMTASKS; j++)
 					{
 						if (sa[j][t] > -1)
-							rel.addTerm(s[a][j][sa[j][t]]);
+							rel.addTerm(s[a][j][sa[j][t]], factor);
 						if (t - lambda[a][j] >= 0 && sa[j][t - lambda[a][j]] > -1)
-							rel.addTerm(s[a][j][sa[j][t - lambda[a][j]]], -1);
+							rel.addTerm(s[a][j][sa[j][t - lambda[a][j]]], -factor);
 					}
 
 					int indices[3] = { a, i, t };
