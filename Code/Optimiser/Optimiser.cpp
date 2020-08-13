@@ -17,7 +17,7 @@ using namespace ::dashoptimization;
 // Program settings
 #define SEED 42 * NTIMES
 #define WEATHERTYPE 1
-#define VERBOSITY 3		// The one to edit
+#define VERBOSITY 4		// The one to edit
 #define VERBMODE 1
 #define VERBSOL 2
 #define VERBINIT 3
@@ -46,8 +46,8 @@ using namespace ::dashoptimization;
 #define MODEFIN 2
 #define MODETEST 1
 #define NMODES 512 * MODEFIN * MODETEST // 2^MODECUTS * MODEFIN * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
-#define MAXPRETIME 300
-#define MAXFULLTIME 300
+#define MAXPRETIME 3000
+#define MAXFULLTIME 3000
 
 // Model settings
 #define PROBNAME "lifeWeek"
@@ -86,7 +86,6 @@ tuple<int, int> IP[NIP];
 XPRBvar N[NRES][NPERIODS];
 XPRBvar o[NASSETS][NTIMES];
 XPRBvar s[NASSETS][NTASKS][NTIMES];
-XPRBvar f[NASSETS][NTIMES];	// Auxiliary variable, impossible to do without
 
 class Mode 
 {
@@ -783,10 +782,6 @@ private:
 				printer(to_string(t) + ": "+ to_string(v), VERBSOL);
 			*file << "O_" << t << ": " << v << endl;
 		}
-
-		for (int t = 0; t < NTIMES; ++t)
-			for (int a = 0; a < NASSETS; ++a)
-				*file << "f_" << a << "_" << t << ": " << round(f[a][t].getSol()) << endl;
 	}
 
 	void printResources(ofstream* file)
@@ -1357,7 +1352,6 @@ private:
 			for (int a = 0; a < NASSETS; ++a)
 			{
 				o[a][t] = prob->newVar(("o_" + to_string(a) + "_" + to_string(t)).c_str(), XPRB_BV); 
-				f[a][t] = prob->newVar(("f_" + to_string(a) + "_" + to_string(t)).c_str(), XPRB_BV);
 
 				for (int i = 0; i < NTASKS; ++i)
 					s[a][i][t] = prob->newVar(("s_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
@@ -1514,7 +1508,7 @@ private:
 					continue;
 				}
 
-				XPRBrelation rel = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]] - s[a][NITASKS + NMTASKS][t] - f[a][t];
+				XPRBrelation rel = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]] - s[a][NITASKS + NMTASKS][t];
 
 				int indices[2] = { a, t };
 				genCon(prob, rel, "Act", 2, indices, cut);
@@ -1527,20 +1521,14 @@ private:
 		for (int t = 0; t < NTIMES; ++t)
 			for (int a = 0; a < NASSETS; ++a)
 			{
-				if (sa[NITASKS - 1][t] < 0)
-				{
-					f[a][t].setUB(0);
-					continue;
-				}
-
-				XPRBrelation rel = f[a][t] >= s[a][NITASKS - 1][sa[NITASKS - 1][t]] - s[a][NITASKS + NMTASKS][t];
+				XPRBrelation rel = o[a][t] <= 0;
 
 				for (int i = NITASKS - 1; i < NITASKS + NMTASKS; i++)
 				{
 					if (sa[i][t] > -1)
-						rel.addTerm(s[a][i][sa[i][t]]);
+						rel.addTerm(s[a][i][sa[i][t]], -1);
 					if (t - lambda[a][i] >= 0 && sa[i][t - lambda[a][i]] > -1)
-						rel.addTerm(s[a][i][sa[i][t - lambda[a][i]]], -1);
+						rel.addTerm(s[a][i][sa[i][t - lambda[a][i]]]);
 				}
 
 				int indices[2] = { a, t };
@@ -1561,7 +1549,15 @@ private:
 						continue;
 					}
 
-					XPRBrelation rel = f[a][t-1] >= s[a][i][t] - s[a][i][t-1];
+					XPRBrelation rel = s[a][i][t] - s[a][i][t-1] <= 1;
+
+					for (int i = NITASKS - 1; i < NITASKS + NMTASKS; i++)
+					{
+						if (sa[i][t] > -1)
+							rel.addTerm(s[a][i][sa[i][t]], -1);
+						if (t - lambda[a][i] >= 0 && sa[i][t - lambda[a][i]] > -1)
+							rel.addTerm(s[a][i][sa[i][t - lambda[a][i]]]);
+					}
 
 					int indices[3] = { a, i, t };
 					genCon(prob, rel, "Cor", 3, indices, cut);
