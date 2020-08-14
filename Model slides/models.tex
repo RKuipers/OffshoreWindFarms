@@ -6,6 +6,9 @@
 \usetheme{Madrid}
 %\usetheme{Warsaw}
 
+\newcounter{expl}
+\newcommand{\expl}{\refstepcounter{expl} (\theexpl) }
+
 \title[Initial models for optimisation]{Initial models for optimisation}
 
 \author{R. Kuipers}
@@ -25,10 +28,7 @@
 	s_{ait} \in \{0, 1\}}} 
 	\sum_{p \in P} [ DIS^p (O_p \cdot v_p - \sum_{r \in R} N_{rp} \cdot C_{rp}) ]
 \end{equation}
-
-\bigskip
 subject to:
-
 \begin{align}
 s_{ait} \leq& s_{ai(t+1)}											&	\forall a \in A, \forall i \in I, \forall t \in T				\\
 s_{ai\sigma_{it_N}} \geq& 1										&	\forall a \in A, \forall i \in I						\\
@@ -41,13 +41,13 @@ N_{rp} \leq& m_{rp}											& 	\forall r \in R, \forall p \in P
 \end{frame}
 
 \begin{frame}{Installation Model Explanation}
-(1) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
-(2) Makes every task that is started stay started 	\\
-(3) Forces every task to be starded and finished by the final timestep	\\
-(4) For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
-(5) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
-(6) Counts the number of turbines which finished installing by the end of a period	\\
-(7) Sets a limit on the amount of vessels that can be charatered in a given period
+\expl Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
+\expl Makes every task that is started stay started 	\\
+\expl Forces every task to be starded and finished by the final timestep	\\
+\expl For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
+\expl Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
+\expl Counts the number of turbines which finished installing by the end of a period	\\
+\expl Sets a limit on the amount of vessels that can be charatered in a given period
 \end{frame}
 
 \begin{frame}{Notation overview}
@@ -59,7 +59,7 @@ Sets:
 \begin{itemize}
 \item $P$: All time periods (large scale)
 \item $T$: All time intervals (small scale) [$t_0, \dots , t_N$]
-\item $T_p \in T$: All time intervals (small scale) in period $p$
+\item $T_p \subset T$: All time intervals (small scale) in period $p$
 \item $R$: All resources
 \item $I$:  All tasks per asset [$1, \dots , i_N$]
 \item $IP$: All precedency pairs ($i$, $j$)
@@ -101,11 +101,7 @@ Parameters:
 	s_{ait}, b_{at} \in \{0, 1\}}} 
 	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
 \end{equation}
-
-\bigskip
-
 subject to:
-
 \begin{align}
 s_{ait} \leq& s_{ai(t+1)}													&	\forall a \in A, \forall i \in M, \forall t \in T	\\
 s_{ai\sigma_{it_N}} \geq& 1												&	\forall a \in A, \forall i \in M^M			\\		
@@ -118,13 +114,13 @@ N_{rp} \leq& m_{rp}													&	 \forall r \in R, \forall p \in P
 \end{frame}
 
 \begin{frame}{Maintenance  Model Explanation}
-(8) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
-(9) Makes every task that is finished stay finished 	\\
-(10) Forces every mandatory maintenance task to be done at some point	\\
-(11) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
-(12) If no maintenance tasks have finished in the past $\lambda_a$ timesteps this asset is broken	\\
-(13) The number of active (online) turbines is equal to everything that isn't broken \\
-(14) Sets a limit on the amount of vessels that can be charatered in a given period
+\expl Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
+\expl Makes every task that is finished stay finished 	\\
+\expl Forces every mandatory maintenance task to be done at some point	\\
+\expl Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
+\expl If no maintenance tasks have finished in the past $\lambda_a$ timesteps this asset is broken	\\
+\expl The number of active (online) turbines is equal to everything that isn't broken \\
+\expl Sets a limit on the amount of vessels that can be charatered in a given period
 \end{frame}
 
 \begin{frame}{Notation overview}
@@ -136,7 +132,7 @@ Sets:
 \begin{itemize}
 \item $P$: All time periods (large scale)
 \item $T$: All time intervals (small scale) [$t_0, \dots , t_N$]
-\item $T_p \in T$: All time intervals (small scale) in period $p$
+\item $T_p \subset T$: All time intervals (small scale) in period $p$
 \item $R$: All resources
 \item $A$: All assets
 \item $M = M^M \cup M^O$: All (mandatory and optional) maintenance tasks
@@ -175,36 +171,32 @@ Parameters:
 \scriptsize
 
 \begin{equation}
-	\max_{\substack{O_t, N_{rp} \in \mathbb{Z}^* \\ 
+	\max_{\substack{N_{rp} \in \mathbb{Z}^* \\ 
 	s_{ait}, o_{at} \in \{0, 1\}}} 
-	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
+	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p}\sum_{a \in A} (o_{at} \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
 \end{equation}
-
-\bigskip
-
 subject to:
-
 \begin{align}
 s_{ait} \leq& s_{ai(t+1)}																	& \forall a \in A, \forall i \in \mathcal{I}, \forall t \in T	\\
 s_{ai\sigma_{it_N}} \geq& 1																& \forall a \in A, \forall i \in I\cup M^M			\\
 s_{ajt} \leq& s_{ai\sigma_{it}}																& \forall a \in A, \forall (i, j) \in IP, \forall t \in T 	\\
 N_{rp} \geq& \sum_{a\in A} \sum_{i\in \mathcal{I}} (\rho_{ir} \cdot (s_{ait} - s_{ai\sigma_{it}})) 						& \forall r \in R, \forall p \in P, \forall t \in T_p 		\\
-o_{at} \leq& \frac{1}{2} \cdot (s_{ai_N\sigma_{i_Nt}} + \sum_{i \in M \cup \{i_N\}} [s_{ai\sigma_{it}} - s_{ai\sigma_{i(t-\lambda_a)}}])	& \forall a \in A, \forall t \in T			\\
-O_t =& \sum_{a \in A} o_{at}																& \forall t \in T 						\\
+o_{at} \leq& s_{ai_N\sigma_{i_Nt}}															& \forall a \in A, \forall t \in T			\\
+o_{at} \leq& \sum_{i \in M \cup \{i_N\}} [s_{ai\sigma_{it}} - s_{ai\sigma_{i(t-\lambda_a)}}]							& \forall a \in A, \forall t \in T			\\
 N_{rp} \leq& m_{rp}																	& \forall r \in R, \forall p \in P
 \end{align}
 
 \end{frame}
 
 \begin{frame}{2-Mixed Model Explanation}
-(15) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
-(16) Makes every task that is started stay started 	\\
-(17) Forces every installation and mandatory maintenance task to be starded and finished by the final timestep	\\
-(18) For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
-(19) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
-(20) Sets an asset to be online if it installed and had work done on it recently \\
-(21) Counts how many assets are online \\
-(22) Sets a limit on the amount of vessels that can be charatered in a given period
+\expl Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
+\expl Makes every task that is started stay started 	\\
+\expl Forces every installation and mandatory maintenance task to be starded and finished by the final timestep	\\
+\expl For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
+\expl Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
+\expl An asset can only be online if it finished installation \\
+\expl An asset can only be online if it had work done on it recently enough \\
+\expl Sets a limit on the amount of vessels that can be charatered in a given period
 \end{frame}
 
 \begin{frame}{Notation overview}
@@ -216,7 +208,7 @@ Sets:
 \begin{itemize}
 \item $P$: All time periods (large scale)
 \item $T$: All time intervals (small scale) [$t_0, \dots , t_N$]
-\item $T_p \in T$: All time intervals (small scale) in period $p$
+\item $T_p \subset T$: All time intervals (small scale) in period $p$
 \item $R$: All resources
 \item $I$: All installation tasks per asset [$1, \dots , i_N$]
 \item $M = M^M \cup M^O$: all mandatory and optional maintenance tasks
@@ -227,7 +219,6 @@ Sets:
 
 Decision variables:
 \begin{itemize}
-\item $O_{t}$: Number of online turbines at timestep $t$
 \item $o_{at}$: Binary variable, 1 if asset $a$ is online at timestep $t$
 \item $N_{rp}$: Number of resources $r$ used in period $p$
 \item $s_{ait}$: Binary variable, 1 if task $i \in \mathcal{I}$ for asset $a$ has started at or before time $t$
@@ -257,33 +248,28 @@ Parameters:
 \begin{frame}{Initial model for decommission}
 \scriptsize
 \begin{equation}
-	\max_{\substack{O_t, N_{rp} \in \mathbb{Z}^* \\ 
-	s_{ait}, o_{at} \in \{0, 1\}}} 
-	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
+	\max_{\substack{N_{rp} \in \mathbb{Z}^* \\ 
+	s_{ait} \in \{0, 1\}}} 
+	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p} \sum_{a \in A} ((1 - s_{ai_0t}) \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
 \end{equation}
-
-\bigskip
 subject to:
-
 \begin{align}
 s_{ait} \leq& s_{ai(t+1)}											&	\forall a \in A, \forall i \in D, \forall t \in T			\\
 s_{ai\sigma_{it_N}} \geq& 1										&	\forall a \in A, \forall i \in D						\\
 s_{ajt} \leq& s_{ai\sigma_{it}}										&	\forall a \in A, \forall (i, j) \in IP, \forall t \in T 			\\
 N_{rp} \geq& \sum_{a \in A}\sum_{i\in I} (\rho_{ir} \cdot (s_{ait} - s_{ai\sigma_{it}}))		& 	\forall r \in R, \forall p \in P, \forall t \in T_p			\\
-O_t =&  \sum_{a \in A} (1 - s_{ai_0t} )									& 	\forall t \in T								\\
 N_{rp} \leq& m_{rp}											& 	\forall r \in R, \forall p \in P
 \end{align}
 
 \end{frame}
 
 \begin{frame}{Installation Model Explanation}
-(23) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
-(24) Makes every task that is started stay started 	\\
-(25) Forces every task to be starded and finished by the final timestep	\\
-(26) For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
-(27) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
-(28) Counts the number of turbines which have not started decomissioning by a given timestep	\\
-(29) Sets a limit on the amount of vessels that can be charatered in a given period
+\expl Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
+\expl Makes every task that is started stay started 	\\
+\expl Forces every task to be starded and finished by the final timestep	\\
+\expl For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
+\expl Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished	\\
+\expl Sets a limit on the amount of vessels that can be charatered in a given period
 \end{frame}
 
 \begin{frame}{Notation overview}
@@ -295,7 +281,7 @@ Sets:
 \begin{itemize}
 \item $P$: All time periods (large scale)
 \item $T$: All time intervals (small scale) [$t_0, \dots , t_N$]
-\item $T_p \in T$: All time intervals (small scale) in period $p$
+\item $T_p \subset T$: All time intervals (small scale) in period $p$
 \item $R$: All resources
 \item $D$:  All tasks per asset [$i_0, \dots , i_N$]
 \item $IP$: All precedency pairs ($i$, $j$)
@@ -304,7 +290,6 @@ Sets:
 
 Decision variables:
 \begin{itemize}
-\item $O_{t}$: Number of online turbines at timestep $t$
 \item $N_{rp}$: Number of resources $r$ used in period $p$
 \item $s_{ait}$: Binary variable, 1 if task $i \in I$ for asset $a$ has started at or before time $t$
 \end{itemize}
@@ -334,39 +319,35 @@ Parameters:
 \scriptsize
 
 \begin{equation}
-	\max_{\substack{O_t, N_{rp} \in \mathbb{Z}^* \\ 
+	\max_{\substack{N_{rp} \in \mathbb{Z}^* \\ 
 	s_{ait}, o_{at} \in \{0, 1\}}} 
-	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p} (O_t \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
+	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p} \sum_{a \in A} (o_{at} \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
 \end{equation}
-
-\bigskip
-
 subject to:
-
 \begin{align}
-s_{ait} \leq& s_{ai(t+1)}																	& \forall a \in A, \forall i \in \mathcal{I}, \forall t \in T	\\
-s_{ai\sigma_{it_N}} \geq& 1																& \forall a \in A, \forall i \in \mathcal{I} - M^O		\\
-s_{ajt} \leq& s_{ai\sigma_{it}}																& \forall a \in A, \forall (i, j) \in IP, \forall t \in T 	\\
-m_{rp} \geq N_{rp} \geq& \sum_{a\in A} \sum_{i\in \mathcal{I}} (\rho_{ir} \cdot (s_{ait} - s_{ai\sigma_{it}})) 				& \forall r \in R, \forall p \in P, \forall t \in T_p 		\\
-o_{at} \leq& s_{ai^I_N\sigma_{i^I_Nt}} - s_{ai^D_0t}												& \forall a \in A, \forall t \in T				\\
-o_{at} \leq& \sum_{i \in M \cup \{i^I_N\}} (s_{ai\sigma_{it}} - s_{ai\sigma_{i(t-\lambda_a)}})						& \forall a \in A, \forall t \in T				\\
-o_{at} \leq& 1 + s_{ai\sigma_{it}} - s_{ait}														& \forall i \in M, \forall a \in A, \forall t \in T		\\
-O_t =& \sum_{a \in A} o_{at}																& \forall t \in T 						
+s_{ait} \leq& s_{ai(t+1)}															& \forall a \in A, \forall i \in \mathcal{I}, \forall t \in T		\\
+s_{ai\sigma_{it_N}} \geq& 1														& \forall a \in A, \forall i \in \mathcal{I} - M^O			\\
+s_{ai^D_0t} - 1 \leq& s_{ai\sigma_{it}} - s_{ait}											& \forall a \in A, \forall i \in \mathcal{I} - D, \forall t \in T	\\
+s_{ajt} \leq& s_{ai\sigma_{it}}														& \forall a \in A, \forall (i, j) \in IP, \forall t \in T 		\\
+m_{rp} \geq N_{rp} \geq& \sum_{a\in A} \sum_{i\in \mathcal{I}} (\rho_{ir} \cdot (s_{ait} - s_{ai\sigma_{it}})) 		& \forall r \in R, \forall p \in P, \forall t \in T_p 			\\
+o_{at} \leq& s_{ai^I_N\sigma_{i^I_Nt}} - s_{ai^D_0t}										& \forall a \in A, \forall t \in T					\\
+o_{at} \leq& \sum_{i \in M \cup \{i^I_N\}} (s_{ai\sigma_{it}} - s_{ai\sigma_{i(t-\lambda_a)}})				& \forall a \in A, \forall t \in T					\\
+o_{at} \leq& 1 + s_{ai\sigma_{it}} - s_{ait}												& \forall a \in A, \forall i \in M, \forall t \in T		
 \end{align}
 
 \end{frame}
 
 \begin{frame}{3-Mixed Model Explanation}
 \small
-(30) Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
-(31) Makes every task that is started stay started 	\\
-(32) Forces every installation and mandatory maintenance task to be starded and finished by the final timestep	\\
-(33) For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
-(34) Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished. It also sets a limit on the amount of vessels that can be charatered in a given period	\\
-(35) An asset can only be online if installation is complete and decomission has not started yet \\
-(36) An asset can only be online if it had maintenance done recently (or only completed installation recently) \\
-(37) Ensures an asset if offline is maintenance work is going on at this moment \\
-(38) Counts how many assets are online
+\expl Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor	\\
+\expl Makes every task that is started stay started 	\\
+\expl Forces every installation and mandatory maintenance task to be started and finished by the final timestep	\\
+\expl Ensures every non-decommission task is inactive during decomission \\
+\expl For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
+\expl Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished. It also sets a limit on the amount of vessels that can be charatered in a given period	\\
+\expl An asset can only be online if installation is complete and decomission has not started yet \\
+\expl An asset can only be online if it had maintenance done recently (or only completed installation recently) \\
+\expl Ensures an asset if offline is maintenance work is going on at this moment 
 \end{frame}
 
 \begin{frame}{Notation overview}
@@ -378,19 +359,18 @@ Sets:
 \begin{itemize}
 \item $P$: All time periods (large scale)
 \item $T$: All time intervals (small scale) [$t_0, \dots , t_N$]
-\item $T_p \in T$: All time intervals (small scale) in period $p$
+\item $T_p \subset T$: All time intervals (small scale) in period $p$
 \item $R$: All resources
 \item $I$: All installation tasks per asset [$i^I_0, \dots , i^I_N$]
 \item $M = M^M \cup M^O$: all mandatory and optional maintenance tasks
 \item $D$: All decomission tasks per asset [$i^D_0, \dots , i^D_N$]
 \item $\mathcal{I} = I \cup M \cup D$: All tasks
-\item $IP$: All precedency pairs ($i$, $j$)
+\item $IP$: All precedency pairs ($i$, $j$). Includes relations stating that the final installation task is finished before maintenance and decomission are started. 
 \item $A$: All assets
 \end{itemize}
 
 Decision variables:
 \begin{itemize}
-\item $O_{t}$: Number of online turbines at timestep $t$
 \item $o_{at}$: Binary variable, 1 if asset $a$ is online at timestep $t$
 \item $N_{rp}$: Number of resources $r$ used in period $p$
 \item $s_{ait}$: Binary variable, 1 if task $i \in \mathcal{I}$ for asset $a$ has started at or before time $t$
@@ -406,9 +386,98 @@ Parameters:
 \item $v_t$: The value of energy a single turbine produces at timestep $t$
 \item $C_{rp}$: The cost of chartering resource $r$ in period $p$
 \item $\lambda_a$: The number of timesteps after the last maintenance before asset $a$ fails
-\item $\sigma_{it}$: Indicates the timestep at which task $i$ should have been started for it to be finished by timestep $t$, taking into account the duration and the weather conditions
+\item $\sigma_{it}$: Indicates the timestep at which task $i$ should have been started for it to be finished by timestep $t$, generated duration and the weather conditions
 \item $\rho_{ir}$: The amount of resource $r$ used for task $i \in \mathcal{I}$
 \item $m_{rp}$: The maximum amount of resources $r$ that can be charatered in period $p$
+\end{itemize}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+%------------------------------------------------------------------CORRECTIVE-----------------------------------------------------------------------
+
+\begin{frame}{Initial Corrective model} %TODO: Check
+\scriptsize
+
+\begin{equation}
+	\max_{\substack{N_{rp} \in \mathbb{Z}^* \\ 
+	s_{ait}, o_{at} \in \{0, 1\}}} 
+	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p} \sum_{a \in A} (o_{at} \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
+\end{equation}
+subject to:
+\begin{align}
+s_{ait} \leq& s_{ai(t+1)}															& \forall a \in A, \forall i \in \mathcal{I}, \forall t \in T		\\
+s_{ai\sigma_{it_N}} \geq& 1														& \forall a \in A, \forall i \in \mathcal{I} - M^C			\\
+s_{ai^D_0t} - 1 \leq& s_{ai\sigma_{it}} - s_{ait}											& \forall a \in A, \forall i \in \mathcal{I} - D, \forall t \in T	\\
+s_{ajt} \leq& s_{ai\sigma_{it}}														& \forall a \in A, \forall (i, j) \in IP, \forall t \in T 		\\
+m_{rp} \geq& N_{rp} \geq \sum_{a\in A} \sum_{i\in \mathcal{I}} (\rho_{ir} \cdot (s_{ait} - s_{ai\sigma_{it}})) 		& \forall r \in R, \forall p \in P, \forall t \in T_p 			\\
+o_{at} \leq& s_{ai^I_N\sigma_{i^I_Nt}} - s_{ai^D_0t}										& \forall a \in A, \forall t \in T					\\
+o_{at} \leq& \sum_{i \in M \cup \{i^I_N\}} (s_{ai\sigma_{it}} - s_{ai\sigma_{i(t-\lambda_{ai})}})				& \forall a \in A, \forall t \in T	\\
+s_{ait} - s_{ai(t-1)} \leq& 1 - \sum_{j \in M \cup \{i^I_N\}} \frac{(s_{aj\sigma_{jt}} - s_{aj\sigma_{j(t-\lambda_{aj})}})}{L}		& \forall a \in A, \forall i \in M^C, \forall t \in T 	\\
+o_{at} \leq& 1 + s_{ai\sigma_{it}} - s_{ait}												& \forall a \in A, \forall i \in M, \forall t \in T		
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Corrective Model Explanation}
+\footnotesize
+\expl Objective function, sums up profits from energy made, subtracts money used on resources (vessels), and multiplies it all with a discount factor \\
+\expl Makes every task that is started stay started 	\\
+\expl Forces every installation and preventive maintenance task to be started and finished by the final timestep \\
+\expl Ensures every non-decommission task is inactive during decomission \\
+\expl For every precedence relation $(i, j)$, ensures that $i$ is finished before $j$ is started 	\\
+\expl Counts up the resources needed in a time period by adding the resources needed by all tasks started, and subtracting the resources needed by all tasks finished. It also sets a limit on the amount of vessels that can be charatered in a given period	\\
+\expl An asset can only be online if installation is complete, decomission has not started yet, and it isn't in a failure state \\
+\expl An asset is in a failure state if installation is complete, decomission has not started yet, and it has not gotten maintained recently enough  \\
+\expl A corrective maintenance task can only be started if the asset is in a failure state (division by $L$ means any number of tasks can have been recent enough for their time to matter) \\
+\expl Ensures an asset if offline is maintenance work is going on at this moment 
+\end{frame}
+
+\begin{frame}{Notation overview}
+\tiny
+
+\begin{columns}
+\begin{column}{.48\textwidth}
+Sets:
+\begin{itemize}
+\item $P$: All time periods (large scale)
+\item $T$: All time intervals (small scale) [$t_0, \dots , t_N$]
+\item $T_p \subset T$: All time intervals (small scale) in period $p$
+\item $R$: All resources
+\item $I$: All installation tasks per asset [$i^I_0, \dots , i^I_N$]
+\item $M = M^P \cup M^C$: all preventive and corrective maintenance tasks
+\item $D$: All decomission tasks per asset [$i^D_0, \dots , i^D_N$]
+\item $\mathcal{I} = I \cup M \cup D$: All tasks
+\item $IP$: All precedency pairs ($i$, $j$). Includes relations stating that the final installation task is finished before maintenance and decomission are started. 
+\item $A$: All assets
+\end{itemize}
+
+Decision variables:
+\begin{itemize}
+\item $o_{at}$: Binary variable, 1 if asset $a$ is online at timestep $t$
+\item $N_{rp}$: Number of resources $r$ used in period $p$
+\item $s_{ait}$: Binary variable, 1 if task $i \in \mathcal{I}$ for asset $a$ has started at or before time $t$
+\end{itemize}
+\end{column}
+
+\hfill
+
+\begin{column}{.48\textwidth}
+Deterministic parameters:
+\begin{itemize}
+\item $DIS$: The discount factor per time period
+\item $C_{rp}$: The cost of chartering resource $r$ in period $p$
+\item $\rho_{ir}$: The amount of resource $r$ used for task $i \in \mathcal{I}$
+\item $m_{rp}$: The maximum amount of resources $r$ that can be charatered in period $p$
+\item $L$: A large number (at least $|M|+1$)
+\end{itemize}
+
+Stochastic parameters:
+\begin{itemize}
+\item $v_t$: The value of energy a single turbine produces at timestep $t$
+\item $\lambda_{ai}$: The number of timesteps after the last maintenance before asset $a$ fails
+\item $\sigma_{it}$: Indicates the timestep at which task $i$ should have been started for it to be finished by timestep $t$, generated based on duration and the weather conditions (stochastic based on those)
 \end{itemize}
 \end{column}
 \end{columns}
