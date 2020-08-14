@@ -50,21 +50,21 @@ using namespace ::dashoptimization;
 #define MAXFULLTIME 300
 
 // Model settings
-#define PROBNAME "lifeSimple"
+#define PROBNAME "lifeWeek"
 #define NPERIODS 7
-#define TPP 4 // Timesteps per Period
+#define TPP 24 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 2
+#define NITASKS 3
 #define NMPTASKS 1
 #define NMCTASKS 3
-#define NDTASKS 2
+#define NDTASKS 3
 #define NMTASKS NMPTASKS + NMCTASKS
 #define NTASKS NITASKS + NMTASKS + NDTASKS
-#define NIP 2
-#define NRES 2
+#define NIP 4
+#define NRES 3
 #define NASSETS 2
-#define DIS 1.0
-#define OPTIMAL 280 // The optimal solution, if known
+#define DIS 0.999972465
+#define OPTIMAL -442200 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
