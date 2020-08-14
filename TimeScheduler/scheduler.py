@@ -53,11 +53,11 @@ class Settings:
     g = 4.0
     
     def __init__(self):
-        self.lows = Settings.dl
-        self.highs = Settings.dh
+        self.lows = Settings.dl.copy()
+        self.highs = Settings.dh.copy()
         self.target = Settings.targets.get(3)
-        self.weights = Settings.dw
-        self.norms = Settings.nm
+        self.weights = Settings.dw.copy()
+        self.norms = Settings.nm.copy()
         self.mins = Settings.md
         self.mlr = Settings.mlr
         self.mhr = Settings.mhr
@@ -68,13 +68,13 @@ class Settings:
         self.g = Settings.g
         
     def setRanges(self, lows: list, highs: list, startIndex: int = 0) -> None:
-        self.lows[startIndex:] = lows
-        self.highs[startIndex:] = highs
+        self.lows[startIndex:] = lows.copy()
+        self.highs[startIndex:] = highs.copy()
         
     def setFullRanges(self, lows: list, highs: list, norms: list, startIndex: int = 0) -> None:
-        self.lows[startIndex:] = lows
-        self.highs[startIndex:] = highs
-        self.norms[startIndex:] = norms
+        self.lows[startIndex:] = lows.copy()
+        self.highs[startIndex:] = highs.copy()
+        self.norms[startIndex:] = norms.copy()
         
     def setRange(self, index: int, low: int, high: int) -> None:
         self.lows[index] = low
