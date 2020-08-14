@@ -51,3 +51,9 @@ Code/Optimiser/install.sol
 Code/Optimiser/~$SolutionChecker.xlsx
 Code/Optimiser/~$RowCol calcs.xlsx
 *.sol
+Code/Optimiser/Output files/lifeSimpleModes.csv
+Code/Optimiser/Output files/lifeSimpleSettings.csv
+Code/Optimiser/Output files/lifeSimpleSubmodes.csv
+Code/Optimiser/Output files/lifeWeekModes.csv
+Code/Optimiser/Output files/lifeWeekSettings.csv
+Code/Optimiser/Output files/lifeWeekSubmodes.csv
