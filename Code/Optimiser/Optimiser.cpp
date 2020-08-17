@@ -45,9 +45,9 @@ using namespace ::dashoptimization;
 #define NMODETYPES 4
 #define MODECUTS 9
 #define MODEFIN 2
-#define MODETUNE 2
+//#define MODETUNE 2
 #define MODETEST 2
-#define NMODES 512 * MODEFIN * MODETUNE * MODETEST // 2^MODECUTS * MODEFIN * MODETUNE * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
+#define NMODES 512 * MODEFIN * MODETEST // 2^MODECUTS * MODEFIN * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
 #define MAXPRETIME 70
 #define MAXFULLTIME 70
 
