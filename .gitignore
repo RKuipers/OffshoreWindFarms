@@ -57,3 +57,5 @@ Code/Optimiser/Output files/lifeWeekModes.csv
 Code/Optimiser/Output files/lifeSimpleSubmodes.csv
 Code/Optimiser/Output files/lifeSimpleSettings.csv
 Code/Optimiser/Output files/lifeSimpleModes.csv
+*.log
+*.xtr

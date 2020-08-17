@@ -17,7 +17,7 @@ using namespace ::dashoptimization;
 // Program settings
 #define SEED 42 * NTIMES
 #define WEATHERTYPE 1
-#define VERBOSITY 1		// The one to edit
+#define VERBOSITY 2		// The one to edit
 #define VERBMODE 1
 #define VERBSOL 2
 #define VERBINIT 3
@@ -34,38 +34,39 @@ using namespace ::dashoptimization;
 //#define LOCKMODE "SetFinFaiDowCuts FinAll TEST0" 
 //#define LOCKDIM "SetCuts"		// Current best: SetFinFaiDowCuts, SetOrdResBroCuts
 #define LOCKSET 1	// 1 Strong
-//#define LOCKORD 1	// 0 Strong
-//#define LOCKFIN	// 1 Strong
-//#define LOCKPRE 0	// 0 Strong
-//#define LOCKRES 1	// 1 Medium (test more)
+#define LOCKORD 0	// 0 Strong
+#define LOCKFIN	1	// 1 Strong
+#define LOCKPRE 0	// 0 Strong
+#define LOCKRES 1	// 1 Medium (test more)
 #define LOCKACT 0	// 0 Strong
 #define LOCKFAI 1	// 1 Strong
-//#define LOCKCOR	// 0 Medium-Strong
-//#define LOCKDOW	// 1 Medium (test more)
-#define NMODETYPES 3
+#define LOCKCOR	0	// 0 Medium-Strong
+#define LOCKDOW	1	// 1 Medium (test more)
+#define NMODETYPES 4
 #define MODECUTS 9
 #define MODEFIN 2
-#define MODETEST 1
-#define NMODES 512 * MODEFIN * MODETEST // 2^MODECUTS * MODEFIN * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
-#define MAXPRETIME 90
-#define MAXFULLTIME 90
+#define MODETUNE 2
+#define MODETEST 2
+#define NMODES 512 * MODEFIN * MODETUNE * MODETEST // 2^MODECUTS * MODEFIN * MODETUNE * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
+#define MAXPRETIME 70
+#define MAXFULLTIME 70
 
 // Model settings
-#define PROBNAME "lifeSimple"
+#define PROBNAME "lifeWeek"
 #define NPERIODS 7
-#define TPP 4 // Timesteps per Period
+#define TPP 24 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 2
+#define NITASKS 3
 #define NMPTASKS 1
 #define NMCTASKS 3
-#define NDTASKS 2
+#define NDTASKS 3
 #define NMTASKS NMPTASKS + NMCTASKS
 #define NTASKS NITASKS + NMTASKS + NDTASKS
-#define NIP 2
-#define NRES 2
+#define NIP 4
+#define NRES 3
 #define NASSETS 2
-#define DIS 1.0
-#define OPTIMAL 280 // The optimal solution, if known
+#define DIS 0.999972465
+#define OPTIMAL -441660 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -701,6 +702,10 @@ Mode Mode::Init()
 	string names2[MODEFIN] = { "FinAll", "FinMin" };
 	mode.AddDim(MODEFIN, names2);
 #endif // MODEFIN
+
+#ifdef MODETUNE
+	mode.AddDim(MODETUNE, "Tune");
+#endif // MODETUNE
 
 #ifdef MODETEST
 	mode.AddDim(MODETEST, "TEST");
@@ -1648,6 +1653,7 @@ public:
 
 		clock_t start = clock();
 
+
 		if (maxTime != 0)
 		{
 			XPRBloadmat(prob->getCRef());
@@ -1657,6 +1663,7 @@ public:
 
 		prob->setSense(XPRB_MAXIM);
 		prob->exportProb(XPRB_LP, (OUTPUTFOLDER + name).c_str());
+
 		prob->mipOptimize("");
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
@@ -1711,6 +1718,13 @@ int main(int argc, char** argv)
 
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", VERBINIT);
+		
+		if (mode.GetCurrentBySettingName("Tune1") == 1)
+		{
+			XPRBloadmat(p->getCRef());
+			XPRSprob opt_prob = XPRBgetXPRSprob(p->getCRef());
+			XPRStune(opt_prob, "g");
+		}
 
 		if (mode.GetCurrentModeName(0).compare("NoCuts") != 0)
 		{
@@ -1728,6 +1742,7 @@ int main(int argc, char** argv)
 
 		duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		outputPrinter.printer("FULL duration: " + to_string(duration) + " seconds", VERBSOL);
+
 		outputPrinter.printer("Mode: " + to_string(id) + ", duration: " + to_string(duration) + " seconds, Solution: " + to_string(round(p->getObjVal())), VERBMODE, true, VERBSOL);
 		mode.SetCurrDur(duration);
 	}
