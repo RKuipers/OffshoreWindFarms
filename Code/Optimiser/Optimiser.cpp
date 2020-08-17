@@ -24,13 +24,14 @@ using namespace ::dashoptimization;
 #define VERBPROG 4
 #define VERBWEAT 5
 #define NAMES 1
+#define INPUTFOLDER "Input files/"
 #define OUTPUTFOLDER "Output files/"
 #define PROBOUTPUTEXT ".sol"
 #define MODEOUTPUTEXT ".csv"
 #define DATAEXT ".dat"
 
 // Mode related settings
-//#define LOCKMODE "SetOrdFinResFaiCuts FinAll TEST0" 
+//#define LOCKMODE "SetFinFaiDowCuts FinAll TEST0" 
 //#define LOCKDIM "SetCuts"		// Current best: SetFinFaiDowCuts, SetOrdResBroCuts
 #define LOCKSET 1	// 1 Strong
 //#define LOCKORD 1	// 0 Strong
@@ -50,21 +51,21 @@ using namespace ::dashoptimization;
 #define MAXFULLTIME 90
 
 // Model settings
-#define PROBNAME "lifeWeek"
+#define PROBNAME "lifeSimple"
 #define NPERIODS 7
-#define TPP 24 // Timesteps per Period
+#define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 3
+#define NITASKS 2
 #define NMPTASKS 1
 #define NMCTASKS 3
-#define NDTASKS 3
+#define NDTASKS 2
 #define NMTASKS NMPTASKS + NMCTASKS
 #define NTASKS NITASKS + NMTASKS + NDTASKS
-#define NIP 4
-#define NRES 3
+#define NIP 2
+#define NRES 2
 #define NASSETS 2
-#define DIS 0.999972465
-#define OPTIMAL -441660 // The optimal solution, if known
+#define DIS 1.0
+#define OPTIMAL 280 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
@@ -1282,7 +1283,7 @@ public:
 		outputPrinter.printer("Reading Data", VERBMODE);
 
 		string line;
-		ifstream datafile(string() + PROBNAME + DATAEXT);
+		ifstream datafile(string() + INPUTFOLDER + PROBNAME + DATAEXT);
 		if (!datafile.is_open())
 		{
 			cout << "Unable to open file" << endl;
