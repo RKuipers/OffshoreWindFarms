@@ -17,7 +17,7 @@ using namespace ::dashoptimization;
 // Program settings
 #define SEED 42 * NTIMES
 #define WEATHERTYPE 1
-#define VERBOSITY 5		// The one to edit
+#define VERBOSITY 1		// The one to edit
 #define VERBMODE 1
 #define VERBSOL 2
 #define VERBINIT 3
@@ -30,24 +30,24 @@ using namespace ::dashoptimization;
 #define DATAEXT ".dat"
 
 // Mode related settings
-#define LOCKMODE "SetOrdFinResFaiCuts FinAll TEST0" 
-//#define LOCKDIM "SetCuts"		// Current best: SetOrdFinResBroCuts, SetOrdResBroCuts
-//#define LOCKSET 1	// Strong
-//#define LOCKORD 1	// Weak
-//#define LOCKFIN	// Disputed
-//#define LOCKPRE 0	// Strong (to test more)
-//#define LOCKRES 1	// Strong (to test more)
-//#define LOCKACT 0	// Strong
-//#define LOCKFAI	// Unknown
-//#define LOCKCOR	// Unknown
-//#define LOCKDOW	// Disputed
+//#define LOCKMODE "SetOrdFinResFaiCuts FinAll TEST0" 
+//#define LOCKDIM "SetCuts"		// Current best: SetFinFaiDowCuts, SetOrdResBroCuts
+#define LOCKSET 1	// 1 Strong
+//#define LOCKORD 1	// 0 Strong
+//#define LOCKFIN	// 1 Strong
+//#define LOCKPRE 0	// 0 Strong
+//#define LOCKRES 1	// 1 Medium (test more)
+#define LOCKACT 0	// 0 Strong
+#define LOCKFAI 1	// 1 Strong
+//#define LOCKCOR	// 0 Medium-Strong
+//#define LOCKDOW	// 1 Medium (test more)
 #define NMODETYPES 3
 #define MODECUTS 9
 #define MODEFIN 2
 #define MODETEST 1
 #define NMODES 512 * MODEFIN * MODETEST // 2^MODECUTS * MODEFIN * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
-#define MAXPRETIME 300
-#define MAXFULLTIME 300
+#define MAXPRETIME 90
+#define MAXFULLTIME 90
 
 // Model settings
 #define PROBNAME "lifeWeek"
@@ -64,7 +64,7 @@ using namespace ::dashoptimization;
 #define NRES 3
 #define NASSETS 2
 #define DIS 0.999972465
-#define OPTIMAL -442200 // The optimal solution, if known
+#define OPTIMAL -441660 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;
