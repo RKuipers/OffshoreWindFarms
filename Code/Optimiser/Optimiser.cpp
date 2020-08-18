@@ -17,7 +17,7 @@ using namespace ::dashoptimization;
 // Program settings
 #define SEED 42 * NTIMES
 #define WEATHERTYPE 1
-#define VERBOSITY 2		// The one to edit
+#define VERBOSITY 4		// The one to edit
 #define VERBMODE 1
 #define VERBSOL 2
 #define VERBINIT 3
@@ -31,18 +31,18 @@ using namespace ::dashoptimization;
 #define DATAEXT ".dat"
 
 // Mode related settings
-//#define LOCKMODE "SetFinFaiDowCuts FinAll TEST0" 
+#define LOCKMODE "SetFinFaiDowCuts FinAll TEST0" 
 //#define LOCKDIM "SetCuts"		// Current best: SetFinFaiDowCuts, SetOrdResBroCuts
-#define LOCKSET 1	// 1 Strong
-#define LOCKORD 0	// 0 Strong
-#define LOCKFIN	1	// 1 Strong
-#define LOCKPRE 0	// 0 Strong
-#define LOCKRES 1	// 1 Medium (test more)
-#define LOCKACT 0	// 0 Strong
-#define LOCKFAI 1	// 1 Strong
-#define LOCKCOR	0	// 0 Medium-Strong
-#define LOCKDOW	1	// 1 Medium (test more)
-#define NMODETYPES 4
+//#define LOCKSET 1	// 1 Strong
+//#define LOCKORD 0	// 0 Strong
+//#define LOCKFIN	1	// 1 Strong
+//#define LOCKPRE 0	// 0 Strong
+//#define LOCKRES 1	// 1 Medium (test more)
+//#define LOCKACT 0	// 0 Strong
+//#define LOCKFAI 1	// 1 Strong
+//#define LOCKCOR	0	// 0 Medium-Strong
+//#define LOCKDOW	1	// 1 Medium (test more)
+#define NMODETYPES 3
 #define MODECUTS 9
 #define MODEFIN 2
 //#define MODETUNE 2
@@ -52,21 +52,20 @@ using namespace ::dashoptimization;
 #define MAXFULLTIME 70
 
 // Model settings
-#define PROBNAME "lifeWeek"
-#define NPERIODS 7
+#define PROBNAME "lifeFortnight"
+#define NPERIODS 14
 #define TPP 24 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
-#define NITASKS 3
+#define NITASKS 4
 #define NMPTASKS 1
 #define NMCTASKS 3
 #define NDTASKS 3
 #define NMTASKS NMPTASKS + NMCTASKS
 #define NTASKS NITASKS + NMTASKS + NDTASKS
-#define NIP 4
+#define NIP 5
 #define NRES 3
-#define NASSETS 2
+#define NASSETS 3
 #define DIS 0.999972465
-#define OPTIMAL -441660 // The optimal solution, if known
 
 // Weather characteristics
 int base = 105;

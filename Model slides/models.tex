@@ -491,16 +491,16 @@ Stochastic parameters:
 \begin{equation}
 	\max_{\substack{N_{rp} \in \mathbb{Z}^* \\ 
 	s_{ait}, o_{at} \in \{0, 1\}}} 
-	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p} \sum_{a \in A} (o_{at} \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
+	\sum_{\sigma \in S} \sum_{p \in P} [ DIS^p (\sum_{t\in T_p} \sum_{a \in A} (o_{at} \cdot v_{t\sigma})  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
 \end{equation}
 subject to:
 \begin{align}
-s_{ait} \leq& s_{ai(t+1)}															& \forall a \in A, \forall i \in M, \forall t \in T		\\
-s_{ai\sigma_{it_N}} \geq& 1														& \forall a \in A, \forall i \in M^P			\\
-m_{rp} \geq& N_{rp} \geq \sum_{a\in A} \sum_{i\in \mathcal{I}} (\rho_{ir} \cdot (s_{ait} - s_{ai\sigma_{it}})) 		& \forall r \in R, \forall p \in P, \forall t \in T_p 			\\
-o_{at} \leq& \sum_{i \in M \cup \{i^I_N\}} (s_{ai\sigma_{it}} - s_{ai\sigma_{i(t-\lambda_{ai})}})				& \forall a \in A, \forall t \in T					\\
-s_{ait} - s_{ai(t-1)} \leq& 1 - \sum_{j \in M \cup \{i^I_N\}} \frac{(s_{aj\sigma_{jt}} - s_{aj\sigma_{j(t-\lambda_{aj})}})}{L}		& \forall a \in A, \forall i \in M^C, \forall t \in T 	\\
-o_{at} \leq& 1 + s_{ai\sigma_{it}} - s_{ait}												& \forall a \in A, \forall i \in M, \forall t \in T		
+s_{ait} \leq& s_{ai(t+1)}															& \forall a \in A, \forall i \in M, \forall t \in T			\\
+s_{ai\omega_{it_N}} \geq& 1														& \forall a \in A, \forall i \in M^P					\\
+m_{rp} \geq& N_{rp} \geq \sum_{a\in A} \sum_{i\in \mathcal{I}} (\rho_{ir} \cdot (s_{ait} - s_{ai\omega_{it}})) 		& \forall r \in R, \forall p \in P, \forall t \in T_p 			\\
+o_{at} \leq& \sum_{i \in M} (s_{ai\omega_{it}} - s_{ai\omega_{i(t-\lambda_{ai})}})						& \forall a \in A, \forall t \in T					\\
+s_{ait} - s_{ai(t-1)} \leq& 1 - \sum_{j \in M} \frac{(s_{aj\omega_{jt}} - s_{aj\omega_{j(t-\lambda_{aj})}})}{L}		& \forall a \in A, \forall i \in M^C, \forall t \in T 			\\
+o_{at} \leq& 1 + s_{ai\omega_{it}} - s_{ait}												& \forall a \in A, \forall i \in M, \forall t \in T		
 \end{align}
 
 \end{frame}
@@ -528,6 +528,7 @@ Sets:
 \item $R$: All resources
 \item $M = M^P \cup M^C$: all preventive and corrective maintenance tasks
 \item $A$: All assets
+\item $S$: All scenarios
 \end{itemize}
 
 Decision variables:
@@ -552,9 +553,9 @@ Deterministic parameters:
 
 Stochastic parameters:
 \begin{itemize}
-\item $v_t$: The value of energy a single turbine produces at timestep $t$
+\item $v_{t\sigma}$: The value of energy a single turbine produces at timestep $t$ in scenario $\sigma$
 \item $\lambda_{ai}$: The number of timesteps after the last maintenance before asset $a$ fails
-\item $\sigma_{it}$: Indicates the timestep at which task $i$ should have been started for it to be finished by timestep $t$, generated based on duration and the weather conditions (stochastic based on those)
+\item $\omega_{it}$: Indicates the timestep at which task $i$ should have been started for it to be finished by timestep $t$, generated based on duration and the weather conditions (stochastic based on those)
 \end{itemize}
 \end{column}
 \end{columns}
