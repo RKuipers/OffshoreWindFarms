@@ -18,5 +18,8 @@
     <ClCompile Include="Optimiser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Mode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

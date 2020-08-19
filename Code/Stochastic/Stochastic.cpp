@@ -29,10 +29,10 @@ using namespace ::dashoptimization;
 #define DATAEXT ".dat"
 
 // Model settings
-#define PROBNAME "stoYear"
+#define PROBNAME "stoYearMR"
 #define NSCENARIOS 3
 #define NPERIODS 12
-#define TPP 30 // Timesteps per Period
+#define TPP 15 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
 #define NPTASKS 2
 #define NCTASKS 3
