@@ -17,7 +17,7 @@ using namespace ::dashoptimization;
 // Program settings
 #define SEED 42 * NTIMES
 #define WEATHERTYPE 1
-#define VERBOSITY 4		// The one to edit
+#define VERBOSITY 2		// The one to edit
 #define VERBMODE 1
 #define VERBSOL 2
 #define VERBINIT 3
@@ -48,8 +48,8 @@ using namespace ::dashoptimization;
 //#define MODETUNE 2
 #define MODETEST 2
 #define NMODES 512 * MODEFIN * MODETEST // 2^MODECUTS * MODEFIN * MODETEST    // Product of all mode types (2^x for combination modes) (ignored locked ones)
-#define MAXPRETIME 70
-#define MAXFULLTIME 70
+#define MAXPRETIME 28000
+#define MAXFULLTIME 28000
 
 // Model settings
 #define PROBNAME "lifeFortnight"
