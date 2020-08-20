@@ -1,128 +1,257 @@
-0;ResCuts TEST0;212.363;1;0;1;0;1;0;1;0;0;1;1;0;1;0;1;0;1;0
-1;SetResCuts TEST0;194.508;0;1;1;0;1;0;1;0;0;1;1;0;1;0;1;0;1;0
-2;OrdResCuts TEST0;262.664;1;0;0;1;1;0;1;0;0;1;1;0;1;0;1;0;1;0
-3;SetOrdResCuts TEST0;207.001;0;1;0;1;1;0;1;0;0;1;1;0;1;0;1;0;1;0
-4;FinResCuts TEST0;234.072;1;0;1;0;0;1;1;0;0;1;1;0;1;0;1;0;1;0
-5;SetFinResCuts TEST0;188.997;0;1;1;0;0;1;1;0;0;1;1;0;1;0;1;0;1;0
-6;OrdFinResCuts TEST0;299.986;1;0;0;1;0;1;1;0;0;1;1;0;1;0;1;0;1;0
-7;SetOrdFinResCuts TEST0;205.362;0;1;0;1;0;1;1;0;0;1;1;0;1;0;1;0;1;0
-8;ResActCuts TEST0;295.472;1;0;1;0;1;0;1;0;0;1;0;1;1;0;1;0;1;0
-9;SetResActCuts TEST0;197.564;0;1;1;0;1;0;1;0;0;1;0;1;1;0;1;0;1;0
-10;OrdResActCuts TEST0;299.621;1;0;0;1;1;0;1;0;0;1;0;1;1;0;1;0;1;0
-11;SetOrdResActCuts TEST0;300.016;0;1;0;1;1;0;1;0;0;1;0;1;1;0;1;0;1;0
-12;FinResActCuts TEST0;295.244;1;0;1;0;0;1;1;0;0;1;0;1;1;0;1;0;1;0
-13;SetFinResActCuts TEST0;197.084;0;1;1;0;0;1;1;0;0;1;0;1;1;0;1;0;1;0
-14;OrdFinResActCuts TEST0;299.587;1;0;0;1;0;1;1;0;0;1;0;1;1;0;1;0;1;0
-15;SetOrdFinResActCuts TEST0;299.962;0;1;0;1;0;1;1;0;0;1;0;1;1;0;1;0;1;0
-16;ResBroCuts TEST0;179.973;1;0;1;0;1;0;1;0;0;1;1;0;0;1;1;0;1;0
-17;SetResBroCuts TEST0;109.327;0;1;1;0;1;0;1;0;0;1;1;0;0;1;1;0;1;0
-18;OrdResBroCuts TEST0;147.509;1;0;0;1;1;0;1;0;0;1;1;0;0;1;1;0;1;0
-19;SetOrdResBroCuts TEST0;72.666;0;1;0;1;1;0;1;0;0;1;1;0;0;1;1;0;1;0
-20;FinResBroCuts TEST0;180.502;1;0;1;0;0;1;1;0;0;1;1;0;0;1;1;0;1;0
-21;SetFinResBroCuts TEST0;109.964;0;1;1;0;0;1;1;0;0;1;1;0;0;1;1;0;1;0
-22;OrdFinResBroCuts TEST0;147.762;1;0;0;1;0;1;1;0;0;1;1;0;0;1;1;0;1;0
-23;SetOrdFinResBroCuts TEST0;72.312;0;1;0;1;0;1;1;0;0;1;1;0;0;1;1;0;1;0
-24;ResActBroCuts TEST0;82.519;1;0;1;0;1;0;1;0;0;1;0;1;0;1;1;0;1;0
-25;SetResActBroCuts TEST0;157.454;0;1;1;0;1;0;1;0;0;1;0;1;0;1;1;0;1;0
-26;OrdResActBroCuts TEST0;121.903;1;0;0;1;1;0;1;0;0;1;0;1;0;1;1;0;1;0
-27;SetOrdResActBroCuts TEST0;91.226;0;1;0;1;1;0;1;0;0;1;0;1;0;1;1;0;1;0
-28;FinResActBroCuts TEST0;81.95;1;0;1;0;0;1;1;0;0;1;0;1;0;1;1;0;1;0
-29;SetFinResActBroCuts TEST0;157.636;0;1;1;0;0;1;1;0;0;1;0;1;0;1;1;0;1;0
-30;OrdFinResActBroCuts TEST0;120.519;1;0;0;1;0;1;1;0;0;1;0;1;0;1;1;0;1;0
-31;SetOrdFinResActBroCuts TEST0;91.468;0;1;0;1;0;1;1;0;0;1;0;1;0;1;1;0;1;0
-32;ResDowCuts TEST0;142.853;1;0;1;0;1;0;1;0;0;1;1;0;1;0;0;1;1;0
-33;SetResDowCuts TEST0;74.124;0;1;1;0;1;0;1;0;0;1;1;0;1;0;0;1;1;0
-34;OrdResDowCuts TEST0;106.639;1;0;0;1;1;0;1;0;0;1;1;0;1;0;0;1;1;0
-35;SetOrdResDowCuts TEST0;180.793;0;1;0;1;1;0;1;0;0;1;1;0;1;0;0;1;1;0
-36;FinResDowCuts TEST0;141.856;1;0;1;0;0;1;1;0;0;1;1;0;1;0;0;1;1;0
-37;SetFinResDowCuts TEST0;74.173;0;1;1;0;0;1;1;0;0;1;1;0;1;0;0;1;1;0
-38;OrdFinResDowCuts TEST0;107.325;1;0;0;1;0;1;1;0;0;1;1;0;1;0;0;1;1;0
-39;SetOrdFinResDowCuts TEST0;180.499;0;1;0;1;0;1;1;0;0;1;1;0;1;0;0;1;1;0
-40;ResActDowCuts TEST0;179.995;1;0;1;0;1;0;1;0;0;1;0;1;1;0;0;1;1;0
-41;SetResActDowCuts TEST0;180.132;0;1;1;0;1;0;1;0;0;1;0;1;1;0;0;1;1;0
-42;OrdResActDowCuts TEST0;179.875;1;0;0;1;1;0;1;0;0;1;0;1;1;0;0;1;1;0
-43;SetOrdResActDowCuts TEST0;75.813;0;1;0;1;1;0;1;0;0;1;0;1;1;0;0;1;1;0
-44;FinResActDowCuts TEST0;180.435;1;0;1;0;0;1;1;0;0;1;0;1;1;0;0;1;1;0
-45;SetFinResActDowCuts TEST0;179.709;0;1;1;0;0;1;1;0;0;1;0;1;1;0;0;1;1;0
-46;OrdFinResActDowCuts TEST0;173.93;1;0;0;1;0;1;1;0;0;1;0;1;1;0;0;1;1;0
-47;SetOrdFinResActDowCuts TEST0;76.551;0;1;0;1;0;1;1;0;0;1;0;1;1;0;0;1;1;0
-48;ResBroDowCuts TEST0;108.073;1;0;1;0;1;0;1;0;0;1;1;0;0;1;0;1;1;0
-49;SetResBroDowCuts TEST0;85.144;0;1;1;0;1;0;1;0;0;1;1;0;0;1;0;1;1;0
-50;OrdResBroDowCuts TEST0;156.643;1;0;0;1;1;0;1;0;0;1;1;0;0;1;0;1;1;0
-51;SetOrdResBroDowCuts TEST0;88.189;0;1;0;1;1;0;1;0;0;1;1;0;0;1;0;1;1;0
-52;FinResBroDowCuts TEST0;107.152;1;0;1;0;0;1;1;0;0;1;1;0;0;1;0;1;1;0
-53;SetFinResBroDowCuts TEST0;85.233;0;1;1;0;0;1;1;0;0;1;1;0;0;1;0;1;1;0
-54;OrdFinResBroDowCuts TEST0;157.241;1;0;0;1;0;1;1;0;0;1;1;0;0;1;0;1;1;0
-55;SetOrdFinResBroDowCuts TEST0;88.097;0;1;0;1;0;1;1;0;0;1;1;0;0;1;0;1;1;0
-56;ResActBroDowCuts TEST0;168.183;1;0;1;0;1;0;1;0;0;1;0;1;0;1;0;1;1;0
-57;SetResActBroDowCuts TEST0;83.057;0;1;1;0;1;0;1;0;0;1;0;1;0;1;0;1;1;0
-58;OrdResActBroDowCuts TEST0;95.28;1;0;0;1;1;0;1;0;0;1;0;1;0;1;0;1;1;0
-59;SetOrdResActBroDowCuts TEST0;119.736;0;1;0;1;1;0;1;0;0;1;0;1;0;1;0;1;1;0
-60;FinResActBroDowCuts TEST0;162.477;1;0;1;0;0;1;1;0;0;1;0;1;0;1;0;1;1;0
-61;SetFinResActBroDowCuts TEST0;79.521;0;1;1;0;0;1;1;0;0;1;0;1;0;1;0;1;1;0
-62;OrdFinResActBroDowCuts TEST0;92.818;1;0;0;1;0;1;1;0;0;1;0;1;0;1;0;1;1;0
-63;SetOrdFinResActBroDowCuts TEST0;119.396;0;1;0;1;0;1;1;0;0;1;0;1;0;1;0;1;1;0
-64;ResCuts TEST1;185.373;1;0;1;0;1;0;1;0;0;1;1;0;1;0;1;0;0;1
-65;SetResCuts TEST1;185.088;0;1;1;0;1;0;1;0;0;1;1;0;1;0;1;0;0;1
-66;OrdResCuts TEST1;254.752;1;0;0;1;1;0;1;0;0;1;1;0;1;0;1;0;0;1
-67;SetOrdResCuts TEST1;201.117;0;1;0;1;1;0;1;0;0;1;1;0;1;0;1;0;0;1
-68;FinResCuts TEST1;234.593;1;0;1;0;0;1;1;0;0;1;1;0;1;0;1;0;0;1
-69;SetFinResCuts TEST1;185.859;0;1;1;0;0;1;1;0;0;1;1;0;1;0;1;0;0;1
-70;OrdFinResCuts TEST1;300.542;1;0;0;1;0;1;1;0;0;1;1;0;1;0;1;0;0;1
-71;SetOrdFinResCuts TEST1;201.016;0;1;0;1;0;1;1;0;0;1;1;0;1;0;1;0;0;1
-72;ResActCuts TEST1;285.815;1;0;1;0;1;0;1;0;0;1;0;1;1;0;1;0;0;1
-73;SetResActCuts TEST1;194.334;0;1;1;0;1;0;1;0;0;1;0;1;1;0;1;0;0;1
-74;OrdResActCuts TEST1;299.732;1;0;0;1;1;0;1;0;0;1;0;1;1;0;1;0;0;1
-75;SetOrdResActCuts TEST1;300.244;0;1;0;1;1;0;1;0;0;1;0;1;1;0;1;0;0;1
-76;FinResActCuts TEST1;286.136;1;0;1;0;0;1;1;0;0;1;0;1;1;0;1;0;0;1
-77;SetFinResActCuts TEST1;194.022;0;1;1;0;0;1;1;0;0;1;0;1;1;0;1;0;0;1
-78;OrdFinResActCuts TEST1;299.791;1;0;0;1;0;1;1;0;0;1;0;1;1;0;1;0;0;1
-79;SetOrdFinResActCuts TEST1;300.006;0;1;0;1;0;1;1;0;0;1;0;1;1;0;1;0;0;1
-80;ResBroCuts TEST1;179.808;1;0;1;0;1;0;1;0;0;1;1;0;0;1;1;0;0;1
-81;SetResBroCuts TEST1;107.752;0;1;1;0;1;0;1;0;0;1;1;0;0;1;1;0;0;1
-82;OrdResBroCuts TEST1;144.89;1;0;0;1;1;0;1;0;0;1;1;0;0;1;1;0;0;1
-83;SetOrdResBroCuts TEST1;71.996;0;1;0;1;1;0;1;0;0;1;1;0;0;1;1;0;0;1
-84;FinResBroCuts TEST1;180.381;1;0;1;0;0;1;1;0;0;1;1;0;0;1;1;0;0;1
-85;SetFinResBroCuts TEST1;109.559;0;1;1;0;0;1;1;0;0;1;1;0;0;1;1;0;0;1
-86;OrdFinResBroCuts TEST1;142.835;1;0;0;1;0;1;1;0;0;1;1;0;0;1;1;0;0;1
-87;SetOrdFinResBroCuts TEST1;71.178;0;1;0;1;0;1;1;0;0;1;1;0;0;1;1;0;0;1
-88;ResActBroCuts TEST1;82.394;1;0;1;0;1;0;1;0;0;1;0;1;0;1;1;0;0;1
-89;SetResActBroCuts TEST1;155.796;0;1;1;0;1;0;1;0;0;1;0;1;0;1;1;0;0;1
-90;OrdResActBroCuts TEST1;117.436;1;0;0;1;1;0;1;0;0;1;0;1;0;1;1;0;0;1
-91;SetOrdResActBroCuts TEST1;89.271;0;1;0;1;1;0;1;0;0;1;0;1;0;1;1;0;0;1
-92;FinResActBroCuts TEST1;81.324;1;0;1;0;0;1;1;0;0;1;0;1;0;1;1;0;0;1
-93;SetFinResActBroCuts TEST1;153.585;0;1;1;0;0;1;1;0;0;1;0;1;0;1;1;0;0;1
-94;OrdFinResActBroCuts TEST1;119.54;1;0;0;1;0;1;1;0;0;1;0;1;0;1;1;0;0;1
-95;SetOrdFinResActBroCuts TEST1;88.704;0;1;0;1;0;1;1;0;0;1;0;1;0;1;1;0;0;1
-96;ResDowCuts TEST1;137.792;1;0;1;0;1;0;1;0;0;1;1;0;1;0;0;1;0;1
-97;SetResDowCuts TEST1;73.735;0;1;1;0;1;0;1;0;0;1;1;0;1;0;0;1;0;1
-98;OrdResDowCuts TEST1;103.381;1;0;0;1;1;0;1;0;0;1;1;0;1;0;0;1;0;1
-99;SetOrdResDowCuts TEST1;180.386;0;1;0;1;1;0;1;0;0;1;1;0;1;0;0;1;0;1
-100;FinResDowCuts TEST1;139.491;1;0;1;0;0;1;1;0;0;1;1;0;1;0;0;1;0;1
-101;SetFinResDowCuts TEST1;72.577;0;1;1;0;0;1;1;0;0;1;1;0;1;0;0;1;0;1
-102;OrdFinResDowCuts TEST1;103.662;1;0;0;1;0;1;1;0;0;1;1;0;1;0;0;1;0;1
-103;SetOrdFinResDowCuts TEST1;180.225;0;1;0;1;0;1;1;0;0;1;1;0;1;0;0;1;0;1
-104;ResActDowCuts TEST1;180.107;1;0;1;0;1;0;1;0;0;1;0;1;1;0;0;1;0;1
-105;SetResActDowCuts TEST1;180.054;0;1;1;0;1;0;1;0;0;1;0;1;1;0;0;1;0;1
-106;OrdResActDowCuts TEST1;168.28;1;0;0;1;1;0;1;0;0;1;0;1;1;0;0;1;0;1
-107;SetOrdResActDowCuts TEST1;72.166;0;1;0;1;1;0;1;0;0;1;0;1;1;0;0;1;0;1
-108;FinResActDowCuts TEST1;180.452;1;0;1;0;0;1;1;0;0;1;0;1;1;0;0;1;0;1
-109;SetFinResActDowCuts TEST1;180.132;0;1;1;0;0;1;1;0;0;1;0;1;1;0;0;1;0;1
-110;OrdFinResActDowCuts TEST1;166.711;1;0;0;1;0;1;1;0;0;1;0;1;1;0;0;1;0;1
-111;SetOrdFinResActDowCuts TEST1;72.414;0;1;0;1;0;1;1;0;0;1;0;1;1;0;0;1;0;1
-112;ResBroDowCuts TEST1;105.226;1;0;1;0;1;0;1;0;0;1;1;0;0;1;0;1;0;1
-113;SetResBroDowCuts TEST1;89.679;0;1;1;0;1;0;1;0;0;1;1;0;0;1;0;1;0;1
-114;OrdResBroDowCuts TEST1;155.251;1;0;0;1;1;0;1;0;0;1;1;0;0;1;0;1;0;1
-115;SetOrdResBroDowCuts TEST1;85.142;0;1;0;1;1;0;1;0;0;1;1;0;0;1;0;1;0;1
-116;FinResBroDowCuts TEST1;103.898;1;0;1;0;0;1;1;0;0;1;1;0;0;1;0;1;0;1
-117;SetFinResBroDowCuts TEST1;81.64;0;1;1;0;0;1;1;0;0;1;1;0;0;1;0;1;0;1
-118;OrdFinResBroDowCuts TEST1;151.838;1;0;0;1;0;1;1;0;0;1;1;0;0;1;0;1;0;1
-119;SetOrdFinResBroDowCuts TEST1;84.312;0;1;0;1;0;1;1;0;0;1;1;0;0;1;0;1;0;1
-120;ResActBroDowCuts TEST1;162.336;1;0;1;0;1;0;1;0;0;1;0;1;0;1;0;1;0;1
-121;SetResActBroDowCuts TEST1;81.137;0;1;1;0;1;0;1;0;0;1;0;1;0;1;0;1;0;1
-122;OrdResActBroDowCuts TEST1;94.501;1;0;0;1;1;0;1;0;0;1;0;1;0;1;0;1;0;1
-123;SetOrdResActBroDowCuts TEST1;121.256;0;1;0;1;1;0;1;0;0;1;0;1;0;1;0;1;0;1
-124;FinResActBroDowCuts TEST1;163.317;1;0;1;0;0;1;1;0;0;1;0;1;0;1;0;1;0;1
-125;SetFinResActBroDowCuts TEST1;81.031;0;1;1;0;0;1;1;0;0;1;0;1;0;1;0;1;0;1
-126;OrdFinResActBroDowCuts TEST1;94.679;1;0;0;1;0;1;1;0;0;1;0;1;0;1;0;1;0;1
-127;SetOrdFinResActBroDowCuts TEST1;121.073;0;1;0;1;0;1;1;0;0;1;0;1;0;1;0;1;0;1
+;;;SET;SET;ORD;ORD;FIN;FIN;PRE;PRE;RES;RES;ACT;ACT;FAI;FAI;COR;COR;DOW;DOW;ALL;MIN;TEST0
+66;SetFinDowCuts FinAll TEST0;53.752;0;1;1;0;0;1;1;0;1;0;1;0;1;0;1;0;0;1;1;0;1
+178;SetFinFaiCorCuts FinMin TEST0;53.765;0;1;1;0;0;1;1;0;1;0;1;0;0;1;0;1;1;0;0;1;1
+194;SetFinDowCuts FinMin TEST0;54.012;0;1;1;0;0;1;1;0;1;0;1;0;1;0;1;0;0;1;0;1;1
+82;SetFinFaiDowCuts FinAll TEST0;54.219;0;1;1;0;0;1;1;0;1;0;1;0;0;1;1;0;0;1;1;0;1
+154;SetFinResFaiCuts FinMin TEST0;54.732;0;1;1;0;0;1;1;0;0;1;1;0;0;1;1;0;1;0;0;1;1
+210;SetFinFaiDowCuts FinMin TEST0;54.827;0;1;1;0;0;1;1;0;1;0;1;0;0;1;1;0;0;1;0;1;1
+152;SetResFaiCuts FinMin TEST0;55.492;0;1;1;0;1;0;1;0;0;1;1;0;0;1;1;0;1;0;0;1;1
+50;SetFinFaiCorCuts FinAll TEST0;56.115;0;1;1;0;0;1;1;0;1;0;1;0;0;1;0;1;1;0;1;0;1
+24;SetResFaiCuts FinAll TEST0;57.539;0;1;1;0;1;0;1;0;0;1;1;0;0;1;1;0;1;0;1;0;1
+26;SetFinResFaiCuts FinAll TEST0;57.632;0;1;1;0;0;1;1;0;0;1;1;0;0;1;1;0;1;0;1;0;1
+95;SetOrdFinPreResFaiDowCuts FinAll TEST0;59.221;0;1;0;1;0;1;0;1;0;1;1;0;0;1;1;0;0;1;1;0;1
+93;SetOrdPreResFaiDowCuts FinAll TEST0;59.359;0;1;0;1;1;0;0;1;0;1;1;0;0;1;1;0;0;1;1;0;1
+150;SetFinPreFaiCuts FinMin TEST0;59.98;0;1;1;0;0;1;0;1;1;0;1;0;0;1;1;0;1;0;0;1;1
+223;SetOrdFinPreResFaiDowCuts FinMin TEST0;60.69;0;1;0;1;0;1;0;1;0;1;1;0;0;1;1;0;0;1;0;1;1
+221;SetOrdPreResFaiDowCuts FinMin TEST0;60.873;0;1;0;1;1;0;0;1;0;1;1;0;0;1;1;0;0;1;0;1;1
+148;SetPreFaiCuts FinMin TEST0;61.706;0;1;1;0;1;0;0;1;1;0;1;0;0;1;1;0;1;0;0;1;1
+131;SetOrdFinCuts FinMin TEST0;62.587;0;1;0;1;0;1;1;0;1;0;1;0;1;0;1;0;1;0;0;1;1
+22;SetFinPreFaiCuts FinAll TEST0;62.615;0;1;1;0;0;1;0;1;1;0;1;0;0;1;1;0;1;0;1;0;1
+115;SetOrdFinFaiCorDowCuts FinAll TEST0;63.048;0;1;0;1;0;1;1;0;1;0;1;0;0;1;0;1;0;1;1;0;1
+86;SetFinPreFaiDowCuts FinAll TEST0;64.112;0;1;1;0;0;1;0;1;1;0;1;0;0;1;1;0;0;1;1;0;1
+3;SetOrdFinCuts FinAll TEST0;64.906;0;1;0;1;0;1;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1
+243;SetOrdFinFaiCorDowCuts FinMin TEST0;65.081;0;1;0;1;0;1;1;0;1;0;1;0;0;1;0;1;0;1;0;1;1
+62;SetFinPreResFaiCorCuts FinAll TEST0;65.428;0;1;1;0;0;1;0;1;0;1;1;0;0;1;0;1;1;0;1;0;1
+60;SetPreResFaiCorCuts FinAll TEST0;65.468;0;1;1;0;1;0;0;1;0;1;1;0;0;1;0;1;1;0;1;0;1
+84;SetPreFaiDowCuts FinAll TEST0;66.053;0;1;1;0;1;0;0;1;1;0;1;0;0;1;1;0;0;1;1;0;1
+155;SetOrdFinResFaiCuts FinMin TEST0;66.206;0;1;0;1;0;1;1;0;0;1;1;0;0;1;1;0;1;0;0;1;1
+188;SetPreResFaiCorCuts FinMin TEST0;66.353;0;1;1;0;1;0;0;1;0;1;1;0;0;1;0;1;1;0;0;1;1
+190;SetFinPreResFaiCorCuts FinMin TEST0;66.647;0;1;1;0;0;1;0;1;0;1;1;0;0;1;0;1;1;0;0;1;1
+214;SetFinPreFaiDowCuts FinMin TEST0;66.676;0;1;1;0;0;1;0;1;1;0;1;0;0;1;1;0;0;1;0;1;1
+55;SetOrdFinPreFaiCorCuts FinAll TEST0;66.949;0;1;0;1;0;1;0;1;1;0;1;0;0;1;0;1;1;0;1;0;1
+153;SetOrdResFaiCuts FinMin TEST0;67.114;0;1;0;1;1;0;1;0;0;1;1;0;0;1;1;0;1;0;0;1;1
+183;SetOrdFinPreFaiCorCuts FinMin TEST0;67.942;0;1;0;1;0;1;0;1;1;0;1;0;0;1;0;1;1;0;0;1;1
+212;SetPreFaiDowCuts FinMin TEST0;68.2;0;1;1;0;1;0;0;1;1;0;1;0;0;1;1;0;0;1;0;1;1
+110;SetFinPreResCorDowCuts FinAll TEST0;69.175;0;1;1;0;0;1;0;1;0;1;1;0;1;0;0;1;0;1;1;0;1
+20;SetPreFaiCuts FinAll TEST0;69.186;0;1;1;0;1;0;0;1;1;0;1;0;0;1;1;0;1;0;1;0;1
+108;SetPreResCorDowCuts FinAll TEST0;69.374;0;1;1;0;1;0;0;1;0;1;1;0;1;0;0;1;0;1;1;0;1
+27;SetOrdFinResFaiCuts FinAll TEST0;69.602;0;1;0;1;0;1;1;0;0;1;1;0;0;1;1;0;1;0;1;0;1
+181;SetOrdPreFaiCorCuts FinMin TEST0;69.621;0;1;0;1;1;0;0;1;1;0;1;0;0;1;0;1;1;0;0;1;1
+53;SetOrdPreFaiCorCuts FinAll TEST0;69.708;0;1;0;1;1;0;0;1;1;0;1;0;0;1;0;1;1;0;1;0;1
+118;SetFinPreFaiCorDowCuts FinAll TEST0;69.999;0;1;1;0;0;1;0;1;1;0;1;0;0;1;0;1;0;1;1;0;1
+25;SetOrdResFaiCuts FinAll TEST0;70.586;0;1;0;1;1;0;1;0;0;1;1;0;0;1;1;0;1;0;1;0;1
+114;SetFinFaiCorDowCuts FinAll TEST0;71.281;0;1;1;0;0;1;1;0;1;0;1;0;0;1;0;1;0;1;1;0;1
+116;SetPreFaiCorDowCuts FinAll TEST0;71.879;0;1;1;0;1;0;0;1;1;0;1;0;0;1;0;1;0;1;1;0;1
+238;SetFinPreResCorDowCuts FinMin TEST0;72.34;0;1;1;0;0;1;0;1;0;1;1;0;1;0;0;1;0;1;0;1;1
+246;SetFinPreFaiCorDowCuts FinMin TEST0;72.547;0;1;1;0;0;1;0;1;1;0;1;0;0;1;0;1;0;1;0;1;1
+121;SetOrdResFaiCorDowCuts FinAll TEST0;73.183;0;1;0;1;1;0;1;0;0;1;1;0;0;1;0;1;0;1;1;0;1
+123;SetOrdFinResFaiCorDowCuts FinAll TEST0;73.377;0;1;0;1;0;1;1;0;0;1;1;0;0;1;0;1;0;1;1;0;1
+244;SetPreFaiCorDowCuts FinMin TEST0;73.789;0;1;1;0;1;0;0;1;1;0;1;0;0;1;0;1;0;1;0;1;1
+104;SetResCorDowCuts FinAll TEST0;74.186;0;1;1;0;1;0;1;0;0;1;1;0;1;0;0;1;0;1;1;0;1
+242;SetFinFaiCorDowCuts FinMin TEST0;74.409;0;1;1;0;0;1;1;0;1;0;1;0;0;1;0;1;0;1;0;1;1
+249;SetOrdResFaiCorDowCuts FinMin TEST0;74.44;0;1;0;1;1;0;1;0;0;1;1;0;0;1;0;1;0;1;0;1;1
+83;SetOrdFinFaiDowCuts FinAll TEST0;74.661;0;1;0;1;0;1;1;0;1;0;1;0;0;1;1;0;0;1;1;0;1
+75;SetOrdFinResDowCuts FinAll TEST0;75.089;0;1;0;1;0;1;1;0;0;1;1;0;1;0;1;0;0;1;1;0;1
+234;SetFinResCorDowCuts FinMin TEST0;75.182;0;1;1;0;0;1;1;0;0;1;1;0;1;0;0;1;0;1;0;1;1
+251;SetOrdFinResFaiCorDowCuts FinMin TEST0;75.394;0;1;0;1;0;1;1;0;0;1;1;0;0;1;0;1;0;1;0;1;1
+156;SetPreResFaiCuts FinMin TEST0;75.727;0;1;1;0;1;0;0;1;0;1;1;0;0;1;1;0;1;0;0;1;1
+158;SetFinPreResFaiCuts FinMin TEST0;75.759;0;1;1;0;0;1;0;1;0;1;1;0;0;1;1;0;1;0;0;1;1
+211;SetOrdFinFaiDowCuts FinMin TEST0;76.286;0;1;0;1;0;1;1;0;1;0;1;0;0;1;1;0;0;1;0;1;1
+73;SetOrdResDowCuts FinAll TEST0;76.554;0;1;0;1;1;0;1;0;0;1;1;0;1;0;1;0;0;1;1;0;1
+232;SetResCorDowCuts FinMin TEST0;77.172;0;1;1;0;1;0;1;0;0;1;1;0;1;0;0;1;0;1;0;1;1
+106;SetFinResCorDowCuts FinAll TEST0;78.164;0;1;1;0;0;1;1;0;0;1;1;0;1;0;0;1;0;1;1;0;1
+179;SetOrdFinFaiCorCuts FinMin TEST0;78.34;0;1;0;1;0;1;1;0;1;0;1;0;0;1;0;1;1;0;0;1;1
+162;SetFinCorCuts FinMin TEST0;78.586;0;1;1;0;0;1;1;0;1;0;1;0;1;0;0;1;1;0;0;1;1
+120;SetResFaiCorDowCuts FinAll TEST0;78.638;0;1;1;0;1;0;1;0;0;1;1;0;0;1;0;1;0;1;1;0;1
+203;SetOrdFinResDowCuts FinMin TEST0;78.688;0;1;0;1;0;1;1;0;0;1;1;0;1;0;1;0;0;1;0;1;1
+28;SetPreResFaiCuts FinAll TEST0;78.761;0;1;1;0;1;0;0;1;0;1;1;0;0;1;1;0;1;0;1;0;1
+236;SetPreResCorDowCuts FinMin TEST0;78.798;0;1;1;0;1;0;0;1;0;1;1;0;1;0;0;1;0;1;0;1;1
+30;SetFinPreResFaiCuts FinAll TEST0;79.005;0;1;1;0;0;1;0;1;0;1;1;0;0;1;1;0;1;0;1;0;1
+122;SetFinResFaiCorDowCuts FinAll TEST0;79.088;0;1;1;0;0;1;1;0;0;1;1;0;0;1;0;1;0;1;1;0;1
+113;SetOrdFaiCorDowCuts FinAll TEST0;79.331;0;1;0;1;1;0;1;0;1;0;1;0;0;1;0;1;0;1;1;0;1
+130;SetFinCuts FinMin TEST0;79.335;0;1;1;0;0;1;1;0;1;0;1;0;1;0;1;0;1;0;0;1;1
+201;SetOrdResDowCuts FinMin TEST0;79.534;0;1;0;1;1;0;1;0;0;1;1;0;1;0;1;0;0;1;0;1;1
+248;SetResFaiCorDowCuts FinMin TEST0;79.9;0;1;1;0;1;0;1;0;0;1;1;0;0;1;0;1;0;1;0;1;1
+119;SetOrdFinPreFaiCorDowCuts FinAll TEST0;80.616;0;1;0;1;0;1;0;1;1;0;1;0;0;1;0;1;0;1;1;0;1
+59;SetOrdFinResFaiCorCuts FinAll TEST0;81.064;0;1;0;1;0;1;1;0;0;1;1;0;0;1;0;1;1;0;1;0;1
+250;SetFinResFaiCorDowCuts FinMin TEST0;81.076;0;1;1;0;0;1;1;0;0;1;1;0;0;1;0;1;0;1;0;1;1
+117;SetOrdPreFaiCorDowCuts FinAll TEST0;81.113;0;1;0;1;1;0;0;1;1;0;1;0;0;1;0;1;0;1;1;0;1
+241;SetOrdFaiCorDowCuts FinMin TEST0;81.336;0;1;0;1;1;0;1;0;1;0;1;0;0;1;0;1;0;1;0;1;1
+34;SetFinCorCuts FinAll TEST0;81.441;0;1;1;0;0;1;1;0;1;0;1;0;1;0;0;1;1;0;1;0;1
+57;SetOrdResFaiCorCuts FinAll TEST0;81.459;0;1;0;1;1;0;1;0;0;1;1;0;0;1;0;1;1;0;1;0;1
+51;SetOrdFinFaiCorCuts FinAll TEST0;81.732;0;1;0;1;0;1;1;0;1;0;1;0;0;1;0;1;1;0;1;0;1
+2;SetFinCuts FinAll TEST0;82.378;0;1;1;0;0;1;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1
+187;SetOrdFinResFaiCorCuts FinMin TEST0;82.632;0;1;0;1;0;1;1;0;0;1;1;0;0;1;0;1;1;0;0;1;1
+245;SetOrdPreFaiCorDowCuts FinMin TEST0;83.228;0;1;0;1;1;0;0;1;1;0;1;0;0;1;0;1;0;1;0;1;1
+185;SetOrdResFaiCorCuts FinMin TEST0;83.284;0;1;0;1;1;0;1;0;0;1;1;0;0;1;0;1;1;0;0;1;1
+247;SetOrdFinPreFaiCorDowCuts FinMin TEST0;83.383;0;1;0;1;0;1;0;1;1;0;1;0;0;1;0;1;0;1;0;1;1
+147;SetOrdFinFaiCuts FinMin TEST0;88.205;0;1;0;1;0;1;1;0;1;0;1;0;0;1;1;0;1;0;0;1;1
+126;SetFinPreResFaiCorDowCuts FinAll TEST0;89.681;0;1;1;0;0;1;0;1;0;1;1;0;0;1;0;1;0;1;1;0;1
+29;SetOrdPreResFaiCuts FinAll TEST0;89.699;0;1;0;1;1;0;0;1;0;1;1;0;0;1;1;0;1;0;1;0;1
+184;SetResFaiCorCuts FinMin TEST0;89.764;0;1;1;0;1;0;1;0;0;1;1;0;0;1;0;1;1;0;0;1;1
+124;SetPreResFaiCorDowCuts FinAll TEST0;89.782;0;1;1;0;1;0;0;1;0;1;1;0;0;1;0;1;0;1;1;0;1
+254;SetFinPreResFaiCorDowCuts FinMin TEST0;89.817;0;1;1;0;0;1;0;1;0;1;1;0;0;1;0;1;0;1;0;1;1
+219;SetOrdFinResFaiDowCuts FinMin TEST0;89.921;0;1;0;1;0;1;1;0;0;1;1;0;0;1;1;0;0;1;0;1;1
+92;SetPreResFaiDowCuts FinAll TEST0;89.922;0;1;1;0;1;0;0;1;0;1;1;0;0;1;1;0;0;1;1;0;1
+111;SetOrdFinPreResCorDowCuts FinAll TEST0;89.929;0;1;0;1;0;1;0;1;0;1;1;0;1;0;0;1;0;1;1;0;1
+220;SetPreResFaiDowCuts FinMin TEST0;89.938;0;1;1;0;1;0;0;1;0;1;1;0;0;1;1;0;0;1;0;1;1
+218;SetFinResFaiDowCuts FinMin TEST0;89.945;0;1;1;0;0;1;1;0;0;1;1;0;0;1;1;0;0;1;0;1;1
+189;SetOrdPreResFaiCorCuts FinMin TEST0;89.974;0;1;0;1;1;0;0;1;0;1;1;0;0;1;0;1;1;0;0;1;1
+146;SetFinFaiCuts FinMin TEST0;90.016;0;1;1;0;0;1;1;0;1;0;1;0;0;1;1;0;1;0;0;1;1
+255;SetOrdFinPreResFaiCorDowCuts FinMin TEST0;90.046;0;1;0;1;0;1;0;1;0;1;1;0;0;1;0;1;0;1;0;1;1
+18;SetFinFaiCuts FinAll TEST0;90.052;0;1;1;0;0;1;1;0;1;0;1;0;0;1;1;0;1;0;1;0;1
+31;SetOrdFinPreResFaiCuts FinAll TEST0;90.087;0;1;0;1;0;1;0;1;0;1;1;0;0;1;1;0;1;0;1;0;1
+109;SetOrdPreResCorDowCuts FinAll TEST0;90.122;0;1;0;1;1;0;0;1;0;1;1;0;1;0;0;1;0;1;1;0;1
+222;SetFinPreResFaiDowCuts FinMin TEST0;90.132;0;1;1;0;0;1;0;1;0;1;1;0;0;1;1;0;0;1;0;1;1
+58;SetFinResFaiCorCuts FinAll TEST0;90.155;0;1;1;0;0;1;1;0;0;1;1;0;0;1;0;1;1;0;1;0;1
+159;SetOrdFinPreResFaiCuts FinMin TEST0;90.176;0;1;0;1;0;1;0;1;0;1;1;0;0;1;1;0;1;0;0;1;1
+216;SetResFaiDowCuts FinMin TEST0;90.213;0;1;1;0;1;0;1;0;0;1;1;0;0;1;1;0;0;1;0;1;1
+215;SetOrdFinPreFaiDowCuts FinMin TEST0;90.251;0;1;0;1;0;1;0;1;1;0;1;0;0;1;1;0;0;1;0;1;1
+54;SetFinPreFaiCorCuts FinAll TEST0;90.288;0;1;1;0;0;1;0;1;1;0;1;0;0;1;0;1;1;0;1;0;1
+237;SetOrdPreResCorDowCuts FinMin TEST0;90.328;0;1;0;1;1;0;0;1;0;1;1;0;1;0;0;1;0;1;0;1;1
+125;SetOrdPreResFaiCorDowCuts FinAll TEST0;90.345;0;1;0;1;1;0;0;1;0;1;1;0;0;1;0;1;0;1;1;0;1
+56;SetResFaiCorCuts FinAll TEST0;90.357;0;1;1;0;1;0;1;0;0;1;1;0;0;1;0;1;1;0;1;0;1
+88;SetResFaiDowCuts FinAll TEST0;90.362;0;1;1;0;1;0;1;0;0;1;1;0;0;1;1;0;0;1;1;0;1
+90;SetFinResFaiDowCuts FinAll TEST0;90.362;0;1;1;0;0;1;1;0;0;1;1;0;0;1;1;0;0;1;1;0;1
+67;SetOrdFinDowCuts FinAll TEST0;90.373;0;1;0;1;0;1;1;0;1;0;1;0;1;0;1;0;0;1;1;0;1
+74;SetFinResDowCuts FinAll TEST0;90.385;0;1;1;0;0;1;1;0;0;1;1;0;1;0;1;0;0;1;1;0;1
+163;SetOrdFinCorCuts FinMin TEST0;90.386;0;1;0;1;0;1;1;0;1;0;1;0;1;0;0;1;1;0;0;1;1
+191;SetOrdFinPreResFaiCorCuts FinMin TEST0;90.411;0;1;0;1;0;1;0;1;0;1;1;0;0;1;0;1;1;0;0;1;1
+227;SetOrdFinCorDowCuts FinMin TEST0;90.412;0;1;0;1;0;1;1;0;1;0;1;0;1;0;0;1;0;1;0;1;1
+202;SetFinResDowCuts FinMin TEST0;90.47;0;1;1;0;0;1;1;0;0;1;1;0;1;0;1;0;0;1;0;1;1
+89;SetOrdResFaiDowCuts FinAll TEST0;90.471;0;1;0;1;1;0;1;0;0;1;1;0;0;1;1;0;0;1;1;0;1
+63;SetOrdFinPreResFaiCorCuts FinAll TEST0;90.498;0;1;0;1;0;1;0;1;0;1;1;0;0;1;0;1;1;0;1;0;1
+105;SetOrdResCorDowCuts FinAll TEST0;90.509;0;1;0;1;1;0;1;0;0;1;1;0;1;0;0;1;0;1;1;0;1
+252;SetPreResFaiCorDowCuts FinMin TEST0;90.521;0;1;1;0;1;0;0;1;0;1;1;0;0;1;0;1;0;1;0;1;1
+235;SetOrdFinResCorDowCuts FinMin TEST0;90.528;0;1;0;1;0;1;1;0;0;1;1;0;1;0;0;1;0;1;0;1;1
+94;SetFinPreResFaiDowCuts FinAll TEST0;90.573;0;1;1;0;0;1;0;1;0;1;1;0;0;1;1;0;0;1;1;0;1
+35;SetOrdFinCorCuts FinAll TEST0;90.574;0;1;0;1;0;1;1;0;1;0;1;0;1;0;0;1;1;0;1;0;1
+157;SetOrdPreResFaiCuts FinMin TEST0;90.577;0;1;0;1;1;0;0;1;0;1;1;0;0;1;1;0;1;0;0;1;1
+233;SetOrdResCorDowCuts FinMin TEST0;90.596;0;1;0;1;1;0;1;0;0;1;1;0;1;0;0;1;0;1;0;1;1
+186;SetFinResFaiCorCuts FinMin TEST0;90.606;0;1;1;0;0;1;1;0;0;1;1;0;0;1;0;1;1;0;0;1;1
+239;SetOrdFinPreResCorDowCuts FinMin TEST0;90.622;0;1;0;1;0;1;0;1;0;1;1;0;1;0;0;1;0;1;0;1;1
+182;SetFinPreFaiCorCuts FinMin TEST0;90.701;0;1;1;0;0;1;0;1;1;0;1;0;0;1;0;1;1;0;0;1;1
+253;SetOrdPreResFaiCorDowCuts FinMin TEST0;90.734;0;1;0;1;1;0;0;1;0;1;1;0;0;1;0;1;0;1;0;1;1
+91;SetOrdFinResFaiDowCuts FinAll TEST0;90.752;0;1;0;1;0;1;1;0;0;1;1;0;0;1;1;0;0;1;1;0;1
+61;SetOrdPreResFaiCorCuts FinAll TEST0;90.78;0;1;0;1;1;0;0;1;0;1;1;0;0;1;0;1;1;0;1;0;1
+217;SetOrdResFaiDowCuts FinMin TEST0;90.801;0;1;0;1;1;0;1;0;0;1;1;0;0;1;1;0;0;1;0;1;1
+98;SetFinCorDowCuts FinAll TEST0;90.878;0;1;1;0;0;1;1;0;1;0;1;0;1;0;0;1;0;1;1;0;1
+72;SetResDowCuts FinAll TEST0;90.904;0;1;1;0;1;0;1;0;0;1;1;0;1;0;1;0;0;1;1;0;1
+195;SetOrdFinDowCuts FinMin TEST0;90.937;0;1;0;1;0;1;1;0;1;0;1;0;1;0;1;0;0;1;0;1;1
+226;SetFinCorDowCuts FinMin TEST0;90.938;0;1;1;0;0;1;1;0;1;0;1;0;1;0;0;1;0;1;0;1;1
+19;SetOrdFinFaiCuts FinAll TEST0;91.001;0;1;0;1;0;1;1;0;1;0;1;0;0;1;1;0;1;0;1;0;1
+87;SetOrdFinPreFaiDowCuts FinAll TEST0;91.105;0;1;0;1;0;1;0;1;1;0;1;0;0;1;1;0;0;1;1;0;1
+99;SetOrdFinCorDowCuts FinAll TEST0;91.122;0;1;0;1;0;1;1;0;1;0;1;0;1;0;0;1;0;1;1;0;1
+107;SetOrdFinResCorDowCuts FinAll TEST0;91.214;0;1;0;1;0;1;1;0;0;1;1;0;1;0;0;1;0;1;1;0;1
+151;SetOrdFinPreFaiCuts FinMin TEST0;91.225;0;1;0;1;0;1;0;1;1;0;1;0;0;1;1;0;1;0;0;1;1
+23;SetOrdFinPreFaiCuts FinAll TEST0;91.385;0;1;0;1;0;1;0;1;1;0;1;0;0;1;1;0;1;0;1;0;1
+180;SetPreFaiCorCuts FinMin TEST0;91.413;0;1;1;0;1;0;0;1;1;0;1;0;0;1;0;1;1;0;0;1;1
+52;SetPreFaiCorCuts FinAll TEST0;91.441;0;1;1;0;1;0;0;1;1;0;1;0;0;1;0;1;1;0;1;0;1
+127;SetOrdFinPreResFaiCorDowCuts FinAll TEST0;91.447;0;1;0;1;0;1;0;1;0;1;1;0;0;1;0;1;0;1;1;0;1
+77;SetOrdPreResDowCuts FinAll TEST0;91.827;0;1;0;1;1;0;0;1;0;1;1;0;1;0;1;0;0;1;1;0;1
+149;SetOrdPreFaiCuts FinMin TEST0;92.015;0;1;0;1;1;0;0;1;1;0;1;0;0;1;1;0;1;0;0;1;1
+213;SetOrdPreFaiDowCuts FinMin TEST0;92.216;0;1;0;1;1;0;0;1;1;0;1;0;0;1;1;0;0;1;0;1;1
+76;SetPreResDowCuts FinAll TEST0;92.584;0;1;1;0;1;0;0;1;0;1;1;0;1;0;1;0;0;1;1;0;1
+205;SetOrdPreResDowCuts FinMin TEST0;94.031;0;1;0;1;1;0;0;1;0;1;1;0;1;0;1;0;0;1;0;1;1
+204;SetPreResDowCuts FinMin TEST0;94.221;0;1;1;0;1;0;0;1;0;1;1;0;1;0;1;0;0;1;0;1;1
+207;SetOrdFinPreResDowCuts FinMin TEST0;94.422;0;1;0;1;0;1;0;1;0;1;1;0;1;0;1;0;0;1;0;1;1
+78;SetFinPreResDowCuts FinAll TEST0;94.576;0;1;1;0;0;1;0;1;0;1;1;0;1;0;1;0;0;1;1;0;1
+79;SetOrdFinPreResDowCuts FinAll TEST0;94.98;0;1;0;1;0;1;0;1;0;1;1;0;1;0;1;0;0;1;1;0;1
+206;SetFinPreResDowCuts FinMin TEST0;95.592;0;1;1;0;0;1;0;1;0;1;1;0;1;0;1;0;0;1;0;1;1
+240;SetFaiCorDowCuts FinMin TEST0;102.121;0;1;1;0;1;0;1;0;1;0;1;0;0;1;0;1;0;1;0;1;1
+112;SetFaiCorDowCuts FinAll TEST0;104.518;0;1;1;0;1;0;1;0;1;0;1;0;0;1;0;1;0;1;1;0;1
+200;SetResDowCuts FinMin TEST0;109.905;0;1;1;0;1;0;1;0;0;1;1;0;1;0;1;0;0;1;0;1;1
+85;SetOrdPreFaiDowCuts FinAll TEST0;111.715;0;1;0;1;1;0;0;1;1;0;1;0;0;1;1;0;0;1;1;0;1
+209;SetOrdFaiDowCuts FinMin TEST0;121.579;0;1;0;1;1;0;1;0;1;0;1;0;0;1;1;0;0;1;0;1;1
+21;SetOrdPreFaiCuts FinAll TEST0;129.921;0;1;0;1;1;0;0;1;1;0;1;0;0;1;1;0;1;0;1;0;1
+168;SetResCorCuts FinMin TEST0;135.834;0;1;1;0;1;0;1;0;0;1;1;0;1;0;0;1;1;0;0;1;1
+42;SetFinResCorCuts FinAll TEST0;137.416;0;1;1;0;0;1;1;0;0;1;1;0;1;0;0;1;1;0;1;0;1
+40;SetResCorCuts FinAll TEST0;138.351;0;1;1;0;1;0;1;0;0;1;1;0;1;0;0;1;1;0;1;0;1
+170;SetFinResCorCuts FinMin TEST0;140.348;0;1;1;0;0;1;1;0;0;1;1;0;1;0;0;1;1;0;0;1;1
+64;SetDowCuts FinAll TEST0;140.858;0;1;1;0;1;0;1;0;1;0;1;0;1;0;1;0;0;1;1;0;1
+176;SetFaiCorCuts FinMin TEST0;141.645;0;1;1;0;1;0;1;0;1;0;1;0;0;1;0;1;1;0;0;1;1
+192;SetDowCuts FinMin TEST0;142.264;0;1;1;0;1;0;1;0;1;0;1;0;1;0;1;0;0;1;0;1;1
+80;SetFaiDowCuts FinAll TEST0;142.944;0;1;1;0;1;0;1;0;1;0;1;0;0;1;1;0;0;1;1;0;1
+48;SetFaiCorCuts FinAll TEST0;144.991;0;1;1;0;1;0;1;0;1;0;1;0;0;1;0;1;1;0;1;0;1
+208;SetFaiDowCuts FinMin TEST0;145.024;0;1;1;0;1;0;1;0;1;0;1;0;0;1;1;0;0;1;0;1;1
+129;SetOrdCuts FinMin TEST0;151.778;0;1;0;1;1;0;1;0;1;0;1;0;1;0;1;0;1;0;0;1;1
+1;SetOrdCuts FinAll TEST0;154.046;0;1;0;1;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1
+138;SetFinResCuts FinMin TEST0;156.872;0;1;1;0;0;1;1;0;0;1;1;0;1;0;1;0;1;0;0;1;1
+139;SetOrdFinResCuts FinMin TEST0;157.273;0;1;0;1;0;1;1;0;0;1;1;0;1;0;1;0;1;0;0;1;1
+137;SetOrdResCuts FinMin TEST0;157.449;0;1;0;1;1;0;1;0;0;1;1;0;1;0;1;0;1;0;0;1;1
+136;SetResCuts FinMin TEST0;158.026;0;1;1;0;1;0;1;0;0;1;1;0;1;0;1;0;1;0;0;1;1
+11;SetOrdFinResCuts FinAll TEST0;161.004;0;1;0;1;0;1;1;0;0;1;1;0;1;0;1;0;1;0;1;0;1
+10;SetFinResCuts FinAll TEST0;161.562;0;1;1;0;0;1;1;0;0;1;1;0;1;0;1;0;1;0;1;0;1
+8;SetResCuts FinAll TEST0;162.002;0;1;1;0;1;0;1;0;0;1;1;0;1;0;1;0;1;0;1;0;1
+9;SetOrdResCuts FinAll TEST0;162.281;0;1;0;1;1;0;1;0;0;1;1;0;1;0;1;0;1;0;1;0;1
+100;SetPreCorDowCuts FinAll TEST0;162.592;0;1;1;0;1;0;0;1;1;0;1;0;1;0;0;1;0;1;1;0;1
+102;SetFinPreCorDowCuts FinAll TEST0;162.885;0;1;1;0;0;1;0;1;1;0;1;0;1;0;0;1;0;1;1;0;1
+230;SetFinPreCorDowCuts FinMin TEST0;163.995;0;1;1;0;0;1;0;1;1;0;1;0;1;0;0;1;0;1;0;1;1
+166;SetFinPreCorCuts FinMin TEST0;164.02;0;1;1;0;0;1;0;1;1;0;1;0;1;0;0;1;1;0;0;1;1
+228;SetPreCorDowCuts FinMin TEST0;164.138;0;1;1;0;1;0;0;1;1;0;1;0;1;0;0;1;0;1;0;1;1
+164;SetPreCorCuts FinMin TEST0;164.334;0;1;1;0;1;0;0;1;1;0;1;0;1;0;0;1;1;0;0;1;1
+81;SetOrdFaiDowCuts FinAll TEST0;164.389;0;1;0;1;1;0;1;0;1;0;1;0;0;1;1;0;0;1;1;0;1
+128;SetCuts FinMin TEST0;166.311;0;1;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;0;1;1
+38;SetFinPreCorCuts FinAll TEST0;166.903;0;1;1;0;0;1;0;1;1;0;1;0;1;0;0;1;1;0;1;0;1
+36;SetPreCorCuts FinAll TEST0;167.075;0;1;1;0;1;0;0;1;1;0;1;0;1;0;0;1;1;0;1;0;1
+160;SetCorCuts FinMin TEST0;167.443;0;1;1;0;1;0;1;0;1;0;1;0;1;0;0;1;1;0;0;1;1
+0;SetCuts FinAll TEST0;167.458;0;1;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1
+103;SetOrdFinPreCorDowCuts FinAll TEST0;168.162;0;1;0;1;0;1;0;1;1;0;1;0;1;0;0;1;0;1;1;0;1
+101;SetOrdPreCorDowCuts FinAll TEST0;168.52;0;1;0;1;1;0;0;1;1;0;1;0;1;0;0;1;0;1;1;0;1
+177;SetOrdFaiCorCuts FinMin TEST0;169.468;0;1;0;1;1;0;1;0;1;0;1;0;0;1;0;1;1;0;0;1;1
+172;SetPreResCorCuts FinMin TEST0;169.783;0;1;1;0;1;0;0;1;0;1;1;0;1;0;0;1;1;0;0;1;1
+32;SetCorCuts FinAll TEST0;169.941;0;1;1;0;1;0;1;0;1;0;1;0;1;0;0;1;1;0;1;0;1
+229;SetOrdPreCorDowCuts FinMin TEST0;169.95;0;1;0;1;1;0;0;1;1;0;1;0;1;0;0;1;0;1;0;1;1
+143;SetOrdFinPreResCuts FinMin TEST0;170.229;0;1;0;1;0;1;0;1;0;1;1;0;1;0;1;0;1;0;0;1;1
+174;SetFinPreResCorCuts FinMin TEST0;170.715;0;1;1;0;0;1;0;1;0;1;1;0;1;0;0;1;1;0;0;1;1
+49;SetOrdFaiCorCuts FinAll TEST0;170.788;0;1;0;1;1;0;1;0;1;0;1;0;0;1;0;1;1;0;1;0;1
+231;SetOrdFinPreCorDowCuts FinMin TEST0;171.006;0;1;0;1;0;1;0;1;1;0;1;0;1;0;0;1;0;1;0;1;1
+141;SetOrdPreResCuts FinMin TEST0;172.419;0;1;0;1;1;0;0;1;0;1;1;0;1;0;1;0;1;0;0;1;1
+44;SetPreResCorCuts FinAll TEST0;172.965;0;1;1;0;1;0;0;1;0;1;1;0;1;0;0;1;1;0;1;0;1
+46;SetFinPreResCorCuts FinAll TEST0;173.312;0;1;1;0;0;1;0;1;0;1;1;0;1;0;0;1;1;0;1;0;1
+15;SetOrdFinPreResCuts FinAll TEST0;173.662;0;1;0;1;0;1;0;1;0;1;1;0;1;0;1;0;1;0;1;0;1
+13;SetOrdPreResCuts FinAll TEST0;176.681;0;1;0;1;1;0;0;1;0;1;1;0;1;0;1;0;1;0;1;0;1
+145;SetOrdFaiCuts FinMin TEST0;178.96;0;1;0;1;1;0;1;0;1;0;1;0;0;1;1;0;1;0;0;1;1
+140;SetPreResCuts FinMin TEST0;179.412;0;1;1;0;1;0;0;1;0;1;1;0;1;0;1;0;1;0;0;1;1
+132;SetPreCuts FinMin TEST0;179.508;0;1;1;0;1;0;0;1;1;0;1;0;1;0;1;0;1;0;0;1;1
+167;SetOrdFinPreCorCuts FinMin TEST0;179.539;0;1;0;1;0;1;0;1;1;0;1;0;1;0;0;1;1;0;0;1;1
+161;SetOrdCorCuts FinMin TEST0;179.563;0;1;0;1;1;0;1;0;1;0;1;0;1;0;0;1;1;0;0;1;1
+47;SetOrdFinPreResCorCuts FinAll TEST0;179.583;0;1;0;1;0;1;0;1;0;1;1;0;1;0;0;1;1;0;1;0;1
+171;SetOrdFinResCorCuts FinMin TEST0;179.663;0;1;0;1;0;1;1;0;0;1;1;0;1;0;0;1;1;0;0;1;1
+193;SetOrdDowCuts FinMin TEST0;179.68;0;1;0;1;1;0;1;0;1;0;1;0;1;0;1;0;0;1;0;1;1
+142;SetFinPreResCuts FinMin TEST0;179.716;0;1;1;0;0;1;0;1;0;1;1;0;1;0;1;0;1;0;0;1;1
+144;SetFaiCuts FinMin TEST0;179.738;0;1;1;0;1;0;1;0;1;0;1;0;0;1;1;0;1;0;0;1;1
+69;SetOrdPreDowCuts FinAll TEST0;179.743;0;1;0;1;1;0;0;1;1;0;1;0;1;0;1;0;0;1;1;0;1
+96;SetCorDowCuts FinAll TEST0;179.814;0;1;1;0;1;0;1;0;1;0;1;0;1;0;0;1;0;1;1;0;1
+199;SetOrdFinPreDowCuts FinMin TEST0;179.907;0;1;0;1;0;1;0;1;1;0;1;0;1;0;1;0;0;1;0;1;1
+37;SetOrdPreCorCuts FinAll TEST0;179.916;0;1;0;1;1;0;0;1;1;0;1;0;1;0;0;1;1;0;1;0;1
+17;SetOrdFaiCuts FinAll TEST0;179.934;0;1;0;1;1;0;1;0;1;0;1;0;0;1;1;0;1;0;1;0;1
+65;SetOrdDowCuts FinAll TEST0;179.94;0;1;0;1;1;0;1;0;1;0;1;0;1;0;1;0;0;1;1;0;1
+135;SetOrdFinPreCuts FinMin TEST0;179.945;0;1;0;1;0;1;0;1;1;0;1;0;1;0;1;0;1;0;0;1;1
+198;SetFinPreDowCuts FinMin TEST0;179.954;0;1;1;0;0;1;0;1;1;0;1;0;1;0;1;0;0;1;0;1;1
+45;SetOrdPreResCorCuts FinAll TEST0;179.956;0;1;0;1;1;0;0;1;0;1;1;0;1;0;0;1;1;0;1;0;1
+71;SetOrdFinPreDowCuts FinAll TEST0;179.973;0;1;0;1;0;1;0;1;1;0;1;0;1;0;1;0;0;1;1;0;1
+225;SetOrdCorDowCuts FinMin TEST0;179.975;0;1;0;1;1;0;1;0;1;0;1;0;1;0;0;1;0;1;0;1;1
+133;SetOrdPreCuts FinMin TEST0;179.993;0;1;0;1;1;0;0;1;1;0;1;0;1;0;1;0;1;0;0;1;1
+7;SetOrdFinPreCuts FinAll TEST0;179.997;0;1;0;1;0;1;0;1;1;0;1;0;1;0;1;0;1;0;1;0;1
+33;SetOrdCorCuts FinAll TEST0;179.999;0;1;0;1;1;0;1;0;1;0;1;0;1;0;0;1;1;0;1;0;1
+6;SetFinPreCuts FinAll TEST0;180.014;0;1;1;0;0;1;0;1;1;0;1;0;1;0;1;0;1;0;1;0;1
+134;SetFinPreCuts FinMin TEST0;180.03;0;1;1;0;0;1;0;1;1;0;1;0;1;0;1;0;1;0;0;1;1
+197;SetOrdPreDowCuts FinMin TEST0;180.062;0;1;0;1;1;0;0;1;1;0;1;0;1;0;1;0;0;1;0;1;1
+12;SetPreResCuts FinAll TEST0;180.065;0;1;1;0;1;0;0;1;0;1;1;0;1;0;1;0;1;0;1;0;1
+68;SetPreDowCuts FinAll TEST0;180.079;0;1;1;0;1;0;0;1;1;0;1;0;1;0;1;0;0;1;1;0;1
+41;SetOrdResCorCuts FinAll TEST0;180.093;0;1;0;1;1;0;1;0;0;1;1;0;1;0;0;1;1;0;1;0;1
+196;SetPreDowCuts FinMin TEST0;180.132;0;1;1;0;1;0;0;1;1;0;1;0;1;0;1;0;0;1;0;1;1
+165;SetOrdPreCorCuts FinMin TEST0;180.171;0;1;0;1;1;0;0;1;1;0;1;0;1;0;0;1;1;0;0;1;1
+169;SetOrdResCorCuts FinMin TEST0;180.177;0;1;0;1;1;0;1;0;0;1;1;0;1;0;0;1;1;0;0;1;1
+70;SetFinPreDowCuts FinAll TEST0;180.178;0;1;1;0;0;1;0;1;1;0;1;0;1;0;1;0;0;1;1;0;1
+39;SetOrdFinPreCorCuts FinAll TEST0;180.183;0;1;0;1;0;1;0;1;1;0;1;0;1;0;0;1;1;0;1;0;1
+43;SetOrdFinResCorCuts FinAll TEST0;180.189;0;1;0;1;0;1;1;0;0;1;1;0;1;0;0;1;1;0;1;0;1
+16;SetFaiCuts FinAll TEST0;180.231;0;1;1;0;1;0;1;0;1;0;1;0;0;1;1;0;1;0;1;0;1
+97;SetOrdCorDowCuts FinAll TEST0;180.277;0;1;0;1;1;0;1;0;1;0;1;0;1;0;0;1;0;1;1;0;1
+224;SetCorDowCuts FinMin TEST0;180.311;0;1;1;0;1;0;1;0;1;0;1;0;1;0;0;1;0;1;0;1;1
+175;SetOrdFinPreResCorCuts FinMin TEST0;180.359;0;1;0;1;0;1;0;1;0;1;1;0;1;0;0;1;1;0;0;1;1
+173;SetOrdPreResCorCuts FinMin TEST0;180.413;0;1;0;1;1;0;0;1;0;1;1;0;1;0;0;1;1;0;0;1;1
+4;SetPreCuts FinAll TEST0;180.446;0;1;1;0;1;0;0;1;1;0;1;0;1;0;1;0;1;0;1;0;1
+14;SetFinPreResCuts FinAll TEST0;180.502;0;1;1;0;0;1;0;1;0;1;1;0;1;0;1;0;1;0;1;0;1
+5;SetOrdPreCuts FinAll TEST0;180.983;0;1;0;1;1;0;0;1;1;0;1;0;1;0;1;0;1;0;1;0;1
