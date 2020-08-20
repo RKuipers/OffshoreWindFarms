@@ -883,8 +883,6 @@ void run()
 
 	dataReader.readData();
 
-	string cut = "CUT";
-
 	XPRBprob* p = new XPRBprob("Stoc");
 
 	if (NAMES == 0)
