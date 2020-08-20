@@ -57,11 +57,4 @@ Code/Optimiser/Output files/lifeWeekModes.csv
 Code/Optimiser/Output files/lifeSimpleSubmodes.csv
 Code/Optimiser/Output files/lifeSimpleSettings.csv
 Code/Optimiser/Output files/lifeSimpleModes.csv
-*.log
-*.xtr
-Code/Optimiser/x64/Debug/Stochastic.obj
-Code/Optimiser/x64/Debug/Optimiser.vcxproj.FileListAbsolute.txt
-Code/Optimiser/x64/Debug/Mode.obj
-Code/Optimiser/x64/Debug/Main.obj
-Code/Optimiser/x64/Debug/Deterministic.obj
 Code/.vs/OWF/v16/ipch/AutoPCH/1ae48ba6ee56ea16/STOCHASTIC.ipch
