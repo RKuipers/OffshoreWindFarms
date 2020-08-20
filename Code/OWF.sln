@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Optimiser", "Optimiser\Optimiser.vcxproj", "{B52EE39C-3960-4812-9C54-9ABC9A5D7E2C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stochastic", "Stochastic\Stochastic.vcxproj", "{D5C4CB62-0352-4D3F-927C-31B0FF949BF4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -23,14 +21,6 @@ Global
 		{B52EE39C-3960-4812-9C54-9ABC9A5D7E2C}.Release|x64.Build.0 = Release|x64
 		{B52EE39C-3960-4812-9C54-9ABC9A5D7E2C}.Release|x86.ActiveCfg = Release|Win32
 		{B52EE39C-3960-4812-9C54-9ABC9A5D7E2C}.Release|x86.Build.0 = Release|Win32
-		{D5C4CB62-0352-4D3F-927C-31B0FF949BF4}.Debug|x64.ActiveCfg = Debug|x64
-		{D5C4CB62-0352-4D3F-927C-31B0FF949BF4}.Debug|x64.Build.0 = Debug|x64
-		{D5C4CB62-0352-4D3F-927C-31B0FF949BF4}.Debug|x86.ActiveCfg = Debug|Win32
-		{D5C4CB62-0352-4D3F-927C-31B0FF949BF4}.Debug|x86.Build.0 = Debug|Win32
-		{D5C4CB62-0352-4D3F-927C-31B0FF949BF4}.Release|x64.ActiveCfg = Release|x64
-		{D5C4CB62-0352-4D3F-927C-31B0FF949BF4}.Release|x64.Build.0 = Release|x64
-		{D5C4CB62-0352-4D3F-927C-31B0FF949BF4}.Release|x86.ActiveCfg = Release|Win32
-		{D5C4CB62-0352-4D3F-927C-31B0FF949BF4}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -163,8 +163,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Optimiser.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Deterministic.cpp" />
     <ClCompile Include="Mode.cpp" />
+    <ClCompile Include="Stochastic.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Deterministic.h" />
+    <ClInclude Include="Stochastic.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

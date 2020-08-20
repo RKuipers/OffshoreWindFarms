@@ -272,12 +272,14 @@ public:
 		locked = false;
 	}
 
-	// Initialiser (stub)
-	static Mode Init();
+	void Resize()
+	{
+		durs.resize(nModes);
+	}
 
 	/* Functions to set states: */
 #pragma region Setters
-	// Move on to the next state (returns True if end is reached)
+// Move on to the next state (returns True if end is reached)
 	bool Next()
 	{
 		if (locked)
@@ -376,7 +378,7 @@ public:
 
 	/* Functions to add Dimensions: */
 #pragma region Add Dims
-	// Adds a named regular dimension 
+// Adds a named regular dimension 
 	void AddDim(int max, string name)
 	{
 		dims.push_back(ModeDim(name, 0, max));
@@ -408,7 +410,7 @@ public:
 
 	/* Functions to get states: */
 #pragma region Getters
-	// Get current mode for specific dimension
+// Get current mode for specific dimension
 	int GetCurrent(int dim)
 	{
 		return dims[dim].getCurr();
