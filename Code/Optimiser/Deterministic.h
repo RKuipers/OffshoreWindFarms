@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Deter
+namespace D
 {
 void run();
 }

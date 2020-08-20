@@ -16,7 +16,7 @@
 using namespace std;
 using namespace ::dashoptimization;
 
-namespace Deter
+namespace D
 {
 
 // Program settings

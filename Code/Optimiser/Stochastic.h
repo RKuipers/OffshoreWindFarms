@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Stoc
+namespace S
 {
 	void run();
 }

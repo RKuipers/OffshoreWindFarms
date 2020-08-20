@@ -14,7 +14,7 @@
 using namespace std;
 using namespace ::dashoptimization;
 
-namespace Stoc
+namespace S
 {
 
 // Program settings

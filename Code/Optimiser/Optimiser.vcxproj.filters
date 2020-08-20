@@ -27,12 +27,24 @@
     <ClCompile Include="Deterministic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Optimiser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Deter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Deterministic.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Stochastic.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Optimiser.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Deter.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
