@@ -4,6 +4,8 @@
 #include "xprb_cpp.h"
 #include "xprs.h"
 #include <ctime>		// clock
+#include <fstream>		// ifstream, ofstream
+#include <algorithm>    // max, count
 
 // Program settings
 #define SEED 42 * NTIMES
@@ -26,10 +28,34 @@ using namespace ::dashoptimization;
 
 class Optimiser
 {
-private:
+protected:
+	// Model parameters
+	vector<vector<int>> OMEGA;
+	vector<vector<int>> C;
+	vector<int> d;
+	vector<vector<int>> sa;
+	vector<vector<int>> rho;
+	vector<vector<int>> m;
+	vector<vector<int>> lambda;
+
+	// Model variables
+	vector<vector<XPRBvar>> N;
+	vector<vector<XPRBvar>> o;
+	vector<vector<vector<XPRBvar>>> s;
+
 	virtual Mode initMode() = 0;
 
 	virtual void readData() = 0;
+	virtual void readTasks(ifstream* datafile, int taskType) = 0;
+	void readResources(ifstream* datafile);
+	virtual void readValues(ifstream* datafile) = 0;
+	virtual void readLambdas(ifstream* datafile) = 0;
+	void splitString(string s, vector<string>* res, char sep = ' ');
+	int parsePeriodical(char type, vector<string> line, int start, vector<int>* res, int amount);
+	vector<vector<string>> parseSection(ifstream* datafile, string name, bool canCopy = true, int expectedAmount = -1);
+
+	void generateWeather();
+	void generateStartAtValues();
 
 	virtual void genDecisionVariables(XPRBprob* prob) = 0;
 	virtual void genObjective(XPRBprob* prob) = 0;
@@ -39,10 +65,10 @@ private:
 
 	virtual void printProbOutput(XPRBprob* prob, Mode* m, int id) = 0;
 	virtual void printModeOutput(Mode* m, bool opt) = 0;
-	int printer(string s, int verbosity, bool end, int maxVerb);
+	int printer(string s, int verbosity, bool end = true, int maxVerb = 999);
 
 	void solveProblem(XPRBprob* prob, bool tune, string name, int maxTime);
 
 public:
-	void Run();
+	void Run(string baseName, int maxPTime, int maxFTime);
 };

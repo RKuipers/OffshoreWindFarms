@@ -77,7 +77,7 @@ Mode Deter::initMode()
 void Deter::readData()
 {
 	// Read data from file
-	outputPrinter.printer("Reading Data", VERBMODE);
+	printer("Reading Data", VERBMODE);
 
 	string line;
 	ifstream datafile(string() + INPUTFOLDER + PROBNAME + DATAEXT);
@@ -97,7 +97,7 @@ void Deter::readData()
 	readResources(&datafile);
 
 	// Read the energy value info
-	readSimpleArray(&datafile, "VALUES", NTIMES, v);
+	readValues(&datafile);
 
 	// Read the lambda info
 	readLambdas(&datafile);
@@ -110,6 +110,174 @@ void Deter::readData()
 	generateStartAtValues();
 
 	datafile.close();
+}
+
+void Deter::readTasks(ifstream* datafile, int taskType)
+{
+	string line;
+	vector<string>* split = new vector<string>();
+
+	string name;
+	int ntasks, start;
+	switch (taskType)
+	{
+	case 0:
+		name = "ITASKS";
+		ntasks = NITASKS;
+		start = 0;
+		break;
+	case 1:
+		name = "MPTASKS";
+		ntasks = NMPTASKS;
+		start = NITASKS;
+		break;
+	case 2:
+		name = "MCTASKS";
+		ntasks = NMCTASKS;
+		start = NITASKS + NMPTASKS;
+		break;
+	case 3:
+		name = "DTASKS";
+		ntasks = NDTASKS;
+		start = NITASKS + NMTASKS;
+		break;
+	default:
+		name = "";
+		ntasks = -1;
+		start = -1;
+		break;
+	}
+
+	getline(*datafile, line);
+	splitString(line, split);
+	if ((*split)[0].compare(name) != 0)
+		cout << "Error reading " << name << endl;
+	if (stoi((*split)[1]) != ntasks)
+		cout << "Error with declared " << name << " amount" << endl;
+
+	int copies = 1;
+
+	for (int i = start; i < ntasks + start; i += copies)
+	{
+		getline(*datafile, line);
+		splitString(line, split, '\t');
+
+		if (count(line.begin(), line.end(), '\t') != 2 + NRES)
+			cout << "Error with column count on " << name << " line " << i << endl;
+
+		if ((*split)[0].find(" ") != string::npos)
+		{
+			vector<string>* dups = new vector<string>();
+			splitString((*split)[0], dups, ' ');
+			copies = stoi((*dups)[1]) - stoi((*dups)[0]);
+		}
+		else
+			copies = 1;
+
+		for (int x = 0; x < copies; ++x)
+		{
+			d[i + x] = stoi((*split)[1]);
+			limits[i + x] = stoi((*split)[2]);
+
+			for (int r = 0; r < NRES; ++r)
+				rho[r][i + x] = stoi((*split)[r + 3]);
+		}
+	}
+
+	getline(*datafile, line);
+}
+
+void Deter::readValues(ifstream* datafile)
+{
+	string line;
+	vector<string>* split = new vector<string>();
+
+	getline(*datafile, line);
+	splitString(line, split);
+	if ((*split)[0].compare("VALUES") != 0)
+		cout << "Error reading VALUES" << endl;
+	if (stoi((*split)[1]) != NTIMES)
+		cout << "Error with declared VALUES amount" << endl;
+
+	getline(*datafile, line);
+	char type = line[0];
+
+	getline(*datafile, line);
+	splitString(line, split);
+	vector<int> vals = vector<int>(NTIMES);
+	parsePeriodical(type, *split, 0, &vals, NTIMES);
+	copy(vals.begin(), vals.end(), v);
+
+	getline(*datafile, line);
+}
+
+void Deter::readLambdas(ifstream* datafile)
+{
+	string line;
+	vector<string>* split = new vector<string>();
+
+	getline(*datafile, line);
+	splitString(line, split);
+	if ((*split)[0].compare("LAMBDAS") != 0)
+		cout << "Error reading LAMBDAS" << endl;
+	if (stoi((*split)[1]) != NMTASKS + 1)
+		cout << "Error with declared LAMBDAS amount" << endl;
+
+	int copies = 1;
+
+	for (int i = 0; i < NTASKS; i += copies)
+	{
+		if (i < NITASKS - 1 || i >= NITASKS + NMTASKS)
+		{
+			for (int a = 0; a < NASSETS; ++a)
+				lambda[a][i] = 0;
+			copies = 1;
+			continue;
+		}
+
+		getline(*datafile, line);
+		splitString(line, split, '\t');
+
+		if ((*split)[0].find(" ") != string::npos)
+		{
+			vector<string>* dups = new vector<string>();
+			splitString((*split)[0], dups, ' ');
+			copies = stoi((*dups)[1]) - stoi((*dups)[0]);
+		}
+		else
+			copies = 1;
+
+		vector<int> vals = vector<int>(NASSETS);
+		parsePeriodical((*split)[1][0], *split, 2, &vals, NASSETS);
+
+		for (int a = 0; a < NASSETS; ++a)
+			for (int j = i; j < i + copies; ++j)
+				lambda[a][j] = vals[a];
+	}
+
+	getline(*datafile, line);
+}
+
+void Deter::readPreqs(ifstream* datafile)
+{
+	string line;
+	vector<string>* split = new vector<string>();
+
+	getline(*datafile, line);
+	splitString(line, split);
+	if ((*split)[0].compare("PREREQUISITES") != 0)
+		cout << "Error reading PREREQUISITES" << endl;
+	if (stoi((*split)[1]) != NIP)
+		cout << "Error with declared PREREQUISITES amount" << endl;
+
+	for (int i = 0; i < NIP; ++i)
+	{
+		getline(*datafile, line);
+		splitString(line, split);
+		IP[i] = make_tuple(stoi((*split)[0]), stoi((*split)[1]));
+	}
+
+	getline(*datafile, line);
 }
 
 void Deter::genDecisionVariables(XPRBprob* prob)

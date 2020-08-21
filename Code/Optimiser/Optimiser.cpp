@@ -1,6 +1,6 @@
 #include "Optimiser.h"
 
-int Optimiser::printer(string s, int verbosity, bool end, int maxVerb)
+int Optimiser::printer(string s, int verbosity, bool end = true, int maxVerb = 999)
 {
 	if (VERBOSITY >= verbosity && VERBOSITY < maxVerb)
 	{
@@ -50,11 +50,9 @@ void Optimiser::solveProblem(XPRBprob* prob, bool tune, string name, int maxTime
 	printer(string() + "Problem status: " + MIPSTATUS[prob->getMIPStat()], VERBSOL);
 }
 
-void Optimiser::Run()
+void Optimiser::Run(string baseName, int maxPTime = 0, int maxFTime = 0)
 {
 	bool opt = true;
-
-	srand(SEED);
 
 	readData();
 
@@ -70,7 +68,7 @@ void Optimiser::Run()
 		printer("----------------------------------------------------------------------------------------", VERBSOL);
 		printer("MODE: " + to_string(id) + " (" + modeName + ")", VERBSOL);
 
-		string name = "Life" + to_string(id);
+		string name = baseName + to_string(id);
 		p->setName(name.c_str());
 
 		if (NAMES == 0)
@@ -88,12 +86,12 @@ void Optimiser::Run()
 
 		if (mode.GetCurrentModeName(0).compare("NoCuts") != 0)
 		{
-			solveProblem(p, toTune, name, MAXPRETIME);
+			solveProblem(p, toTune, name, maxPTime);
 			toTune = false;
 			genFullProblem(p, &mode);
 		}
 
-		solveProblem(p, toTune, name, MAXFULLTIME);
+		solveProblem(p, toTune, name, maxFTime);
 
 		printProbOutput(p, &mode, id);
 
@@ -111,4 +109,203 @@ void Optimiser::Run()
 #ifndef LOCKMODE
 	printModeOutput(&mode, opt);
 #endif // !LOCKMODE
+}
+
+void Optimiser::readResources(ifstream* datafile)
+{
+	string line;
+	vector<string>* split = new vector<string>();
+
+	getline(*datafile, line);
+	splitString(line, split);
+	if ((*split)[0].compare("RESOURCES") != 0)
+		cout << "Error reading RESOURCES" << endl;
+	if (stoi((*split)[1]) != NRES)
+		cout << "Error with declared RESOURCES amount" << endl;
+
+	for (int r = 0; r < NRES; ++r)
+	{
+		getline(*datafile, line);
+		splitString(line, split, '\t');
+
+		int loc = 1;
+		vector<int> vals = vector<int>(NPERIODS);
+		char type = (*split)[loc][0];
+		loc = parsePeriodical(type, *split, loc + 1, &vals);
+		copy(vals.begin(), vals.end(), C[r]);
+
+		type = (*split)[loc][0];
+		loc = parsePeriodical(type, *split, loc + 1, &vals);
+		copy(vals.begin(), vals.end(), m[r]);
+	}
+
+	getline(*datafile, line);
+}
+
+void Optimiser::splitString(string s, vector<string>* res, char sep)
+{
+	res->clear();
+	size_t l = 0;
+
+	while (s.find(sep, l) != string::npos)
+	{
+		size_t t = s.find(sep, l);
+		res->push_back(s.substr(l, t - l));
+		l = t + 1;
+	}
+
+	res->push_back(s.substr(l));
+}
+
+int Optimiser::parsePeriodical(char type, vector<string> line, int start, vector<int>* res, int amount)
+{
+	// Switch based on 3 types: U (universal value), I (intervals), S (single values)
+
+	res->clear();
+	(*res) = vector<int>(amount);
+
+	switch (type)
+	{
+	case 'U': // U x -> x used for all periods
+	{
+		int val = stoi(line[start]);
+		fill(res->begin(), res->begin() + amount, val);
+		return start + 1;
+	}
+	case 'I': // I s1 e1 v1 s2 e2 v2 ... sn en vn -> Periods sx (inclusive) through ex (exclusive) use vx, s1 through en should cover all periods
+	{
+		int filled = 0;
+		int loc = start;
+		while (filled < amount)
+		{
+			int intBeg = stoi(line[loc]);
+			int intEnd = stoi(line[loc + 1]);
+			int val = stoi(line[loc + 2]);
+
+			fill(res->begin() + intBeg, res->begin() + intEnd, val);
+			filled += intEnd - intBeg;
+			loc += 3;
+		}
+		return loc;
+	}
+	case 'S': // p1 v1 p2 v2 ... pn vn -> Period px uses vx, every period should be mentioned
+	{
+		for (int i = 0; i < amount; ++i)
+			(*res)[i] = stoi(line[i + start]);
+		return start + amount;
+	}
+	default:
+	{
+		cout << "Error reading a Periodical" << endl;
+		return 0;
+	}
+	}
+}
+
+vector<vector<string>> Optimiser::parseSection(ifstream* datafile, string name, bool canCopy = true, int expectedAmount = -1)
+{
+	string line;
+	vector<string>* split = new vector<string>();
+	int nVals, copies, first;
+	vector<vector<string>> res;
+
+	getline(*datafile, line);
+	splitString(line, split);
+	if ((*split)[0].compare(name) != 0)
+		cout << "Error: Expected section " << name << " but did not find it" << endl;
+	nVals = stoi((*split)[1]);
+
+	if (expectedAmount != -1 && expectedAmount != nVals)
+		cout << "Error: declared amount of " << name << " does not match the expected amount" << endl;
+
+	getline(*datafile, line);
+	while (line.compare("") != 0)
+	{
+		splitString(line, split, '\t');
+
+		if (canCopy && (*split)[0].find(" ") != string::npos)
+		{
+			vector<string>* dups = new vector<string>();
+			splitString((*split)[0], dups, ' ');
+			first = stoi((*dups)[0]);
+			copies = stoi((*dups)[1]) - first;
+		}
+		else
+		{
+			if (canCopy)
+				first = stoi((*split)[0]);
+			copies = 1;
+		}
+
+		for (int i = 0; i < copies; ++i)
+		{
+			vector<string> toAdd(split->size());
+			copy(split->begin(), split->end(), toAdd);
+			if (canCopy)
+				toAdd[0] = first;
+			res.push_back(toAdd);
+		}
+	}
+
+	return res;
+}
+
+void Optimiser::generateWeather()
+{
+	outputPrinter.printer("Wave heights per timestep:", VERBWEAT);
+
+	int waveHeight[NTIMES];
+	if (WEATHERTYPE == 0)
+	{
+		waveHeight[0] = base;
+
+		outputPrinter.printer("0: " + to_string(waveHeight[0]), VERBWEAT);
+		for (int t = 1; t < NTIMES; ++t)
+		{
+			bonus += (base - waveHeight[t - 1]) / 40;
+
+			waveHeight[t] = max(0, waveHeight[t - 1] + bonus + (rand() % variety));
+			outputPrinter.printer(to_string(t) + ": " + to_string(waveHeight[t]), VERBWEAT);
+		}
+	}
+	else if (WEATHERTYPE == 1)
+	{
+		for (int p = 0; p < NPERIODS; ++p)
+		{
+			waveHeight[p * TPP] = base;
+			outputPrinter.printer(to_string(p * TPP) + ": " + to_string(waveHeight[p * TPP]), VERBWEAT);
+			for (int t = (p * TPP) + 1; t < (p + 1) * TPP; ++t)
+			{
+				waveHeight[t] = max(0, waveHeight[t - 1] + bonus + (rand() % variety));
+				outputPrinter.printer(to_string(t) + ": " + to_string(waveHeight[t]), VERBWEAT);
+			}
+		}
+	}
+
+	for (int i = 0; i < NTASKS; ++i)
+		for (int t = 0; t < NTIMES; ++t)
+		{
+			if (waveHeight[t] < limits[i])
+				OMEGA[i][t] = 1;
+			else
+				OMEGA[i][t] = 0;
+		}
+}
+
+void Optimiser::generateStartAtValues()
+{
+	for (int i = 0; i < NTASKS; ++i)
+		for (int t1 = 0; t1 <= NTIMES; ++t1)
+		{
+			int worked = 0;
+			int t2;
+			for (t2 = t1 - 1; worked < d[i] && t2 >= 0; --t2)
+				if (OMEGA[i][t2] == 1)
+					worked++;
+
+			if (worked == d[i])
+				sa[i][t1] = t2 + 1;
+			else
+				sa[i][t1] = -1;
+		}
 }

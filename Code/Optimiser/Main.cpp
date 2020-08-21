@@ -12,6 +12,8 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
+	srand(SEED);
+
 	int type;
 
 #ifdef TYPE
@@ -41,7 +43,7 @@ int main(int argc, char** argv)
 		cout << "Running Deterministic" << endl;
 		D::run();
 		Deter d;
-		d.Run();
+		d.Run(PROBNAME, MAXPRETIME, MAXFULLTIME);
 	}
 	else if (type == 1)
 	{
