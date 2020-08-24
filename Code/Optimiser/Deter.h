@@ -31,8 +31,8 @@ protected:
 	Mode initMode();
 
 	void readData();
-	void readTasks(ifstream* datafile, int taskType);
-	void readValues(ifstream* datafile;
+	void readTasks(ifstream* datafile, int taskType, vector<int>* limits);
+	void readValues(ifstream* datafile);
 	void readLambdas(ifstream* datafile); 
 	void readPreqs(ifstream* datafile);
 

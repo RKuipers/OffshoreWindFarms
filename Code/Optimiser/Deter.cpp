@@ -87,11 +87,13 @@ void Deter::readData()
 		return;
 	}
 
+	vector<int> limits;
+
 	// Read the task info
-	readTasks(&datafile, 0);
-	readTasks(&datafile, 1);
-	readTasks(&datafile, 2);
-	readTasks(&datafile, 3);
+	readTasks(&datafile, 0, &limits);
+	readTasks(&datafile, 1, &limits);
+	readTasks(&datafile, 2, &limits);
+	readTasks(&datafile, 3, &limits);
 
 	// Read the resource info
 	readResources(&datafile);
@@ -106,17 +108,15 @@ void Deter::readData()
 	readPreqs(&datafile);
 
 	// Generate the weather and StartAt values
-	generateWeather();
-	generateStartAtValues();
+	vector<int> waveheights = wg.generateWeather();
+	printWeather(waveheights);
+	wg.generateStartValues(d, limits);
 
 	datafile.close();
 }
 
-void Deter::readTasks(ifstream* datafile, int taskType)
+void Deter::readTasks(ifstream* datafile, int taskType, vector<int>* limits)
 {
-	string line;
-	vector<string>* split = new vector<string>();
-
 	string name;
 	int ntasks, start;
 	switch (taskType)
@@ -148,136 +148,46 @@ void Deter::readTasks(ifstream* datafile, int taskType)
 		break;
 	}
 
-	getline(*datafile, line);
-	splitString(line, split);
-	if ((*split)[0].compare(name) != 0)
-		cout << "Error reading " << name << endl;
-	if (stoi((*split)[1]) != ntasks)
-		cout << "Error with declared " << name << " amount" << endl;
+	vector<vector<string>> lines = parseSection(datafile, name, true, ntasks);
 
-	int copies = 1;
-
-	for (int i = start; i < ntasks + start; i += copies)
+	for (int i = 0; i < ntasks; ++i)
 	{
-		getline(*datafile, line);
-		splitString(line, split, '\t');
+		d[i] = stoi(lines[i][1]);
+		limits->push_back(stoi(lines[i][2]));
 
-		if (count(line.begin(), line.end(), '\t') != 2 + NRES)
-			cout << "Error with column count on " << name << " line " << i << endl;
-
-		if ((*split)[0].find(" ") != string::npos)
-		{
-			vector<string>* dups = new vector<string>();
-			splitString((*split)[0], dups, ' ');
-			copies = stoi((*dups)[1]) - stoi((*dups)[0]);
-		}
-		else
-			copies = 1;
-
-		for (int x = 0; x < copies; ++x)
-		{
-			d[i + x] = stoi((*split)[1]);
-			limits[i + x] = stoi((*split)[2]);
-
-			for (int r = 0; r < NRES; ++r)
-				rho[r][i + x] = stoi((*split)[r + 3]);
-		}
+		for (int r = 0; r < lines[i].size()-3; ++r)
+			rho[r][i] = stoi(lines[i][r + 3]);
 	}
-
-	getline(*datafile, line);
 }
 
 void Deter::readValues(ifstream* datafile)
 {
-	string line;
-	vector<string>* split = new vector<string>();
+	vector<vector<string>> lines = parseSection(datafile, "VALUES", false);
 
-	getline(*datafile, line);
-	splitString(line, split);
-	if ((*split)[0].compare("VALUES") != 0)
-		cout << "Error reading VALUES" << endl;
-	if (stoi((*split)[1]) != NTIMES)
-		cout << "Error with declared VALUES amount" << endl;
-
-	getline(*datafile, line);
-	char type = line[0];
-
-	getline(*datafile, line);
-	splitString(line, split);
-	vector<int> vals = vector<int>(NTIMES);
-	parsePeriodical(type, *split, 0, &vals, NTIMES);
-	copy(vals.begin(), vals.end(), v);
-
-	getline(*datafile, line);
+	parsePeriodical(lines[0][0][0], lines[1], 0, &v, nPeriods);
 }
 
 void Deter::readLambdas(ifstream* datafile)
 {
-	string line;
-	vector<string>* split = new vector<string>();
+	vector<vector<string>> lines = parseSection(datafile, "LAMBDAS");
+	vector<vector<int>> flipped(lines.size(), vector<int>(NASSETS));
 
-	getline(*datafile, line);
-	splitString(line, split);
-	if ((*split)[0].compare("LAMBDAS") != 0)
-		cout << "Error reading LAMBDAS" << endl;
-	if (stoi((*split)[1]) != NMTASKS + 1)
-		cout << "Error with declared LAMBDAS amount" << endl;
+	int offset = stoi(lines[0][0]);
 
-	int copies = 1;
+	for (int i = 0; i < lines.size(); ++i)
+		parsePeriodical(lines[i][1][0], lines[i], 2, &flipped[i], NASSETS);
 
-	for (int i = 0; i < NTASKS; i += copies)
-	{
-		if (i < NITASKS - 1 || i >= NITASKS + NMTASKS)
-		{
-			for (int a = 0; a < NASSETS; ++a)
-				lambda[a][i] = 0;
-			copies = 1;
-			continue;
-		}
-
-		getline(*datafile, line);
-		splitString(line, split, '\t');
-
-		if ((*split)[0].find(" ") != string::npos)
-		{
-			vector<string>* dups = new vector<string>();
-			splitString((*split)[0], dups, ' ');
-			copies = stoi((*dups)[1]) - stoi((*dups)[0]);
-		}
-		else
-			copies = 1;
-
-		vector<int> vals = vector<int>(NASSETS);
-		parsePeriodical((*split)[1][0], *split, 2, &vals, NASSETS);
-
-		for (int a = 0; a < NASSETS; ++a)
-			for (int j = i; j < i + copies; ++j)
-				lambda[a][j] = vals[a];
-	}
-
-	getline(*datafile, line);
+	for (int x = 0; x < flipped.size(); ++x)
+		for (int y = 0; y < flipped[x].size(); ++y)
+			lambda[x][y] = flipped[y][x];
 }
 
 void Deter::readPreqs(ifstream* datafile)
 {
-	string line;
-	vector<string>* split = new vector<string>();
+	vector<vector<string>> lines = parseSection(datafile, "PREREQUISITES", false);
 
-	getline(*datafile, line);
-	splitString(line, split);
-	if ((*split)[0].compare("PREREQUISITES") != 0)
-		cout << "Error reading PREREQUISITES" << endl;
-	if (stoi((*split)[1]) != NIP)
-		cout << "Error with declared PREREQUISITES amount" << endl;
-
-	for (int i = 0; i < NIP; ++i)
-	{
-		getline(*datafile, line);
-		splitString(line, split);
-		IP[i] = make_tuple(stoi((*split)[0]), stoi((*split)[1]));
-	}
-
-	getline(*datafile, line);
+	for (int x = 0; x < lines.size(); ++x)
+		IP.push_back(make_tuple(stoi(lines[x][0]), stoi(lines[x][1])));
 }
 
 void Deter::genDecisionVariables(XPRBprob* prob)
@@ -321,7 +231,7 @@ void Deter::genObjective(XPRBprob* prob)
 
 void Deter::genPartialProblem(XPRBprob* prob, Mode* m)
 {
-	outputPrinter.printer("Initialising Original constraints", VERBINIT);
+	printer("Initialising Original constraints", VERBINIT);
 
 	genSetConstraints(prob, m->GetCurrentBySettingName("SetCuts") == 1);
 	genOrderConstraints(prob, m->GetCurrentBySettingName("OrdCuts") == 1);
@@ -338,7 +248,7 @@ void Deter::genFullProblem(XPRBprob* prob, Mode* m)
 {
 	clock_t start = clock();
 
-	outputPrinter.printer("Initialising Full constraints", VERBINIT);
+	printer("Initialising Full constraints", VERBINIT);
 
 	if (m->GetCurrentBySettingName("SetCuts") == 1)
 		genSetConstraints(prob, false);
@@ -360,7 +270,7 @@ void Deter::genFullProblem(XPRBprob* prob, Mode* m)
 		genDowntimeConstraints(prob, false);
 
 	double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
-	outputPrinter.printer("Duration of initialisation: " + to_string(duration) + " seconds", VERBINIT);
+	printer("Duration of initialisation: " + to_string(duration) + " seconds", VERBINIT);
 }
 
 void Deter::printProbOutput(XPRBprob* prob, Mode* m, int id)

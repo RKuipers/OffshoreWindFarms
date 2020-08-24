@@ -1,5 +1,12 @@
 #include "Optimiser.h"
 
+void Optimiser::printWeather(vector<int> waveheights)
+{
+	printer("Wave heights per timestep:", VERBWEAT); 
+	for(int t = 0; t < waveheights.size(); ++t)
+		printer(to_string(t) + ": " + to_string(waveheights[t]), VERBWEAT);
+}
+
 int Optimiser::printer(string s, int verbosity, bool end = true, int maxVerb = 999)
 {
 	if (VERBOSITY >= verbosity && VERBOSITY < maxVerb)
@@ -113,33 +120,17 @@ void Optimiser::Run(string baseName, int maxPTime = 0, int maxFTime = 0)
 
 void Optimiser::readResources(ifstream* datafile)
 {
-	string line;
-	vector<string>* split = new vector<string>();
+	vector<vector<string>> lines = parseSection(datafile, "RESOURCES");
 
-	getline(*datafile, line);
-	splitString(line, split);
-	if ((*split)[0].compare("RESOURCES") != 0)
-		cout << "Error reading RESOURCES" << endl;
-	if (stoi((*split)[1]) != NRES)
-		cout << "Error with declared RESOURCES amount" << endl;
-
-	for (int r = 0; r < NRES; ++r)
+	for (int r = 0; r < lines.size(); ++r)
 	{
-		getline(*datafile, line);
-		splitString(line, split, '\t');
-
 		int loc = 1;
-		vector<int> vals = vector<int>(NPERIODS);
-		char type = (*split)[loc][0];
-		loc = parsePeriodical(type, *split, loc + 1, &vals);
-		copy(vals.begin(), vals.end(), C[r]);
+		char type = lines[r][loc][0];
+		loc = parsePeriodical(type, lines[r], loc + 1, &C[r], nPeriods);
 
-		type = (*split)[loc][0];
-		loc = parsePeriodical(type, *split, loc + 1, &vals);
-		copy(vals.begin(), vals.end(), m[r]);
+		type = lines[r][loc][0];
+		loc = parsePeriodical(type, lines[r], loc + 1, &m[r], nPeriods);
 	}
-
-	getline(*datafile, line);
 }
 
 void Optimiser::splitString(string s, vector<string>* res, char sep)
@@ -250,62 +241,17 @@ vector<vector<string>> Optimiser::parseSection(ifstream* datafile, string name, 
 	return res;
 }
 
-void Optimiser::generateWeather()
+void Optimiser::genCon(XPRBprob* prob, const XPRBrelation& ac, string base, int nInd, int* indices, bool cut)
 {
-	outputPrinter.printer("Wave heights per timestep:", VERBWEAT);
-
-	int waveHeight[NTIMES];
-	if (WEATHERTYPE == 0)
+	if (cut)
+		prob->newCut(ac);
+	else
 	{
-		waveHeight[0] = base;
+		string name = base;
 
-		outputPrinter.printer("0: " + to_string(waveHeight[0]), VERBWEAT);
-		for (int t = 1; t < NTIMES; ++t)
-		{
-			bonus += (base - waveHeight[t - 1]) / 40;
+		for (int i = 0; i < nInd; ++i)
+			name += "_" + to_string(indices[i]);
 
-			waveHeight[t] = max(0, waveHeight[t - 1] + bonus + (rand() % variety));
-			outputPrinter.printer(to_string(t) + ": " + to_string(waveHeight[t]), VERBWEAT);
-		}
+		prob->newCtr(name.c_str(), ac);
 	}
-	else if (WEATHERTYPE == 1)
-	{
-		for (int p = 0; p < NPERIODS; ++p)
-		{
-			waveHeight[p * TPP] = base;
-			outputPrinter.printer(to_string(p * TPP) + ": " + to_string(waveHeight[p * TPP]), VERBWEAT);
-			for (int t = (p * TPP) + 1; t < (p + 1) * TPP; ++t)
-			{
-				waveHeight[t] = max(0, waveHeight[t - 1] + bonus + (rand() % variety));
-				outputPrinter.printer(to_string(t) + ": " + to_string(waveHeight[t]), VERBWEAT);
-			}
-		}
-	}
-
-	for (int i = 0; i < NTASKS; ++i)
-		for (int t = 0; t < NTIMES; ++t)
-		{
-			if (waveHeight[t] < limits[i])
-				OMEGA[i][t] = 1;
-			else
-				OMEGA[i][t] = 0;
-		}
-}
-
-void Optimiser::generateStartAtValues()
-{
-	for (int i = 0; i < NTASKS; ++i)
-		for (int t1 = 0; t1 <= NTIMES; ++t1)
-		{
-			int worked = 0;
-			int t2;
-			for (t2 = t1 - 1; worked < d[i] && t2 >= 0; --t2)
-				if (OMEGA[i][t2] == 1)
-					worked++;
-
-			if (worked == d[i])
-				sa[i][t1] = t2 + 1;
-			else
-				sa[i][t1] = -1;
-		}
 }
