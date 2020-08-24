@@ -29,8 +29,11 @@ using namespace ::dashoptimization;
 class Optimiser
 {
 protected:
-	// Model parameters
+	// Model settings
 	int nPeriods;
+	string name;
+
+	// Model parameters
 	vector<vector<int>> C;			// Costs (Resource, Period)
 	vector<int> d;					// Duration (Task)
 	vector<vector<int>> sa;			// Start Value (Task, Time)
@@ -44,6 +47,8 @@ protected:
 	vector<vector<vector<XPRBvar>>> s;	// Started tasks (Asset, Task, Time)
 
 	WeatherGenerator wg;
+
+	Optimiser(int nPeriods, string name, const WeatherGenerator& wg);
 
 	virtual Mode initMode() = 0;
 
@@ -64,9 +69,14 @@ protected:
 	virtual void genFullProblem(XPRBprob* prob, Mode* m) = 0;
 
 	void printWeather(vector<int> waveheights);
-	virtual void printProbOutput(XPRBprob* prob, Mode* m, int id) = 0;
-	virtual void printModeOutput(Mode* m, bool opt) = 0;
+	void printObj(ofstream* file, XPRBprob* prob);
+	void printTurbines(ofstream* file);
+	void printResources(ofstream* file);
+	void printTasks(ofstream* file);
+	void printProbOutput(XPRBprob* prob, Mode* m, int id);
+	void printModeOutput(Mode* m, bool opt);
 	int printer(string s, int verbosity, bool end = true, int maxVerb = 999);
+	string boolVec2Str(vector<bool> vec);
 
 	void solveProblem(XPRBprob* prob, bool tune, string name, int maxTime);
 

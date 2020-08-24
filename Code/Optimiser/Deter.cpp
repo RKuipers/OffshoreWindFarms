@@ -1,5 +1,7 @@
 #include "Deter.h"
 
+Deter::Deter() : Optimiser(NPERIODS, PROBNAME, WeatherGenerator(BASE, VARIETY, NTIMES, TPP)) { }
+
 Mode Deter::initMode()
 {
 	Mode mode = Mode();
@@ -273,75 +275,209 @@ void Deter::genFullProblem(XPRBprob* prob, Mode* m)
 	printer("Duration of initialisation: " + to_string(duration) + " seconds", VERBINIT);
 }
 
-void Deter::printProbOutput(XPRBprob* prob, Mode* m, int id)
+void Deter::genSetConstraints(XPRBprob* prob, bool cut)
 {
-	if (prob->getProbStat() == 1)
-		return;
+	// Once a task has started it stays started
+	for (int a = 0; a < NASSETS; ++a)
+		for (int i = 0; i < NTASKS; ++i)
+			for (int t = 1; t < NTIMES; ++t)
+			{
+				XPRBrelation rel = s[a][i][t] >= s[a][i][t - 1];
 
-	ofstream file;
-	file.open(string() + OUTPUTFOLDER + PROBNAME + to_string(id) + PROBOUTPUTEXT);
-
-	printObj(&file, prob);
-	printTurbines(&file);
-	printResources(&file);
-	printTasks(&file);
-
-	file.close();
+				int indices[3] = { a, i, t };
+				genCon(prob, rel, "Set", 3, indices, cut);
+			}
 }
 
-void Deter::printModeOutput(Mode* m, bool opt)
+void Deter::genOrderConstraints(XPRBprob* prob, bool cut)
 {
-	ofstream file;
-	file.open(string() + OUTPUTFOLDER + PROBNAME + "Modes" + MODEOUTPUTEXT);
+	// Forces every non-decomission task inactive after decomission starts
+	for (int a = 0; a < NASSETS; ++a)
+		for (int i = 0; i < NITASKS + NMTASKS; ++i)
+			for (int t = 0; t < NTIMES; ++t)
+			{
+				if (sa[i][t] < 0)
+					continue;
 
-	printer("----------------------------------------------------------------------------------------", VERBMODE);
+				XPRBrelation rel = s[a][i][sa[i][t]] - s[a][i][t] >= s[a][NITASKS + NMTASKS][t] - 1;
 
-#ifdef OPTIMAL
-	if (opt)
-		printer("All solutions are optimal", VERBMODE);
-	else
-		printer("Not all solutions are optimal", VERBMODE);
-#endif // OPTIMAL
+				int indices[3] = { a, i, t };
+				genCon(prob, rel, "Ord", 3, indices, cut);
+			}
+}
 
-	vector<string> modeNames = m->GetModeNames();
-	m->Reset();
+void Deter::genFinishConstraints(XPRBprob* prob, bool cut, bool finAll)
+{
+	// Forces every non-optional task to finish
+	for (int a = 0; a < NASSETS; ++a)
+		for (int i = 0; i < NTASKS; ++i)
+		{
+			if ((i >= NITASKS + NMPTASKS && i < NITASKS + NMTASKS) || (!finAll && (i < NITASKS - 1 || (i >= NITASKS + NMTASKS && i != NTASKS - 1))))
+				continue;
 
-	for (int i = 0; i < m->GetNModes(); ++i)
+			XPRBrelation rel = s[a][i][sa[i][NTIMES]] == 1;
+
+			int indices[2] = { a, i };
+			genCon(prob, rel, "Fin", 2, indices, cut);
+		}
+}
+
+void Deter::genPrecedenceConstraints(XPRBprob* prob, bool cut)
+{
+	// Precedence constraints
+	for (int x = 0; x < NIP + NMTASKS + 1; ++x)
 	{
-		double dur = m->GetDur(i);
-		string setStr = boolVec2Str(m->GetSettingStatus());
-		printer("MODE: " + to_string(i) + " (" + modeNames[i] + ") DUR: " + to_string(dur), VERBMODE);
-		file << i << ";" << modeNames[i] << ";" << dur << ";" << setStr << endl;
-		m->Next();
+		int i, j;
+		if (x < NIP) // Normal precedence
+			tie(i, j) = IP[x];
+		else if (x < NIP + NMPTASKS) // Perform preventive maintenance tasks in order
+		{
+			i = x - NIP + NITASKS - 1;
+			j = x - NIP + NITASKS;
+		}
+		else if (x < NIP + NMTASKS) // Finish installation before corrective maintenance can take place
+		{
+			i = NITASKS - 1;
+			j = x - NIP + NITASKS;
+		}
+		else
+		{
+			if (NITASKS <= 0 || NDTASKS <= 0)
+				continue;
+
+			i = NITASKS - 1;
+			j = NITASKS + NMTASKS;
+		}
+
+		for (int a = 0; a < NASSETS; ++a)
+			for (int t = 0; t < NTIMES; ++t)
+			{
+				if (sa[i][t] == -1)
+				{
+					s[a][j][t].setUB(0);
+					continue;
+				}
+
+				XPRBrelation rel = s[a][i][sa[i][t]] >= s[a][j][t];
+
+				int indices[3] = { a, x, t };
+				genCon(prob, rel, "Pre", 3, indices, cut);
+			}
 	}
+}
 
-	file.close();
+void Deter::genResourceConstraints(XPRBprob* prob, bool cut)
+{
+	// Resource amount link to starting times
+	for (int r = 0; r < NRES; ++r)
+		for (int p = 0; p < NPERIODS; ++p)
+			for (int t = p * TPP; t < (p + 1) * TPP; ++t)
+			{
+				XPRBrelation rel = N[r][p] >= 0;
 
-#if NMODETYPES > 1
-	file.open(string() + OUTPUTFOLDER + PROBNAME + "Settings" + MODEOUTPUTEXT);
+				for (int i = 0; i < NTASKS; ++i)
+				{
+					if (rho[r][i] == 0)
+						continue;
 
-	vector<string> settingNames = m->GetSettingNames();
-	vector<double> setAvgs = m->GetSettingDurs();
+					for (int a = 0; a < NASSETS; a++)
+					{
+						rel.addTerm(s[a][i][t], -rho[r][i]);
+						if (t > 0)
+							if (sa[i][t] > -1)
+								rel.addTerm(s[a][i][sa[i][t]], rho[r][i]);
+							else
+								continue;
+					}
+				}
 
-	for (int i = 0; i < m->GetNSettings(); ++i)
-	{
-		printer("SETTING: " + settingNames[i] + " DUR: " + to_string(setAvgs[i]), VERBMODE);
-		file << settingNames[i] << ";" << setAvgs[i] << endl;
-	}
+				int indices[3] = { r, p, t };
+				genCon(prob, rel, "Nee", 3, indices, cut);
+			}
+}
 
-	file.close();
-	file.open(string() + OUTPUTFOLDER + PROBNAME + "Submodes" + MODEOUTPUTEXT);
+void Deter::genActiveConstraints(XPRBprob* prob, bool cut)
+{
+	// Ensures turbines are only active after installation finishes and before decomission begins
+	for (int t = 0; t < NTIMES; ++t)
+		for (int a = 0; a < NASSETS; ++a)
+		{
+			if (sa[NITASKS - 1][t] < 0)
+			{
+				o[a][t].setUB(0);
+				continue;
+			}
 
-	vector<string> subModeNames = m->GetCombModeNames();
-	vector<double> subModeAvgs = m->GetModeDurs(subModeNames);
+			XPRBrelation rel = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]] - s[a][NITASKS + NMTASKS][t];
 
-	for (int i = 0; i < subModeNames.size(); ++i)
-	{
-		if (!isnan(subModeAvgs[i]))
-			printer("SUBMODE: " + subModeNames[i] + " DUR: " + to_string(subModeAvgs[i]), VERBMODE);
-		file << subModeNames[i] << ";" << subModeAvgs[i] << endl;
-	}
+			int indices[2] = { a, t };
+			genCon(prob, rel, "Act", 2, indices, cut);
+		}
+}
 
-	file.close();
-#endif // NMODETYPES > 1
+void Deter::genFailureConstraints(XPRBprob* prob, bool cut)
+{
+	// Turbines can only be online if they're not broken
+	for (int t = 0; t < NTIMES; ++t)
+		for (int a = 0; a < NASSETS; ++a)
+		{
+			XPRBrelation rel = o[a][t] <= 0;
+
+			for (int i = NITASKS - 1; i < NITASKS + NMTASKS; i++)
+			{
+				if (sa[i][t] > -1)
+					rel.addTerm(s[a][i][sa[i][t]], -1);
+				if (t - lambda[a][i] >= 0 && sa[i][t - lambda[a][i]] > -1)
+					rel.addTerm(s[a][i][sa[i][t - lambda[a][i]]]);
+			}
+
+			int indices[2] = { a, t };
+			genCon(prob, rel, "Fai", 2, indices, cut);
+		}
+}
+
+void Deter::genCorrectiveConstraints(XPRBprob* prob, bool cut)
+{
+	double factor = 1 / ((double)NTASKS);
+
+	// Turbines can only be correctively repaired if they are broken
+	for (int t = 0; t < NTIMES; ++t)
+		for (int a = 0; a < NASSETS; ++a)
+			for (int i = NITASKS + NMPTASKS; i < NITASKS + NMTASKS; ++i)
+			{
+				if (t == 0)
+				{
+					s[a][i][t].setUB(0);
+					continue;
+				}
+
+				XPRBrelation rel = s[a][i][t] - s[a][i][t - 1] <= 1;
+
+				for (int j = NITASKS - 1; j < NITASKS + NMTASKS; j++)
+				{
+					if (sa[j][t] > -1)
+						rel.addTerm(s[a][j][sa[j][t]], factor);
+					if (t - lambda[a][j] >= 0 && sa[j][t - lambda[a][j]] > -1)
+						rel.addTerm(s[a][j][sa[j][t - lambda[a][j]]], -factor);
+				}
+
+				int indices[3] = { a, i, t };
+				genCon(prob, rel, "Cor", 3, indices, cut);
+			}
+}
+
+void Deter::genDowntimeConstraints(XPRBprob* prob, bool cut)
+{
+	// Turbines are offline while maintenance work is ongoing
+	for (int t = 0; t < NTIMES; ++t)
+		for (int a = 0; a < NASSETS; ++a)
+			for (int i = NITASKS; i < NITASKS + NMTASKS; ++i)
+			{
+				XPRBrelation rel = o[a][t] <= 1 - s[a][i][t];
+				if (sa[i][t] >= 0)
+					rel.addTerm(s[a][i][sa[i][t]], -1);
+
+				int indices[3] = { a, i, t };
+				genCon(prob, rel, "Down", 3, indices, cut);
+			}
 }

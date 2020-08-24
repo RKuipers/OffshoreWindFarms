@@ -17,6 +17,8 @@ vector<int> WeatherGenerator::generateWeather()
 		for (int t = (p * tpp) + 1; t < (p + 1) * tpp; ++t)
 			waveheights.push_back(max(0, waveheights[t - 1] + bonus + (rand() % variety)));
 	}
+
+	return waveheights;
 }
 
 vector<vector<int>> WeatherGenerator::generateStartValues(vector<int> durs, vector<int> limits)
