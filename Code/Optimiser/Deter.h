@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Optimiser.h"
-#include <tuple>		// tuple
 
 // Model settings
 #define PROBNAME "lifeSimple"
@@ -20,17 +19,32 @@
 #define NRES 2
 #define NASSETS 2
 #define DIS 1.0
-#define BASE 150
+#define BASE 105
 #define VARIETY 51
 #define OPTIMAL 280 // The optimal solution, if known
+
+// Mode related settings
+//#define LOCKMODE "SetFinFaiDowCuts FinAll TEST0" 
+//#define LOCKDIM "SetCuts"		// Current best: SetFinFaiDowCuts, SetOrdResBroCuts
+#define LOCKSET 1	// 1 Strong
+#define LOCKORD 0	// 0 Strong
+#define LOCKFIN	1	// 1 Strong
+#define LOCKPRE 0	// 0 Strong
+#define LOCKRES 1	// 1 Medium (test more)
+#define LOCKACT 0	// 0 Strong
+#define LOCKFAI 1	// 1 Strong
+#define LOCKCOR	0	// 0 Medium-Strong
+#define LOCKDOW	1	// 1 Medium (test more)
+#define MODECUTS 9
+#define MODEFIN 2
+//#define MODETUNE 2
+#define MODETEST 2
 
 class Deter : public Optimiser
 {
 protected:
 	vector<int> v;
 	vector<tuple<int, int>> IP;
-
-	Deter();
 
 	Mode initMode();
 
@@ -53,4 +67,7 @@ protected:
 	void genFailureConstraints(XPRBprob* prob, bool cut);
 	void genCorrectiveConstraints(XPRBprob* prob, bool cut);
 	void genDowntimeConstraints(XPRBprob* prob, bool cut);
+
+public:
+	Deter();
 };

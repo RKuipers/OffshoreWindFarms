@@ -1,6 +1,11 @@
 #include "Deter.h"
 
-Deter::Deter() : Optimiser(NPERIODS, PROBNAME, WeatherGenerator(BASE, VARIETY, NTIMES, TPP)) { }
+Deter::Deter() : Optimiser(NPERIODS, NRES, NTASKS, NTIMES, NASSETS, PROBNAME, WeatherGenerator(BASE, VARIETY, NTIMES, TPP)) 
+{
+#ifdef OPTIMAL
+	optimal = OPTIMAL;
+#endif // OPTIMAL
+}
 
 Mode Deter::initMode()
 {
@@ -112,7 +117,7 @@ void Deter::readData()
 	// Generate the weather and StartAt values
 	vector<int> waveheights = wg.generateWeather();
 	printWeather(waveheights);
-	wg.generateStartValues(d, limits);
+	sa = wg.generateStartValues(d, limits);
 
 	datafile.close();
 }
@@ -154,11 +159,11 @@ void Deter::readTasks(ifstream* datafile, int taskType, vector<int>* limits)
 
 	for (int i = 0; i < ntasks; ++i)
 	{
-		d[i] = stoi(lines[i][1]);
+		d[i + start] = stoi(lines[i][1]);
 		limits->push_back(stoi(lines[i][2]));
 
 		for (int r = 0; r < lines[i].size()-3; ++r)
-			rho[r][i] = stoi(lines[i][r + 3]);
+			rho[r][i + start] = stoi(lines[i][r + 3]);
 	}
 }
 
@@ -166,7 +171,7 @@ void Deter::readValues(ifstream* datafile)
 {
 	vector<vector<string>> lines = parseSection(datafile, "VALUES", false);
 
-	parsePeriodical(lines[0][0][0], lines[1], 0, &v, nPeriods);
+	parsePeriodical(lines[0][0][0], lines[0], 1, &v, NTIMES);
 }
 
 void Deter::readLambdas(ifstream* datafile)
@@ -179,9 +184,9 @@ void Deter::readLambdas(ifstream* datafile)
 	for (int i = 0; i < lines.size(); ++i)
 		parsePeriodical(lines[i][1][0], lines[i], 2, &flipped[i], NASSETS);
 
-	for (int x = 0; x < flipped.size(); ++x)
-		for (int y = 0; y < flipped[x].size(); ++y)
-			lambda[x][y] = flipped[y][x];
+	for (int x = 0; x < flipped[0].size(); ++x)
+		for (int y = 0; y < flipped.size(); ++y)
+			lambda[x][y + offset] = flipped[y][x];
 }
 
 void Deter::readPreqs(ifstream* datafile)

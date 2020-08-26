@@ -6,17 +6,20 @@
 #include "xprs.h"
 #include <ctime>		// clock
 #include <fstream>		// ifstream, ofstream
+#include <string>		// string, to_string
+#include <vector>		// vector
+#include <iostream>		// cout
+#include <tuple>		// tuple
 
 // Program settings
 #define SEED 42 * NTIMES
 #define WEATHERTYPE 1
-#define VERBOSITY 1		// The one to edit
+#define VERBOSITY 2		// The one to edit
 #define VERBMODE 1
 #define VERBSOL 2
 #define VERBINIT 3
 #define VERBPROG 4
 #define VERBWEAT 5
-#define NAMES 1
 #define INPUTFOLDER "Input files/"
 #define OUTPUTFOLDER "Output files/"
 #define PROBOUTPUTEXT ".sol"
@@ -30,8 +33,9 @@ class Optimiser
 {
 protected:
 	// Model settings
-	int nPeriods;
-	string name;
+	int nPeriods, optimal;
+	string baseName;
+	vector<tuple<int, string>> sols;
 
 	// Model parameters
 	vector<vector<int>> C;			// Costs (Resource, Period)
@@ -46,9 +50,10 @@ protected:
 	vector<vector<XPRBvar>> o;			// Online turbines (Asset, Time)
 	vector<vector<vector<XPRBvar>>> s;	// Started tasks (Asset, Task, Time)
 
+	// Helper object
 	WeatherGenerator wg;
 
-	Optimiser(int nPeriods, string name, const WeatherGenerator& wg);
+	Optimiser(int nPeriods, int nRes, int nTasks, int nTimes, int nAssets, string name, const WeatherGenerator& weaGen);
 
 	virtual Mode initMode() = 0;
 
@@ -74,12 +79,12 @@ protected:
 	void printResources(ofstream* file);
 	void printTasks(ofstream* file);
 	void printProbOutput(XPRBprob* prob, Mode* m, int id);
-	void printModeOutput(Mode* m, bool opt);
+	void printModeOutput(Mode* m);
 	int printer(string s, int verbosity, bool end = true, int maxVerb = 999);
 	string boolVec2Str(vector<bool> vec);
 
 	void solveProblem(XPRBprob* prob, bool tune, string name, int maxTime);
 
 public:
-	void Run(string baseName, int maxPTime, int maxFTime);
+	void Run(int maxPTime, int maxFTime);
 };

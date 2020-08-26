@@ -2,13 +2,12 @@
 #include <iostream>		// cout
 #include "Optimiser.h"
 #include "Deter.h"
-#include "Deterministic.h"
 #include "Stochastic.h"
 
 using namespace std;
 
-//#define TYPE 1		// Sto
-#define TYPE 0		// Opt
+//#define TYPE 1		// Stochastic
+#define TYPE 0		// Deterministic
 
 int main(int argc, char** argv)
 {
@@ -41,9 +40,8 @@ int main(int argc, char** argv)
 	if (type == 0)
 	{
 		cout << "Running Deterministic" << endl;
-		D::run();
-		Deter d;
-		d.Run(PROBNAME, MAXPRETIME, MAXFULLTIME);
+		Deter d = Deter();
+		d.Run(MAXPRETIME, MAXFULLTIME);
 	}
 	else if (type == 1)
 	{

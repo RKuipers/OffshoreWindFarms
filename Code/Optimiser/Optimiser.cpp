@@ -7,6 +7,91 @@ void Optimiser::printWeather(vector<int> waveheights)
 		printer(to_string(t) + ": " + to_string(waveheights[t]), VERBWEAT);
 }
 
+void Optimiser::printObj(ofstream* file, XPRBprob* prob)
+{
+	printer("Total return: " + to_string(round(prob->getObjVal())), VERBSOL);
+	*file << "Objective: " << prob->getObjVal() << endl;
+}
+
+void Optimiser::printTurbines(ofstream* file)
+{
+	vector<int> vals = vector<int>();
+
+	printer("Online turbines per timestep: ", VERBSOL);
+	for (int t = 0; t < o.size(); ++t)
+	{
+		vals.push_back(0);
+		for (int a = 0; a < o.size(); ++a)
+			vals[t] += round(o[a][t].getSol());
+
+		int v = vals[t];
+		if (t == 0 || v != vals[t - 1])
+			printer(to_string(t) + ": " + to_string(v), VERBSOL);
+		*file << "O_" << t << ": " << v << endl;
+	}
+}
+
+void Optimiser::printResources(ofstream* file)
+{
+	printer("Resources needed per period and type: ", VERBSOL);
+	for (int p = 0; p < N[0].size(); ++p)
+	{
+		int v = round(N[0][p].getSol());
+		printer(to_string(p) + ": " + to_string(v), VERBSOL, false);
+		*file << "N_0_" << p << ": " << v << endl;;
+
+		for (int r = 1; r < N.size(); ++r)
+		{
+			v = round(N[r][p].getSol());
+			printer(", " + to_string(v), VERBSOL, false);
+			*file << "N_" << r << "_" << p << ": " << v << endl;;
+		}
+		printer("", VERBSOL);
+	}
+}
+
+void Optimiser::printTasks(ofstream* file)
+{
+	printer("Start and finish time per asset and task: ", VERBSOL);
+	for (int a = 0; a < s.size(); ++a)
+	{
+		printer("Asset: " + to_string(a), VERBSOL);
+		for (int i = 0; i < s[a].size(); ++i)
+		{
+			int start = -1;
+			int finish = -1;
+
+			for (int t = 0; t < s[a][i].size(); ++t)
+			{
+				int sv = round(s[a][i][t].getSol());
+
+				*file << "s_" << a << "_" << i << "_" << t << ": " << sv << endl;
+
+				if (sv == 1 && start == -1)
+					start = t;
+			}
+
+			if (start == -1)
+			{
+				printer(to_string(i) + ": Incomplete", VERBSOL);
+				*file << "Asset " << a << " task " << i << ": Incomplete" << endl;
+			}
+			else
+			{
+				for (int t1 = start + d[i] - 1; t1 <= sa[i].size(); ++t1)
+					if (sa[i][t1] >= start)
+					{
+						finish = t1 - 1;
+						break;
+					}
+
+				printer(to_string(i) + ": " + to_string(start) + " " + to_string(finish), VERBSOL);
+				*file << "Asset " << a << " task " << i << ": " << start << " " << finish << endl;
+			}
+		}
+	}
+}
+
 int Optimiser::printer(string s, int verbosity, bool end, int maxVerb)
 {
 	if (VERBOSITY >= verbosity && VERBOSITY < maxVerb)
@@ -57,10 +142,8 @@ void Optimiser::solveProblem(XPRBprob* prob, bool tune, string name, int maxTime
 	printer(string() + "Problem status: " + MIPSTATUS[prob->getMIPStat()], VERBSOL);
 }
 
-void Optimiser::Run(string baseName, int maxPTime = 0, int maxFTime = 0)
+void Optimiser::Run(int maxPTime = 0, int maxFTime = 0)
 {
-	bool opt = true;
-
 	readData();
 
 	Mode mode = initMode();
@@ -77,9 +160,6 @@ void Optimiser::Run(string baseName, int maxPTime = 0, int maxFTime = 0)
 
 		string name = baseName + to_string(id);
 		p->setName(name.c_str());
-
-		if (NAMES == 0)
-			p->setDictionarySize(XPRB_DICT_NAMES, 0);
 
 		clock_t start = clock();
 
@@ -102,23 +182,32 @@ void Optimiser::Run(string baseName, int maxPTime = 0, int maxFTime = 0)
 
 		printProbOutput(p, &mode, id);
 
-#ifdef OPTIMAL
-		opt &= round(p->getObjVal()) == OPTIMAL;
-#endif // OPTIMAL
-
 		duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		printer("FULL duration: " + to_string(duration) + " seconds", VERBSOL);
 
 		printer("Mode: " + to_string(id) + ", duration: " + to_string(duration) + " seconds, Solution: " + to_string(round(p->getObjVal())), VERBMODE, true, VERBSOL);
 		mode.SetCurrDur(duration);
+
+		sols.push_back(make_tuple(round(p->getObjVal()), modeName));
 	}
 
 #ifndef LOCKMODE
-	printModeOutput(&mode, opt);
+	printModeOutput(&mode);
 #endif // !LOCKMODE
 }
 
-Optimiser::Optimiser(int nPeriods, string name, const WeatherGenerator& wg) : nPeriods(nPeriods), name(name), wg(wg) { }
+Optimiser::Optimiser(int nPeriods, int nRes, int nTasks, int nTimes, int nAssets, string name, const WeatherGenerator& wg) : nPeriods(nPeriods), baseName(name), wg(wg), optimal(INT_MIN)
+{
+	C = vector<vector<int>>(nRes, vector<int>(nPeriods));
+	d = vector<int>(nTasks);
+	sa = vector<vector<int>>(nTasks, vector<int>(nTimes));
+	rho = vector<vector<int>>(nRes, vector<int>(nTasks));
+	m = vector<vector<int>>(nRes, vector<int>(nPeriods));
+	lambda = vector<vector<int>>(nAssets, vector<int>(nTasks));
+	N = vector<vector<XPRBvar>>(nRes, vector<XPRBvar>(nPeriods));
+	o = vector<vector<XPRBvar>>(nAssets, vector<XPRBvar>(nTimes));
+	s = vector<vector<vector<XPRBvar>>>(nAssets, vector<vector<XPRBvar>>(nTasks, vector<XPRBvar>(nTimes)));
+}
 
 void Optimiser::readResources(ifstream* datafile)
 {
@@ -199,7 +288,7 @@ vector<vector<string>> Optimiser::parseSection(ifstream* datafile, string name, 
 {
 	string line;
 	vector<string>* split = new vector<string>();
-	int nVals, copies, first;
+	int nVals, copies, first = -1;
 	vector<vector<string>> res;
 
 	getline(*datafile, line);
@@ -224,21 +313,24 @@ vector<vector<string>> Optimiser::parseSection(ifstream* datafile, string name, 
 			copies = stoi((*dups)[1]) - first;
 		}
 		else
-		{
-			if (canCopy)
-				first = stoi((*split)[0]);
 			copies = 1;
-		}
 
 		for (int i = 0; i < copies; ++i)
 		{
-			vector<string> toAdd(split->size());
-			copy(split->begin(), split->end(), toAdd);
-			if (canCopy)
-				toAdd[0] = first;
+			vector<string> toAdd(*split);
+			if (first != -1)
+				toAdd[0] = to_string(first + i);
 			res.push_back(toAdd);
 		}
+
+		if (!datafile->eof())
+			getline(*datafile, line);
+		else
+			line = "";
 	}
+
+	if (res.size() != nVals)
+		cout << "Error: declared amount of " << name << " does not match the actual amount" << endl;
 
 	return res;
 }
@@ -264,7 +356,7 @@ void Optimiser::printProbOutput(XPRBprob* prob, Mode* m, int id)
 		return;
 
 	ofstream file;
-	file.open(string() + OUTPUTFOLDER + name + to_string(id) + PROBOUTPUTEXT);
+	file.open(string() + OUTPUTFOLDER + baseName + to_string(id) + PROBOUTPUTEXT);
 
 	printObj(&file, prob);
 	printTurbines(&file);
@@ -274,19 +366,28 @@ void Optimiser::printProbOutput(XPRBprob* prob, Mode* m, int id)
 	file.close();
 }
 
-void Optimiser::printModeOutput(Mode* m, bool opt)
+void Optimiser::printModeOutput(Mode* m)
 {
 	ofstream file;
-	file.open(string() + OUTPUTFOLDER + name + "Modes" + MODEOUTPUTEXT);
+	file.open(string() + OUTPUTFOLDER + baseName + "Modes" + MODEOUTPUTEXT);
 
 	printer("----------------------------------------------------------------------------------------", VERBMODE);
 
-#ifdef OPTIMAL
-	if (opt)
-		printer("All solutions are optimal", VERBMODE);
+	sort(sols.begin(), sols.end());
+	if (get<0>(sols[0]) == get<0>(sols[sols.size() - 1]))
+	{
+		int val = get<0>(sols[0]);
+		if (val == optimal || optimal == INT_MIN)
+			printer("All solutions are optimal with a value of: " + to_string(val), VERBMODE);
+		else
+			printer("All solutions gave the value " + to_string(val) + " but the expected value was " + to_string(optimal), VERBMODE);
+	}
 	else
+	{
 		printer("Not all solutions are optimal", VERBMODE);
-#endif // OPTIMAL
+		printer("Worst solution is: " + to_string(get<0>(sols[0])) + " for mode " + get<1>(sols[0]), VERBMODE);
+		printer("Best solution is: " + to_string(get<0>(sols[sols.size() - 1])) + " for mode " + get<1>(sols[sols.size() - 1]), VERBMODE);
+	}
 
 	vector<string> modeNames = m->GetModeNames();
 	m->Reset();
@@ -302,8 +403,10 @@ void Optimiser::printModeOutput(Mode* m, bool opt)
 
 	file.close();
 
-#if NMODETYPES > 1
-	file.open(string() + OUTPUTFOLDER + PROBNAME + "Settings" + MODEOUTPUTEXT);
+	if (m->GetNDims() <= 1)
+		return;
+
+	file.open(string() + OUTPUTFOLDER + baseName + "Settings" + MODEOUTPUTEXT);
 
 	vector<string> settingNames = m->GetSettingNames();
 	vector<double> setAvgs = m->GetSettingDurs();
@@ -315,7 +418,7 @@ void Optimiser::printModeOutput(Mode* m, bool opt)
 	}
 
 	file.close();
-	file.open(string() + OUTPUTFOLDER + PROBNAME + "Submodes" + MODEOUTPUTEXT);
+	file.open(string() + OUTPUTFOLDER + baseName + "Submodes" + MODEOUTPUTEXT);
 
 	vector<string> subModeNames = m->GetCombModeNames();
 	vector<double> subModeAvgs = m->GetModeDurs(subModeNames);
@@ -328,7 +431,7 @@ void Optimiser::printModeOutput(Mode* m, bool opt)
 	}
 
 	file.close();
-#endif // NMODETYPES > 1
+
 }
 
 string Optimiser::boolVec2Str(vector<bool> vec)

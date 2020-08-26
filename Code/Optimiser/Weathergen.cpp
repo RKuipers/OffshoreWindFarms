@@ -11,7 +11,7 @@ WeatherGenerator::WeatherGenerator(int base, int variety, int nTimes, int tpp)
 
 vector<int> WeatherGenerator::generateWeather()
 {
-	for (int p = 0; p < nTimes * tpp; ++p)
+	for (int p = 0; p < nTimes / tpp; ++p)
 	{
 		waveheights.push_back(base);
 		for (int t = (p * tpp) + 1; t < (p + 1) * tpp; ++t)
@@ -23,19 +23,18 @@ vector<int> WeatherGenerator::generateWeather()
 
 vector<vector<int>> WeatherGenerator::generateStartValues(vector<int> durs, vector<int> limits)
 {
-	vector<vector<int>> res;
-	vector<vector<bool>> belowLimit;
-	for (int i = 0; i < durs.size(); ++i)
-		for (int t = 0; t < nTimes; ++t)
-			belowLimit[i].push_back(waveheights[t] <= limits[i]);
+	vector<vector<int>> res = vector<vector<int>>(durs.size());
 
 	for (int i = 0; i < durs.size(); ++i)
-		for (int t = 0; t < nTimes; ++t)
+		for (int t = 0; t <= nTimes; ++t)
 		{
+			if (i == 6)
+				i = 6;
+
 			int worked = 0;
 			int t2;
 			for (t2 = t - 1; worked < durs[i] && t2 >= 0; --t2)
-				if (belowLimit[i][t2])
+				if (waveheights[t2] <= limits[i])
 					worked++;
 
 			if (worked == durs[i])
