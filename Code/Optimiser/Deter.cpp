@@ -1,5 +1,7 @@
 #include "Deter.h"
 
+// ----------------------------Constructor function----------------------------
+
 Deter::Deter() : Optimiser(NPERIODS, NRES, NTASKS, NTIMES, NASSETS, PROBNAME, WeatherGenerator(BASE, VARIETY, NTIMES, TPP)) 
 {
 #ifdef OPTIMAL
@@ -81,46 +83,7 @@ Mode Deter::initMode()
 	return mode;
 }
 
-void Deter::readData()
-{
-	// Read data from file
-	printer("Reading Data", VERBMODE);
-
-	string line;
-	ifstream datafile(string() + INPUTFOLDER + PROBNAME + DATAEXT);
-	if (!datafile.is_open())
-	{
-		cout << "Unable to open file" << endl;
-		return;
-	}
-
-	vector<int> limits;
-
-	// Read the task info
-	readTasks(&datafile, 0, &limits);
-	readTasks(&datafile, 1, &limits);
-	readTasks(&datafile, 2, &limits);
-	readTasks(&datafile, 3, &limits);
-
-	// Read the resource info
-	readResources(&datafile);
-
-	// Read the energy value info
-	readValues(&datafile);
-
-	// Read the lambda info
-	readLambdas(&datafile);
-
-	// Read the task order info
-	readPreqs(&datafile);
-
-	// Generate the weather and StartAt values
-	vector<int> waveheights = wg.generateWeather();
-	printWeather(waveheights);
-	sa = wg.generateStartValues(d, limits);
-
-	datafile.close();
-}
+// -----------------------------Reading functions------------------------------
 
 void Deter::readTasks(ifstream* datafile, int taskType, vector<int>* limits)
 {
@@ -197,6 +160,49 @@ void Deter::readPreqs(ifstream* datafile)
 		IP.push_back(make_tuple(stoi(lines[x][0]), stoi(lines[x][1])));
 }
 
+void Deter::readData()
+{
+	// Read data from file
+	printer("Reading Data", VERBMODE);
+
+	string line;
+	ifstream datafile(string() + INPUTFOLDER + PROBNAME + DATAEXT);
+	if (!datafile.is_open())
+	{
+		cout << "Unable to open file" << endl;
+		return;
+	}
+
+	vector<int> limits;
+
+	// Read the task info
+	readTasks(&datafile, 0, &limits);
+	readTasks(&datafile, 1, &limits);
+	readTasks(&datafile, 2, &limits);
+	readTasks(&datafile, 3, &limits);
+
+	// Read the resource info
+	readResources(&datafile);
+
+	// Read the energy value info
+	readValues(&datafile);
+
+	// Read the lambda info
+	readLambdas(&datafile);
+
+	// Read the task order info
+	readPreqs(&datafile);
+
+	// Generate the weather and StartAt values
+	vector<int> waveheights = wg.generateWeather();
+	printWeather(waveheights);
+	sa = wg.generateStartValues(d, limits);
+
+	datafile.close();
+}
+
+// ----------------------------Generator functions-----------------------------
+
 void Deter::genDecisionVariables(XPRBprob* prob)
 {
 	// Create the period-based decision variables
@@ -234,50 +240,6 @@ void Deter::genObjective(XPRBprob* prob)
 			Obj.addTerm(N[r][p], -C[r][p] * dis);
 	}
 	prob->setObj(Obj); // Set the objective function
-}
-
-void Deter::genPartialProblem(XPRBprob* prob, Mode* m)
-{
-	printer("Initialising Original constraints", VERBINIT);
-
-	genSetConstraints(prob, m->GetCurrentBySettingName("SetCuts") == 1);
-	genOrderConstraints(prob, m->GetCurrentBySettingName("OrdCuts") == 1);
-	genFinishConstraints(prob, m->GetCurrentBySettingName("FinCuts") == 1, m->GetCurrentBySettingName("FinAll") == 1);
-	genPrecedenceConstraints(prob, m->GetCurrentBySettingName("PreCuts") == 1);
-	genResourceConstraints(prob, m->GetCurrentBySettingName("ResCuts") == 1);
-	genActiveConstraints(prob, m->GetCurrentBySettingName("ActCuts") == 1);
-	genFailureConstraints(prob, m->GetCurrentBySettingName("FaiCuts") == 1);
-	genCorrectiveConstraints(prob, m->GetCurrentBySettingName("CorCuts") == 1);
-	genDowntimeConstraints(prob, m->GetCurrentBySettingName("DowCuts") == 1);
-}
-
-void Deter::genFullProblem(XPRBprob* prob, Mode* m)
-{
-	clock_t start = clock();
-
-	printer("Initialising Full constraints", VERBINIT);
-
-	if (m->GetCurrentBySettingName("SetCuts") == 1)
-		genSetConstraints(prob, false);
-	if (m->GetCurrentBySettingName("OrdCuts") == 1)
-		genOrderConstraints(prob, false);
-	if (m->GetCurrentBySettingName("FinCuts") == 1)
-		genFinishConstraints(prob, false, m->GetCurrentBySettingName("FinAll") == 1);
-	if (m->GetCurrentBySettingName("PreCuts") == 1)
-		genPrecedenceConstraints(prob, false);
-	if (m->GetCurrentBySettingName("ResCuts") == 1)
-		genResourceConstraints(prob, false);
-	if (m->GetCurrentBySettingName("ActCuts") == 1)
-		genActiveConstraints(prob, false);
-	if (m->GetCurrentBySettingName("FaiCuts") == 1)
-		genFailureConstraints(prob, false);
-	if (m->GetCurrentBySettingName("CorCuts") == 1)
-		genCorrectiveConstraints(prob, false);
-	if (m->GetCurrentBySettingName("DowCuts") == 1)
-		genDowntimeConstraints(prob, false);
-
-	double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
-	printer("Duration of initialisation: " + to_string(duration) + " seconds", VERBINIT);
 }
 
 void Deter::genSetConstraints(XPRBprob* prob, bool cut)
@@ -485,4 +447,48 @@ void Deter::genDowntimeConstraints(XPRBprob* prob, bool cut)
 				int indices[3] = { a, i, t };
 				genCon(prob, rel, "Down", 3, indices, cut);
 			}
+}
+
+void Deter::genPartialProblem(XPRBprob* prob, Mode* m)
+{
+	printer("Initialising Original constraints", VERBINIT);
+
+	genSetConstraints(prob, m->GetCurrentBySettingName("SetCuts") == 1);
+	genOrderConstraints(prob, m->GetCurrentBySettingName("OrdCuts") == 1);
+	genFinishConstraints(prob, m->GetCurrentBySettingName("FinCuts") == 1, m->GetCurrentBySettingName("FinAll") == 1);
+	genPrecedenceConstraints(prob, m->GetCurrentBySettingName("PreCuts") == 1);
+	genResourceConstraints(prob, m->GetCurrentBySettingName("ResCuts") == 1);
+	genActiveConstraints(prob, m->GetCurrentBySettingName("ActCuts") == 1);
+	genFailureConstraints(prob, m->GetCurrentBySettingName("FaiCuts") == 1);
+	genCorrectiveConstraints(prob, m->GetCurrentBySettingName("CorCuts") == 1);
+	genDowntimeConstraints(prob, m->GetCurrentBySettingName("DowCuts") == 1);
+}
+
+void Deter::genFullProblem(XPRBprob* prob, Mode* m)
+{
+	clock_t start = clock();
+
+	printer("Initialising Full constraints", VERBINIT);
+
+	if (m->GetCurrentBySettingName("SetCuts") == 1)
+		genSetConstraints(prob, false);
+	if (m->GetCurrentBySettingName("OrdCuts") == 1)
+		genOrderConstraints(prob, false);
+	if (m->GetCurrentBySettingName("FinCuts") == 1)
+		genFinishConstraints(prob, false, m->GetCurrentBySettingName("FinAll") == 1);
+	if (m->GetCurrentBySettingName("PreCuts") == 1)
+		genPrecedenceConstraints(prob, false);
+	if (m->GetCurrentBySettingName("ResCuts") == 1)
+		genResourceConstraints(prob, false);
+	if (m->GetCurrentBySettingName("ActCuts") == 1)
+		genActiveConstraints(prob, false);
+	if (m->GetCurrentBySettingName("FaiCuts") == 1)
+		genFailureConstraints(prob, false);
+	if (m->GetCurrentBySettingName("CorCuts") == 1)
+		genCorrectiveConstraints(prob, false);
+	if (m->GetCurrentBySettingName("DowCuts") == 1)
+		genDowntimeConstraints(prob, false);
+
+	double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
+	printer("Duration of initialisation: " + to_string(duration) + " seconds", VERBINIT);
 }

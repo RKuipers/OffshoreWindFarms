@@ -1,200 +1,6 @@
 #include "Optimiser.h"
 
-void Optimiser::printWeather(vector<int> waveheights)
-{
-	printer("Wave heights per timestep:", VERBWEAT); 
-	for(int t = 0; t < waveheights.size(); ++t)
-		printer(to_string(t) + ": " + to_string(waveheights[t]), VERBWEAT);
-}
-
-void Optimiser::printObj(ofstream* file, XPRBprob* prob)
-{
-	printer("Total return: " + to_string(round(prob->getObjVal())), VERBSOL);
-	*file << "Objective: " << prob->getObjVal() << endl;
-}
-
-void Optimiser::printTurbines(ofstream* file)
-{
-	vector<int> vals = vector<int>();
-
-	printer("Online turbines per timestep: ", VERBSOL);
-	for (int t = 0; t < o.size(); ++t)
-	{
-		vals.push_back(0);
-		for (int a = 0; a < o.size(); ++a)
-			vals[t] += round(o[a][t].getSol());
-
-		int v = vals[t];
-		if (t == 0 || v != vals[t - 1])
-			printer(to_string(t) + ": " + to_string(v), VERBSOL);
-		*file << "O_" << t << ": " << v << endl;
-	}
-}
-
-void Optimiser::printResources(ofstream* file)
-{
-	printer("Resources needed per period and type: ", VERBSOL);
-	for (int p = 0; p < N[0].size(); ++p)
-	{
-		int v = round(N[0][p].getSol());
-		printer(to_string(p) + ": " + to_string(v), VERBSOL, false);
-		*file << "N_0_" << p << ": " << v << endl;;
-
-		for (int r = 1; r < N.size(); ++r)
-		{
-			v = round(N[r][p].getSol());
-			printer(", " + to_string(v), VERBSOL, false);
-			*file << "N_" << r << "_" << p << ": " << v << endl;;
-		}
-		printer("", VERBSOL);
-	}
-}
-
-void Optimiser::printTasks(ofstream* file)
-{
-	printer("Start and finish time per asset and task: ", VERBSOL);
-	for (int a = 0; a < s.size(); ++a)
-	{
-		printer("Asset: " + to_string(a), VERBSOL);
-		for (int i = 0; i < s[a].size(); ++i)
-		{
-			int start = -1;
-			int finish = -1;
-
-			for (int t = 0; t < s[a][i].size(); ++t)
-			{
-				int sv = round(s[a][i][t].getSol());
-
-				*file << "s_" << a << "_" << i << "_" << t << ": " << sv << endl;
-
-				if (sv == 1 && start == -1)
-					start = t;
-			}
-
-			if (start == -1)
-			{
-				printer(to_string(i) + ": Incomplete", VERBSOL);
-				*file << "Asset " << a << " task " << i << ": Incomplete" << endl;
-			}
-			else
-			{
-				for (int t1 = start + d[i] - 1; t1 <= sa[i].size(); ++t1)
-					if (sa[i][t1] >= start)
-					{
-						finish = t1 - 1;
-						break;
-					}
-
-				printer(to_string(i) + ": " + to_string(start) + " " + to_string(finish), VERBSOL);
-				*file << "Asset " << a << " task " << i << ": " << start << " " << finish << endl;
-			}
-		}
-	}
-}
-
-int Optimiser::printer(string s, int verbosity, bool end, int maxVerb)
-{
-	if (VERBOSITY >= verbosity && VERBOSITY < maxVerb)
-	{
-		cout << s;
-		if (end)
-			cout << endl;
-		return true;
-	}
-	return false;
-}
-
-void Optimiser::genBasicProblem(XPRBprob* prob, Mode* m)
-{
-	printer("Initialising variables and objective", VERBINIT);
-
-	genDecisionVariables(prob);
-	genObjective(prob);
-}
-
-void Optimiser::solveProblem(XPRBprob* prob, bool tune, string name, int maxTime = 0)
-{
-	printer("Solving problem", VERBINIT);
-	if (VERBOSITY < VERBPROG)
-		prob->setMsgLevel(1);
-
-	clock_t start = clock();
-
-	if (maxTime != 0 || tune)
-	{
-		XPRBloadmat(prob->getCRef());
-		XPRSprob opt_prob = XPRBgetXPRSprob(prob->getCRef());
-		if (maxTime != 0)
-			XPRSsetintcontrol(opt_prob, XPRS_MAXTIME, maxTime);
-		if (tune)
-			XPRStune(opt_prob, "g");
-	}
-
-	prob->setSense(XPRB_MAXIM);
-	prob->exportProb(XPRB_LP, (OUTPUTFOLDER + name).c_str());
-
-	prob->mipOptimize("");
-
-	double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
-	printer("Solving duration: " + to_string(duration) + " seconds", VERBSOL);
-
-	const char* MIPSTATUS[] = { "not loaded", "not optimized", "LP optimized", "unfinished (no solution)", "unfinished (solution found)", "infeasible", "optimal", "unbounded" };
-	printer(string() + "Problem status: " + MIPSTATUS[prob->getMIPStat()], VERBSOL);
-}
-
-void Optimiser::Run(int maxPTime = 0, int maxFTime = 0)
-{
-	readData();
-
-	Mode mode = initMode();
-
-	for (bool stop = false; !stop; stop = mode.Next())
-	{
-		int id = mode.GetID();
-
-		string modeName = mode.GetCurrentModeName();
-		XPRBprob* p = new XPRBprob();
-
-		printer("----------------------------------------------------------------------------------------", VERBSOL);
-		printer("MODE: " + to_string(id) + " (" + modeName + ")", VERBSOL);
-
-		string name = baseName + to_string(id);
-		p->setName(name.c_str());
-
-		clock_t start = clock();
-
-		genBasicProblem(p, &mode);
-		genPartialProblem(p, &mode);
-
-		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
-		printer("Duration of initialisation: " + to_string(duration) + " seconds", VERBINIT);
-
-		bool toTune = mode.GetCurrentBySettingName("Tune1") == 1;
-
-		if (mode.GetCurrentModeName(0).compare("NoCuts") != 0)
-		{
-			solveProblem(p, toTune, name, maxPTime);
-			toTune = false;
-			genFullProblem(p, &mode);
-		}
-
-		solveProblem(p, toTune, name, maxFTime);
-
-		printProbOutput(p, &mode, id);
-
-		duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
-		printer("FULL duration: " + to_string(duration) + " seconds", VERBSOL);
-
-		printer("Mode: " + to_string(id) + ", duration: " + to_string(duration) + " seconds, Solution: " + to_string(round(p->getObjVal())), VERBMODE, true, VERBSOL);
-		mode.SetCurrDur(duration);
-
-		sols.push_back(make_tuple(round(p->getObjVal()), modeName));
-	}
-
-#ifndef LOCKMODE
-	printModeOutput(&mode);
-#endif // !LOCKMODE
-}
+// ----------------------------Constructor function----------------------------
 
 Optimiser::Optimiser(int nPeriods, int nRes, int nTasks, int nTimes, int nAssets, string name, const WeatherGenerator& wg) : nPeriods(nPeriods), baseName(name), wg(wg), optimal(INT_MIN)
 {
@@ -208,6 +14,8 @@ Optimiser::Optimiser(int nPeriods, int nRes, int nTasks, int nTimes, int nAssets
 	o = vector<vector<XPRBvar>>(nAssets, vector<XPRBvar>(nTimes));
 	s = vector<vector<vector<XPRBvar>>>(nAssets, vector<vector<XPRBvar>>(nTasks, vector<XPRBvar>(nTimes)));
 }
+
+// -----------------------------Reading functions------------------------------
 
 void Optimiser::readResources(ifstream* datafile)
 {
@@ -335,6 +143,16 @@ vector<vector<string>> Optimiser::parseSection(ifstream* datafile, string name, 
 	return res;
 }
 
+// ----------------------------Generator functions-----------------------------
+
+void Optimiser::genBasicProblem(XPRBprob* prob, Mode* m)
+{
+	printer("Initialising variables and objective", VERBINIT);
+
+	genDecisionVariables(prob);
+	genObjective(prob);
+}
+
 void Optimiser::genCon(XPRBprob* prob, const XPRBrelation& ac, string base, int nInd, int* indices, bool cut)
 {
 	if (cut)
@@ -347,6 +165,100 @@ void Optimiser::genCon(XPRBprob* prob, const XPRBrelation& ac, string base, int 
 			name += "_" + to_string(indices[i]);
 
 		prob->newCtr(name.c_str(), ac);
+	}
+}
+
+// ------------------------------Print functions-------------------------------
+
+void Optimiser::printWeather(vector<int> waveheights)
+{
+	printer("Wave heights per timestep:", VERBWEAT);
+	for (int t = 0; t < waveheights.size(); ++t)
+		printer(to_string(t) + ": " + to_string(waveheights[t]), VERBWEAT);
+}
+
+void Optimiser::printObj(ofstream* file, XPRBprob* prob)
+{
+	printer("Total return: " + to_string(round(prob->getObjVal())), VERBSOL);
+	*file << "Objective: " << prob->getObjVal() << endl;
+}
+
+void Optimiser::printTurbines(ofstream* file)
+{
+	vector<int> vals = vector<int>();
+
+	printer("Online turbines per timestep: ", VERBSOL);
+	for (int t = 0; t < o.size(); ++t)
+	{
+		vals.push_back(0);
+		for (int a = 0; a < o.size(); ++a)
+			vals[t] += round(o[a][t].getSol());
+
+		int v = vals[t];
+		if (t == 0 || v != vals[t - 1])
+			printer(to_string(t) + ": " + to_string(v), VERBSOL);
+		*file << "O_" << t << ": " << v << endl;
+	}
+}
+
+void Optimiser::printResources(ofstream* file)
+{
+	printer("Resources needed per period and type: ", VERBSOL);
+	for (int p = 0; p < N[0].size(); ++p)
+	{
+		int v = round(N[0][p].getSol());
+		printer(to_string(p) + ": " + to_string(v), VERBSOL, false);
+		*file << "N_0_" << p << ": " << v << endl;;
+
+		for (int r = 1; r < N.size(); ++r)
+		{
+			v = round(N[r][p].getSol());
+			printer(", " + to_string(v), VERBSOL, false);
+			*file << "N_" << r << "_" << p << ": " << v << endl;;
+		}
+		printer("", VERBSOL);
+	}
+}
+
+void Optimiser::printTasks(ofstream* file)
+{
+	printer("Start and finish time per asset and task: ", VERBSOL);
+	for (int a = 0; a < s.size(); ++a)
+	{
+		printer("Asset: " + to_string(a), VERBSOL);
+		for (int i = 0; i < s[a].size(); ++i)
+		{
+			int start = -1;
+			int finish = -1;
+
+			for (int t = 0; t < s[a][i].size(); ++t)
+			{
+				int sv = round(s[a][i][t].getSol());
+
+				*file << "s_" << a << "_" << i << "_" << t << ": " << sv << endl;
+
+				if (sv == 1 && start == -1)
+					start = t;
+			}
+
+			if (start == -1)
+			{
+				printer(to_string(i) + ": Incomplete", VERBSOL);
+				*file << "Asset " << a << " task " << i << ": Incomplete" << endl;
+			}
+			else
+			{
+				for (int t1 = start + d[i] - 1; t1 <= sa[i].size(); ++t1)
+					if (sa[i][t1] >= start)
+					{
+						finish = t1 - 1;
+						break;
+					}
+
+				printer(to_string(i) + ": " + to_string(start) + " " + to_string(finish), VERBSOL);
+				*file << "Asset " << a << " task " << i << ": " << start << " " << finish << endl;
+			}
+		}
 	}
 }
 
@@ -434,6 +346,18 @@ void Optimiser::printModeOutput(Mode* m)
 
 }
 
+int Optimiser::printer(string s, int verbosity, bool end, int maxVerb)
+{
+	if (VERBOSITY >= verbosity && VERBOSITY < maxVerb)
+	{
+		cout << s;
+		if (end)
+			cout << endl;
+		return true;
+	}
+	return false;
+}
+
 string Optimiser::boolVec2Str(vector<bool> vec)
 {
 	string res = "";
@@ -447,4 +371,92 @@ string Optimiser::boolVec2Str(vector<bool> vec)
 			res.append(";");
 	}
 	return res;
+}
+
+// -------------------------------Solve function-------------------------------
+
+void Optimiser::solveProblem(XPRBprob* prob, bool tune, string name, int maxTime = 0)
+{
+	printer("Solving problem", VERBINIT);
+	if (VERBOSITY < VERBPROG)
+		prob->setMsgLevel(1);
+
+	clock_t start = clock();
+
+	if (maxTime != 0 || tune)
+	{
+		XPRBloadmat(prob->getCRef());
+		XPRSprob opt_prob = XPRBgetXPRSprob(prob->getCRef());
+		if (maxTime != 0)
+			XPRSsetintcontrol(opt_prob, XPRS_MAXTIME, maxTime);
+		if (tune)
+			XPRStune(opt_prob, "g");
+	}
+
+	prob->setSense(XPRB_MAXIM);
+	prob->exportProb(XPRB_LP, (OUTPUTFOLDER + name).c_str());
+
+	prob->mipOptimize("");
+
+	double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
+	printer("Solving duration: " + to_string(duration) + " seconds", VERBSOL);
+
+	const char* MIPSTATUS[] = { "not loaded", "not optimized", "LP optimized", "unfinished (no solution)", "unfinished (solution found)", "infeasible", "optimal", "unbounded" };
+	printer(string() + "Problem status: " + MIPSTATUS[prob->getMIPStat()], VERBSOL);
+}
+
+// --------------------------------Run function--------------------------------
+
+void Optimiser::Run(int maxPTime = 0, int maxFTime = 0)
+{
+	readData();
+
+	Mode mode = initMode();
+
+	for (bool stop = false; !stop; stop = mode.Next())
+	{
+		int id = mode.GetID();
+
+		string modeName = mode.GetCurrentModeName();
+		XPRBprob* p = new XPRBprob();
+
+		printer("----------------------------------------------------------------------------------------", VERBSOL);
+		printer("MODE: " + to_string(id) + " (" + modeName + ")", VERBSOL);
+
+		string name = baseName + to_string(id);
+		p->setName(name.c_str());
+
+		clock_t start = clock();
+
+		genBasicProblem(p, &mode);
+		genPartialProblem(p, &mode);
+
+		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
+		printer("Duration of initialisation: " + to_string(duration) + " seconds", VERBINIT);
+
+		bool toTune = mode.GetCurrentBySettingName("Tune1") == 1;
+
+		if (mode.GetCurrentModeName(0).compare("NoCuts") != 0)
+		{
+			solveProblem(p, toTune, name, maxPTime);
+			toTune = false;
+			genFullProblem(p, &mode);
+		}
+
+		solveProblem(p, toTune, name, maxFTime);
+
+		printProbOutput(p, &mode, id);
+
+		duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
+		printer("FULL duration: " + to_string(duration) + " seconds", VERBSOL);
+
+		printer("Mode: " + to_string(id) + ", duration: " + to_string(duration) + " seconds, Solution: " + to_string(round(p->getObjVal())), VERBMODE, true, VERBSOL);
+		mode.SetCurrDur(duration);
+
+		sols.push_back(make_tuple(round(p->getObjVal()), modeName));
+	}
+
+#ifndef LOCKMODE
+	printModeOutput(&mode);
+#endif // !LOCKMODE
 }

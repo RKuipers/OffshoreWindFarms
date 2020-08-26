@@ -57,21 +57,21 @@ protected:
 
 	virtual Mode initMode() = 0;
 
-	virtual void readData() = 0;
 	virtual void readTasks(ifstream* datafile, int taskType, vector<int>* limits) = 0;
 	void readResources(ifstream* datafile);
 	virtual void readValues(ifstream* datafile) = 0;
 	virtual void readLambdas(ifstream* datafile) = 0;
+	virtual void readData() = 0;
 	void splitString(string s, vector<string>* res, char sep = ' ');
 	int parsePeriodical(char type, vector<string> line, int start, vector<int>* res, int amount);
 	vector<vector<string>> parseSection(ifstream* datafile, string name, bool canCopy = true, int expectedAmount = -1);
 
-	void genCon(XPRBprob* prob, const XPRBrelation& ac, string base, int nInd, int* indices, bool cut);
 	virtual void genDecisionVariables(XPRBprob* prob) = 0;
 	virtual void genObjective(XPRBprob* prob) = 0;
 	void genBasicProblem(XPRBprob* prob, Mode* m);
 	virtual void genPartialProblem(XPRBprob* prob, Mode* m) = 0;
 	virtual void genFullProblem(XPRBprob* prob, Mode* m) = 0;
+	void genCon(XPRBprob* prob, const XPRBrelation& ac, string base, int nInd, int* indices, bool cut);
 
 	void printWeather(vector<int> waveheights);
 	void printObj(ofstream* file, XPRBprob* prob);

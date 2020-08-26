@@ -42,22 +42,23 @@
 
 class Deter : public Optimiser
 {
+public:
+	Deter();
+
 protected:
 	vector<int> v;
 	vector<tuple<int, int>> IP;
 
 	Mode initMode();
 
-	void readData() override;
 	void readTasks(ifstream* datafile, int taskType, vector<int>* limits) override;
 	void readValues(ifstream* datafile) override;
 	void readLambdas(ifstream* datafile) override;
 	void readPreqs(ifstream* datafile);
+	void readData() override;
 
 	void genDecisionVariables(XPRBprob* prob) override;
 	void genObjective(XPRBprob* prob) override;
-	void genPartialProblem(XPRBprob* prob, Mode* m) override;
-	void genFullProblem(XPRBprob* prob, Mode* m) override;
 	void genSetConstraints(XPRBprob* prob, bool cut);
 	void genOrderConstraints(XPRBprob* prob, bool cut);
 	void genFinishConstraints(XPRBprob* prob, bool cut, bool finAll);
@@ -67,7 +68,6 @@ protected:
 	void genFailureConstraints(XPRBprob* prob, bool cut);
 	void genCorrectiveConstraints(XPRBprob* prob, bool cut);
 	void genDowntimeConstraints(XPRBprob* prob, bool cut);
-
-public:
-	Deter();
+	void genPartialProblem(XPRBprob* prob, Mode* m) override;
+	void genFullProblem(XPRBprob* prob, Mode* m) override;
 };
