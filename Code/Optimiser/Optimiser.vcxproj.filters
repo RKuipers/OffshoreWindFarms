@@ -36,6 +36,9 @@
     <ClCompile Include="Weathergen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Stoch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Deterministic.h">
@@ -51,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Weathergen.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Stoch.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

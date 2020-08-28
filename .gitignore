@@ -67,3 +67,6 @@ Code/Optimiser/x64/Debug/Deterministic.obj
 *.ipch
 Code/.vs/OWF/v16/ipch/AutoPCH/a5d293f65e897ea2/MAIN.ipch
 *.ipch
+Code/Optimiser/Output files/stoYearLRModes.csv
+Code/Optimiser/Output files/stoYearLRSettings.csv
+Code/Optimiser/Output files/stoYearLRSubmodes.csv

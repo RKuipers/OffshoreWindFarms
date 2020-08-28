@@ -1,24 +1,23 @@
-#include "Deter.h"
+#include "Stoch.h"
 
 // ----------------------------Constructor function----------------------------
 
-Deter::Deter() : Optimiser(NPERIODS, NRES, NTASKS, NTIMES, NASSETS, PROBNAME, WeatherGenerator(BASE, VARIETY, NTIMES, TPP)) 
+Stoch::Stoch() : Optimiser(NPERIODS, NRES, NTASKS, NTIMES, NASSETS, PROBNAME, WeatherGenerator(BASE, VARIETY, NTIMES, TPP))
 {
 #ifdef OPTIMAL
 	optimal = OPTIMAL;
 #endif // OPTIMAL
 
-	v = vector<int>(NTIMES);
-	IP = vector<tuple<int, int>>(NIP);
-	lambda = vector<vector<int>>(NASSETS, vector<int>(NTASKS));
+	v = vector<vector<int>>(NTIMES, vector<int>(NSCENARIOS));
+	lambda = vector<vector<int>>(NASSETS, vector<int>(NTASKS+1));
 }
 
-Mode Deter::initMode()
+Mode Stoch::initMode()
 {
 	Mode mode = Mode();
 
 #ifdef MODECUTS
-	string names[MODECUTS + 2] = { "No", "Set", "Ord", "Fin", "Pre", "Res", "Act", "Fai", "Cor", "Dow", "Cuts" };
+	string names[MODECUTS + 2] = { "No", "Set", "Fin", "Res", "Fai", "Cor", "Dow", "Cuts" };
 	mode.AddCombDim(MODECUTS, names);
 #endif // MODECUTS
 
@@ -48,25 +47,13 @@ Mode Deter::initMode()
 	mode.LockSetting("SetCuts", LOCKSET);
 #endif // LOCKSET
 
-#ifdef LOCKORD
-	mode.LockSetting("OrdCuts", LOCKORD);
-#endif // LOCKORD
-
 #ifdef LOCKFIN
 	mode.LockSetting("FinCuts", LOCKFIN);
 #endif // LOCKFIN
 
-#ifdef LOCKPRE
-	mode.LockSetting("PreCuts", LOCKPRE);
-#endif // LOCKPRE
-
 #ifdef LOCKRES
 	mode.LockSetting("ResCuts", LOCKRES);
 #endif // LOCKRES
-
-#ifdef LOCKACT
-	mode.LockSetting("ActCuts", LOCKACT);
-#endif // LOCKACT
 
 #ifdef LOCKFAI
 	mode.LockSetting("FaiCuts", LOCKFAI);
@@ -89,31 +76,21 @@ Mode Deter::initMode()
 
 // -----------------------------Reading functions------------------------------
 
-void Deter::readTasks(ifstream* datafile, int taskType, vector<int>* limits)
+void Stoch::readTasks(ifstream* datafile, int taskType, vector<int>* limits)
 {
 	string name;
 	int ntasks, start;
 	switch (taskType)
 	{
 	case 0:
-		name = "ITASKS";
-		ntasks = NITASKS;
+		name = "PTASKS";
+		ntasks = NPTASKS;
 		start = 0;
 		break;
 	case 1:
-		name = "MPTASKS";
-		ntasks = NMPTASKS;
-		start = NITASKS;
-		break;
-	case 2:
-		name = "MCTASKS";
-		ntasks = NMCTASKS;
-		start = NITASKS + NMPTASKS;
-		break;
-	case 3:
-		name = "DTASKS";
-		ntasks = NDTASKS;
-		start = NITASKS + NMTASKS;
+		name = "CTASKS";
+		ntasks = NCTASKS;
+		start = NPTASKS;
 		break;
 	default:
 		name = "";
@@ -129,42 +106,40 @@ void Deter::readTasks(ifstream* datafile, int taskType, vector<int>* limits)
 		d[i + start] = stoi(lines[i][1]);
 		limits->push_back(stoi(lines[i][2]));
 
-		for (int r = 0; r < lines[i].size()-3; ++r)
+		for (int r = 0; r < lines[i].size() - 3; ++r)
 			rho[r][i + start] = stoi(lines[i][r + 3]);
 	}
 }
 
-void Deter::readValues(ifstream* datafile)
+void Stoch::readValues(ifstream* datafile)
 {
-	vector<vector<string>> lines = parseSection(datafile, "VALUES", false);
+	vector<vector<string>> lines = parseSection(datafile, "VALUES", false, NSCENARIOS);
+	vector<vector<int>> flipped(lines.size(), vector<int>(NTIMES));
 
-	parsePeriodical(lines[0][0][0], lines[0], 1, &v, NTIMES);
+	for (int i = 0; i < lines.size(); ++i)
+		parsePeriodical(lines[i][0][0], lines[i], 1, &flipped[i], NTIMES);
+
+	for (int x = 0; x < flipped[0].size(); ++x)
+		for (int y = 0; y < flipped.size(); ++y)
+			v[x][y] = flipped[y][x];
 }
 
-void Deter::readLambdas(ifstream* datafile)
+void Stoch::readLambdas(ifstream* datafile)
 {
 	vector<vector<string>> lines = parseSection(datafile, "LAMBDAS");
 	vector<vector<int>> flipped(lines.size(), vector<int>(NASSETS));
 
-	int offset = stoi(lines[0][0]);
+	parsePeriodical(lines[0][0][0], lines[0], 1, &flipped[lines.size() - 1], NASSETS);
 
-	for (int i = 0; i < lines.size(); ++i)
-		parsePeriodical(lines[i][1][0], lines[i], 2, &flipped[i], NASSETS);
+	for (int i = 1; i < lines.size(); ++i)
+		parsePeriodical(lines[i][1][0], lines[i], 2, &flipped[i-1], NASSETS);
 
 	for (int x = 0; x < flipped[0].size(); ++x)
 		for (int y = 0; y < flipped.size(); ++y)
-			lambda[x][y + offset] = flipped[y][x];
+			lambda[x][y] = flipped[y][x];
 }
 
-void Deter::readPreqs(ifstream* datafile)
-{
-	vector<vector<string>> lines = parseSection(datafile, "PREREQUISITES", false);
-
-	for (int x = 0; x < lines.size(); ++x)
-		IP.push_back(make_tuple(stoi(lines[x][0]), stoi(lines[x][1])));
-}
-
-void Deter::readData()
+void Stoch::readData()
 {
 	// Read data from file
 	printer("Reading Data", VERBMODE);
@@ -182,8 +157,6 @@ void Deter::readData()
 	// Read the task info
 	readTasks(&datafile, 0, &limits);
 	readTasks(&datafile, 1, &limits);
-	readTasks(&datafile, 2, &limits);
-	readTasks(&datafile, 3, &limits);
 
 	// Read the resource info
 	readResources(&datafile);
@@ -193,9 +166,6 @@ void Deter::readData()
 
 	// Read the lambda info
 	readLambdas(&datafile);
-
-	// Read the task order info
-	readPreqs(&datafile);
 
 	// Generate the weather and StartAt values
 	vector<int> waveheights = wg.generateWeather();
@@ -207,7 +177,7 @@ void Deter::readData()
 
 // ----------------------------Generator functions-----------------------------
 
-void Deter::genDecisionVariables(XPRBprob* prob)
+void Stoch::genDecisionVariables(XPRBprob* prob)
 {
 	// Create the period-based decision variables
 	for (int p = 0; p < NPERIODS; ++p)
@@ -229,24 +199,25 @@ void Deter::genDecisionVariables(XPRBprob* prob)
 		}
 }
 
-void Deter::genObjective(XPRBprob* prob)
+void Stoch::genObjective(XPRBprob* prob)
 {
 	XPRBctr Obj = prob->newCtr();
-	for (int p = 0; p < NPERIODS; ++p)
-	{
-		double dis = pow(DIS, p);
+	for (int s = 0; s < NSCENARIOS; ++s)
+		for (int p = 0; p < NPERIODS; ++p)
+		{
+			double dis = pow(DIS, p);
 
-		for (int t = p * TPP; t < (p + 1) * TPP; ++t)
-			for (int a = 0; a < NASSETS; ++a)
-				Obj.addTerm(o[a][t], v[t] * dis);
+			for (int t = p * TPP; t < (p + 1) * TPP; ++t)
+				for (int a = 0; a < NASSETS; ++a)
+					Obj.addTerm(o[a][t], v[t][s] * dis);
 
-		for (int r = 0; r < NRES; ++r)
-			Obj.addTerm(N[r][p], -C[r][p] * dis);
-	}
+			for (int r = 0; r < NRES; ++r)
+				Obj.addTerm(N[r][p], -C[r][p] * dis);
+		}
 	prob->setObj(Obj); // Set the objective function
 }
 
-void Deter::genSetConstraints(XPRBprob* prob, bool cut)
+void Stoch::genSetConstraints(XPRBprob* prob, bool cut)
 {
 	// Once a task has started it stays started
 	for (int a = 0; a < NASSETS; ++a)
@@ -260,32 +231,12 @@ void Deter::genSetConstraints(XPRBprob* prob, bool cut)
 			}
 }
 
-void Deter::genOrderConstraints(XPRBprob* prob, bool cut)
-{
-	// Forces every non-decomission task inactive after decomission starts
-	for (int a = 0; a < NASSETS; ++a)
-		for (int i = 0; i < NITASKS + NMTASKS; ++i)
-			for (int t = 0; t < NTIMES; ++t)
-			{
-				if (sa[i][t] < 0)
-					continue;
-
-				XPRBrelation rel = s[a][i][sa[i][t]] - s[a][i][t] >= s[a][NITASKS + NMTASKS][t] - 1;
-
-				int indices[3] = { a, i, t };
-				genCon(prob, rel, "Ord", 3, indices, cut);
-			}
-}
-
-void Deter::genFinishConstraints(XPRBprob* prob, bool cut, bool finAll)
+void Stoch::genFinishConstraints(XPRBprob* prob, bool cut, bool finAll)
 {
 	// Forces every non-optional task to finish
 	for (int a = 0; a < NASSETS; ++a)
 		for (int i = 0; i < NTASKS; ++i)
 		{
-			if ((i >= NITASKS + NMPTASKS && i < NITASKS + NMTASKS) || (!finAll && (i < NITASKS - 1 || (i >= NITASKS + NMTASKS && i != NTASKS - 1))))
-				continue;
-
 			XPRBrelation rel = s[a][i][sa[i][NTIMES]] == 1;
 
 			int indices[2] = { a, i };
@@ -293,51 +244,7 @@ void Deter::genFinishConstraints(XPRBprob* prob, bool cut, bool finAll)
 		}
 }
 
-void Deter::genPrecedenceConstraints(XPRBprob* prob, bool cut)
-{
-	// Precedence constraints
-	for (int x = 0; x < NIP + NMTASKS + 1; ++x)
-	{
-		int i, j;
-		if (x < NIP) // Normal precedence
-			tie(i, j) = IP[x];
-		else if (x < NIP + NMPTASKS) // Perform preventive maintenance tasks in order
-		{
-			i = x - NIP + NITASKS - 1;
-			j = x - NIP + NITASKS;
-		}
-		else if (x < NIP + NMTASKS) // Finish installation before corrective maintenance can take place
-		{
-			i = NITASKS - 1;
-			j = x - NIP + NITASKS;
-		}
-		else
-		{
-			if (NITASKS <= 0 || NDTASKS <= 0)
-				continue;
-
-			i = NITASKS - 1;
-			j = NITASKS + NMTASKS;
-		}
-
-		for (int a = 0; a < NASSETS; ++a)
-			for (int t = 0; t < NTIMES; ++t)
-			{
-				if (sa[i][t] == -1)
-				{
-					s[a][j][t].setUB(0);
-					continue;
-				}
-
-				XPRBrelation rel = s[a][i][sa[i][t]] >= s[a][j][t];
-
-				int indices[3] = { a, x, t };
-				genCon(prob, rel, "Pre", 3, indices, cut);
-			}
-	}
-}
-
-void Deter::genResourceConstraints(XPRBprob* prob, bool cut)
+void Stoch::genResourceConstraints(XPRBprob* prob, bool cut)
 {
 	// Resource amount link to starting times
 	for (int r = 0; r < NRES; ++r)
@@ -367,34 +274,18 @@ void Deter::genResourceConstraints(XPRBprob* prob, bool cut)
 			}
 }
 
-void Deter::genActiveConstraints(XPRBprob* prob, bool cut)
-{
-	// Ensures turbines are only active after installation finishes and before decomission begins
-	for (int t = 0; t < NTIMES; ++t)
-		for (int a = 0; a < NASSETS; ++a)
-		{
-			if (sa[NITASKS - 1][t] < 0)
-			{
-				o[a][t].setUB(0);
-				continue;
-			}
-
-			XPRBrelation rel = o[a][t] <= s[a][NITASKS - 1][sa[NITASKS - 1][t]] - s[a][NITASKS + NMTASKS][t];
-
-			int indices[2] = { a, t };
-			genCon(prob, rel, "Act", 2, indices, cut);
-		}
-}
-
-void Deter::genFailureConstraints(XPRBprob* prob, bool cut)
+void Stoch::genFailureConstraints(XPRBprob* prob, bool cut)
 {
 	// Turbines can only be online if they're not broken
 	for (int t = 0; t < NTIMES; ++t)
 		for (int a = 0; a < NASSETS; ++a)
 		{
+			if (t < lambda[a][NTASKS]) // Active time from installation
+				continue;
+
 			XPRBrelation rel = o[a][t] <= 0;
 
-			for (int i = NITASKS - 1; i < NITASKS + NMTASKS; i++)
+			for (int i = 0; i < NTASKS; i++)
 			{
 				if (sa[i][t] > -1)
 					rel.addTerm(s[a][i][sa[i][t]], -1);
@@ -407,16 +298,16 @@ void Deter::genFailureConstraints(XPRBprob* prob, bool cut)
 		}
 }
 
-void Deter::genCorrectiveConstraints(XPRBprob* prob, bool cut)
+void Stoch::genCorrectiveConstraints(XPRBprob* prob, bool cut)
 {
 	double factor = 1 / ((double)NTASKS);
 
 	// Turbines can only be correctively repaired if they are broken
 	for (int t = 0; t < NTIMES; ++t)
 		for (int a = 0; a < NASSETS; ++a)
-			for (int i = NITASKS + NMPTASKS; i < NITASKS + NMTASKS; ++i)
+			for (int i = NPTASKS; i < NTASKS; ++i)
 			{
-				if (t == 0)
+				if (t < lambda[a][NTASKS]) // Active time from installation
 				{
 					s[a][i][t].setUB(0);
 					continue;
@@ -424,7 +315,7 @@ void Deter::genCorrectiveConstraints(XPRBprob* prob, bool cut)
 
 				XPRBrelation rel = s[a][i][t] - s[a][i][t - 1] <= 1;
 
-				for (int j = NITASKS - 1; j < NITASKS + NMTASKS; j++)
+				for (int j = 0; j < NTASKS; j++)
 				{
 					if (sa[j][t] > -1)
 						rel.addTerm(s[a][j][sa[j][t]], factor);
@@ -437,12 +328,12 @@ void Deter::genCorrectiveConstraints(XPRBprob* prob, bool cut)
 			}
 }
 
-void Deter::genDowntimeConstraints(XPRBprob* prob, bool cut)
+void Stoch::genDowntimeConstraints(XPRBprob* prob, bool cut)
 {
 	// Turbines are offline while maintenance work is ongoing
 	for (int t = 0; t < NTIMES; ++t)
 		for (int a = 0; a < NASSETS; ++a)
-			for (int i = NITASKS; i < NITASKS + NMTASKS; ++i)
+			for (int i = 0; i < NTASKS; ++i)
 			{
 				XPRBrelation rel = o[a][t] <= 1 - s[a][i][t];
 				if (sa[i][t] >= 0)
@@ -453,22 +344,19 @@ void Deter::genDowntimeConstraints(XPRBprob* prob, bool cut)
 			}
 }
 
-void Deter::genPartialProblem(XPRBprob* prob, Mode* m)
+void Stoch::genPartialProblem(XPRBprob* prob, Mode* m)
 {
 	printer("Initialising Original constraints", VERBINIT);
 
 	genSetConstraints(prob, m->GetCurrentBySettingName("SetCuts") == 1);
-	genOrderConstraints(prob, m->GetCurrentBySettingName("OrdCuts") == 1);
 	genFinishConstraints(prob, m->GetCurrentBySettingName("FinCuts") == 1, m->GetCurrentBySettingName("FinAll") == 1);
-	genPrecedenceConstraints(prob, m->GetCurrentBySettingName("PreCuts") == 1);
 	genResourceConstraints(prob, m->GetCurrentBySettingName("ResCuts") == 1);
-	genActiveConstraints(prob, m->GetCurrentBySettingName("ActCuts") == 1);
 	genFailureConstraints(prob, m->GetCurrentBySettingName("FaiCuts") == 1);
 	genCorrectiveConstraints(prob, m->GetCurrentBySettingName("CorCuts") == 1);
 	genDowntimeConstraints(prob, m->GetCurrentBySettingName("DowCuts") == 1);
 }
 
-void Deter::genFullProblem(XPRBprob* prob, Mode* m)
+void Stoch::genFullProblem(XPRBprob* prob, Mode* m)
 {
 	clock_t start = clock();
 
@@ -476,16 +364,10 @@ void Deter::genFullProblem(XPRBprob* prob, Mode* m)
 
 	if (m->GetCurrentBySettingName("SetCuts") == 1)
 		genSetConstraints(prob, false);
-	if (m->GetCurrentBySettingName("OrdCuts") == 1)
-		genOrderConstraints(prob, false);
 	if (m->GetCurrentBySettingName("FinCuts") == 1)
 		genFinishConstraints(prob, false, m->GetCurrentBySettingName("FinAll") == 1);
-	if (m->GetCurrentBySettingName("PreCuts") == 1)
-		genPrecedenceConstraints(prob, false);
 	if (m->GetCurrentBySettingName("ResCuts") == 1)
 		genResourceConstraints(prob, false);
-	if (m->GetCurrentBySettingName("ActCuts") == 1)
-		genActiveConstraints(prob, false);
 	if (m->GetCurrentBySettingName("FaiCuts") == 1)
 		genFailureConstraints(prob, false);
 	if (m->GetCurrentBySettingName("CorCuts") == 1)

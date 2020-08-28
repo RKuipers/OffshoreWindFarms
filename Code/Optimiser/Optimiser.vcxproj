@@ -168,6 +168,7 @@
     <ClCompile Include="Deterministic.cpp" />
     <ClCompile Include="Mode.cpp" />
     <ClCompile Include="Optimiser.cpp" />
+    <ClCompile Include="Stoch.cpp" />
     <ClCompile Include="Stochastic.cpp" />
     <ClCompile Include="Weathergen.cpp" />
   </ItemGroup>
@@ -175,6 +176,7 @@
     <ClInclude Include="Deter.h" />
     <ClInclude Include="Deterministic.h" />
     <ClInclude Include="Optimiser.h" />
+    <ClInclude Include="Stoch.h" />
     <ClInclude Include="Stochastic.h" />
     <ClInclude Include="Weathergen.h" />
   </ItemGroup>

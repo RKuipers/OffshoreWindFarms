@@ -4,7 +4,7 @@ WeatherGenerator::WeatherGenerator(int base, int variety, int nTimes, int tpp)
 {
 	this->base = base;
 	this->variety = variety;
-	this->bonus = variety / 2;
+	this->bonus = -variety / 2;
 	this->nTimes = nTimes;
 	this->tpp = tpp;
 }

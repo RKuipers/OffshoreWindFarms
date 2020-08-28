@@ -1,3 +1,54 @@
+stoYearH
+#define PROBNAME "stoYearHR"
+#define MAXPRETIME 28000
+#define MAXFULLTIME 28000
+#define NSCENARIOS 3
+#define NPERIODS 12
+#define TPP 30 // Timesteps per Period
+#define NTIMES NPERIODS * TPP
+#define NPTASKS 2
+#define NCTASKS 3
+#define NTASKS NPTASKS + NCTASKS
+#define NRES 2
+#define NASSETS 2
+#define DIS 0.9991628
+#define BASE 105
+#define VARIETY 51
+
+stoYearM
+#define PROBNAME "stoYearMR"
+#define MAXPRETIME 28000
+#define MAXFULLTIME 28000
+#define NSCENARIOS 3
+#define NPERIODS 12
+#define TPP 15 // Timesteps per Period
+#define NTIMES NPERIODS * TPP
+#define NPTASKS 2
+#define NCTASKS 3
+#define NTASKS NPTASKS + NCTASKS
+#define NRES 2
+#define NASSETS 2
+#define DIS 0.9991628
+#define BASE 105
+#define VARIETY 51
+
+stoYearL
+#define PROBNAME "stoYearLR"
+#define MAXPRETIME 28000
+#define MAXFULLTIME 28000
+#define NSCENARIOS 3
+#define NPERIODS 12
+#define TPP 4 // Timesteps per Period
+#define NTIMES NPERIODS * TPP
+#define NPTASKS 2
+#define NCTASKS 3
+#define NTASKS NPTASKS + NCTASKS
+#define NRES 2
+#define NASSETS 1
+#define DIS 0.9991628
+#define BASE 105
+#define VARIETY 51
+
 lifeMonth
 #define PROBNAME "lifeMonth"
 #define NPERIODS 30

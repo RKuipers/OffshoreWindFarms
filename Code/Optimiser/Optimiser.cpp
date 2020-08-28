@@ -9,7 +9,6 @@ Optimiser::Optimiser(int nPeriods, int nRes, int nTasks, int nTimes, int nAssets
 	sa = vector<vector<int>>(nTasks, vector<int>(nTimes));
 	rho = vector<vector<int>>(nRes, vector<int>(nTasks));
 	m = vector<vector<int>>(nRes, vector<int>(nPeriods));
-	lambda = vector<vector<int>>(nAssets, vector<int>(nTasks));
 	N = vector<vector<XPRBvar>>(nRes, vector<XPRBvar>(nPeriods));
 	o = vector<vector<XPRBvar>>(nAssets, vector<XPRBvar>(nTimes));
 	s = vector<vector<vector<XPRBvar>>>(nAssets, vector<vector<XPRBvar>>(nTasks, vector<XPRBvar>(nTimes)));
