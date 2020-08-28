@@ -21,42 +21,30 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Stochastic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Deterministic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Optimiser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Deter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Weathergen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Stoch.cpp">
+    <ClCompile Include="Deterministic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Stochastic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Deterministic.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Stochastic.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Optimiser.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Deter.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Weathergen.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Stoch.h">
+    <ClInclude Include="Deterministic.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Stochastic.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

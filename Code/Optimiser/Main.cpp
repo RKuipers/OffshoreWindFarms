@@ -1,12 +1,12 @@
 #include <string>		// string, to_string
 #include <iostream>		// cout
 #include "Optimiser.h"
-#include "Deter.h"
-#include "Stoch.h"
+#include "Deterministic.h"
+#include "Stochastic.h"
 
 using namespace std;
 
-#define TYPE 1		// Stochastic
+//#define TYPE 1		// Stochastic
 //#define TYPE 0		// Deterministic
 
 int main(int argc, char** argv)
