@@ -21,14 +21,26 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Stochastic.cpp">
+    <ClCompile Include="Optimiser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Weathergen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Deterministic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Stochastic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Optimiser.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Weathergen.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="Deterministic.h">
       <Filter>Source Files</Filter>
     </ClInclude>

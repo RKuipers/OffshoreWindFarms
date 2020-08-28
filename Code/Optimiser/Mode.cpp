@@ -477,6 +477,12 @@ public:
 		return nSettings;
 	}
 
+	// Get the number of dimensions
+	int GetNDims()
+	{
+		return nDims;
+	}
+
 	// Get the duration a given mode took
 	double GetDur(int mode)
 	{
