@@ -64,3 +64,8 @@ Code/Optimiser/x64/Debug/Optimiser.vcxproj.FileListAbsolute.txt
 Code/Optimiser/x64/Debug/Mode.obj
 Code/Optimiser/x64/Debug/Main.obj
 Code/Optimiser/x64/Debug/Deterministic.obj
+*.ipch
+Code/Optimiser/Output files/stoYearLRSubmodes.csv
+Code/Optimiser/Output files/stoYearLRSettings.csv
+Code/Optimiser/Output files/stoYearLRModes.csv
+*.ipch
