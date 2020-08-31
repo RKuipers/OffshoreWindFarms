@@ -41,12 +41,12 @@ int main(int argc, char** argv)
 	{
 		cout << "Running Deterministic" << endl;
 		Deter d = Deter();
-		d.Run(MAXPRETIME, MAXFULLTIME);
+		d.Run();
 	}
 	else if (type == 1)
 	{
 		cout << "Running Stochastic" << endl;
 		Stoch s = Stoch();
-		s.Run(MAXPRETIME, MAXFULLTIME);
+		s.Run();
 	}
 }

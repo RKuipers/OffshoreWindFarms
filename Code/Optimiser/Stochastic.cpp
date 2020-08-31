@@ -10,6 +10,9 @@ Stoch::Stoch() : Optimiser(NPERIODS, NRES, NTASKS, NTIMES, NASSETS, PROBNAME, We
 
 	v = vector<vector<int>>(NTIMES, vector<int>(NSCENARIOS));
 	lambda = vector<vector<int>>(NASSETS, vector<int>(NTASKS+1));
+
+	maxPTime = MAXPRETIME; 
+	maxFTime = MAXFULLTIME;
 }
 
 Mode Stoch::initMode()

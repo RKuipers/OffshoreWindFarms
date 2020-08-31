@@ -11,6 +11,9 @@ Deter::Deter() : Optimiser(NPERIODS, NRES, NTASKS, NTIMES, NASSETS, PROBNAME, We
 	v = vector<int>(NTIMES);
 	IP = vector<tuple<int, int>>(NIP);
 	lambda = vector<vector<int>>(NASSETS, vector<int>(NTASKS));
+
+	maxPTime = MAXPRETIME;
+	maxFTime = MAXFULLTIME;
 }
 
 Mode Deter::initMode()

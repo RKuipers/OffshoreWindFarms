@@ -4,8 +4,8 @@
 
 // Model settings
 #define PROBNAME "stoYearMR"
-#define MAXPRETIME 30
-#define MAXFULLTIME 30
+#define MAXPRETIME 30000
+#define MAXFULLTIME 30000
 #define NSCENARIOS 3
 #define NPERIODS 12
 #define TPP 15 // Timesteps per Period

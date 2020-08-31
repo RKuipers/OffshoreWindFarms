@@ -406,7 +406,7 @@ void Optimiser::solveProblem(XPRBprob* prob, bool tune, string name, int maxTime
 
 // --------------------------------Run function--------------------------------
 
-void Optimiser::Run(int maxPTime = 0, int maxFTime = 0)
+void Optimiser::Run()
 {
 	readData();
 
@@ -433,7 +433,8 @@ void Optimiser::Run(int maxPTime = 0, int maxFTime = 0)
 		double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 		printer("Duration of initialisation: " + to_string(duration) + " seconds", VERBINIT);
 
-		bool toTune = mode.GetCurrentBySettingName("Tune1") == 1;
+		//bool toTune = mode.GetCurrentBySettingName("Tune1") == 1;
+		bool toTune = true;
 
 		if (mode.GetCurrentModeName(0).compare("NoCuts") != 0)
 		{
