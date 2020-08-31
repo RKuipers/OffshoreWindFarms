@@ -314,7 +314,12 @@ public:
 	// Sets the duration the current run took
 	void SetCurrDur(double dur)
 	{
-		durs[current] = dur;
+		int id = current;
+
+		if (locked)
+			id = 0;
+
+		durs[id] = dur;
 	}
 
 	// Locks the setup into a given mode

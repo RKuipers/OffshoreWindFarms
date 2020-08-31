@@ -69,3 +69,4 @@ Code/Optimiser/Output files/stoYearLRSubmodes.csv
 Code/Optimiser/Output files/stoYearLRSettings.csv
 Code/Optimiser/Output files/stoYearLRModes.csv
 *.ipch
+Code/Optimiser/Output files/stoYearMRModes.csv

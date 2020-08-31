@@ -3,12 +3,12 @@
 #include "Optimiser.h"
 
 // Model settings
-#define PROBNAME "stoYearLR"
-#define MAXPRETIME 60
-#define MAXFULLTIME 60
+#define PROBNAME "stoYearMR"
+#define MAXPRETIME 30
+#define MAXFULLTIME 30
 #define NSCENARIOS 3
 #define NPERIODS 12
-#define TPP 4 // Timesteps per Period
+#define TPP 15 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
 #define NPTASKS 2
 #define NCTASKS 3
@@ -18,20 +18,19 @@
 #define DIS 0.9991628
 #define BASE 105
 #define VARIETY 51
-#define OPTIMAL 15377 // The optimal solution, if known
 
 // Mode related settings
-//#define LOCKMODE "SetFinFaiDowCuts FinAll TEST0" 
-//#define LOCKDIM "SetCuts"		// Current best: SetFinFaiDowCuts, SetOrdResBroCuts
-#define LOCKSET 1	// 1 Strong
-#define LOCKFIN	1	// 1 Strong
-#define LOCKRES 1	// 1 Medium (test more)
-#define LOCKFAI 1	// 1 Strong
-#define LOCKCOR	0	// 0 Medium-Strong
-#define LOCKDOW	1	// 1 Medium (test more)
+#define LOCKMODE "FinFaiCuts" 
+//#define LOCKDIM "SetCuts"		// Current best: FinFaiCuts
+#define LOCKSET 0	// 1 (All need more testing)
+#define LOCKFIN	1	// 1
+#define LOCKRES 0	// 1
+#define LOCKFAI 1	// 1
+#define LOCKCOR	0	// 0
+#define LOCKDOW	0	// 0 
 #define MODECUTS 6
 //#define MODETUNE 2
-#define MODETEST 2
+//#define MODETEST 2
 
 class Stoch : public Optimiser
 {
