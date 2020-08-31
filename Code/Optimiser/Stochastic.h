@@ -4,8 +4,8 @@
 
 // Model settings
 #define PROBNAME "stoYearLR"
-#define MAXPRETIME 28000
-#define MAXFULLTIME 28000
+#define MAXPRETIME 60
+#define MAXFULLTIME 60
 #define NSCENARIOS 3
 #define NPERIODS 12
 #define TPP 4 // Timesteps per Period
@@ -14,10 +14,11 @@
 #define NCTASKS 3
 #define NTASKS NPTASKS + NCTASKS
 #define NRES 2
-#define NASSETS 1
+#define NASSETS 2
 #define DIS 0.9991628
 #define BASE 105
 #define VARIETY 51
+#define OPTIMAL 15377 // The optimal solution, if known
 
 // Mode related settings
 //#define LOCKMODE "SetFinFaiDowCuts FinAll TEST0" 
@@ -29,7 +30,6 @@
 #define LOCKCOR	0	// 0 Medium-Strong
 #define LOCKDOW	1	// 1 Medium (test more)
 #define MODECUTS 6
-#define MODEFIN 2
 //#define MODETUNE 2
 #define MODETEST 2
 
@@ -51,7 +51,7 @@ protected:
 	void genDecisionVariables(XPRBprob* prob) override;
 	void genObjective(XPRBprob* prob) override;
 	void genSetConstraints(XPRBprob* prob, bool cut);
-	void genFinishConstraints(XPRBprob* prob, bool cut, bool finAll);
+	void genFinishConstraints(XPRBprob* prob, bool cut);
 	void genResourceConstraints(XPRBprob* prob, bool cut);
 	void genFailureConstraints(XPRBprob* prob, bool cut);
 	void genCorrectiveConstraints(XPRBprob* prob, bool cut);

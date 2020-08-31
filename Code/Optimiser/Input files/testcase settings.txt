@@ -34,8 +34,8 @@ stoYearM
 
 stoYearL
 #define PROBNAME "stoYearLR"
-#define MAXPRETIME 28000
-#define MAXFULLTIME 28000
+#define MAXPRETIME 60
+#define MAXFULLTIME 60
 #define NSCENARIOS 3
 #define NPERIODS 12
 #define TPP 4 // Timesteps per Period
@@ -44,11 +44,11 @@ stoYearL
 #define NCTASKS 3
 #define NTASKS NPTASKS + NCTASKS
 #define NRES 2
-#define NASSETS 1
+#define NASSETS 2
 #define DIS 0.9991628
 #define BASE 105
 #define VARIETY 51
-#define OPTIMAL 148 // The optimal solution, if known
+#define OPTIMAL 15377// The optimal solution, if known
 
 lifeMonth
 #define PROBNAME "lifeMonth"
