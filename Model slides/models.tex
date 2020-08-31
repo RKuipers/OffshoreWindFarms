@@ -490,17 +490,17 @@ Stochastic parameters:
 
 \begin{equation}
 	\max_{\substack{N_{rp} \in \mathbb{Z}^* \\ 
-	s_{ait}, o_{at} \in \{0, 1\}}} 
-	\sum_{\sigma \in S} \sum_{p \in P} [ DIS^p (\sum_{t\in T_p} \sum_{a \in A} (o_{at} \cdot v_{t\sigma})  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
+	s_{ait}, o_{at\sigma} \in \{0, 1\}}} 
+	\sum_{\sigma \in S} \sum_{p \in P} [ DIS^p (\sum_{t\in T_p} \sum_{a \in A} (o_{at\sigma} \cdot v_{t\sigma})  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
 \end{equation}
 subject to:
 \begin{align}
 s_{ait} \leq& s_{ai(t+1)}															& \forall a \in A, \forall i \in M, \forall t \in T			\\
 s_{ai\omega_{it_N}} \geq& 1														& \forall a \in A, \forall i \in M^P					\\
 m_{rp} \geq& N_{rp} \geq \sum_{a\in A} \sum_{i\in \mathcal{I}} (\rho_{ir} \cdot (s_{ait} - s_{ai\omega_{it}})) 		& \forall r \in R, \forall p \in P, \forall t \in T_p 			\\
-o_{at} \leq& \sum_{i \in M} (s_{ai\omega_{it}} - s_{ai\omega_{i(t-\lambda_{ai})}})						& \forall a \in A, \forall t \in T					\\
-s_{ait} - s_{ai(t-1)} \leq& 1 - \sum_{j \in M} \frac{(s_{aj\omega_{jt}} - s_{aj\omega_{j(t-\lambda_{aj})}})}{L}		& \forall a \in A, \forall i \in M^C, \forall t \in T 			\\
-o_{at} \leq& 1 + s_{ai\omega_{it}} - s_{ait}												& \forall a \in A, \forall i \in M, \forall t \in T		
+o_{at\sigma} \leq& \sum_{i \in M} (s_{ai\omega_{it}} - s_{ai\omega_{i(t-\lambda_{ai\sigma})}})				& \forall a \in A, \forall t \in T, \forall \sigma \in S		\\
+s_{ait} - s_{ai(t-1)} \leq& 1 - \sum_{j \in M} \frac{(s_{aj\omega_{jt}} - s_{aj\omega_{j(t-\lambda_{aj\sigma})}})}{L}	& \forall a \in A, \forall i \in M^C, \forall t \in T, \forall \sigma \in S	\\
+o_{at\sigma} \leq& 1 + s_{ai\omega_{it}} - s_{ait}											& \forall a \in A, \forall i \in M, \forall t \in T, \forall \sigma \in S
 \end{align}
 
 \end{frame}
@@ -533,9 +533,9 @@ Sets:
 
 Decision variables:
 \begin{itemize}
-\item $o_{at}$: Binary variable, 1 if asset $a$ is online at timestep $t$
-\item $N_{rp}$: Number of resources $r$ used in period $p$
-\item $s_{ait}$: Binary variable, 1 if task $i \in \mathcal{I}$ for asset $a$ has started at or before time $t$
+\item $o_{at\sigma}$: Binary variable, 1 if asset $a \in A$ is online at timestep $t \in T$ in scenario $\sigma \in S$
+\item $N_{rp}$: Number of resources $r\in R$ used in period $p \in P$
+\item $s_{ait}$: Binary variable, 1 if task $i \in M$ for asset $a \in A$ has started at or before time $t \in T$
 \end{itemize}
 \end{column}
 
@@ -545,17 +545,17 @@ Decision variables:
 Deterministic parameters:
 \begin{itemize}
 \item $DIS$: The discount factor per time period
-\item $C_{rp}$: The cost of chartering resource $r$ in period $p$
-\item $\rho_{ir}$: The amount of resource $r$ used for task $i$
-\item $m_{rp}$: The maximum amount of resources $r$ that can be charatered in period $p$
+\item $C_{rp}$: The cost of chartering resource $r \in R$ in period $p \in P$
+\item $\rho_{ir}$: The amount of resource $r \in R$ used for task $i \in M$
+\item $m_{rp}$: The maximum amount of resources $r \in R$ that can be charatered in period $p \in P$
 \item $L$: A large number (at least $|M|+1$)
 \end{itemize}
 
 Stochastic parameters:
 \begin{itemize}
-\item $v_{t\sigma}$: The value of energy a single turbine produces at timestep $t$ in scenario $\sigma$
-\item $\lambda_{ai}$: The number of timesteps after the last maintenance before asset $a$ fails
-\item $\omega_{it}$: Indicates the timestep at which task $i$ should have been started for it to be finished by timestep $t$, generated based on duration and the weather conditions (stochastic based on those)
+\item $v_{t\sigma}$: The value of energy a single turbine produces at timestep $t \in T$ in scenario $\sigma \in S$
+\item $\lambda_{ai\sigma}$: The number of timesteps after the completion of $i \in M$ until asset $a \in A$ fails in scenario $\sigma \in S$
+\item $\omega_{it}$: Indicates the timestep at which task $i \in M$ should have been started for it to be finished by timestep $t \in T$, generated based on duration and the weather conditions (stochastic based on those)
 \end{itemize}
 \end{column}
 \end{columns}
