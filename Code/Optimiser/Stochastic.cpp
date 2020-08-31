@@ -205,7 +205,7 @@ void Stoch::genObjective(XPRBprob* prob)
 	for (int s = 0; s < NSCENARIOS; ++s)
 		for (int p = 0; p < NPERIODS; ++p)
 		{
-			double dis = pow(DIS, p);
+			double dis = pow(DIS, p) / NSCENARIOS;
 
 			for (int t = p * TPP; t < (p + 1) * TPP; ++t)
 				for (int a = 0; a < NASSETS; ++a)

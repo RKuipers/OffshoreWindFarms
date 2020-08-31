@@ -23,11 +23,8 @@
 //#define LOCKMODE "SetFinFaiDowCuts FinAll TEST0" 
 //#define LOCKDIM "SetCuts"		// Current best: SetFinFaiDowCuts, SetOrdResBroCuts
 #define LOCKSET 1	// 1 Strong
-#define LOCKORD 0	// 0 Strong
 #define LOCKFIN	1	// 1 Strong
-#define LOCKPRE 0	// 0 Strong
 #define LOCKRES 1	// 1 Medium (test more)
-#define LOCKACT 0	// 0 Strong
 #define LOCKFAI 1	// 1 Strong
 #define LOCKCOR	0	// 0 Medium-Strong
 #define LOCKDOW	1	// 1 Medium (test more)

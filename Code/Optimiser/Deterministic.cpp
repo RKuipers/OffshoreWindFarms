@@ -161,7 +161,7 @@ void Deter::readPreqs(ifstream* datafile)
 	vector<vector<string>> lines = parseSection(datafile, "PREREQUISITES", false);
 
 	for (int x = 0; x < lines.size(); ++x)
-		IP.push_back(make_tuple(stoi(lines[x][0]), stoi(lines[x][1])));
+		IP[x] = make_tuple(stoi(lines[x][0]), stoi(lines[x][1]));
 }
 
 void Deter::readData()
