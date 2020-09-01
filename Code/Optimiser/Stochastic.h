@@ -3,18 +3,18 @@
 #include "Optimiser.h"
 
 // Model settings
-#define PROBNAME "stoYearMR"
-#define MAXPRETIME 30000
-#define MAXFULLTIME 30000
+#define PROBNAME "stoYearLR2"
+#define MAXPRETIME 300
+#define MAXFULLTIME 300
 #define NSCENARIOS 3
 #define NPERIODS 12
-#define TPP 15 // Timesteps per Period
+#define TPP 4 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
 #define NPTASKS 2
 #define NCTASKS 3
 #define NTASKS NPTASKS + NCTASKS
 #define NRES 2
-#define NASSETS 2
+#define NASSETS 5
 #define DIS 0.9991628
 #define BASE 105
 #define VARIETY 51
