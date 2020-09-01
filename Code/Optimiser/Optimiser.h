@@ -43,12 +43,10 @@ protected:
 	vector<vector<int>> sa;			// Start Value (Task, Time)
 	vector<vector<int>> rho;		// Required resources (Resource, Task)
 	vector<vector<int>> m;			// Max resources (Resource, Period)
-	vector<vector<int>> lambda;		// Time until failure (Asset, Task)
 
 	// Model variables
 	vector<vector<XPRBvar>> N;			// Needed resources (Resource, Period)
-	vector<vector<XPRBvar>> o;			// Online turbines (Asset, Time)
-	vector<vector<vector<XPRBvar>>> s;	// Started tasks (Asset, Task, Time)
+	vector<vector<vector<XPRBvar>>> sp;	// Started planned tasks (Asset, Task, Time)
 
 	// Helper object
 	WeatherGenerator wg;

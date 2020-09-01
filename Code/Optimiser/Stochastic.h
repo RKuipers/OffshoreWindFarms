@@ -38,7 +38,11 @@ public:
 	Stoch();
 
 protected:
-	vector<vector<int>> v;		// Values (Time, Scenario)
+	vector<vector<int>> v;					// Values (Time, Scenario)
+	vector<vector<vector<int>>> lambda;		// Time until failure (Asset, Task, Scenario)
+
+	vector<vector<vector<XPRBvar>>> o;				// Online turbines (Asset, Time, Scenario)
+	vector<vector<vector<vector<XPRBvar>>>> sc;		// Started corrective tasks (Asset, Task, Time, Scenario)
 
 	Mode initMode();
 

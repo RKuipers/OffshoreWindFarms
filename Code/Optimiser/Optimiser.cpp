@@ -11,7 +11,7 @@ Optimiser::Optimiser(int nPeriods, int nRes, int nTasks, int nTimes, int nAssets
 	m = vector<vector<int>>(nRes, vector<int>(nPeriods));
 	N = vector<vector<XPRBvar>>(nRes, vector<XPRBvar>(nPeriods));
 	o = vector<vector<XPRBvar>>(nAssets, vector<XPRBvar>(nTimes));
-	s = vector<vector<vector<XPRBvar>>>(nAssets, vector<vector<XPRBvar>>(nTasks, vector<XPRBvar>(nTimes)));
+	sp = vector<vector<vector<XPRBvar>>>(nAssets, vector<vector<XPRBvar>>(nTasks, vector<XPRBvar>(nTimes)));
 }
 
 // -----------------------------Reading functions------------------------------

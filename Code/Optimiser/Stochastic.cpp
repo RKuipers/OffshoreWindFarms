@@ -2,14 +2,17 @@
 
 // ----------------------------Constructor function----------------------------
 
-Stoch::Stoch() : Optimiser(NPERIODS, NRES, NTASKS, NTIMES, NASSETS, PROBNAME, WeatherGenerator(BASE, VARIETY, NTIMES, TPP))
+Stoch::Stoch() : Optimiser(NPERIODS, NRES, NPTASKS, NTIMES, NASSETS, PROBNAME, WeatherGenerator(BASE, VARIETY, NTIMES, TPP))
 {
 #ifdef OPTIMAL
 	optimal = OPTIMAL;
 #endif // OPTIMAL
 
 	v = vector<vector<int>>(NTIMES, vector<int>(NSCENARIOS));
-	lambda = vector<vector<int>>(NASSETS, vector<int>(NTASKS+1));
+	lambda = vector<vector<vector<int>>>(NASSETS, vector<vector<int>>(NTASKS+1, vector<int>(NSCENARIOS)));
+
+	o = vector<vector<vector<XPRBvar>>>(NASSETS, vector<vector<XPRBvar>>(NTIMES, vector<XPRBvar>(NSCENARIOS)));
+	sc = vector<vector<vector<vector<XPRBvar>>>>(NASSETS, vector<vector<vector<XPRBvar>>>(NCTASKS, vector<vector<XPRBvar>>(NTIMES, vector<XPRBvar>(NSCENARIOS))));
 
 	maxPTime = MAXPRETIME; 
 	maxFTime = MAXFULLTIME;
@@ -187,14 +190,18 @@ void Stoch::genDecisionVariables(XPRBprob* prob)
 		}
 
 	// Create the timestep-based decision variables
-	for (int t = 0; t < NTIMES; ++t)
-		for (int a = 0; a < NASSETS; ++a)
-		{
-			o[a][t] = prob->newVar(("o_" + to_string(a) + "_" + to_string(t)).c_str(), XPRB_BV);
+	for (int s = 0; s < NSCENARIOS; ++s)
+		for (int t = 0; t < NTIMES; ++t)
+			for (int a = 0; a < NASSETS; ++a)
+			{
+				o[a][t][s] = prob->newVar(("o_" + to_string(a) + "_" + to_string(t) + "_" + to_string(s)).c_str(), XPRB_BV);
 
-			for (int i = 0; i < NTASKS; ++i)
-				s[a][i][t] = prob->newVar(("s_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
-		}
+				for (int i = 0; i < NPTASKS; ++i)
+					sp[a][i][t] = prob->newVar(("sp_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t)).c_str(), XPRB_BV);
+
+				for (int i = 0; i < NCTASKS; ++i)
+					sc[a][i][t][s] = prob->newVar(("sc_" + to_string(a) + "_" + to_string(i) + "_" + to_string(t) + "_" + to_string(s)).c_str(), XPRB_BV);
+			}
 }
 
 void Stoch::genObjective(XPRBprob* prob)
@@ -207,7 +214,7 @@ void Stoch::genObjective(XPRBprob* prob)
 
 			for (int t = p * TPP; t < (p + 1) * TPP; ++t)
 				for (int a = 0; a < NASSETS; ++a)
-					Obj.addTerm(o[a][t], v[t][s] * dis);
+					Obj.addTerm(o[a][t][s], v[t][s] * dis);
 
 			for (int r = 0; r < NRES; ++r)
 				Obj.addTerm(N[r][p], -C[r][p] * dis);
@@ -219,14 +226,25 @@ void Stoch::genSetConstraints(XPRBprob* prob, bool cut)
 {
 	// Once a task has started it stays started
 	for (int a = 0; a < NASSETS; ++a)
-		for (int i = 0; i < NTASKS; ++i)
-			for (int t = 1; t < NTIMES; ++t)
+		for (int t = 1; t < NTIMES; ++t)
+		{
+			for (int i = 0; i < NPTASKS; ++i)
 			{
-				XPRBrelation rel = s[a][i][t] >= s[a][i][t - 1];
+				XPRBrelation rel = sp[a][i][t] >= sp[a][i][t - 1];
 
 				int indices[3] = { a, i, t };
-				genCon(prob, rel, "Set", 3, indices, cut);
+				genCon(prob, rel, "SetP", 3, indices, cut);
 			}
+
+			for (int s = 0; s < NSCENARIOS; ++s)
+				for (int i = 0; i < NCTASKS; ++i)
+				{
+					XPRBrelation rel = sc[a][i][t][s] >= sc[a][i][t - 1][s];
+
+					int indices[4] = { a, i, t, s };
+					genCon(prob, rel, "SetC", 3, indices, cut);
+				}
+		}
 }
 
 void Stoch::genFinishConstraints(XPRBprob* prob, bool cut)
@@ -235,7 +253,7 @@ void Stoch::genFinishConstraints(XPRBprob* prob, bool cut)
 	for (int a = 0; a < NASSETS; ++a)
 		for (int i = 0; i < NPTASKS; ++i)
 		{
-			XPRBrelation rel = s[a][i][sa[i][NTIMES]] == 1;
+			XPRBrelation rel = sp[a][i][sa[i][NTIMES]] == 1;
 
 			int indices[2] = { a, i };
 			genCon(prob, rel, "Fin", 2, indices, cut);
