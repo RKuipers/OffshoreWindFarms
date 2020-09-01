@@ -3,9 +3,9 @@
 #include "Optimiser.h"
 
 // Model settings
-#define PROBNAME "stoYearLR"
-#define MAXPRETIME 28000
-#define MAXFULLTIME 28000
+#define PROBNAME "stoYearLR2"
+#define MAXPRETIME 300
+#define MAXFULLTIME 300
 #define NSCENARIOS 3
 #define NPERIODS 12
 #define TPP 4 // Timesteps per Period
@@ -14,27 +14,23 @@
 #define NCTASKS 3
 #define NTASKS NPTASKS + NCTASKS
 #define NRES 2
-#define NASSETS 1
+#define NASSETS 5
 #define DIS 0.9991628
 #define BASE 105
 #define VARIETY 51
 
 // Mode related settings
-//#define LOCKMODE "SetFinFaiDowCuts FinAll TEST0" 
-//#define LOCKDIM "SetCuts"		// Current best: SetFinFaiDowCuts, SetOrdResBroCuts
-#define LOCKSET 1	// 1 Strong
-#define LOCKORD 0	// 0 Strong
-#define LOCKFIN	1	// 1 Strong
-#define LOCKPRE 0	// 0 Strong
-#define LOCKRES 1	// 1 Medium (test more)
-#define LOCKACT 0	// 0 Strong
-#define LOCKFAI 1	// 1 Strong
-#define LOCKCOR	0	// 0 Medium-Strong
-#define LOCKDOW	1	// 1 Medium (test more)
+#define LOCKMODE "FinFaiCuts" 
+//#define LOCKDIM "SetCuts"		// Current best: FinFaiCuts
+#define LOCKSET 0	// 1 (All need more testing)
+#define LOCKFIN	1	// 1
+#define LOCKRES 0	// 1
+#define LOCKFAI 1	// 1
+#define LOCKCOR	0	// 0
+#define LOCKDOW	0	// 0 
 #define MODECUTS 6
-#define MODEFIN 2
 //#define MODETUNE 2
-#define MODETEST 2
+//#define MODETEST 2
 
 class Stoch : public Optimiser
 {
@@ -54,7 +50,7 @@ protected:
 	void genDecisionVariables(XPRBprob* prob) override;
 	void genObjective(XPRBprob* prob) override;
 	void genSetConstraints(XPRBprob* prob, bool cut);
-	void genFinishConstraints(XPRBprob* prob, bool cut, bool finAll);
+	void genFinishConstraints(XPRBprob* prob, bool cut);
 	void genResourceConstraints(XPRBprob* prob, bool cut);
 	void genFailureConstraints(XPRBprob* prob, bool cut);
 	void genCorrectiveConstraints(XPRBprob* prob, bool cut);

@@ -33,7 +33,7 @@ class Optimiser
 {
 protected:
 	// Model settings
-	int nPeriods, optimal;
+	int nPeriods, optimal, maxPTime, maxFTime;
 	string baseName;
 	vector<tuple<int, string>> sols;
 
@@ -86,5 +86,5 @@ protected:
 	void solveProblem(XPRBprob* prob, bool tune, string name, int maxTime);
 
 public:
-	void Run(int maxPTime, int maxFTime);
+	void Run();
 };

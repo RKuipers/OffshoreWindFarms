@@ -11,6 +11,9 @@ Deter::Deter() : Optimiser(NPERIODS, NRES, NTASKS, NTIMES, NASSETS, PROBNAME, We
 	v = vector<int>(NTIMES);
 	IP = vector<tuple<int, int>>(NIP);
 	lambda = vector<vector<int>>(NASSETS, vector<int>(NTASKS));
+
+	maxPTime = MAXPRETIME;
+	maxFTime = MAXFULLTIME;
 }
 
 Mode Deter::initMode()
@@ -161,7 +164,7 @@ void Deter::readPreqs(ifstream* datafile)
 	vector<vector<string>> lines = parseSection(datafile, "PREREQUISITES", false);
 
 	for (int x = 0; x < lines.size(); ++x)
-		IP.push_back(make_tuple(stoi(lines[x][0]), stoi(lines[x][1])));
+		IP[x] = make_tuple(stoi(lines[x][0]), stoi(lines[x][1]));
 }
 
 void Deter::readData()

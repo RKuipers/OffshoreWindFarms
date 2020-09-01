@@ -10,6 +10,9 @@ Stoch::Stoch() : Optimiser(NPERIODS, NRES, NTASKS, NTIMES, NASSETS, PROBNAME, We
 
 	v = vector<vector<int>>(NTIMES, vector<int>(NSCENARIOS));
 	lambda = vector<vector<int>>(NASSETS, vector<int>(NTASKS+1));
+
+	maxPTime = MAXPRETIME; 
+	maxFTime = MAXFULLTIME;
 }
 
 Mode Stoch::initMode()
@@ -20,11 +23,6 @@ Mode Stoch::initMode()
 	string names[MODECUTS + 2] = { "No", "Set", "Fin", "Res", "Fai", "Cor", "Dow", "Cuts" };
 	mode.AddCombDim(MODECUTS, names);
 #endif // MODECUTS
-
-#ifdef MODEFIN
-	string names2[MODEFIN] = { "FinAll", "FinMin" };
-	mode.AddDim(MODEFIN, names2);
-#endif // MODEFIN
 
 #ifdef MODETUNE
 	mode.AddDim(MODETUNE, "Tune");
@@ -205,7 +203,7 @@ void Stoch::genObjective(XPRBprob* prob)
 	for (int s = 0; s < NSCENARIOS; ++s)
 		for (int p = 0; p < NPERIODS; ++p)
 		{
-			double dis = pow(DIS, p);
+			double dis = pow(DIS, p) / NSCENARIOS;
 
 			for (int t = p * TPP; t < (p + 1) * TPP; ++t)
 				for (int a = 0; a < NASSETS; ++a)
@@ -231,11 +229,11 @@ void Stoch::genSetConstraints(XPRBprob* prob, bool cut)
 			}
 }
 
-void Stoch::genFinishConstraints(XPRBprob* prob, bool cut, bool finAll)
+void Stoch::genFinishConstraints(XPRBprob* prob, bool cut)
 {
 	// Forces every non-optional task to finish
 	for (int a = 0; a < NASSETS; ++a)
-		for (int i = 0; i < NTASKS; ++i)
+		for (int i = 0; i < NPTASKS; ++i)
 		{
 			XPRBrelation rel = s[a][i][sa[i][NTIMES]] == 1;
 
@@ -349,7 +347,7 @@ void Stoch::genPartialProblem(XPRBprob* prob, Mode* m)
 	printer("Initialising Original constraints", VERBINIT);
 
 	genSetConstraints(prob, m->GetCurrentBySettingName("SetCuts") == 1);
-	genFinishConstraints(prob, m->GetCurrentBySettingName("FinCuts") == 1, m->GetCurrentBySettingName("FinAll") == 1);
+	genFinishConstraints(prob, m->GetCurrentBySettingName("FinCuts") == 1);
 	genResourceConstraints(prob, m->GetCurrentBySettingName("ResCuts") == 1);
 	genFailureConstraints(prob, m->GetCurrentBySettingName("FaiCuts") == 1);
 	genCorrectiveConstraints(prob, m->GetCurrentBySettingName("CorCuts") == 1);
@@ -365,7 +363,7 @@ void Stoch::genFullProblem(XPRBprob* prob, Mode* m)
 	if (m->GetCurrentBySettingName("SetCuts") == 1)
 		genSetConstraints(prob, false);
 	if (m->GetCurrentBySettingName("FinCuts") == 1)
-		genFinishConstraints(prob, false, m->GetCurrentBySettingName("FinAll") == 1);
+		genFinishConstraints(prob, false);
 	if (m->GetCurrentBySettingName("ResCuts") == 1)
 		genResourceConstraints(prob, false);
 	if (m->GetCurrentBySettingName("FaiCuts") == 1)
