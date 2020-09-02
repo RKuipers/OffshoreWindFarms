@@ -46,7 +46,6 @@ protected:
 
 	// Model variables
 	vector<vector<XPRBvar>> N;			// Needed resources (Resource, Period)
-	vector<vector<vector<XPRBvar>>> sp;	// Started planned tasks (Asset, Task, Time)
 
 	// Helper object
 	WeatherGenerator wg;
@@ -73,9 +72,9 @@ protected:
 
 	void printWeather(vector<int> waveheights);
 	void printObj(ofstream* file, XPRBprob* prob);
-	void printTurbines(ofstream* file);
+	virtual void printTurbines(ofstream* file) = 0;
 	void printResources(ofstream* file);
-	void printTasks(ofstream* file);
+	virtual void printTasks(ofstream* file) = 0;
 	void printProbOutput(XPRBprob* prob, Mode* m, int id);
 	void printModeOutput(Mode* m);
 	int printer(string s, int verbosity, bool end = true, int maxVerb = 999);

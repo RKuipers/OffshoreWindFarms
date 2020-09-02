@@ -3,9 +3,9 @@
 #include "Optimiser.h"
 
 // Model settings
-#define PROBNAME "stoYearLR2"
-#define MAXPRETIME 300
-#define MAXFULLTIME 300
+#define PROBNAME "stoYearLR"
+#define MAXPRETIME 180
+#define MAXFULLTIME 180
 #define NSCENARIOS 3
 #define NPERIODS 12
 #define TPP 4 // Timesteps per Period
@@ -14,7 +14,7 @@
 #define NCTASKS 3
 #define NTASKS NPTASKS + NCTASKS
 #define NRES 2
-#define NASSETS 5
+#define NASSETS 2
 #define DIS 0.9991628
 #define BASE 105
 #define VARIETY 51
@@ -42,6 +42,7 @@ protected:
 	vector<vector<vector<int>>> lambda;		// Time until failure (Asset, Task, Scenario)
 
 	vector<vector<vector<XPRBvar>>> o;				// Online turbines (Asset, Time, Scenario)
+	vector<vector<vector<XPRBvar>>> sp;				// Started planned tasks (Asset, Task, Time)
 	vector<vector<vector<vector<XPRBvar>>>> sc;		// Started corrective tasks (Asset, Task, Time, Scenario)
 
 	Mode initMode();
@@ -61,4 +62,7 @@ protected:
 	void genDowntimeConstraints(XPRBprob* prob, bool cut);
 	void genPartialProblem(XPRBprob* prob, Mode* m) override;
 	void genFullProblem(XPRBprob* prob, Mode* m) override;
+
+	void printTurbines(ofstream* file) override;
+	void printTasks(ofstream* file) override;
 };

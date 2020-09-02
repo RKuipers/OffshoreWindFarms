@@ -10,8 +10,6 @@ Optimiser::Optimiser(int nPeriods, int nRes, int nTasks, int nTimes, int nAssets
 	rho = vector<vector<int>>(nRes, vector<int>(nTasks));
 	m = vector<vector<int>>(nRes, vector<int>(nPeriods));
 	N = vector<vector<XPRBvar>>(nRes, vector<XPRBvar>(nPeriods));
-	o = vector<vector<XPRBvar>>(nAssets, vector<XPRBvar>(nTimes));
-	sp = vector<vector<vector<XPRBvar>>>(nAssets, vector<vector<XPRBvar>>(nTasks, vector<XPRBvar>(nTimes)));
 }
 
 // -----------------------------Reading functions------------------------------
@@ -182,24 +180,6 @@ void Optimiser::printObj(ofstream* file, XPRBprob* prob)
 	*file << "Objective: " << prob->getObjVal() << endl;
 }
 
-void Optimiser::printTurbines(ofstream* file)
-{
-	vector<int> vals = vector<int>();
-
-	printer("Online turbines per timestep: ", VERBSOL);
-	for (int t = 0; t < o[0].size(); ++t)
-	{
-		vals.push_back(0);
-		for (int a = 0; a < o.size(); ++a)
-			vals[t] += round(o[a][t].getSol());
-
-		int v = vals[t];
-		if (t == 0 || v != vals[t - 1])
-			printer(to_string(t) + ": " + to_string(v), VERBSOL);
-		*file << "O_" << t << ": " << v << endl;
-	}
-}
-
 void Optimiser::printResources(ofstream* file)
 {
 	printer("Resources needed per period and type: ", VERBSOL);
@@ -216,48 +196,6 @@ void Optimiser::printResources(ofstream* file)
 			*file << "N_" << r << "_" << p << ": " << v << endl;;
 		}
 		printer("", VERBSOL);
-	}
-}
-
-void Optimiser::printTasks(ofstream* file)
-{
-	printer("Start and finish time per asset and task: ", VERBSOL);
-	for (int a = 0; a < s.size(); ++a)
-	{
-		printer("Asset: " + to_string(a), VERBSOL);
-		for (int i = 0; i < s[a].size(); ++i)
-		{
-			int start = -1;
-			int finish = -1;
-
-			for (int t = 0; t < s[a][i].size(); ++t)
-			{
-				int sv = round(s[a][i][t].getSol());
-
-				*file << "s_" << a << "_" << i << "_" << t << ": " << sv << endl;
-
-				if (sv == 1 && start == -1)
-					start = t;
-			}
-
-			if (start == -1)
-			{
-				printer(to_string(i) + ": Incomplete", VERBSOL);
-				*file << "Asset " << a << " task " << i << ": Incomplete" << endl;
-			}
-			else
-			{
-				for (int t1 = start + d[i] - 1; t1 <= sa[i].size(); ++t1)
-					if (sa[i][t1] >= start)
-					{
-						finish = t1 - 1;
-						break;
-					}
-
-				printer(to_string(i) + ": " + to_string(start) + " " + to_string(finish), VERBSOL);
-				*file << "Asset " << a << " task " << i << ": " << start << " " << finish << endl;
-			}
-		}
 	}
 }
 

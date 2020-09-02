@@ -48,6 +48,10 @@ public:
 protected:
 	vector<int> v;					// Values (Time)
 	vector<tuple<int, int>> IP;		// Precedences (Task tuples)
+	vector<vector<int>> lambda;		// Time until failure (Asset, Task)
+
+	vector<vector<XPRBvar>> o;				// Online turbines (Asset, Time)
+	vector<vector<vector<XPRBvar>>> s;		// Started corrective tasks (Asset, Task, Time)
 
 	Mode initMode();
 
@@ -70,4 +74,7 @@ protected:
 	void genDowntimeConstraints(XPRBprob* prob, bool cut);
 	void genPartialProblem(XPRBprob* prob, Mode* m) override;
 	void genFullProblem(XPRBprob* prob, Mode* m) override;
+
+	void printTurbines(ofstream* file) override;
+	void printTasks(ofstream* file) override;
 };

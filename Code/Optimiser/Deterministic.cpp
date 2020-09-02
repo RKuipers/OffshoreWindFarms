@@ -12,6 +12,9 @@ Deter::Deter() : Optimiser(NPERIODS, NRES, NTASKS, NTIMES, NASSETS, PROBNAME, We
 	IP = vector<tuple<int, int>>(NIP);
 	lambda = vector<vector<int>>(NASSETS, vector<int>(NTASKS));
 
+	o = vector<vector<XPRBvar>>(NASSETS, vector<XPRBvar>(NTIMES));
+	s = vector<vector<vector<XPRBvar>>>(NASSETS, vector<vector<XPRBvar>>(NTASKS, vector<XPRBvar>(NTIMES)));
+
 	maxPTime = MAXPRETIME;
 	maxFTime = MAXFULLTIME;
 }
@@ -498,4 +501,66 @@ void Deter::genFullProblem(XPRBprob* prob, Mode* m)
 
 	double duration = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 	printer("Duration of initialisation: " + to_string(duration) + " seconds", VERBINIT);
+}
+
+// ------------------------------Print functions-------------------------------
+
+void Deter::printTurbines(ofstream* file)
+{
+	vector<int> vals = vector<int>();
+
+	printer("Online turbines per timestep: ", VERBSOL);
+	for (int t = 0; t < o[0].size(); ++t)
+	{
+		vals.push_back(0);
+		for (int a = 0; a < o.size(); ++a)
+			vals[t] += round(o[a][t].getSol());
+
+		int v = vals[t];
+		if (t == 0 || v != vals[t - 1])
+			printer(to_string(t) + ": " + to_string(v), VERBSOL);
+		*file << "O_" << t << ": " << v << endl;
+	}
+}
+
+void Deter::printTasks(ofstream* file)
+{
+	printer("Start and finish time per asset and task: ", VERBSOL);
+	for (int a = 0; a < s.size(); ++a)
+	{
+		printer("Asset: " + to_string(a), VERBSOL);
+		for (int i = 0; i < s[a].size(); ++i)
+		{
+			int start = -1;
+			int finish = -1;
+
+			for (int t = 0; t < s[a][i].size(); ++t)
+			{
+				int sv = round(s[a][i][t].getSol());
+
+				*file << "s_" << a << "_" << i << "_" << t << ": " << sv << endl;
+
+				if (sv == 1 && start == -1)
+					start = t;
+			}
+
+			if (start == -1)
+			{
+				printer(to_string(i) + ": Incomplete", VERBSOL);
+				*file << "Asset " << a << " task " << i << ": Incomplete" << endl;
+			}
+			else
+			{
+				for (int t1 = start + d[i] - 1; t1 <= sa[i].size(); ++t1)
+					if (sa[i][t1] >= start)
+					{
+						finish = t1 - 1;
+						break;
+					}
+
+				printer(to_string(i) + ": " + to_string(start) + " " + to_string(finish), VERBSOL);
+				*file << "Asset " << a << " task " << i << ": " << start << " " << finish << endl;
+			}
+		}
+	}
 }
