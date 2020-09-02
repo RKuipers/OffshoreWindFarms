@@ -3,31 +3,31 @@
 #include "Optimiser.h"
 
 // Model settings
-#define PROBNAME "stoYearLR2"
-#define MAXPRETIME 300
-#define MAXFULLTIME 300
+#define PROBNAME "stoYearMR"
+#define MAXPRETIME 800
+#define MAXFULLTIME 800
 #define NSCENARIOS 3
 #define NPERIODS 12
-#define TPP 4 // Timesteps per Period
+#define TPP 15 // Timesteps per Period
 #define NTIMES NPERIODS * TPP
 #define NPTASKS 2
 #define NCTASKS 3
 #define NTASKS NPTASKS + NCTASKS
 #define NRES 2
-#define NASSETS 5
+#define NASSETS 2
 #define DIS 0.9991628
 #define BASE 105
 #define VARIETY 51
 
 // Mode related settings
-#define LOCKMODE "FinFaiCuts" 
-//#define LOCKDIM "SetCuts"		// Current best: FinFaiCuts
-#define LOCKSET 0	// 1 (All need more testing)
-#define LOCKFIN	1	// 1
-#define LOCKRES 0	// 1
-#define LOCKFAI 1	// 1
-#define LOCKCOR	0	// 0
-#define LOCKDOW	0	// 0 
+//#define LOCKMODE "FinFaiCuts" 
+//#define LOCKDIM "SetCuts"		// Current best: FinResFaiDowCuts
+//#define LOCKSET	0	// 1	Weak
+//#define LOCKFIN	1	// 1?	Irrelevant
+//#define LOCKRES	0	// 1	Med
+//#define LOCKFAI	1	// 1?
+//#define LOCKCOR	0	// 1	Med
+//#define LOCKDOW	0	// 1	Strong 
 #define MODECUTS 6
 //#define MODETUNE 2
 //#define MODETEST 2

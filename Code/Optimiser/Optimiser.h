@@ -14,7 +14,7 @@
 // Program settings
 #define SEED 42 * NTIMES
 #define WEATHERTYPE 1
-#define VERBOSITY 4		// The one to edit
+#define VERBOSITY 2		// The one to edit
 #define VERBMODE 1
 #define VERBSOL 2
 #define VERBINIT 3
