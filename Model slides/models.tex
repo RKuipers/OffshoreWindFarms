@@ -568,12 +568,12 @@ Stochastic parameters:
 \scriptsize
 
 \begin{equation}
-	\min_{N_{vm}, P_m, R_m \in \mathbb{Z}^*} \sum_{m \in M} [\sum_{v \in V} (N_{vm} \cdot C_{vm}) +  P_m \cdot h_P \cdot e^h_m + \sum_{m' = 0}^{m} (f_{m'} - R_{m'}) \cdot e^m_m]	
+	\min_{N_{vm}, P_m, R_m \in \mathbb{Z}^*} \sum_{m \in M} [\sum_{v \in V} (N_{vm} \cdot C_{vm}) +  P_m \cdot d_P \cdot e^h_m + \sum_{m' = 0}^{m} (f_{m'} - R_{m'}) \cdot e^m_m]	
 \end{equation}
 subject to:
 \begin{align}
-l_v \cdot N_{vm} 		&\geq 	P_m \cdot h^P_v + R_m \cdot h^R_v		& \forall m \in M, \forall v \in V 		\\
-\sum_{m' = m}^m f_{m'}	&\geq 	\sum_{m' = m}^m R_{m'}				& \forall m \in M 				\\
+l_v \cdot N_{vm} 		&\geq 	P_m \cdot d^P_v + R_m \cdot d^R_v		& \forall m \in M, \forall v \in V 		\\
+\sum_{m' = 0}^m f_{m'}	&\geq 	\sum_{m' = 0}^m R_{m'}				& \forall m \in M 				\\
 \sum_{m\in M} P_m 	&\geq 	A 							&						
 \end{align}
 
