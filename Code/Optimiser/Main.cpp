@@ -7,7 +7,7 @@
 
 using namespace std;
 
-#define TYPE 2		// Multilevel
+//#define TYPE 2		// Multilevel
 //#define TYPE 1		// Stochastic
 //#define TYPE 0		// Deterministic
 
@@ -27,7 +27,7 @@ int main(int argc, char** argv)
 
 	string inp;
 	cin >> inp;
-	while (inp[0] != 'D' && inp[0] != 'S')
+	while (inp[0] != 'D' && inp[0] != 'S' && inp[0] != 'M')
 	{
 		cout << "Invalid input, try again please" << endl;
 		cin >> inp;

@@ -572,9 +572,9 @@ Stochastic parameters:
 \end{equation}
 subject to:
 \begin{align}
-l_v \cdot N_{vm} 		&\geq 	P_m \cdot d^P_v + R_m \cdot d^R_v		& \forall m \in M, \forall v \in V 		\\
-\sum_{m' = 0}^m f_{m'}	&\geq 	\sum_{m' = 0}^m R_{m'}				& \forall m \in M 				\\
-\sum_{m\in M} P_m 	&\geq 	A 							&						
+l_v \cdot N_{vm} 			&\geq 	P_m \cdot d^P_v + R_m \cdot d^R_v		& \forall m \in M, \forall v \in V 		\\
+\sum_{m' = 0}^{m-1} f_{m'}	&\geq 	\sum_{m' = 0}^m R_{m'}				& \forall m \in M 				\\
+\sum_{m\in M} P_m 		&\geq 	A 							&						
 \end{align}
 
 \end{frame}

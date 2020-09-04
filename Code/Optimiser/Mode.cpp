@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>		// string, to_string
 #include <vector>		// vector
 #include <iostream>		// cout
