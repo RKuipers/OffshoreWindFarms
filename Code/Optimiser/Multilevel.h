@@ -5,6 +5,8 @@
 #include <string>		// string, to_string
 #include <vector>		// vector
 #include <iostream>		// cout
+#include <numeric>      // iota
+#include <algorithm>    // random_shuffle
 #include "xprb_cpp.h"
 #include "xprs.h"
 
@@ -38,19 +40,21 @@ protected:
 	string name;
 
 	// Decision Variables
-	vector<XPRBvar> P, R;		// Planned and repaired tasks (Month)
-	vector<vector<XPRBvar>> N;	// Vessels needed (Vessel, Month)
+	vector<XPRBvar> P;					// Planned tasks (Month)
+	vector<vector<XPRBvar>> R;			// Repair tasks (Month, Scenario)
+	vector<vector<vector<XPRBvar>>> N;	// Vessels needed (Vessel, Month, Scenario)
 
 	// Parameters
 	vector<vector<double>> C;	// Charter costs (Vessel, Month)
 	vector<double> eh, em;		// Energy generated in an hour/month (Month)
 	vector<int> dpv, drv;		// Duration that a planned/repair task needs a vessel in hours (Vessel)
 	int dp;						// Duration of a planned task in hours
-	vector<int> f;				// Failures (Month)
+	vector<vector<int>> f;		// Failures (Month, Scenario)
 	int A;						// Number of assets that need to be serviced with planned tasks
 	vector<int> l;				// Amount of hours a vessel is available when chartered for a month (Vessel)
-	int V, M;					// Amount of vessels/months
+	int V, M, S;				// Amount of vessels/months/scenarios
 
+	void genScenario(int id, double expected = 25.0);
 	void getData();
 
 	void genDecisionVariables(XPRBprob* prob);
@@ -61,6 +65,7 @@ protected:
 	void genProblem(XPRBprob* prob);
 
 	void printObj(ofstream* file, XPRBprob*);
+	void printFailures(ofstream* file);
 	void printResources(ofstream* file);
 	void printTasks(ofstream* file);
 	void printProbOutput(XPRBprob* prob);

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-//#define TYPE 2		// Multilevel
+#define TYPE 2		// Multilevel
 //#define TYPE 1		// Stochastic
 //#define TYPE 0		// Deterministic
 
