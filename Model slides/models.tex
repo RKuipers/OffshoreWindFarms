@@ -568,13 +568,17 @@ Stochastic parameters:
 \scriptsize
 
 \begin{equation}
-	\min_{N_{vm}, P_m, R_m \in \mathbb{Z}^*} \sum_{m \in M} [\sum_{v \in V} (N_{vm} \cdot C_{vm}) +  P_m \cdot d_P \cdot e^h_m + \sum_{m' = 0}^{m} (f_{m'} - R_{m'}) \cdot e^m_m]	
+	\min_{N_{vm\sigma}, P_m, R_{m\sigma} \in \mathbb{Z}^*} 
+	\frac{1}{|S|} \cdot \sum_{\sigma \in S} \sum_{m \in M} [\sum_{v \in V} 
+	(N_{vm\sigma} \cdot C_{vm}) +  
+	P_m \cdot d_P \cdot e^h_m + 
+	\sum_{m' = 0}^{m} (f_{m'\sigma} - R_{m'\sigma}) \cdot e^m_m]	
 \end{equation}
 subject to:
 \begin{align}
-l_v \cdot N_{vm} 			&\geq 	P_m \cdot d^P_v + R_m \cdot d^R_v		& \forall m \in M, \forall v \in V 		\\
-\sum_{m' = 0}^{m-1} f_{m'}	&\geq 	\sum_{m' = 0}^m R_{m'}				& \forall m \in M 				\\
-\sum_{m\in M} P_m 		&\geq 	A 							&						
+l_v \cdot N_{vm\sigma} 			&\geq 	P_m \cdot d^P_v + R_{m\sigma} \cdot d^R_v		& \forall \sigma \in S, \forall m \in M, \forall v \in V 		\\
+\sum_{m' = 0}^{m-1} f_{m'\sigma}	&\geq 	\sum_{m' = 0}^m R_{m'\sigma}				& \forall \sigma \in S, \forall m \in M				\\
+\sum_{m\in M} P_m 			&\geq 	A 								&						
 \end{align}
 
 \end{frame}
