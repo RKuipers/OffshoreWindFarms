@@ -80,7 +80,7 @@ void MultiLevel::genObjective(XPRBprob* prob)
 
 		Obj.addTerm(P[m], dp * eh[m]);
 
-		for (int m_ = 0; m_ < m; ++m_)
+		for (int m_ = 0; m_ <= m; ++m_)
 		{
 			Obj.addTerm(R[m_], -em[m]);
 			Obj.add(f[m_] * em[m]);
