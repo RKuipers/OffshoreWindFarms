@@ -564,7 +564,7 @@ Stochastic parameters:
 
 %------------------------------------------------------------------Multilevel-----------------------------------------------------------------------
 
-\begin{frame}{Initial Multilevel model}
+\begin{frame}{Initial Multilevel model - 1}
 \scriptsize
 
 \begin{equation}
@@ -579,6 +579,26 @@ subject to:
 l_v \cdot N_{vm\sigma} 			&\geq 	P_m \cdot d^P_v + R_{m\sigma} \cdot d^R_v		& \forall \sigma \in S, \forall m \in M, \forall v \in V 		\\
 \sum_{m' = 0}^{m-1} f_{m'\sigma}	&\geq 	\sum_{m' = 0}^m R_{m'\sigma}				& \forall \sigma \in S, \forall m \in M				\\
 \sum_{m\in M} P_m 			&\geq 	A 								&						
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Initial Multilevel mode - 2}
+\scriptsize
+
+\begin{equation}
+	\min_{N_{vm\sigma}, P_m, R_{m\sigma} \in \mathbb{Z}^*} 
+	\frac{1}{|S|} \cdot \sum_{\sigma \in S} \sum_{m \in M} [\sum_{v \in V} 
+	(N_{vm\sigma} \cdot C_{vm}) +  
+	P_m \cdot d_P \cdot e^h_m + 
+	\sum_{m' = 0}^{m} (f_{m'\sigma} - R_{m'\sigma}) \cdot e^m_m]	
+\end{equation}
+subject to:
+\begin{align}
+t_{v(i+1)} - t_{vi}				&\geq 	d_{yi} \cdot a_{vi}		& \forall y \in Y, \forall v \in V_y, \forall i \in I 		\\
+\sum_{v\in V_y} a_{vi}			&\geq 	\rho_{yi}			& \forall y \in Y, \forall i \in I				\\
+t_{vi}			 			&\geq	 	s_i + w_{yi} 			& \forall y \in Y, \forall v \in V_y, \forall i \in I		\\	
+t_{vi}			 			&\leq	 	s_i + w_{yi} + m_{yi}	& \forall y \in Y, \forall v \in V_y, \forall i \in I					
 \end{align}
 
 \end{frame}

@@ -8,7 +8,7 @@ MultiLevel::MultiLevel()
 
 	V = 2;
 	M = 12;
-	S = 10;
+	S = 5;
 
 	C = vector<vector<double>>(V, vector<double>(M));
 	eh = vector<double>(M);
