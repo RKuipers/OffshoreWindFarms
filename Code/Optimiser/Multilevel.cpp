@@ -156,7 +156,7 @@ void MultiLevel::genPlannedConstraints(XPRBprob* prob)
 	prob->newCtr("Plan", rel);
 }
 
-void MultiLevel::genProblem(XPRBprob* prob)
+void MultiLevel::genTopProblem(XPRBprob* prob)
 {
 	genDecisionVariables(prob);
 	genObjective(prob);

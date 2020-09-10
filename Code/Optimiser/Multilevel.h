@@ -62,7 +62,7 @@ protected:
 	void genCapacityConstraints(XPRBprob* prob);
 	void genFailuresConstraints(XPRBprob* prob);
 	void genPlannedConstraints(XPRBprob* prob);
-	void genProblem(XPRBprob* prob);
+	void genTopProblem(XPRBprob* prob);
 
 	void printObj(ofstream* file, XPRBprob*);
 	void printFailures(ofstream* file);

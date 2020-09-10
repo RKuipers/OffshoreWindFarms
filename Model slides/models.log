@@ -1,24 +1,20 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.8)  7 SEP 2020 10:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2020.9.10)  10 SEP 2020 09:27
 entering extended mode
 **./models.tex
 (models.tex
 LaTeX2e <2018-12-01>
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamer.cls"
-Document Class: beamer 2019/09/29 v3.57 A class for typesetting presentations
-
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbasem
-odes.sty"
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/etoolbox\etoolbox.
-sty"
-Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamer.cls"
+Document Class: beamer 2019/07/23 v3.56 A class for typesetting presentations
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbasemodes.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/etoolbox\etoolbox.sty"
+Package: etoolbox 2018/08/19 v2.5f e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count80
 )
 \beamer@tempbox=\box27
 \beamer@tempcount=\count81
 \c@beamerpauses=\count82
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbased
-ecode.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbasedecode.sty"
 \beamer@slideinframe=\count83
 \beamer@minimum=\count84
 \beamer@decode@box=\box28
@@ -26,8 +22,7 @@ ecode.sty"
 \beamer@commentbox=\box29
 \beamer@modecount=\count85
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ifpdf.s
-ty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\ifpdf.sty"
 Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
 )
 \headdp=\dimen102
@@ -73,27 +68,22 @@ Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
 \beamer@sectionadjust=\count103
 \beamer@tocsectionnumber=\count104
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbaseo
-ptions.sty"
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\keyval.st
-y"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbaseoptions.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\keyval.sty"
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
 ))
 \beamer@paperwidth=\skip42
 \beamer@paperheight=\skip43
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.
-sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/geometry\geometry.sty"
 Package: geometry 2018/04/16 v5.8 Page Geometry
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ifvtex.
-sty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\ifvtex.sty"
 Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
 Package ifvtex Info: VTeX not detected.
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/ifxetex\ifxetex.
-sty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/ifxetex\ifxetex.sty"
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
 \Gm@cnth=\count105
@@ -109,73 +99,57 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutvoffset=\dimen125
 \Gm@dimlist=\toks15
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.
-cfg"))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\size11.clo"
+("C:\Program Files\MiKTeX 2.9\tex/latex/geometry\geometry.cfg"))
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\size11.clo"
 File: size11.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/basiclayer\pgf
-core.sty"
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphicx.
-sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/pgf/basiclayer\pgfcore.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphicx.sty"
 Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphics.
-sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphics.sty"
 Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\trig.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\trig.sty"
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\graph
-ics.cfg"
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics-cfg\graphics.cfg"
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 99.
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-def\pdfte
-x.def"
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics-def\pdftex.def"
 File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen126
 \Gin@req@width=\dimen127
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/systemlayer\pg
-fsys.sty"
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/utilities\pgfr
-cs.sty"
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pg
-futil-common.tex"
+("C:\Program Files\MiKTeX 2.9\tex/latex/pgf/systemlayer\pgfsys.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/pgf/utilities\pgfrcs.sty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/utilities\pgfutil-common.tex"
 \pgfutil@everybye=\toks16
 \pgfutil@tempdima=\dimen128
 \pgfutil@tempdimb=\dimen129
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pg
-futil-common-lists.tex"))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pg
-futil-latex.def"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/utilities\pgfutil-common-lists.te
+x")) ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/utilities\pgfutil-latex.def"
 \pgfutil@abb=\box36
-
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/ms\everyshi.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/ms\everyshi.sty"
 Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
 ))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pg
-frcs.code.tex"
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf\pgf.revision
-.tex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/utilities\pgfrcs.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf\pgf.revision.tex")
 Package: pgfrcs 2019/08/03 v3.1.4b (3.1.4b)
 ))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/systemlayer\
-pgfsys.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/systemlayer\pgfsys.code.tex"
 Package: pgfsys 2019/08/03 v3.1.4b (3.1.4b)
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pg
-fkeys.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/utilities\pgfkeys.code.tex"
 \pgfkeys@pathtoks=\toks17
 \pgfkeys@temptoks=\toks18
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pg
-fkeysfiltered.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/utilities\pgfkeysfiltered.code.te
+x"
 \pgfkeys@tmptoks=\toks19
 ))
 \pgf@x=\dimen130
@@ -198,36 +172,31 @@ fkeysfiltered.code.tex"
 \t@pgf@tokb=\toks21
 \t@pgf@tokc=\toks22
 \pgf@sys@id@count=\count112
-
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/systemlayer\
-pgf.cfg"
+ ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/systemlayer\pgf.cfg"
 File: pgf.cfg 2019/08/03 v3.1.4b (3.1.4b)
 )
 Driver file for pgf: pgfsys-pdftex.def
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/systemlayer\
-pgfsys-pdftex.def"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/systemlayer\pgfsys-pdftex.def"
 File: pgfsys-pdftex.def 2019/08/03 v3.1.4b (3.1.4b)
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/systemlayer\
-pgfsys-common-pdf.def"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/systemlayer\pgfsys-common-pdf.def
+"
 File: pgfsys-common-pdf.def 2019/08/03 v3.1.4b (3.1.4b)
 )))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/systemlayer\
-pgfsyssoftpath.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/systemlayer\pgfsyssoftpath.code.t
+ex"
 File: pgfsyssoftpath.code.tex 2019/08/03 v3.1.4b (3.1.4b)
 \pgfsyssoftpath@smallbuffer@items=\count113
 \pgfsyssoftpath@bigbuffer@items=\count114
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/systemlayer\
-pgfsysprotocol.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/systemlayer\pgfsysprotocol.code.t
+ex"
 File: pgfsysprotocol.code.tex 2019/08/03 v3.1.4b (3.1.4b)
-))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xcolor\xcolor.sty"
+)) ("C:\Program Files\MiKTeX 2.9\tex/latex/xcolor\xcolor.sty"
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\color
-.cfg"
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics-cfg\color.cfg"
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 225.
@@ -241,18 +210,13 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\p
-gfcore.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcore.code.tex"
 Package: pgfcore 2019/08/03 v3.1.4b (3.1.4b)
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmath
-.code.tex"
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmath
-calc.code.tex"
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmath
-util.code.tex")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmath
-parser.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfmath.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfmathcalc.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfmathutil.code.tex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfmathparser.code.tex"
 \pgfmath@dimen=\dimen140
 \pgfmath@count=\count115
 \pgfmath@box=\box37
@@ -260,32 +224,29 @@ parser.code.tex"
 \pgfmath@stack@operand=\toks24
 \pgfmath@stack@operation=\toks25
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmath
-functions.code.tex"
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmath
-functions.basic.code.tex")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmath
-functions.trigonometric.code.tex")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmath
-functions.random.code.tex")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmath
-functions.comparison.code.tex")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmath
-functions.base.code.tex")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmath
-functions.round.code.tex")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmath
-functions.misc.code.tex")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmath
-functions.integerarithmetics.code.tex")))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmath
-float.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.basic.code.
+tex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.trigonometr
+ic.code.tex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.random.code
+.tex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.comparison.
+code.tex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.base.code.t
+ex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.round.code.
+tex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.misc.code.t
+ex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.integerarit
+hmetics.code.tex")))
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfloat.code.tex"
 \c@pgfmathroundto@lastzeros=\count116
 ))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfint.
-code.tex")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\p
-gfcorepoints.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfint.code.tex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcorepoints.code.tex
+"
 File: pgfcorepoints.code.tex 2019/08/03 v3.1.4b (3.1.4b)
 \pgf@picminx=\dimen141
 \pgf@picmaxx=\dimen142
@@ -302,116 +263,104 @@ File: pgfcorepoints.code.tex 2019/08/03 v3.1.4b (3.1.4b)
 \pgf@zx=\dimen153
 \pgf@zy=\dimen154
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\p
-gfcorepathconstruct.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcorepathconstruct.c
+ode.tex"
 File: pgfcorepathconstruct.code.tex 2019/08/03 v3.1.4b (3.1.4b)
 \pgf@path@lastx=\dimen155
 \pgf@path@lasty=\dimen156
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\p
-gfcorepathusage.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcorepathusage.code.
+tex"
 File: pgfcorepathusage.code.tex 2019/08/03 v3.1.4b (3.1.4b)
 \pgf@shorten@end@additional=\dimen157
 \pgf@shorten@start@additional=\dimen158
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\p
-gfcorescopes.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcorescopes.code.tex
+"
 File: pgfcorescopes.code.tex 2019/08/03 v3.1.4b (3.1.4b)
 \pgfpic=\box38
 \pgf@hbox=\box39
 \pgf@layerbox@main=\box40
 \pgf@picture@serial@count=\count117
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\p
-gfcoregraphicstate.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcoregraphicstate.co
+de.tex"
 File: pgfcoregraphicstate.code.tex 2019/08/03 v3.1.4b (3.1.4b)
 \pgflinewidth=\dimen159
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\p
-gfcoretransformations.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcoretransformations
+.code.tex"
 File: pgfcoretransformations.code.tex 2019/08/03 v3.1.4b (3.1.4b)
 \pgf@pt@x=\dimen160
 \pgf@pt@y=\dimen161
 \pgf@pt@temp=\dimen162
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\p
-gfcorequick.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcorequick.code.tex"
 File: pgfcorequick.code.tex 2019/08/03 v3.1.4b (3.1.4b)
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\p
-gfcoreobjects.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcoreobjects.code.te
+x"
 File: pgfcoreobjects.code.tex 2019/08/03 v3.1.4b (3.1.4b)
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\p
-gfcorepathprocessing.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcorepathprocessing.
+code.tex"
 File: pgfcorepathprocessing.code.tex 2019/08/03 v3.1.4b (3.1.4b)
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\p
-gfcorearrows.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcorearrows.code.tex
+"
 File: pgfcorearrows.code.tex 2019/08/03 v3.1.4b (3.1.4b)
 \pgfarrowsep=\dimen163
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\p
-gfcoreshade.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcoreshade.code.tex"
 File: pgfcoreshade.code.tex 2019/08/03 v3.1.4b (3.1.4b)
 \pgf@max=\dimen164
 \pgf@sys@shading@range@num=\count118
 \pgf@shadingcount=\count119
-)
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\p
-gfcoreimage.code.tex"
+) ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcoreimage.code.te
+x"
 File: pgfcoreimage.code.tex 2019/08/03 v3.1.4b (3.1.4b)
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\p
-gfcoreexternal.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcoreexternal.code.t
+ex"
 File: pgfcoreexternal.code.tex 2019/08/03 v3.1.4b (3.1.4b)
 \pgfexternal@startupbox=\box41
 ))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\p
-gfcorelayers.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcorelayers.code.tex
+"
 File: pgfcorelayers.code.tex 2019/08/03 v3.1.4b (3.1.4b)
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\p
-gfcoretransparency.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcoretransparency.co
+de.tex"
 File: pgfcoretransparency.code.tex 2019/08/03 v3.1.4b (3.1.4b)
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\p
-gfcorepatterns.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcorepatterns.code.t
+ex"
 File: pgfcorepatterns.code.tex 2019/08/03 v3.1.4b (3.1.4b)
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\p
-gfcorerdf.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcorerdf.code.tex"
 File: pgfcorerdf.code.tex 2019/08/03 v3.1.4b (3.1.4b)
-)))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/utilities\xxco
-lor.sty"
+))) ("C:\Program Files\MiKTeX 2.9\tex/latex/pgf/utilities\xxcolor.sty"
 Package: xxcolor 2003/10/24 ver 0.1
 \XC@nummixins=\count120
 \XC@countmixins=\count121
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\atbegsh
-i.sty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\atbegshi.sty"
 Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\infware
-rr.sty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\infwarerr.sty"
 Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ltxcmds
-.sty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\ltxcmds.sty"
 Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
 ))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\hyperref.
-sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\hyperref.sty"
 Package: hyperref 2019/06/12 v6.88h Hypertext links for LaTeX
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\hobsub-
-hyperref.sty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\hobsub-hyperref.sty"
 Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
 
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\hobsub-
-generic.sty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\hobsub-generic.sty"
 Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
 Package hobsub Info: Skipping package `infwarerr' (already loaded).
@@ -445,28 +394,24 @@ Package hobsub Info: Skipping package `atbegshi' (already loaded).
 Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
 Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\auxhook.s
-ty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\auxhook.sty"
 Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\kvoptions
-.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\kvoptions.sty"
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 )
 \@linkdim=\dimen165
 \Hy@linkcounter=\count122
 \Hy@pagecounter=\count123
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\pd1enc.de
-f"
+("C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\pd1enc.def"
 File: pd1enc.def 2019/06/12 v6.88h Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
 \Hy@SavedSpaceFactor=\count124
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/00miktex\hyperref.
-cfg"
+("C:\Program Files\MiKTeX 2.9\tex/latex/00miktex\hyperref.cfg"
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 Package hyperref Info: Option `bookmarks' set `true' on input line 4424.
@@ -480,7 +425,8 @@ Package hyperref Info: Backreferencing OFF on input line 4570.
 Package hyperref Info: Implicit mode OFF; no redefinition of LaTeX internals.
 Package hyperref Info: Bookmarks ON on input line 4803.
 \c@Hy@tempcnt=\count125
- ("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/url\url.sty"
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/url\url.sty"
 \Urlmuskip=\muskip10
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
@@ -505,31 +451,23 @@ Package hyperref Message: Stopped early.
 
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
-
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\hpdftex.d
-ef"
+ ("C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\hpdftex.def"
 File: hpdftex.def 2019/06/12 v6.88h Hyperref driver for pdfTeX
 \Fld@listcount=\count128
 \c@bookmark@seq@number=\count129
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\rerunfile
-check.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\rerunfilecheck.sty"
 Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 ))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbaser
-equires.sty"
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbasec
-ompatibility.sty")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbasef
-ont.sty"
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\amssymb.s
-ty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbaserequires.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbasecompatibility.sty")
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbasefont.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\amssymb.sty"
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\amsfonts.
-sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\amsfonts.sty"
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks26
 \symAMSa=\mathgroup4
@@ -537,42 +475,32 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/sansmathaccent\san
-smathaccent.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/sansmathaccent\sansmathaccent.sty"
 Package: sansmathaccent 2013/03/28
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/filehook\filehook.
-sty"
-Package: filehook 2019/10/03 v0.6 Hooks for input files
+("C:\Program Files\MiKTeX 2.9\tex/latex/filehook\filehook.sty"
+Package: filehook 2011/10/12 v0.5d Hooks for input files
 )))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbaset
-ranslator.sty"
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/translator\transla
-tor.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbasetranslator.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/translator\translator.sty"
 Package: translator 2019-05-31 v1.12a Easy translation of strings in LaTeX
 ))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbasem
-isc.sty")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbaset
-woscreens.sty")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbaseo
-verlay.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbasemisc.sty")
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbasetwoscreens.sty")
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbaseoverlay.sty"
 \beamer@argscount=\count130
 \beamer@lastskipcover=\skip44
 \beamer@trivlistdepth=\count131
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbaset
-itle.sty")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbases
-ection.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbasetitle.sty")
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbasesection.sty"
 \c@lecture=\count132
 \c@part=\count133
 \c@section=\count134
 \c@subsection=\count135
 \c@subsubsection=\count136
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbasef
-rame.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbaseframe.sty"
 \beamer@framebox=\box42
 \beamer@frametitlebox=\box43
 \beamer@zoombox=\box44
@@ -588,38 +516,29 @@ rame.sty"
 \framewidth=\dimen170
 \c@framenumber=\count140
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbasev
-erbatim.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbaseverbatim.sty"
 \beamer@verbatimfileout=\write4
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbasef
-ramesize.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbaseframesize.sty"
 \beamer@splitbox=\box45
 \beamer@autobreakcount=\count141
 \beamer@autobreaklastheight=\dimen171
 \beamer@frametitletoks=\toks28
 \beamer@framesubtitletoks=\toks29
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbasef
-ramecomponents.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbaseframecomponents.sty"
 \beamer@footins=\box46
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbasec
-olor.sty")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbasen
-otes.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbasecolor.sty")
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbasenotes.sty"
 \beamer@frameboxcopy=\box47
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbaset
-oc.sty")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbaset
-emplates.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbasetoc.sty")
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbasetemplates.sty"
 \beamer@sbttoks=\toks30
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbasea
-uxtemplates.sty"
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbaseb
-oxes.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbaseauxtemplates.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbaseboxes.sty"
 \bmb@box=\box48
 \bmb@colorbox=\box49
 \bmb@boxshadow=\box50
@@ -632,10 +551,8 @@ oxes.sty"
 )
 \beamer@blockheadheight=\dimen176
 ))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbasel
-ocalstructure.sty"
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\enumerate.st
-y"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbaselocalstructure.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/tools\enumerate.sty"
 Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
 \@enLab=\toks31
 )
@@ -644,36 +561,28 @@ Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbasen
-avigation.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbasenavigation.sty"
 \beamer@section@min@dim=\dimen177
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbaset
-heorems.sty"
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsmath.st
-y"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbasetheorems.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsmath.sty"
 Package: amsmath 2018/12/01 v2.17b AMS math features
 \@mathmargin=\skip51
 
 For additional information on amsmath, use the `?' option.
-
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amstext.st
-y"
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amstext.sty"
 Package: amstext 2000/06/29 v2.01 AMS text
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsgen.sty
-"
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsgen.sty"
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks32
 \ex@=\dimen178
 ))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsbsy.sty
-"
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsbsy.sty"
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen179
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsopn.sty
-"
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsopn.sty"
 Package: amsopn 2016/03/08 v2.02 operator names
 )
 \inf@bad=\count144
@@ -714,7 +623,7 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
 LaTeX Info: Redefining \[ on input line 2844.
 LaTeX Info: Redefining \] on input line 2845.
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amscls\amsthm.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/amscls\amsthm.sty"
 Package: amsthm 2017/10/31 v2.20.4
 \thm@style=\toks37
 \thm@bodyfont=\toks38
@@ -728,33 +637,22 @@ Package: amsthm 2017/10/31 v2.20.4
 )
 \c@theorem=\count156
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerbaset
-hemes.sty"))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamertheme
-default.sty"
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerfontt
-hemedefault.sty")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamercolor
-themedefault.sty")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerinner
-themedefault.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerbasethemes.sty"))
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerthemedefault.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerfontthemedefault.sty")
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamercolorthemedefault.sty")
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerinnerthemedefault.sty"
 \beamer@dima=\dimen187
 \beamer@dimb=\dimen188
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerouter
-themedefault.sty")))
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamertheme
-Madrid.sty"
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamercolor
-themewhale.sty")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamercolor
-themeorchid.sty")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerinner
-themerounded.sty")
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/beamer\beamerouter
-themeinfolines.sty"))
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerouterthemedefault.sty")))
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerthemeMadrid.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamercolorthemewhale.sty")
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamercolorthemeorchid.sty")
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerinnerthemerounded.sty")
+("C:\Program Files\MiKTeX 2.9\tex/latex/beamer\beamerouterthemeinfolines.sty"))
 \c@expl=\count157
- (models.aux)
+(models.aux)
 \openout1 = `models.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
@@ -806,9 +704,7 @@ LaTeX Font Info:    ... okay on input line 16.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/context/base/mkii\supp-p
-df.mkii"
+("C:\Program Files\MiKTeX 2.9\tex/context/base/mkii\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count158
 \scratchdimen=\dimen189
@@ -821,13 +717,10 @@ df.mkii"
 \MPnumerator=\count162
 \makeMPintoPDFobject=\count163
 \everyMPtoPDFconversion=\toks44
-)
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\epstopdf-
-base.sty"
+) ("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\epstopdf-base.sty"
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\grfext.st
-y"
+("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\grfext.sty"
 Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
 )
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -836,16 +729,15 @@ Package grfext Info: Graphics extension search list:
 (grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
-) ABD: EveryShipout initializing macros
+)
+ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box56
 Package hyperref Info: Link coloring OFF on input line 16.
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\nameref.s
-ty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\nameref.sty"
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\gettitl
-estring.sty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\gettitlestring.sty"
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count164
@@ -853,7 +745,8 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 16.
 LaTeX Info: Redefining \pageref on input line 16.
 LaTeX Info: Redefining \nameref on input line 16.
- (models.out) (models.out)
+
+(models.out) (models.out)
 \@outlinefile=\write5
 \openout5 = `models.out'.
 
@@ -910,49 +803,48 @@ LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
 (Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on inp
 ut line 16.
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/translator\transla
-tor-basic-dictionary-English.dict"
+("C:\Program Files\MiKTeX 2.9\tex/latex/translator\translator-basic-dictionary-
+English.dict"
 Dictionary: translator-basic-dictionary, Language: English 
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/translator\transla
-tor-bibliography-dictionary-English.dict"
+("C:\Program Files\MiKTeX 2.9\tex/latex/translator\translator-bibliography-dict
+ionary-English.dict"
 Dictionary: translator-bibliography-dictionary, Language: English 
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/translator\transla
-tor-environment-dictionary-English.dict"
+("C:\Program Files\MiKTeX 2.9\tex/latex/translator\translator-environment-dicti
+onary-English.dict"
 Dictionary: translator-environment-dictionary, Language: English 
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/translator\transla
-tor-months-dictionary-English.dict"
+("C:\Program Files\MiKTeX 2.9\tex/latex/translator\translator-months-dictionary
+-English.dict"
 Dictionary: translator-months-dictionary, Language: English 
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/translator\transla
-tor-numbers-dictionary-English.dict"
+("C:\Program Files\MiKTeX 2.9\tex/latex/translator\translator-numbers-dictionar
+y-English.dict"
 Dictionary: translator-numbers-dictionary, Language: English 
 )
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/translator\transla
-tor-theorem-dictionary-English.dict"
+("C:\Program Files\MiKTeX 2.9\tex/latex/translator\translator-theorem-dictionar
+y-English.dict"
 Dictionary: translator-theorem-dictionary, Language: English 
 ) (models.nav) [1
 
-{C:/Users/Robin/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+{C:/Users/wsb18103/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 LaTeX Font Info:    Try loading font information for U+msa on input line 41.
-
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd"
+ ("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 41.
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd"
+ ("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input 
 line 41.
 
-("C:\Users\Robin\AppData\Local\Programs\MiKTeX 2.9\tex/latex/sansmathaccent\ot1
-mathkerncmss.fd"
+("C:\Program Files\MiKTeX 2.9\tex/latex/sansmathaccent\ot1mathkerncmss.fd"
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
-) [2
+)
+[2
 
 ] [3
 
@@ -978,8 +870,7 @@ thkerncmss.
 
 ] [14
 
-]
-[15
+] [15
 
 ] [16
 
@@ -1024,37 +915,32 @@ Package rerunfilecheck Info: File `models.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 17440 strings out of 492895
- 339030 string characters out of 3123736
- 426053 words of memory out of 3000000
- 20905 multiletter control sequences out of 15000+200000
+ 17436 strings out of 492891
+ 332374 string characters out of 3133339
+ 426060 words of memory out of 3000000
+ 20902 multiletter control sequences out of 15000+200000
  16137 words of font info for 59 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,15n,59p,775b,751s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cmextra/cmex8.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type
-1/public/amsfonts/cmextra/cmex9.pfb><C:/Users/Robin/AppData/Local/Programs/MiKT
-eX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Robin/AppData/Local/
-Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/Robin/Ap
-pData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Us
-ers/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi
-8.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsf
-onts/cm/cmmi9.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
-/public/amsfonts/cm/cmss10.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.
-9/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Users/Robin/AppData/Local/Progr
-ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Users/Robin/AppData
-/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss9.pfb><C:/Users/R
-obin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi10.p
-fb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
-s/cm/cmssi8.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
-ublic/amsfonts/cm/cmssi9.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/
-fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/Robin/AppData/Local/Programs
-/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/Robin/AppData/Lo
-cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Robi
-n/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C
-:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/sym
-bols/msbm7.pfb>
-Output written on models.pdf (25 pages, 348066 bytes).
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cmextra/cmex8.pfb><C
+:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cmextra/cmex9.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Program Files/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
+public/amsfonts/cm/cmmi9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmss10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
+m/cmss12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss8.
+pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss9.pfb><C:/P
+rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi10.pfb><C:/Program 
+Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi8.pfb><C:/Program Files/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi9.pfb><C:/Program Files/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
+pe1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
+c/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfont
+s/cm/cmsy9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols
+/msbm7.pfb>
+Output written on models.pdf (25 pages, 348027 bytes).
 PDF statistics:
  767 PDF objects out of 1000 (max. 8388607)
  51 named destinations out of 1000 (max. 500000)
