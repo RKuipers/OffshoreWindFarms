@@ -43,6 +43,8 @@ protected:
 	vector<XPRBvar> P;					// Planned tasks (Month)
 	vector<vector<XPRBvar>> R;			// Repair tasks (Month, Scenario)
 	vector<vector<vector<XPRBvar>>> N;	// Vessels needed (Vessel, Month, Scenario)
+	vector<XPRBvar> s;					// Starting times (Task)
+	vector<vector<vector<XPRBvar>>> a;	// Task assignments (Vessel, Task, Order)
 
 	// Parameters
 	vector<vector<double>> C;	// Charter costs (Vessel, Month)

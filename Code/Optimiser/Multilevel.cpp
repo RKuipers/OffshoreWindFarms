@@ -27,7 +27,7 @@ void MultiLevel::Run()
 	XPRBprob p("MultiLevel");
 	getData();
 
-	genProblem(&p);
+	genTopProblem(&p);
 
 	p.setSense(XPRB_MINIM);
 	p.exportProb(XPRB_LP, (OUTPUTFOLDER + name).c_str());
@@ -197,10 +197,12 @@ void MultiLevel::genOrdConstraints(XPRBprob* prob)
 
 void MultiLevel::genResourceConstraints(XPRBprob* prob)
 {
+
 }
 
 void MultiLevel::genDurationConstraints(XPRBprob* prob) 
 {
+
 }
 
 void MultiLevel::genLowProblem(XPRBprob* prob) 
