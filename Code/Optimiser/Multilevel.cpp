@@ -75,7 +75,7 @@ void MultiLevel::getData()
 
 // ----------------------------Generator functions-----------------------------
 
-void MultiLevel::genDecisionVariables(XPRBprob* prob)
+void MultiLevel::genTopDecisionVariables(XPRBprob* prob)
 {
 	for (int m = 0; m < M; ++m)
 	{
@@ -96,7 +96,7 @@ void MultiLevel::genDecisionVariables(XPRBprob* prob)
 	}
 }
 
-void MultiLevel::genObjective(XPRBprob* prob)
+void MultiLevel::genTopObjective(XPRBprob* prob)
 {
 	XPRBctr Obj = prob->newCtr();
 	double sfactor = 1.0 / (double)S;
@@ -156,14 +156,61 @@ void MultiLevel::genPlannedConstraints(XPRBprob* prob)
 	prob->newCtr("Plan", rel);
 }
 
-void MultiLevel::genProblem(XPRBprob* prob)
+void MultiLevel::genTopProblem(XPRBprob* prob)
 {
-	genDecisionVariables(prob);
-	genObjective(prob);
+	genTopDecisionVariables(prob);
+	genTopObjective(prob);
 
 	genCapacityConstraints(prob);
 	genFailuresConstraints(prob);
 	genPlannedConstraints(prob);
+}
+
+void MultiLevel::genLowDecisionVariables(XPRBprob* prob)
+{
+	for (int i = 0; i < I; ++i)
+	{
+		s[i] = prob->newVar(("s_" + to_string(i)).c_str(), XPRB_PL);
+		s[i].setLB(0);
+		s[i].setUB(T);
+
+		for (int v = 0; v < V; ++v)
+			for (int j = 0; j < J; ++j)
+				a[v][i][j] = prob->newVar(("a_" + to_string(v) + "_" + to_string(i) + "_" + to_string(j)).c_str(), XPRB_BV);
+	}
+}
+
+void MultiLevel::genLowObjective(XPRBprob* prob)
+{
+
+}
+
+void MultiLevel::genSetConstraints(XPRBprob* prob)
+{
+
+}
+
+void MultiLevel::genOrdConstraints(XPRBprob* prob)
+{
+
+}
+
+void MultiLevel::genResourceConstraints(XPRBprob* prob)
+{
+}
+
+void MultiLevel::genDurationConstraints(XPRBprob* prob) 
+{
+}
+
+void MultiLevel::genLowProblem(XPRBprob* prob) 
+{
+	genLowDecisionVariables(prob);
+	genLowObjective(prob);
+
+	genSetConstraints(prob);
+	genResourceConstraints(prob);
+	genDurationConstraints(prob);
 }
 
 // ----------------------------Printing functions------------------------------

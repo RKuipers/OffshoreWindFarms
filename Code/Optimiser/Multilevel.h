@@ -52,17 +52,26 @@ protected:
 	vector<vector<int>> f;		// Failures (Month, Scenario)
 	int A;						// Number of assets that need to be serviced with planned tasks
 	vector<int> l;				// Amount of hours a vessel is available when chartered for a month (Vessel)
-	int V, M, S;				// Amount of vessels/months/scenarios
+	int Y, M, S;				// Amount of vessel-types/months/scenarios
+	int V, I, J, T;				// Amount of vessels/tasks/tasks-per-vessel/times
 
 	void genScenario(int id, double expected = 25.0);
 	void getData();
 
-	void genDecisionVariables(XPRBprob* prob);
-	void genObjective(XPRBprob* prob);
+	void genTopDecisionVariables(XPRBprob* prob);
+	void genTopObjective(XPRBprob* prob);
 	void genCapacityConstraints(XPRBprob* prob);
 	void genFailuresConstraints(XPRBprob* prob);
 	void genPlannedConstraints(XPRBprob* prob);
-	void genProblem(XPRBprob* prob);
+	void genTopProblem(XPRBprob* prob);
+
+	void genLowDecisionVariables(XPRBprob* prob);
+	void genLowObjective(XPRBprob* prob);
+	void genSetConstraints(XPRBprob* prob);
+	void genOrdConstraints(XPRBprob* prob);
+	void genResourceConstraints(XPRBprob* prob);
+	void genDurationConstraints(XPRBprob* prob);
+	void genLowProblem(XPRBprob* prob);
 
 	void printObj(ofstream* file, XPRBprob*);
 	void printFailures(ofstream* file);
