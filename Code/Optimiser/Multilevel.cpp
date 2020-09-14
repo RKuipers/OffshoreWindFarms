@@ -6,34 +6,55 @@ MultiLevel::MultiLevel()
 {
 	name = "Multilevel";
 
-	V = 2;
+	Y = 2;
 	M = 12;
 	S = 5;
 
-	C = vector<vector<double>>(V, vector<double>(M));
+	C = vector<vector<double>>(Y, vector<double>(M));
 	eh = vector<double>(M);
 	em = vector<double>(M);
-	dpv = vector<int>(V);
-	drv = vector<int>(V);
+	dpv = vector<int>(Y);
+	drv = vector<int>(Y);
 	f = vector<vector<int>>(M, vector<int>(S));
-	l = vector<int>(V);
+	l = vector<int>(Y);
+
 	P = vector<XPRBvar>(M);
 	R = vector<vector<XPRBvar>>(M, vector<XPRBvar>(S));
-	N = vector<vector<vector<XPRBvar>>>(V, vector<vector<XPRBvar>>(M, vector<XPRBvar>(S)));
+	N = vector<vector<vector<XPRBvar>>>(Y, vector<vector<XPRBvar>>(M, vector<XPRBvar>(S)));
+
+	V = 3;
+	I = 30;
+	J = I;
+	T = 30;
+
+	c = vector<double>(I);
+	sd = vector<vector<double>>(Y, vector<double>(I));
+	d = vector<vector<double>>(Y, vector<double>(I));
+	rho = vector<vector<int>>(Y, vector<int>(I));
+	Vy = vector<int>(Y);
+
+	s = vector<XPRBvar>(I);
+	a = vector<vector<vector<XPRBvar>>>(V, vector<vector<XPRBvar>>(I, vector<XPRBvar>(J)));
 }
 
-void MultiLevel::Run()
+void MultiLevel::Run(bool top)
 {
-	XPRBprob p("MultiLevel");
+	XPRBprob p(name.c_str());
 	getData();
 
-	genTopProblem(&p);
+	if (top)
+		genTopProblem(&p);
+	else
+		genLowProblem(&p);
 
 	p.setSense(XPRB_MINIM);
 	p.exportProb(XPRB_LP, (OUTPUTFOLDER + name).c_str());
 	p.mipOptimize("");
 
-	printProbOutput(&p);
+	if (top)
+		printTopProbOutput(&p);
+	else
+		printLowProbOutput(&p);
 }
 
 // ------------------------------Data functions--------------------------------
@@ -64,13 +85,18 @@ void MultiLevel::getData()
 	dp = 12;
 	dpv = {4, 12};
 	drv = {8, 16};
-	eh = { 540, 540, 540, 540, 540, 540, 540, 540, 540, 540, 540, 540 };
-	em = { 388800, 388800, 388800, 388800, 388800, 388800, 388800, 388800, 388800, 388800, 388800, 388800 };
-	C = { { 500000, 500000, 500000, 500000, 500000, 500000, 500000, 500000, 500000, 500000, 500000, 500000 }, 
-		{ 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000 } };
+	eh = vector<double>(M, 540);
+	em = vector<double>(M, 388800);
+	C = { vector<double>(M, 500000), vector<double>(M, 120000) };
 
 	for (int s = 0; s < S; ++s)
 		genScenario(s);
+
+	c = vector<double>(I, 12960);
+	sd = { vector<double>(I, 0), { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
+	d = { { 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3 }, { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 } };
+	rho = vector<vector<int>>(Y, vector<int>(I, 1));
+	Vy = { 2, 1 };
 }
 
 // ----------------------------Generator functions-----------------------------
@@ -351,7 +377,7 @@ void MultiLevel::printTasks(ofstream* file)
 	}
 }
 
-void MultiLevel::printProbOutput(XPRBprob* prob)
+void MultiLevel::printTopProbOutput(XPRBprob* prob)
 {
 	/*if (prob->getProbStat() == 1)
 		return;*/
@@ -363,6 +389,56 @@ void MultiLevel::printProbOutput(XPRBprob* prob)
 	printFailures(&file);
 	printResources(&file);
 	printTasks(&file);
+
+	file.close();
+}
+
+void MultiLevel::printStarts(ofstream* file)
+{
+	printer("Start times per task: ", VERBSOL);
+	for (int i = 0; i < I; ++i)
+	{
+		double val = s[i].getSol();
+		printer(to_string(i) + ": " + to_string(val), VERBSOL);
+		*file << "s_" << i << "_0: " << val << endl;;
+	}
+}
+
+void MultiLevel::printTaskOrders(ofstream* file)
+{
+	vector<vector<int>> tasks(J, vector<int>(V));
+
+	for (int v = 0; v < V; ++v)
+		for (int i = 0; i < I; ++i)
+			for (int j = 0; j < J; ++j)
+			{
+				if (round(a[v][i][j].getSol()) == 1)
+					tasks[j][v] = i;
+
+				*file << "a_" << v << "_" << i << "_" << j << ": " << round(a[v][i][j].getSol()) << endl;;
+			}
+
+	printer("Task orders per vessel: ", VERBSOL);
+	for (int j = 0; j < J; ++j)
+	{		
+		printer(to_string(j) + ": " + to_string(tasks[j][0]), VERBSOL, false);
+		for (int v = 1; v < V; ++v)
+			printer(", " + to_string(tasks[j][v]), VERBSOL, false);
+		printer("", VERBSOL);
+	}
+}
+
+void MultiLevel::printLowProbOutput(XPRBprob* prob)
+{
+	/*if (prob->getProbStat() == 1)
+		return;*/
+
+	ofstream file;
+	file.open(string() + OUTPUTFOLDER + name + PROBOUTPUTEXT);
+
+	printObj(&file, prob);
+	printStarts(&file);
+	printTaskOrders(&file);
 
 	file.close();
 }

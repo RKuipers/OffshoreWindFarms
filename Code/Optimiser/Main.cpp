@@ -57,6 +57,6 @@ int main(int argc, char** argv)
 	{
 		cout << "Running Multilevel" << endl;
 		MultiLevel m = MultiLevel();
-		m.Run();
+		m.Run(false);
 	}
 }

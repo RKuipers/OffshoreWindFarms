@@ -33,7 +33,7 @@ class MultiLevel
 public:
 	MultiLevel();
 
-	void Run();
+	void Run(bool top);
 
 protected:
 	// Program data
@@ -85,6 +85,9 @@ protected:
 	void printFailures(ofstream* file);
 	void printResources(ofstream* file);
 	void printTasks(ofstream* file);
-	void printProbOutput(XPRBprob* prob);
+	void printTopProbOutput(XPRBprob* prob); 
+	void printStarts(ofstream* file);
+	void printTaskOrders(ofstream* file);
+	void printLowProbOutput(XPRBprob* prob);
 	int printer(string s, int verbosity, bool end = true, int maxVerb = 999);
 };
