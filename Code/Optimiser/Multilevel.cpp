@@ -266,6 +266,7 @@ void MultiLevel::genLowProblem(XPRBprob* prob)
 	genLowObjective(prob);
 
 	genSetConstraints(prob);
+	genOrdConstraints(prob);
 	genResourceConstraints(prob);
 	genDurationConstraints(prob);
 }
