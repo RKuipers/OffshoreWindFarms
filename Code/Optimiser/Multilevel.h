@@ -46,7 +46,7 @@ protected:
 	vector<XPRBvar> s;					// Starting times (Task)
 	vector<vector<vector<XPRBvar>>> a;	// Task assignments (Vessel, Task, Order)
 
-	// Parameters
+	// Parameters of top level
 	vector<vector<double>> C;	// Charter costs (Vessel, Month)
 	vector<double> eh, em;		// Energy generated in an hour/month (Month)
 	vector<int> dpv, drv;		// Duration that a planned/repair task needs a vessel in hours (Vessel)
@@ -55,7 +55,13 @@ protected:
 	int A;						// Number of assets that need to be serviced with planned tasks
 	vector<int> l;				// Amount of hours a vessel is available when chartered for a month (Vessel)
 	int Y, M, S;				// Amount of vessel-types/months/scenarios
-	int V, I, J, T;				// Amount of vessels/tasks/tasks-per-vessel/times
+
+	// Paramters of bottom level
+	vector<double> c;				// The cost of a task being uncompleted for a single timestep (Task)
+	vector<vector<double>> sd, d;	// The start delay and duration of work (Vessel Type, Task)
+	vector<vector<int>> rho;		// The required number of vessels of a type that are used by a task (Vessel Type, Task)
+	vector<int> Vy;					// The amount of vessels per type (Vessel Type)
+	int V, I, J, T;					// Amount of vessels/tasks/tasks-per-vessel/times
 
 	void genScenario(int id, double expected = 25.0);
 	void getData();
