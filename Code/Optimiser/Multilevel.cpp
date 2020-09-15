@@ -23,7 +23,7 @@ MultiLevel::MultiLevel()
 	N = vector<vector<vector<XPRBvar>>>(Y, vector<vector<XPRBvar>>(M, vector<XPRBvar>(S)));
 
 	V = 3;
-	I = 10;
+	I = 5;
 	J = I;
 	T = 30;
 
@@ -95,7 +95,7 @@ void MultiLevel::getData()
 		genScenario(s);
 
 	c = vector<double>(I, 12960);
-	sd = { vector<double>(I, 0), vector<double>(I, 0) };
+	sd = { vector<double>(I, 0), vector<double>(I, 1) };
 	//sd = { vector<double>(I, 0), { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
 	d = { vector<double>(I, 2), vector<double>(I, 1) };
 	//d = { { 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3 }, { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 } };
@@ -300,7 +300,7 @@ void MultiLevel::genDurationConstraints(XPRBprob* prob)
 					if (i != i_)
 						for (int j = 1; j < J; ++j)
 							prob->newCtr(("Dur_" + to_string(y) + "_" + to_string(v) + "_" + to_string(i) + "_" + to_string(i_) + "_" + to_string(j)).c_str(), 
-								M * (a[v + Vyo[y]][i][j] + a[v + Vyo[y]][i_][j-1]) + d[y][i_] * a[v + Vyo[y]][i_][j-1] - 2 * M <= s[i] + sd[y][i] - s[i_] + sd[y][i_]);
+								M * (a[v + Vyo[y]][i][j] + a[v + Vyo[y]][i_][j-1]) + d[y][i_] * a[v + Vyo[y]][i_][j-1] - 2 * M <= s[i] + sd[y][i] - s[i_] - sd[y][i_]);
 }
 
 void MultiLevel::genLowProblem(XPRBprob* prob) 

@@ -593,27 +593,27 @@ l_v \cdot N_{vm\sigma} 			&\geq 	P_m \cdot d^P_v + R_{m\sigma} \cdot d^R_v		& \f
 \end{equation}
 subject to:
 \begin{align}
-\sum_{j \in J} a_{vij}						&\leq 		1						& \forall v \in V, \forall i \in I 						\\
+\sum_{i \in I} a_{vij}						&\leq 		1						& \forall v \in V, \forall j \in J 						\\
 \sum_{i \in I} a_{vij}						&\leq 		\sum_{i \in I} a_{vi(j-1)}			& \forall v \in V, \forall j \in J - \{ 0 \}					\\
 \rho_{yi}								&\leq	 	\sum_{v \in V_y} \sum_{j \in J} a_{vij} 	& \forall y \in Y, \forall i \in I						\\	
 \begin{aligned} M \cdot (a_{vij} + a_{vi'(j-1)}) + \\ 
-d_{yi'} \cdot a_{vi'(j-1)} - 2M \end{aligned}			&\leq	 	s_i + s_{yi} - s_{i'} + s_{i'y}		& \begin{aligned} \forall y \in Y, \forall v \in V_y, 			\\
+d_{yi'} \cdot a_{vi'(j-1)} - 2M \end{aligned}			&\leq	 	s_i + s_{yi} - s_{i'} - s_{i'y}		& \begin{aligned} \forall y \in Y, \forall v \in V_y, 			\\
 																		\forall i, i' \in I, \forall j \in J - \{ 0 \}	\end{aligned}		
 \end{align}
 
 \end{frame}
 
 \begin{frame}{Multilevel Model Explanation}
-\expl 55 \\
-\expl 56 \\ 
-\expl 57 \\
-\expl 58 \\ 
+\expl Objective is to minimise costs over all scenarios, summing up resource, downtime and failure costs \\
+\expl Ensures the durations of the planned tasks do not exceed the capacity of the assigned vessels \\ 
+\expl Ensures repairs are only done after failures have occured \\
+\expl Ensures all assets have preventive maintenance done at least once within the timespan \\ 
 \bigskip
-\expl Objective is to minimize costs of tasks being uncompleted (the +max bit is optional as it's about constants) \\ 
-\expl 60 \\ 
-\expl 61 \\ 
-\expl 62 \\
-\expl 63
+\expl Objective is to minimise costs of tasks being uncompleted (the +max bit is optional as it's about constants) \\ 
+\expl Ensures every vessel only does one task at a time \\ 
+\expl Ensures that if a vessel has an $x$th task it also has an $x-1$th task \\ 
+\expl Ensures every task has enough resourses assigned to it \\
+\expl Ensures the starting times of consequtive tasks are separated by at least the duration of the first task (the $M$ factors ensure that if the tasks are not consecutive the starting times don't matter)
 \end{frame}
 
 \begin{frame}{Notation overview}
