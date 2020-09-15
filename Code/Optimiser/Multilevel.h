@@ -63,6 +63,10 @@ protected:
 	vector<int> Vy;					// The amount of vessels per type (Vessel Type)
 	int V, I, J, T;					// Amount of vessels/tasks/tasks-per-vessel/times
 
+	// Auxillerary metrics
+	vector<double> minDur;			// Maximum duration based on summing maximum sd and d over all vessel types (Task)
+	vector<int> Vyo;				// The offset between indices in V and Vy (Vessel Type)
+
 	void genScenario(int id, double expected = 25.0);
 	void getData();
 

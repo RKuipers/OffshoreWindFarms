@@ -23,7 +23,7 @@ MultiLevel::MultiLevel()
 	N = vector<vector<vector<XPRBvar>>>(Y, vector<vector<XPRBvar>>(M, vector<XPRBvar>(S)));
 
 	V = 3;
-	I = 30;
+	I = 2;
 	J = I;
 	T = 30;
 
@@ -35,6 +35,8 @@ MultiLevel::MultiLevel()
 
 	s = vector<XPRBvar>(I);
 	a = vector<vector<vector<XPRBvar>>>(V, vector<vector<XPRBvar>>(I, vector<XPRBvar>(J)));
+
+	minDur = vector<double>(I, -1);
 }
 
 void MultiLevel::Run(bool top)
@@ -93,10 +95,13 @@ void MultiLevel::getData()
 		genScenario(s);
 
 	c = vector<double>(I, 12960);
-	sd = { vector<double>(I, 0), { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
-	d = { { 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3 }, { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 } };
+	//sd = { vector<double>(I, 0), { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
+	sd = { {0, 0}, {0, 0} };
+	//d = { { 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3 }, { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 } };
+	d = { {1, 1},{1, 1} };
 	rho = vector<vector<int>>(Y, vector<int>(I, 1));
 	Vy = { 2, 1 };
+	Vyo = { 0, 2 };
 }
 
 // ----------------------------Generator functions-----------------------------
@@ -198,7 +203,12 @@ void MultiLevel::genLowDecisionVariables(XPRBprob* prob)
 	{
 		s[i] = prob->newVar(("s_" + to_string(i)).c_str(), XPRB_PL);
 		s[i].setLB(0);
-		s[i].setUB(T);
+
+		for (int y = 0; y < Y; ++y)
+			if (sd[y][i] + d[y][i] >= minDur[i])
+				minDur[i] = sd[y][i] + d[y][i];
+
+		s[i].setUB(T - minDur[i]);
 
 		for (int v = 0; v < V; ++v)
 			for (int j = 0; j < J; ++j)
@@ -213,12 +223,7 @@ void MultiLevel::genLowObjective(XPRBprob* prob)
 	for (int i = 0; i < I; ++i)
 	{
 		Obj.addTerm(s[i], c[i]);
-
-		double max = -1;
-		for (int y = 0; y < Y; ++y)
-			if (sd[y][i] + d[y][i] >= max)
-				max = sd[y][i] + d[y][i];
-		Obj.add(c[i] * max);
+		Obj.add(c[i] * minDur[i]);
 	}
 	prob->setObj(Obj);
 }
@@ -226,16 +231,15 @@ void MultiLevel::genLowObjective(XPRBprob* prob)
 void MultiLevel::genSetConstraints(XPRBprob* prob)
 {
 	for (int v = 0; v < V; ++v)
-		for (int i = 0; i < I; ++i)
+		for (int j = 0; j < J; ++j)
 		{
-			XPRBrelation rel = a[v][i][0] <= 1;
+			XPRBrelation rel = a[v][0][j] <= 1;
 
-			for (int j = 1; j < J; ++j)
+			for (int i = 1; i < I; ++i)
 				rel.addTerm(a[v][i][j]);
 
-			prob->newCtr(("Set_" + to_string(v) + "_" + to_string(i)).c_str(), rel);
+			prob->newCtr(("Set_" + to_string(v) + "_" + to_string(j)).c_str(), rel);
 		}
-
 }
 
 void MultiLevel::genOrdConstraints(XPRBprob* prob)
@@ -260,14 +264,15 @@ void MultiLevel::genResourceConstraints(XPRBprob* prob)
 	for (int y = 0; y < Y; ++y)
 		for (int i = 0; i < I; ++i)
 		{
-			if (rho[y][i] = 0)
+			if (rho[y][i] == 0)
 				continue;
 
-			XPRBrelation rel = rho[y][i] <= a[0][i][0];
+			XPRBrelation rel = a[Vyo[y]][i][0] >= rho[y][i];
 
-			for (int v = 1; v < Vy[y]; ++v)
-				for (int j = 1; j < J; ++j)
-					rel.addTerm(a[v][i][j], -1);
+			for (int v = 0; v < Vy[y]; ++v)
+				for (int j = 0; j < J; ++j)
+					if (v > 0 || j > 0)
+						rel.addTerm(a[v + Vyo[y]][i][j]);
 
 			prob->newCtr(("Res_" + to_string(y) + "_" + to_string(i)).c_str(), rel);
 		}
@@ -281,9 +286,10 @@ void MultiLevel::genDurationConstraints(XPRBprob* prob)
 		for (int v = 0; v < Vy[y]; ++v)
 			for (int i = 0; i < I; ++i)
 				for (int i_ = 0; i_ < I; ++i_)
-					for (int j = 0; j < J; ++j)
-						prob->newCtr(("Dur_" + to_string(y) + "_" + to_string(v) + "_" + to_string(i) + "_" + to_string(i_) + "_" + to_string(j)).c_str(), 
-							M * (a[v][i][j] + a[v][i_][j]) + d[y][i_] * a[v][i_][j] - 2 * M <= s[i] + sd[y][i] - s[i_] + sd[i_][y]);
+					if (i != i_)
+						for (int j = 1; j < J; ++j)
+							prob->newCtr(("Dur_" + to_string(y) + "_" + to_string(v) + "_" + to_string(i) + "_" + to_string(i_) + "_" + to_string(j)).c_str(), 
+								M * (a[v + Vyo[y]][i][j] + a[v + Vyo[y]][i_][j-1]) + d[y][i_] * a[v + Vyo[y]][i_][j-1] - 2 * M <= s[i] + sd[y][i] - s[i_] + sd[y][i_]);
 }
 
 void MultiLevel::genLowProblem(XPRBprob* prob) 
@@ -406,7 +412,7 @@ void MultiLevel::printStarts(ofstream* file)
 
 void MultiLevel::printTaskOrders(ofstream* file)
 {
-	vector<vector<int>> tasks(J, vector<int>(V));
+	vector<vector<int>> tasks(J, vector<int>(V, -1));
 
 	for (int v = 0; v < V; ++v)
 		for (int i = 0; i < I; ++i)

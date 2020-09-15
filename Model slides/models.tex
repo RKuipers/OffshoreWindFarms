@@ -596,8 +596,9 @@ subject to:
 \sum_{j \in J} a_{vij}						&\leq 		1						& \forall v \in V, \forall i \in I 						\\
 \sum_{i \in I} a_{vij}						&\leq 		\sum_{i \in I} a_{vi(j-1)}			& \forall v \in V, \forall j \in J - \{ 0 \}					\\
 \rho_{yi}								&\leq	 	\sum_{v \in V_y} \sum_{j \in J} a_{vij} 	& \forall y \in Y, \forall i \in I						\\	
-\begin{aligned} M \cdot (a_{vij} + a_{vi'j}) + \\ 
-d_{yi'} \cdot a_{vi'j} - 2M \end{aligned}				&\leq	 	s_i + s_{yi} - s_{i'} + s_{i'y}		& \forall y \in Y, \forall v \in V_y, \forall i, i' \in I, \forall j \in J				
+\begin{aligned} M \cdot (a_{vij} + a_{vi'(j-1)}) + \\ 
+d_{yi'} \cdot a_{vi'(j-1)} - 2M \end{aligned}			&\leq	 	s_i + s_{yi} - s_{i'} + s_{i'y}		& \begin{aligned} \forall y \in Y, \forall v \in V_y, 			\\
+																		\forall i, i' \in I, \forall j \in J - \{ 0 \}	\end{aligned}		
 \end{align}
 
 \end{frame}
