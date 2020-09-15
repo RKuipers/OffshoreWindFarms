@@ -23,7 +23,7 @@ MultiLevel::MultiLevel()
 	N = vector<vector<vector<XPRBvar>>>(Y, vector<vector<XPRBvar>>(M, vector<XPRBvar>(S)));
 
 	V = 3;
-	I = 2;
+	I = 10;
 	J = I;
 	T = 30;
 
@@ -95,10 +95,10 @@ void MultiLevel::getData()
 		genScenario(s);
 
 	c = vector<double>(I, 12960);
+	sd = { vector<double>(I, 0), vector<double>(I, 0) };
 	//sd = { vector<double>(I, 0), { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
-	sd = { {0, 0}, {0, 0} };
-	//d = { { 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3 }, { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 } };
-	d = { {1, 1},{1, 1} };
+	d = { vector<double>(I, 2), vector<double>(I, 1) };
+	//d = { { 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3 }, { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 } };
 	rho = vector<vector<int>>(Y, vector<int>(I, 1));
 	Vy = { 2, 1 };
 	Vyo = { 0, 2 };
@@ -239,6 +239,17 @@ void MultiLevel::genSetConstraints(XPRBprob* prob)
 				rel.addTerm(a[v][i][j]);
 
 			prob->newCtr(("Set_" + to_string(v) + "_" + to_string(j)).c_str(), rel);
+		}
+	
+	for (int v = 0; v < V; ++v)
+		for (int i = 0; i < I; ++i)
+		{
+			XPRBrelation rel = a[v][i][0] <= 1;
+
+			for (int j = 1; j < J; ++j)
+				rel.addTerm(a[v][i][j]);
+
+			prob->newCtr(("SetAlt_" + to_string(v) + "_" + to_string(i)).c_str(), rel);
 		}
 }
 
