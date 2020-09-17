@@ -423,14 +423,14 @@ void MultiLevel::printStarts(ofstream* file)
 
 void MultiLevel::printTaskOrders(ofstream* file)
 {
-	vector<vector<int>> tasks(J, vector<int>(V, -1));
+	vector<vector<string>> tasks(J, vector<string>(V, "-"));
 
 	for (int v = 0; v < V; ++v)
 		for (int i = 0; i < I; ++i)
 			for (int j = 0; j < J; ++j)
 			{
 				if (round(a[v][i][j].getSol()) == 1)
-					tasks[j][v] = i;
+					tasks[j][v] = to_string(i);
 
 				*file << "a_" << v << "_" << i << "_" << j << ": " << round(a[v][i][j].getSol()) << endl;;
 			}
@@ -438,9 +438,9 @@ void MultiLevel::printTaskOrders(ofstream* file)
 	printer("Task orders per vessel: ", VERBSOL);
 	for (int j = 0; j < J; ++j)
 	{		
-		printer(to_string(j) + ": " + to_string(tasks[j][0]), VERBSOL, false);
+		printer(to_string(j) + ": " + tasks[j][0], VERBSOL, false);
 		for (int v = 1; v < V; ++v)
-			printer(", " + to_string(tasks[j][v]), VERBSOL, false);
+			printer(", " + tasks[j][v], VERBSOL, false);
 		printer("", VERBSOL);
 	}
 }
