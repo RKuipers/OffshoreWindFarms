@@ -569,16 +569,19 @@ Stochastic parameters:
 
 \begin{equation}
 	\min_{N_{vm\sigma}, P_m, R_{m\sigma} \in \mathbb{Z}^*} 
+	\begin{aligned}
 	\frac{1}{|S|} \cdot \sum_{\sigma \in S} \sum_{m \in M} [\sum_{v \in V} 
-	(N_{vm\sigma} \cdot C_{vm}) +  
-	P_m \cdot d_P \cdot e^h_m + 
-	\sum_{m' = 0}^{m} (f_{m'\sigma} - R_{m'\sigma}) \cdot e^m_m]	
+	(N_{vm\sigma} \cdot c_{vm}) +  
+	P_m \cdot d_P \cdot e^H_m + \\
+	\sum_{m' = 0}^{m} (f_{m'\sigma} - R_{m'\sigma}) \cdot e^M_m -
+	u \cdot \gamma_\sigma] 
+	\end{aligned}	
 \end{equation}
 subject to:
 \begin{align}
-l_v \cdot N_{vm\sigma} 			&\geq 	P_m \cdot d^P_v + R_{m\sigma} \cdot d^R_v		& \forall \sigma \in S, \forall m \in M, \forall v \in V 		\\
-\sum_{m' = 0}^{m-1} f_{m'\sigma}	&\geq 	\sum_{m' = 0}^m R_{m'\sigma}				& \forall \sigma \in S, \forall m \in M				\\
-\sum_{m\in M} P_m 			&\geq 	A 								&						
+l_v \cdot N_{vm\sigma} 			&\geq 	P_m \cdot d^P_v + R_{m\sigma} \cdot d^R_v	 + \gamma_\sigma	& \forall \sigma \in S, \forall m \in M, \forall v \in V 		\\
+\sum_{m' = 0}^{m-1} f_{m'\sigma}	&\geq 	\sum_{m' = 0}^m R_{m'\sigma}						& \forall \sigma \in S, \forall m \in M				\\
+\sum_{m\in M} P_m 			&\geq 	A 										&						
 \end{align}
 
 \end{frame}
@@ -604,7 +607,7 @@ d_{yi'} \cdot a_{vi'(j-1)} - 2M \end{aligned}			&\leq	 	s_i + s_{yi} - s_{i'} - 
 \end{frame}
 
 \begin{frame}{Multilevel Model Explanation}
-\expl Objective is to minimise costs over all scenarios, summing up resource, downtime and failure costs \\
+\expl Objective is to minimise costs over all scenarios, summing up resource, downtime and failure costs, and subtracting the value of the mimimum buffer \\
 \expl Ensures the durations of the planned tasks do not exceed the capacity of the assigned vessels \\ 
 \expl Ensures repairs are only done after failures have occured \\
 \expl Ensures all assets have preventive maintenance done at least once within the timespan \\ 
