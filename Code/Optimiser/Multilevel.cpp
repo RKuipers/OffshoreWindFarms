@@ -21,6 +21,8 @@ MultiLevel::MultiLevel()
 	P = vector<XPRBvar>(M);
 	R = vector<vector<XPRBvar>>(M, vector<XPRBvar>(S));
 	N = vector<vector<vector<XPRBvar>>>(Y, vector<vector<XPRBvar>>(M, vector<XPRBvar>(S)));
+	gam = vector<XPRBvar>(S);
+	ep = vector<vector<vector<XPRBvar>>>(Y, vector<vector<XPRBvar>>(M, vector<XPRBvar>(S)));
 
 	V = 3;
 	I = 5;
@@ -87,9 +89,11 @@ void MultiLevel::getData()
 	dp = 12;
 	dpv = {4, 12};
 	drv = {8, 16};
+	u = 100;
 	eh = vector<double>(M, 540);
 	em = vector<double>(M, 388800);
 	C = { vector<double>(M, 500000), vector<double>(M, 120000) };
+	LARGE = 10000;
 
 	for (int s = 0; s < S; ++s)
 		genScenario(s);
@@ -115,15 +119,23 @@ void MultiLevel::genTopDecisionVariables(XPRBprob* prob)
 
 		for (int s = 0; s < S; ++s)
 		{
-			R[m][s] = prob->newVar(("R_" + to_string(m) + to_string(s)).c_str(), XPRB_UI);
+			R[m][s] = prob->newVar(("R_" + to_string(m) + "_" + to_string(s)).c_str(), XPRB_UI);
 			R[m][s].setLB(0);
 
-			for (int v = 0; v < V; ++v)
+			for (int y = 0; y < Y; ++y)
 			{
-				N[v][m][s] = prob->newVar(("N_" + to_string(v) + "_" + to_string(m) + to_string(s)).c_str(), XPRB_UI);
-				N[v][m][s].setLB(0);
+				N[y][m][s] = prob->newVar(("N_" + to_string(y) + "_" + to_string(m) + to_string(s)).c_str(), XPRB_UI);
+				N[y][m][s].setLB(0);
+
+				ep[y][m][s] = prob->newVar(("e_" + to_string(y) + "_" + to_string(m) + to_string(s)).c_str(), XPRB_BV);
 			}
 		}
+	}
+
+	for (int s = 0; s < S; ++s)
+	{
+		gam[s] = prob->newVar(("y_" + to_string(s)).c_str(), XPRB_PL);
+		gam[s].setLB(0);
 	}
 }
 
@@ -133,10 +145,11 @@ void MultiLevel::genTopObjective(XPRBprob* prob)
 	double sfactor = 1.0 / (double)S;
 
 	for (int s = 0; s < S; ++s)
+	{
 		for (int m = 0; m < M; ++m)
 		{
-			for (int v = 0; v < V; ++v)
-				Obj.addTerm(N[v][m][s], C[v][m] * sfactor);
+			for (int y = 0; y < Y; ++y)
+				Obj.addTerm(N[y][m][s], C[y][m] * sfactor);
 
 			Obj.addTerm(P[m], dp * eh[m] * sfactor);
 
@@ -146,6 +159,9 @@ void MultiLevel::genTopObjective(XPRBprob* prob)
 				Obj.add(f[m_][s] * em[m] * sfactor);
 			}
 		}
+
+		Obj.addTerm(gam[s], -u);
+	}
 	prob->setObj(Obj);
 }
 
@@ -153,8 +169,21 @@ void MultiLevel::genCapacityConstraints(XPRBprob* prob)
 {
 	for (int s = 0; s < S; ++s)
 		for (int m = 0; m < M; ++m)
-			for (int v = 0; v < V; ++v)
-				prob->newCtr(("Cap_" + to_string(m) + "_" + to_string(v)).c_str(), l[v] * N[v][m][s] >= P[m] * dpv[v] + R[m][s] * drv[v]);
+			for (int y = 0; y < Y; ++y)
+				prob->newCtr(("Cap_" + to_string(m) + "_" + to_string(y)).c_str(), l[y] * N[y][m][s] >= P[m] * dpv[y] + R[m][s] * drv[y] + gam[s] - ep[y][m][s] * LARGE);
+}
+
+void MultiLevel::genCharterConstraints(XPRBprob* prob)
+{
+	for (int s = 0; s < S; ++s)
+		for (int m = 0; m < M; ++m)
+			for (int y = 0; y < Y; ++y)
+				prob->newCtr(("ChaA_" + to_string(m) + "_" + to_string(y)).c_str(), 1 - 0.1 * N[y][m][s] >= ep[y][m][s]);
+
+	for (int s = 0; s < S; ++s)
+		for (int m = 0; m < M; ++m)
+			for (int y = 0; y < Y; ++y)
+				prob->newCtr(("ChaB_" + to_string(m) + "_" + to_string(y)).c_str(), gam[s] >= ep[y][m][s] * LARGE);
 }
 
 void MultiLevel::genFailuresConstraints(XPRBprob* prob)
@@ -193,6 +222,7 @@ void MultiLevel::genTopProblem(XPRBprob* prob)
 	genTopObjective(prob);
 
 	genCapacityConstraints(prob);
+	genCharterConstraints(prob);
 	genFailuresConstraints(prob);
 	genPlannedConstraints(prob);
 }
@@ -352,20 +382,39 @@ void MultiLevel::printFailures(ofstream* file)
 
 void MultiLevel::printResources(ofstream* file)
 {
-	for (int s = 0; s < S; ++s)
+	for (int y = 0; y < Y; ++y)
 	{
-		printer("Resources needed per month and vessel type in Scenario " + to_string(s) + ": ", VERBSOL);
+		printer("Resources needed per month and scenario for Vessel Type " + to_string(y) + ": ", VERBSOL);
 		for (int m = 0; m < M; ++m)
 		{
-			int val = round(N[0][m][s].getSol());
+			int val = round(N[y][m][0].getSol());
 			printer(to_string(m) + ": " + to_string(val), VERBSOL, false);
-			*file << "N_0_" << m << ": " << val << endl;;
+			*file << "N_" << y << "_" << m << "_0: " << val << endl;;
 
-			for (int v = 1; v < V; ++v)
+			for (int s = 1; s < S; ++s)
 			{
-				val = round(N[v][m][s].getSol());
+				val = round(N[y][m][s].getSol());
 				printer(", " + to_string(val), VERBSOL, false);
-				*file << "N_" << v << "_" << m << ": " << val << endl;;
+				*file << "N_" << y << "_" << m << "_" << s << ": " << val << endl;;
+			}
+			printer("", VERBSOL);
+		}
+	}
+
+	for (int y = 0; y < Y; ++y)
+	{
+		printer("Epsilon values per month and scenario for Vessel Type " + to_string(y) + ": ", VERBSOL);
+		for (int m = 0; m < M; ++m)
+		{
+			int val = round(ep[y][m][0].getSol());
+			printer(to_string(m) + ": " + to_string(val), VERBSOL, false);
+			*file << "e_" << y << "_" << m << "_0: " << val << endl;;
+
+			for (int s = 1; s < S; ++s)
+			{
+				val = round(ep[y][m][s].getSol());
+				printer(", " + to_string(val), VERBSOL, false);
+				*file << "e_" << y << "_" << m << "_" << s << ": " << val << endl;;
 			}
 			printer("", VERBSOL);
 		}
@@ -381,16 +430,32 @@ void MultiLevel::printTasks(ofstream* file)
 		printer(to_string(m) + ": " + to_string(val), VERBSOL);
 		*file << "P_" << m << ": " << val << endl;;
 	}
-
-	for (int s = 0; s < S; ++s)
+	
+	printer("Repair tasks per month and scenario: ", VERBSOL);
+	for (int m = 0; m < M; ++m)
 	{
-		printer("Repair tasks per month in Scenario " + to_string(s) + ": ", VERBSOL);
-		for (int m = 0; m < M; ++m)
+		int val = round(R[m][0].getSol());
+		printer(to_string(m) + ": " + to_string(val), VERBSOL, false);
+		*file << "R_" << m << "_0: " << val << endl;
+
+		for (int s = 1; s < S; ++s)
 		{
 			int val = round(R[m][s].getSol());
-			printer(to_string(m) + ": " + to_string(val), VERBSOL);
-			*file << "R_" << m << ": " << val << endl;;
+			printer(", " + to_string(val), VERBSOL, false);
+			*file << "R_" << m << "_" << s <<": " << val << endl;
 		}
+		printer("", VERBSOL);
+	}
+}
+
+void MultiLevel::printGamma(ofstream* file)
+{
+	printer("Gamma values: ", VERBSOL);
+	for (int s = 0; s < S; ++s)
+	{
+		int val = round(gam[s].getSol());
+		printer(to_string(s) + ": " + to_string(val), VERBSOL);
+		*file << "Gam_" << s << ": " << val << endl;;
 	}
 }
 
@@ -406,6 +471,7 @@ void MultiLevel::printTopProbOutput(XPRBprob* prob)
 	printFailures(&file);
 	printResources(&file);
 	printTasks(&file);
+	printGamma(&file);
 
 	file.close();
 }

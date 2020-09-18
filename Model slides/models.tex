@@ -569,7 +569,8 @@ Stochastic parameters:
 
 \begin{equation}
 	\min_{\substack{N_{ym\sigma}, P_m, R_{m\sigma} \in \mathbb{Z}^* \\
-	\gamma_\sigma \in \mathbb{R}_{\geq 0} }}
+	\gamma_\sigma \in \mathbb{R}_{\geq 0} \\
+	e_{ym\sigma} \in \{0, 1\} }}
 	\begin{aligned}
 	\frac{1}{|S|} \cdot \sum_{\sigma \in S} ( \sum_{m \in M} [\sum_{y \in Y} 
 	(N_{ym\sigma} \cdot c_{ym}) +  
@@ -580,7 +581,9 @@ Stochastic parameters:
 \end{equation}
 subject to:
 \begin{align}
-l_y \cdot N_{ym\sigma} 			&\geq 	P_m \cdot d^P_y + R_{m\sigma} \cdot d^R_y	 + \gamma_\sigma	& \forall \sigma \in S, \forall m \in M, \forall y \in Y 		\\
+l_y \cdot N_{ym\sigma} 			&\geq 	P_m \cdot d^P_y + R_{m\sigma} \cdot d^R_y	 + \gamma_\sigma - e_{ym\sigma} \cdot M
+																		& \forall \sigma \in S, \forall m \in M, \forall y \in Y 		\\
+1 - \frac{N_{ym\sigma}}{2}		&\geq		e_{ym\sigma}								& \forall \sigma \in S, \forall m \in M, \forall y \in Y 		\\
 \sum_{m' = 0}^{m-1} f_{m'\sigma}	&\geq 	\sum_{m' = 0}^m R_{m'\sigma}						& \forall \sigma \in S, \forall m \in M				\\
 \sum_{m\in M} P_m 			&\geq 	A 										&						
 \end{align}
@@ -608,8 +611,10 @@ d_{yi'} \cdot a_{vi'(j-1)} - 2M \end{aligned}			&\leq	 	s_i + s_{yi} - s_{i'} - 
 \end{frame}
 
 \begin{frame}{Multilevel Model Explanation}
+\small
 \expl Objective is to minimise costs over all scenarios, summing up resource, downtime and failure costs, and subtracting the value of the mimimum buffer \\
 \expl Ensures the durations of the planned tasks do not exceed the capacity of the assigned vessels \\ 
+\expl Sets the empty variable to 1 if no vessels are chartered \\
 \expl Ensures repairs are only done after failures have occured \\
 \expl Ensures all assets have preventive maintenance done at least once within the timespan \\ 
 \bigskip

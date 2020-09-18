@@ -43,18 +43,22 @@ protected:
 	vector<XPRBvar> P;					// Planned tasks (Month)
 	vector<vector<XPRBvar>> R;			// Repair tasks (Month, Scenario)
 	vector<vector<vector<XPRBvar>>> N;	// Vessels needed (Vessel, Month, Scenario)
+	vector<XPRBvar> gam;				// The buffer capacity (Scenario)
+	vector<vector<vector<XPRBvar>>> ep;	// Binary variable wether any vessels are chartered that month (Vessel, Month, Scenario)
 	vector<XPRBvar> s;					// Starting times (Task)
 	vector<vector<vector<XPRBvar>>> a;	// Task assignments (Vessel, Task, Order)
 
 	// Parameters of top level
 	vector<vector<double>> C;	// Charter costs (Vessel, Month)
 	vector<double> eh, em;		// Energy generated in an hour/month (Month)
+	double u;					// Value of a buffer unit
 	vector<int> dpv, drv;		// Duration that a planned/repair task needs a vessel in hours (Vessel)
 	int dp;						// Duration of a planned task in hours
 	vector<vector<int>> f;		// Failures (Month, Scenario)
 	int A;						// Number of assets that need to be serviced with planned tasks
 	vector<int> l;				// Amount of hours a vessel is available when chartered for a month (Vessel)
 	int Y, M, S;				// Amount of vessel-types/months/scenarios
+	int LARGE;					// A large number
 
 	// Paramters of bottom level
 	vector<double> c;				// The cost of a task being uncompleted for a single timestep (Task)
@@ -73,6 +77,7 @@ protected:
 	void genTopDecisionVariables(XPRBprob* prob);
 	void genTopObjective(XPRBprob* prob);
 	void genCapacityConstraints(XPRBprob* prob);
+	void genCharterConstraints(XPRBprob* prob);
 	void genFailuresConstraints(XPRBprob* prob);
 	void genPlannedConstraints(XPRBprob* prob);
 	void genTopProblem(XPRBprob* prob);
@@ -89,6 +94,7 @@ protected:
 	void printFailures(ofstream* file);
 	void printResources(ofstream* file);
 	void printTasks(ofstream* file);
+	void printGamma(ofstream* file);
 	void printTopProbOutput(XPRBprob* prob); 
 	void printStarts(ofstream* file);
 	void printTaskOrders(ofstream* file);
