@@ -32,7 +32,7 @@ class Settings:
     #"Free" ranges
     fl = [15, 2, 30, 1, 1]
     fn = [40, 3, 45, 4, 2]
-    fh = [50, 4, 60, 10, 10]
+    fh = [50, 4, 60, 8, 8]
     #Target ratios 
     targets = {
     2: (160/(2*86 + 45)),
@@ -51,6 +51,10 @@ class Settings:
     rh = 0.8
     #Ground number
     g = 4.0
+    #General bounds
+    shortmax = 1000
+    workmin = 0
+    blockmax = 1000
     
     def __init__(self):
         self.lows = Settings.dl.copy()
@@ -66,6 +70,9 @@ class Settings:
         self.rl = Settings.rl
         self.rh = Settings.rh
         self.g = Settings.g
+        self.shortmax = Settings.shortmax
+        self.workmin = Settings.workmin
+        self.blockmax = Settings.blockmax
         
     def setRanges(self, lows: list, highs: list, startIndex: int = 0) -> None:
         self.lows[startIndex:] = lows.copy()
@@ -168,9 +175,12 @@ class Solution:
     def ratioLong(self) -> int:
         return self.workTime() / (self.workTime() + self.L * (self.N - 1))
     
+    def sbTime(self) -> int:
+        return self.S * self.N * (self.P - 1)
+    
     #Checks validity
     def valid(self, S: Settings) -> bool:
-        return S.ml <= self.length() <= S.mh and S.rl <= self.ratio() <= S.rh
+        return S.ml <= self.length() <= S.mh and S.rl <= self.ratio() <= S.rh and self.workTime() >= S.workmin and self.sbTime() <= S.shortmax and self.pomoBlock() <= S.blockmax
     
     def setScore(self, score :float) -> None:
         self.score = score
@@ -451,7 +461,34 @@ def modifySettings() -> None:
         if inp == "n" or inp == "d":
             SETS.g = Settings.g 
         else:
-            SETS.g = float(inp)    
+            SETS.g = float(inp)   
+            
+    print ("Enter the maximum total duration of short breaks")
+    
+    inp = input()
+    if not inp == "k":
+        if inp == "n" or inp == "d":
+            SETS.shortmax = Settings.shortmax 
+        else:
+            SETS.shortmax = int(inp) 
+            
+    print ("Enter the minimum total work time")
+    
+    inp = input()
+    if not inp == "k":
+        if inp == "n" or inp == "d":
+            SETS.workmin = Settings.workmin 
+        else:
+            SETS.workmin = int(inp) 
+            
+    print ("Enter the maximum duration of a single block")
+    
+    inp = input()
+    if not inp == "k":
+        if inp == "n" or inp == "d":
+            SETS.blockmax = Settings.blockmax 
+        else:
+            SETS.blockmax = int(inp) 
 
 def reRun(sol: Solution) -> bool:
     global modify
