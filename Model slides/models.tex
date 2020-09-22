@@ -582,10 +582,10 @@ Stochastic parameters:
 subject to:
 \begin{align}
 l_y \cdot N_{ym\sigma} 			&\geq 	P_m \cdot d^P_y + R_{m\sigma} \cdot d^R_y	 + \gamma_\sigma - e_{ym\sigma} \cdot M
-																		& \forall \sigma \in S, \forall m \in M, \forall y \in Y 		\\
-1 - \frac{N_{ym\sigma}}{2}		&\geq		e_{ym\sigma}								& \forall \sigma \in S, \forall m \in M, \forall y \in Y 		\\
-\sum_{m' = 0}^{m-1} f_{m'\sigma}	&\geq 	\sum_{m' = 0}^m R_{m'\sigma}						& \forall \sigma \in S, \forall m \in M				\\
-\sum_{m\in M} P_m 			&\geq 	A 										&						
+																				& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
+1 						&\geq		e_{ym\sigma} + \frac{P_m \cdot d^P_y + R_{m\sigma} \cdot d^R_y}{A}	& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
+\sum_{m' = 0}^{m-1} f_{m'\sigma}	&\geq 	\sum_{m' = 0}^m R_{m'\sigma}								& \forall \sigma \in S, \forall m \in M			\\
+\sum_{m\in M} P_m 			&\geq 	A 												&						
 \end{align}
 
 \end{frame}
@@ -614,7 +614,7 @@ d_{yi'} \cdot a_{vi'(j-1)} - 2M \end{aligned}			&\leq	 	s_i + s_{yi} - s_{i'} - 
 \small
 \expl Objective is to minimise costs over all scenarios, summing up resource, downtime and failure costs, and subtracting the value of the mimimum buffer \\
 \expl Ensures the durations of the planned tasks do not exceed the capacity of the assigned vessels \\ 
-\expl Sets the empty variable to 1 if no vessels are chartered \\
+\expl Sets the "empty" variable to 1 if no tasks are planned (equivalently, no vessels are chartered) \\
 \expl Ensures repairs are only done after failures have occured \\
 \expl Ensures all assets have preventive maintenance done at least once within the timespan \\ 
 \bigskip
