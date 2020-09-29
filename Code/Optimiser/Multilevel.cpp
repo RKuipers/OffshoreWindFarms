@@ -8,13 +8,13 @@ MultiLevel::MultiLevel()
 
 	Y = 2;
 	M = 12;
-	S = 5;
+	S = 2;
 
 	C = vector<vector<double>>(Y, vector<double>(M));
 	eh = vector<double>(M);
 	em = vector<double>(M);
-	dpv = vector<int>(Y);
-	drv = vector<int>(Y);
+	dpy = vector<int>(Y);
+	dry = vector<int>(Y);
 	f = vector<vector<int>>(M, vector<int>(S));
 	l = vector<int>(Y);
 
@@ -87,8 +87,8 @@ void MultiLevel::getData()
 	l = { 720, 480 };
 	A = 100;
 	dp = 12;
-	dpv = {4, 12};
-	drv = {8, 16};
+	dpy = {4, 12};
+	dry = {8, 16};
 	u = 100;
 	eh = vector<double>(M, 540);
 	em = vector<double>(M, 388800);
@@ -170,7 +170,7 @@ void MultiLevel::genCapacityConstraints(XPRBprob* prob)
 	for (int s = 0; s < S; ++s)
 		for (int m = 0; m < M; ++m)
 			for (int y = 0; y < Y; ++y)
-				prob->newCtr(("Cap_" + to_string(m) + "_" + to_string(y)).c_str(), l[y] * N[y][m][s] >= P[m] * dpv[y] + R[m][s] * drv[y] + gam[s] - ep[y][m][s] * LARGE);
+				prob->newCtr(("Cap_" + to_string(m) + "_" + to_string(y)).c_str(), l[y] * N[y][m][s] >= P[m] * dpy[y] + R[m][s] * dry[y] + gam[s] - ep[y][m][s] * LARGE);
 }
 
 void MultiLevel::genCharterConstraints(XPRBprob* prob)
@@ -178,12 +178,7 @@ void MultiLevel::genCharterConstraints(XPRBprob* prob)
 	for (int s = 0; s < S; ++s)
 		for (int m = 0; m < M; ++m)
 			for (int y = 0; y < Y; ++y)
-				prob->newCtr(("ChaA_" + to_string(m) + "_" + to_string(y)).c_str(), 1 - 0.1 * N[y][m][s] >= ep[y][m][s]);
-
-	for (int s = 0; s < S; ++s)
-		for (int m = 0; m < M; ++m)
-			for (int y = 0; y < Y; ++y)
-				prob->newCtr(("ChaB_" + to_string(m) + "_" + to_string(y)).c_str(), gam[s] >= ep[y][m][s] * LARGE);
+				prob->newCtr(("Cha_" + to_string(s) + "_" + to_string(m) + "_" + to_string(y)).c_str(), A >= A * ep[y][m][s] + P[m] + R[m][s]);
 }
 
 void MultiLevel::genFailuresConstraints(XPRBprob* prob)

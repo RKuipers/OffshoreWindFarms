@@ -52,7 +52,7 @@ protected:
 	vector<vector<double>> C;	// Charter costs (Vessel, Month)
 	vector<double> eh, em;		// Energy generated in an hour/month (Month)
 	double u;					// Value of a buffer unit
-	vector<int> dpv, drv;		// Duration that a planned/repair task needs a vessel in hours (Vessel)
+	vector<int> dpy, dry;		// Duration that a planned/repair task needs a vessel in hours (Vessel)
 	int dp;						// Duration of a planned task in hours
 	vector<vector<int>> f;		// Failures (Month, Scenario)
 	int A;						// Number of assets that need to be serviced with planned tasks
