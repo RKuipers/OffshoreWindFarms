@@ -8,7 +8,7 @@ MultiLevel::MultiLevel()
 
 	Y = 2;
 	M = 12;
-	S = 2;
+	S = 4;
 
 	C = vector<vector<double>>(Y, vector<double>(M));
 	eh = vector<double>(M);
@@ -25,7 +25,7 @@ MultiLevel::MultiLevel()
 	ep = vector<vector<vector<XPRBvar>>>(Y, vector<vector<XPRBvar>>(M, vector<XPRBvar>(S)));
 
 	V = 3;
-	I = 5;
+	I = 7;
 	J = I;
 	T = 30;
 
