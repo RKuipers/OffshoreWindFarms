@@ -1,0 +1,149 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage[font=it,labelfont=bf]{caption}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{varwidth}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{cleveref}
+\usepackage{cite}
+\usepackage{url}
+\usepackage{harvard}
+\usepackage{thm-restate}
+\usepackage[space]{grffile}
+
+\citationmode{abbr}
+
+
+\linespread{1.3}
+
+\captionsetup[subfigure]{subrefformat=simple,labelformat=simple}
+\renewcommand\thesubfigure{(\alph{subfigure})}
+
+\setcounter{secnumdepth}{4}
+\newcommand{\myparagraph}[1]{\paragraph*{#1}\mbox{}\\}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{defin}{Definition}
+\newtheorem*{rquestion}{Question}
+\newtheorem{subquestion}{Sub-Question}
+\newcommand{\mydef}[3]{
+\begin{defin}
+\textsc{#1}
+
+Given: #2
+
+Question: #3
+\end{defin}}
+
+\newcommand{\bigO}[1]{$\mathcal{O}$($#1$)}
+\newcommand{\bigOs}[1]{$\mathcal{O^*}$($#1$)}
+\newcommand{\NP}{$\mathcal{NP}$}
+\newcommand{\acco}[1]{\{ #1 \}}
+
+\newcommand{\vecarr}[3]{\overset{#2}{\overrightarrow{#1}}}
+
+%Door deze regel springt de eerste regel van
+%elke alinea niet meer steeds een stukje in.
+%\setlength{\parskip}{\baselineskip}
+%Door deze regel wordt tussen de alinea's steeds
+%een regel overgeslagen.
+
+%\setlength{\columnseprule}{1pt}
+%\def\columnseprulecolor{\color{blue}}
+
+\newcommand{\algorithmicbreak}{\textbf{break}}
+\newcommand{\Break}{\State \algorithmicbreak}
+
+
+
+\begin{document}
+\title{Simulation and Optimization of Offshore Renewable Energy Arrays for Minimal Life-Cycle Costs \\
+\large Second Year Report}
+\author{Robin Kuipers \\[1cm] Supervisors: \\ Kerem Akartunali \\ Euan Barlow\\[2cm] University of Strathclyde \\ Strathclyde Business School \\ {\small Glasgow, Scotland}}
+\date{October, 2020}
+
+\maketitle
+
+\pagebreak
+
+\begin{abstract}
+This report aims to give a detailed overview of the research progress I made between January 2020 and September 2020, which is the time between the completion of the first yearly review and the start of the second yearly review of this PhD project into logistical decisions regarding offshore wind farms. It will quickly recap the progress made in the first year, and then detail the progress made in the second year, which primarily focused on developing and implementing models for optimization problems related to topic. The report also discusses future work, and what the next steps are. 
+\end{abstract}
+
+\pagebreak
+
+\tableofcontents
+
+\pagebreak
+
+\section{Introduction}
+Lorem Ipsum 
+
+\subsection{Problem description}
+Lorem Ipsum 
+
+\subsection{Research questions}
+Lorem Ipsum 
+
+\pagebreak
+
+\section{Developing models}
+Lorem Ipsum 
+
+\subsection{Initial models}
+Lorem Ipsum 
+
+\subsection{Combined models}
+Lorem Ipsum 
+
+\pagebreak
+
+\section{Implementation}
+Lorem Ipsum 
+
+\pagebreak
+
+\section{Closing knowledge gaps}
+Lorem Ipsum 
+
+\pagebreak
+
+\section{Additional activities} %COWORK course and teaching
+In addition to the work directly related to my PhD project, I have participated in some courses. 
+
+I was supposed to take part in the NATCOR course Convex Optimization, to be held at the University of Edinburgh in June 2020. However, due to the Covid-19 pandemic this course was canceled. I was also enrolled in the NATCOR course Forecasting and Predictive Analytics, which was to be held in September 2020 at Lancaster University. This course, due the same pandemic, has been postponed to February 2020. 
+
+\bigskip
+
+While those courses not taking place as planned was disappointing, another course I did not originally plan to go to had to move entirely online, making it possible for me to follow it. The course in question was CO@Work (Combinatorial Optimization at work), hosted by the University of Berlin. This two-week course offered lectures (via Youtube) on varying topics, and exercise and Q\&A sessions (via Zoom). Since the Zoom sessions took place at inconvenient times (due to timezones), I primarily partook in the lectures. The course was aimed at a wide variety of students, ranging from undergraduates new to optimization, to PhD students like myself. This meant that some lectures went over material I am already familiar with, like the workings of the simplex algorithm. Other material focused on techniques to help with solving linear and mixed-integer programs, such as column generation and branch-and-bound techniques. While I had previously been taught how these methods work, this was years ago, and the refresher was quite helpful. The course also had more time to go into details on these techniques, so I certainly learned new aspects of these techniques. Finally there were some corporate talks, at which various companies within the optimization industry talked about what they do and what a career with them could look like. While some of these talks seemed very specific to the company hosting it and less interesting, some also simply talked about work and careers as optimizers in general, which I found very helpful and interesting. 
+
+Generally I am glad I got to follow this course, and the format of having a few hours of lectures to watch at my own pace helped lower the workload (compared to traveling to Berlin for two weeks). This allowed me to still work on my own project during this course, and since the lectures were recorded videos rather than live, I could rewatch the parts that were most interesting or most complex. That said, I did miss the social aspect of this course, as normally with courses such as this you get to spend a week or two with students from all over the world who all study subjects similar to my own. This dimension was entirely missing, which is of course a strong drawback. 
+
+\bigskip
+
+Apart from following courses, I have also helped teach a course. The course, Information Access \& Mining (CS412), was a 4th year Computer Science course focusing on data analysis through machine learning. This is fairly far removed from the topic of my own project, but I was still fairly able to teach the course because of my Computer Science background. The main thing that was new for me was the Python language used in the course, with which I was previously unfamiliar. However, this simply meant that in addition to the teaching experience I got from teaching this course, I also made myself acquainted with Python, which turned out to be a relatively easy language to learn. I lead the labs, which meant I had to answer students questions regarding their exercises. Since I prepared the labs well, answering these questions was fairly straightforward. Additionally I had to mark the exercises, which took the majority of my time spend. But since I was provided with an decently detailed answer key, this was not very difficult either. After the labs stopped (due to the Covid-19 pandemic) my work solely consisted of the marking, lowering the workload. 
+
+This was my first real teaching experience, and I think it went very well. I enjoyed helping the students, and I enjoyed expanding my own knowledge of both the programming language and the subject matter. If I get another chance to help out with a course that interests me during my PhD, I will likely take it. 
+
+\pagebreak
+
+\section{Next steps}
+Lorem Ipsum 
+
+\subsection{Timeline}
+Lorem Ipsum 
+
+\pagebreak
+
+\bibliographystyle{agsm}
+\bibliography{mybib}
+
+\end{document}

@@ -1,0 +1,12 @@
+\babel@toc {english}{}
+\contentsline {section}{\numberline {1}Introduction}{4}% 
+\contentsline {subsection}{\numberline {1.1}Problem description}{4}% 
+\contentsline {subsection}{\numberline {1.2}Research questions}{4}% 
+\contentsline {section}{\numberline {2}Developing models}{5}% 
+\contentsline {subsection}{\numberline {2.1}Initial models}{5}% 
+\contentsline {subsection}{\numberline {2.2}Combined models}{5}% 
+\contentsline {section}{\numberline {3}Implementation}{6}% 
+\contentsline {section}{\numberline {4}Closing knowledge gaps}{7}% 
+\contentsline {section}{\numberline {5}Additional activities}{8}% 
+\contentsline {section}{\numberline {6}Next steps}{10}% 
+\contentsline {subsection}{\numberline {6.1}Timeline}{10}% 
