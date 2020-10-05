@@ -1,12 +1,12 @@
 \babel@toc {english}{}
 \contentsline {section}{\numberline {1}Introduction}{4}% 
 \contentsline {subsection}{\numberline {1.1}Problem description}{5}% 
-\contentsline {subsection}{\numberline {1.2}Research questions}{5}% 
-\contentsline {section}{\numberline {2}Developing models}{6}% 
-\contentsline {subsection}{\numberline {2.1}Initial models}{6}% 
-\contentsline {subsection}{\numberline {2.2}Combined models}{6}% 
-\contentsline {section}{\numberline {3}Implementation}{7}% 
-\contentsline {section}{\numberline {4}Closing knowledge gaps}{8}% 
-\contentsline {section}{\numberline {5}Additional activities}{9}% 
-\contentsline {section}{\numberline {6}Next steps}{11}% 
-\contentsline {subsection}{\numberline {6.1}Timeline}{11}% 
+\contentsline {subsection}{\numberline {1.2}Research questions}{7}% 
+\contentsline {section}{\numberline {2}Developing models}{9}% 
+\contentsline {subsection}{\numberline {2.1}Initial models}{9}% 
+\contentsline {subsection}{\numberline {2.2}Combined models}{9}% 
+\contentsline {section}{\numberline {3}Implementation}{10}% 
+\contentsline {section}{\numberline {4}Closing knowledge gaps}{11}% 
+\contentsline {section}{\numberline {5}Additional activities}{12}% 
+\contentsline {section}{\numberline {6}Next steps}{14}% 
+\contentsline {subsection}{\numberline {6.1}Timeline}{14}% 
