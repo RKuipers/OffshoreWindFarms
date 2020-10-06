@@ -8,10 +8,103 @@ Barlow, E., Tezcaner~{\"O}zt{\"u}rk, D., Day, A., Boulougouris, E., Revie, M.
   installation of offshore wind farms', {\em Marine Heavy Transport \& Lift IV}
   .
 
+\harvarditem[Besnard et~al.]{Besnard, Patriksson, Str{\"o}mberg, Wojciechowski,
+  Fischer \harvardand\ Bertling}{2011}{besnard2011stochastic}
+Besnard, F., Patriksson, M., Str{\"o}mberg, A.-B., Wojciechowski, A., Fischer,
+  K. \harvardand\ Bertling, L.  \harvardyearleft 2011\harvardyearright , A
+  stochastic model for opportunistic maintenance planning of offshore wind
+  farms, {\em in} `2011 IEEE Trondheim PowerTech', IEEE, pp.~1--8.
+
+\harvarditem{Dinwoodie \harvardand\ McMillan}{2014}{dinwoodie2014operational}
+Dinwoodie, I.~A. \harvardand\ McMillan, D.  \harvardyearleft
+  2014\harvardyearright , `Operational strategies for offshore wind turbines to
+  mitigate failure rate uncertainty on operational costs and revenue', {\em IET
+  Renewable Power Generation} {\bf 8}(4),~359--366.
+
+\harvarditem[Dinwoodie et~al.]{Dinwoodie, Endrerud, Hofmann, Martin
+  \harvardand\ Sperstad}{2015}{dinwoodie2015reference}
+Dinwoodie, I., Endrerud, O.-E.~V., Hofmann, M., Martin, R. \harvardand\
+  Sperstad, I.~B.  \harvardyearleft 2015\harvardyearright , `Reference cases
+  for verification of operation and maintenance simulation models for offshore
+  wind farms', {\em Wind Engineering} {\bf 39}(1),~1--14.
+
+\harvarditem[Dinwoodie et~al.]{Dinwoodie, Quail \harvardand\
+  McMillan}{2012}{dinwoodie2012analysis}
+Dinwoodie, I., Quail, F. \harvardand\ McMillan, D.  \harvardyearleft
+  2012\harvardyearright , Analysis of offshore wind turbine operation and
+  maintenance using a novel time domain meteo-ocean modeling approach, {\em in}
+  `ASME Turbo Expo 2012: Turbine Technical Conference and Exposition', American
+  Society of Mechanical Engineers, pp.~847--857.
+
+\harvarditem[Gabrel et~al.]{Gabrel, Murat \harvardand\
+  Thiele}{2014}{gabrel2014recent}
+Gabrel, V., Murat, C. \harvardand\ Thiele, A.  \harvardyearleft
+  2014\harvardyearright , `Recent advances in robust optimization: An
+  overview', {\em European Journal of Operational Research} {\bf
+  235}(3),~471--483.
+
+\harvarditem{Iancu \harvardand\ Trichakis}{2013}{iancu2013pareto}
+Iancu, D.~A. \harvardand\ Trichakis, N.  \harvardyearleft 2013\harvardyearright
+  , `Pareto efficiency in robust optimization', {\em Management Science} {\bf
+  60}(1),~130--147.
+
+\harvarditem[Irawan et~al.]{Irawan, Wall \harvardand\
+  Jones}{2019}{irawan2019optimisation}
+Irawan, C.~A., Wall, G. \harvardand\ Jones, D.  \harvardyearleft
+  2019\harvardyearright , `An optimisation model for scheduling the
+  decommissioning of an offshore wind farm', {\em OR Spectrum} {\bf
+  41}(2),~513--548.
+
 \harvarditem{Kaiser \harvardand\ Snyder}{2010}{kaiser2010offshore}
 Kaiser, M.~J. \harvardand\ Snyder, B.  \harvardyearleft 2010\harvardyearright ,
   `Offshore wind energy installation and decommissioning cost estimation in the
   us outer continental shelf', {\em US Dept. of the Interior, Bureau of Ocean
   Energy Management, Regulation and Enforcement, Herndon, VA TA\&R} {\bf 648}.
+
+\harvarditem[Lacal-Ar{\'a}ntegui et~al.]{Lacal-Ar{\'a}ntegui, Yusta
+  \harvardand\ Dom{\'\i}nguez-Navarro}{2018}{lacal2018offshore}
+Lacal-Ar{\'a}ntegui, R., Yusta, J.~M. \harvardand\ Dom{\'\i}nguez-Navarro,
+  J.~A.  \harvardyearleft 2018\harvardyearright , `Offshore wind installation:
+  Analysing the evidence behind improvements in installation time', {\em
+  Renewable and Sustainable Energy Reviews} {\bf 92},~133--145.
+
+\harvarditem{Leontaris, Morales-N{\'a}poles, Dewan \harvardand\
+  Wolfert}{2019}{leontaris2019decision}
+Leontaris, G., Morales-N{\'a}poles, O., Dewan, A. \harvardand\ Wolfert, A.~R.
+  \harvardyearleft 2019\harvardyearright , `Decision support for offshore asset
+  construction using expert judgments for supply disruptions risk', {\em
+  Automation in Construction} {\bf 107},~102903.
+
+\harvarditem[Leontaris et~al.]{Leontaris, Morales-N{\'a}poles \harvardand\
+  Wolfert}{2016}{leontaris2016probabilistic}
+Leontaris, G., Morales-N{\'a}poles, O. \harvardand\ Wolfert, A.~R.
+  \harvardyearleft 2016\harvardyearright , `Probabilistic scheduling of
+  offshore operations using copula based environmental time series--an
+  application for cable installation management for offshore wind farms', {\em
+  Ocean Engineering} {\bf 125},~328--341.
+
+\harvarditem{Leontaris, Morales-N{\'a}poles \harvardand\
+  Wolfert}{2019}{leontaris2018probabilistic}
+Leontaris, G., Morales-N{\'a}poles, O. \harvardand\ Wolfert, A.~R.
+  \harvardyearleft 2019\harvardyearright , `Probabilistic decision support for
+  offshore wind operations',  {\bf 14}.
+
+\harvarditem{M{\'e}rigaud \harvardand\ Ringwood}{2016}{merigaud2016condition}
+M{\'e}rigaud, A. \harvardand\ Ringwood, J.~V.  \harvardyearleft
+  2016\harvardyearright , `Condition-based maintenance methods for marine
+  renewable energy', {\em Renewable and Sustainable Energy Reviews} {\bf
+  66},~53--78.
+
+\harvarditem{Shafiee}{2015}{shafiee2015maintenance}
+Shafiee, M.  \harvardyearleft 2015\harvardyearright , `Maintenance logistics
+  organization for offshore wind energy: Current progress and future
+  perspectives', {\em Renewable Energy} {\bf 77},~182--193.
+
+\harvarditem[St{\aa}lhane et~al.]{St{\aa}lhane, Halvorsen-Weare, Non{\aa}s
+  \harvardand\ Pantuso}{2019}{staalhane2019optimizing}
+St{\aa}lhane, M., Halvorsen-Weare, E.~E., Non{\aa}s, L.~M. \harvardand\
+  Pantuso, G.  \harvardyearleft 2019\harvardyearright , `Optimizing vessel
+  fleet size and mix to support maintenance operations at offshore wind farms',
+  {\em European Journal of Operational Research} {\bf 276}(2),~495--509.
 
 \end{thebibliography}

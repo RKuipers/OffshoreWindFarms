@@ -89,7 +89,7 @@ For the past two years, I have been researching logistics related to offshore wi
 
 The complexity with these logistics comes from various factors, the first being the severe impact that weather conditions can have on when operational tasks can be completed. These projects take place on open sea, where weather can often be rougher than on land. In addition, the high-tech vessels are performing operations on large industrial constructions, hence there is a limited range of allowed wind speeds and wave heights. Another factor which can further limit possible schedules is the inflexibility involved in vessel chartering (renting), since vessels of the required caliber cannot be chartered on short notice, making adaptive in-the-moment scheduling is impossible. This means we will have to make decisions significantly in advance, and run the risk of chartering vessels in periods where they might not be able to complete their tasks due to the weather conditions. 
 
-This report will detail the research progress I have made since the completion of my first yearly review, which (due to scheduling issues and delays) was only completed in January 2020. Further on in this section, I will recap the specific parts of this problem that I am looking at (\Cref{ss:prob}), and which research questions I initially posed (\Cref{ss:quest}). Then \Cref{s:model} through  \Cref{s:addit} will talk about the work I have been since the last review. Respectively, these sections are about the models I have developed, how I have implemented them, the knowledge gaps I closed, and all additional activities I have taken part in. Finally, \Cref{s:next} will discuss the next steps for this project. 
+This report will detail the research progress I have made since the completion of my first yearly review, which (due to scheduling issues and delays) was only completed in January 2020. Further on in this section, I will recap the specific parts of this problem that I am looking at (\Cref{ss:prob}), and which research questions I initially posed (\Cref{ss:quest}). Then \Cref{s:know} through  \Cref{s:addit} will talk about the work I have been since the last review. Respectively, these sections are about the knowledge gaps I closed, the models I have developed, how I have implemented them, and all additional activities I have taken part in. Finally, \Cref{s:next} will discuss the next steps for this project. 
 
 \subsection{Problem description} \label{ss:prob}
 This research looks at offshore windfarms (OWFs) and the scheduling decisions made over the entire life-cycle of such an OWF. These windfarms generally consist of between 80-150 Wind Turbine Generators (WTGs) and the farms we focus on are located in the North Sea, roughly 50+ kilometers off the coast. A typical life-cycle would consist of roughly 2-3 yeas of installation, 20-30 years in which the WTGs generate energy and need to be maintained, and then another 2-3 years in which the turbines are decommissioned. These turbines are large structures that will need to be transported and installed by specialized, expensive vessels. 
@@ -139,6 +139,98 @@ Can considering the long-term effects of logistical decisions early on in the li
 
 \pagebreak
 
+\section{Closing knowledge gaps}\label{s:know}
+During my first yearly review it was remarked that most of my reading up to that point focused on either methodology or installation projects, and there were gaps concerning the other two phases, primarily maintenance. Over the past months I have worked to close these gaps, and I consistently updated the literature review as I gained knowledge. This section will show the highlights of that updated literature review, and I will give some closing thoughts on these new insights at the end. 
+
+\subsection{The maintenance phase} \label{ss:maint}
+%OG CHECKED: Shafiee, Survey and Categorisation
+In \cite{shafiee2015maintenance} the different topics that fall under maintenance are divided into three timescales (echelons):
+
+\begin{enumerate}
+\item Strategic: Long term, over the lifespan of an OWF
+\begin{itemize}
+\item Wind farm design for reliability
+\item Location/Capacity of maintenance accommodations
+\item Maintenance strategy selection
+\item Outsourcing decisions
+\end{itemize}
+\item Tactical: Medium term, between 1 and 5 years
+\begin{itemize}
+\item Spare parts management
+\item Maintenance support organization
+\item Purchasing/leasing decisions
+\end{itemize}
+\item Operational: Short term, day to day
+\begin{itemize}
+\item Maintenance scheduling
+\item Routing of maintenance vessels
+\item Performance measurement
+\end{itemize}
+\end{enumerate}
+
+Decisions within the strategic echelon are found to have the biggest impact on the costs of operations, which makes sense as they affect the largest amount of time. However each of these echelons include important decisions that will have to be made for the maintenance of the sites. Besides providing this framework to categorize research, they also highlight which areas appear most thoroughly researched, and identify some unexplored areas. Potentially due to their large impact, the topics within the strategic echelon have received most attention, while the topics in the operational echelon received least. The writers indicate they these shorter term areas might hold unexplored potential for future research. 
+
+\bigskip
+
+%OG CHECKED: Dinwoodie paragraph
+%Availability
+In \cite{dinwoodie2012analysis} an attempt is made to analyse the availability of OWFs. It is observed that the availability of offshore farms is much lower than that of onshore farms; currently offshore availability is around 80\%, while onshore this is 97\%. Various future scenarios are simulated to investigate which measures are likely to improve availability. It is found that increasing vessel operability to allow a higher significant wave height will greatly increase availablity, but realistically it will remain significantly below onshore availability. It is posited this can only be improved with improvement of the components to lower their failure rates, but an 8-fold improvement is required to achieve the same level of availability as onshore. 
+
+%Maintenance Strategies
+In another paper \cite{dinwoodie2014operational} the same researchers focus on comparing operational strategies. They consider 4 approaches: 
+
+\begin{itemize}
+\item Annual charter, where maintenance operations take place at predetermined times
+\item Fix on fail, where repairs are made as soon as any failures are detected
+\item Batch repair, where repairs are done after a fixed number of failures is detected
+\item Purchase, where a vessel is purchased rather than rented
+\end{itemize}
+
+In their research they find the latter three strategies to be close together in costs while the Annual charter strategy lags behind. Which of these three strategies performs best depends on scenario specifics such as fluctuations in vessel costs, the value of energy, and specific failure rates. Each of the strategies also has inherent characteristics that the operator might have preferences in, such as the purchase strategy having much higher costs up front, but lower operational costs. 
+
+An issue with this paper is that mixing of strategies is only very briefly discussed, while this is often beneficial and commonly discussed in the literature. For example, in batch repair, if the batch size is set to 5 failures and for an extended period of time there are 4 failures, it might be beneficial to repair it if this situation goes on for long enough. One way to do this is to mix the annual charter strategy with the batch repair strategy, having a set time to do maintenance even if the required number of failures is not reached. Since this combination of preventive and corrective maintenance is a common strategy within the literature its absence in this paper is surprising. 
+
+\bigskip
+
+%Reference case
+In \cite{dinwoodie2015reference} this same group of researchers proposes a reference case for maintenance models. Their idea is for various maintenance models to optimise a constructed scenario a fictional windfarm, as a benchmark to compare these models. This allows us to see which models perform better in various scenarios, as they constructed a base case and a set of variants. In the paper they compare four models, and compare various metrics of the results. For availability of the windfarms all results are extremely close, apart from three scenarios. It is explained that these differences result from previously unknown assumptions in the different models, such as whether  parallel maintenance tasks are possible on the same turbine, and the moment at which tasks should be assigned to vessels. 
+
+This uncovering of assumptions is a strong benefit of using a standardised reference case to verify a model. Seeing that a new model performs similarly to other models apart from certain scenarios can give insight into how this new model handles these scenarios in ways that might otherwise have gone unnoticed, as demonstrated in this paper. 
+
+%However it also comes with certain drawbacks. In order to properly handle these scenarios some of the models needed to be adjusted, hence a new model which is planned to be verified through this method might limit itself to be able to handle these scenarios. Therefore there is a risk for model space to be restricted in known and unknown ways if they are expected to be benchmarked by a technique like this, as they will have to take in this specific data as input. This is however an inherent requirement for most models that aim to be commercially viable. Considering all this, academic models should always be free to deviate from any limits these benchmarks might place it in, but that does not diminish the value of this benchmarking technique. Since the models I intend to make are not completely novel ways to model maintenance operations, I will likely aim to benchmark my models through the reference cases presented here.  
+
+\bigskip
+
+%OG CHECKED: Besnard, Short term stochastic optimisation
+In \cite{besnard2011stochastic} a stochasitc optimisation model is constructed for short-term maintenance planning. The primary goal is to utilize times when energy production is expected to be low for maintenance, in order to minimise production losses. An interesting aspect of this model is the build-in uncertainty of weather forecasts. The stochastic element of the model is realized by having a small set of scenarios, and the average cost over all scenarios is minimised. The first time step is assumed to have the correct forecast, hence the idea behind the model is for the optimisation to be recomputed regularly. A rolling horizon approach such as this seems like a good method to deal with these uncertain forecasts, although it can be computationally expensive to recalculate regularly. 
+
+\bigskip
+
+%OG CHECKED: Stalhane, Optimisation focussed on fleet size
+Another optimisation model focused on maintenance is given in \cite{staalhane2019optimizing}, where the problem of fleet composition is investigated through a two-stage stochastic programming model. The problem is decomposed using a variant of a Dantzig-Wolfe decomposition. In the first stage the set of vessels to be chartered for each active base is decided, while in the second stage the maintenance tasks are divided over the available vessels. The first stage has an objective function minimising costs, which has one term representing the expected costs from the second stage. This cost depends on the stochastic variables in the second stage (failures, energy generated based on weather conditions, availability of vessels based on weather conditions). In order to solve it, a set of scenarios is generated, each of which represent a realisation of this set of variables. The weighted average costs of all scenarios (weighted on their probability) is used to represent the expected costs, after which the first stage of the problem can be solved. 
+
+This sort of decomposition is potentially useful for my models, to handle the stochastic aspects of the problem. In this paper the model is verified by comparing it to reference cases constructed in \cite{dinwoodie2015reference} which was discussed earlier in this section. The computations are shown to run in feasible time, and when the fleet composition is fixed it is shown to give comparable results to what is expected.
+
+\subsection{Other new knowledge} \label{ss:othnew}
+%ONGOING: Updated this after reading (2 paragraphs)
+While there is not much research relating specifically to decommission projects, some recent work has still been done in this field. In \cite{irawan2019optimisation} an attempt to optimise the decommissioning is made using an ILP. The model created focuses on minimising total costs, and takes many factors into account, such as both offshore and onshore logistics, components that can be sold and components that can be recycled. This broadness means the model is more accurate, but it also means they were not able to solve the exact problem. For this reason they tried various relaxations, and proposed a matheuristic method in which some integer constraints are relaxed. They use this method to create feasible and well-performing solutions in a short time.
+
+\bigskip
+
+%ONGOING: Added
+%TODO: Quote this paper when talking about improvements in an introduction
+In the last two decades the the installation time has generally decreased, as analysed in \cite{lacal2018offshore}. This work looks at the installation times of the foundations of a windfarm, the installation times of the turbines, and the overall installation times. It observes a 22\% time decrease per turbine between the periods of 2000 to 2003, and 2016 to 2017. This improvement is more impressive when you consider the distance from the shore has increased in that time. However, the true scale of the improvement only becomes clear when you look at the time per megawatt; this reveals a 71\% time reduction within this timeframe. This is a very substantial reduction, and one that shows the potential of large windfarms with many turbines that are located far off the shore. The specific causes of this improvement are not investigated much, so it is unclear whether this improvement mainly comes from the components used, or the logistics of installation, or some other cause. Investigating this is noted as future research. 
+
+\bigskip
+
+%ONGOING: Updated this paragraph
+An overview of the state of robust optimisation is given in \cite{gabrel2014recent}. This study looks at 130 papers, 45 PhD dissertations, and selected other works published between 2007 and 2013 which discussed robust optimisation. The sheer amount of research done reflects the strength of this method. Both the theory and applications of robust optimisation are discussed. The applications include classical logistics problems such as inventory management and scheduling, problems related to finance and revenue management, queueing networks, energy systems and public good (decisions that will benefit the general public). This shows the wide variety of possible applications that RO methods can have. They conclude by highlighting four key developments in RO between 2007 and 2013; (1) the extensive amount of research regarding robustifying stochastic optimization, (2) a link between uncertainty sets and risk theory allows for a connection with decision sciences, (3) new results in the area of sequential decision-making and multi-stage models, and (4) new areas of applications. 
+
+\subsection{Closing thoughts} \label{ss:clotho}
+As is hopefully evident from this section, I have worked hard to improve my knowledge where it was lacking before. A key insight I gained from the maintenance papers discussed is how different this phase is, not only in the work that need to be done, but also from a modeling perspective. When scheduling the installation phase which will take roughly 3 years you could (roughly) plan which tasks are performed in which weeks, for the entire project. And each week the project will get closer to completion. With the maintenance phase spanning 20-30 years  this approach is infeasible, and there is no one goal that you progressively move closer to. Instead it has a more cyclic nature where you aim to mitigate the degradation of the windfarm over time, and the tasks that need to be performed cannot be known \emph{a priory}. Therefore smaller timescales, such as rolling horizons covering weeks rather than years, are much more appropriate for this phase. This is an insight that needs to be considered in a model aiming to combine this phase with the other phases. 
+
+\pagebreak
+
 \section{Developing models}\label{s:model}
 Lorem Ipsum 
 
@@ -151,11 +243,6 @@ Lorem Ipsum
 \pagebreak
 
 \section{Implementation}\label{s:impl}
-Lorem Ipsum 
-
-\pagebreak
-
-\section{Closing knowledge gaps}\label{s:know}
 Lorem Ipsum 
 
 \pagebreak
