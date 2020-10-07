@@ -1,5 +1,13 @@
 \begin{thebibliography}{xx}
 
+\harvarditem[Barlow et~al.]{Barlow, {\"O}zt{\"u}rk, Revie, Akartunal{\i}, Day
+  \harvardand\ Boulougouris}{2018}{barlow2018mixed}
+Barlow, E., {\"O}zt{\"u}rk, D.~T., Revie, M., Akartunal{\i}, K., Day, A.~H.
+  \harvardand\ Boulougouris, E.  \harvardyearleft 2018\harvardyearright , `A
+  mixed-method optimisation and simulation framework for supporting logistical
+  decisions during offshore wind farm installations', {\em European Journal of
+  Operational Research} {\bf 264}(3),~894--906.
+
 \harvarditem[Barlow et~al.]{Barlow, Tezcaner~{\"O}zt{\"u}rk, Day, Boulougouris,
   Revie \harvardand\ Akartunal{\i}}{2014}{barlow2014support}
 Barlow, E., Tezcaner~{\"O}zt{\"u}rk, D., Day, A., Boulougouris, E., Revie, M.
@@ -43,11 +51,6 @@ Gabrel, V., Murat, C. \harvardand\ Thiele, A.  \harvardyearleft
   overview', {\em European Journal of Operational Research} {\bf
   235}(3),~471--483.
 
-\harvarditem{Iancu \harvardand\ Trichakis}{2013}{iancu2013pareto}
-Iancu, D.~A. \harvardand\ Trichakis, N.  \harvardyearleft 2013\harvardyearright
-  , `Pareto efficiency in robust optimization', {\em Management Science} {\bf
-  60}(1),~130--147.
-
 \harvarditem[Irawan et~al.]{Irawan, Wall \harvardand\
   Jones}{2019}{irawan2019optimisation}
 Irawan, C.~A., Wall, G. \harvardand\ Jones, D.  \harvardyearleft
@@ -68,32 +71,12 @@ Lacal-Ar{\'a}ntegui, R., Yusta, J.~M. \harvardand\ Dom{\'\i}nguez-Navarro,
   Analysing the evidence behind improvements in installation time', {\em
   Renewable and Sustainable Energy Reviews} {\bf 92},~133--145.
 
-\harvarditem{Leontaris, Morales-N{\'a}poles, Dewan \harvardand\
-  Wolfert}{2019}{leontaris2019decision}
-Leontaris, G., Morales-N{\'a}poles, O., Dewan, A. \harvardand\ Wolfert, A.~R.
-  \harvardyearleft 2019\harvardyearright , `Decision support for offshore asset
-  construction using expert judgments for supply disruptions risk', {\em
-  Automation in Construction} {\bf 107},~102903.
-
-\harvarditem[Leontaris et~al.]{Leontaris, Morales-N{\'a}poles \harvardand\
-  Wolfert}{2016}{leontaris2016probabilistic}
-Leontaris, G., Morales-N{\'a}poles, O. \harvardand\ Wolfert, A.~R.
-  \harvardyearleft 2016\harvardyearright , `Probabilistic scheduling of
-  offshore operations using copula based environmental time series--an
-  application for cable installation management for offshore wind farms', {\em
-  Ocean Engineering} {\bf 125},~328--341.
-
-\harvarditem{Leontaris, Morales-N{\'a}poles \harvardand\
-  Wolfert}{2019}{leontaris2018probabilistic}
-Leontaris, G., Morales-N{\'a}poles, O. \harvardand\ Wolfert, A.~R.
-  \harvardyearleft 2019\harvardyearright , `Probabilistic decision support for
-  offshore wind operations',  {\bf 14}.
-
-\harvarditem{M{\'e}rigaud \harvardand\ Ringwood}{2016}{merigaud2016condition}
-M{\'e}rigaud, A. \harvardand\ Ringwood, J.~V.  \harvardyearleft
-  2016\harvardyearright , `Condition-based maintenance methods for marine
-  renewable energy', {\em Renewable and Sustainable Energy Reviews} {\bf
-  66},~53--78.
+\harvarditem{Renewable-UK}{2017}{ruk2017}
+Renewable-UK  \harvardyearleft 2017\harvardyearright , `Offshore wind project
+  timelines', {\em
+  https://www.renewableuk.com/news/294516/Offshore-Wind-Project-Timelines.htm}
+  .
+\newblock Accessed: 2019-03-24.
 
 \harvarditem{Shafiee}{2015}{shafiee2015maintenance}
 Shafiee, M.  \harvardyearleft 2015\harvardyearright , `Maintenance logistics
