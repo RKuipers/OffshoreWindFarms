@@ -8,8 +8,8 @@
 \contentsline {subsection}{\numberline {2.3}Closing thoughts}{14}% 
 \contentsline {section}{\numberline {3}Developing models}{15}% 
 \contentsline {subsection}{\numberline {3.1}Initial models}{15}% 
-\contentsline {subsection}{\numberline {3.2}Combined models}{15}% 
-\contentsline {section}{\numberline {4}Implementation}{16}% 
-\contentsline {section}{\numberline {5}Additional activities}{17}% 
-\contentsline {section}{\numberline {6}Next steps}{19}% 
-\contentsline {subsection}{\numberline {6.1}Timeline}{19}% 
+\contentsline {subsection}{\numberline {3.2}More sophisticated models}{20}% 
+\contentsline {section}{\numberline {4}Implementation}{21}% 
+\contentsline {section}{\numberline {5}Additional activities}{22}% 
+\contentsline {section}{\numberline {6}Next steps}{24}% 
+\contentsline {subsection}{\numberline {6.1}Timeline}{24}% 

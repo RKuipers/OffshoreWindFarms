@@ -8,6 +8,7 @@
 \usepackage{varwidth}
 \usepackage{amsmath}
 \usepackage{amsthm}
+\usepackage{amsfonts}
 \usepackage{subcaption}
 \usepackage{float}
 \usepackage{titlesec}
@@ -17,6 +18,7 @@
 \usepackage{harvard}
 \usepackage{thm-restate}
 \usepackage[space]{grffile}
+\usepackage{multicol}
 
 \citationmode{abbr}
 
@@ -232,13 +234,90 @@ As is hopefully evident from this section, I have worked hard to improve my know
 \pagebreak
 
 \section{Developing models}\label{s:model}
-Lorem Ipsum 
+In the past year I have started developing optimisation models for various scheduling decisions that come up during an OWFs life-cycle. I developed the theory of these models, and implemented and tested them with simple test-cases. This implementation will be discussed in \Cref{s:impl} and this section will talk about the models and the process of creating and improving them. 
+
+I started with very simple models that had a small scope and many assumptions, and progressively added complexity while relaxing the assumptions. This provided me with practice and insights in optimization modeling, a technique I had previously extensively read about but not used myself on any large scale. Therefore this start with simple models was needed, and this approach has made me learn a lot about the nuances in creating these models. 
+
+All models I created are Mixed-Integer Linear Programming (MILP) models, meaning the variables can both be continuous or integer variables, and every variable has a linear relation with the objective and the constraints (i.e. no variables are multiplied by other variables). This is the type of models most commonly used in the scheduling literature I have come across, indicating they are generally well-suited for these this type of problem. 
 
 \subsection{Initial models}
-Lorem Ipsum 
+The first models I worked on were three simple models, one for each of the three phases. My idea behind this was to create a basis for each of the phases, which I could then combine into models where multiple phases are considered. To give the reader an idea of how these models work I will show some of the models I created.
 
-\subsection{Combined models}
-Lorem Ipsum 
+I first started work on an installation model. I tried a handful of models that did not work or had major flaws, until I came to the following model that works under some heavy assumptions:
+
+\begin{equation}
+	\max_{\substack{O_p, N_{rp} \in \mathbb{Z}^* \\
+	s_{ait} \in \{0, 1\}}} 
+	\sum_{p \in P} [ O_p \cdot v_p - \sum_{r \in R} N_{rp} \cdot C_{rp} ]
+\end{equation}
+subject to:
+\begin{align}
+s_{ait} \leq& s_{ai(t+1)}											&	\forall a \in A, \forall i \in I, \forall t \in T				\\
+s_{ai\sigma_{it_N}} \geq& 1										&	\forall a \in A, \forall i \in I						\\
+s_{ajt} \leq& s_{ai\sigma_{it}}										&	\forall a \in A, \forall (i, j) \in IP, \forall t \in T 			\\
+N_{rp} \geq& \sum_{a \in A}\sum_{i\in I} (\rho_{ir} \cdot (s_{ait} - s_{ai\sigma_{it}}))		& 	\forall r \in R, \forall p \in P, \forall t \in T_p			\\
+O_p =&  \sum_{a \in A} s_{ai_N\sigma_{i_Nt_p}}							& 	\forall p \in P 							\\
+N_{rp} \leq& m_{rp}											& 	\forall r \in R, \forall p \in P
+\end{align}
+
+In the problem for which this model is made there is a set of assets $A$ that each have a set of $I$ tasks that need to be completed within the timeframe. There are two timescales used; periods $p$ which is the timescale at which turbines can be brought online and vessels can be chartered (a month within my artificial test cases) and timesteps $t$ at which tasks are performed (an hour in my test cases). 
+
+There are three types of decision variables in this model: 
+
+\begin{itemize}
+\item $O_p$: integer variable representing how many turbines are online in a given period $p$
+\item $N_{rp}$: integer variable representing how many resources of type $r$ are used in period $p$
+\item $s_{ait}$: binary variable which takes a value of 1 if task $i$ on asset $a$ has start at (or before) time $t$
+\end{itemize}
+
+The primary decisions that need to be made are the start times of the tasks (the first time steps for each asset $a$ and task $i$ for which $s_{ait}$ takes the value 1); from this the times the turbines come online and the resources required follow. 
+
+Equation (1) is the objective; the goal is maximizing the total value of the project. Therefore, per period, we add up the energy value generated ($O_p \cdot v_p$ where $v_p$ is the value of energy that a single turbine generates in that timeframe) and subtract the costs of vessels used ($N_{rp} \cdot C_{rp}$ where $C_{rp}$ is the cost of that type of vessel). 
+
+Equation (2) enforces that if a task is started it remains started for every later timestep. Equation 3 uses the time indicator $\sigma_{it}$ which treated as a parameter; it indicates the timestep at which task $i$ should have been started, for it to have finished at time $t$; it is calculated using the duration of task $i$, taking into account all timesteps in which the weather restricts task $i$ from being worked on. Since this is a highly simplified model, the weather is assumed to be perfectly predicted, hence $\sigma_{it}$ is a deterministic value. In equation (3) it uses the value $t_N$ which is the final timestep, hence this equation enforces that every task is started early enough for it to be finished by the final timestep. 
+
+Equation (4) enforces a specific task order; $IP$ is the set of pairs of tasks $(i, j)$ which require task $i$ to be finished before task $j$ is started. In equation (5) the number of vessels needed in a specific period is calculated; $\rho_{ir}$ is the amount of resources of type $r$ task $i$ needs. It uses $T_p$ which is simply the set of timesteps within period $p$. Equation (6) counts how many assets have finished installation (completed task $i_N$) in time to be active in period $p$ (before time step $t_p$). Finally equation (7) puts a maximum on the number of vessels of a specific type used in a given period. 
+
+\bigskip
+
+The above model can be used to optimize the installation project, under some severe assumptions. It is assumed that the precise weather is known for the entire project (which can often span years), assumes no delay in tasks other than that based on weather, and assumes every turbine is active at full strength without any failures from the moment it is completed. This said, creating this model was valuable practice for me, as even getting to this model took some tries and each failed attempt taught me more aspects to pay attention to. 
+
+The initial decommission model is nearly identical to the above model, other than turbines going offline when work is started instead going online when work is completed. The maintenance model I made is very similar in structure as well; it assumes that an asset will fail if it is not maintained for some predetermined time. This is clearly a significant simplification from stochastic failures which is the more common and realistic approach, but for my initial models I assumed determinism. Under these assumptions the maintenance models had a set amount of minimum maintenance tasks that should be performed, and a set of optional tasks that can be performed to increase uptime. These models will not be shown here, but they can be found in the appendix. %TODO: Make appendix
+
+\bigskip
+
+After creating these models I combined them into one model spanning the entire life-cycle, planning every single task (under the same deterministic assumptions).
+
+\begin{equation}
+	\max_{\substack{N_{rp} \in \mathbb{Z}^* \\ 
+	s_{ait}, o_{at} \in \{0, 1\}}} 
+	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p} \sum_{a \in A} (o_{at} \cdot v_t)  - \sum_{r\in R} (N_{rp} \cdot C_{rp})) ]
+\end{equation}
+subject to:
+\begin{align}
+s_{ait} \leq& s_{ai(t+1)}															& \forall a \in A, \forall i \in \mathcal{I}, \forall t \in T		\\
+s_{ai\sigma_{it_N}} \geq& 1														& \forall a \in A, \forall i \in \mathcal{I} - M^O			\\
+s_{ai^D_0t} - 1 \leq& s_{ai\sigma_{it}} - s_{ait}											& \forall a \in A, \forall i \in \mathcal{I} - D, \forall t \in T	\\
+s_{ajt} \leq& s_{ai\sigma_{it}}														& \forall a \in A, \forall (i, j) \in IP, \forall t \in T 		\\
+m_{rp} \geq N_{rp} \geq& \sum_{a\in A} \sum_{i\in \mathcal{I}} (\rho_{ir} \cdot (s_{ait} - s_{ai\sigma_{it}})) 		& \forall r \in R, \forall p \in P, \forall t \in T_p 			\\
+o_{at} \leq& s_{ai^I_N\sigma_{i^I_Nt}} - s_{ai^D_0t}										& \forall a \in A, \forall t \in T					\\
+o_{at} \leq& \sum_{i \in M \cup \{i^I_N\}} (s_{ai\sigma_{it}} - s_{ai\sigma_{i(t-\lambda_a)}})				& \forall a \in A, \forall t \in T					\\
+o_{at} \leq& 1 + s_{ai\sigma_{it}} - s_{ait}												& \forall a \in A, \forall i \in M, \forall t \in T		
+\end{align}
+
+I will not go over every detail of this model, but the full notes can be found in the appendix. %TODO: Appendix
+The primary structure of having $s_{ait}$ be the main variables and having variables for the required resources and online turbines remains the same as before. The largest difference is the replacement of variables $O_p$ with $o_{at}$, which is a binary variable per asset and timestep indicating whether that asset is online at the given time. In order for it to be online that asset needs to be fully installed and not started decommission (equation (14)), have had recent maintenance (equation (15)) and no maintenance on at asset can be happening at this time (equation (16)). 
+
+This model still has very strong assumptions and for that reason would not be valuable in practice. But even if those assumptions were to be relaxed, a model such as this would not have much value in practice. Optimizing every single scheduling decision over the entire 20+ year life-cycle of an OWF at the start of the project is both infeasible and unnecessary. Infeasible because the size of this problem is too big for any optimizing solver to solve; if a timestep is an hour there are over 175.000 timesteps in a 20 year period, and with very conservative values of 40 tasks per asset and 80 assets that would lead to over half a billion $s_{ait}$ variables. That is not to say another approach could not create a feasible model for the entire life-cycle, although it is an extrodinarily large problem that would normally be split into smaller problems. On top of being infeasible, there is no strong reason to plan all of this in advance in a single model; cost estimation is generally better done using simulation, and any solution found by this model is unlikely to be much better than solutions found by models for individual phases, as there is not much interaction other than resource sharing included in this model. 
+
+While this model is not usable in practice, it was still a good exercise for me to work on. I would not have some of the insights above if I had not created a (simplified) model spanning the entire life-cycle, and experimenting with the size of model (in number of variables and constraints) gave me a better idea of how quickly models such as this can grow in size. 
+
+\subsection{More sophisticated models}
+After working my way up to the previously discussed life-cycle spanning model, I aimed to relax the assumptions in it, first and foremost the assumption that every aspect is deterministic. This proved difficult for various reasons. The model I started with is complicated, and I do not have much experience with Stochastic Programming models, which made starting with a complicated model such as this challenging. It also spans a large timescale, but still has a high fidelity (if a timestep is still assumed to be an hour). 
+
+In the models shown before the parameter $\sigma_{it}$ was used to incorporate weather circumstances, and this parameter was used as a variable index. This approach is not well suited for Stochastic Programming, as this $\sigma_{it}$ would be subject to uncertainty, which means the variables involved are also subject to uncertainty. I tried to handle this issue by introducing scenarios, a technique used in the literature \cite{besnard2011stochastic,de2012computational}. Each scenario represents a realization of all uncertain factors, and the model would be optimized over a set of (selected) scenarios. In this example a new index would be introduced to $\sigma_{it}$, say $\sigma_{its}$, where $s$ is the scenario index. However this approach is more suited to shorter timescales than the ones I was using; only a handful of scenarios are needed to capture the possible weather conditions over the course of a week or a month, but over the course of 20 years many scenarios are needed to make the set representative of the possible options. Therefore I opted to scale down and introduce stochastic elements in a smaller model first.
+
+For this I chose to focus on the maintenance phase, introducing stochastic failures, weather circumstances and energy values. 
 
 \pagebreak
 
@@ -250,7 +329,7 @@ Lorem Ipsum
 \section{Additional activities} \label{s:addit} %COWORK course and teaching
 In addition to the work directly related to my PhD project, I have participated in some courses. 
 
-I was supposed to take part in the NATCOR course Convex Optimization, to be held at the University of Edinburgh in June 2020. However, due to the Covid-19 pandemic this course was canceled. I was also enrolled in the NATCOR course Forecasting and Predictive Analytics, which was to be held in September 2020 at Lancaster University. This course, due the same pandemic, has been postponed to February 2020. 
+I was supposed to take part in the NATCOR course Convex Optimization, to be held at the University of Edinburgh in June 2020. However, due to the Covid-19 pandemic this course was canceled. I was also enrolled in the NATCOR course Forecasting and Predictive Analytics, which was to be held in September 2020 at Lancaster University. This course, due the same pandemic, has been postponed to February 2021. 
 
 \bigskip
 
