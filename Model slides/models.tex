@@ -564,23 +564,65 @@ Stochastic parameters:
 
 %------------------------------------------------------------------Multilevel-----------------------------------------------------------------------
 
-\begin{frame}{Initial Multilevel model}
+\begin{frame}{Initial Multilevel model - 1}
 \scriptsize
 
 \begin{equation}
-	\min_{N_{vm}, P_m, R_m \in \mathbb{Z}^*} \sum_{m \in M} [\sum_{v \in V} (N_{vm} \cdot C_{vm}) +  P_m \cdot d_P \cdot e^h_m + \sum_{m' = 0}^{m} (f_{m'} - R_{m'}) \cdot e^m_m]	
+	\min_{\substack{N_{ym\sigma}, P_m, R_{m\sigma} \in \mathbb{Z}^* \\
+	\gamma_\sigma \in \mathbb{R}_{\geq 0} \\
+	e_{ym\sigma} \in \{0, 1\} }}
+	\begin{aligned}
+	\frac{1}{|S|} \cdot \sum_{\sigma \in S} ( \sum_{m \in M} [\sum_{y \in Y} 
+	(N_{ym\sigma} \cdot c_{ym}) +  
+	P_m \cdot d_P \cdot e^H_m + \\
+	\sum_{m' = 0}^{m} (f_{m'\sigma} - R_{m'\sigma}) \cdot e^M_m ]
+	- u \cdot \gamma_\sigma)
+	\end{aligned}	
 \end{equation}
 subject to:
 \begin{align}
-l_v \cdot N_{vm} 		&\geq 	P_m \cdot d^P_v + R_m \cdot d^R_v		& \forall m \in M, \forall v \in V 		\\
-\sum_{m' = m}^m f_{m'}	&\geq 	\sum_{m' = m}^m R_{m'}				& \forall m \in M 				\\
-\sum_{m\in M} P_m 	&\geq 	A 							&						
+l_y \cdot N_{ym\sigma} 			&\geq 	P_m \cdot d^P_y + R_{m\sigma} \cdot d^R_y	 + \gamma_\sigma - e_{ym\sigma} \cdot M
+																				& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
+1 						&\geq		e_{ym\sigma} + \frac{P_m + R_{m\sigma}}{A}					& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
+\sum_{m' = 0}^{m-1} f_{m'\sigma}	&\geq 	\sum_{m' = 0}^m R_{m'\sigma}								& \forall \sigma \in S, \forall m \in M			\\
+\sum_{m\in M} P_m 			&\geq 	A 												&						
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Initial Multilevel mode - 2}
+\scriptsize
+
+\begin{equation}
+	\min_{\substack{s_i \in \mathbb{R}_{\geq 0} \\ 
+	a_{vij} \in \{0, 1\}}} 
+	\sum_{i \in I} c_i \cdot (s_i + \max_{y \in Y} (s_{yi}+ d_{yi}))
+\end{equation}
+subject to:
+\begin{align}
+\sum_{i \in I} a_{vij}						&\leq 		1						& \forall v \in V, \forall j \in J 						\\
+\sum_{i \in I} a_{vij}						&\leq 		\sum_{i \in I} a_{vi(j-1)}			& \forall v \in V, \forall j \in J - \{ 0 \}					\\
+\rho_{yi}								&\leq	 	\sum_{v \in V_y} \sum_{j \in J} a_{vij} 	& \forall y \in Y, \forall i \in I						\\	
+\begin{aligned} M \cdot (a_{vij} + a_{vi'(j-1)}) + \\ 
+d_{yi'} \cdot a_{vi'(j-1)} - 2M \end{aligned}			&\leq	 	s_i + s_{yi} - s_{i'} - s_{i'y}		& \begin{aligned} \forall y \in Y, \forall v \in V_y, 			\\
+																		\forall i, i' \in I, \forall j \in J - \{ 0 \}	\end{aligned}
 \end{align}
 
 \end{frame}
 
 \begin{frame}{Multilevel Model Explanation}
-\expl hi
+\small
+\expl Objective is to minimise costs over all scenarios, summing up resource, downtime and failure costs, and subtracting the value of the mimimum buffer \\
+\expl Ensures the durations of the planned tasks do not exceed the capacity of the assigned vessels \\ 
+\expl Sets the "empty" variable to 1 if no tasks are planned (equivalently, no vessels are chartered) \\
+\expl Ensures repairs are only done after failures have occured \\
+\expl Ensures all assets have preventive maintenance done at least once within the timespan \\ 
+\bigskip
+\expl Objective is to minimise costs of tasks being uncompleted (the +max bit is optional as it's about constants) \\ 
+\expl Ensures every vessel only does one task at a time \\ 
+\expl Ensures that if a vessel has an $x$th task it also has an $x-1$th task \\ 
+\expl Ensures every task has enough resourses assigned to it \\
+\expl Ensures the starting times of consequtive tasks are separated by at least the duration of the first task (the $M$ factors ensure that if the tasks are not consecutive the starting times don't matter)
 \end{frame}
 
 \begin{frame}{Notation overview}
