@@ -7,9 +7,13 @@
 \contentsline {subsection}{\numberline {2.2}Other new knowledge}{13}% 
 \contentsline {subsection}{\numberline {2.3}Closing thoughts}{14}% 
 \contentsline {section}{\numberline {3}Developing models}{15}% 
-\contentsline {subsection}{\numberline {3.1}Initial models}{15}% 
-\contentsline {subsection}{\numberline {3.2}More sophisticated models}{20}% 
-\contentsline {section}{\numberline {4}Implementation}{21}% 
-\contentsline {section}{\numberline {5}Additional activities}{22}% 
-\contentsline {section}{\numberline {6}Next steps}{24}% 
-\contentsline {subsection}{\numberline {6.1}Timeline}{24}% 
+\contentsline {subsection}{\numberline {3.1}Deterministic models}{15}% 
+\contentsline {subsubsection}{\numberline {3.1.1}Installation model}{16}% 
+\contentsline {subsubsection}{\numberline {3.1.2}Maintenance model}{19}% 
+\contentsline {subsubsection}{\numberline {3.1.3}Decommission model}{20}% 
+\contentsline {subsubsection}{\numberline {3.1.4}Combined model}{21}% 
+\contentsline {subsection}{\numberline {3.2}Stochastic models}{22}% 
+\contentsline {section}{\numberline {4}Implementation}{24}% 
+\contentsline {section}{\numberline {5}Additional activities}{25}% 
+\contentsline {section}{\numberline {6}Next steps}{27}% 
+\contentsline {subsection}{\numberline {6.1}Timeline}{27}% 

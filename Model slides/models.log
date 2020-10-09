@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.8)  8 OCT 2020 16:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.8)  9 OCT 2020 11:40
 entering extended mode
 **./models.tex
 (models.tex
@@ -1026,10 +1026,10 @@ Package rerunfilecheck Info: File `models.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 17442 strings out of 492895
- 339045 string characters out of 3123736
- 426053 words of memory out of 3000000
- 20905 multiletter control sequences out of 15000+200000
+ 17444 strings out of 492895
+ 339061 string characters out of 3123736
+ 426089 words of memory out of 3000000
+ 20907 multiletter control sequences out of 15000+200000
  16137 words of font info for 59 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,16n,59p,775b,751s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1057,7 +1057,7 @@ in/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><
 C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmsy9.pfb><C:/Users/Robin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public
 /amsfonts/symbols/msbm7.pfb>
-Output written on models.pdf (26 pages, 366243 bytes).
+Output written on models.pdf (26 pages, 366218 bytes).
 PDF statistics:
  797 PDF objects out of 1000 (max. 8388607)
  53 named destinations out of 1000 (max. 500000)
