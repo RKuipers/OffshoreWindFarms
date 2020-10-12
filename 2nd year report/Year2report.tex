@@ -257,10 +257,10 @@ I first started work on an installation model. This was an iterative development
 subject to:
 \begin{align}		
 s_{a,i,t} \leq& s_{a,i,(t+1)}											&	\forall a \in A, \forall i \in I, \forall t \in T				\\
-s_{a,i,(\sigma_{i,t_N})} =& 1											&	\forall a \in A, \forall i \in I						\\
-s_{a,j,t} \leq& s_{a,i,(\sigma_{i,t})}										&	\forall a \in A, \forall (i, j) \in IP, \forall t \in T 			\\
-N_{r,p} \geq& \sum_{a \in A}\sum_{i\in I} (\rho_{i,r} \cdot (s_{a,i,t} - s_{a,i,(\sigma_{i,t})}))	& 	\forall r \in R, \forall p \in P, \forall t \in T_p			\\
-O_p =&  \sum_{a \in A} s_{a,i_N,(\sigma_{i_N,t_p})}							& 	\forall p \in P 							\\
+s_{a,i,(\omega_{i,t_N})} =& 1											&	\forall a \in A, \forall i \in I						\\
+s_{a,j,t} \leq& s_{a,i,(\omega_{i,t})}										&	\forall a \in A, \forall (i, j) \in IP, \forall t \in T 			\\
+N_{r,p} \geq& \sum_{a \in A}\sum_{i\in I} (\rho_{i,r} \cdot (s_{a,i,t} - s_{a,i,(\omega_{i,t})}))	& 	\forall r \in R, \forall p \in P, \forall t \in T_p			\\
+O_p =&  \sum_{a \in A} s_{a,i_N,(\omega_{i_N,t_p})}							& 	\forall p \in P 							\\
 N_{r,p} \leq& m_{r,p}												& 	\forall r \in R, \forall p \in P
 \end{align}
 \normalsize
@@ -279,11 +279,11 @@ The primary decisions that need to be made are the start times of the tasks (the
 
 Equation (1) is the objective; the goal is maximizing the total value of the project. Therefore, per period, we add up the energy value generated ($O_p \cdot v_p$ where $v_p$ is the value of energy that a single turbine generates in that timeframe) and subtract the costs of vessels used ($N_{r,p} \cdot C_{r,p}$ where $C_{r,p}$ is the cost of that type of vessel). It is assumed the values $C_{r,p}$ and $v_p$ are deterministic and given as inputs. If a day-rate for vessels or MWh and energy market rates are given, the values per period can be calculated from that. 
 
-Equation (2) enforces that if a task is started it remains started for every later timestep. Equation 3 uses the time indicator $\sigma_{i,t}$ which treated as a parameter; it indicates the timestep at which task $i$ should have been started, for it to have finished at time $t$. It is defined as 
-$$\sigma_{i,t} = \max\{\tilde{t} | \sum_{x = \tilde{t}}^t \omega_{i,x} \geq d_i, \tilde{t} \in T\}$$ 
-where $\omega_{i,t}$ is a binary parameter which is 1 if the weather allows task $i$ to be performed at time $t$, and $d_i$ is the duration of task $i$. In this it is assumed that every task can be started and then halted if the weather turns bad, and continued the moment the weather allows this again (during this entire timeframe the vessels are unavailable to perform other tasks). Since this is a highly simplified model, the weather and duration are assumed to be perfectly predicted, hence $\sigma_{i,t}$ is a deterministic value. In equation (3) it uses the value $t_N$ which is the final timestep, hence this equation enforces that every task is started early enough for it to be finished by the final timestep. 
+Equation (2) enforces that if a task is started it remains started for every later timestep. Equation 3 uses the time indicator $\omega_{i,t}$ which treated as a parameter; it indicates the timestep at which task $i$ should have been started, for it to have finished at time $t$. It is defined as 
+$$\omega_{i,t} = \max\{\tilde{t} | \sum_{x = \tilde{t}}^t \psi_{i,x} \geq d_i, \tilde{t} \in T\}$$ 
+where $\psi_{i,t}$ is a binary parameter which is 1 if the weather allows task $i$ to be performed at time $t$, and $d_i$ is the duration of task $i$. In this it is assumed that every task can be started and then halted if the weather turns bad, and continued the moment the weather allows this again (during this entire timeframe the vessels are unavailable to perform other tasks). Since this is a highly simplified model, the weather and duration are assumed to be perfectly predicted, hence $\omega_{i,t}$ is a deterministic value. In equation (3) it uses the value $t_N$ which is the final timestep, hence this equation enforces that every task is started early enough for it to be finished by the final timestep. 
 
-Equation (4) enforces a specific task order; $IP$ is the set of pairs of tasks $(i, j)$ which require task $i$ to be finished before task $j$ is started. In equation (5) the number of vessels needed in a specific period is calculated; $\rho_{i,r}$ is the amount of resources of type $r$ task $i$ needs. This value is counted once for every task started, but every task that finished is subtracted again. This equation uses $T_p$ which is simply the set of timesteps within period $p$. In Equation (6) $i_N$ is the final installation task, and $t_p$ is the deadline (in timesteps) for a turbine to be finished if it is to be active in period $p$ (this can be the first timestep of $p$, but could also be chosen to be earlier if the operator wishes to do so). Equation (6) counts how many assets have finished installation (i.e. completed task $i_N$) in time to be active in period $p$ (before time step $t_p$); the term $\sigma_{i_N,t_p}$ is the timestep at which the final installation task should have been started for it to be completed by the deadline $t_p$. Finally equation (7) puts a maximum on the number of vessels of a specific type used in a given period, where $m_rp$ is an input parameter. Without this the model might decide to charter 100 heavy lift vessels in the first period and work on all turbines simultaneously, which is unrealistic in practice. 
+Equation (4) enforces a specific task order; $IP$ is the set of pairs of tasks $(i, j)$ which require task $i$ to be finished before task $j$ is started. In equation (5) the number of vessels needed in a specific period is calculated; $\rho_{i,r}$ is the amount of resources of type $r$ task $i$ needs. This value is counted once for every task started, but every task that finished is subtracted again. This equation uses $T_p$ which is simply the set of timesteps within period $p$. In Equation (6) $i_N$ is the final installation task, and $t_p$ is the deadline (in timesteps) for a turbine to be finished if it is to be active in period $p$ (this can be the first timestep of $p$, but could also be chosen to be earlier if the operator wishes to do so). Equation (6) counts how many assets have finished installation (i.e. completed task $i_N$) in time to be active in period $p$ (before time step $t_p$); the term $\omega_{i_N,t_p}$ is the timestep at which the final installation task should have been started for it to be completed by the deadline $t_p$. Finally equation (7) puts a maximum on the number of vessels of a specific type used in a given period, where $m_rp$ is an input parameter. Without this the model might decide to charter 100 heavy lift vessels in the first period and work on all turbines simultaneously, which is unrealistic in practice. 
 
 \bigskip
 
@@ -300,9 +300,9 @@ The maintenance model is very similar in structure; it assumes that an asset wil
 subject to:
 \begin{align}
 s_{a,i,t} \leq& s_{a,i,(t+1)}												&	\forall a \in A, \forall i \in M, \forall t \in T	\\
-s_{a,i,(\sigma_{i,t_N})} \geq& 1												&	\forall a \in A, \forall i \in M^M			\\		
-N_{r,p} \geq& \sum_{a\in A} \sum_{i\in M} (\rho_{i,r} \cdot (s_{a,i,t} - s_{a,i,(\sigma{i,t})})) 		& 	\forall r \in R, \forall p \in P, \forall t \in T_p 	\\
-b_{a,t} >&  \sum_{i \in M} [s_{a,i,(\sigma_{i,(t - \lambda_a)})} - s_{a,i,(\sigma_{i,t})}]			&	\forall a \in A, \forall t \in T 			\\
+s_{a,i,(\omega_{i,t_N})} =& 1												&	\forall a \in A, \forall i \in M^M			\\		
+N_{r,p} \geq& \sum_{a\in A} \sum_{i\in M} (\rho_{i,r} \cdot (s_{a,i,t} - s_{a,i,(\omega{i,t})})) 		& 	\forall r \in R, \forall p \in P, \forall t \in T_p 	\\
+b_{a,t} >&  \sum_{i \in M} [s_{a,i,(\omega_{i,(t - \lambda_a)})} - s_{a,i,(\omega_{i,t})}]			&	\forall a \in A, \forall t \in T 			\\
 O_t =&  |A| - \sum_{a \in A} b_{a,t}											&	\forall t \in T 						\\
 N_{r,p} \leq& m_{r,p}													&	\forall r \in R, \forall p \in P
 \end{align}
@@ -317,10 +317,32 @@ A new variable is introduced in (12); $b_{a,t}$ is a binary variable which takes
 
 Finally equation (13) determines how many assets are online by subtracting the amount of broken assets from the total number, and equation (14) is identical to (7). 
 
-\subsubsection{Decommission model}
-Lorem ipsum
+\bigskip
 
-The initial decommission model is nearly identical to the above model, other than turbines going offline when work is started instead going online when work is completed. The maintenance model I made is very similar in structure as well; it assumes that an asset will fail if it is not maintained for some predetermined time. This is clearly a significant simplification from stochastic failures which is the more common and realistic approach, but for my initial models I assumed determinism. Under these assumptions the maintenance models had a set amount of minimum maintenance tasks that should be performed, and a set of optional tasks that can be performed to increase uptime. These models will not be shown here, but they can be found in the appendix. %TODO: Make appendix
+Based on the way this model handles failures and the set of tasks available, we could reframe the problem and say it only handles planned maintenance, and not responsive maintenance. Planned maintenance is all the maintenance that happens at predetermined moments, while responsive maintenance is that which happens in response to failures or condition-monitoring data. This distinction may seem similar to the distinction between preventive and corrective maintenance made in some papers in \Cref{s:know}, but that distinction focuses on whether the maintenance happens before or after failure, which is a different metric since maintenance that happens based on condition-monitoring before any failure occurs is preventive but not planned. 
+
+If we reframe the problem in this way, $\lambda_a$ is a predetermined amount of time after maintenance after which the chance of a failure exceeds some threshold; from this moment the turbines energy is not longer included in the objective function as the chance of failure is deemed too high. $M^M$ would still represent some minimum amount of maintenance, and $M^M \cup M^O$ represents the maximum amount of planned maintenance. With this reframing the model could be used to schedule all planned maintenance, while a separate model and strategy would have to be determined for responsive maintenance. 
+
+\subsubsection{Decommission model}
+The initial decommission model is nearly identical to the previously shown installation model:
+
+\small
+\begin{equation}
+	\max_{\substack{N_{r,p} \in \mathbb{Z}^* \\
+	s_{a,i,t} \in \{0, 1\}}} 
+	\sum_{p \in P} [ DIS^p (\sum_{t\in T_p} \sum_{a \in A} ((1 - s_{a,i_0,t}) \cdot v_t)  - \sum_{r\in R} (N_{r,p} \cdot C_{r,p})) ]
+\end{equation}
+subject to:
+\begin{align}		
+s_{a,i,t} \leq& s_{a,i,(t+1)}											&	\forall a \in A, \forall i \in I, \forall t \in T				\\
+s_{a,i,(\omega_{i,t_N})} =& 1											&	\forall a \in A, \forall i \in I						\\
+s_{a,j,t} \leq& s_{a,i,(\omega_{i,t})}										&	\forall a \in A, \forall (i, j) \in IP, \forall t \in T 			\\
+N_{r,p} \geq& \sum_{a \in A}\sum_{i\in I} (\rho_{i,r} \cdot (s_{a,i,t} - s_{a,i,(\omega_{i,t})}))	& 	\forall r \in R, \forall p \in P, \forall t \in T_p			\\
+N_{r,p} \leq& m_{r,p}												& 	\forall r \in R, \forall p \in P
+\end{align}
+\normalsize
+
+The only difference is the absence of the $O_p$ variables and constaints related to it, and the objective function. It adds a discount factor $DIS$, as in the maintenance model, and sees if decommission has started at any particular time with variable $s_{a,i_0,t}$, where $i_0$ is the first decommission task (after which a turbine is offline).
 
 \subsubsection{Combined model}
 
@@ -335,30 +357,50 @@ After creating these models I combined them into one model spanning the entire l
 subject to:
 \begin{align}
 s_{a,i,t} \leq& s_{a,i,(t+1)}															& \forall a \in A, \forall i \in \mathcal{I}, \forall t \in T		\\
-s_{a,i,(\sigma_{i,t_N})} \geq& 1															& \forall a \in A, \forall i \in \mathcal{I} - M^O			\\
-s_{a,i^D_0,t} - 1 \leq& s_{a,i,(\sigma_{i,t})} - s_{a,i,t}											& \forall a \in A, \forall i \in \mathcal{I} - D, \forall t \in T	\\
-s_{a,j,t} \leq& s_{a,i,(\sigma_{i,t})}														& \forall a \in A, \forall (i, j) \in IP, \forall t \in T 		\\
-N_{r,p} \geq& \sum_{a\in A} \sum_{i\in \mathcal{I}} (\rho_{i,r} \cdot (s_{a,i,t} - s_{a,i,(\sigma_{i,t})})) 				& \forall r \in R, \forall p \in P, \forall t \in T_p 			\\
+s_{a,i,(\omega_{i,t_N})} =& 1															& \forall a \in A, \forall i \in \mathcal{I} - M^O			\\
+s_{a,i^D_0,t} - 1 \leq& s_{a,i,(\omega_{i,t})} - s_{a,i,t}											& \forall a \in A, \forall i \in \mathcal{I} - D, \forall t \in T	\\
+s_{a,j,t} \leq& s_{a,i,(\omega_{i,t})}														& \forall a \in A, \forall (i, j) \in IP, \forall t \in T 		\\
+N_{r,p} \geq& \sum_{a\in A} \sum_{i\in \mathcal{I}} (\rho_{i,r} \cdot (s_{a,i,t} - s_{a,i,(\omega_{i,t})})) 				& \forall r \in R, \forall p \in P, \forall t \in T_p 			\\
 N_{r,p} \leq& m_{r,p}																& \forall r \in R, \forall p \in P 					\\
-o_{a,t} \leq& s_{a,i^I_N,(\sigma_{i^I_N,t})} - s_{a,i^D_0,t}										& \forall a \in A, \forall t \in T					\\
-o_{a,t} \leq& \sum_{i \in M \cup \{i^I_N\}} (s_{a,i,(\sigma_{i,t})} - s_{a,i,(\sigma_{i,(t-\lambda_a)})})				& \forall a \in A, \forall t \in T					\\
-o_{a,t} \leq& 1 + s_{a,i,(\sigma_{i,t})} - s_{a,i,t}												& \forall a \in A, \forall i \in M, \forall t \in T			
+o_{a,t} \leq& s_{a,i^I_N,(\omega_{i^I_N,t})} - s_{a,i^D_0,t}										& \forall a \in A, \forall t \in T					\\
+o_{a,t} \leq& \sum_{i \in M \cup \{i^I_N\}} (s_{a,i,(\omega_{i,t})} - s_{a,i,(\omega_{i,(t-\lambda_a)})})				& \forall a \in A, \forall t \in T					\\
+o_{a,t} \leq& 1 + s_{a,i,(\omega_{i,t})} - s_{a,i,t}												& \forall a \in A, \forall i \in M, \forall t \in T			
 \end{align}
 \normalsize
 
-I will not go over every detail of this model, but the full notes can be found in the appendix. %TODO: Appendix
-The primary structure of having $s_{a,i,t}$ be the main variables and having variables for the required resources and online turbines remains the same as before. The largest difference is the replacement of variables $O_p$ with $o_{a,t}$, which is a binary variable per asset and timestep indicating whether that asset is online at the given time. In order for it to be online that asset needs to be fully installed and not started decommission (equation (14)), have had recent maintenance (equation (15)) and no maintenance on at asset can be happening at this time (equation (16)). The value of these variables follows directly from the scheduling decisions, but I introduced the auxiliary variable for clarity. 
+For the most part this model is a combination of the previously shown models. It uses new variables $o_{a,t}$, which is a binary variable per asset and timestep indicating whether that asset is online at the given time. In order for it to be online that asset needs to be fully installed and not started decommission (equation (28)), have had recent maintenance (equation (29)) and no maintenance on at asset can be happening at this time (equation (30)). The value of these variables follows directly from the scheduling decisions, but I introduced the auxiliary variable for clarity. In these equations $i^I_N$ indicates the final installation task and $i^D_0$ indicates the first decommission task. In the objective function this new variable is used to calculate the total value of energy generated. Equation (24) ensures only decommission tasks are allowed to be performed after decommissioning has started. All other equations are taken directly from the installation model, with the only difference that the set $\mathcal{I}$ is the set of all tasks and $D$ is a subset containing all decommission tasks. 
 
-This model still has very strong assumptions and for that reason would not be valuable in practice. But even if those assumptions were to be relaxed, a model such as this would not have much value in practice. Optimizing every single scheduling decision over the entire 20+ year life-cycle of an OWF at the start of the project is both infeasible and unnecessary. Infeasible because the size of this problem is too big for any optimizing solver to solve; if a timestep is an hour there are over 175.000 timesteps in a 20 year period, and with very conservative values of 40 tasks per asset and 80 assets that would lead to over half a billion $s_{a,i,t}$ variables. That is not to say another approach could not create a feasible model for the entire life-cycle, although it is an extrodinarily large problem that would normally be split into smaller problems. On top of being challenging, there is no strong reason to plan all of this in advance in a single optimization model; cost estimation is generally better done using simulation, and any solution found by this model is unlikely to be much better than solutions found by models for individual phases, as there is not much interaction other than resource sharing included in this model. 
+This model still assumes deterministic weather which limits its practical usability, but even if this limitation is acceptable it will still be computationally challenging to find an optimal solution for a schedule spanning two or three decades, which would be the common duration of the full lifespan for which the model is designed. To illustrate, take a windfarm with 80 assets, each of which need 40 tasks to be scheduled over the course of its lifespan. If this lifespan is 20 years and the timesteps are chosen to be 1 hour, this results in 175.000 timesteps, and over half a billion $s_{a,i,t}$ variables, which would be difficult to solve to optimality. Additionally the uses of scheduling every single task over the course of 20 years are limited. 
 
-While this model is not usable in practice, it was still a good exercise for me to work on. I would not have some of the insights above if I had not created a (simplified) model spanning the entire life-cycle, and experimenting with the size of model (in number of variables and constraints) gave me a better idea of how quickly models such as this can grow in size. 
+However, these three phases tend to be treated completely separately within the literature, which also has strong drawbacks. A goal of this research is to find a middle ground that balances the drawbacks of both approaches, and the above model is a step in that process. Even if the direct practical uses of this model are limited, it was still a good exercise for me to work on. I would not have some of the insights above if I had not created a (simplified) model spanning the entire life-cycle, and experimenting with the size of model (in number of variables and constraints) gave me a better idea of how quickly models such as this can grow in size. 
 
 \subsection{Stochastic models}
-After working my way up to the previously discussed life-cycle spanning model, I aimed to relax the assumptions in it, first and foremost the assumption that every aspect is deterministic. This proved difficult for various reasons. The model I started with is complicated, and I do not have much experience with Stochastic Programming models, which made starting with a complicated model such as this challenging. It also spans a large timescale, but still has a high fidelity (if a timestep is still assumed to be an hour). 
+%NOTE: The problem here is neither stochastic model works (in the sense that it's nonsense unless the "task planning variables" are also scenario dependent, at which point you're just solving every scenario separately). Options I see are 1. don't include the model but simply describe where it went wrong, 2. include model as is but point out it makes no sense, 3. spend some time actually making that model with new variables and describe its value of scheduling the planned tasks. 
+After working my way up to the previously discussed life-cycle spanning model, I aimed to relax the assumptions in it, first and foremost the assumption that every aspect is deterministic. This proved difficult for various reasons. I started with the model shown in \Cref{sss:comb}, which is a fairly complicated model already. Since I do not have much experience with Stochastic Programming models, starting with a complicated model such as this was challenging. The model also spans a large timescale, but still has a high fidelity (if a timestep is still assumed to be an hour). 
 
-In the models shown before the parameter $\sigma_{i,t}$ was used to incorporate weather circumstances, and this parameter was used as a variable index. This approach is not well suited for Stochastic Programming, as this $\sigma_{i,t}$ would be subject to uncertainty, which means the variables involved are also subject to uncertainty. I tried to handle this issue by introducing scenarios, a technique used in the literature \cite{besnard2011stochastic,de2012computational}. Each scenario represents a realization of all uncertain factors, and the model would be optimized over a set of (selected) scenarios. In this example a new index would be introduced to $\sigma_{i,t}$, say $\sigma_{i,t,s}$, where $s$ is the scenario index. However this approach is more suited to shorter timescales than the ones I was using; only a handful of scenarios are needed to capture the possible weather conditions over the course of a week or a month, but over the course of 20 years many scenarios are needed to make the set representative of the possible options. Therefore I opted to scale down and introduce stochastic elements in a smaller model first.
+In the models shown before the parameter $\omega_{i,t}$ was used to incorporate weather circumstances, and this parameter was used as a variable index. This approach is not well suited for Stochastic Programming, as this $\omega_{i,t}$ would be subject to uncertainty, which means the variables involved are also subject to uncertainty. I tried to handle this issue by introducing scenarios, a technique used in the literature \cite{besnard2011stochastic,de2012computational}. Each scenario represents a realization of all uncertain factors, and the model would be optimized over a set of (selected) scenarios. In this example a new index would be introduced to $\omega_{i,t}$, say $\omega_{i,t,s}$, where $s$ is the scenario index. However this approach is more suited to shorter timescales than the ones I was using; only a handful of scenarios are needed to capture the possible weather conditions over the course of a week or a month, but over the course of 20 years many scenarios are needed to make the set representative of the possible options. Therefore I opted to scale down and introduce stochastic elements in a smaller model first.
 
-For this I chose to focus on the maintenance phase, introducing stochastic failures, weather circumstances and energy values. 
+For this I chose to focus on the maintenance phase, introducing stochastic failures and energy values:
+
+\small
+\begin{equation}
+	\max_{\substack{N_{r,p} \in \mathbb{Z}^* \\ 
+	s_{a,i,t}, o_{a,t,\sigma} \in \{0, 1\}}} 
+	\sum_{\sigma \in S} \sum_{p \in P} [ DIS^p (\sum_{t\in T_p} \sum_{a \in A} (o_{a,t,\sigma} \cdot v_{t,\sigma})  - \sum_{r\in R} (N_{r,p} \cdot C_{r,p})) ]
+\end{equation}
+subject to:
+\begin{align}
+s_{a,i,t} \leq& s_{a,i,(t+1)}																& \forall a \in A, \forall i \in M, \forall t \in T		\\
+s_{a,i,(\omega_{i.t_N})} =& 1																& \forall a \in A, \forall i \in M^P				\\
+N_{r,p} \geq& \sum_{a\in A} \sum_{i\in \mathcal{I}} (\rho_{i,r} \cdot (s_{a,i,t} - s_{a,i,(\omega_{i,t})})) 					& \forall r \in R, \forall p \in P, \forall t \in T_p 		\\
+N_{r,p} \leq& m_{r,p}																	& \forall r \in R, \forall p \in P 				\\
+o_{a,t,\sigma} \leq& \sum_{i \in M} (s_{a,i,(\omega_{i,t})} - s_{a,i,(\omega_{i,(t-\lambda_{a,i,\sigma})})})				& \forall a \in A, \forall t \in T, \forall \sigma \in S	\\
+s_{a,i,t} - s_{a,i,(t-1)} \leq& \begin{aligned} 1 - \frac{1}{L} \cdot \sum_{j \in M} (s_{a,j,(\omega_{j,t})} - \\ s_{a,j,(\omega_{j,(t-\lambda_{a,j,\sigma})})}) \end{aligned}	& \begin{aligned} \forall a \in A, \forall i \in M^C, \\ \forall t \in T, \forall \sigma \in S \end{aligned}	\\
+o_{a,t,\sigma} \leq& 1 + s_{a,i,(\omega_{i,t})} - s_{a,i,t}												& \begin{aligned} \forall a \in A, \forall i \in M, \\ \forall t \in T, \forall \sigma \in S \end{aligned}
+\end{align}
+\normalsize
+
+This model is still based on the previous models, and it introduces a set of scenarios $S$, and every scenario $\sigma \in S$ is a realization of 
 
 \pagebreak
 
