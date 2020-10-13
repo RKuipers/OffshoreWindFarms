@@ -568,23 +568,24 @@ Stochastic parameters:
 \scriptsize
 
 \begin{equation}
-	\min_{\substack{N_{ym\sigma}, P_m, R_{m\sigma} \in \mathbb{Z}^* \\
+	\min_{\substack{N_{y,m,\sigma}, P_m, R_{m,\sigma} \in \mathbb{Z}^* \\
 	\gamma_\sigma \in \mathbb{R}_{\geq 0} \\
-	e_{ym\sigma} \in \{0, 1\} }}
+	h_{m,\sigma} \in \{0, 1\} }}
 	\begin{aligned}
 	\frac{1}{|S|} \cdot \sum_{\sigma \in S} ( \sum_{m \in M} [\sum_{y \in Y} 
-	(N_{ym\sigma} \cdot c_{ym}) +  
+	(N_{y,m,\sigma} \cdot c_{y,m}) +  
 	P_m \cdot d_P \cdot e^H_m + \\
-	\sum_{m' = 0}^{m} (f_{m'\sigma} - R_{m'\sigma}) \cdot e^M_m ]
+	\sum_{m' = 0}^{m} (f_{m',\sigma} - R_{m',\sigma}) \cdot e^H_m \cdot H_m ]
 	- u \cdot \gamma_\sigma)
 	\end{aligned}	
 \end{equation}
 subject to:
 \begin{align}
-l_y \cdot N_{ym\sigma} 			&\geq 	P_m \cdot d^P_y + R_{m\sigma} \cdot d^R_y	 + \gamma_\sigma - e_{ym\sigma} \cdot M
+l_y \cdot N_{y,m,\sigma} 			&\geq 	\begin{cases} P_m \cdot d^P_y + R_{m,\sigma} \cdot d^R_y \\
+								+ \gamma_\sigma - h_{m,\sigma} \cdot L \end{cases}
 																				& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
-1 						&\geq		e_{ym\sigma} + \frac{P_m + R_{m\sigma}}{A}					& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
-\sum_{m' = 0}^{m-1} f_{m'\sigma}	&\geq 	\sum_{m' = 0}^m R_{m'\sigma}								& \forall \sigma \in S, \forall m \in M			\\
+1 						&\geq		h_{y,m,\sigma} + \frac{P_m + R_{m,\sigma}}{L}					& \forall \sigma \in S, \forall m \in M 		 	\\
+\sum_{m' = 0}^{m-1} f_{m',\sigma}	&\geq 	\sum_{m' = 0}^m R_{m',\sigma}								& \forall \sigma \in S, \forall m \in M			\\
 \sum_{m\in M} P_m 			&\geq 	A 												&						
 \end{align}
 
