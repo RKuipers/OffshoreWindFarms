@@ -19,6 +19,7 @@
 \usepackage{thm-restate}
 \usepackage[space]{grffile}
 \usepackage{multicol}
+\usepackage{changepage}
 
 \citationmode{abbr}
 
@@ -344,7 +345,7 @@ N_{r,p} \leq& m_{r,p}												& 	\forall r \in R, \forall p \in P
 
 The only difference is the absence of the $O_p$ variables and constaints related to it, and the objective function. It adds a discount factor $DIS$, as in the maintenance model, and sees if decommission has started at any particular time with variable $s_{a,i_0,t}$, where $i_0$ is the first decommission task (after which a turbine is offline).
 
-\subsubsection{Combined model}
+\subsubsection{Combined model} \label{sss:comb}
 
 After creating these models I combined them into one model spanning the entire life-cycle, planning every single task (under the same deterministic assumptions).
 
@@ -374,33 +375,88 @@ This model still assumes deterministic weather which limits its practical usabil
 
 However, these three phases tend to be treated completely separately within the literature, which also has strong drawbacks. A goal of this research is to find a middle ground that balances the drawbacks of both approaches, and the above model is a step in that process. Even if the direct practical uses of this model are limited, it was still a good exercise for me to work on. I would not have some of the insights above if I had not created a (simplified) model spanning the entire life-cycle, and experimenting with the size of model (in number of variables and constraints) gave me a better idea of how quickly models such as this can grow in size. 
 
-\subsection{Stochastic models}
-%NOTE: The problem here is neither stochastic model works (in the sense that it's nonsense unless the "task planning variables" are also scenario dependent, at which point you're just solving every scenario separately). Options I see are 1. don't include the model but simply describe where it went wrong, 2. include model as is but point out it makes no sense, 3. spend some time actually making that model with new variables and describe its value of scheduling the planned tasks. 
+\subsection{Stochastic model}
 After working my way up to the previously discussed life-cycle spanning model, I aimed to relax the assumptions in it, first and foremost the assumption that every aspect is deterministic. This proved difficult for various reasons. I started with the model shown in \Cref{sss:comb}, which is a fairly complicated model already. Since I do not have much experience with Stochastic Programming models, starting with a complicated model such as this was challenging. The model also spans a large timescale, but still has a high fidelity (if a timestep is still assumed to be an hour). 
 
 In the models shown before the parameter $\omega_{i,t}$ was used to incorporate weather circumstances, and this parameter was used as a variable index. This approach is not well suited for Stochastic Programming, as this $\omega_{i,t}$ would be subject to uncertainty, which means the variables involved are also subject to uncertainty. I tried to handle this issue by introducing scenarios, a technique used in the literature \cite{besnard2011stochastic,de2012computational}. Each scenario represents a realization of all uncertain factors, and the model would be optimized over a set of (selected) scenarios. In this example a new index would be introduced to $\omega_{i,t}$, say $\omega_{i,t,s}$, where $s$ is the scenario index. However this approach is more suited to shorter timescales than the ones I was using; only a handful of scenarios are needed to capture the possible weather conditions over the course of a week or a month, but over the course of 20 years many scenarios are needed to make the set representative of the possible options. Therefore I opted to scale down and introduce stochastic elements in a smaller model first.
 
 For this I chose to focus on the maintenance phase, introducing stochastic failures and energy values:
 
-\small
+\begin{minipage}{\textwidth}
+\begin{adjustwidth}{-3cm}{-2.5cm}
+
 \begin{equation}
 	\max_{\substack{N_{r,p} \in \mathbb{Z}^* \\ 
-	s_{a,i,t}, o_{a,t,\sigma} \in \{0, 1\}}} 
+	s^P_{a,i,t}, s^R_{a,i,t,\sigma}, o_{a,t,\sigma} \in \{0, 1\}}} 
 	\sum_{\sigma \in S} \sum_{p \in P} [ DIS^p (\sum_{t\in T_p} \sum_{a \in A} (o_{a,t,\sigma} \cdot v_{t,\sigma})  - \sum_{r\in R} (N_{r,p} \cdot C_{r,p})) ]
 \end{equation}
 subject to:
 \begin{align}
-s_{a,i,t} \leq& s_{a,i,(t+1)}																& \forall a \in A, \forall i \in M, \forall t \in T		\\
-s_{a,i,(\omega_{i.t_N})} =& 1																& \forall a \in A, \forall i \in M^P				\\
-N_{r,p} \geq& \sum_{a\in A} \sum_{i\in \mathcal{I}} (\rho_{i,r} \cdot (s_{a,i,t} - s_{a,i,(\omega_{i,t})})) 					& \forall r \in R, \forall p \in P, \forall t \in T_p 		\\
-N_{r,p} \leq& m_{r,p}																	& \forall r \in R, \forall p \in P 				\\
-o_{a,t,\sigma} \leq& \sum_{i \in M} (s_{a,i,(\omega_{i,t})} - s_{a,i,(\omega_{i,(t-\lambda_{a,i,\sigma})})})				& \forall a \in A, \forall t \in T, \forall \sigma \in S	\\
-s_{a,i,t} - s_{a,i,(t-1)} \leq& \begin{aligned} 1 - \frac{1}{L} \cdot \sum_{j \in M} (s_{a,j,(\omega_{j,t})} - \\ s_{a,j,(\omega_{j,(t-\lambda_{a,j,\sigma})})}) \end{aligned}	& \begin{aligned} \forall a \in A, \forall i \in M^C, \\ \forall t \in T, \forall \sigma \in S \end{aligned}	\\
-o_{a,t,\sigma} \leq& 1 + s_{a,i,(\omega_{i,t})} - s_{a,i,t}												& \begin{aligned} \forall a \in A, \forall i \in M, \\ \forall t \in T, \forall \sigma \in S \end{aligned}
+s^P_{a,i,t} \leq& s^P_{a,i,(t+1)}													& \forall a \in A, \forall i \in M^P, \forall t \in T				\\
+s^R_{a,i,t,\sigma} \leq& s^R_{a,i,(t+1),\sigma}											& \forall a \in A, \forall i \in M^R, \forall t \in T, \forall \sigma \in S	\\
+s^P_{a,i,(\omega_{i.t_N})} =& 1													& \forall a \in A, \forall i \in M^P						\\
+N_{r,p} \geq& \begin{cases} \sum_{a\in A} ( \sum_{i\in M^P} (\rho_{i,r} \cdot (s^P_{a,i,t} - s^P_{a,i,(\omega_{i,t})})) \\
++ \sum_{i \in M^R}  (\rho_{i,r} \cdot (s^R_{a,i,t,\sigma} - s^R_{a,i,(\omega_{i,t}),\sigma}))) \end{cases}		& \forall r \in R, \forall p \in P, \forall t \in T_p, \forall \sigma \in S	\\
+N_{r,p} \leq& m_{r,p}															& \forall r \in R, \forall p \in P 						\\
+o_{a,t,\sigma} \leq& \begin{cases}\sum_{i \in M^P} (s^P_{a,i,(\omega_{i,t})} - s^P_{a,i,(\omega_{i,(t-\lambda_{a,i,\sigma})})}) 									\\
++ \sum_{i \in M^R} (s^R_{a,i,(\omega_{i,t}),\sigma} - s^R_{a,i,(\omega_{i,(t-\lambda_{a,i,\sigma})})\sigma}) \end{cases}	
+																		& \forall a \in A, \forall t \in T, \forall \sigma \in S			\\
+s^R_{a,i,t} - s^R_{a,i,(t-1)} \leq& \begin{cases} 1 - \frac{1}{L} \cdot (\sum_{j \in M^P} (s^P_{a,j,(\omega_{j,t})} - s^P_{a,j,(\omega_{j,(t-\lambda_{a,j,\sigma})})}) 			\\ 
++ \sum_{j \in M^R} (s^R_{a,j,(\omega_{j,t}),\sigma} - s^R_{a,j,(\omega_{j,(t-\lambda_{a,j,\sigma})})\sigma}))\end{cases}	
+																		& \forall a \in A, \forall i \in M^R, \forall t \in T, \forall \sigma \in S	\\
+o_{a,t,\sigma} \leq& 1 + s^P_{a,i,(\omega_{i,t})} - s^P_{a,i,t}									& \forall a \in A, \forall i \in M^P, \forall t \in T, \forall \sigma \in S 	\\
+o_{a,t,\sigma} \leq& 1 + s^R_{a,i,(\omega_{i,t}),\sigma} - s^R_{a,i,t,\sigma}							& \forall a \in A, \forall i \in M^R, \forall t \in T, \forall \sigma \in S
 \end{align}
-\normalsize
 
-This model is still based on the previous models, and it introduces a set of scenarios $S$, and every scenario $\sigma \in S$ is a realization of 
+\end{adjustwidth}
+\end{minipage}
+
+\bigskip
+
+This model is still based on the previous models, and it introduces a set of scenarios $S$, and every scenario $\sigma \in S$ is a realization of the stochastic failures and energy values. What this model does is split the $s_{a,i,t}$ variables from the previous models in two groups, $s^P_{a,i,t}$ and $s^R_{a,i,t,\sigma}$, which represent planned and responsive maintenance tasks respectively. The $s^P_{a,i,t}$ variables function exactly like before, and $s^R_{a,i,t,\sigma}$ do the same but depend on a scenario. In the same way the variables $o_{a,t,\sigma}$ now depend on the scenario. In this way, the failure state $o_{a,t,\sigma}$ and responsive tasks $s^R_{a,i,t,\sigma}$ are solved for every scenario separately, but the planned tasks $s^P_{a,i,t}$ and vessel charters $N_{r,p}$ have to be planned in advance and are the same for every scenario. 
+
+The only really new equation is (38); it is meant to ensure that responsive tasks only happen after a failure. The left hand side takes a value of 1 only if that the corresponding task started at timestep $t$, and the right hand side is 1 unless a task has recently been completed on the asset. How recently is determined by $\lambda_{a,i,\sigma}$ which is the time after task $i$ is completed at which asset $a$ fails in scenario $\sigma$. These variables for all tasks are summed up in the same way as was done in equation (29), where the sum is equal to the number of tasks completed recently enough. The $L$ in this equation is a large number, at least $|M^P \cup M^R|$, to ensure the right hand side never goes negative. 
+
+Equations (32) and (33) are the same as equation (22), this time split for the planned and responsive tasks respectively; the same happened with equations (39) and (40) which both come from (30). Equations (34) and (36) are equal to (23) and (27) respectively. In equations (35) and (37) the task summation is split in two parts for the two types of task, but apart from that they are directly taken from (26) and (29) respectively. 
+
+\bigskip
+
+The strength of this model is that it can be used to plan decisions that need to be made in advance (which vessels to charter and when to schedule certain routine tasks) while considering a set of uncertain scenarios. However it does still assume complete \textit{a priori} knowledge of each of these uncertain factors, as well as the weather. Since the focus lies on the decisions universal to all scenarios, rather than any specific scenario, this might not pose an issue for some uses. The model could potentially be improved by letting the weather conditions (encompassed in $\omega_{i,t}$) also depend on the scenario. The reason I have not done that (yet) is that while developing these models, I have been implementing at the same time, as discussed in detail in \Cref{s:impl}. The implementation of the above model already had issues being solved on my computer with a very small test case, and I wanted to improve that before making it even more complex. 
+
+\subsection{Multilevel model}
+The above model grew in complexity with every iteration, and since I had reached a point where the implementation could not even solve a very simple testcase in a number of hours (on my personal computer) I attempted a different approach. In the literature multilevel models are common, and splitting the problem into multiple subproblems can reduce the time it takes to solve. My idea behind this model was one level in which large scale decisions are made, such as for which tasks to complete and which vessels to charter for every month. Then a lower level can assign these tasks to specific vessels in some order. 
+
+The higher level model I came up with is shown here:
+
+\begin{equation}
+	\min_{\substack{N_{y,m,\sigma}, P_m, R_{m,\sigma} \in \mathbb{Z}^* \\
+	\gamma_\sigma \in \mathbb{R}_{\geq 0} \\
+	e_{y,m,\sigma} \in \{0, 1\} }}
+	\begin{aligned}
+	\frac{1}{|S|} \cdot \sum_{\sigma \in S} ( \sum_{m \in M} [\sum_{y \in Y} 
+	(N_{y,m,\sigma} \cdot c_{y,m}) +  
+	P_m \cdot d_P \cdot e^H_m + \\
+	\sum_{m' = 0}^{m} (f_{m',\sigma} - R_{m',\sigma}) \cdot e^M_m ]
+	- u \cdot \gamma_\sigma)
+	\end{aligned}	
+\end{equation}
+subject to:
+\begin{align}
+l_y \cdot N_{y,m,\sigma} 			&\geq 	\begin{cases} P_m \cdot d^P_y + R_{m,\sigma} \cdot d^R_y \\
+								+ \gamma_\sigma - e_{y,m,\sigma} \cdot M \end{cases}
+																				& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
+1 						&\geq		e_{y,m,\sigma} + \frac{P_m + R_{m,\sigma}}{A}					& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
+\sum_{m' = 0}^{m-1} f_{m',\sigma}	&\geq 	\sum_{m' = 0}^m R_{m',\sigma}								& \forall \sigma \in S, \forall m \in M			\\
+\sum_{m\in M} P_m 			&\geq 	A 												&						
+\end{align}
+
+Keep in mind that where every previously shown model used similar notation, this model was started from scratch, and uses a lot of new notation. 
+
+There are three primary types of decision variables used in this model:
+
+\begin{itemize}
+\item $N_{y,m,\sigma}$ %TODO: Continue
+\end{itemize}
 
 \pagebreak
 
