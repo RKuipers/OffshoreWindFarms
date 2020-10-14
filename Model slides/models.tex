@@ -606,7 +606,8 @@ subject to:
 \rho_{yi}								&\leq	 	\sum_{v \in V_y} \sum_{j \in J} a_{vij} 	& \forall y \in Y, \forall i \in I						\\	
 \begin{aligned} M \cdot (a_{vij} + a_{vi'(j-1)}) + \\ 
 d_{yi'} \cdot a_{vi'(j-1)} - 2M \end{aligned}			&\leq	 	s_i + s_{yi} - s_{i'} - s_{i'y}		& \begin{aligned} \forall y \in Y, \forall v \in V_y, 			\\
-																		\forall i, i' \in I, \forall j \in J - \{ 0 \}	\end{aligned}
+																		\forall i, i' \in I, \forall j \in J - \{ 0 \}	\end{aligned}	\\
+s_i + \max_{y \in Y} (s_{y,i}+ d_{y,i})				&\leq		T 							&\forall i \in I
 \end{align}
 
 \end{frame}
@@ -623,7 +624,8 @@ d_{yi'} \cdot a_{vi'(j-1)} - 2M \end{aligned}			&\leq	 	s_i + s_{yi} - s_{i'} - 
 \expl Ensures every vessel only does one task at a time \\ 
 \expl Ensures that if a vessel has an $x$th task it also has an $x-1$th task \\ 
 \expl Ensures every task has enough resourses assigned to it \\
-\expl Ensures the starting times of consequtive tasks are separated by at least the duration of the first task (the $M$ factors ensure that if the tasks are not consecutive the starting times don't matter)
+\expl Ensures the starting times of consecutive tasks are separated by at least the duration of the first task (the $M$ factors ensure that if the tasks are not consecutive the starting times don't matter) \\
+\expl Ensures all tasks are finished on time
 \end{frame}
 
 \begin{frame}{Notation overview}

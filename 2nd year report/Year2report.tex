@@ -173,6 +173,8 @@ In \cite{shafiee2015maintenance} the different topics that fall under maintenanc
 
 Decisions within the strategic echelon are found to have the biggest impact on the costs of operations, which makes sense as they affect the largest amount of time. However each of these echelons include important decisions that will have to be made for the maintenance of the sites. Besides providing this framework to categorize research, they also highlight which areas appear most thoroughly researched, and identify some unexplored areas. Potentially due to their large impact, the topics within the strategic echelon have received most attention, while the topics in the operational echelon received least. The writers indicate they these shorter term areas might hold unexplored potential for future research. 
 
+For my research the most relevant topics are Maintenance strategy selection and maintenance scheduling. These are categorized in opposite echelons, but considering my research focus this makes sense. I am looking at reducing lifetime costs, which clearly falls in the strategic echelon. Specific ideas related to this are considering the long-term impact of decisions and considering historical data from the windfarm. However in order to reduce these costs I am also looking at specific stretches of time within the lifetime, such as when the maintenance phase overlaps with the installation or decommission phases, and specific small-scale decisions made within these stretches of time. This focus clearly falls within the operational echelon, which means different aspects of my research fall within different echelons. 
+
 \bigskip
 
 %OG CHECKED: Dinwoodie paragraph
@@ -191,16 +193,14 @@ In another paper \cite{dinwoodie2014operational} the same researchers focus on c
 
 In their research they find the latter three strategies to be close together in costs while the Annual charter strategy lags behind. Which of these three strategies performs best depends on scenario specifics such as fluctuations in vessel costs, the value of energy, and specific failure rates. Each of the strategies also has inherent characteristics that the operator might have preferences in, such as the purchase strategy having much higher costs up front, but lower operational costs. 
 
-An issue with this paper is that mixing of strategies is only very briefly discussed, while this is often beneficial and commonly discussed in the literature. For example, in batch repair, if the batch size is set to 5 failures and for an extended period of time there are 4 failures, it might be beneficial to repair it if this situation goes on for long enough. One way to do this is to mix the annual charter strategy with the batch repair strategy, having a set time to do maintenance even if the required number of failures is not reached. Since this combination of preventive and corrective maintenance is a common strategy within the literature its absence in this paper is surprising. 
+An issue with this paper is that mixing of strategies is only very briefly discussed, while this is often beneficial and commonly discussed in the literature. For example, in batch repair, if the batch size is set to 5 failures and for an extended period of time there are 4 failures, it might be beneficial to repair it if this situation goes on for long enough. One way to do this is to mix the annual charter strategy with the batch repair strategy, having a set time to do maintenance even if the required number of failures is not reached. Since this combination of preventive and corrective maintenance is a common strategy within the literature its absence in this paper is surprising.
 
 \bigskip
 
 %Reference case
 In \cite{dinwoodie2015reference} this same group of researchers proposes a reference case for maintenance models. Their idea is for various maintenance models to optimise a constructed scenario a fictional windfarm, as a benchmark to compare these models. This allows us to see which models perform better in various scenarios, as they constructed a base case and a set of variants. In the paper they compare four models, and compare various metrics of the results. For availability of the windfarms all results are extremely close, apart from three scenarios. It is explained that these differences result from previously unknown assumptions in the different models, such as whether  parallel maintenance tasks are possible on the same turbine, and the moment at which tasks should be assigned to vessels. 
 
-This uncovering of assumptions is a strong benefit of using a standardised reference case to verify a model. Seeing that a new model performs similarly to other models apart from certain scenarios can give insight into how this new model handles these scenarios in ways that might otherwise have gone unnoticed, as demonstrated in this paper. 
-
-%However it also comes with certain drawbacks. In order to properly handle these scenarios some of the models needed to be adjusted, hence a new model which is planned to be verified through this method might limit itself to be able to handle these scenarios. Therefore there is a risk for model space to be restricted in known and unknown ways if they are expected to be benchmarked by a technique like this, as they will have to take in this specific data as input. This is however an inherent requirement for most models that aim to be commercially viable. Considering all this, academic models should always be free to deviate from any limits these benchmarks might place it in, but that does not diminish the value of this benchmarking technique. Since the models I intend to make are not completely novel ways to model maintenance operations, I will likely aim to benchmark my models through the reference cases presented here.  
+This uncovering of assumptions is a strong benefit of using a standardised reference case to verify a model. Seeing that a new model performs similarly to other models apart from certain scenarios can give insight into how this new model handles these scenarios in ways that might otherwise have gone unnoticed, as demonstrated in this paper.
 
 \bigskip
 
@@ -375,7 +375,7 @@ This model still assumes deterministic weather which limits its practical usabil
 
 However, these three phases tend to be treated completely separately within the literature, which also has strong drawbacks. A goal of this research is to find a middle ground that balances the drawbacks of both approaches, and the above model is a step in that process. Even if the direct practical uses of this model are limited, it was still a good exercise for me to work on. I would not have some of the insights above if I had not created a (simplified) model spanning the entire life-cycle, and experimenting with the size of model (in number of variables and constraints) gave me a better idea of how quickly models such as this can grow in size. 
 
-\subsection{Stochastic model}
+\subsection{Stochastic model} \label{ss:stoc}
 After working my way up to the previously discussed life-cycle spanning model, I aimed to relax the assumptions in it, first and foremost the assumption that every aspect is deterministic. This proved difficult for various reasons. I started with the model shown in \Cref{sss:comb}, which is a fairly complicated model already. Since I do not have much experience with Stochastic Programming models, starting with a complicated model such as this was challenging. The model also spans a large timescale, but still has a high fidelity (if a timestep is still assumed to be an hour). 
 
 In the models shown before the parameter $\omega_{i,t}$ was used to incorporate weather circumstances, and this parameter was used as a variable index. This approach is not well suited for Stochastic Programming, as this $\omega_{i,t}$ would be subject to uncertainty, which means the variables involved are also subject to uncertainty. I tried to handle this issue by introducing scenarios, a technique used in the literature \cite{besnard2011stochastic,de2012computational}. Each scenario represents a realization of all uncertain factors, and the model would be optimized over a set of (selected) scenarios. In this example a new index would be introduced to $\omega_{i,t}$, say $\omega_{i,t,s}$, where $s$ is the scenario index. However this approach is more suited to shorter timescales than the ones I was using; only a handful of scenarios are needed to capture the possible weather conditions over the course of a week or a month, but over the course of 20 years many scenarios are needed to make the set representative of the possible options. Therefore I opted to scale down and introduce stochastic elements in a smaller model first.
@@ -482,6 +482,51 @@ In the objective function an average is taken over all scenarios, which counts t
 Equation (42) is the capacity constraint; $l_y$ is the capacity (available hours) of a single vessel, and $d^P_y$ and $d^R_y$ are the durations for which planned and responsive tasks require a vessel of type $y$. The variable $h_{m,\sigma}$ is binary and can take the value of 1 if and only if no tasks are planned in month $m$ in scenario $\sigma$, which is enforced by the constraint in equation (43). In both of these equations $L$ is a large number. This extra variable is required in case there are months in which no tasks are planned and no vessels are chartered; in this situation the left hand side of equation (42) is equal to 0, and there could be no buffer without this extra term.
 
 In equation (44) it is enforced that there can never be more repairs than there were failures at the end of the previous month, and in equation (45) a minimum amount of planned tasks is set to be carried out over the planning horizon. If $A$ is set as the amount of assets, every asset would be maintained once within this horizon. 
+
+\bigskip
+
+This above model can be used to plan high-level decisions, in a similar way the model in \Cref{ss:stoc} can. However since the level of detail is much lower, the resulting problem will be smaller and faster to solve. The drawback may also be reduced accuracy, but in order to determine whether that is the case computational experiments will have to be done. 
+
+When a solution to the above model has been found, there is one remaining problem; for any given month, which vessel will do which tasks in what order. In order to solve this the following lower-level model can be solved for every month:
+
+\begin{adjustwidth}{-2.5cm}{-2.5cm}
+\begin{equation}
+	\min_{\substack{s_i \in \mathbb{R}_{\geq 0} \\ 
+	a_{v,i,j} \in \{0, 1\}}} 
+	\sum_{i \in I} c_i \cdot (s_i + \max_{y \in Y} (s_{y,i}+ d_{y,i}))
+\end{equation}
+subject to:
+\begin{align}
+\sum_{i \in I} a_{v,i,j}						&\leq 		1							& \forall v \in V, \forall j \in J 						\\
+\sum_{i \in I} a_{v,i,j}						&\leq 		\sum_{i \in I} a_{v,i,(j-1)}				& \forall v \in V, \forall j \in J - \{ 0 \}					\\
+\rho_{y,i}								&\leq	 	\sum_{v \in V_y} \sum_{j \in J} a_{v,i,j} 	& \forall y \in Y, \forall i \in I						\\
+s_i + \max_{y \in Y} (s_{y,i}+ d_{y,i})				&\leq		T 							&\forall i \in I 								\\	
+\begin{aligned} L \cdot (a_{v,i,j} + a_{v,i',(j-1)}) + \\ 
+d_{y,i'} \cdot a_{v,i',(j-1)} - 2L \end{aligned}			&\leq	 	s_i + s_{y,i} - s_{i'} - s_{i',y}			& \begin{aligned} \forall y \in Y, \forall v \in V_y, 			\\
+																		\forall i, i' \in I, \forall j \in J - \{ 0 \}	\end{aligned}		
+\end{align}
+\end{adjustwidth}
+
+This model has two types of decision variables:
+
+\begin{itemize}
+\item $s_i$: The starting time of task $i$
+\item $a_{v,i,j}$: A binary variable indicating whether vessel $v$ has task $i$ as its $j$-th task
+\end{itemize}
+
+Through deciding these variables every task will be assigned to a vessel in a specific order, and each task will have a starting time. In addition to the set of vessel types $Y$ we had in the high-level model we now also have a set of specific vessels $V$, which can be divided into distinct sets $V_y$ based on vessel type. For every task, the amount of vessels of type $y$ needed is called $\rho_{y,i}$. In addition to the starting time $s_i$ that every task has, there may be a delay before the vessel(s) of type $y$ are required, this delay is called $s_{y,i}$. For example, if a task needs a Crew Transfer Vessel from the start but a Heavy Lift Vessel after 3 time units, it would have $s_{CTV,i} = 0$ and $ s_{HLV,i} = 3$. It is assumed that if a task requires multiple vessels of the same type, each of these is needed from the same time, and for the entire duration $d_{y,i}$ without breaks. Finally every task has a cost per time unit $c_i$ in which it is not completed; for reparation tasks this would be equal to the value of energy generated per time unit, while for routine checkups this cost could be 0 (which would mean these tasks will generally be done last). 
+
+The objective is to minimize the cost over all tasks. The term $\max_{y \in Y} (s_{y,i}+ d_{y,i}$ is a constant which indicated the total duration of the task, and it could be removed without affecting the solution. However it is included to have the objective value better reflect the actual costs of the schedule. 
+
+Equation (47) ensures every vessel has at most 1 task assigned as its $j$-th task, for every $j$, and equation (48) enforces a $(j-1)$-th task to be assigned if a $j$-th task is assigned. Equation (49) makes sure every task has sufficient vessels assigned to it, and (50) uses the same constant term the objective function does to ensure every task is finished before the finish time $T$. 
+
+Equation (51) is used to ensure the starting times of consecutive tasks are far enough apart. $L$ is again a large number, which ensures that the left hand side is a large negative number unless  $a_{v,i,j} + a_{v,i',(j-1)} = 2$, i.e. task $i'$ is the $(j-1)$-th task assigned to vessel $v$ and task $i$ is its $j$-th task. If this is the case the $L$ terms cancel out and left hand side becomes equation to the duration for which $v \in V_y$ is needed. The right hand side is equal to the time at which the vessel is needed at task $i$ ($s_i + s_{y,i}$) from which its starting time at task $i'$ ($s_{i'} + s_{y,i'}$) is subtracted. 
+
+\bigskip
+
+This is a fairly straightforward model (compared to the other models shown) as it is meant to only schedule task in a short timespan (a month) and many impactful decisions have already been made in the high-level model. The largest drawback of this model is the speed at which it grows based on the number of tasks. As $|J|$ is the maximum amount of tasks that can be assigned to a single vessel, $|J|$ will likely have to be equal to $|I|$. This would mean the amount of $a_{v,i,j}$ variables grows quadratically with the amount of tasks, and the amount of constraints resulting from equation (51) grows cubically with the number of tasks. 
+
+The model could potentially be expanded by adding a more sophisticated cost function (which takes into account downtime costs for routine maintenance tasks), making durations stochastic, or by adding a robustness measure (a buffer variable similar to $\gamma_\sigma$ in the high level model can be added to equation (51)). As I have not yet fully implemented this multilevel model these improvements might happen later on in my research, depending on the initial implementation results. These results are also required to properly reflect on these two levels of the multilevel model; potentially a stronger link can be used between the two levels but at this point in time I am unable to make any definitive statement on this. 
 
 \pagebreak
 
