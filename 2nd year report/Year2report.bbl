@@ -23,6 +23,13 @@ Besnard, F., Patriksson, M., Str{\"o}mberg, A.-B., Wojciechowski, A., Fischer,
   stochastic model for opportunistic maintenance planning of offshore wind
   farms, {\em in} `2011 IEEE Trondheim PowerTech', IEEE, pp.~1--8.
 
+\harvarditem{{\em Computational Infrastructure for Operations Research
+  (COIN-OR)}}{2004}{coinor}
+{\em Computational Infrastructure for Operations Research (COIN-OR)}
+  \harvardyearleft 2004\harvardyearright .
+\newblock Accessed October 15, 2020.
+\newline\harvardurl{https://www.coin-or.org/}
+
 \harvarditem{de~Matos \harvardand\ Finardi}{2012}{de2012computational}
 de~Matos, V.~L. \harvardand\ Finardi, E.~C.  \harvardyearleft
   2012\harvardyearright , `A computational study of a stochastic optimization
@@ -50,6 +57,11 @@ Dinwoodie, I., Quail, F. \harvardand\ McMillan, D.  \harvardyearleft
   `ASME Turbo Expo 2012: Turbine Technical Conference and Exposition', American
   Society of Mechanical Engineers, pp.~847--857.
 
+\harvarditem{{\em FICO Xpress Optimization}}{1983}{ficoxp}
+{\em FICO Xpress Optimization}  \harvardyearleft 1983\harvardyearright .
+\newblock Accessed October 15, 2020.
+\newline\harvardurl{https://www.fico.com/en/products/fico-xpress-optimization}
+
 \harvarditem[Gabrel et~al.]{Gabrel, Murat \harvardand\
   Thiele}{2014}{gabrel2014recent}
 Gabrel, V., Murat, C. \harvardand\ Thiele, A.  \harvardyearleft
@@ -76,6 +88,11 @@ Lacal-Ar{\'a}ntegui, R., Yusta, J.~M. \harvardand\ Dom{\'\i}nguez-Navarro,
   J.~A.  \harvardyearleft 2018\harvardyearright , `Offshore wind installation:
   Analysing the evidence behind improvements in installation time', {\em
   Renewable and Sustainable Energy Reviews} {\bf 92},~133--145.
+
+\harvarditem{{\em OR-Tools}}{2015}{ortools}
+{\em OR-Tools}  \harvardyearleft 2015\harvardyearright .
+\newblock Accessed October 15, 2020.
+\newline\harvardurl{https://developers.google.com/optimization}
 
 \harvarditem{Renewable-UK}{2017}{ruk2017}
 Renewable-UK  \harvardyearleft 2017\harvardyearright , `Offshore wind project

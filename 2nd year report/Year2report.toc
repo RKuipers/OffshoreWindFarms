@@ -15,6 +15,7 @@
 \contentsline {subsection}{\numberline {3.2}Stochastic model}{24}% 
 \contentsline {subsection}{\numberline {3.3}Multilevel model}{27}% 
 \contentsline {section}{\numberline {4}Implementation}{34}% 
-\contentsline {section}{\numberline {5}Additional activities}{35}% 
-\contentsline {section}{\numberline {6}Next steps}{37}% 
-\contentsline {subsection}{\numberline {6.1}Timeline}{37}% 
+\contentsline {subsection}{\numberline {4.1}Progress}{34}% 
+\contentsline {section}{\numberline {5}Additional activities}{38}% 
+\contentsline {section}{\numberline {6}Next steps}{40}% 
+\contentsline {subsection}{\numberline {6.1}Timeline}{40}% 
