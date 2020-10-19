@@ -23,6 +23,12 @@ Besnard, F., Patriksson, M., Str{\"o}mberg, A.-B., Wojciechowski, A., Fischer,
   stochastic model for opportunistic maintenance planning of offshore wind
   farms, {\em in} `2011 IEEE Trondheim PowerTech', IEEE, pp.~1--8.
 
+\harvarditem[Carroll et~al.]{Carroll, McDonald, Barrera~Martin, McMillan
+  \harvardand\ Bakhshi}{2015}{carroll2015offshore}
+Carroll, J., McDonald, A., Barrera~Martin, O., McMillan, D. \harvardand\
+  Bakhshi, R.  \harvardyearleft 2015\harvardyearright , `Offshore wind turbine
+  sub-assembly failure rates through time'.
+
 \harvarditem{{\em Computational Infrastructure for Operations Research
   (COIN-OR)}}{2004}{coinor}
 {\em Computational Infrastructure for Operations Research (COIN-OR)}
@@ -93,6 +99,14 @@ Lacal-Ar{\'a}ntegui, R., Yusta, J.~M. \harvardand\ Dom{\'\i}nguez-Navarro,
 {\em OR-Tools}  \harvardyearleft 2015\harvardyearright .
 \newblock Accessed October 15, 2020.
 \newline\harvardurl{https://developers.google.com/optimization}
+
+\harvarditem[Papatzimos et~al.]{Papatzimos, Thies, Lonchampt, Joly \harvardand\
+  Dawood}{2019}{papatzimos2019data}
+Papatzimos, A.~K., Thies, P.~R., Lonchampt, J., Joly, A. \harvardand\ Dawood,
+  T.  \harvardyearleft 2019\harvardyearright , Data-informed lifetime
+  reliability prediction for offshore wind farms, {\em in} `2019 IEEE
+  International Conference on Prognostics and Health Management (ICPHM)', IEEE,
+  pp.~1--8.
 
 \harvarditem{Renewable-UK}{2017}{ruk2017}
 Renewable-UK  \harvardyearleft 2017\harvardyearright , `Offshore wind project
