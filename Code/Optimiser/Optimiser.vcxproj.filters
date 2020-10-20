@@ -33,6 +33,9 @@
     <ClCompile Include="Stochastic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Multilevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Optimiser.h">
@@ -45,6 +48,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Stochastic.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Multilevel.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
