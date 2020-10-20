@@ -2,7 +2,7 @@
 \contentsline {section}{\numberline {1}Introduction}{4}% 
 \contentsline {subsection}{\numberline {1.1}Problem description}{5}% 
 \contentsline {subsection}{\numberline {1.2}Research questions}{7}% 
-\contentsline {section}{\numberline {2}Closing knowledge gaps}{9}% 
+\contentsline {section}{\numberline {2}Closing learning gaps}{9}% 
 \contentsline {subsection}{\numberline {2.1}The maintenance phase}{9}% 
 \contentsline {subsection}{\numberline {2.2}Other new knowledge}{13}% 
 \contentsline {subsection}{\numberline {2.3}Closing thoughts}{14}% 
@@ -21,5 +21,5 @@
 \contentsline {section}{\numberline {5}Data acquisition}{38}% 
 \contentsline {section}{\numberline {6}Additional activities}{40}% 
 \contentsline {section}{\numberline {7}Conclusion}{42}% 
-\contentsline {subsection}{\numberline {7.1}Next steps}{42}% 
-\contentsline {subsection}{\numberline {7.2}Timeline}{44}% 
+\contentsline {subsection}{\numberline {7.1}The next step}{42}% 
+\contentsline {subsection}{\numberline {7.2}Later steps}{45}% 
