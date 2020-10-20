@@ -16,6 +16,13 @@ Barlow, E., Tezcaner~{\"O}zt{\"u}rk, D., Day, A., Boulougouris, E., Revie, M.
   installation of offshore wind farms', {\em Marine Heavy Transport \& Lift IV}
   .
 
+\harvarditem[Barlow et~al.]{Barlow, Tezcaner~{\"O}zt{\"u}rk, Revie,
+  Akartunal{\i}, Day \harvardand\ Boulougouris}{2017}{barlow2017using}
+Barlow, E., Tezcaner~{\"O}zt{\"u}rk, D., Revie, M., Akartunal{\i}, K., Day, A.
+  \harvardand\ Boulougouris, E.  \harvardyearleft 2017\harvardyearright , `On
+  using simulation to model the installation process logistics for an offshore
+  wind farm'.
+
 \harvarditem[Besnard et~al.]{Besnard, Patriksson, Str{\"o}mberg, Wojciechowski,
   Fischer \harvardand\ Bertling}{2011}{besnard2011stochastic}
 Besnard, F., Patriksson, M., Str{\"o}mberg, A.-B., Wojciechowski, A., Fischer,
@@ -68,6 +75,11 @@ Dinwoodie, I., Quail, F. \harvardand\ McMillan, D.  \harvardyearleft
 \newblock Accessed October 15, 2020.
 \newline\harvardurl{https://www.fico.com/en/products/fico-xpress-optimization}
 
+\harvarditem{{\em FINO 1 Meteorological Dataset}}{2020}{fino1}
+{\em FINO 1 Meteorological Dataset}  \harvardyearleft 2020\harvardyearright .
+\newblock Accessed October 19, 2020.
+\newline\harvardurl{http://www.fino1.de/en/}
+
 \harvarditem[Gabrel et~al.]{Gabrel, Murat \harvardand\
   Thiele}{2014}{gabrel2014recent}
 Gabrel, V., Murat, C. \harvardand\ Thiele, A.  \harvardyearleft
@@ -94,6 +106,14 @@ Lacal-Ar{\'a}ntegui, R., Yusta, J.~M. \harvardand\ Dom{\'\i}nguez-Navarro,
   J.~A.  \harvardyearleft 2018\harvardyearright , `Offshore wind installation:
   Analysing the evidence behind improvements in installation time', {\em
   Renewable and Sustainable Energy Reviews} {\bf 92},~133--145.
+
+\harvarditem[Leontaris et~al.]{Leontaris, Morales-N{\'a}poles \harvardand\
+  Wolfert}{2016}{leontaris2016probabilistic}
+Leontaris, G., Morales-N{\'a}poles, O. \harvardand\ Wolfert, A.~R.
+  \harvardyearleft 2016\harvardyearright , `Probabilistic scheduling of
+  offshore operations using copula based environmental time series--an
+  application for cable installation management for offshore wind farms', {\em
+  Ocean Engineering} {\bf 125},~328--341.
 
 \harvarditem{{\em OR-Tools}}{2015}{ortools}
 {\em OR-Tools}  \harvardyearleft 2015\harvardyearright .

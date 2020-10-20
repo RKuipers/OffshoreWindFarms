@@ -18,7 +18,8 @@
 \contentsline {subsection}{\numberline {4.1}Getting an initial implementation}{34}% 
 \contentsline {subsection}{\numberline {4.2}Increasing efficiency}{35}% 
 \contentsline {subsection}{\numberline {4.3}A different approach}{37}% 
-\contentsline {section}{\numberline {5}Additional activities}{38}% 
-\contentsline {section}{\numberline {6}Conclusion}{40}% 
-\contentsline {subsection}{\numberline {6.1}Next steps}{40}% 
-\contentsline {subsection}{\numberline {6.2}Timeline}{42}% 
+\contentsline {section}{\numberline {5}Data acquisition}{38}% 
+\contentsline {section}{\numberline {6}Additional activities}{40}% 
+\contentsline {section}{\numberline {7}Conclusion}{42}% 
+\contentsline {subsection}{\numberline {7.1}Next steps}{42}% 
+\contentsline {subsection}{\numberline {7.2}Timeline}{44}% 
