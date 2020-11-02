@@ -591,7 +591,7 @@ l_y \cdot N_{y,m,\sigma} 			&\geq 	\begin{cases} P_m \cdot d^P_y + R_{m,\sigma} 
 
 \end{frame}
 
-\begin{frame}{Initial Multilevel mode - 2}
+\begin{frame}{Initial Multilevel model - 2}
 \scriptsize
 
 \begin{equation}
@@ -628,8 +628,82 @@ s_i + \max_{y \in Y} (s_{y,i}+ d_{y,i})				&\leq		T 							&\forall i \in I
 \expl Ensures all tasks are finished on time
 \end{frame}
 
-\begin{frame}{Notation overview}
+\begin{frame}{Notation overview - Higher model}
+\scriptsize
+\begin{columns}
+\begin{column}{.48\textwidth}
+Sets:
+\begin{itemize}
+\item $S$: Scenarios
+\item $M$: Months
+\item $Y$: Vessel types
+\end{itemize}
 
+Decision variables:
+\begin{itemize}
+\item $N_{y,m,\sigma}$: The amount of vessels of type $y$ chartered in month $m$ in scenario $\sigma$
+\item $P_m$: Preventive tasks in month $m$
+\item $R_{m,\sigma}$: Reactive tasks in month $m$ and scenario $\sigma$
+\item $\gamma_\sigma$: Minimum buffer time in scenario $\sigma$
+\item $h_{m,\sigma}$: A helper variable per month $m$ and scenario $\sigma$
+\end{itemize}
+\end{column}
+
+\hfill
+
+\begin{column}{.48\textwidth}
+Parameters:
+\begin{itemize}
+\item $c_{y,m}$: The cost of chartering a vessel of type $y$ in month $m$
+\item $d_P$: The duration of a preventive task
+\item $e^H_m$: The energy produced by a single turbine per hour in month $m$
+\item $f_{m,\sigma}$: The amount of failures in month $m$ in scenario $\sigma$
+\item $H_m$: The number of hours in month $m$
+\item $u$: A parameter representing the value per hour of the minimum buffer
+\item $l_y$: The amount of hours a vessel of type $y$ is available if chartered for a month
+\item $d^P_y$: The duration of a preventive task for vessel type $y$
+\item $d^R_y$: The duration of a reactive task for vessel type $y$
+\item $L$: A large number
+\item $A$: The number of assets
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Notation overview - Lower model}
+\small
+\begin{columns}
+\begin{column}{.48\textwidth}
+Sets:
+\begin{itemize}
+\item $Y$: Vessel types
+\item $V$: Individual vessels
+\item $V_y \subseteq V$: Vessels of type $y \in Y$ 
+\item $I$:  Tasks to be completed in this month
+\item $J$: Maximum amount of tasks assigned to a single vessel
+\end{itemize}
+
+Decision variables:
+\begin{itemize}
+\item $s_i$: Start time of task $i$
+\item $a_{v,i,j}$: Binary variable which is 1 if vessel $v$ performs task $i$ as its $j$th task
+\end{itemize}
+\end{column}
+
+\hfill
+
+\begin{column}{.48\textwidth}
+Parameters:
+\begin{itemize}
+\item $c_i$: The cost per hour of a task not being completed
+\item $s_{y,i}$: The start time offset between task $i$ starting and vessel type $y$ being used for it
+\item $d_{y,i}$: The duration of task $i$ for vessel type $y$
+\item $\rho_{y,i}$: The amount of vessels of type $y$ required for task $i$
+\item $M$: A large number
+\item $T$: The end time of the month
+\end{itemize}
+\end{column}
+\end{columns}
 \end{frame}
 
 \end{document}
