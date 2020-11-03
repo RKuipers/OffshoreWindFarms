@@ -19,18 +19,33 @@
 \scriptsize
 
 \begin{equation}
+	\min_{N_{y,m,\sigma}, P_{m,i}, R_{m,\sigma} \in \mathbb{Z}^*}
+	\begin{aligned}
+	\frac{1}{|S|} \cdot \sum_{\sigma \in S} ( \sum_{m \in M} [\sum_{y \in Y} 
+	(N_{y,m,\sigma} \cdot c_{y,m}) +  
+	\sum_{i \in I^P} (P_{m,i} \cdot d_P \cdot e^H_m) + \\
+	\sum_{i \in I^R}[\sum_{m' = 0}^{m} (f_{m',i,\sigma} - R_{m',i,\sigma})] \cdot e^H_m \cdot H_m ])
+	\end{aligned}	
 \end{equation}
 subject to:
 \begin{align}
+L_y \cdot N_{y,m,\sigma} + L^{Inst}_{y,m}	&\geq 	\sum_{i \in I^P} (P_{m,i} \cdot d^P_y) + \sum_{i \in I^R} (R_{m,i,\sigma} \cdot d^R_{y,i})  	
+																					& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
+\sum_{m' = 0}^{m-1} f_{m',i,\sigma}		&\geq 	\sum_{m' = 0}^m R_{m',i,\sigma}							& \forall \sigma \in S, \forall m \in M, \forall i \in I^R	\\
+P_{m,i} 						&\leq 		\sum_{m' = 0}^{m-G^{MIN}} P_{m',(i-1)} - \sum_{m' = 0}^{m-1} P_{m',i}	& \forall m \in M, \forall i \in I^P 				\\
+P_{m,i} 						&\geq	 	\sum_{m' = 0}^{m-G^{MAX}} P_{m',(i-1)} - \sum_{m' = 0}^{m-1} P_{m',i}	& \forall m \in M, \forall i \in I^P 				\\
+N_{y,m,\sigma}					&\leq		A_{y,m} - N^{Inst}_{y,m}								& \forall \sigma \in S, \forall m \in M, \forall y \in Y
 \end{align}
 
 \end{frame}
 
 \begin{frame}{Model Explanation}
-\expl \\
-\expl \\
-\expl \\
-\expl 
+\expl The objective takes an average cost of all scenarios by counting up the cost per month. Each month has a cost for vessels chartered (by type), the energy lost due to planned maintenance, and the energy lost due to unrepaired failures \\
+\expl For each vessel type the available time (based on charters and spare time from installation) needs to surpass the estimated total time all tasks take \\
+\expl For any type of reactive task, the amount of tasks performed cannot exceed the amount of failures of that type (with a 1 month delay before a failure can be solved) \\
+\expl Ensures planned tasks are not scheduled too close together by counting up the turbines that were last visited $G^{MIN}$ or more months ago and subtracting all that were revisited later \\
+\expl Ensures planned tasks are not scheduled too far apart, in similar manner as the previous constraint \\
+\expl Limits the maximum amount of vessels chartered based on normal availability and vessels used for installation
 \end{frame}
 
 \begin{frame}{Notation overview}
