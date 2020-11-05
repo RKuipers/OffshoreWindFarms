@@ -15,7 +15,9 @@
 
 \begin{document}
 
-\begin{frame}{Model}
+%------------------------------------------------------------------------------YEARS------------------------------------------------------------------
+
+\begin{frame}{Years spanning model}
 \scriptsize
 
 \begin{equation}
@@ -39,7 +41,7 @@ N_{y,m,\sigma}					&\leq		A_{y,m} - N^{Inst}_{y,m}								& \forall \sigma \in S
 
 \end{frame}
 
-\begin{frame}{Model Explanation}
+\begin{frame}{Years model Explanation}
 \expl The objective takes an average cost of all scenarios by counting up the cost per month. Each month has a cost for vessels chartered (by type), the energy lost due to planned maintenance, and the energy lost due to unrepaired failures \\
 \expl For each vessel type the available time (based on charters and spare time from installation) needs to surpass the estimated total time all tasks take \\
 \expl For any type of reactive task, the amount of tasks performed cannot exceed the amount of failures of that type (with a 1 month delay before a failure can be solved) \\
@@ -48,7 +50,7 @@ N_{y,m,\sigma}					&\leq		A_{y,m} - N^{Inst}_{y,m}								& \forall \sigma \in S
 \expl Limits the maximum amount of vessels chartered based on normal availability and vessels used for installation
 \end{frame}
 
-\begin{frame}{Notation overview}
+\begin{frame}{Years model notation overview}
 \tiny
 \begin{columns}
 \begin{column}{.48\textwidth}
@@ -86,6 +88,81 @@ Parameters:
 \item $G^{MIN}$ \& $G^{MAX}$: The minimum and maximum amounts of months between two planned maintenance tasks
 \item $A_{y,m}$: The number of maximum available vessels of type $y$ in month $m$
 \item $N^{Inst}_{y,m}$: Amount of vessels of type $y$ used by the installation schedule in month $m$
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+%-----------------------------------------------------------------------------MONTHS------------------------------------------------------------------
+
+\begin{frame}{Months spanning model}
+\scriptsize
+
+\begin{equation}
+	\min_{\substack{s_i \in \mathbb{R}_{\geq 0} \\ 
+	a_{v,i,j} \in \{0, 1\}}} 
+	\sum_{i \in I} c_i \cdot (s_i + \max_{y \in Y} (s_{y,i}+ d_{y,i}))
+\end{equation}
+subject to:
+\begin{align}
+\sum_{i \in I} a_{v,i,j}						&\leq 		1							& \forall v \in V, \forall j \in J 						\\
+\sum_{i \in I} a_{v,i,j}						&\leq 		\sum_{i \in I} a_{v,i,(j-1)}				& \forall v \in V, \forall j \in J - \{ 0 \}					\\
+\rho_{y,i}								&\leq	 	\sum_{v \in V_y} \sum_{j \in J} a_{v,i,j} 	& \forall y \in Y, \forall i \in I						\\	
+\begin{aligned} M \cdot (a_{v,i,j} + a_{v,i',(j-1)}) + \\ 
+d_{y,i'} \cdot a_{v,i',(j-1)} - 2M \end{aligned}			&\leq	 	s_i + s_{y,i} - s_{i'} - s_{i',y}			& \begin{aligned} \forall y \in Y, \forall v \in V_y, 			\\
+																		\forall i, i' \in I, \forall j \in J - \{ 0 \}	\end{aligned}		\\
+s_i + \max_{y \in Y} (s_{y,i}+ d_{y,i})				&\leq		T 							&\forall i \in I 								\\
+\sum_{j \in J} a_{v,i,j}						&=		a^{Inst}_{v,i}					& \forall v \in V, \forall I \in I^{Inst}  					\\
+s_i									&=		s^{Inst}_i 						& \forall I \in I^{Inst}  					
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Months model Explanation}
+\expl Objective is to minimise costs of tasks being uncompleted (the +max bit is optional as it's about constants) \\ 
+\expl Ensures every vessel only does one task at a time \\ 
+\expl Ensures that if a vessel has an $x$th task it also has an $x-1$th task \\ 
+\expl Ensures every task has enough resourses assigned to it \\
+\expl Ensures the starting times of consecutive tasks are separated by at least the duration of the first task (the $M$ factors ensure that if the tasks are not consecutive the starting times don't matter) \\
+\expl Ensures all tasks are finished on time \\
+\expl Forces every installation task to be assigned as in the installation schedule \\
+\expl Forces every installation task to be started as in the installation schedule
+\end{frame}
+
+\begin{frame}{Months model notation overview}
+\footnotesize
+\begin{columns}
+\begin{column}{.48\textwidth}
+Sets:
+\begin{itemize}
+\item $Y$: Vessel types
+\item $V$: Individual vessels
+\item $V_y \subseteq V$: Vessels of type $y \in Y$ 
+\item $I$:  Tasks to be completed in this month
+\item $I^{Inst} \subset I$:  Installation tasks completed this month by vessels that are also available for maintenance tasks
+\item $J$: Maximum amount of tasks assigned to a single vessel
+\end{itemize}
+
+Decision variables:
+\begin{itemize}
+\item $s_i$: Start time of task $i$
+\item $a_{v,i,j}$: Binary variable which is 1 if vessel $v$ performs task $i$ as its $j$th task
+\end{itemize}
+\end{column}
+
+\hfill
+
+\begin{column}{.48\textwidth}
+Parameters:
+\begin{itemize}
+\item $c_i$: The cost per hour of a task not being completed
+\item $s_{y,i}$: The start time offset between task $i$ starting and vessel type $y$ being used for it
+\item $d_{y,i}$: The duration of task $i$ for vessel type $y$
+\item $\rho_{y,i}$: The amount of vessels of type $y$ required for task $i$
+\item $M$: A large number
+\item $T$: The end time of the month
+\item $s^{Inst}_i$: Start time of task $i \in I^{Inst}$, as in the installation schedule
+\item $a^{Inst}_{v,i}$: Binary assignment variable of task $i \in I^{Inst}$, as in the installation schedule
 \end{itemize}
 \end{column}
 \end{columns}
