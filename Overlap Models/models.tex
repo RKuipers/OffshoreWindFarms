@@ -25,7 +25,7 @@
 	\begin{aligned}
 	\frac{1}{|S|} \cdot \sum_{\sigma \in S} ( \sum_{m \in M} [\sum_{y \in Y} 
 	(N_{y,m,\sigma} \cdot c_{y,m}) +  
-	\sum_{i \in I^P} (P_{m,i} \cdot d_P \cdot e^H_m) + \\
+	\sum_{i \in I^P} (P_{m,i} \cdot d^P \cdot e^H_m) + \\
 	\sum_{i \in I^R}[\sum_{m' = 0}^{m} (f_{m',i,\sigma} - R_{m',i,\sigma})] \cdot e^H_m \cdot H_m ])
 	\end{aligned}	
 \end{equation}
@@ -77,7 +77,7 @@ Decision variables:
 Parameters:
 \begin{itemize}
 \item $c_{y,m}$: The cost of chartering a vessel of type $y$ in month $m$
-\item $d_P$: The duration of a preventive task
+\item $d^P$: The duration of a preventive task
 \item $e^H_m$: The energy produced by a single turbine per hour in month $m$
 \item $f_{m,i,\sigma}$: The amount of failures of type $i$ in month $m$ in scenario $\sigma$
 \item $H_m$: The number of hours in month $m$

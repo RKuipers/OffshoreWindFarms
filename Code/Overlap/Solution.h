@@ -14,7 +14,7 @@ public:
 };
 
 class YearSolution
-	: Solution
+	: public Solution
 {
 protected:
 	vector<vector<vector<int>>> vessels;
@@ -26,7 +26,7 @@ public:
 };
 
 class MonthSolution
-	: Solution
+	: public Solution
 {
 protected:
 	vector<int> starts;
