@@ -74,3 +74,10 @@ Code/Optimiser/Output files/stoYearLR2Modes.csv
 MovieSoundtrackQuiz.txt
 Code/.vs/OWF/v16/Solution.VC.db-shm
 Code/.vs/OWF/v16/Solution.VC.db-wal
+Code/x64/Debug/Overlap.pdb
+Code/x64/Debug/Overlap.ilk
+Code/x64/Debug/Overlap.exe
+*.obj
+*.tlog
+Code/Overlap/x64/Debug/vc142.idb
+Code/Overlap/x64/Debug/vc142.pdb
