@@ -1,10 +1,9 @@
 #include "Model.h"
 
-
-Solution Model::solve()
+Solution* Model::solve()
 {
 	// TODO: Add your implementation code here.
-	return Solution();
+	return nullptr;
 }
 
 void Model::genProblem()

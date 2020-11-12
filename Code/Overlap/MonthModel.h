@@ -5,6 +5,8 @@ class MonthModel :
 	public Model
 {
 protected:
+	Solution* genSolution(XPRBprob* p) override;
+
 	void genProblem() override;
 	void genDecVars() override;
 	void genObj() override;

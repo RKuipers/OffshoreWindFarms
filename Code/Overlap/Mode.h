@@ -1,16 +1,9 @@
 #pragma once
 
-class Mode
-{
-private:
-	vector<ModeDim> dims;
+#include <vector>
+#include <string>
 
-public:
-	int getCurrent(string name);
-	string getCurrentName();
-	int getCurrentId();
-	int next();
-};
+using namespace std;
 
 class ModeDim
 {
@@ -27,5 +20,17 @@ class ModeDimComb
 {
 public:
 	int next() override;
+};
+
+class Mode
+{
+private:
+	vector<ModeDim> dims;
+
+public:
+	int getCurrent(string name);
+	string getCurrentName();
+	int getCurrentId();
+	int next();
 };
 

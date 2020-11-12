@@ -15,9 +15,11 @@ protected:
 	InputData* data;
 	Weather weather;
 	Mode* mode;
+
+	virtual Solution* genSolution(XPRBprob* p) =0;
 	
 public:
-	Solution solve();
+	Solution* solve();
 	virtual void genProblem();
 	virtual void genDecVars();
 	virtual void genObj();
