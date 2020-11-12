@@ -1,9 +1,12 @@
 #include "Model.h"
 
+Model::Model(InputData* data) : data(data) { }
+
 Solution* Model::solve()
 {
-	// TODO: Add your implementation code here.
-	return nullptr;
+	p.mipOptimise();
+
+	return genSolution(&p);
 }
 
 void Model::genProblem()

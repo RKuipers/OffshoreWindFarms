@@ -4,8 +4,15 @@
 
 using namespace std;
 
+class InputData;
+class YearData;
+class MonthData;
+
 class InputData
 {
+public:
+	virtual YearData* getYear();
+	virtual MonthData* getMonth();
 };
 
 class YearData
@@ -27,6 +34,8 @@ public:
 	int Gmin, Gmax;
 	vector<vector<int>> A;			// y m
 	vector<vector<int>> NInst;		// y m
+
+	YearData* getYear() override;
 };
 
 class MonthData
@@ -45,5 +54,7 @@ public:
 	double T;
 	vector<double> sInst;			// i
 	vector<vector<int>> aInst;		// v i
+
+	MonthData* getMonth() override;
 };
 

@@ -2,37 +2,13 @@
 #include "DataGen.h"
 #include "Weather.h"
 #include "Model.h"
+#include "YearModel.h"
+#include "MonthModel.h"
 #include "Mode.h"
 
 #include "Solution.h"
 
 using namespace std;
-
-void TestMonthSolution()
-{
-   MonthSolution s("test", 42);
-    s.setDur(0.5);
-
-    vector<double> starts = {0, 1, 0.5, 7.5};
-
-    s.setStarts(starts);
-
-    vector<int> v0i0 = { 1, 0, 0 };
-    vector<int> v0i1 = { 0, 0, 0 };
-    vector<int> v0i2 = { 0, 1, 0 };
-    vector<int> v0i3 = { 0, 0, 1 };
-    vector<int> v1i0 = { 0, 0, 0 };
-    vector<int> v1i1 = { 0, 1, 0 };
-    vector<int> v1i2 = { 1, 0, 0 };
-    vector<int> v1i3 = { 0, 0, 0 };
-
-    vector<vector<int>> v0 = { v0i0 , v0i1 , v0i2 , v0i3 };
-    vector<vector<int>> v1 = { v1i0 , v1i1 , v1i2 , v1i3 };
-
-    s.setOrders({ v0, v1 });
-
-    s.print();
-}
 
 void TestYearSolution()
 {
@@ -75,8 +51,47 @@ void TestYearSolution()
     s.print();
 }
 
+void TestMonthSolution()
+{
+   MonthSolution s("test", 42);
+    s.setDur(0.5);
+
+    vector<double> starts = {0, 1, 0.5, 7.5};
+
+    s.setStarts(starts);
+
+    vector<int> v0i0 = { 1, 0, 0 };
+    vector<int> v0i1 = { 0, 0, 0 };
+    vector<int> v0i2 = { 0, 1, 0 };
+    vector<int> v0i3 = { 0, 0, 1 };
+    vector<int> v1i0 = { 0, 0, 0 };
+    vector<int> v1i1 = { 0, 1, 0 };
+    vector<int> v1i2 = { 1, 0, 0 };
+    vector<int> v1i3 = { 0, 0, 0 };
+
+    vector<vector<int>> v0 = { v0i0 , v0i1 , v0i2 , v0i3 };
+    vector<vector<int>> v1 = { v1i0 , v1i1 , v1i2 , v1i3 };
+
+    s.setOrders({ v0, v1 });
+
+    s.print();
+}
+
+void TestGenMonthSol()
+{ 
+    MonthData data;
+    data.V = 1;
+    data.I = 1;
+    data.J = 1;
+
+    MonthModel m(&data);
+    Solution* sol = m.solve();
+    sol->print(); // TODO: Fix error here
+}
+
 int main()
 {
     //TestYearSolution();
-    TestMonthSolution();
+    //TestMonthSolution();
+    TestGenMonthSol();
 }

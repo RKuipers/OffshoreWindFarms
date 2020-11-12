@@ -4,7 +4,10 @@
 class YearModel :
 	public Model
 {
-protected:
+private:
+	YearData* getData();
+
+public: // TODO: protected
 	Solution* genSolution(XPRBprob* p) override;
 
 	void genProblem() override;

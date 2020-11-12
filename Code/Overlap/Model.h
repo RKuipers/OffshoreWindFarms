@@ -1,4 +1,7 @@
 #pragma once
+
+#include <vector>
+
 #include "Mode.h"
 #include "InputData.h"
 #include "Solution.h"
@@ -10,7 +13,7 @@ using namespace ::dashoptimization;
 
 class Model
 {
-protected:
+public: // TODO: protected
 	XPRBprob p;
 	InputData* data;
 	Weather weather;
@@ -18,7 +21,9 @@ protected:
 
 	virtual Solution* genSolution(XPRBprob* p) =0;
 	
-public:
+// public: TODO
+	Model(InputData* data);
+
 	Solution* solve();
 	virtual void genProblem();
 	virtual void genDecVars();

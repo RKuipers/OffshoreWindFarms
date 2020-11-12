@@ -1,10 +1,17 @@
 #pragma once
+
 #include "Model.h"
 
 class MonthModel :
 	public Model
 {
-protected:
+private:
+	MonthData* getData();
+
+public: // TODO: protected
+	vector<XPRBvar> s;					// i
+	vector<vector<vector<XPRBvar>>> a;	// v i j
+
 	Solution* genSolution(XPRBprob* p) override;
 
 	void genProblem() override;
@@ -17,5 +24,8 @@ protected:
 	void genFinishCon();
 	void genFixedACon();
 	void genFixedSCon();
+
+//public: TODO
+	MonthModel(MonthData* data);
 };
 
