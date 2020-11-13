@@ -7,9 +7,15 @@ Solution::Solution(string name, int id) : modeName(name), modeId(id)
 	duration = -1;
 }
 
-void Solution::setDur(double duration)
+void Solution::setResult(double value, double duration)
 {
+	this->value = value;
 	this->duration = duration;
+}
+
+void Solution::printObj()
+{
+	cout << "Objective value: " << value << endl;
 }
 
 //-----------------------------------------------YEAR----------------------------------------------
@@ -38,8 +44,8 @@ void YearSolution::setPlanned(vector<vector<int>> P)
 void YearSolution::setReactive(vector<vector<vector<int>>> R)
 {
 	int Sig = R[0][0].size();
-	int I = R.size();
-	int M = R[0].size();
+	int I = R[0].size();
+	int M = R.size();
 
 	reactive = vector<vector<vector<int>>>(Sig, vector<vector<int>>(M, vector<int>(I, -1)));
 
@@ -102,6 +108,7 @@ void YearSolution::printReactive()
 
 void YearSolution::print()
 {
+	printObj();
 	printVessels();
 	printPlanned();
 	printReactive();
@@ -167,6 +174,7 @@ void MonthSolution::printOrders()
 
 void MonthSolution::print()
 {
+	printObj();
 	printStarts();
 	printOrders();
 }

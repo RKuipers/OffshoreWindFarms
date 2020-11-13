@@ -6,13 +6,15 @@ class MonthModel :
 	public Model
 {
 private:
+	MonthSolution* solution;
+
 	MonthData* getData();
 
 public: // TODO: protected
 	vector<XPRBvar> s;					// i
 	vector<vector<vector<XPRBvar>>> a;	// v i j
 
-	Solution* genSolution(XPRBprob* p) override;
+	MonthSolution* genSolution(XPRBprob* p, double duration) override;
 
 	void genProblem() override;
 	void genDecVars() override;

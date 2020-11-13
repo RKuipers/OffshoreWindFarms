@@ -5,10 +5,16 @@ class YearModel :
 	public Model
 {
 private:
+	YearSolution* solution;
+
 	YearData* getData();
 
 public: // TODO: protected
-	Solution* genSolution(XPRBprob* p) override;
+	vector<vector<vector<XPRBvar>>> N;	// y m sig
+	vector <vector<XPRBvar>> P;			// m i
+	vector<vector<vector<XPRBvar>>> R;	// m i sig
+
+	YearSolution* genSolution(XPRBprob* p, double duration) override;
 
 	void genProblem() override;
 	void genDecVars() override;
@@ -18,5 +24,8 @@ public: // TODO: protected
 	void genMaxMaintCon();
 	void genMinMaintCon();
 	void genAvailableCon();
+
+//public: TODO
+	YearModel(YearData* data);
 };
 

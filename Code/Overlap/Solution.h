@@ -11,12 +11,14 @@ class Solution
 protected:
 	string modeName;
 	int modeId;
-	double duration;
+	double value, duration; 
+	// TODO Maybe: Set option somewhere to print duration, modeinfo
 
 public:
 	Solution(string name, int id);
 
-	void setDur(double duration);
+	void setResult(double value, double duration);
+	void printObj();
 	virtual void print() =0;
 };
 

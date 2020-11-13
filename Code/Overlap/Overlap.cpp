@@ -12,8 +12,10 @@ using namespace std;
 
 void TestYearSolution()
 {
+    cout << "--------------------------STARTING TestYearSolution--------------------------------" << endl;
+
     YearSolution s("test", 42);
-    s.setDur(0.5);
+    s.setResult(101, 0.5);
 
     vector<int> y0m0 = { 0, 1, 2 };
     vector<int> y0m1 = { 3, 4, 5 };
@@ -33,18 +35,12 @@ void TestYearSolution()
     s.setPlanned({ m0, m1 });
 
     vector<int> m0i0 = { 24, 25, 26 };
-    vector<int> m0i1 = { 27, 28, 29 };
-    vector<int> m0i2 = { 30, 31, 32 };
-    vector<int> m1i0 = { 33, 34, 35 };
-    vector<int> m1i1 = { 36, 37, 38 };
-    vector<int> m1i2 = { 39, 40, 41 };
-    vector<int> m2i0 = { 42, 43, 44 };
-    vector<int> m2i1 = { 45, 46, 47 };
-    vector<int> m2i2 = { 48, 49, 50 };
+    vector<int> m1i0 = { 27, 28, 29 };
+    vector<int> m2i0 = { 30, 31, 32 };
 
-    vector<vector<int>> m0a = { m0i0, m0i1, m0i2 };
-    vector<vector<int>> m1a = { m1i0, m1i1, m1i2 };
-    vector<vector<int>> m2a = { m2i0, m2i1, m2i2 };
+    vector<vector<int>> m0a = { m0i0 };
+    vector<vector<int>> m1a = { m1i0 };
+    vector<vector<int>> m2a = { m2i0 };
 
     s.setReactive({ m0a, m1a, m2a });
 
@@ -53,8 +49,10 @@ void TestYearSolution()
 
 void TestMonthSolution()
 {
-   MonthSolution s("test", 42);
-    s.setDur(0.5);
+    cout << "--------------------------STARTING TestMonthSolution--------------------------------" << endl;
+
+    MonthSolution s("test", 42);
+    s.setResult(102, 0.5);
 
     vector<double> starts = {0, 1, 0.5, 7.5};
 
@@ -77,21 +75,40 @@ void TestMonthSolution()
     s.print();
 }
 
+void TestGenYearSol()
+{
+    cout << "--------------------------STARTING TestGenYearSol--------------------------------" << endl;
+
+    YearData data;
+    data.Y = 1;
+    data.M = 2;
+    data.Ip = 2;
+    data.Ir = 1;
+    data.S = 2;
+
+    YearModel m(&data);
+    Solution* sol = m.solve();
+    sol->print();
+}
+
 void TestGenMonthSol()
-{ 
+{
+    cout << "--------------------------STARTING TestGenMonthSol--------------------------------" << endl;
+
     MonthData data;
     data.V = 1;
-    data.I = 1;
-    data.J = 1;
+    data.I = 2;
+    data.J = 2;
 
     MonthModel m(&data);
     Solution* sol = m.solve();
-    sol->print(); // TODO: Fix error here
+    sol->print();
 }
 
 int main()
 {
-    //TestYearSolution();
-    //TestMonthSolution();
+    TestYearSolution();
+    TestMonthSolution();
+    TestGenYearSol();
     TestGenMonthSol();
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <ctime>
 
 #include "Mode.h"
 #include "InputData.h"
@@ -18,8 +19,9 @@ public: // TODO: protected
 	InputData* data;
 	Weather weather;
 	Mode* mode;
+	Solution* solution;
 
-	virtual Solution* genSolution(XPRBprob* p) =0;
+	virtual Solution* genSolution(XPRBprob* p, double duration) =0;
 	
 // public: TODO
 	Model(InputData* data);
