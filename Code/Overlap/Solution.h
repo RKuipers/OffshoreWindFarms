@@ -41,6 +41,10 @@ public:
 	void setPlanned(vector<vector<int>> P);
 	void setReactive(vector<vector<vector<int>>> R);
 
+	vector<vector<vector<int>>> getVessels();
+	vector<vector<int>> getPlanned();
+	vector<vector<vector<int>>> getReactive();
+
 	void print() override;
 };
 

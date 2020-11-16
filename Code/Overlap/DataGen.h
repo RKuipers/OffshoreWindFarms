@@ -8,9 +8,12 @@
 
 class DataGen
 {
+private:
+	vector<string> readLine(ifstream* datafile, char sep = '\t');
+
 public:
-	MonthData readMonth(ifstream* file);
 	YearData readYear(ifstream* file);
-	vector<YearData> genMonths(YearSolution sol);
+	MonthData readMonth(ifstream* file);
+	vector<MonthData> genMonths(YearSolution sol);
 };
 

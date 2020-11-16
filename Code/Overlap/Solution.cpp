@@ -55,6 +55,21 @@ void YearSolution::setReactive(vector<vector<vector<int>>> R)
 				reactive[sig][m][i] = R[m][i][sig];
 }
 
+vector<vector<vector<int>>> YearSolution::getVessels()
+{
+	return vessels;
+}
+
+vector<vector<int>> YearSolution::getPlanned()
+{
+	return planned;
+}
+
+vector<vector<vector<int>>> YearSolution::getReactive()
+{
+	return reactive;
+}
+
 void YearSolution::printVessels()
 {
 	for (int sig = 0; sig < vessels.size(); ++sig)
