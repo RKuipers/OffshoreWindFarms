@@ -35,6 +35,8 @@ public:
 	vector<vector<int>> A;			// y m
 	vector<vector<int>> NInst;		// y m
 
+	YearData(int s, int m, int y, int ip, int ir);
+
 	YearData* getYear() override;
 };
 
@@ -54,6 +56,8 @@ public:
 	double T;
 	vector<double> sInst;			// i
 	vector<vector<int>> aInst;		// v i
+
+	MonthData(int y, int v, int i, int ii, int j);
 
 	MonthData* getMonth() override;
 };
