@@ -3,36 +3,24 @@
 3 24 2 3 3
 
 #Vessels
-#ID, hours per month, costs (per month), amount avaialable (per month)
-0	240	U	2000	U	2
-1	180	U	1800	U	1
+#ID, hours per month, costs (per month), amount avaialable (per month), duration of planned, duration of reactive (per type), time used by installation (per month), amount used by installation (per month)
+0	240	U	2000	U	2	6	S	4	8	24	S	20	30	20	40	0	0	0	200	180	0	40	20	S	1	1	1	1	0	0	0	1	1	0	1	1
+1	180	U	1800	U	1	4	S	6	6	0	U	0	U	0
 
-#TODO
+#Offline duration for planned task
+6
 
-ITASKS 3
-0	17	150	1	1	0
-1	54	150	1	1	1
-2	5	150	1	0	0
+#Hours in given month
+U	720
 
-MMTASKS 1
-3	22	150	1	1	0
+#Energy$ per hour in given month
+U	70
 
-MOTASKS 4
-4 8	7	150	1	0	0
+#Min/Max months between maint
+6	18
 
-RESOURCES 3
-0	U	1750	U	3
-1	U	9500	U	2
-2	U	150000	U	1
-
-VALUES
-U
-540
-
-LAMBDAS
-U
-168
-
-PREREQUISITES 2
-0	1
-1	2
+#Failures
+#Scenario ID, Amount (per month) repeated (per type)
+0	S	2	1	3	4	5	1	2	6	0	1	2	0	U	0	U	0	
+1	U	0	S	2	1	3	4	5	1	2	6	0	1	2	0	U	0
+2	U	0	U	0	S	2	1	3	4	5	1	2	6	0	1	2	0
