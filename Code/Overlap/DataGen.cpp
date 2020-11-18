@@ -21,6 +21,8 @@ vector<string> DataGen::readLine(ifstream* datafile, char sep)
 	}
 
 	res.push_back(line.substr(pos));
+
+	return res;
 }
 
 bool DataGen::readEmpty(ifstream* datafile, char sep)
@@ -208,6 +210,8 @@ YearData DataGen::readYear(ifstream* file)
 				year.f[m][i][s] = arr[m];
 		}
 	}
+
+	return year;
 }
 
 MonthData DataGen::readMonth(ifstream* file)

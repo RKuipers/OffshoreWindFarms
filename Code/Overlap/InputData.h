@@ -46,7 +46,7 @@ class MonthData
 public:
 	// Sets:
 	int Y, V, I, IInst, J;
-	vector<int> Vy;					// m
+	vector<int> Vy;					// y
 	// Parameters:
 	vector<double> c;				// i
 	vector<vector<double>> s;		// y i

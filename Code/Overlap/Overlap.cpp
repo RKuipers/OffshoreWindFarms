@@ -79,12 +79,7 @@ void TestGenYearSol()
 {
     cout << "--------------------------STARTING TestGenYearSol--------------------------------" << endl;
 
-    YearData data;
-    data.Y = 1;
-    data.M = 2;
-    data.Ip = 2;
-    data.Ir = 1;
-    data.S = 2;
+    YearData data = YearData(2, 2, 1, 2, 1);
 
     YearModel m(&data);
     Solution* sol = m.solve();
@@ -95,7 +90,7 @@ void TestGenMonthSol()
 {
     cout << "--------------------------STARTING TestGenMonthSol--------------------------------" << endl;
 
-    MonthData data;
+    MonthData data = MonthData(1, 1, 2, 0, 2);
     data.V = 1;
     data.I = 2;
     data.J = 2;
@@ -105,10 +100,18 @@ void TestGenMonthSol()
     sol->print();
 }
 
+void TestReadYear()
+{
+    DataGen dg = DataGen();
+    ifstream datafile("Input Files/yearformat.dat");
+    YearData data = dg.readYear(&datafile);
+}
+
 int main()
 {
-    TestYearSolution();
-    TestMonthSolution();
-    TestGenYearSol();
-    TestGenMonthSol();
+    //TestYearSolution();
+    //TestMonthSolution();
+    //TestGenYearSol();
+    //TestGenMonthSol();
+    TestReadYear();
 }
