@@ -19,15 +19,15 @@ YearData* YearData::getYear()
 	return this;
 }
 
-MonthData::MonthData(int y, int v, int i, int ii, int j) : Y(y), V(v), I(i), IInst(ii), J(j)
+MonthData::MonthData(int y, int v, int im, int ii, int j) : Y(y), V(v), IMaint(im), IInst(ii), I(im + ii), J(j)
 {
-	Vy = vector<int>(M, 0);
-	c = vector<double>(I, 0.0);
+	Vy = vector<int>(Y, 0);
+	c = vector<double>(IMaint, 0.0);
 	s = vector<vector<double>>(Y, vector<double>(I, 0.0));
 	d = vector<vector<double>>(Y, vector<double>(I, 0.0));
-	rho = vector<vector<int>>(Y, vector<int>(I, 0));
-	sInst = vector<double>(I, 0.0);
-	aInst = vector<vector<int>>(V, vector<int>(I, 0));
+	rho = vector<vector<int>>(Y, vector<int>(IMaint, 0));
+	sInst = vector<double>(IInst, 0.0);
+	aInst = vector<vector<int>>(V, vector<int>(IInst, 0));
 }
 
 MonthData* MonthData::getMonth()

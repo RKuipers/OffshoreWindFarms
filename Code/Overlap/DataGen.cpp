@@ -50,6 +50,7 @@ int DataGen::parseArray(vector<string> line, int start, vector<int>* res, int am
 		fill(res->begin(), res->begin() + amount, val);
 		return start + 2;
 	}
+	// TODO: Update I with an easier format (I a1 v1 a2 v2 where a is amount) (do for parseArrayDouble too)
 	case 'I': // I s1 e1 v1 s2 e2 v2 ... sn en vn -> Periods sx (inclusive) through ex (exclusive) use vx, s1 through en should cover all periods
 	{
 		int filled = 0;
@@ -129,8 +130,8 @@ int DataGen::parseArrayDouble(vector<string> line, int start, vector<double>* re
 
 YearData DataGen::readYear(ifstream* file)
 {
-	vector<int> arr;
-	vector<double> arrD;
+	vector<int> arr = vector<int>();
+	vector<double> arrD = vector<double>();
 
 	// Set sizes
 	vector<string> split = readLine(file);
@@ -149,12 +150,10 @@ YearData DataGen::readYear(ifstream* file)
 		int ind = 2;
 		year.L[y] = stoi(split[1]);
 
-		arrD = vector<double>();
 		ind = parseArrayDouble(split, ind, &arrD, M);
 		for (int m = 0; m < M; ++m)
 			year.c[y][m] = arrD[m];
 
-		arr = vector<int>();
 		ind = parseArray(split, ind, &arr, M);
 		for (int m = 0; m < M; ++m)
 			year.A[y][m] = arr[m];
@@ -216,7 +215,66 @@ YearData DataGen::readYear(ifstream* file)
 
 MonthData DataGen::readMonth(ifstream* file)
 {
-	return MonthData(0, 0, 0, 0, 0);
+	vector<int> arr = vector<int>();
+	vector<double> arrD = vector<double>();
+
+	// Set sizes
+	vector<string> split = readLine(file);
+	int Y = stoi(split[0]);
+	int V = stoi(split[1]);
+	int IMaint = stoi(split[2]);
+	int IInst = stoi(split[3]);
+	int J = stoi(split[4]);
+	MonthData month = MonthData(Y, V, IMaint, IInst, J);
+	readEmpty(file);
+
+	int I = IMaint + IInst;
+	int VyTotal = 0;
+	// Vessels
+	for (int y = 0; y < Y; ++y)
+	{
+		split = readLine(file);
+		int ind = 2;
+		month.Vy[y] = stoi(split[1]) + VyTotal;
+		VyTotal += month.Vy[y];
+
+		ind = parseArrayDouble(split, ind, &arrD, I);
+		for (int i = 0; i < I; ++i)
+			month.s[y][i] = arrD[i];
+
+		ind = parseArrayDouble(split, ind, &arrD, I);
+		for (int i = 0; i < I; ++i)
+			month.d[y][i] = arrD[i];
+
+		ind = parseArray(split, ind, &arr, IMaint);
+		for (int i = 0; i < IMaint; ++i)
+			month.rho[y][i] = arr[i];
+	}
+	readEmpty(file);
+
+	// Costs per task
+	parseArrayDouble(readLine(file), 0, &arrD, IMaint);
+	for (int i = 0; i < IMaint; ++i)
+		month.c[i] = arrD[i];
+	readEmpty(file);
+
+	// Installation tasks
+	for (int i = 0; i < IInst; ++i)
+	{
+		split = readLine(file);
+		month.sInst[i] = stod(split[1]);
+		int vessel = stoi(split[2]);
+		for (int v = 0; v < V; ++v)
+			month.aInst[v][i] = 0;
+		month.aInst[vessel][i] = 1;
+	}
+	readEmpty(file);
+
+	// End Time
+	month.T = stod(readLine(file)[0]);
+	month.M = 3 * month.T;
+
+	return month;
 }
 
 vector<MonthData> DataGen::genMonths(YearSolution sol)

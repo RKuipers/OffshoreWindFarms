@@ -1,19 +1,19 @@
 #Vessel Types, Vessels, Maint Tasks, Installation Tasks, Max Orders
-#Y V I IInst J
+#Y V IMaint IInst J
 2	3	4	2	3
 
 #Vessels
-#ID, Available, Start delay (per task), Duration (per task), Amount required (per task)
-id	Vy	s	d	rho
+#ID, Available, Start delay (per task), Duration (per task), Amount required (per Mtask)
+0	2	S	0	0	12.5	20	0	20	S	30	10	10	10	0	50	S	2	1	2	1	0	1
+1	1	S	0	10	0	0	0	0	S	0	20	15	30	60	0	S	0	1	1	1	1	0
 
-#Costs per task
-c
+#Costs per Mtask
+U	10
 
 #Installation tasks
 #ID, Start time, Assigned (vessel ID)
-id	sInst	aInst(as int)
+0	40	0
+1	20	2
 
 #End Time
-T
-
-#TODO: M through code
+200

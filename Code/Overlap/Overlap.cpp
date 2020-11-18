@@ -107,6 +107,13 @@ void TestReadYear()
     YearData data = dg.readYear(&datafile);
 }
 
+void TestReadMonth()
+{
+    DataGen dg = DataGen();
+    ifstream datafile("Input Files/monthformat.dat");
+    MonthData data = dg.readMonth(&datafile);
+}
+
 int main()
 {
     //TestYearSolution();
@@ -114,4 +121,5 @@ int main()
     //TestGenYearSol();
     //TestGenMonthSol();
     TestReadYear();
+    TestReadMonth();
 }
