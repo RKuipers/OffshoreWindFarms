@@ -18,6 +18,6 @@ private:
 public:
 	YearData readYear(ifstream* file);
 	MonthData readMonth(ifstream* file);
-	vector<MonthData> genMonths(YearSolution sol);
+	vector<MonthData> genMonths(MixedData* data, YearSolution sol*);
 };
 

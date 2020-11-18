@@ -277,7 +277,33 @@ MonthData DataGen::readMonth(ifstream* file)
 	return month;
 }
 
-vector<MonthData> DataGen::genMonths(YearSolution sol)
+vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 {
-	return vector<MonthData>();
+	int sig = 0; // TODO: FIND SOLUTION FOR SCENARIOS
+
+	vector<MonthData> res = vector<MonthData>();
+
+	for (int m = 0; m < data->M; ++m)
+	{
+		vector<int> Vy = vector<int>();
+		int VyTotal = 0;
+
+		for (int y = 0; y < data->Y; ++y)
+		{
+			Vy[y] = VyTotal + sol->getVessels()[sig][m][y];
+			VyTotal += Vy[y];
+		}
+
+		int totalTasks = 0;
+		for (int i = 0; i < data->Ip; ++i)
+			totalTasks += sol->getPlanned()[m][i];
+		for (int i = 0; i < data->Ir; ++i)
+			totalTasks += sol->getReactive()[sig][m][i];
+
+		MonthData month = MonthData(data->Y, sol->getVessels()[sig][m][VyTotal], totalTasks, data->IInst, totalTasks + data->IInst);
+
+		// TODO: Fill in month data
+	}
+
+	return res;
 }

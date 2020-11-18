@@ -35,12 +35,27 @@ MonthData* MonthData::getMonth()
 	return this;
 }
 
+MixedData::MixedData(int s, int m, int y, int ip, int ir) : YearData(s, m, y, ip, ir)
+{
+
+}
+
+MixedData* MixedData::getMixed()
+{
+	return nullptr;
+}
+
 YearData* InputData::getYear()
 {
 	return nullptr;
 }
 
 MonthData* InputData::getMonth()
+{
+	return nullptr;
+}
+
+MixedData* InputData::getMixed()
 {
 	return nullptr;
 }

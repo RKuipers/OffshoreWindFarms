@@ -7,12 +7,14 @@ using namespace std;
 class InputData;
 class YearData;
 class MonthData;
+class MixedData;
 
 class InputData
 {
 public:
 	virtual YearData* getYear();
 	virtual MonthData* getMonth();
+	virtual MixedData* getMixed();
 };
 
 class YearData
@@ -60,5 +62,13 @@ public:
 	MonthData(int y, int v, int im, int ii, int j);
 
 	MonthData* getMonth() override;
+};
+
+class MixedData
+	: public YearData
+{
+	MixedData(int s, int m, int y, int ip, int ir);
+
+	MixedData* getMixed() override;
 };
 
