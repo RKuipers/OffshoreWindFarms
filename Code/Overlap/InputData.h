@@ -67,6 +67,20 @@ public:
 class MixedData
 	: public YearData
 {
+public:
+	// Sets:
+	vector<int> IInst;					// m
+	// Parameters:
+	vector<double> sP;					// y
+	vector<vector<double>> sR;			// y ir
+	vector<vector<double>> sI;			// y ii
+	vector<vector<double>> dI;			// y ii
+	vector<int> rhoP;					// y
+	vector<vector<int>> rhoR;			// y ir
+	double T;
+	vector<vector<double>> sInst;		// m ii
+	vector<vector<vector<int>>> aInst;	// m v ii
+
 	MixedData(int s, int m, int y, int ip, int ir);
 
 	MixedData* getMixed() override;

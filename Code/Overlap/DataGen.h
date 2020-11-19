@@ -16,8 +16,9 @@ private:
 	int parseArrayDouble(vector<string> line, int start, vector<double>* res, int amount);
 
 public:
-	YearData readYear(ifstream* file);
-	MonthData readMonth(ifstream* file);
+	YearData* readYear(ifstream* file, MixedData* copyPtr = nullptr);
+	MonthData* readMonth(ifstream* file);
+	MixedData* readMixed(ifstream* file);
 	vector<MonthData> genMonths(MixedData* data, YearSolution* sol);
 };
 

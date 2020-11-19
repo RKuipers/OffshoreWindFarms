@@ -1,3 +1,4 @@
+#YEAR
 #Scenarios, Months, Vessel Types, Planned Task Amount, Reactive Task Types
 #S M Y Ip Ir
 3	24	2	3	3
@@ -24,3 +25,17 @@ U	70
 0	S	2	1	3	4	5	1	2	6	0	1	2	0	2	1	3	4	5	1	2	6	0	1	2	0	U	0	U	0	
 1	U	0	S	2	1	3	4	5	1	2	6	0	1	2	0	2	1	3	4	5	1	2	6	0	1	2	0	U	0
 2	U	0	U	0	S	2	1	3	4	5	1	2	6	0	1	2	0	2	1	3	4	5	1	2	6	0	1	2	0
+
+#MIXED
+#Vessels
+#ID, Start delay for planned tasks, Start delay (per reactive task), Start delay (per installation task), Duration (per installation task), Amount needed for planned tasks, Amount needed (per reactive task)
+0	0	S	0	10	12.5	U	0	S	30	10	1	U	1
+1	10	U	0	S	0	20	S	0	20	1	U	2
+
+#Installation tasks
+#ID, Month, Start time, Assigned (per vessel type), Assigned (vessel ID)
+0	0	40	0
+1	2	20	2
+
+#End Time
+200

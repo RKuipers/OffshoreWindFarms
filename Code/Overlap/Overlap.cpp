@@ -104,14 +104,21 @@ void TestReadYear()
 {
     DataGen dg = DataGen();
     ifstream datafile("Input Files/yearformat.dat");
-    YearData data = dg.readYear(&datafile);
+    YearData* data = dg.readYear(&datafile);
 }
 
 void TestReadMonth()
 {
     DataGen dg = DataGen();
     ifstream datafile("Input Files/monthformat.dat");
-    MonthData data = dg.readMonth(&datafile);
+    MonthData* data = dg.readMonth(&datafile);
+}
+
+void TestReadMixed()
+{
+    DataGen dg = DataGen();
+    ifstream datafile("Input Files/mixedformat.dat");
+    MixedData* data = dg.readMixed(&datafile);
 }
 
 int main()
@@ -122,4 +129,5 @@ int main()
     //TestGenMonthSol();
     TestReadYear();
     TestReadMonth();
+    TestReadMixed();
 }

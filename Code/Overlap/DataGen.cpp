@@ -128,7 +128,7 @@ int DataGen::parseArrayDouble(vector<string> line, int start, vector<double>* re
 	}
 }
 
-YearData DataGen::readYear(ifstream* file)
+YearData* DataGen::readYear(ifstream* file, MixedData* copyPtr)
 {
 	vector<int> arr = vector<int>();
 	vector<double> arrD = vector<double>();
@@ -140,7 +140,7 @@ YearData DataGen::readYear(ifstream* file)
 	int Y = stoi(split[2]);
 	int Ip = stoi(split[3]);
 	int Ir = stoi(split[4]);
-	YearData year = YearData(S, M, Y, Ip, Ir);
+	YearData* year = new YearData(S, M, Y, Ip, Ir);
 	readEmpty(file);
 
 	// Vessels
@@ -148,53 +148,53 @@ YearData DataGen::readYear(ifstream* file)
 	{
 		split = readLine(file);
 		int ind = 2;
-		year.L[y] = stoi(split[1]);
+		year->L[y] = stoi(split[1]);
 
 		ind = parseArrayDouble(split, ind, &arrD, M);
 		for (int m = 0; m < M; ++m)
-			year.c[y][m] = arrD[m];
+			year->c[y][m] = arrD[m];
 
 		ind = parseArray(split, ind, &arr, M);
 		for (int m = 0; m < M; ++m)
-			year.A[y][m] = arr[m];
+			year->A[y][m] = arr[m];
 
-		year.dPy[y] = stod(split[ind]);
+		year->dPy[y] = stod(split[ind]);
 		ind++;
 
 		ind = parseArrayDouble(split, ind, &arrD, Ir);
 		for (int i = 0; i < Ir; ++i)
-			year.dR[y][i] = arrD[i];
+			year->dR[y][i] = arrD[i];
 
 		ind = parseArray(split, ind, &arr, M);
 		for (int m = 0; m < M; ++m)
-			year.LInst[y][m] = arr[m];
+			year->LInst[y][m] = arr[m];
 
 		ind = parseArray(split, ind, &arr, M);
 		for (int m = 0; m < M; ++m)
-			year.NInst[y][m] = arr[m];
+			year->NInst[y][m] = arr[m];
 	}
 	readEmpty(file);
 
 	// Offline duration for planned task
-	year.dP = stoi(readLine(file)[0]);
+	year->dP = stoi(readLine(file)[0]);
 	readEmpty(file);
 
 	// Hours in given month
 	parseArray(readLine(file), 0, &arr, M);
 	for (int m = 0; m < M; ++m)
-		year.H[m] = arr[m];
+		year->H[m] = arr[m];
 	readEmpty(file);
 
 	// Energy$ per hour in given month
 	parseArrayDouble(readLine(file), 0, &arrD, M);
 	for (int m = 0; m < M; ++m)
-		year.eH[m] = arrD[m];
+		year->eH[m] = arrD[m];
 	readEmpty(file);
 
 	// Min/Max months between maint
 	split = readLine(file);
-	year.Gmin = stoi(split[0]);
-	year.Gmax = stoi(split[1]);
+	year->Gmin = stoi(split[0]);
+	year->Gmax = stoi(split[1]);
 	readEmpty(file);
 
 	// Failures
@@ -206,14 +206,15 @@ YearData DataGen::readYear(ifstream* file)
 		{
 			ind = parseArray(split, ind, &arr, M);
 			for (int m = 0; m < M; ++m)
-				year.f[m][i][s] = arr[m];
+				year->f[m][i][s] = arr[m];
 		}
 	}
 
+	copyPtr = year;
 	return year;
 }
 
-MonthData DataGen::readMonth(ifstream* file)
+MonthData* DataGen::readMonth(ifstream* file)
 {
 	vector<int> arr = vector<int>();
 	vector<double> arrD = vector<double>();
@@ -225,7 +226,7 @@ MonthData DataGen::readMonth(ifstream* file)
 	int IMaint = stoi(split[2]);
 	int IInst = stoi(split[3]);
 	int J = stoi(split[4]);
-	MonthData month = MonthData(Y, V, IMaint, IInst, J);
+	MonthData* month = new MonthData(Y, V, IMaint, IInst, J);
 	readEmpty(file);
 
 	int I = IMaint + IInst;
@@ -235,50 +236,58 @@ MonthData DataGen::readMonth(ifstream* file)
 	{
 		split = readLine(file);
 		int ind = 2;
-		month.Vy[y] = stoi(split[1]) + VyTotal;
-		VyTotal += month.Vy[y];
+		month->Vy[y] = stoi(split[1]) + VyTotal;
+		VyTotal += month->Vy[y];
 
 		ind = parseArrayDouble(split, ind, &arrD, I);
 		for (int i = 0; i < I; ++i)
-			month.s[y][i] = arrD[i];
+			month->s[y][i] = arrD[i];
 
 		ind = parseArrayDouble(split, ind, &arrD, I);
 		for (int i = 0; i < I; ++i)
-			month.d[y][i] = arrD[i];
+			month->d[y][i] = arrD[i];
 
 		ind = parseArray(split, ind, &arr, IMaint);
 		for (int i = 0; i < IMaint; ++i)
-			month.rho[y][i] = arr[i];
+			month->rho[y][i] = arr[i];
 	}
 	readEmpty(file);
 
 	// Costs per task
 	parseArrayDouble(readLine(file), 0, &arrD, IMaint);
 	for (int i = 0; i < IMaint; ++i)
-		month.c[i] = arrD[i];
+		month->c[i] = arrD[i];
 	readEmpty(file);
 
 	// Installation tasks
 	for (int i = 0; i < IInst; ++i)
 	{
 		split = readLine(file);
-		month.sInst[i] = stod(split[1]);
+		month->sInst[i] = stod(split[1]);
 		int vessel = stoi(split[2]);
 		for (int v = 0; v < V; ++v)
-			month.aInst[v][i] = 0;
-		month.aInst[vessel][i] = 1;
+			month->aInst[v][i] = 0;
+		month->aInst[vessel][i] = 1;
 	}
 	readEmpty(file);
 
 	// End Time
-	month.T = stod(readLine(file)[0]);
-	month.M = 3 * month.T;
+	month->T = stod(readLine(file)[0]);
+	month->M = 3 * month->T;
 
 	return month;
 }
 
+MixedData* DataGen::readMixed(ifstream* file)
+{
+	MixedData* mixed = nullptr;
+	readYear(file, mixed);
+	return mixed;
+}
+
 vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 {
+	/*
 	int sig = 0; // TODO: FIND SOLUTION FOR SCENARIOS
 
 	vector<MonthData> res = vector<MonthData>();
@@ -294,16 +303,64 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 			VyTotal += Vy[y];
 		}
 
-		int totalTasks = 0;
+		int planned = 0, reactive = 0;
 		for (int i = 0; i < data->Ip; ++i)
-			totalTasks += sol->getPlanned()[m][i];
+			planned += sol->getPlanned()[m][i];
 		for (int i = 0; i < data->Ir; ++i)
-			totalTasks += sol->getReactive()[sig][m][i];
+			reactive += sol->getReactive()[sig][m][i];
 
-		MonthData month = MonthData(data->Y, sol->getVessels()[sig][m][VyTotal], totalTasks, data->IInst, totalTasks + data->IInst);
+		int Im = planned + reactive;
+		int I = Im + data->IInst;
 
-		// TODO: Fill in month data
+		MonthData month = MonthData(data->Y, VyTotal, Im, data->IInst, I);
+
+		// Vessels
+		for (int y = 0; y < data->Y; ++y)
+		{
+			month.Vy[y] = Vy[y];
+
+			for (int i = 0; i < planned; ++i) // Planned tasks
+			{
+				month.s[y][i] = data->sP[y];
+				month.d[y][i] = data->dPy[y];
+				month.rho[y][i] = data->rhoP[y];
+			}
+			for (int ir = 0; ir < data->Ir; ++ir) // Reactive task TYPES
+				for (int i = planned; i < Im; ++i) // Reactive tasks
+				{
+					month.s[y][i] = data->sR[y][ir];
+					month.d[y][i] = data->dR[y][ir];
+					month.rho[y][i] = data->rhoR[y][ir];
+				}
+			for (int i = Im; i < I; ++i) // Installation tasks
+			{
+				month.s[y][i] = data->sI[y][i - Im];
+				month.d[y][i] = data->dI[y][i - Im];
+			}
+		}
+
+		// Costs per task
+		for (int i = 0; i < planned; ++i) // Planned tasks
+			month.c[i] = 0;
+		for (int i = planned; i < Im; ++i) // Reactive tasks
+			month.c[i] = data->eH[m];
+
+		// Installation tasks
+		for (int i = 0; i < data->IInst; ++i)
+		{
+			month.sInst[i] = data->sInst[m][i];
+			for (int v = 0; v < VyTotal; ++v)
+				month.aInst[v][i] = data->aInst[m][v][i];
+		}
+
+		// End Time
+		month.T = data->T;
+		month.M = month.T * 3;
+
+		res.push_back(month);
 	}
 
-	return res;
+	return res;*/
+
+	return vector<MonthData>();
 }
