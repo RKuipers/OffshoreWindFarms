@@ -50,20 +50,18 @@ int DataGen::parseArray(vector<string> line, int start, vector<int>* res, int am
 		fill(res->begin(), res->begin() + amount, val);
 		return start + 2;
 	}
-	// TODO: Update I with an easier format (I a1 v1 a2 v2 where a is amount) (do for parseArrayDouble too)
-	case 'I': // I s1 e1 v1 s2 e2 v2 ... sn en vn -> Periods sx (inclusive) through ex (exclusive) use vx, s1 through en should cover all periods
+	case 'A': // A a1 v1 a2 v2 ... an vn -> The next ax periods use vx, sum of ax should be equal to amount of periods
 	{
 		int filled = 0;
 		int loc = start + 1;
 		while (filled < amount)
 		{
-			int intBeg = stoi(line[loc]);
-			int intEnd = stoi(line[loc + 1]);
-			int val = stoi(line[loc + 2]);
+			int amount = stoi(line[loc]);
+			int val = stoi(line[loc + 1]);
 
-			fill(res->begin() + intBeg, res->begin() + intEnd, val);
-			filled += intEnd - intBeg;
-			loc += 3;
+			fill(res->begin() + filled, res->begin() + filled + amount, val);
+			filled += amount;
+			loc += 2;
 		}
 		return loc;
 	}
@@ -98,19 +96,18 @@ int DataGen::parseArrayDouble(vector<string> line, int start, vector<double>* re
 		fill(res->begin(), res->begin() + amount, val);
 		return start + 2;
 	}
-	case 'I': // I s1 e1 v1 s2 e2 v2 ... sn en vn -> Periods sx (inclusive) through ex (exclusive) use vx, s1 through en should cover all periods
+	case 'A': // A a1 v1 a2 v2 ... an vn -> The next ax periods use vx, sum of ax should be equal to amount of periods
 	{
 		int filled = 0;
 		int loc = start + 1;
 		while (filled < amount)
 		{
-			int intBeg = stoi(line[loc]);
-			int intEnd = stoi(line[loc + 1]);
-			double val = stod(line[loc + 2]);
+			int amount = stoi(line[loc]);
+			double val = stod(line[loc + 1]);
 
-			fill(res->begin() + intBeg, res->begin() + intEnd, val);
-			filled += intEnd - intBeg;
-			loc += 3;
+			fill(res->begin() + filled, res->begin() + filled + amount, val);
+			filled += amount;
+			loc += 2;
 		}
 		return loc;
 	}
@@ -128,7 +125,7 @@ int DataGen::parseArrayDouble(vector<string> line, int start, vector<double>* re
 	}
 }
 
-YearData* DataGen::readYear(ifstream* file, MixedData* copyPtr)
+YearData* DataGen::readYear(ifstream* file)
 {
 	vector<int> arr = vector<int>();
 	vector<double> arrD = vector<double>();
@@ -210,7 +207,6 @@ YearData* DataGen::readYear(ifstream* file, MixedData* copyPtr)
 		}
 	}
 
-	copyPtr = year;
 	return year;
 }
 
@@ -280,14 +276,69 @@ MonthData* DataGen::readMonth(ifstream* file)
 
 MixedData* DataGen::readMixed(ifstream* file)
 {
-	MixedData* mixed = nullptr;
-	readYear(file, mixed);
+	const YearData& year = (*readYear(file));
+	MixedData* mixed = new MixedData(year);
+
+	int VInst = 0;
+	for (int y = 0; y < year.Y; ++y)
+		for (int m = 0; m < year.M; ++m)
+			VInst += year.NInst[y][m];
+
+	vector<string> split;
+
+	// Vessels
+	for (int y = 0; y < Y; ++y)
+	{
+		split = readLine(file);
+		int ind = 2;
+		month->Vy[y] = stoi(split[1]) + VyTotal;
+		VyTotal += month->Vy[y];
+
+		ind = parseArrayDouble(split, ind, &arrD, I);
+		for (int i = 0; i < I; ++i)
+			month->s[y][i] = arrD[i];
+
+		ind = parseArrayDouble(split, ind, &arrD, I);
+		for (int i = 0; i < I; ++i)
+			month->d[y][i] = arrD[i];
+
+		ind = parseArray(split, ind, &arr, IMaint);
+		for (int i = 0; i < IMaint; ++i)
+			month->rho[y][i] = arr[i];
+	}
+	readEmpty(file);
+
+	// Installation vessels
+	int tasksAdded = 0;
+	for (int v = 0; v < VInst; ++v)
+	{
+		split = readLine(file);
+		int y = stoi(split[1]);
+		int m = stoi(split[2]);
+		int II = stoi(split[3]);
+		mixed->IInst[m] += II;
+		int index = 4;
+		for (int i = 0; i < II; ++i) // TODO: A lot of these assignements may have to be changed to push_backs
+		{
+			mixed->sI[y][i + tasksAdded] = 0; 
+			mixed->dI[y][i + tasksAdded] = stod(split[index + 1]);
+			mixed->sInst[m][i] = stod(split[index]);
+			mixed->aInst[m][v][i] = 1;	// TODO: This v is dodgy (it's part of VInst and not the global vessel index), will have to consider how to do it with vessel indices
+			index += 2;
+		}
+		tasksAdded += II;
+	}
+	readEmpty(file);
+
+	// End Time
+	mixed->T = stod(readLine(file)[0]);
+	mixed->M = 3 * mixed->T;
+
 	return mixed;
 }
 
 vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 {
-	/*
 	int sig = 0; // TODO: FIND SOLUTION FOR SCENARIOS
 
 	vector<MonthData> res = vector<MonthData>();
@@ -299,7 +350,7 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 
 		for (int y = 0; y < data->Y; ++y)
 		{
-			Vy[y] = VyTotal + sol->getVessels()[sig][m][y];
+			Vy[y] = VyTotal + sol->getVessels()[sig][m][y] + data->NInst[y][m]; // TODO: This calc may be dodgy and needs to be tested
 			VyTotal += Vy[y];
 		}
 
@@ -310,9 +361,9 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 			reactive += sol->getReactive()[sig][m][i];
 
 		int Im = planned + reactive;
-		int I = Im + data->IInst;
+		int I = Im + data->IInst[m];
 
-		MonthData month = MonthData(data->Y, VyTotal, Im, data->IInst, I);
+		MonthData month = MonthData(data->Y, VyTotal, Im, data->IInst[m], I);
 
 		// Vessels
 		for (int y = 0; y < data->Y; ++y)
@@ -346,7 +397,7 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 			month.c[i] = data->eH[m];
 
 		// Installation tasks
-		for (int i = 0; i < data->IInst; ++i)
+		for (int i = 0; i < data->IInst[m]; ++i)
 		{
 			month.sInst[i] = data->sInst[m][i];
 			for (int v = 0; v < VyTotal; ++v)
@@ -360,7 +411,5 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 		res.push_back(month);
 	}
 
-	return res;*/
-
-	return vector<MonthData>();
+	return res;
 }

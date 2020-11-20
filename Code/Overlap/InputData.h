@@ -82,6 +82,7 @@ public:
 	vector<vector<vector<int>>> aInst;	// m v ii
 
 	MixedData(int s, int m, int y, int ip, int ir);
+	MixedData(const YearData& year);
 
 	MixedData* getMixed() override;
 };
