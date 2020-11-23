@@ -276,7 +276,11 @@ MonthData* DataGen::readMonth(ifstream* file)
 
 MixedData* DataGen::readMixed(ifstream* file)
 {
+	vector<int> arr = vector<int>();
+	vector<double> arrD = vector<double>();
+
 	const YearData& year = (*readYear(file));
+	readEmpty(file);
 	MixedData* mixed = new MixedData(year);
 
 	int VInst = 0;
@@ -287,24 +291,21 @@ MixedData* DataGen::readMixed(ifstream* file)
 	vector<string> split;
 
 	// Vessels
-	for (int y = 0; y < Y; ++y)
+	for (int y = 0; y < year.Y; ++y)
 	{
 		split = readLine(file);
 		int ind = 2;
-		month->Vy[y] = stoi(split[1]) + VyTotal;
-		VyTotal += month->Vy[y];
+		mixed->sP[y] = stod(split[1]);
 
-		ind = parseArrayDouble(split, ind, &arrD, I);
-		for (int i = 0; i < I; ++i)
-			month->s[y][i] = arrD[i];
+		ind = parseArrayDouble(split, ind, &arrD, year.Ir);
+		for (int i = 0; i < year.Ir; ++i)
+			mixed->sR[y][i] = arrD[i];
 
-		ind = parseArrayDouble(split, ind, &arrD, I);
-		for (int i = 0; i < I; ++i)
-			month->d[y][i] = arrD[i];
+		mixed->rhoP[y] = stoi(split[ind]);
 
-		ind = parseArray(split, ind, &arr, IMaint);
-		for (int i = 0; i < IMaint; ++i)
-			month->rho[y][i] = arr[i];
+		ind = parseArray(split, ind+1, &arr, year.Ir);
+		for (int i = 0; i < year.Ir; ++i)
+			mixed->rhoR[y][i] = arr[i];
 	}
 	readEmpty(file);
 
@@ -317,13 +318,20 @@ MixedData* DataGen::readMixed(ifstream* file)
 		int m = stoi(split[2]);
 		int II = stoi(split[3]);
 		mixed->IInst[m] += II;
+
+		if (mixed->aInst[m].empty())
+		{
+			mixed->aInst[m] = vector<int>();
+			mixed->vTypes[m] = vector<int>();
+		}
+		mixed->vTypes[m].push_back(y);
+
 		int index = 4;
 		for (int i = 0; i < II; ++i) // TODO: A lot of these assignements may have to be changed to push_backs
 		{
-			mixed->sI[y][i + tasksAdded] = 0; 
-			mixed->dI[y][i + tasksAdded] = stod(split[index + 1]);
-			mixed->sInst[m][i] = stod(split[index]);
-			mixed->aInst[m][v][i] = 1;	// TODO: This v is dodgy (it's part of VInst and not the global vessel index), will have to consider how to do it with vessel indices
+			mixed->dI[y].push_back(stod(split[index + 1]));
+			mixed->sInst[m].push_back(stod(split[index]));
+			mixed->aInst[m].push_back(i);
 			index += 2;
 		}
 		tasksAdded += II;
@@ -345,12 +353,14 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 
 	for (int m = 0; m < data->M; ++m)
 	{
-		vector<int> Vy = vector<int>();
+		vector<int> Vy = vector<int>(data->Y, 0);
+		vector<int> VInds = vector<int>(data->Y, 0);
 		int VyTotal = 0;
 
 		for (int y = 0; y < data->Y; ++y)
 		{
 			Vy[y] = VyTotal + sol->getVessels()[sig][m][y] + data->NInst[y][m]; // TODO: This calc may be dodgy and needs to be tested
+			VInds[y] = VyTotal;
 			VyTotal += Vy[y];
 		}
 
@@ -385,7 +395,7 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 				}
 			for (int i = Im; i < I; ++i) // Installation tasks
 			{
-				month.s[y][i] = data->sI[y][i - Im];
+				month.s[y][i] = 0;
 				month.d[y][i] = data->dI[y][i - Im];
 			}
 		}
@@ -398,11 +408,21 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 
 		// Installation tasks
 		for (int i = 0; i < data->IInst[m]; ++i)
-		{
 			month.sInst[i] = data->sInst[m][i];
-			for (int v = 0; v < VyTotal; ++v)
-				month.aInst[v][i] = data->aInst[m][v][i];
+
+		// Installation assignments
+		vector<int> vTrans = vector<int>();
+		vector<int> used = vector<int>(data->Y, 0);
+		for (int v = 0; v < data->vTypes[m].size(); ++v)
+		{
+			int y = data->vTypes[m][v];
+			vTrans.push_back(VInds[y] + used[y]);
+			used[y]++;
+			if (used[y] > data->NInst[m][y])
+				cout << "ERROR: Error in conversion between global and local vessel indices" << endl;
 		}
+		for (int v = 0; v < data->aInst[m].size(); ++v)
+			month.aInst[vTrans[v]][data->aInst[m][v]] = 1;
 
 		// End Time
 		month.T = data->T;

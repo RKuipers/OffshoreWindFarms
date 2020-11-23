@@ -83,3 +83,16 @@ YearModel::YearModel(YearData* data) : Model(data)
 	p.newCtr(R[0][0][0] >= 1);
 	p.newCtr(R[1][0][1] >= 1);
 }
+
+YearSolution* YearModel::solve()
+{
+	// TODO: Remove this test code
+
+	YearSolution* sol = new YearSolution("test", 0);
+
+	sol->setVessels({ {vector<vector<int>>(24, {2})},{vector<vector<int>>(24, {1})} });
+	sol->setPlanned(vector<vector<int>>(24, {5, 3, 1}));
+	sol->setReactive(vector<vector<vector<int>>>(24, { {{8}},{{6}},{{4}} }));
+
+	return sol;
+}

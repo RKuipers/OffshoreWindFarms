@@ -73,13 +73,13 @@ public:
 	// Parameters:
 	vector<double> sP;					// y
 	vector<vector<double>> sR;			// y ir
-	vector<vector<double>> sI;			// y ii
 	vector<vector<double>> dI;			// y ii
 	vector<int> rhoP;					// y
 	vector<vector<int>> rhoR;			// y ir
 	double T;
 	vector<vector<double>> sInst;		// m ii
-	vector<vector<vector<int>>> aInst;	// m v ii
+	vector<vector<int>> aInst;			// m 'v'
+	vector<vector<int>> vTypes;			// m 'v'
 
 	MixedData(int s, int m, int y, int ip, int ir);
 	MixedData(const YearData& year);

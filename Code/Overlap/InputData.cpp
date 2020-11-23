@@ -37,21 +37,28 @@ MonthData* MonthData::getMonth()
 
 MixedData::MixedData(int s, int m, int y, int ip, int ir) : YearData(s, m, y, ip, ir)
 {
-	// TODO
 	IInst = vector<int>(M, 0);
 	sP = vector<double>(Y, 0.0);
 	sR = vector<vector<double>>(Y, vector<double>(Ir, 0.0));
-	//sI = vector<vector<double>>(Y, vector<double>(IInst, 0.0));;
-	//dI = vector<vector<double>>(Y, vector<double>(IInst, 0.0));;
+	dI = vector<vector<double>>(Y, vector<double>());; // Empty
 	rhoP = vector<int>(Y, 0);
 	rhoR = vector<vector<int>>(Y, vector<int>(Ir, 0));
-	//sInst = vector<vector<double>>(M, vector<double>(IInst, 0.0));
-	aInst = vector<vector<vector<int>>>(M, vector<vector<int>>());
+	sInst = vector<vector<double>>(M, vector<double>());	// Empty
+	aInst = vector<vector<int>>(M, vector<int>());	// Empty
+	vTypes = vector<vector<int>>(M, vector<int>()); // Empty
 }
 
 MixedData::MixedData(const YearData& year) : YearData(year)
 {
-	// TODO
+	IInst = vector<int>(M, 0);
+	sP = vector<double>(Y, 0.0);
+	sR = vector<vector<double>>(Y, vector<double>(Ir, 0.0));
+	dI = vector<vector<double>>(Y, vector<double>());; // Empty
+	rhoP = vector<int>(Y, 0);
+	rhoR = vector<vector<int>>(Y, vector<int>(Ir, 0));
+	sInst = vector<vector<double>>(M, vector<double>());	// Empty
+	aInst = vector<vector<int>>(M, vector<int>());	// Empty
+	vTypes = vector<vector<int>>(M, vector<int>()); // Empty
 }
 
 MixedData* MixedData::getMixed()

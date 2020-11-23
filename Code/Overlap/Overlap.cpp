@@ -119,6 +119,8 @@ void TestReadMixed()
     DataGen dg = DataGen();
     ifstream datafile("Input Files/mixedformat.dat");
     MixedData* data = dg.readMixed(&datafile);
+    YearSolution* ysol = YearModel(data).solve();
+    vector<MonthData> months = dg.genMonths(data, ysol);
 }
 
 int main()

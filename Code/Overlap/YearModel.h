@@ -27,5 +27,7 @@ public: // TODO: protected
 
 //public: TODO
 	YearModel(YearData* data);
+
+	YearSolution* solve() override;
 };
 

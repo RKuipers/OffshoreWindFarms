@@ -26,7 +26,7 @@ public: // TODO: protected
 // public: TODO
 	Model(InputData* data);
 
-	Solution* solve();
+	virtual Solution* solve();
 	virtual void genProblem();
 	virtual void genDecVars();
 	virtual void genObj();
