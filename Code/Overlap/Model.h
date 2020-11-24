@@ -22,13 +22,14 @@ public: // TODO: protected
 	Solution* solution;
 
 	virtual Solution* genSolution(XPRBprob* p, double duration) =0;
+	double solveBasics(clock_t start = 0);
 	
 // public: TODO
 	Model(InputData* data);
 
-	virtual Solution* solve();
-	virtual void genProblem();
-	virtual void genDecVars();
-	virtual void genObj();
+	virtual Solution* solve() =0;
+	virtual void genProblem() =0;
+	virtual void genDecVars() =0;
+	virtual void genObj() =0;
 };
 

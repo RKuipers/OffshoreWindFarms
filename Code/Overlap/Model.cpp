@@ -1,16 +1,14 @@
 #include "Model.h"
 
-Model::Model(InputData* data) : data(data) { }
-
-Solution* Model::solve()
+double Model::solveBasics(clock_t start)
 {
-	// TODO: fill in properly
-	// TODO: set clocks at right moments
+	// TODO: Expand
 
 	p.setMsgLevel(0);
-	clock_t start = clock();
+	if (start == 0)
+		start = clock();
 	p.mipOptimise();
-	double dur = ((double)clock() - start) / (double)CLOCKS_PER_SEC;
-
-	return genSolution(&p, dur);
+	return ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 }
+
+Model::Model(InputData* data) : data(data) { }
