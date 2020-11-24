@@ -12,7 +12,11 @@ protected:
 	vector<string> names;
 
 public:
+	ModeDim(vector<string> names);
+
 	virtual int next();
+	virtual string getCurrent();
+	virtual int getCurrentId();
 };
 
 class ModeDimComb
