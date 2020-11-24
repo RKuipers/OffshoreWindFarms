@@ -40,10 +40,10 @@ MixedData::MixedData(int s, int m, int y, int ip, int ir) : YearData(s, m, y, ip
 	IInst = vector<int>(M, 0);
 	sP = vector<double>(Y, 0.0);
 	sR = vector<vector<double>>(Y, vector<double>(Ir, 0.0));
-	dI = vector<vector<double>>(Y, vector<double>());; // Empty
 	rhoP = vector<int>(Y, 0);
 	rhoR = vector<vector<int>>(Y, vector<int>(Ir, 0));
 	sInst = vector<vector<double>>(M, vector<double>());	// Empty
+	dI = vector<vector<vector<double>>>(M, vector<vector<double>>(Y, vector<double>()));; // Empty
 	aInst = vector<vector<int>>(M, vector<int>());	// Empty
 	vTypes = vector<vector<int>>(M, vector<int>()); // Empty
 }
@@ -53,10 +53,10 @@ MixedData::MixedData(const YearData& year) : YearData(year)
 	IInst = vector<int>(M, 0);
 	sP = vector<double>(Y, 0.0);
 	sR = vector<vector<double>>(Y, vector<double>(Ir, 0.0));
-	dI = vector<vector<double>>(Y, vector<double>());; // Empty
 	rhoP = vector<int>(Y, 0);
 	rhoR = vector<vector<int>>(Y, vector<int>(Ir, 0));
 	sInst = vector<vector<double>>(M, vector<double>());	// Empty
+	dI = vector<vector<vector<double>>>(M, vector<vector<double>>(Y, vector<double>()));; // Empty
 	aInst = vector<vector<int>>(M, vector<int>());	// Empty
 	vTypes = vector<vector<int>>(M, vector<int>()); // Empty
 }

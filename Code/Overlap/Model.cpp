@@ -14,20 +14,3 @@ Solution* Model::solve()
 
 	return genSolution(&p, dur);
 }
-
-void Model::genProblem()
-{
-	// TODO: Add your implementation code here.
-}
-
-
-void Model::genDecVars()
-{
-	// TODO: Add your implementation code here.
-}
-
-
-void Model::genObj()
-{
-	// TODO: Add your implementation code here.
-}

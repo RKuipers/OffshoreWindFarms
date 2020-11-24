@@ -327,11 +327,14 @@ MixedData* DataGen::readMixed(ifstream* file)
 		mixed->vTypes[m].push_back(y);
 
 		int index = 4;
-		for (int i = 0; i < II; ++i) // TODO: A lot of these assignements may have to be changed to push_backs
+		for (int i = 0; i < II; ++i)
 		{
-			mixed->dI[y].push_back(stod(split[index + 1]));
+			mixed->dI[m][y].push_back(stod(split[index + 1]));
+			for (int y_ = 0; y_ < year.Y; ++y_)
+				if (y != y_)
+					mixed->dI[m][y_].push_back(0);
 			mixed->sInst[m].push_back(stod(split[index]));
-			mixed->aInst[m].push_back(i);
+			mixed->aInst[m].push_back(mixed->vTypes[m].size() - 1);
 			index += 2;
 		}
 		tasksAdded += II;
@@ -340,7 +343,6 @@ MixedData* DataGen::readMixed(ifstream* file)
 
 	// End Time
 	mixed->T = stod(readLine(file)[0]);
-	mixed->M = 3 * mixed->T;
 
 	return mixed;
 }
@@ -359,7 +361,7 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 
 		for (int y = 0; y < data->Y; ++y)
 		{
-			Vy[y] = VyTotal + sol->getVessels()[sig][m][y] + data->NInst[y][m]; // TODO: This calc may be dodgy and needs to be tested
+			Vy[y] = sol->getVessels()[sig][m][y] + data->NInst[y][m];
 			VInds[y] = VyTotal;
 			VyTotal += Vy[y];
 		}
@@ -386,17 +388,23 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 				month.d[y][i] = data->dPy[y];
 				month.rho[y][i] = data->rhoP[y];
 			}
+
+			int reactDone = 0;
 			for (int ir = 0; ir < data->Ir; ++ir) // Reactive task TYPES
-				for (int i = planned; i < Im; ++i) // Reactive tasks
-				{
-					month.s[y][i] = data->sR[y][ir];
-					month.d[y][i] = data->dR[y][ir];
-					month.rho[y][i] = data->rhoR[y][ir];
-				}
-			for (int i = Im; i < I; ++i) // Installation tasks
 			{
-				month.s[y][i] = 0;
-				month.d[y][i] = data->dI[y][i - Im];
+				for (int i = 0; i < sol->getReactive()[sig][m][ir]; ++i) // Reactive tasks
+				{
+					month.s[y][i + planned + reactDone] = data->sR[y][ir];
+					month.d[y][i + planned + reactDone] = data->dR[y][ir];
+					month.rho[y][i + planned + reactDone] = data->rhoR[y][ir];
+				}
+				reactDone += sol->getReactive()[sig][m][ir];
+			}
+
+			for (int i = 0; i < data->IInst[m]; ++i) // Installation tasks
+			{
+				month.s[y][i + Im] = 0;
+				month.d[y][i + Im] = data->dI[m][y][i];
 			}
 		}
 
@@ -418,11 +426,11 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 			int y = data->vTypes[m][v];
 			vTrans.push_back(VInds[y] + used[y]);
 			used[y]++;
-			if (used[y] > data->NInst[m][y])
+			if (used[y] > data->NInst[y][m])
 				cout << "ERROR: Error in conversion between global and local vessel indices" << endl;
 		}
-		for (int v = 0; v < data->aInst[m].size(); ++v)
-			month.aInst[vTrans[v]][data->aInst[m][v]] = 1;
+		for (int i = 0; i < data->aInst[m].size(); ++i)
+			month.aInst[vTrans[data->aInst[m][i]]][i] = 1;
 
 		// End Time
 		month.T = data->T;

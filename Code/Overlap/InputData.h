@@ -69,17 +69,17 @@ class MixedData
 {
 public:
 	// Sets:
-	vector<int> IInst;					// m
+	vector<int> IInst;						// m
 	// Parameters:
-	vector<double> sP;					// y
-	vector<vector<double>> sR;			// y ir
-	vector<vector<double>> dI;			// y ii
-	vector<int> rhoP;					// y
-	vector<vector<int>> rhoR;			// y ir
+	vector<double> sP;						// y
+	vector<vector<double>> sR;				// y ir
+	vector<int> rhoP;						// y
+	vector<vector<int>> rhoR;				// y ir
 	double T;
-	vector<vector<double>> sInst;		// m ii
-	vector<vector<int>> aInst;			// m 'v'
-	vector<vector<int>> vTypes;			// m 'v'
+	vector<vector<double>> sInst;			// m ii
+	vector < vector<vector<double>>> dI;	// m y ii
+	vector<vector<int>> aInst;				// m ii
+	vector<vector<int>> vTypes;				// m 'v'
 
 	MixedData(int s, int m, int y, int ip, int ir);
 	MixedData(const YearData& year);
