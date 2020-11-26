@@ -25,7 +25,7 @@ public: // TODO: protected
 	double solveBasics(clock_t start = 0);
 	
 // public: TODO
-	Model(InputData* data);
+	Model(InputData* data, Mode* mode, string name);
 
 	virtual Solution* solve() =0;
 	virtual void genProblem() =0;

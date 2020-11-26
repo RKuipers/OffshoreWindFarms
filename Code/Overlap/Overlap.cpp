@@ -10,6 +10,7 @@
 
 using namespace std;
 
+/*
 void TestYearSolution()
 {
     cout << "--------------------------STARTING TestYearSolution--------------------------------" << endl;
@@ -122,14 +123,21 @@ void TestReadMixed()
     YearSolution* ysol = YearModel(data).solve();
     vector<MonthData> months = dg.genMonths(data, ysol);
 }
+*/
+
+void runYear()
+{
+    Mode mode = Mode();
+    DataGen dg = DataGen();
+    ifstream datafile("Input Files/yearBasic.dat");
+    YearData* data = dg.readYear(&datafile);
+    YearModel* model = new YearModel(data, &mode);
+    model->genProblem();
+    YearSolution* sol = model->solve();
+    sol->print();
+}
 
 int main()
 {
-    //TestYearSolution();
-    //TestMonthSolution();
-    //TestGenYearSol();
-    //TestGenMonthSol();
-    TestReadYear();
-    TestReadMonth();
-    TestReadMixed();
+    runYear();
 }

@@ -28,6 +28,6 @@ public: // TODO: protected
 	void genFixedSCon();
 
 //public: TODO
-	MonthModel(MonthData* data);
+	MonthModel(MonthData* data, Mode* mode);
 };
 

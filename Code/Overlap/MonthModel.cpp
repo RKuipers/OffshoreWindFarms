@@ -44,7 +44,7 @@ void MonthModel::genObj()
 	// TODO
 }
 
-MonthModel::MonthModel(MonthData* data) : Model(data)
+MonthModel::MonthModel(MonthData* data, Mode* mode) : Model(data, mode, "Month")
 { 
 	// TODO: Remove this test code
 	vector<XPRBvar> a00;

@@ -44,7 +44,8 @@ void YearModel::genProblem()
 	genDecVars();
 	genObj();
 
-	genCapacityCon;
+	// TODO: Check signs in these constraints (through .lp file)
+	genCapacityCon();
 	genRepairCon();
 	genMaxMaintCon();
 	genMinMaintCon();
@@ -84,74 +85,107 @@ void YearModel::genObj()
 				Obj.addTerm(P[m][ip], getData()->dP * getData()->eH[m] * sFac);
 
 			for (int ir = 0; ir < getData()->Ir; ++ir)
-				for (int m_ = 0; m_ < m; ++m_)
+				for (int m_ = 0; m_ <= m; ++m_)
 				{
 					Obj.addTerm(R[m_][ir][sig], -1 * getData()->eH[m] * getData()->H[m] * sFac);
 					Obj.add(getData()->f[m_][ir][sig] * getData()->eH[m] * getData()->H[m] * sFac);
 				}
 		}
+	p.setObj(Obj);
 }
 
 void YearModel::genCapacityCon()
 {
+	for (int sig = 0; sig < getData()->S; ++sig)
+		for (int m = 0; m < getData()->M; ++m)
+			for (int y = 0; y < getData()->Y; ++y)
+			{
+				XPRBexpr ctr = getData()->L[y] * N[y][m][sig] + getData()->LInst[y][m] >= 0;
 
+				for (int ip = 0; ip < getData()->Ip; ++ip)
+					ctr.addTerm(P[m][ip], -1 * getData()->dPy[y]);
+
+				for (int ir = 0; ir < getData()->Ir; ++ir)
+					ctr.addTerm(R[m][ir][sig], -1 * getData()->dR[y][ir]);
+
+				p.newCtr(("Cap_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(y)).c_str(), ctr);
+			}
 }
 
 void YearModel::genRepairCon()
 {
+	for (int sig = 0; sig < getData()->S; ++sig)
+		for (int m = 0; m < getData()->M; ++m)
+			for (int ir = 0; ir < getData()->Ir; ++ir)
+			{
+				XPRBexpr ctr = R[m][ir][sig] <= 0;
+
+				for (int m_ = 0; m_ <= m - 1; ++m_) 
+				{
+					ctr.add(getData()->f[m_][ir][sig]);
+					ctr.addTerm(R[m_][ir][sig], -1);
+				}
+
+				p.newCtr(("Rep_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(ir)).c_str(), ctr);
+			}
 }
 
 void YearModel::genMaxMaintCon()
 {
+	for (int m = 0; m < getData()->M; ++m)
+		for (int ip = 1; ip < getData()->Ip; ++ip)
+		{
+			XPRBexpr ctr = P[m][ip] <= 0;
+
+			for (int m_ = 0; m_ <= m - getData()->Gmin; ++m_)
+				ctr.addTerm(P[m_][ip-1], -1);
+
+			for (int m_ = 0; m_ <= m - 1; ++m_)
+				ctr.addTerm(P[m_][ip]);
+
+			p.newCtr(("MaxM_" + to_string(m) + "_" + to_string(ip)).c_str(), ctr);
+		}
 }
 
 void YearModel::genMinMaintCon()
 {
+	for (int m = 0; m < getData()->M; ++m)
+		for (int ip = 1; ip < getData()->Ip; ++ip)
+		{
+			XPRBexpr ctr = P[m][ip] >= 0;
+
+			for (int m_ = 0; m_ <= m - getData()->Gmax; ++m_)
+				ctr.addTerm(P[m_][ip - 1], -1);
+
+			for (int m_ = 0; m_ <= m - 1; ++m_)
+				ctr.addTerm(P[m_][ip]);
+
+			p.newCtr(("MinM_" + to_string(m) + "_" + to_string(ip)).c_str(), ctr);
+		}
 }
 
 void YearModel::genAvailableCon()
 {
+	for (int sig = 0; sig < getData()->S; ++sig)
+		for (int m = 0; m < getData()->M; ++m)
+			for (int y = 0; y < getData()->Y; ++y)
+			{
+				XPRBexpr ctr = N[y][m][sig] <= getData()->A[y][m] - getData()->NInst[y][m];
+
+				p.newCtr(("Avai_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(y)).c_str(), ctr);
+			}
 }
 
-YearModel::YearModel(YearData* data) : Model(data)
+YearModel::YearModel(YearData* data, Mode* mode) : Model(data, mode, "Year")
 {
-	// TODO: Remove this test code
-	vector<XPRBvar> N00;
-	N00.push_back(p.newVar("n000", XPRB_UI));
-	N00.push_back(p.newVar("n001", XPRB_UI));
-	vector<XPRBvar> N01;
-	N01.push_back(p.newVar("n010", XPRB_UI));
-	N01.push_back(p.newVar("n011", XPRB_UI));
-	N = vector<vector<vector<XPRBvar>>>(1, { N00, N01 });
-
-	P.push_back({ p.newVar("p00", XPRB_UI, 0), p.newVar("p01", XPRB_UI, 0) } );
-	P.push_back({ p.newVar("p10", XPRB_UI, 0), p.newVar("p11", XPRB_UI, 0) } );
-
-	R.push_back({ { p.newVar("r000", XPRB_UI, 0), p.newVar("r001", XPRB_UI, 0) } });
-	R.push_back({ { p.newVar("r100", XPRB_UI, 0), p.newVar("r101", XPRB_UI, 0) } });
-
-	p.setObj(N[0][0][0] + N[0][0][1] + N[0][1][0] + N[0][1][1]);
-	p.setSense(XPRB_MINIM);
-
-	p.newCtr(2 * N[0][0][0] >= P[0][0] + 2 * P[0][1] + 3 * R[0][0][0]);
-	p.newCtr(2 * N[0][0][1] >= P[0][0] + 2 * P[0][1] + 3 * R[0][0][1]);
-	p.newCtr(2 * N[0][1][0] >= P[1][0] + 2 * P[1][1] + 3 * R[1][0][0]);
-	p.newCtr(2 * N[0][1][1] >= P[1][0] + 2 * P[1][1] + 3 * R[1][0][1]);
-	p.newCtr(P[0][0] + P[1][0] >= 4);
-	p.newCtr(P[0][1] + P[1][1] >= 2);
-	p.newCtr(R[0][0][0] >= 1);
-	p.newCtr(R[1][0][1] >= 1);
+	N = vector<vector<vector<XPRBvar>>>(data->Y, vector<vector<XPRBvar>>(data->M, vector<XPRBvar>(data->S)));
+	P = vector<vector<XPRBvar>>(data->M, vector<XPRBvar>(data->Ip));
+	R = vector<vector<vector<XPRBvar>>>(data->M, vector<vector<XPRBvar>>(data->Ir, vector<XPRBvar>(data->S)));
 }
 
 YearSolution* YearModel::solve()
 {
-	// TODO: Remove this test code
+	double dur = solveBasics();
 
-	YearSolution* sol = new YearSolution("test", 0);
-
-	sol->setVessels({ {vector<vector<int>>(24, {2})},{vector<vector<int>>(24, {1})} });
-	sol->setPlanned(vector<vector<int>>(24, {5, 3, 1}));
-	sol->setReactive(vector<vector<vector<int>>>(24, { {{8}},{{6}},{{4}} }));
-
-	return sol;
+	return genSolution(&p, dur);
 }

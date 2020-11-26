@@ -26,7 +26,7 @@ public: // TODO: protected
 	void genAvailableCon();
 
 //public: TODO
-	YearModel(YearData* data);
+	YearModel(YearData* data, Mode* mode);
 
 	YearSolution* solve() override;
 };
