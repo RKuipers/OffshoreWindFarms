@@ -41,17 +41,76 @@ YearSolution* YearModel::genSolution(XPRBprob* p, double duration)
 
 void YearModel::genProblem()
 {
-	// TODO
+	genDecVars();
+	genObj();
+
+	genCapacityCon;
+	genRepairCon();
+	genMaxMaintCon();
+	genMinMaintCon();
+	genAvailableCon();
 }
 
 void YearModel::genDecVars()
 {
-	// TODO
+	for (int m = 0; m < getData()->M; ++m)
+	{
+		for (int sig = 0; sig < getData()->S; ++sig)
+		{
+			for (int y = 0; y < getData()->Y; ++y)
+				N[y][m][sig] = p.newVar(("N_" + to_string(y) + "_" + to_string(m) + to_string(sig)).c_str(), XPRB_UI);
+
+			for (int ir = 0; ir < getData()->Ir; ++ir)
+				R[m][ir][sig] = p.newVar(("R_" + to_string(m) + "_" + to_string(ir) + to_string(sig)).c_str(), XPRB_UI);
+		}
+
+		for (int ip = 0; ip < getData()->Ip; ++ip)
+			P[m][ip] = p.newVar(("P_" + to_string(m) + "_" + to_string(ip)).c_str(), XPRB_UI);
+	}
 }
 
 void YearModel::genObj()
 {
-	// TODO
+	double sFac = 1.0 / getData()->S; 
+	XPRBctr Obj = p.newCtr();
+
+	for (int sig = 0; sig < getData()->S; ++sig)
+		for (int m = 0; m < getData()->M; ++m)
+		{
+			for (int y = 0; y < getData()->Y; ++y)
+				Obj.addTerm(N[y][m][sig], getData()->c[y][m] * sFac);
+
+			for (int ip = 0; ip < getData()->Ip; ++ip)
+				Obj.addTerm(P[m][ip], getData()->dP * getData()->eH[m] * sFac);
+
+			for (int ir = 0; ir < getData()->Ir; ++ir)
+				for (int m_ = 0; m_ < m; ++m_)
+				{
+					Obj.addTerm(R[m_][ir][sig], -1 * getData()->eH[m] * getData()->H[m] * sFac);
+					Obj.add(getData()->f[m_][ir][sig] * getData()->eH[m] * getData()->H[m] * sFac);
+				}
+		}
+}
+
+void YearModel::genCapacityCon()
+{
+
+}
+
+void YearModel::genRepairCon()
+{
+}
+
+void YearModel::genMaxMaintCon()
+{
+}
+
+void YearModel::genMinMaintCon()
+{
+}
+
+void YearModel::genAvailableCon()
+{
 }
 
 YearModel::YearModel(YearData* data) : Model(data)
