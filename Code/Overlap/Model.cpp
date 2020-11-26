@@ -4,7 +4,9 @@ double Model::solveBasics(clock_t start)
 {
 	// TODO: Expand
 
-	p.setMsgLevel(1);
+	//p.setMsgLevel(0);
+	string name = p.getName();
+	p.exportProb(XPRB_LP, ("Output Files/" + name).c_str());
 	if (start == 0)
 		start = clock();
 	p.mipOptimise();
