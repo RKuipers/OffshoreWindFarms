@@ -100,7 +100,7 @@ void YearModel::genCapacityCon()
 		for (int m = 0; m < getData()->M; ++m)
 			for (int y = 0; y < getData()->Y; ++y)
 			{
-				XPRBexpr ctr = getData()->L[y] * N[y][m][sig] + getData()->LInst[y][m] >= 0;
+				XPRBrelation ctr = getData()->L[y] * N[y][m][sig] + getData()->LInst[y][m] >= 0;
 
 				for (int ip = 0; ip < getData()->Ip; ++ip)
 					ctr.addTerm(P[m][ip], -1 * getData()->dPy[y]);
@@ -118,12 +118,12 @@ void YearModel::genRepairCon()
 		for (int m = 0; m < getData()->M; ++m)
 			for (int ir = 0; ir < getData()->Ir; ++ir)
 			{
-				XPRBexpr ctr = R[m][ir][sig] <= 0;
+				XPRBrelation ctr = R[m][ir][sig] <= 0;
 
 				for (int m_ = 0; m_ <= m - 1; ++m_) 
 				{
-					ctr.add(getData()->f[m_][ir][sig]);
-					ctr.addTerm(R[m_][ir][sig], -1);
+					ctr.add(-1 * getData()->f[m_][ir][sig]);
+					ctr.addTerm(R[m_][ir][sig]);
 				}
 
 				p.newCtr(("Rep_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(ir)).c_str(), ctr);
@@ -135,7 +135,7 @@ void YearModel::genMaxMaintCon()
 	for (int m = 0; m < getData()->M; ++m)
 		for (int ip = 1; ip < getData()->Ip; ++ip)
 		{
-			XPRBexpr ctr = P[m][ip] <= 0;
+			XPRBrelation ctr = P[m][ip] <= 0;
 
 			for (int m_ = 0; m_ <= m - getData()->Gmin; ++m_)
 				ctr.addTerm(P[m_][ip-1], -1);
@@ -152,7 +152,7 @@ void YearModel::genMinMaintCon()
 	for (int m = 0; m < getData()->M; ++m)
 		for (int ip = 1; ip < getData()->Ip; ++ip)
 		{
-			XPRBexpr ctr = P[m][ip] >= 0;
+			XPRBrelation ctr = P[m][ip] >= 0;
 
 			for (int m_ = 0; m_ <= m - getData()->Gmax; ++m_)
 				ctr.addTerm(P[m_][ip - 1], -1);
@@ -170,7 +170,7 @@ void YearModel::genAvailableCon()
 		for (int m = 0; m < getData()->M; ++m)
 			for (int y = 0; y < getData()->Y; ++y)
 			{
-				XPRBexpr ctr = N[y][m][sig] <= getData()->A[y][m] - getData()->NInst[y][m];
+				XPRBrelation ctr = N[y][m][sig] <= getData()->A[y][m] - getData()->NInst[y][m];
 
 				p.newCtr(("Avai_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(y)).c_str(), ctr);
 			}
