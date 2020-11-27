@@ -206,6 +206,12 @@ YearData* DataGen::readYear(ifstream* file)
 				year->f[m][i][s] = arr[m];
 		}
 	}
+	readEmpty(file);
+
+	// Turbines
+	parseArray(readLine(file), 0, &arr, M);
+	for (int m = 0; m < M; ++m)
+		year->Turbs[m] = arr[m];
 
 	return year;
 }

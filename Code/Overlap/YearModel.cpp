@@ -44,7 +44,6 @@ void YearModel::genProblem()
 	genDecVars();
 	genObj();
 
-	// TODO: Check signs in these constraints (through .lp file)
 	genCapacityCon();
 	genRepairCon();
 	genMaxMaintCon();
@@ -133,12 +132,15 @@ void YearModel::genRepairCon()
 void YearModel::genMaxMaintCon()
 {
 	for (int m = 0; m < getData()->M; ++m)
-		for (int ip = 1; ip < getData()->Ip; ++ip)
+		for (int ip = 0; ip < getData()->Ip; ++ip)
 		{
 			XPRBrelation ctr = P[m][ip] <= 0;
 
 			for (int m_ = 0; m_ <= m - getData()->Gmin; ++m_)
-				ctr.addTerm(P[m_][ip-1], -1);
+				if (ip >= 1)
+					ctr.addTerm(P[m_][ip - 1], -1);
+				else
+					ctr.add(-1 * getData()->Turbs[m_]);
 
 			for (int m_ = 0; m_ <= m - 1; ++m_)
 				ctr.addTerm(P[m_][ip]);
@@ -150,12 +152,15 @@ void YearModel::genMaxMaintCon()
 void YearModel::genMinMaintCon()
 {
 	for (int m = 0; m < getData()->M; ++m)
-		for (int ip = 1; ip < getData()->Ip; ++ip)
+		for (int ip = 0; ip < getData()->Ip; ++ip)
 		{
 			XPRBrelation ctr = P[m][ip] >= 0;
 
 			for (int m_ = 0; m_ <= m - getData()->Gmax; ++m_)
-				ctr.addTerm(P[m_][ip - 1], -1);
+				if (ip >= 1)
+					ctr.addTerm(P[m_][ip - 1], -1);
+				else
+					ctr.add(-1 * getData()->Turbs[m_]);
 
 			for (int m_ = 0; m_ <= m - 1; ++m_)
 				ctr.addTerm(P[m_][ip]);

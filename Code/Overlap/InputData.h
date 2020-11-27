@@ -36,6 +36,7 @@ public:
 	int Gmin, Gmax;
 	vector<vector<int>> A;			// y m
 	vector<vector<int>> NInst;		// y m
+	vector<int> Turbs;				// m
 
 	YearData(int s, int m, int y, int ip, int ir);
 
