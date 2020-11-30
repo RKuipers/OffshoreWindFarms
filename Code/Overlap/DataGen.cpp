@@ -241,8 +241,8 @@ MonthData* DataGen::readMonth(ifstream* file)
 		month->Vy[y] = stoi(split[1]) + VyTotal;
 		VyTotal += month->Vy[y];
 
-		ind = parseArrayDouble(split, ind, &arrD, I);
-		for (int i = 0; i < I; ++i)
+		ind = parseArrayDouble(split, ind, &arrD, IMaint);
+		for (int i = 0; i < IMaint; ++i)
 			month->s[y][i] = arrD[i];
 
 		ind = parseArrayDouble(split, ind, &arrD, I);

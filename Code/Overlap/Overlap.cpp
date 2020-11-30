@@ -137,7 +137,19 @@ void runYear()
     sol->print();
 }
 
+void runMonth()
+{
+    Mode mode = Mode();
+    DataGen dg = DataGen();
+    ifstream datafile("Input Files/monthBasic.dat");
+    MonthData* data = dg.readMonth(&datafile);
+    MonthModel* model = new MonthModel(data, &mode);
+    model->genProblem();
+    MonthSolution* sol = model->solve();
+    sol->print();
+}
+
 int main()
 {
-    runYear();
+    runMonth();
 }

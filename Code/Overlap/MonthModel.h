@@ -24,10 +24,11 @@ public: // TODO: protected
 	void genResourceCon();
 	void genDurationCon();
 	void genFinishCon();
-	void genFixedACon();
-	void genFixedSCon();
+	void genFixedCon();
 
 //public: TODO
 	MonthModel(MonthData* data, Mode* mode);
+
+	MonthSolution* solve() override;
 };
 

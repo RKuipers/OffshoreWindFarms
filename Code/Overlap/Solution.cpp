@@ -178,6 +178,9 @@ void MonthSolution::printOrders()
 
 	for (int v = 0; v < orders.size(); ++v)
 	{
+		if (orders[v].empty())
+			continue;
+
 		cout << v << ": " << orders[v][0];
 
 		for (int j = 1; j < orders[v].size(); ++j)

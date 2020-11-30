@@ -39,8 +39,7 @@ void MonthModel::genProblem()
 	genResourceCon();
 	genDurationCon();
 	genFinishCon();
-	genFixedACon();
-	genFixedSCon();
+	genFixedCon();
 }
 
 void MonthModel::genDecVars()
@@ -51,7 +50,7 @@ void MonthModel::genDecVars()
 
 		for (int v = 0; v < getData()->V; ++v)
 			for (int j = 0; j < getData()->J; ++j)
-				a[v][i][j] = p.newVar(("a_" + to_string(v) + "_" + to_string(i) + to_string(j)).c_str(), XPRB_BV);
+				a[v][i][j] = p.newVar(("a_" + to_string(v) + "_" + to_string(i) + "_" + to_string(j)).c_str(), XPRB_BV);
 	}
 }
 
@@ -72,12 +71,24 @@ void MonthModel::genLimitCon()
 	for (int v = 0; v < getData()->V; ++v)
 		for (int j = 0; j < getData()->J; ++j)
 		{
-			XPRBrelation ctr = a[v][0][j] <= 0;
+			XPRBrelation ctr = a[v][0][j] <= 1;
 
 			for (int i = 1; i < getData()->I; ++i)
 				ctr.addTerm(a[v][i][j]);
 
 			p.newCtr(("Lim_" + to_string(v) + "_" + to_string(j)).c_str(), ctr);
+		}
+
+	// TODO: Give this its own method 
+	for (int v = 0; v < getData()->V; ++v)
+		for (int i = 0; i < getData()->I; ++i)
+		{
+			XPRBrelation ctr = a[v][i][0] <= 1;
+
+			for (int j = 1; j < getData()->J; ++j)
+				ctr.addTerm(a[v][i][j]);
+
+			p.newCtr(("Lim2_" + to_string(v) + "_" + to_string(i)).c_str(), ctr);
 		}
 }
 
@@ -100,21 +111,21 @@ void MonthModel::genOrderCon()
 
 void MonthModel::genResourceCon()
 {
+	MonthData* data = getData();
+
 	for (int y = 0; y < getData()->Y; ++y)
-		for (int i = 0; i < getData()->I; ++i)
+		for (int i = 0; i < getData()->IMaint; ++i)
 		{
-			XPRBrelation ctr = getData()->rho[y][i] <= a[getData()->Vy[y]][i][0];
+			int VyStart = 0;
+			if (y > 0)
+				VyStart = getData()->Vy[y - 1];
 
-			int VyCap;
-			if (y + 1 >= getData()->Y)
-				VyCap = y + 1;
-			else
-				VyCap = getData()->Vy[y+1];
+			XPRBrelation ctr = a[VyStart][i][0] == getData()->rho[y][i];
 
-			for (int v = getData()->Vy[y]; v < VyCap; ++v)
+			for (int v = VyStart; v < getData()->Vy[y]; ++v)
 				for (int j = 0; j < getData()->J; ++j)
-					if (j > 0 || v > getData()->Vy[y])
-						ctr.addTerm(a[v][i][j], -1);
+					if (j > 0 || v > VyStart)
+						ctr.addTerm(a[v][i][j]);
 
 			p.newCtr(("Res_" + to_string(y) + "_" + to_string(i)).c_str(), ctr);
 		}
@@ -124,17 +135,18 @@ void MonthModel::genDurationCon()
 {
 	for (int y = 0; y < getData()->Y; ++y)
 	{
-		int VyCap;
-		if (y + 1 >= getData()->Y)
-			VyCap = y + 1;
-		else
-			VyCap = getData()->Vy[y + 1];
+		int VyStart = 0;
+		if (y > 0)
+			VyStart = getData()->Vy[y - 1];
 
-		for (int v = getData()->Vy[y]; v < VyCap; ++v)
+		for (int v = VyStart; v < getData()->Vy[y]; ++v)
 			for (int i = 0; i < getData()->I; ++i)
 				for (int i_ = 0; i_ < getData()->I; ++i_)
 					for (int j = 1; j < getData()->J; ++j)
 					{
+						if (i == i_)
+							continue;
+
 						XPRBrelation ctr = getData()->M * (a[v][i][j] + a[v][i_][j-1]) + getData()->d[y][i_] * a[v][i_][j - 1] - 2 * getData()->M <= s[i] + getData()->s[y][i] - s[i_] - getData()->s[y][i_];
 
 						p.newCtr(("Dur_" + to_string(y) + "_" + to_string(v) + "_" + to_string(i) + "_" + to_string(i_) + "_" + to_string(j)).c_str(), ctr);
@@ -152,10 +164,13 @@ void MonthModel::genFinishCon()
 	}
 }
 
-void MonthModel::genFixedACon()
+void MonthModel::genFixedCon()
 {
-	for (int v = 0; v < getData()->V; ++v)
-		for (int i = 0; i < getData()->IInst; ++i)
+	for (int i = 0; i < getData()->IInst; ++i)
+	{
+		s[i + getData()->IMaint].fix(getData()->sInst[i]);
+
+		for (int v = 0; v < getData()->V; ++v)
 		{
 			if (getData()->aInst[v][i] == 0)
 				for (int j = 0; j < getData()->J; ++j)
@@ -165,17 +180,12 @@ void MonthModel::genFixedACon()
 				XPRBrelation ctr = a[v][i + getData()->IMaint][0] == 1;
 
 				for (int j = 1; j < getData()->J; ++j)
-					ctr.addTerm(a[v][i][j]);
+					ctr.addTerm(a[v][i + getData()->IMaint][j]);
 
-				p.newCtr(("Fix_" + to_string(v) + "_" + to_string(i)).c_str(), ctr);
+				p.newCtr(("Fix_" + to_string(v) + "_" + to_string(i + getData()->IMaint)).c_str(), ctr);
 			}
 		}
-}
-
-void MonthModel::genFixedSCon()
-{
-	for (int i = 0; i < getData()->IInst; ++i)
-		s[i + getData()->IMaint].fix(getData()->sInst[i]);
+	}
 }
 
 MonthModel::MonthModel(MonthData* data, Mode* mode) : Model(data, mode, "Month")
