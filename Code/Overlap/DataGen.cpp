@@ -247,7 +247,11 @@ MonthData* DataGen::readMonth(ifstream* file)
 
 		ind = parseArrayDouble(split, ind, &arrD, I);
 		for (int i = 0; i < I; ++i)
+		{
 			month->d[y][i] = arrD[i];
+			if (month->dMax[i] < month->s[y][i] + month->d[y][i])
+				month->dMax[i] = month->s[y][i] + month->d[y][i];
+		}
 
 		ind = parseArray(split, ind, &arr, IMaint);
 		for (int i = 0; i < IMaint; ++i)
@@ -412,6 +416,10 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 				month.s[y][i + Im] = 0;
 				month.d[y][i + Im] = data->dI[m][y][i];
 			}
+
+			for (int i = 0; i < I; ++i)
+				if (month.dMax[i] < month.s[y][i] + month.d[y][i])
+					month.dMax[i] = month.s[y][i] + month.d[y][i];
 		}
 
 		// Costs per task

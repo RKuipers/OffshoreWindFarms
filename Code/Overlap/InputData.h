@@ -54,6 +54,7 @@ public:
 	vector<double> c;				// im
 	vector<vector<double>> s;		// y i
 	vector<vector<double>> d;		// y i
+	vector<double> dMax;			// i
 	vector<vector<int>> rho;		// y im
 	int M;
 	double T;
