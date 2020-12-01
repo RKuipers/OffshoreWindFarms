@@ -8,6 +8,10 @@
 
 #include "Solution.h"
 
+//#define YEAR
+//#define MONTH
+//#define MIXED
+
 using namespace std;
 
 /*
@@ -149,7 +153,59 @@ void runMonth()
     sol->print();
 }
 
+void runMixed()
+{
+    cout << "-------------- YEAR --------------" << endl;
+    Mode mode = Mode();
+    DataGen dg = DataGen();
+    ifstream datafile("Input Files/mixedBasic.dat");
+    MixedData* data = dg.readMixed(&datafile);
+    YearModel* yearModel = new YearModel(data, &mode);
+    yearModel->genProblem();
+    YearSolution* yearSol = yearModel->solve();
+    yearSol->print();
+
+    vector<MonthData> months = dg.genMonths(data, yearSol);
+    for (int m = 0; m < months.size(); ++m)
+    {
+        if (months[m].I == 0)
+        {
+            cout << "Month " << m << " has no tasks to schedule" << endl;
+            continue;
+        }
+        else
+            cout << "-------------- MONTH " << m << " --------------" << endl;
+
+        MonthModel* monthModel = new MonthModel(&months[m], &mode);
+        monthModel->genProblem();
+        MonthSolution* sol = monthModel->solve();
+        sol->print();
+    }
+}
+
 int main()
 {
-    runMonth();
+    int run = 0;
+#if defined(YEAR)
+    run = 1;
+#elif defined(MONTH)
+    run = 2;
+#elif defined(MIXED)
+    run = 3;
+#else
+    cout << "Which Model do you want to run?" << endl << "Year (1), Month (2), Mixed (3)" << endl;
+    cin >> run;
+#endif
+
+    switch (run)
+    {
+    case 1:
+        runYear();
+    case 2:
+        runMonth();
+    case 3:
+        runMixed();
+    default:
+        cout << "ERROR" << endl;
+    }
 }

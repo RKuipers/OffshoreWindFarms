@@ -13,7 +13,7 @@ MonthSolution* MonthModel::genSolution(XPRBprob* p, double duration)
 	vector<double> s;
 
 	for (int i = 0; i < getData()->I; ++i)
-		s.push_back(this->s[i].getSol());
+		s.push_back(abs(this->s[i].getSol()));
 
 	solution->setStarts(s);
 
