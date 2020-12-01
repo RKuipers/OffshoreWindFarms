@@ -34,7 +34,8 @@ void MonthModel::genProblem()
 	genDecVars();
 	genObj();
 
-	genLimitCon();
+	genMomentCon();
+	genRepeatCon();
 	genOrderCon();
 	genResourceCon();
 	genDurationCon();
@@ -66,7 +67,7 @@ void MonthModel::genObj()
 	p.setObj(Obj);
 }
 
-void MonthModel::genLimitCon()
+void MonthModel::genMomentCon()
 {
 	for (int v = 0; v < getData()->V; ++v)
 		for (int j = 0; j < getData()->J; ++j)
@@ -76,10 +77,12 @@ void MonthModel::genLimitCon()
 			for (int i = 1; i < getData()->I; ++i)
 				ctr.addTerm(a[v][i][j]);
 
-			p.newCtr(("Lim_" + to_string(v) + "_" + to_string(j)).c_str(), ctr);
+			p.newCtr(("Mom_" + to_string(v) + "_" + to_string(j)).c_str(), ctr);
 		}
+}
 
-	// TODO: Give this its own method 
+void MonthModel::genRepeatCon()
+{	
 	for (int v = 0; v < getData()->V; ++v)
 		for (int i = 0; i < getData()->I; ++i)
 		{
@@ -88,7 +91,7 @@ void MonthModel::genLimitCon()
 			for (int j = 1; j < getData()->J; ++j)
 				ctr.addTerm(a[v][i][j]);
 
-			p.newCtr(("Lim2_" + to_string(v) + "_" + to_string(i)).c_str(), ctr);
+			p.newCtr(("Rep_" + to_string(v) + "_" + to_string(i)).c_str(), ctr);
 		}
 }
 

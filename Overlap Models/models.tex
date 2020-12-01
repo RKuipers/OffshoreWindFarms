@@ -32,11 +32,11 @@
 subject to:
 \begin{align}
 L_y \cdot N_{y,m,\sigma} + L^{Inst}_{y,m}	&\geq 	\sum_{i \in I^P} (P_{m,i} \cdot d^P_y) + \sum_{i \in I^R} (R_{m,i,\sigma} \cdot d^R_{y,i})  	
-																					& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
-\sum_{m' = 0}^{m-1} f_{m',i,\sigma}		&\geq 	\sum_{m' = 0}^m R_{m',i,\sigma}							& \forall \sigma \in S, \forall m \in M, \forall i \in I^R	\\
-P_{m,i} 						&\leq 		\sum_{m' = 0}^{m-G^{MIN}} P_{m',(i-1)} - \sum_{m' = 0}^{m-1} P_{m',i}	& \forall m \in M, \forall i \in I^P 				\\
-P_{m,i} 						&\geq	 	\sum_{m' = 0}^{m-G^{MAX}} P_{m',(i-1)} - \sum_{m' = 0}^{m-1} P_{m',i}	& \forall m \in M, \forall i \in I^P 				\\
-N_{y,m,\sigma}					&\leq		A_{y,m} - N^{Inst}_{y,m}								& \forall \sigma \in S, \forall m \in M, \forall y \in Y
+																				& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
+\sum_{m' = 0}^{m-1} f_{m',i,\sigma}	&\geq 	\sum_{m' = 0}^m R_{m',i,\sigma}							& \forall \sigma \in S, \forall m \in M, \forall i \in I^R	\\
+P_{m,i} 					&\leq 		\sum_{m' = 0}^{m-G^{MIN}} P_{m',(i-1)} - \sum_{m' = 0}^{m-1} P_{m',i}	& \forall m \in M, \forall i \in I^P 				\\
+P_{m,i} 					&\geq	 	\sum_{m' = 0}^{m-G^{MAX}} P_{m',(i-1)} - \sum_{m' = 0}^{m-1} P_{m',i}	& \forall m \in M, \forall i \in I^P 				\\
+N_{y,m,\sigma}				&\leq		A_{y,m} - N^{Inst}_{y,m}								& \forall \sigma \in S, \forall m \in M, \forall y \in Y
 \end{align}
 
 \end{frame}
@@ -106,12 +106,13 @@ Parameters:
 subject to:
 \begin{align}
 \sum_{i \in I} a_{v,i,j}						&\leq 		1							& \forall v \in V, \forall j \in J 						\\
+\sum_{j \in J} a_{v,i,j}						&\leq 		1							& \forall v \in V, \forall i \in I^{Maint}					\\
 \sum_{i \in I} a_{v,i,j}						&\leq 		\sum_{i \in I} a_{v,i,(j-1)}				& \forall v \in V, \forall j \in J - \{ 0 \}					\\
-\rho_{y,i}								&\leq	 	\sum_{v \in V_y} \sum_{j \in J} a_{v,i,j} 	& \forall y \in Y, \forall i \in I						\\	
+\rho_{y,i}								&\leq	 	\sum_{v \in V_y} \sum_{j \in J} a_{v,i,j} 	& \forall y \in Y, \forall i \in I^{Maint}					\\	
 \begin{aligned} M \cdot (a_{v,i,j} + a_{v,i',(j-1)}) + \\ 
 d_{y,i'} \cdot a_{v,i',(j-1)} - 2M \end{aligned}			&\leq	 	s_i + s_{y,i} - s_{i'} - s_{i',y}			& \begin{aligned} \forall y \in Y, \forall v \in V_y, 			\\
-																		\forall i, i' \in I, \forall j \in J - \{ 0 \}	\end{aligned}		\\
-s_i + \max_{y \in Y} (s_{y,i}+ d_{y,i})				&\leq		T 							&\forall i \in I 								\\
+																		\forall i, i' \in I | i \neq i', \forall j \in J - \{ 0 \}	\end{aligned}	\\
+s_i + \max_{y \in Y} (s_{y,i}+ d_{y,i})				&\leq		T 							&\forall i \in I^{Maint}							\\
 \sum_{j \in J} a_{v,i,j}						&=		a^{Inst}_{v,i}					& \forall v \in V, \forall I \in I^{Inst}  					\\
 s_i									&=		s^{Inst}_i 						& \forall I \in I^{Inst}  					
 \end{align}
@@ -121,6 +122,7 @@ s_i									&=		s^{Inst}_i 						& \forall I \in I^{Inst}
 \begin{frame}{Months model Explanation}
 \expl Objective is to minimise costs of tasks being uncompleted (the +max bit is optional as it's about constants) \\ 
 \expl Ensures every vessel only does one task at a time \\ 
+\expl Ensure every vessel visits each task at most once \\
 \expl Ensures that if a vessel has an $x$th task it also has an $x-1$th task \\ 
 \expl Ensures every task has enough resourses assigned to it \\
 \expl Ensures the starting times of consecutive tasks are separated by at least the duration of the first task (the $M$ factors ensure that if the tasks are not consecutive the starting times don't matter) \\
@@ -130,7 +132,7 @@ s_i									&=		s^{Inst}_i 						& \forall I \in I^{Inst}
 \end{frame}
 
 \begin{frame}{Months model notation overview}
-\footnotesize
+\scriptsize
 \begin{columns}
 \begin{column}{.48\textwidth}
 Sets:
@@ -138,8 +140,9 @@ Sets:
 \item $Y$: Vessel types
 \item $V$: Individual vessels
 \item $V_y \subseteq V$: Vessels of type $y \in Y$ 
-\item $I$:  Tasks to be completed in this month
-\item $I^{Inst} \subset I$:  Installation tasks completed this month by vessels that are also available for maintenance tasks
+\item $I^{Inst}$:  Installation tasks completed this month by vessels that are also available for maintenance tasks
+\item $I^{Maint}$: Maintenance tasks to be scheduled this month
+\item $I = I^{Inst} \cup I^{Maint}$:  Tasks to be completed in this month
 \item $J$: Maximum amount of tasks assigned to a single vessel
 \end{itemize}
 
