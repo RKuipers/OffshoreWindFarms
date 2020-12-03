@@ -12,7 +12,8 @@ private:
 
 public: // TODO: protected
 	vector<XPRBvar> s;					// i
-	vector<vector<vector<XPRBvar>>> a;	// v i j
+	vector<vector<vector<XPRBvar>>> a;	// v i i'
+	vector<vector<XPRBvar>> aF, aL;		// v i
 
 	MonthSolution* genSolution(XPRBprob* p, double duration) override;
 

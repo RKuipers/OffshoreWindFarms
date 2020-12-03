@@ -48,7 +48,7 @@ class MonthData
 {
 public:
 	// Sets:
-	int Y, V, IMaint, IInst, I, J;
+	int Y, V, IMaint, IInst, I;
 	vector<int> Vy;					// y
 	// Parameters:
 	vector<double> c;				// im
@@ -61,7 +61,7 @@ public:
 	vector<double> sInst;			// ii
 	vector<vector<int>> aInst;		// v ii
 
-	MonthData(int y, int v, int im, int ii, int j);
+	MonthData(int y, int v, int im, int ii);
 
 	MonthData* getMonth() override;
 };

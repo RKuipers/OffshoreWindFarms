@@ -62,7 +62,7 @@ public:
 	MonthSolution(string name, int id);
 
 	void setStarts(vector<double> s);
-	void setOrders(vector<vector<vector<int>>> a);
+	void setOrders(vector<vector<vector<int>>> a, vector<vector<int>> aF, vector<vector<int>> aL);
 	void print() override;
 };
 

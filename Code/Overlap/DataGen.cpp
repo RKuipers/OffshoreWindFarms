@@ -227,8 +227,7 @@ MonthData* DataGen::readMonth(ifstream* file)
 	int V = stoi(split[1]);
 	int IMaint = stoi(split[2]);
 	int IInst = stoi(split[3]);
-	int J = stoi(split[4]);
-	MonthData* month = new MonthData(Y, V, IMaint, IInst, J);
+	MonthData* month = new MonthData(Y, V, IMaint, IInst);
 	readEmpty(file);
 
 	int I = IMaint + IInst;
@@ -245,8 +244,8 @@ MonthData* DataGen::readMonth(ifstream* file)
 		for (int i = 0; i < IMaint; ++i)
 			month->s[y][i] = arrD[i];
 
-		ind = parseArrayDouble(split, ind, &arrD, I);
-		for (int i = 0; i < I; ++i)
+		ind = parseArrayDouble(split, ind, &arrD, IMaint);
+		for (int i = 0; i < IMaint; ++i)
 		{
 			month->d[y][i] = arrD[i];
 			if (month->dMax[i] < month->s[y][i] + month->d[y][i])
@@ -269,11 +268,17 @@ MonthData* DataGen::readMonth(ifstream* file)
 	for (int i = 0; i < IInst; ++i)
 	{
 		split = readLine(file);
-		month->sInst[i] = stod(split[1]);
-		int vessel = stoi(split[2]);
-		for (int v = 0; v < V; ++v)
-			month->aInst[v][i] = 0;
+		int vessel = stoi(split[1]);
 		month->aInst[vessel][i] = 1;
+		month->sInst[i] = stod(split[2]);
+		int type = -1;
+		for (int y = 0; y < Y; ++y)
+			if (vessel < month->Vy[y])
+			{
+				type = y;
+				break;
+			}
+		month->d[type][i + IMaint] = stod(split[3]);
 	}
 	readEmpty(file);
 
@@ -385,7 +390,7 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 		int Im = planned + reactive;
 		int I = Im + data->IInst[m];
 
-		MonthData month = MonthData(data->Y, VyTotal, Im, data->IInst[m], I);
+		MonthData month = MonthData(data->Y, VyTotal, Im, data->IInst[m]);
 
 		// Vessels
 		for (int y = 0; y < data->Y; ++y)
@@ -417,7 +422,7 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 				month.d[y][i + Im] = data->dI[m][y][i];
 			}
 
-			for (int i = 0; i < I; ++i)
+			for (int i = 0; i < Im; ++i)
 				if (month.dMax[i] < month.s[y][i] + month.d[y][i])
 					month.dMax[i] = month.s[y][i] + month.d[y][i];
 		}
