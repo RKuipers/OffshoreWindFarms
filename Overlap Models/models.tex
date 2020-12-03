@@ -9,6 +9,11 @@
 \newcounter{expl}
 \newcommand{\expl}{\refstepcounter{expl} (\theexpl) }
 
+\newcommand{\smalla}{\small}
+\newcommand{\smallb}{\footnotesize}
+\newcommand{\smallc}{\scriptsize}
+\newcommand{\smalld}{\tiny}
+
 \title[Models for the Overlap]{Models for the Overlap}
 
 \author{R. Kuipers}
@@ -18,32 +23,35 @@
 %------------------------------------------------------------------------------YEARS------------------------------------------------------------------
 
 \begin{frame}{Years spanning model}
-\scriptsize
+\smalld
 
 \begin{equation}
-	\min_{N_{y,m,\sigma}, P_{m,i}, R_{m,i,\sigma} \in \mathbb{Z}^*}
+	\min_{N_{y,m,\sigma}, P_{m,ip}, R_{m,ir,\sigma} \in \mathbb{Z}^*}
 	\begin{aligned}
 	\frac{1}{|S|} \cdot \sum_{\sigma \in S} ( \sum_{m \in M} [\sum_{y \in Y} 
 	(N_{y,m,\sigma} \cdot c_{y,m}) +  
-	\sum_{i \in I^P} (P_{m,i} \cdot d^P \cdot e^H_m) + \\
-	\sum_{i \in I^R}[\sum_{m' = 0}^{m} (f_{m',i,\sigma} - R_{m',i,\sigma})] \cdot e^H_m \cdot H_m ])
+	\sum_{ip \in I^P} (P_{m,ip} \cdot d^P \cdot e^H_m) + \\
+	\sum_{ir \in I^R}[\sum_{m' = 0}^{m} (f_{m',ir,\sigma} - R_{m',ir,\sigma})] \cdot e^H_m \cdot H_m ])
 	\end{aligned}	
 \end{equation}
 subject to:
 \begin{align}
-L_y \cdot N_{y,m,\sigma} + L^{Inst}_{y,m}	&\geq 	\sum_{i \in I^P} (P_{m,i} \cdot d^P_y) + \sum_{i \in I^R} (R_{m,i,\sigma} \cdot d^R_{y,i})  	
+L_y \cdot N_{y,m,\sigma} + L^{Inst}_{y,m}	&\geq 	\sum_{ip \in I^P} (P_{m,ip} \cdot d^P_y) + \sum_{ir \in I^R} (R_{m,ir,\sigma} \cdot d^R_{y,ir}) +  \epsilon_{\sigma, m, y} 	
 																				& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
-\sum_{m' = 0}^{m-1} f_{m',i,\sigma}	&\geq 	\sum_{m' = 0}^m R_{m',i,\sigma}							& \forall \sigma \in S, \forall m \in M, \forall i \in I^R	\\
-P_{m,i} 					&\leq 		\sum_{m' = 0}^{m-G^{MIN}} P_{m',(i-1)} - \sum_{m' = 0}^{m-1} P_{m',i}	& \forall m \in M, \forall i \in I^P 				\\
-P_{m,i} 					&\geq	 	\sum_{m' = 0}^{m-G^{MAX}} P_{m',(i-1)} - \sum_{m' = 0}^{m-1} P_{m',i}	& \forall m \in M, \forall i \in I^P 				\\
-N_{y,m,\sigma}				&\leq		A_{y,m} - N^{Inst}_{y,m}								& \forall \sigma \in S, \forall m \in M, \forall y \in Y
+N_{y,m,\sigma} + N^{Inst}_{y,m}	&\geq 	\rho_{ \sigma, m, y}									& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
+\sum_{m' = 0}^{m-1} f_{m',ir,\sigma}	&\geq 	\sum_{m' = 0}^m R_{m',ir,\sigma}							& \forall \sigma \in S, \forall m \in M, \forall ir \in I^R	\\
+P_{m,ip} 					&\leq 		\sum_{m' = 0}^{m-G^{MIN}} P_{m',(ip-1)} - \sum_{m' = 0}^{m-1} P_{m',ip}	& \forall m \in M, \forall ip \in I^P 			\\
+P_{m,ip} 					&\geq	 	\sum_{m' = 0}^{m-G^{MAX}} P_{m',(ip-1)} - \sum_{m' = 0}^{m-1} P_{m',ip}	& \forall m \in M, \forall ip \in I^P 			\\
+N_{y,m,\sigma}				&\leq		A_{y,m} 											& \forall \sigma \in S, \forall m \in M, \forall y \in Y
 \end{align}
 
 \end{frame}
 
 \begin{frame}{Years model Explanation}
+\smalla
 \expl The objective takes an average cost of all scenarios by counting up the cost per month. Each month has a cost for vessels chartered (by type), the energy lost due to planned maintenance, and the energy lost due to unrepaired failures \\
 \expl For each vessel type the available time (based on charters and spare time from installation) needs to surpass the estimated total time all tasks take \\
+\expl Ensures enough vessels are assigned to a given month (based on feedback from that month) \\
 \expl For any type of reactive task, the amount of tasks performed cannot exceed the amount of failures of that type (with a 1 month delay before a failure can be solved) \\
 \expl Ensures planned tasks are not scheduled too close together by counting up the turbines that were last visited $G^{MIN}$ or more months ago and subtracting all that were revisited later \\
 \expl Ensures planned tasks are not scheduled too far apart, in similar manner as the previous constraint \\
@@ -51,7 +59,7 @@ N_{y,m,\sigma}				&\leq		A_{y,m} - N^{Inst}_{y,m}								& \forall \sigma \in S,
 \end{frame}
 
 \begin{frame}{Years model notation overview}
-\tiny
+\smalld
 \begin{columns}
 \begin{column}{.48\textwidth}
 Sets:
@@ -66,28 +74,34 @@ Sets:
 Decision variables:
 \begin{itemize}
 \item $N_{y,m,\sigma}$: The amount of vessels of type $y$ chartered in month $m$ in scenario $\sigma$
-\item $P_{m,i}$: Planned $i$th tasks in month $m$
-\item $R_{m,i,\sigma}$: Reactive tasks of type $i$ in month $m$ and scenario $\sigma$
+\item $P_{m,ip}$: Planned tasks in iteration $ip$ in month $m$
+\item $R_{m,ir,\sigma}$: Reactive tasks of type $ir$ in month $m$ and scenario $\sigma$
+\end{itemize}
+
+Parameters:
+\begin{itemize}
+\item $c_{y,m}$: The cost of chartering a vessel of type $y$ in month $m$
+\item $d^P$: The duration of a preventive task
+\item $e^H_m$: The energy produced by a single turbine per hour in month $m$
+\item $f_{m,ir,\sigma}$: The amount of failures of type $ir$ in month $m$ in scenario $\sigma$
+\item $H_m$: The number of hours in month $m$
 \end{itemize}
 \end{column}
 
 \hfill
 
 \begin{column}{.48\textwidth}
-Parameters:
+Parameters (cont):
 \begin{itemize}
-\item $c_{y,m}$: The cost of chartering a vessel of type $y$ in month $m$
-\item $d^P$: The duration of a preventive task
-\item $e^H_m$: The energy produced by a single turbine per hour in month $m$
-\item $f_{m,i,\sigma}$: The amount of failures of type $i$ in month $m$ in scenario $\sigma$
-\item $H_m$: The number of hours in month $m$
+\item $\epsilon_{\sigma, m, y}$: Feedback parameter that enforces leighway in the amount of vessel time available to month $m$
+\item $\rho_{ \sigma, m, y}$: Feedback parameter that enforces a minimum amount of a certain vessel assigned to month $m$
 \item $L_y$: The amount of hours a vessel of type $y$ is available if chartered for a month
 \item $L^{Inst}_{y,m}$: Leftover hours vessels of type $y$ are available in month $m$ based on the installation schedule
+\item $N^{Inst}_{y,m}$: Amount of vessels of type $y$ used by the installation schedule in month $m$ that can also partially help out with maintenance operations
 \item $d^P_y$: The duration of a preventive task for vessel type $y$
-\item $d^R_{y,i}$: The duration of a reactive task $i$ for vessel type $y$
+\item $d^R_{y,ir}$: The duration of a reactive task $ir$ for vessel type $y$
 \item $G^{MIN}$ \& $G^{MAX}$: The minimum and maximum amounts of months between two planned maintenance tasks
 \item $A_{y,m}$: The number of maximum available vessels of type $y$ in month $m$
-\item $N^{Inst}_{y,m}$: Amount of vessels of type $y$ used by the installation schedule in month $m$
 \end{itemize}
 \end{column}
 \end{columns}
@@ -96,43 +110,40 @@ Parameters:
 %-----------------------------------------------------------------------------MONTHS------------------------------------------------------------------
 
 \begin{frame}{Months spanning model}
-\scriptsize
+\smallc
 
 \begin{equation}
 	\min_{\substack{s_i \in \mathbb{R}_{\geq 0} \\ 
-	a_{v,i,j} \in \{0, 1\}}} 
+	a^F_{v,i}, a^L_{v,i}, a_{v,i,i'} \in \{0, 1\}}} 
 	\sum_{i \in I} c_i \cdot (s_i + \max_{y \in Y} (s_{y,i}+ d_{y,i}))
 \end{equation}
 subject to:
 \begin{align}
-\sum_{i \in I} a_{v,i,j}						&\leq 		1							& \forall v \in V, \forall j \in J 						\\
-\sum_{j \in J} a_{v,i,j}						&\leq 		1							& \forall v \in V, \forall i \in I^{Maint}					\\
-\sum_{i \in I} a_{v,i,j}						&\leq 		\sum_{i \in I} a_{v,i,(j-1)}				& \forall v \in V, \forall j \in J - \{ 0 \}					\\
-\rho_{y,i}								&\leq	 	\sum_{v \in V_y} \sum_{j \in J} a_{v,i,j} 	& \forall y \in Y, \forall i \in I^{Maint}					\\	
-\begin{aligned} M \cdot (a_{v,i,j} + a_{v,i',(j-1)}) + \\ 
-d_{y,i'} \cdot a_{v,i',(j-1)} - 2M \end{aligned}			&\leq	 	s_i + s_{y,i} - s_{i'} - s_{i',y}			& \begin{aligned} \forall y \in Y, \forall v \in V_y, 			\\
-																		\forall i, i' \in I | i \neq i', \forall j \in J - \{ 0 \}	\end{aligned}	\\
-s_i + \max_{y \in Y} (s_{y,i}+ d_{y,i})				&\leq		T 							&\forall i \in I^{Maint}							\\
-\sum_{j \in J} a_{v,i,j}						&=		a^{Inst}_{v,i}					& \forall v \in V, \forall I \in I^{Inst}  					\\
-s_i									&=		s^{Inst}_i 						& \forall I \in I^{Inst}  					
+\sum_{i \in I} a^F_{v,i}							&\leq	1							&\forall v \in V						\\
+a^F_{v,i} + \sum_{i' \in I - \{i\}} a_{v,i',i}				&=	a^L_{v,i} + \sum_{i' \in I - \{i\}} a_{v,i,i'}	&\forall v \in V, \forall i \in I				\\	
+\sum_{v \in V_y} (a^F_{v,i} +  \sum_{i' \in I - \{i\}} a_{v,i',i})	&\geq	\rho_{y,i}  						& \forall y \in Y, \forall i \in I^{Maint} 			\\
+s_{i'} + s_{y,i'} - s_i - s_{i,y}						&\geq	(M + d_{y,i}) \cdot a_{v,i,i'} - M	 		& \begin{aligned} \forall y \in Y, \forall v \in V_y, 	\\
+																		\forall i, i' \in I | i \neq i'		\end{aligned}	\\
+s_i + \max_{y \in Y} (s_{y,i}+ d_{y,i})					&\leq	T 							&\forall i \in I^{Maint}					\\
+a^F_{v,i} +  \sum_{i' \in I - \{i\}} a_{v,i',i}				&=	a^{Inst}_{v,i}					& \forall v \in V, \forall i \in I^{Inst}  			\\
+s_i										&=	s^{Inst}_i 						& \forall I \in I^{Inst} 
 \end{align}
 
 \end{frame}
 
 \begin{frame}{Months model Explanation}
 \expl Objective is to minimise costs of tasks being uncompleted (the +max bit is optional as it's about constants) \\ 
-\expl Ensures every vessel only does one task at a time \\ 
-\expl Ensure every vessel visits each task at most once \\
-\expl Ensures that if a vessel has an $x$th task it also has an $x-1$th task \\ 
+\expl Ensures every vessel has at most one first task \\ 
+\expl Ensures that a vessel follows a path without brances \\
 \expl Ensures every task has enough resourses assigned to it \\
-\expl Ensures the starting times of consecutive tasks are separated by at least the duration of the first task (the $M$ factors ensure that if the tasks are not consecutive the starting times don't matter) \\
+\expl Ensures the starting times of consecutive tasks are separated by at least the duration of the first task \\
 \expl Ensures all tasks are finished on time \\
 \expl Forces every installation task to be assigned as in the installation schedule \\
 \expl Forces every installation task to be started as in the installation schedule
 \end{frame}
 
 \begin{frame}{Months model notation overview}
-\scriptsize
+\smallc
 \begin{columns}
 \begin{column}{.48\textwidth}
 Sets:
@@ -143,13 +154,13 @@ Sets:
 \item $I^{Inst}$:  Installation tasks completed this month by vessels that are also available for maintenance tasks
 \item $I^{Maint}$: Maintenance tasks to be scheduled this month
 \item $I = I^{Inst} \cup I^{Maint}$:  Tasks to be completed in this month
-\item $J$: Maximum amount of tasks assigned to a single vessel
 \end{itemize}
 
 Decision variables:
 \begin{itemize}
 \item $s_i$: Start time of task $i$
-\item $a_{v,i,j}$: Binary variable which is 1 if vessel $v$ performs task $i$ as its $j$th task
+\item $a^F_{v,i}$ \& $a^L_{v,i}$: Binary variables, 1 for the first and last task $i$ of vessel $v$ respectively
+\item $a_{v,i,i'}$: Binary variable which is 1 if vessel $v$ performs task $i'$ after task $i'$
 \end{itemize}
 \end{column}
 
