@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 #include "DataGen.h"
 #include "Weather.h"
 #include "Model.h"
@@ -40,6 +41,8 @@ void runMonth()
 
 void runMixed()
 {
+    clock_t start = clock();
+
     cout << "-------------- YEAR --------------" << endl;
     Mode mode = Mode();
     DataGen dg = DataGen();
@@ -66,6 +69,8 @@ void runMixed()
         MonthSolution* sol = monthModel->solve();
         sol->print();
     }
+
+    cout << "TOTAL duration: " << ((double)clock() - start) / (double)CLOCKS_PER_SEC << endl;
 }
 
 int main()

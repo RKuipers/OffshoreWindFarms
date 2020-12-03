@@ -12,13 +12,14 @@ protected:
 	string modeName;
 	int modeId;
 	double value, duration; 
-	// TODO Maybe: Set option somewhere to print duration, modeinfo
+	// TODO Maybe: Set option somewhere to print modeinfo
 
 public:
 	Solution(string name, int id);
 
 	void setResult(double value, double duration);
 	void printObj();
+	void printDur();
 	virtual void print() =0;
 };
 

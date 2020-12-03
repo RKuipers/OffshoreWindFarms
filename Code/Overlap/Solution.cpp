@@ -18,6 +18,11 @@ void Solution::printObj()
 	cout << "Objective value: " << value << endl;
 }
 
+void Solution::printDur()
+{
+	cout << "Duration: " << duration << endl;
+}
+
 //-----------------------------------------------YEAR----------------------------------------------
 
 YearSolution::YearSolution(string name, int id) : Solution(name, id) { }
@@ -124,6 +129,7 @@ void YearSolution::printReactive()
 void YearSolution::print()
 {
 	printObj();
+	printDur();
 	printVessels();
 	printPlanned();
 	printReactive();
@@ -203,6 +209,7 @@ void MonthSolution::printOrders()
 void MonthSolution::print()
 {
 	printObj();
+	printDur();
 	printStarts();
 	printOrders();
 }
