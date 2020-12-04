@@ -220,10 +220,19 @@ MonthModel::MonthModel(MonthData* data, Mode* mode) : Model(data, mode, "Month")
 	a = vector<vector<vector<XPRBvar>>>(data->V, vector<vector<XPRBvar>>(data->I, vector<XPRBvar>(data->I)));
 	aF = vector<vector<XPRBvar>>(data->V, vector<XPRBvar>(data->I));
 	aL = vector<vector<XPRBvar>>(data->V, vector<XPRBvar>(data->I));
+
+	genProblem();
 }
 
 MonthSolution* MonthModel::solve()
 {
+	/*if (getData()->I > 12)
+	{
+		XPRBloadmat(p.getCRef());
+		XPRSprob opt_prob = XPRBgetXPRSprob(p.getCRef());
+		XPRStune(opt_prob, "g");
+	}*/
+
 	double dur = solveBasics();
 
 	return genSolution(&p, dur);

@@ -11,7 +11,7 @@
 
 //#define YEAR
 //#define MONTH
-//#define MIXED
+#define MIXED
 
 using namespace std;
 
@@ -19,10 +19,9 @@ void runYear()
 {
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/yearBasic.dat");
+    ifstream datafile("Input Files/yearScen.dat");
     YearData* data = dg.readYear(&datafile);
     YearModel* model = new YearModel(data, &mode);
-    model->genProblem();
     YearSolution* sol = model->solve();
     sol->print();
 }
@@ -34,7 +33,6 @@ void runMonth()
     ifstream datafile("Input Files/monthBasic.dat");
     MonthData* data = dg.readMonth(&datafile);
     MonthModel* model = new MonthModel(data, &mode);
-    model->genProblem();
     MonthSolution* sol = model->solve();
     sol->print();
 }
@@ -46,10 +44,9 @@ void runMixed()
     cout << "-------------- YEAR --------------" << endl;
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/mixedBasic.dat");
+    ifstream datafile("Input Files/mixedEasy.dat");
     MixedData* data = dg.readMixed(&datafile);
     YearModel* yearModel = new YearModel(data, &mode);
-    yearModel->genProblem();
     YearSolution* yearSol = yearModel->solve();
     yearSol->print();
 
@@ -65,7 +62,6 @@ void runMixed()
             cout << "-------------- MONTH " << m << " --------------" << endl;
 
         MonthModel* monthModel = new MonthModel(&months[m], &mode);
-        monthModel->genProblem();
         MonthSolution* sol = monthModel->solve();
         sol->print();
     }

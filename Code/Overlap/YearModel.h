@@ -9,7 +9,7 @@ private:
 
 	YearData* getData();
 
-public: // TODO: protected
+protected:
 	vector<vector<vector<XPRBvar>>> N;	// y m sig
 	vector <vector<XPRBvar>> P;			// m i
 	vector<vector<vector<XPRBvar>>> R;	// m i sig
@@ -25,7 +25,7 @@ public: // TODO: protected
 	void genMinMaintCon();
 	void genAvailableCon();
 
-//public: TODO
+public:
 	YearModel(YearData* data, Mode* mode);
 
 	YearSolution* solve() override;

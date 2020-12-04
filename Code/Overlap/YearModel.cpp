@@ -186,6 +186,8 @@ YearModel::YearModel(YearData* data, Mode* mode) : Model(data, mode, "Year")
 	N = vector<vector<vector<XPRBvar>>>(data->Y, vector<vector<XPRBvar>>(data->M, vector<XPRBvar>(data->S)));
 	P = vector<vector<XPRBvar>>(data->M, vector<XPRBvar>(data->Ip));
 	R = vector<vector<vector<XPRBvar>>>(data->M, vector<vector<XPRBvar>>(data->Ir, vector<XPRBvar>(data->S)));
+
+	genProblem();
 }
 
 YearSolution* YearModel::solve()

@@ -1,0 +1,28 @@
+#Scenarios, Months, Vessel Types, Planned Task Amount, Reactive Task Types
+#S M Y Ip Ir
+3	12	1	2	2
+
+#Vessels
+#ID, Hours per month, Costs (per month), Amount avaialable (per month), Duration of planned, Duration of reactive (per type), Time used by installation (per month), Amount used by installation (per month)
+0	180	U	1800	U	3	5	S	4	30	A	6	0	1	80	5	0	A	6	0	1	1	5	0
+
+#Offline duration for planned task
+5
+
+#Hours in given month
+U	720
+
+#Energy$ per hour in given month
+U	70
+
+#Min/Max months between maint
+6	9
+
+#Failures
+#Scenario ID, Amount (per month) repeated (per type)
+0	S	0	0	0	0	2	3	4	5	0	0	8	2	S	0	2	2	0	0	0	0	0	5	3	0	0
+0	S	0	3	0	1	0	7	1	1	0	2	0	0	S	0	0	1	0	0	1	0	2	0	0	0	0
+0	S	1	1	1	1	1	1	1	1	1	1	1	1	S	0	1	0	0	0	1	0	0	0	1	0	0
+
+#Turbines
+S	20	0	0	5	2	3	3	2	0	0	10	5

@@ -10,7 +10,7 @@ private:
 
 	MonthData* getData();
 
-public: // TODO: protected
+protected:
 	vector<XPRBvar> s;					// i
 	vector<vector<vector<XPRBvar>>> a;	// v i i'
 	vector<vector<XPRBvar>> aF, aL;		// v i
@@ -27,7 +27,7 @@ public: // TODO: protected
 	void genFinishCon();
 	void genFixedCon();
 
-//public: TODO
+public: 
 	MonthModel(MonthData* data, Mode* mode);
 
 	MonthSolution* solve() override;
