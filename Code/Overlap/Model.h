@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <ctime>
+#include <algorithm>    // std::max
 
 #include "Mode.h"
 #include "InputData.h"

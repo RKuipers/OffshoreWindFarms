@@ -44,7 +44,7 @@ void runMixed()
     cout << "-------------- YEAR --------------" << endl;
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/mixedEasy.dat");
+    ifstream datafile("Input Files/mixedInfea.dat");
     MixedData* data = dg.readMixed(&datafile);
     YearModel* yearModel = new YearModel(data, &mode);
     YearSolution* yearSol = yearModel->solve();
@@ -63,7 +63,16 @@ void runMixed()
 
         MonthModel* monthModel = new MonthModel(&months[m], &mode);
         MonthSolution* sol = monthModel->solve();
-        sol->print();
+        if (sol == nullptr)
+        {
+            vector<double> ep;
+            vector<int> rho;
+            monthModel->getRequirements(&ep, &rho);
+            data->eps[0][m] = ep; // TODO: 0 is for scenario; needs to be fixed
+            data->rho[0][m] = rho; 
+        }
+        else
+            sol->print();
     }
 
     cout << "TOTAL duration: " << ((double)clock() - start) / (double)CLOCKS_PER_SEC << endl;

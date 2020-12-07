@@ -45,6 +45,7 @@ void YearModel::genProblem()
 	genObj();
 
 	genCapacityCon();
+	genResourceCon();
 	genRepairCon();
 	genMaxMaintCon();
 	genMinMaintCon();
@@ -99,7 +100,7 @@ void YearModel::genCapacityCon()
 		for (int m = 0; m < getData()->M; ++m)
 			for (int y = 0; y < getData()->Y; ++y)
 			{
-				XPRBrelation ctr = getData()->L[y] * N[y][m][sig] + getData()->LInst[y][m] >= 0;
+				XPRBrelation ctr = getData()->L[y] * N[y][m][sig] + getData()->LInst[y][m] >= getData()->eps[sig][m][y];
 
 				for (int ip = 0; ip < getData()->Ip; ++ip)
 					ctr.addTerm(P[m][ip], -1 * getData()->dPy[y]);
@@ -108,6 +109,18 @@ void YearModel::genCapacityCon()
 					ctr.addTerm(R[m][ir][sig], -1 * getData()->dR[y][ir]);
 
 				p.newCtr(("Cap_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(y)).c_str(), ctr);
+			}
+}
+
+void YearModel::genResourceCon()
+{
+	for (int sig = 0; sig < getData()->S; ++sig)
+		for (int m = 0; m < getData()->M; ++m)
+			for (int y = 0; y < getData()->Y; ++y)
+			{
+				XPRBrelation ctr = N[y][m][sig] + getData()->NInst[y][m] >= getData()->rho[sig][m][y];
+
+				p.newCtr(("Res_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(y)).c_str(), ctr);
 			}
 }
 
@@ -175,7 +188,7 @@ void YearModel::genAvailableCon()
 		for (int m = 0; m < getData()->M; ++m)
 			for (int y = 0; y < getData()->Y; ++y)
 			{
-				XPRBrelation ctr = N[y][m][sig] <= getData()->A[y][m] - getData()->NInst[y][m];
+				XPRBrelation ctr = N[y][m][sig] <= getData()->A[y][m];
 
 				p.newCtr(("Avai_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(y)).c_str(), ctr);
 			}

@@ -13,6 +13,8 @@ YearData::YearData(int s, int m, int y, int ip, int ir) : S(s), M(m), Y(y), Ip(i
 	A = vector<vector<int>>(Y, vector<int>(M, 0));
 	NInst = vector<vector<int>>(Y, vector<int>(M, 0));
 	Turbs = vector<int>(M, 0);
+	eps = vector<vector<vector<double>>>(S, vector<vector<double>>(M, vector<double>(Y, 0.0)));
+	rho = vector<vector<vector<int>>>(S, vector<vector<int>>(M, vector<int>(Y, 0)));
 }
 
 YearData* YearData::getYear()

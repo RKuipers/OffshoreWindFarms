@@ -24,19 +24,21 @@ public:
 	// Sets:
 	int S, M, Y, Ip, Ir;	
 	// Parameters:
-	vector<vector<double>> c;		// y m
+	vector<vector<double>> c;			// y m
 	double dP;
-	vector<double> eH;				// m
-	vector<vector<vector<int>>> f;	// m ir sig
-	vector<int> H;					// m
-	vector<int> L;					// y
-	vector<vector<int>> LInst;		// y m
-	vector<double> dPy;				// y
-	vector<vector<double>> dR;		// y ir
+	vector<double> eH;					// m
+	vector<vector<vector<int>>> f;		// m ir sig
+	vector<int> H;						// m
+	vector<int> L;						// y
+	vector<vector<int>> LInst;			// y m
+	vector<double> dPy;					// y
+	vector<vector<double>> dR;			// y ir
 	int Gmin, Gmax;
-	vector<vector<int>> A;			// y m
-	vector<vector<int>> NInst;		// y m
-	vector<int> Turbs;				// m
+	vector<vector<int>> A;				// y m
+	vector<vector<int>> NInst;			// y m
+	vector<int> Turbs;					// m
+	vector<vector<vector<double>>> eps;	// sig m y
+	vector<vector<vector<int>>> rho;	// sig m y
 
 	YearData(int s, int m, int y, int ip, int ir);
 

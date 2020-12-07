@@ -4,7 +4,7 @@
 1	24	2	3	3
 
 #Vessels
-#ID, Hours per month, Costs (per month), Amount avaialable (per month), Duration of planned, Duration of reactive (per type), Time used by installation (per month), Amount used by installation (per month)
+#ID, Hours per month, Costs (per month), Amount avaialable (per month), Duration of planned, Duration of reactive (per type), Time used by installation (per month), Amount avaialable from installation (per month)
 0	240	U	2000	U	2	6	S	4	8	24	A	5	0	1	70	18	0	A	5	0	1	1	18	0
 1	180	U	1800	U	1	4	S	6	6	0	A	7	0	1	50	16	0	A	7	0	1	1	16	0
 
