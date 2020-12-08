@@ -59,10 +59,10 @@ void YearModel::genDecVars()
 		for (int sig = 0; sig < getData()->S; ++sig)
 		{
 			for (int y = 0; y < getData()->Y; ++y)
-				N[y][m][sig] = p.newVar(("N_" + to_string(y) + "_" + to_string(m) + to_string(sig)).c_str(), XPRB_UI);
+				N[y][m][sig] = p.newVar(("N_" + to_string(y) + "_" + to_string(m) + "_" + to_string(sig)).c_str(), XPRB_UI);
 
 			for (int ir = 0; ir < getData()->Ir; ++ir)
-				R[m][ir][sig] = p.newVar(("R_" + to_string(m) + "_" + to_string(ir) + to_string(sig)).c_str(), XPRB_UI);
+				R[m][ir][sig] = p.newVar(("R_" + to_string(m) + "_" + to_string(ir) + "_" + to_string(sig)).c_str(), XPRB_UI);
 		}
 
 		for (int ip = 0; ip < getData()->Ip; ++ip)
@@ -199,8 +199,6 @@ YearModel::YearModel(YearData* data, Mode* mode) : Model(data, mode, "Year")
 	N = vector<vector<vector<XPRBvar>>>(data->Y, vector<vector<XPRBvar>>(data->M, vector<XPRBvar>(data->S)));
 	P = vector<vector<XPRBvar>>(data->M, vector<XPRBvar>(data->Ip));
 	R = vector<vector<vector<XPRBvar>>>(data->M, vector<vector<XPRBvar>>(data->Ir, vector<XPRBvar>(data->S)));
-
-	genProblem();
 }
 
 YearSolution* YearModel::solve()

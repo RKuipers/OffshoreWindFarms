@@ -16,7 +16,6 @@ protected:
 	MonthData* getData();
 	MonthSolution* genSolution(XPRBprob* p, double duration) override;
 
-	void genProblem() override;
 	void genDecVars() override;
 	void genObj() override;
 	void genLimitCon();
@@ -31,6 +30,7 @@ public:
 
 	void getRequirements(vector<double>* eps, vector<int>* rho);
 
+	void genProblem() override;
 	MonthSolution* solve() override;
 };
 
@@ -41,7 +41,6 @@ protected:
 	vector<XPRBvar> Ty;
 	XPRBvar T;
 
-	void genProblem() override;
 	void genDecVars() override;
 	void genObj() override;
 	void genFinishCon() override;
@@ -50,6 +49,7 @@ protected:
 public:
 	FeedbackModel(MonthData* data, Mode* mode);
 
+	void genProblem() override;
 	vector<double> getEps();
 };
 

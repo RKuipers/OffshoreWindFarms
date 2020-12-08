@@ -376,9 +376,9 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 
 		for (int y = 0; y < data->Y; ++y)
 		{
-			Vy[y] = sol->getVessels()[sig][m][y] + data->NInst[y][m];
 			VInds[y] = VyTotal;
-			VyTotal += Vy[y];
+			VyTotal += sol->getVessels()[sig][m][y] + data->NInst[y][m];
+			Vy[y] = VyTotal;
 		}
 
 		int planned = 0, reactive = 0;

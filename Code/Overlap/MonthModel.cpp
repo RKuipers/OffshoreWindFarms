@@ -222,21 +222,19 @@ MonthModel::MonthModel(MonthData* data, Mode* mode, string name) : Model(data, m
 	a = vector<vector<vector<XPRBvar>>>(data->V, vector<vector<XPRBvar>>(data->I, vector<XPRBvar>(data->I)));
 	aF = vector<vector<XPRBvar>>(data->V, vector<XPRBvar>(data->I));
 	aL = vector<vector<XPRBvar>>(data->V, vector<XPRBvar>(data->I));
-
-	genProblem();
 }
 
 void MonthModel::getRequirements(vector<double>* eps, vector<int>* rho)
 {
-	return;
-
 	FeedbackModel* model = new FeedbackModel(getData(), mode);
+	model->genProblem();
 
 	(*eps) = model->getEps();
 
+	(*rho) = vector<int>(getData()->Y, 0);
 	for (int y = 0; y < getData()->Y; ++y)
 		for (int i = 0; i < getData()->IMaint; ++i)
-			(*rho)[y] = std::max(rho->at(y), getData()->rho[y][i]);
+			(*rho)[y] = std::max((*rho)[y], getData()->rho[y][i]);
 }
 
 MonthSolution* MonthModel::solve()
@@ -292,22 +290,17 @@ void FeedbackModel::genFinishCon()
 
 void FeedbackModel::genMaxFinCon()
 {
-	XPRBrelation ctr = Ty[0] <= T;
-
-	for (int y = 1; y < getData()->Y; ++y)
-		ctr.addTerm(Ty[y]);
-
-	p.newCtr("MaxFin", ctr);
+	for (int y = 0; y < getData()->Y; ++y)
+		p.newCtr(("MaxFin_" + to_string(y)).c_str(), Ty[y] <= T);
 }
 
 FeedbackModel::FeedbackModel(MonthData* data, Mode* mode) : MonthModel(data, mode, "Feedback")
 {
-	vector<XPRBvar> Ty = vector<XPRBvar>(data->Y);
+	Ty = vector<XPRBvar>(data->Y);
 }
 
 vector<double> FeedbackModel::getEps()
 {
-	genProblem();
 	solveBasics();
 
 	vector<double> res = vector<double>(getData()->Y, 0.0);

@@ -4,7 +4,7 @@ double Model::solveBasics(clock_t start)
 {
 	// TODO: Expand
 
-	if (data->getMonth() == nullptr || data->getMonth()->I <= 3)
+	if (data->getMonth() == nullptr || data->getMonth()->I <= 10)
 		p.setMsgLevel(0);
 	string name = p.getName();
 	p.exportProb(XPRB_LP, ("Output Files/" + name).c_str());

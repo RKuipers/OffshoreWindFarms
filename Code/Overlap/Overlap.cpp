@@ -22,6 +22,7 @@ void runYear()
     ifstream datafile("Input Files/yearScen.dat");
     YearData* data = dg.readYear(&datafile);
     YearModel* model = new YearModel(data, &mode);
+    model->genProblem();
     YearSolution* sol = model->solve();
     sol->print();
 }
@@ -33,6 +34,7 @@ void runMonth()
     ifstream datafile("Input Files/monthBasic.dat");
     MonthData* data = dg.readMonth(&datafile);
     MonthModel* model = new MonthModel(data, &mode);
+    model->genProblem();
     MonthSolution* sol = model->solve();
     sol->print();
 }
@@ -41,38 +43,48 @@ void runMixed()
 {
     clock_t start = clock();
 
-    cout << "-------------- YEAR --------------" << endl;
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/mixedInfea.dat");
+    ifstream datafile("Input Files/mixedEasy.dat");
     MixedData* data = dg.readMixed(&datafile);
-    YearModel* yearModel = new YearModel(data, &mode);
-    YearSolution* yearSol = yearModel->solve();
-    yearSol->print();
 
-    vector<MonthData> months = dg.genMonths(data, yearSol);
-    for (int m = 0; m < months.size(); ++m)
+    bool feasible = false;
+    while (!feasible)
     {
-        if (months[m].I == 0)
-        {
-            cout << "Month " << m << " has no tasks to schedule" << endl;
-            continue;
-        }
-        else
-            cout << "-------------- MONTH " << m << " --------------" << endl;
+        feasible = true;
 
-        MonthModel* monthModel = new MonthModel(&months[m], &mode);
-        MonthSolution* sol = monthModel->solve();
-        if (sol == nullptr)
+        cout << "-------------- YEAR --------------" << endl;
+        YearModel* yearModel = new YearModel(data, &mode);
+        yearModel->genProblem();
+        YearSolution* yearSol = yearModel->solve();
+        yearSol->print();
+
+        vector<MonthData> months = dg.genMonths(data, yearSol);
+        for (int m = 0; m < months.size(); ++m)
         {
-            vector<double> ep;
-            vector<int> rho;
-            monthModel->getRequirements(&ep, &rho);
-            data->eps[0][m] = ep; // TODO: 0 is for scenario; needs to be fixed
-            data->rho[0][m] = rho; 
+            if (months[m].I == 0)
+            {
+                cout << "Month " << m << " has no tasks to schedule" << endl;
+                continue;
+            }
+            else
+                cout << "-------------- MONTH " << m << " --------------" << endl;
+
+            MonthModel* monthModel = new MonthModel(&months[m], &mode);
+            monthModel->genProblem();
+            MonthSolution* sol = monthModel->solve();
+            if (sol == nullptr)
+            {
+                vector<double> ep;
+                vector<int> rho;
+                monthModel->getRequirements(&ep, &rho);
+                data->eps[0][m] = ep; // TODO: 0 is for scenario; needs to be fixed
+                data->rho[0][m] = rho;
+                feasible = false;
+            }
+            else
+                sol->print();
         }
-        else
-            sol->print();
     }
 
     cout << "TOTAL duration: " << ((double)clock() - start) / (double)CLOCKS_PER_SEC << endl;

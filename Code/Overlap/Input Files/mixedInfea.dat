@@ -5,11 +5,11 @@
 
 #Vessels
 #ID, Hours per month, Costs (per month), Amount avaialable (per month), Duration of planned, Duration of reactive (per type), Time used by installation (per month), Amount avaialable from installation (per month)
-0	240	U	2000	U	2	8	U	240	U	0	U	0
-1	240	U	2000	U	2	4	U	240	U	0	U	0
+0	240	U	2000	U	2	40	U	240	U	0	U	0
+1	240	U	2000	U	2	20	U	240	U	0	U	0
 
 #Offline duration for planned task
-10
+50
 
 #Hours in given month
 U	720
@@ -22,16 +22,16 @@ U	70
 
 #Failures
 #Scenario ID, Amount (per month) repeated (per type)
-0	S	0	0	0	0	0	0	1	1	1	1	1	0
+0	S	0	0	0	0	0	1	1	1	1	1	1	0
 
 #Turbines
-A	1	5	11	0	
+A	1	12	11	0	
 
 #MIXED
 #Vessels
 #ID, Start delay for planned tasks, Start delay (per reactive task), Amount needed for planned tasks, Amount needed (per reactive task)
 0	0	U	0	1	U	1
-1	6	U	0	1	U	1
+1	30	U	0	1	U	1
 
 #Installation vessels
 #ID, Type, Month, Number of tasks, (Start time, Duration) per task

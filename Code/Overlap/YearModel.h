@@ -15,7 +15,6 @@ protected:
 	YearData* getData();
 	YearSolution* genSolution(XPRBprob* p, double duration) override;
 
-	void genProblem() override;
 	void genDecVars() override;
 	void genObj() override;
 	void genCapacityCon();
@@ -28,6 +27,7 @@ protected:
 public:
 	YearModel(YearData* data, Mode* mode);
 
+	void genProblem() override;
 	YearSolution* solve() override;
 };
 
