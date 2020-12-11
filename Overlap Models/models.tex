@@ -64,13 +64,14 @@ N_{y,m,\sigma}				&\leq		A_{y,m} 											& \forall \sigma \in S, \forall m \i
 \end{equation}
 subject to:
 \begin{align}
-L_y \cdot N_{y,m,\sigma} + L^{Inst}_{y,m}	&\geq \begin{aligned} \epsilon_{\sigma, m, y} + \sum_{ip \in I^P} (P_{m,ip} \cdot d^P_y) + \\ \sum_{ir \in I^R} (R_{m,ir,\sigma} \cdot d^R_{y,ir})  \end{aligned}
-																				& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
+\begin{aligned} \sum_{ir\in I^R} d^R_{y, ir} \cdot (F^T_{m,ir,\sigma} + F^U_{m-1,ir,\sigma} - \\ 
+F^U_{m,ir,\sigma} - R_{m,ir,\sigma}) \end{aligned}	
+						&\leq		\begin{aligned} L_y \cdot N_{y,m,\sigma} + L^{Inst}_{y,m} - \sum_{ip \in I^P} (P_{m,ip} \cdot d^P_y) - \\ 
+					\sum_{ir \in I^R} (R_{m,ir,\sigma} \cdot d^R_{y,ir}) -  \epsilon_{\sigma, m, y} \end{aligned}		& \forall \sigma \in S, \forall m \in M, \forall y \in Y	\\
 \rho_{ \sigma, m, y} - N^{Inst}_{y,m}	&\leq		 N_{y,m,\sigma}	\leq 	A_{y,m} 							& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
-R_{m,ir,\sigma}				&\leq		F^U_{m-1,ir,\sigma} 									& \forall \sigma \in S, \forall m \in M, \forall ir \in I^R	\\
-P_{m,ip} 					&\leq 		\sum_{m' = 0}^{m-G^{MIN}} P_{m',(ip-1)} - \sum_{m' = 0}^{m-1} P_{m',ip}	& \forall m \in M, \forall ip \in I^P 			\\
-P_{m,ip} 					&\geq	 	\sum_{m' = 0}^{m-G^{MAX}} P_{m',(ip-1)} - \sum_{m' = 0}^{m-1} P_{m',ip}	& \forall m \in M, \forall ip \in I^P 			\\
-F^U_{m,ir,\sigma} - F^T_{m,ir,\sigma} + R_{m,ir,\sigma}	&\geq		\begin{aligned} \frac{1}{d^R_{y, ir}} \cdot (L_y \cdot N_{y,m,\sigma} + L^{Inst}_{y,m} -  \epsilon_{\sigma, m, y} - \\ \sum_{ip \in I^P} (P_{m,ip} \cdot d^P_y) - \sum_{ir \in I^R} (R_{m,ir,\sigma} \cdot d^R_{y,ir})) \end{aligned}		& \forall \sigma \in S, \forall m \in M, \forall y \in Y
+R_{m+1,ir,\sigma}				&\leq		F^U_{m,ir,\sigma}	\leq	F^T_{m, ir, \sigma}						& \forall \sigma \in S, \forall m \in M, \forall ir \in I^R	\\
+\sum_{m' = 0}^{m-G^U} P_{m',(ip-1)} - \sum_{m' = 0}^{m-1} P_{m',ip} 	&\leq P_{m,ip}	\leq 	\sum_{m' = 0}^{m-G^L} P_{m',(ip-1)} - \sum_{m' = 0}^{m-1} P_{m',ip}	
+																				& \forall m \in M, \forall ip \in I^P			
 \end{align}
 
 \end{frame}
