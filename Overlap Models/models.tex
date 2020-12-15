@@ -21,7 +21,8 @@
 \begin{document}
 
 %------------------------------------------------------------------------------YEARS------------------------------------------------------------------
-
+\iffalse
+%iffalse
 \begin{frame}{Years spanning model}
 \smalld
 
@@ -46,6 +47,7 @@ N_{y,m,\sigma}				&\leq		A_{y,m} 											& \forall \sigma \in S, \forall m \i
 \end{align}
 
 \end{frame}
+\fi
 
 \begin{frame}{Years spanning model}
 \smalld
@@ -78,13 +80,11 @@ R_{m+1,ir,\sigma}				&\leq		F^U_{m,ir,\sigma}	\leq	F^T_{m, ir, \sigma}						& \f
 
 \begin{frame}{Years model Explanation}
 \smalla
-\expl The objective takes an average cost of all scenarios by counting up the cost per month. Each month has a cost for vessels chartered (by type), the energy lost due to planned maintenance, and the energy lost due to unrepaired failures \\
-\expl For each vessel type the available time (based on charters and spare time from installation) needs to surpass the estimated total time all tasks take \\
-\expl Ensures enough vessels are assigned to a given month (based on feedback from that month) \\
-\expl For any type of reactive task, the amount of tasks performed cannot exceed the amount of failures of that type (with a 1 month delay before a failure can be solved) \\
-\expl Ensures planned tasks are not scheduled too close together by counting up the turbines that were last visited $G^{MIN}$ or more months ago and subtracting all that were revisited later \\
-\expl Ensures planned tasks are not scheduled too far apart, in similar manner as the previous constraint \\
-\expl Limits the maximum amount of vessels chartered based on normal availability and vessels used for installation
+\expl The objective takes an average cost of all scenarios by counting up the cost per month. Each month has a cost for vessels chartered (by type), the energy lost due to planned maintenance, and the cost of failures (broken up in missed energy from unrepaired failures, repaired failures, and planned repair tasks that fix older failures) \\
+\expl For each vessel type the available time (based on charters and spare time from installation) minus the planned time the vessels are used (for planned maintenance and repairs) needs to be greater than the time spend fixing new failures. This LHS will never be negative, which enforces enough vessels are chartered to at least deal with all planned tasks. \\
+\expl Ensures enough vessels are assigned to a given month (based on feedback from that month), and the amount of vessels chartered doesn't surpass the available vessels \\
+\expl For any type of reactive task, the amount of tasks performed cannot exceed the amount of unhandled failures of that type from the previous month \\
+\expl Ensures planned tasks are not scheduled too close together or too far apart by counting up the turbines that were last visited $G^U$ and $G^L$ or more months ago respectively, and subtracting all that were revisited more recently
 \end{frame}
 
 \begin{frame}{Years model notation overview}
@@ -97,22 +97,22 @@ Sets:
 \item $M$: Months
 \item $Y$: Vessel types
 \item $I^P$: Indices for the planned tasks (first time a turbine is visited is index 1, second time is index 2, etc...)
-\item $I^R$: Types of failures reactive tasks
+\item $I^R$: Types of failures and reactive tasks
 \end{itemize}
 
 Decision variables:
 \begin{itemize}
 \item $N_{y,m,\sigma}$: The amount of vessels of type $y$ chartered in month $m$ in scenario $\sigma$
-\item $P_{m,ip}$: Planned tasks in iteration $ip$ in month $m$
-\item $R_{m,ir,\sigma}$: Reactive tasks of type $ir$ in month $m$ and scenario $\sigma$
+\item $P_{m,ip}$: Planned tasks in iteration $ip \in I^P$ in month $m$
+\item $R_{m,ir,\sigma}$: Reactive tasks of type $ir \in I^R$ in month $m$ and scenario $\sigma$
+\item $F^U_{m,ir,\sigma}$: Unhandled failures of type $ir \in I^R$ in month $m$ and scenario $\sigma$
 \end{itemize}
 
 Parameters:
 \begin{itemize}
 \item $c_{y,m}$: The cost of chartering a vessel of type $y$ in month $m$
-\item $d^P$: The duration of a preventive task
 \item $e^H_m$: The energy produced by a single turbine per hour in month $m$
-\item $f_{m,ir,\sigma}$: The amount of failures of type $ir$ in month $m$ in scenario $\sigma$
+\item $F^T_{m,ir,\sigma}$: The total amount of failures of type $ir \in I^R$ in month $m$ in scenario $\sigma$
 \item $H_m$: The number of hours in month $m$
 \end{itemize}
 \end{column}
@@ -127,9 +127,12 @@ Parameters (cont):
 \item $L_y$: The amount of hours a vessel of type $y$ is available if chartered for a month
 \item $L^{Inst}_{y,m}$: Leftover hours vessels of type $y$ are available in month $m$ based on the installation schedule
 \item $N^{Inst}_{y,m}$: Amount of vessels of type $y$ used by the installation schedule in month $m$ that can also partially help out with maintenance operations
+\item $d^P$: The duration that a preventive task will take a turbine offline
 \item $d^P_y$: The duration of a preventive task for vessel type $y$
+\item $d^R_{ir}$: The duration that reactive task $ir$ will take a turbine offline
+\item $d^D_{ir}$: The delay before a failure of type $ir$ is detected and can be worked on
 \item $d^R_{y,ir}$: The duration of a reactive task $ir$ for vessel type $y$
-\item $G^{MIN}$ \& $G^{MAX}$: The minimum and maximum amounts of months between two planned maintenance tasks
+\item $G^U$ \& $G^L$: The Upper and Lower bounds months between two planned maintenance tasks
 \item $A_{y,m}$: The number of maximum available vessels of type $y$ in month $m$
 \end{itemize}
 \end{column}
@@ -153,7 +156,7 @@ a^F_{v,i} + \sum_{i' \in I - \{i\}} a_{v,i',i}				&=	a^L_{v,i} + \sum_{i' \in I 
 \sum_{v \in V_y} (a^F_{v,i} +  \sum_{i' \in I - \{i\}} a_{v,i',i})	&\geq	\rho_{y,i}  						& \forall y \in Y, \forall i \in I^{Maint} 			\\
 s_{i'} + s_{y,i'} - s_i - s_{i,y}						&\geq	(M + d_{y,i}) \cdot a_{v,i,i'} - M	 		& \begin{aligned} \forall y \in Y, \forall v \in V_y, 	\\
 																		\forall i, i' \in I | i \neq i'		\end{aligned}	\\
-s_i + \max_{y \in Y} (s_{y,i}+ d_{y,i})					&\leq	T 							&\forall i \in I^{Maint}					\\
+r_i 								\leq	 s_i	&\leq	T - \max_{y \in Y} (s_{y,i}+ d_{y,i})		&\forall i \in I^{Maint}					\\
 a^F_{v,i} +  \sum_{i' \in I - \{i\}} a_{v,i',i}				&=	a^{Inst}_{v,i}					& \forall v \in V, \forall i \in I^{Inst}  			\\
 s_i										&=	s^{Inst}_i 						& \forall I \in I^{Inst} 
 \end{align}
@@ -166,7 +169,7 @@ s_i										&=	s^{Inst}_i 						& \forall I \in I^{Inst}
 \expl Ensures that a vessel follows a path without brances \\
 \expl Ensures every task has enough resourses assigned to it \\
 \expl Ensures the starting times of consecutive tasks are separated by at least the duration of the first task \\
-\expl Ensures all tasks are finished on time \\
+\expl Ensures all tasks are started after their release time, and finished on time \\
 \expl Forces every installation task to be assigned as in the installation schedule \\
 \expl Forces every installation task to be started as in the installation schedule
 \end{frame}
@@ -203,6 +206,7 @@ Parameters:
 \item $d_{y,i}$: The duration of task $i$ for vessel type $y$
 \item $\rho_{y,i}$: The amount of vessels of type $y$ required for task $i$
 \item $M$: A large number
+\item $r_i$: The release time of task $i$; it cannot be started before this time
 \item $T$: The end time of the month
 \item $s^{Inst}_i$: Start time of task $i \in I^{Inst}$, as in the installation schedule
 \item $a^{Inst}_{v,i}$: Binary assignment variable of task $i \in I^{Inst}$, as in the installation schedule
