@@ -25,15 +25,17 @@ public:
 	int S, M, Y, Ip, Ir;	
 	// Parameters:
 	vector<vector<double>> c;			// y m
-	double dP;
 	vector<double> eH;					// m
-	vector<vector<vector<int>>> f;		// m ir sig
+	vector<vector<vector<int>>> Ft;		// m ir sig
 	vector<int> H;						// m
 	vector<int> L;						// y
 	vector<vector<int>> LInst;			// y m
+	double dP;
 	vector<double> dPy;					// y
-	vector<vector<double>> dR;			// y ir
-	int Gmin, Gmax;
+	vector<double> dR;					// ir
+	vector<vector<double>> dRy;			// y ir
+	vector<double> dD;					// ir
+	int GU, GL;
 	vector<vector<int>> A;				// y m
 	vector<vector<int>> NInst;			// y m
 	vector<int> Turbs;					// m
@@ -59,6 +61,7 @@ public:
 	vector<double> dMax;			// i
 	vector<vector<int>> rho;		// y im
 	int M;
+	vector<double> r;				// im
 	double T;
 	vector<double> sInst;			// ii
 	vector<vector<int>> aInst;		// v ii
@@ -80,6 +83,7 @@ public:
 	vector<int> rhoP;						// y
 	vector<vector<int>> rhoR;				// y ir
 	double T;
+	vector<vector<vector<double>>> FTime;	// m ir 'f'
 	vector<vector<double>> sInst;			// m ii
 	vector < vector<vector<double>>> dI;	// m y ii
 	vector<vector<int>> aInst;				// m ii

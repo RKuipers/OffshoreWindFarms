@@ -58,7 +58,7 @@ N_{y,m,\sigma}				&\leq		A_{y,m} 											& \forall \sigma \in S, \forall m \i
 	\begin{aligned}
 	\frac{1}{|S|} \cdot \sum_{\sigma \in S} \sum_{m \in M} [ \sum_{y \in Y} 
 	(N_{y,m,\sigma} \cdot c_{y,m}) +  
-	e^H_m \cdot (\sum_{ip \in I^P} [P_{m,ip} \cdot d^P \cdot e^H_m] + \\
+	e^H_m \cdot (\sum_{ip \in I^P} [P_{m,ip} \cdot d^P] + \\
 	\sum_{ir \in I^R}[F^U_{m,ir,\sigma} \cdot \frac{H_m}{2} + 
 	(F^T_{m,ir,\sigma} - F^U_{m,ir,\sigma}) \cdot (d^R_{ir} + d^D_{ir}) + 
 	R_{m,ir,\sigma}  \cdot d^R_{ir}])]
@@ -66,8 +66,8 @@ N_{y,m,\sigma}				&\leq		A_{y,m} 											& \forall \sigma \in S, \forall m \i
 \end{equation}
 subject to:
 \begin{align}
-\begin{aligned} \sum_{ir\in I^R} d^R_{y, ir} \cdot (F^T_{m,ir,\sigma} + F^U_{m-1,ir,\sigma} - \\ 
-F^U_{m,ir,\sigma} - R_{m,ir,\sigma}) \end{aligned}	
+\begin{aligned} \sum_{ir\in I^R} (d^R_{y, ir} \cdot (F^T_{m,ir,\sigma} + F^U_{m-1,ir,\sigma} - \\ 
+F^U_{m,ir,\sigma} - R_{m,ir,\sigma})) \end{aligned}	
 						&\leq		\begin{aligned} L_y \cdot N_{y,m,\sigma} + L^{Inst}_{y,m} - \sum_{ip \in I^P} (P_{m,ip} \cdot d^P_y) - \\ 
 					\sum_{ir \in I^R} (R_{m,ir,\sigma} \cdot d^R_{y,ir}) -  \epsilon_{\sigma, m, y} \end{aligned}		& \forall \sigma \in S, \forall m \in M, \forall y \in Y	\\
 \rho_{ \sigma, m, y} - N^{Inst}_{y,m}	&\leq		 N_{y,m,\sigma}	\leq 	A_{y,m} 							& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\

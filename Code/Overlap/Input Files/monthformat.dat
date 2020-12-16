@@ -7,8 +7,8 @@
 0	2	S	0	0	12.5	20	S	30	10	10	10	S	2	1	2	1
 1	1	S	0	10	0	0	S	0	20	15	30	S	0	1	1	1
 
-#Costs per Mtask
-U	10
+#Costs and release times per Mtask
+U	10	U	0
 
 #Installation tasks
 #ID, Assigned vessel, Start time, Duration

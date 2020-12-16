@@ -29,10 +29,12 @@ class YearSolution
 protected:
 	vector<vector<vector<int>>> vessels;	// sig m y
 	vector<vector<int>> planned;			// m i
+	vector<vector<vector<int>>> repairs;	// sig m i
 	vector<vector<vector<int>>> reactive;	// sig m i
 
 	void printVessels();
 	void printPlanned();
+	void printRepairs();
 	void printReactive();
 
 public:
@@ -40,10 +42,12 @@ public:
 
 	void setVessels(vector<vector<vector<int>>> N);
 	void setPlanned(vector<vector<int>> P);
-	void setReactive(vector<vector<vector<int>>> R);
+	void setRepairs(vector<vector<vector<int>>> R);
+	void setReactive(vector<vector<vector<int>>> F);
 
 	vector<vector<vector<int>>> getVessels();
 	vector<vector<int>> getPlanned();
+	vector<vector<vector<int>>> getRepairs();
 	vector<vector<vector<int>>> getReactive();
 
 	void print() override;

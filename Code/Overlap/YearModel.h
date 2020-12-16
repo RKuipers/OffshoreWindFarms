@@ -10,6 +10,7 @@ private:
 protected:
 	vector<vector<vector<XPRBvar>>> N;	// y m sig
 	vector <vector<XPRBvar>> P;			// m i
+	vector<vector<vector<XPRBvar>>> FU;	// m i sig
 	vector<vector<vector<XPRBvar>>> R;	// m i sig
 
 	YearData* getData();
@@ -20,9 +21,7 @@ protected:
 	void genCapacityCon();
 	void genResourceCon();
 	void genRepairCon();
-	void genMaxMaintCon();
-	void genMinMaintCon();
-	void genAvailableCon();
+	void genRegMaintCon();
 
 public:
 	YearModel(YearData* data, Mode* mode);

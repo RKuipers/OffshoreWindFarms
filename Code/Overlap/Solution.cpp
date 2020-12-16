@@ -46,18 +46,32 @@ void YearSolution::setPlanned(vector<vector<int>> P)
 	copy(P.begin(), P.end(), back_inserter(planned));
 }
 
-void YearSolution::setReactive(vector<vector<vector<int>>> R)
+void YearSolution::setRepairs(vector<vector<vector<int>>> R)
 {
 	int Sig = R[0][0].size();
 	int I = R[0].size();
 	int M = R.size();
+
+	repairs = vector<vector<vector<int>>>(Sig, vector<vector<int>>(M, vector<int>(I, -1)));
+
+	for (int sig = 0; sig < Sig; ++sig)
+		for (int m = 0; m < M; ++m)
+			for (int i = 0; i < I; ++i)
+				repairs[sig][m][i] = R[m][i][sig];
+}
+
+void YearSolution::setReactive(vector<vector<vector<int>>> F)
+{
+	int Sig = F[0][0].size();
+	int I = F[0].size();
+	int M = F.size();
 
 	reactive = vector<vector<vector<int>>>(Sig, vector<vector<int>>(M, vector<int>(I, -1)));
 
 	for (int sig = 0; sig < Sig; ++sig)
 		for (int m = 0; m < M; ++m)
 			for (int i = 0; i < I; ++i)
-				reactive[sig][m][i] = R[m][i][sig];
+				reactive[sig][m][i] = F[m][i][sig];
 }
 
 vector<vector<vector<int>>> YearSolution::getVessels()
@@ -68,6 +82,11 @@ vector<vector<vector<int>>> YearSolution::getVessels()
 vector<vector<int>> YearSolution::getPlanned()
 {
 	return planned;
+}
+
+vector<vector<vector<int>>> YearSolution::getRepairs()
+{
+	return repairs;
 }
 
 vector<vector<vector<int>>> YearSolution::getReactive()
@@ -108,6 +127,24 @@ void YearSolution::printPlanned()
 	}
 }
 
+void YearSolution::printRepairs()
+{
+	for (int sig = 0; sig < repairs.size(); ++sig)
+	{
+		cout << "Repair tasks in scenario " << sig << " (per month V and type >):" << endl;
+
+		for (int m = 0; m < repairs[sig].size(); ++m)
+		{
+			cout << m << ": " << repairs[sig][m][0];
+
+			for (int i = 1; i < repairs[sig][m].size(); ++i)
+				cout << ", " << repairs[sig][m][i];
+
+			cout << endl;
+		}
+	}
+}
+
 void YearSolution::printReactive()
 {
 	for (int sig = 0; sig < reactive.size(); ++sig)
@@ -132,6 +169,7 @@ void YearSolution::print()
 	printDur();
 	printVessels();
 	printPlanned();
+	printRepairs();
 	printReactive();
 }
 
