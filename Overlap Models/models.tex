@@ -32,7 +32,7 @@
 	\frac{1}{|S|} \cdot \sum_{\sigma \in S} ( \sum_{m \in M} [\sum_{y \in Y} 
 	(N_{y,m,\sigma} \cdot c_{y,m}) +  
 	\sum_{ip \in I^P} (P_{m,ip} \cdot d^P \cdot e^H_m) + \\
-	\sum_{ir \in I^R}[\sum_{m' = 0}^{m} (f_{m',ir,\sigma} - R_{m',ir,\sigma})] \cdot e^H_m \cdot H_m ])
+	\sum_{ir \in I^R}[\sum_{m' = 0}^{m} (f_{m',ir,\sigma} - R_{m',ir,\sigma})] \cdot e^H_m \cdot H_m])
 	\end{aligned}	
 \end{equation}
 subject to:
@@ -58,20 +58,19 @@ N_{y,m,\sigma}				&\leq		A_{y,m} 											& \forall \sigma \in S, \forall m \i
 	\begin{aligned}
 	\frac{1}{|S|} \cdot \sum_{\sigma \in S} \sum_{m \in M} [ \sum_{y \in Y} 
 	(N_{y,m,\sigma} \cdot c_{y,m}) +  
-	e^H_m \cdot (\sum_{ip \in I^P} [P_{m,ip} \cdot d^P] + \\
-	\sum_{ir \in I^R}[F^U_{m,ir,\sigma} \cdot \frac{H_m}{2} + 
+	e^H_m \cdot (\sum_{ip \in I^P} [P_{m,ip} \cdot d^P] + 
+	\sum_{ir \in I^R}[F^U_{m,ir,\sigma} \cdot \frac{H_m}{2} + \\
 	(F^T_{m,ir,\sigma} - F^U_{m,ir,\sigma}) \cdot (d^R_{ir} + d^D_{ir}) + 
-	R_{m,ir,\sigma}  \cdot d^R_{ir}])]
+	R_{m,ir,\sigma}  \cdot d^R_{ir} + 
+	(F^U_{m-1, ir, \sigma} - R_{m, ir, \sigma}) \cdot H_m])]
 	\end{aligned}	
 \end{equation}
 subject to:
 \begin{align}
-\begin{aligned} \sum_{ir\in I^R} (d^R_{y, ir} \cdot (F^T_{m,ir,\sigma} + F^U_{m-1,ir,\sigma} - \\ 
-F^U_{m,ir,\sigma} - R_{m,ir,\sigma})) \end{aligned}	
-						&\leq		\begin{aligned} L_y \cdot N_{y,m,\sigma} + L^{Inst}_{y,m} - \sum_{ip \in I^P} (P_{m,ip} \cdot d^P_y) - \\ 
-					\sum_{ir \in I^R} (R_{m,ir,\sigma} \cdot d^R_{y,ir}) -  \epsilon_{\sigma, m, y} \end{aligned}		& \forall \sigma \in S, \forall m \in M, \forall y \in Y	\\
+\begin{aligned} \sum_{ir\in I^R} (d^R_{y, ir} \cdot (F^T_{m,ir,\sigma} + \\ F^U_{m-1,ir,\sigma} - F^U_{m,ir,\sigma})) \end{aligned}	
+						&\leq		\begin{aligned} L_y \cdot N_{y,m,\sigma} + L^{Inst}_{y,m} - \\ \sum_{ip \in I^P} (P_{m,ip} \cdot d^P_y) - \epsilon_{\sigma, m, y} \end{aligned}																		& \forall \sigma \in S, \forall m \in M, \forall y \in Y	\\
 \rho_{ \sigma, m, y} - N^{Inst}_{y,m}	&\leq		 N_{y,m,\sigma}	\leq 	A_{y,m} 							& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
-R_{m+1,ir,\sigma}				&\leq		F^U_{m,ir,\sigma}	\leq	F^T_{m, ir, \sigma}						& \forall \sigma \in S, \forall m \in M, \forall ir \in I^R	\\
+F^U_{m, ir, \sigma} - F^U_{m+1, ir, \sigma}	\leq	 R_{m+1,ir,\sigma}				&\leq		F^U_{m,ir,\sigma}	\leq	F^T_{m, ir, \sigma} + 	F^U_{m-1, ir, \sigma}					& \forall \sigma \in S, \forall m \in M, \forall ir \in I^R	\\
 \sum_{m' = 0}^{m-G^U} P_{m',(ip-1)} - \sum_{m' = 0}^{m-1} P_{m',ip} 	&\leq P_{m,ip}	\leq 	\sum_{m' = 0}^{m-G^L} P_{m',(ip-1)} - \sum_{m' = 0}^{m-1} P_{m',ip}	
 																				& \forall m \in M, \forall ip \in I^P			
 \end{align}
@@ -80,10 +79,10 @@ R_{m+1,ir,\sigma}				&\leq		F^U_{m,ir,\sigma}	\leq	F^T_{m, ir, \sigma}						& \f
 
 \begin{frame}{Years model Explanation}
 \smalla
-\expl The objective takes an average cost of all scenarios by counting up the cost per month. Each month has a cost for vessels chartered (by type), the energy lost due to planned maintenance, and the cost of failures (broken up in missed energy from unrepaired failures, repaired failures, and planned repair tasks that fix older failures) \\
-\expl For each vessel type the available time (based on charters and spare time from installation) minus the planned time the vessels are used (for planned maintenance and repairs) needs to be greater than the time spend fixing new failures. This LHS will never be negative, which enforces enough vessels are chartered to at least deal with all planned tasks. \\
+\expl The objective takes an average cost of all scenarios by counting up the cost per month. Each month has a cost for vessels chartered (by type), the energy lost due to planned maintenance, and the cost of failures (broken up in missed energy from unrepaired failures, repaired failures, planned repair tasks that fix older failures, and old ignored failures) \\
+\expl For each vessel type the available time (based on charters and spare time from installation) minus the planned time the vessels are used (for planned maintenance) needs to be greater than the time spend fixing new failures. This LHS will never be negative, which enforces enough vessels are chartered to at least deal with all planned tasks. \\
 \expl Ensures enough vessels are assigned to a given month (based on feedback from that month), and the amount of vessels chartered doesn't surpass the available vessels \\
-\expl For any type of reactive task, the amount of tasks performed cannot exceed the amount of unhandled failures of that type from the previous month \\
+\expl Three separate inequalities; (a) Each leftover failure is either still unsolved or repaired (b) the number of repairs does not exceed the amount of leftover failures (c) every leftover failure comes either from an old or a new failure \\
 \expl Ensures planned tasks are not scheduled too close together or too far apart by counting up the turbines that were last visited $G^U$ and $G^L$ or more months ago respectively, and subtracting all that were revisited more recently
 \end{frame}
 
@@ -104,7 +103,7 @@ Decision variables:
 \begin{itemize}
 \item $N_{y,m,\sigma}$: The amount of vessels of type $y$ chartered in month $m$ in scenario $\sigma$
 \item $P_{m,ip}$: Planned tasks in iteration $ip \in I^P$ in month $m$
-\item $R_{m,ir,\sigma}$: Reactive tasks of type $ir \in I^R$ in month $m$ and scenario $\sigma$
+\item $R_{m,ir,\sigma}$: Repair tasks of type $ir \in I^R$ in month $m$ and scenario $\sigma$
 \item $F^U_{m,ir,\sigma}$: Unhandled failures of type $ir \in I^R$ in month $m$ and scenario $\sigma$
 \end{itemize}
 

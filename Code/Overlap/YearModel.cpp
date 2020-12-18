@@ -63,7 +63,6 @@ void YearModel::genProblem()
 	genCapacityCon();
 	genResourceCon();
 	genRepairCon();
-	genSplitCon();
 	genRegMaintCon();
 }
 
@@ -132,8 +131,6 @@ void YearModel::genCapacityCon()
 
 				for (int ir = 0; ir < getData()->Ir; ++ir)
 				{
-					ctr.addTerm(R[m][ir][sig], -1 * getData()->dRy[y][ir]);
-					ctr.addTerm(R[m][ir][sig], getData()->dRy[y][ir]);	// TODO: Check .lp file if these cancel out?
 					if (m >= 1)
 						ctr.addTerm(FU[m-1][ir][sig], -1 * getData()->dRy[y][ir]);
 					ctr.addTerm(FU[m][ir][sig], getData()->dRy[y][ir]);
@@ -161,33 +158,18 @@ void YearModel::genResourceCon()
 void YearModel::genRepairCon()
 {
 	for (int sig = 0; sig < getData()->S; ++sig)
-		for (int m = 0; m < getData()->M; ++m)
-			for (int ir = 0; ir < getData()->Ir; ++ir)
+		for (int ir = 0; ir < getData()->Ir; ++ir)
+		{
+			FU[0][ir][sig].setUB(getData()->Ft[0][ir][sig]);
+			R[0][ir][sig].fix(0);
+
+			for (int m = 1; m < getData()->M; ++m)
 			{
-				FU[m][ir][sig].setUB(getData()->Ft[m][ir][sig]);
-
-				if (m == 0)
-				{
-					R[m][ir][sig].fix(0);
-					continue;
-				}
-
-				XPRBrelation ctr = R[m][ir][sig] <= FU[m-1][ir][sig];
-
-				p.newCtr(("Rep_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(ir)).c_str(), ctr);
+				p.newCtr(("RepL_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(ir)).c_str(), R[m][ir][sig] >= FU[m - 1][ir][sig] - FU[m][ir][sig]);
+				p.newCtr(("RepU_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(ir)).c_str(), R[m][ir][sig] <= FU[m - 1][ir][sig]);
+				p.newCtr(("UnhU_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(ir)).c_str(), FU[m][ir][sig] <= getData()->Ft[m][ir][sig] + FU[m - 1][ir][sig]);
 			}
-}
-
-void YearModel::genSplitCon()
-{
-	for (int sig = 0; sig < getData()->S; ++sig)
-		for (int m = 1; m < getData()->M; ++m)
-			for (int ir = 0; ir < getData()->Ir; ++ir)
-			{
-				XPRBrelation ctr = FU[m][ir][sig] >= FU[m - 1][ir][sig] - R[m][ir][sig];
-
-				p.newCtr(("Spl_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(ir)).c_str(), ctr);
-			}
+		}
 }
 
 void YearModel::genRegMaintCon()
