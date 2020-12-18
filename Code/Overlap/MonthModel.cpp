@@ -173,6 +173,8 @@ void MonthModel::genFinishCon()
 {
 	for (int i = 0; i < getData()->IMaint; ++i)
 	{
+		s[i].setLB(getData()->r[i]);
+
 		XPRBrelation ctr = s[i] + getData()->dMax[i] <= getData()->T;
 
 		p.newCtr(("Fin_" + to_string(i)).c_str(), ctr);

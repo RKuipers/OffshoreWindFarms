@@ -21,6 +21,7 @@ protected:
 	void genCapacityCon();
 	void genResourceCon();
 	void genRepairCon();
+	void genSplitCon();
 	void genRegMaintCon();
 
 public:

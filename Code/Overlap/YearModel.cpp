@@ -22,26 +22,33 @@ YearSolution* YearModel::genSolution(XPRBprob* p, double duration)
 	vector<vector<int>> P(getData()->M, vector<int>());
 
 	for (int m = 0; m < getData()->M; ++m)
-		for (int i = 0; i < getData()->Ip; ++i)
-			P[m].push_back(round(this->P[m][i].getSol()));
+		for (int ip = 0; ip < getData()->Ip; ++ip)
+			P[m].push_back(round(this->P[m][ip].getSol()));
 
 	solution->setPlanned(P);
 
 	vector<vector<vector<int>>> R(getData()->M, vector<vector<int>>(getData()->Ir, vector<int>()));
 
 	for (int m = 0; m < getData()->M; ++m)
-		for (int i = 0; i < getData()->Ir; ++i)
+		for (int ir = 0; ir < getData()->Ir; ++ir)
 			for (int sig = 0; sig < getData()->S; ++sig)
-				R[m][i].push_back(round(this->R[m][i][sig].getSol()));
+				R[m][ir].push_back(round(this->R[m][ir][sig].getSol()));
 
 	solution->setRepairs(R);
 	
 	vector<vector<vector<int>>> F(getData()->M, vector<vector<int>>(getData()->Ir, vector<int>()));
 
 	for (int m = 0; m < getData()->M; ++m)
-		for (int i = 0; i < getData()->Ir; ++i)
+		for (int ir = 0; ir < getData()->Ir; ++ir)
 			for (int sig = 0; sig < getData()->S; ++sig)
-				F[m][i].push_back(round(this->FU[m][i][sig].getSol()));
+			{
+				int leftover = 0;
+
+				if (m > 0)
+					leftover = round(this->FU[m-1][ir][sig].getSol()) - round(this->R[m][ir][sig].getSol());
+
+				F[m][ir].push_back(getData()->Ft[m][ir][sig] + leftover - round(this->FU[m][ir][sig].getSol()));
+			}
 
 	solution->setReactive(F);
 
@@ -56,6 +63,7 @@ void YearModel::genProblem()
 	genCapacityCon();
 	genResourceCon();
 	genRepairCon();
+	genSplitCon();
 	genRegMaintCon();
 }
 
@@ -100,6 +108,12 @@ void YearModel::genObj()
 				Obj.add(getData()->Ft[m][ir][sig] * (getData()->dR[ir] + getData()->dD[ir]) * getData()->eH[m] * sFac);
 				Obj.addTerm(FU[m][ir][sig], -1 * (getData()->dR[ir] + getData()->dD[ir]) * getData()->eH[m] * sFac);
 				Obj.addTerm(R[m][ir][sig], getData()->dR[ir] * getData()->eH[m] * sFac);
+
+				if (m > 0)
+				{
+					Obj.addTerm(FU[m-1][ir][sig], getData()->H[m] * getData()->eH[m] * sFac);
+					Obj.addTerm(R[m][ir][sig], -1 * getData()->H[m] * getData()->eH[m] * sFac);
+				}
 			}
 		}
 	p.setObj(Obj);
@@ -164,6 +178,18 @@ void YearModel::genRepairCon()
 			}
 }
 
+void YearModel::genSplitCon()
+{
+	for (int sig = 0; sig < getData()->S; ++sig)
+		for (int m = 1; m < getData()->M; ++m)
+			for (int ir = 0; ir < getData()->Ir; ++ir)
+			{
+				XPRBrelation ctr = FU[m][ir][sig] >= FU[m - 1][ir][sig] - R[m][ir][sig];
+
+				p.newCtr(("Spl_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(ir)).c_str(), ctr);
+			}
+}
+
 void YearModel::genRegMaintCon()
 {
 	for (int m = 0; m < getData()->M; ++m)
@@ -177,10 +203,21 @@ void YearModel::genRegMaintCon()
 				ctrL.addTerm(P[m_][ip]);
 				ctrU.addTerm(P[m_][ip]);
 
-				if (m_ <= m - getData()->GU && ip >= 1)
-					ctrL.addTerm(P[m_][ip - 1], -1);
-				if (m_ <= m - getData()->GL && ip >= 1)
-					ctrU.addTerm(P[m_][ip - 1], -1);
+				if (ip >= 1)
+				{
+					if (m_ <= m - getData()->GU)
+						ctrL.addTerm(P[m_][ip - 1], -1);
+					if (m_ <= m - getData()->GL)
+						ctrU.addTerm(P[m_][ip - 1], -1);
+				}
+				else
+				{
+					if (m_ <= m - getData()->GU)
+						ctrL.add(-1 * getData()->Turbs[m_]);
+					if (m_ <= m - getData()->GL)
+						ctrU.add(-1 * getData()->Turbs[m_]);
+				}
+				
 			}
 
 			p.newCtr(("MaxM_" + to_string(m) + "_" + to_string(ip)).c_str(), ctrU);

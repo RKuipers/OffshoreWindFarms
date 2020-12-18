@@ -1,7 +1,7 @@
 #YEAR
 #Scenarios, Months, Vessel Types, Planned Task Amount, Reactive Task Types
 #S M Y Ip Ir
-1	24	2	3	3
+1	24	2	2	3
 
 #Vessels
 #ID, Hours per month, Costs (per month), Amount avaialable (per month), Duration of planned, Duration of reactive (per type), Time used by installation (per month), Amount avaialable from installation (per month)
@@ -67,7 +67,6 @@ S	20	0	0	5	2	3	3	2	0	0	10	5	20	0	0	5	2	3	3	2	0	0	10	5
 21	75
 22	140	170
 23	
-
 
 #End Time
 200

@@ -173,10 +173,11 @@ YearData* DataGen::readYear(ifstream* file)
 	readEmpty(file);
 
 	// Duration of delay and work per type of failure
-	int ind = parseArrayDouble(readLine(file), 0, &arrD, Ir);
+	split = readLine(file);
+	int ind = parseArrayDouble(split, 0, &arrD, Ir);
 	for (int i = 0; i < Ir; ++i)
 		year->dD[i] = arrD[i];
-	ind = parseArrayDouble(readLine(file), ind, &arrD, Ir);
+	ind = parseArrayDouble(split, ind, &arrD, Ir);
 	for (int i = 0; i < Ir; ++i)
 		year->dR[i] = arrD[i];
 	readEmpty(file);
@@ -268,10 +269,11 @@ MonthData* DataGen::readMonth(ifstream* file)
 	readEmpty(file);
 
 	// Costs and release times per task
-	int ind = parseArrayDouble(readLine(file), 0, &arrD, IMaint);
+	split = readLine(file);
+	int ind = parseArrayDouble(split, 0, &arrD, IMaint);
 	for (int i = 0; i < IMaint; ++i)
 		month->c[i] = arrD[i];
-	ind = parseArrayDouble(readLine(file), ind, &arrD, IMaint);
+	ind = parseArrayDouble(split, ind, &arrD, IMaint);
 	for (int i = 0; i < IMaint; ++i)
 		month->r[i] = arrD[i];
 	readEmpty(file);
