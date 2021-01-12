@@ -9,7 +9,7 @@ private:
 	MonthSolution* solution;
 
 protected:
-	vector<XPRBvar> s;					// i
+	vector<vector<XPRBvar>> s;			// v j
 	vector<vector<vector<XPRBvar>>> a;	// v i i'
 	vector<vector<XPRBvar>> aF, aL;		// v i
 
@@ -18,12 +18,13 @@ protected:
 
 	void genDecVars() override;
 	void genObj() override;
-	void genLimitCon();
 	void genOrderCon();
+	void genLimitCon();
 	void genResourceCon();
 	void genDurationCon();
+	void genReleaseCon();
 	virtual void genFinishCon();
-	void genFixedCon();
+	void genFixedCons();
 
 public: 
 	MonthModel(MonthData* data, Mode* mode, string name = "Month");
