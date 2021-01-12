@@ -141,23 +141,24 @@ Parameters (cont):
 %-----------------------------------------------------------------------------MONTHS------------------------------------------------------------------
 
 \begin{frame}{Months spanning model}
-\smallc
+\smalld
 
 \begin{equation}
-	\min_{\substack{s_i \in \mathbb{R}_{\geq 0} \\ 
-	a^F_{v,i}, a^L_{v,i}, a_{v,i,i'} \in \{0, 1\}}} 
-	\sum_{i \in I} c_i \cdot (s_i + \max_{y \in Y} (s_{y,i}+ d_{y,i}))
+	\min_{\substack{s_{v,j} \in \mathbb{R}_{\geq 0} \\ 
+	a_{v,i,j} \in \{0, 1\}}} 
+	\sum_{y \in Y} \sum_{v \in V_y} \sum_{i \in I} \sum_{j \in J} c_i \cdot a_{v,i,j} \cdot (s_{v,j} + d_{y,i})
 \end{equation}
 subject to:
 \begin{align}
-\sum_{i \in I} a^F_{v,i}							&\leq	1							&\forall v \in V						\\
-a^F_{v,i} + \sum_{i' \in I - \{i\}} a_{v,i',i}				&=	a^L_{v,i} + \sum_{i' \in I - \{i\}} a_{v,i,i'}	&\forall v \in V, \forall i \in I				\\	
-\sum_{v \in V_y} (a^F_{v,i} +  \sum_{i' \in I - \{i\}} a_{v,i',i})	&\geq	\rho_{y,i}  						& \forall y \in Y, \forall i \in I^{Maint} 			\\
-s_{i'} + s_{y,i'} - s_i - s_{i,y}						&\geq	(M + d_{y,i}) \cdot a_{v,i,i'} - M	 		& \begin{aligned} \forall y \in Y, \forall v \in V_y, 	\\
-																		\forall i, i' \in I | i \neq i'		\end{aligned}	\\
-r_i 								\leq	 s_i	&\leq	T - \max_{y \in Y} (s_{y,i}+ d_{y,i})		&\forall i \in I^{Maint}					\\
-a^F_{v,i} +  \sum_{i' \in I - \{i\}} a_{v,i',i}				&=	a^{Inst}_{v,i}					& \forall v \in V, \forall i \in I^{Inst}  			\\
-s_i										&=	s^{Inst}_i 						& \forall I \in I^{Inst} 
+\sum_{i \in I} a_{v,i,0}							&\leq	1							&\forall v \in V						\\
+\sum_{i \in I} a_{v,i,j}							&\leq	\sum_{i \in I} a_{v,i,(j-1)}				&\forall v \in V, \forall j \in J - \{ 0 \}			\\
+\sum_{j \in J} a_{v,i,j}							&\leq	A_i							&\forall v \in V,\forall i \in I^{Maint} 			\\
+\sum_{v \in V_y} \sum_{j \in J} a_{v, i, j}				&\geq	A_i \cdot \rho_{y,i}  				& \forall y \in Y, \forall i \in I^{Maint} 			\\
+s_{v,j} - s_{v,(j-1)}							&\geq	\sum_{i \in I} (a_{v,i,(j-1)} \cdot d_{y,i})	& \forall y \in Y, \forall v \in V_y, \forall j \in J - \{ 0 \}	\\
+s_{v,j}									&\geq r_i \cdot a_{v,i,j} 					& \forall v \in V, \forall I \in I, \forall j \in J		\\
+s_{v,j} + \sum_{i \in I} (a_{v,i,j} \cdot d_{y,i})			&\leq	T							&\forall y \in Y, \forall v \in V_y, \forall j \in J		\\
+\sum_{j \in J} a_{v,i,j}							&=	a^{Inst}_{v,i}					& \forall v \in V, \forall i \in I^{Inst}  			\\
+\sum_{j \in J} (s_{v_i,j} \cdot a_{v_i,i,j})				&=	s^{Inst}_i 						& \forall I \in I^{Inst} 						
 \end{align}
 
 \end{frame}
