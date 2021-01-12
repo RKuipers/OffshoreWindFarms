@@ -141,7 +141,7 @@ Parameters (cont):
 %-----------------------------------------------------------------------------MONTHS------------------------------------------------------------------
 
 \begin{frame}{Months spanning model}
-\smalld
+\smallc
 
 \begin{equation}
 	\min_{\substack{s_{v,j} \in \mathbb{R}_{\geq 0} \\ 
@@ -150,8 +150,7 @@ Parameters (cont):
 \end{equation}
 subject to:
 \begin{align}
-\sum_{i \in I} a_{v,i,0}							&\leq	1							&\forall v \in V						\\
-\sum_{i \in I} a_{v,i,j}							&\leq	\sum_{i \in I} a_{v,i,(j-1)}				&\forall v \in V, \forall j \in J - \{ 0 \}			\\
+\sum_{i \in I} a_{v,i,j}							&\leq	\sum_{i \in I} a_{v,i,(j-1)}	\leq	1		&\forall v \in V, \forall j \in J - \{ 0 \}			\\
 \sum_{j \in J} a_{v,i,j}							&\leq	A_i							&\forall v \in V,\forall i \in I^{Maint} 			\\
 \sum_{v \in V_y} \sum_{j \in J} a_{v, i, j}				&\geq	A_i \cdot \rho_{y,i}  				& \forall y \in Y, \forall i \in I^{Maint} 			\\
 s_{v,j} - s_{v,(j-1)}							&\geq	\sum_{i \in I} (a_{v,i,(j-1)} \cdot d_{y,i})	& \forall y \in Y, \forall v \in V_y, \forall j \in J - \{ 0 \}	\\
