@@ -52,19 +52,18 @@ class MonthData
 {
 public:
 	// Sets:
-	int Y, V, IMaint, IInst, I;
+	int Y, V, IMaint, IInst, I, J;
 	vector<int> Vy;					// y
 	// Parameters:
 	vector<double> c;				// im
-	vector<vector<double>> s;		// y i
 	vector<vector<double>> d;		// y i
-	vector<double> dMax;			// i
 	vector<vector<int>> rho;		// y im
-	int M;
 	vector<double> r;				// im
+	vector<int> A;					// im
 	double T;
 	vector<double> sInst;			// ii
 	vector<vector<int>> aInst;		// v ii
+	vector<int> vInst;				// ii
 
 	MonthData(int y, int v, int im, int ii);
 
@@ -78,14 +77,12 @@ public:
 	// Sets:
 	vector<int> IInst;						// m
 	// Parameters:
-	vector<double> sP;						// y
-	vector<vector<double>> sR;				// y ir
 	vector<int> rhoP;						// y
 	vector<vector<int>> rhoR;				// y ir
 	double T;
 	vector<vector<vector<double>>> FTime;	// m ir 'f'
 	vector<vector<double>> sInst;			// m ii
-	vector < vector<vector<double>>> dI;	// m y ii
+	vector<vector<vector<double>>> dI;		// m y ii
 	vector<vector<int>> aInst;				// m ii
 	vector<vector<int>> vTypes;				// m 'v'
 

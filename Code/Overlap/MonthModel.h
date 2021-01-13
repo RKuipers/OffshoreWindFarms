@@ -10,8 +10,7 @@ private:
 
 protected:
 	vector<vector<XPRBvar>> s;			// v j
-	vector<vector<vector<XPRBvar>>> a;	// v i i'
-	vector<vector<XPRBvar>> aF, aL;		// v i
+	vector<vector<vector<XPRBvar>>> a;	// v i j
 
 	MonthData* getData();
 	MonthSolution* genSolution(XPRBprob* p, double duration) override;

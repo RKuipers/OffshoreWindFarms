@@ -182,40 +182,9 @@ void MonthSolution::setStarts(vector<double> s)
 	copy(s.begin(), s.end(), back_inserter(starts));
 }
 
-void MonthSolution::setOrders(vector<vector<vector<int>>> a, vector<vector<int>> aF, vector<vector<int>> aL)
+void MonthSolution::setOrders(vector<vector<int>> a)
 {
-	int V = a.size();
-	int I = a[0].size();
-
-	orders = vector<vector<int>>(V, vector<int>());
-
-	for (int v = 0; v < V; ++v)
-	{
-		int L = -1;
-		for (int i = 0; i < I; ++i)
-			if (aL[v][i] == 1)
-			{
-				L = i;
-				break;
-			}
-
-		int curr = -1;
-		for (int i = 0; i < I; ++i)
-			if (aF[v][i] == 1)
-			{
-				orders[v].push_back(i);
-				curr = i;
-				break;
-			}
-
-		while (curr != L)
-			for (int i = 0; i < I; ++i)
-				if (a[v][curr][i] == 1)
-				{
-					orders[v].push_back(i);
-					curr = i;
-				}
-	}
+	copy(a.begin(), a.end(), back_inserter(orders));
 }
 
 void MonthSolution::printStarts()

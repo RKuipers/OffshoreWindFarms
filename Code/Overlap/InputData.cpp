@@ -24,17 +24,18 @@ YearData* YearData::getYear()
 	return this;
 }
 
-MonthData::MonthData(int y, int v, int im, int ii) : Y(y), V(v), IMaint(im), IInst(ii), I(im + ii)
+MonthData::MonthData(int y, int v, int im, int ii) : Y(y), V(v), IMaint(im), IInst(ii), I(im + ii), J(im + ii)
 {
 	Vy = vector<int>(Y, 0);
 	c = vector<double>(I, 0.0);
-	s = vector<vector<double>>(Y, vector<double>(I, 0.0));
 	d = vector<vector<double>>(Y, vector<double>(I, 0.0));
-	dMax = vector<double>(IMaint, 0.0);
 	rho = vector<vector<int>>(Y, vector<int>(I, 0));
 	r = vector<double>(IMaint, 0.0);
+	A = vector<int>(IMaint, 0);
+
 	sInst = vector<double>(IInst, 0.0);
 	aInst = vector<vector<int>>(V, vector<int>(IInst, 0));
+	vInst = vector<int>(IInst, 0);
 }
 
 MonthData* MonthData::getMonth()
@@ -45,8 +46,6 @@ MonthData* MonthData::getMonth()
 MixedData::MixedData(int s, int m, int y, int ip, int ir) : YearData(s, m, y, ip, ir)
 {
 	IInst = vector<int>(M, 0);
-	sP = vector<double>(Y, 0.0);
-	sR = vector<vector<double>>(Y, vector<double>(Ir, 0.0));
 	rhoP = vector<int>(Y, 0);
 	rhoR = vector<vector<int>>(Y, vector<int>(Ir, 0));
 	FTime = vector<vector<vector<double>>>(M, vector<vector<double>>(Ir, vector<double>())); // Empty
@@ -59,8 +58,6 @@ MixedData::MixedData(int s, int m, int y, int ip, int ir) : YearData(s, m, y, ip
 MixedData::MixedData(const YearData& year) : YearData(year)
 {
 	IInst = vector<int>(M, 0);
-	sP = vector<double>(Y, 0.0);
-	sR = vector<vector<double>>(Y, vector<double>(Ir, 0.0));
 	rhoP = vector<int>(Y, 0);
 	rhoR = vector<vector<int>>(Y, vector<int>(Ir, 0));
 	FTime = vector<vector<vector<double>>>(M, vector<vector<double>>(Ir, vector<double>())); // Empty

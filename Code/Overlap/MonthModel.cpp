@@ -12,34 +12,21 @@ MonthSolution* MonthModel::genSolution(XPRBprob* p, double duration)
 	solution = new MonthSolution(mode->getCurrentName(), mode->getCurrentId());
 	solution->setResult(p->getObjVal(), duration);
 
-	vector<double> s;
+	vector<double> s(getData()->I, 0.0);
+	vector<vector<int>> a(getData()->V, vector<int>(getData()->J, -1));
 
-	for (int i = 0; i < getData()->I; ++i)
-		s.push_back(abs(this->s[i].getSol()));
+	for (int v = 0; v < getData()->V; ++v)
+		for (int j = 0; j < getData()->J; ++j)
+			for (int i = 0; i < getData()->I; ++i)
+				if (round(this->a[v][i][j].getSol()) == 1)
+				{
+					s[i] = abs(round(this->s[v][j].getSol()));
+					a[v][j] = i;
+					continue;
+				}
 
 	solution->setStarts(s);
-
-	vector<vector<vector<int>>> a(getData()->V, vector<vector<int>>(getData()->I, vector<int>()));
-
-	for (int v = 0; v < getData()->V; ++v)
-		for (int i = 0; i < getData()->I; ++i)
-			for (int i_ = 0; i_ < getData()->I; ++i_)
-				if (i != i_)
-					a[v][i].push_back(round(this->a[v][i][i_].getSol()));
-				else
-					a[v][i].push_back(-1);
-
-	vector<vector<int>> aF(getData()->V, vector<int>());
-	vector<vector<int>> aL(getData()->V, vector<int>());
-
-	for (int v = 0; v < getData()->V; ++v)
-		for (int i = 0; i < getData()->I; ++i)
-		{
-			aF[v].push_back(round(this->aF[v][i].getSol()));
-			aL[v].push_back(round(this->aL[v][i].getSol()));
-		}
-
-	solution->setOrders(a, aF, aL);
+	solution->setOrders(a);
 
 	return solution;
 }
@@ -175,7 +162,7 @@ void MonthModel::genDurationCon()
 void MonthModel::genReleaseCon()
 {
 	for (int v = 0; v < getData()->V; ++v)
-		for (int i = 0; i < getData()->I; ++i)
+		for (int i = 0; i < getData()->IMaint; ++i)
 			for (int j = 0; j < getData()->J; ++j)
 			{
 				XPRBrelation ctr = s[v][j] >= getData()->r[i] * a[v][i][j];
@@ -207,18 +194,20 @@ void MonthModel::genFinishCon()
 
 void MonthModel::genFixedCons()
 {
-	for (int i = getData()->IMaint; i < getData()->I; ++i)
+	for (int ii = 0; ii < getData()->IInst; ++ii)
 	{
-		XPRBrelation ctrS = s[getData()->vInst[i]][0] * a[getData()->vInst[i]][i][0] == getData()->sInst[i];
+		int i = ii + getData()->IMaint;
+
+		XPRBrelation ctrS = s[getData()->vInst[ii]][0] * a[getData()->vInst[ii]][i][0] == getData()->sInst[ii];
 
 		for (int j = 1; j < getData()->J; ++j)
-			ctrS.add(s[getData()->vInst[i]][j] * a[getData()->vInst[i]][i][j]);
+			ctrS.add(s[getData()->vInst[ii]][j] * a[getData()->vInst[ii]][i][j]);
 
 		p.newCtr(("FixS_" + to_string(i)).c_str(), ctrS);
 
 		for (int v = 0; v < getData()->V; ++v)
 		{
-			XPRBrelation ctrA = a[v][i][0] == getData()->aInst[v][i];
+			XPRBrelation ctrA = a[v][i][0] == getData()->aInst[v][ii];
 
 			for (int j = 1; j < getData()->J; ++j)
 				ctrA.add(a[v][i][j]);
@@ -230,10 +219,8 @@ void MonthModel::genFixedCons()
 
 MonthModel::MonthModel(MonthData* data, Mode* mode, string name) : Model(data, mode, name)
 { 
-	s = vector<XPRBvar>(data->I);
-	a = vector<vector<vector<XPRBvar>>>(data->V, vector<vector<XPRBvar>>(data->I, vector<XPRBvar>(data->I)));
-	aF = vector<vector<XPRBvar>>(data->V, vector<XPRBvar>(data->I));
-	aL = vector<vector<XPRBvar>>(data->V, vector<XPRBvar>(data->I));
+	s = vector<vector<XPRBvar>>(data->V, vector<XPRBvar>(data->J));
+	a = vector<vector<vector<XPRBvar>>>(data->V, vector<vector<XPRBvar>>(data->I, vector<XPRBvar>(data->J)));
 }
 
 void MonthModel::getRequirements(vector<double>* eps, vector<int>* rho)
@@ -292,12 +279,22 @@ void FeedbackModel::genObj()
 void FeedbackModel::genFinishCon()
 {
 	for (int y = 0; y < getData()->Y; ++y)
-		for (int i = 0; i < getData()->IMaint; ++i)
-		{
-			XPRBrelation ctr = s[i] + getData()->s[y][i] + getData()->d[y][i] <= Ty[y];
+	{
+		int VyStart = 0;
+		if (y > 0)
+			VyStart = getData()->Vy[y - 1];
 
-			p.newCtr(("Fin_" + to_string(y) + "_" + to_string(i)).c_str(), ctr);
-		}
+		for (int v = VyStart; v < getData()->Vy[y]; ++v)
+			for (int j = 0; j < getData()->J; ++j)
+			{
+				XPRBrelation ctr = s[v][j] + a[v][0][j] * getData()->d[y][0] <= Ty[y];
+
+				for (int i = 0; i < getData()->I; ++i)
+					ctr.addTerm(a[v][i][j], getData()->d[y][i]);
+
+				p.newCtr(("Fin_" + to_string(y) + "_" + to_string(v) + "_" + to_string(j)).c_str(), ctr);
+			}
+	}
 }
 
 void FeedbackModel::genMaxFinCon()

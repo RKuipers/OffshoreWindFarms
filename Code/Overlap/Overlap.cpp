@@ -31,7 +31,7 @@ void runMonth()
 {
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/monthBasic.dat");
+    ifstream datafile("Input Files/monthFormat.dat");
     MonthData* data = dg.readMonth(&datafile);
     MonthModel* model = new MonthModel(data, &mode);
     model->genProblem();
