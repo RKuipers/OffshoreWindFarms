@@ -11,6 +11,7 @@ private:
 protected:
 	vector<vector<XPRBvar>> s;			// v j
 	vector<vector<vector<XPRBvar>>> a;	// v i j
+	vector<XPRBvar> f;					// i
 
 	MonthData* getData();
 	MonthSolution* genSolution(XPRBprob* p, double duration) override;
