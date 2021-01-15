@@ -141,12 +141,12 @@ Parameters (cont):
 %-----------------------------------------------------------------------------MONTHS------------------------------------------------------------------
 
 \begin{frame}{Months spanning model}
-\smallc
+\smalld
 
 \begin{equation}
-	\min_{\substack{s_{v,j} \in \mathbb{R}_{\geq 0} \\ 
+	\min_{\substack{f_i, s_{v,j} \in \mathbb{R}_{\geq 0} \\ 
 	a_{v,i,j} \in \{0, 1\}}} 
-	\sum_{y \in Y} \sum_{v \in V_y} \sum_{i \in I} \sum_{j \in J} c_i \cdot a_{v,i,j} \cdot (s_{v,j} + d_{y,i})
+	\sum_{i \in I} c_i \cdot f_i
 \end{equation}
 subject to:
 \begin{align}
@@ -157,7 +157,9 @@ s_{v,j} - s_{v,(j-1)}							&\geq	\sum_{i \in I} (a_{v,i,(j-1)} \cdot d_{y,i})	&
 s_{v,j}									&\geq r_i \cdot a_{v,i,j} 					& \forall v \in V, \forall I \in I, \forall j \in J		\\
 s_{v,j} + \sum_{i \in I} (a_{v,i,j} \cdot d_{y,i})			&\leq	T							&\forall y \in Y, \forall v \in V_y, \forall j \in J		\\
 \sum_{j \in J} a_{v,i,j}							&=	a^{Inst}_{v,i}					& \forall v \in V, \forall i \in I^{Inst}  			\\
-\sum_{j \in J} (s_{v_i,j} \cdot a_{v_i,i,j})				&=	s^{Inst}_i 						& \forall I \in I^{Inst} 						
+s^{Inst}_i \cdot a_{v_i,i,j}	\leq	s_{v_i,j}			&\leq	T - a_{v_i,i,j} \cdot (T - s^{Inst}_i)		& \forall i \in I^{Inst}, \forall j \in J			\\
+d_{y,i} + s_{v,j}								&\leq f_i + 2 T \cdot (1 - a_{v,i,j})			& \forall y \in Y, \forall v \in V_y, \forall i \in I, \forall j \in J 	\\
+f_i - a_{v, i', j} \cdot 2 T							&\leq s_{v,j}							& \forall (i, i') \in IP, \forall v \in V, \forall j \in J
 \end{align}
 
 \end{frame}
