@@ -58,15 +58,16 @@ class MonthSolution
 {
 protected:
 	vector<vector<double>> starts;			// i a
+	vector<double> finishes;				// i
 	vector<vector<int>> orders;				// v j
 
-	void printStarts();
+	void printTimes();
 	void printOrders();
 
 public:
 	MonthSolution(string name, int id);
 
-	void setStarts(vector<vector<double>> s);
+	void setTimes(vector<vector<double>> s, vector<double> finishes);
 	void setOrders(vector<vector<int>> a);
 	void print() override;
 };

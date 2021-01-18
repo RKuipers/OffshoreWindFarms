@@ -13,6 +13,7 @@ MonthSolution* MonthModel::genSolution(XPRBprob* p, double duration)
 	solution->setResult(p->getObjVal(), duration);
 
 	vector<vector<double>> s(getData()->I, vector<double>());
+	vector<double> f;
 	vector<vector<int>> a(getData()->V, vector<int>());
 
 	for (int v = 0; v < getData()->V; ++v)
@@ -20,12 +21,15 @@ MonthSolution* MonthModel::genSolution(XPRBprob* p, double duration)
 			for (int i = 0; i < getData()->I; ++i)
 				if (round(this->a[v][i][j].getSol()) == 1)
 				{
-					s[i].push_back(abs(round(this->s[v][j].getSol())));
+					s[i].push_back(abs(this->s[v][j].getSol()));
 					a[v].push_back(i);
 					continue;
 				}
 
-	solution->setStarts(s);
+	for (int i = 0; i < getData()->I; ++i)
+		f.push_back(abs(this->f[i].getSol()));
+
+	solution->setTimes(s, f);
 	solution->setOrders(a);
 
 	return solution;
@@ -41,20 +45,10 @@ void MonthModel::genProblem()
 	genResourceCon();
 	genDurationCon();
 	genReleaseCon();
-	genFinishCon();
+	genDeadlineCon();
 	genFixedCons();
-
-	for (int y = 0; y < getData()->Y; ++y)
-	{
-		int VyStart = 0;
-		if (y > 0)
-			VyStart = getData()->Vy[y - 1];
-
-		for (int v = VyStart; v < getData()->Vy[y]; ++v)
-			for (int i = 0; i < getData()->I; ++i)
-				for (int j = 0; j < getData()->J; ++j)
-					p.newCtr(("FinT_" + to_string(v) + "_" + to_string(i) + "_" + to_string(j)).c_str(), getData()->d[y][i] + s[v][j] - 2 * getData()->T * (1 - a[v][i][j]) <= f[i]);
-	}
+	genFinishCon();	
+	genPrecedenceCon();
 }
 
 void MonthModel::genDecVars()
@@ -109,7 +103,7 @@ void MonthModel::genOrderCon()
 		{
 			XPRBrelation ctr = a[v][0][j] <= a[v][0][j-1];
 
-			for (int i = 0; i < getData()->I; ++i)
+			for (int i = 1; i < getData()->I; ++i)
 			{
 				ctr.addTerm(a[v][i][j]);
 				ctr.addTerm(a[v][i][j-1], -1);
@@ -189,7 +183,7 @@ void MonthModel::genReleaseCon()
 			}
 }
 
-void MonthModel::genFinishCon()
+void MonthModel::genDeadlineCon()
 {
 	for (int y = 0; y < getData()->Y; ++y)
 	{
@@ -205,7 +199,7 @@ void MonthModel::genFinishCon()
 				for (int i = 0; i < getData()->I; ++i)
 					ctr.addTerm(a[v][i][j], getData()->d[y][i]);
 
-				p.newCtr(("Fin_" + to_string(y) + "_" + to_string(v) + "_" + to_string(j)).c_str(), ctr);
+				p.newCtr(("Dead_" + to_string(y) + "_" + to_string(v) + "_" + to_string(j)).c_str(), ctr);
 			}
 	}
 }
@@ -239,6 +233,41 @@ void MonthModel::genFixedCons()
 	}
 }
 
+void MonthModel::genFinishCon()
+{
+	for (int y = 0; y < getData()->Y; ++y)
+	{
+		int VyStart = 0;
+		if (y > 0)
+			VyStart = getData()->Vy[y - 1];
+
+		for (int v = VyStart; v < getData()->Vy[y]; ++v)
+			for (int i = 0; i < getData()->I; ++i)
+				for (int j = 0; j < getData()->J; ++j)
+				{
+					XPRBrelation ctr = getData()->d[y][i] + s[v][j] <= f[i] + 2 * getData()->T * (1 - a[v][i][j]);
+
+					p.newCtr(("Fin_" + to_string(v) + "_" + to_string(i) + "_" + to_string(j)).c_str(), ctr);
+				}
+	}
+}
+
+void MonthModel::genPrecedenceCon()
+{
+	for(int ip = 0; ip  < getData()->PR.size(); ++ip)
+		for (int v = 0; v < getData()->V; ++v)
+			for (int j = 0; j < getData()->J; ++j)
+			{
+				int i = getData()->PR[ip].first;
+				int i_ = getData()->PR[ip].second;
+
+				XPRBrelation ctr = f[i] - (1 - a[v][i_][j]) * 2 * getData()->T <= s[v][j];
+
+				p.newCtr(("Prec_" + to_string(ip) + "_" + to_string(v) + "_" + to_string(j)).c_str(), ctr);
+			}
+				
+}
+
 MonthModel::MonthModel(MonthData* data, Mode* mode, string name) : Model(data, mode, name)
 { 
 	s = vector<vector<XPRBvar>>(data->V, vector<XPRBvar>(data->J));
@@ -270,71 +299,6 @@ MonthSolution* MonthModel::solve()
 
 	double dur = solveBasics();
 
-	cout << "f:" << endl;
-	cout << f[0].getSol() << endl;
-	cout << f[1].getSol() << endl;
-	cout << f[2].getSol() << endl;
-	cout << endl;
-
-	cout << "v0:" << endl;
-	cout << s[0][0].getSol() << endl;
-	cout << s[0][1].getSol() << endl;
-	cout << s[0][2].getSol() << endl;
-	cout << s[0][3].getSol() << endl;
-	cout << s[0][4].getSol() << endl;
-	cout << endl;
-
-	cout << "v1:" << endl;
-	cout << s[1][0].getSol() << endl;
-	cout << s[1][1].getSol() << endl;
-	cout << s[1][2].getSol() << endl;
-	cout << s[1][3].getSol() << endl;
-	cout << s[1][4].getSol() << endl;
-	cout << endl;
-
-	cout << "v2:" << endl;
-	cout << s[2][0].getSol() << endl;
-	cout << s[2][1].getSol() << endl;
-	cout << s[2][2].getSol() << endl;
-	cout << s[2][3].getSol() << endl;
-	cout << s[2][4].getSol() << endl;
-	cout << endl;
-
-	cout << "a0:" << endl;
-	cout << a[0][0][0].getSol() << endl;
-	cout << a[0][0][1].getSol() << endl;
-	cout << a[0][0][2].getSol() << endl;
-	cout << a[0][0][3].getSol() << endl;
-	cout << a[0][0][4].getSol() << endl;
-	cout << endl;
-
-	cout << "a1:" << endl;
-	cout << a[1][0][0].getSol() << endl;
-	cout << a[1][0][1].getSol() << endl;
-	cout << a[1][0][2].getSol() << endl;
-	cout << a[1][0][3].getSol() << endl;
-	cout << a[1][0][4].getSol() << endl;
-	cout << endl;
-	
-	cout << "cons:" << endl;
-	cout << s[2][4].getSol() << " - 400 * " << a[2][0][4].getSol() << " - " << f[0].getSol() << " <= -0" << endl;
-	cout << s[2][3].getSol() << " - 400 * " << a[2][0][3].getSol() << " - " << f[0].getSol() << " <= -0" << endl;
-	cout << s[2][2].getSol() << " - 400 * " << a[2][0][2].getSol() << " - " << f[0].getSol() << " <= -0" << endl;
-	cout << s[2][1].getSol() << " - 400 * " << a[2][0][1].getSol() << " - " << f[0].getSol() << " <= -0" << endl;
-	cout << s[2][0].getSol() << " - 400 * " << a[2][0][0].getSol() << " - " << f[0].getSol() << " <= -0" << endl;
-
-	cout << s[1][4].getSol() << " - 400 * " << a[1][0][4].getSol() << " - " << f[0].getSol() << " <= -30" << endl;
-	cout << s[1][3].getSol() << " - 400 * " << a[1][0][3].getSol() << " - " << f[0].getSol() << " <= -30" << endl;
-	cout << s[1][2].getSol() << " - 400 * " << a[1][0][2].getSol() << " - " << f[0].getSol() << " <= -30" << endl;
-	cout << s[1][1].getSol() << " - 400 * " << a[1][0][1].getSol() << " - " << f[0].getSol() << " <= -30" << endl;
-	cout << s[1][0].getSol() << " - 400 * " << a[1][0][0].getSol() << " - " << f[0].getSol() << " <= -30" << endl;
-
-	cout << s[0][4].getSol() << " - 400 * " << a[0][0][4].getSol() << " - " << f[0].getSol() << " <= -30" << endl;
-	cout << s[0][3].getSol() << " - 400 * " << a[0][0][3].getSol() << " - " << f[0].getSol() << " <= -30" << endl;
-	cout << s[0][2].getSol() << " - 400 * " << a[0][0][2].getSol() << " - " << f[0].getSol() << " <= -30" << endl;
-	cout << s[0][1].getSol() << " - 400 * " << a[0][0][1].getSol() << " - " << f[0].getSol() << " <= -30" << endl;
-	cout << s[0][0].getSol() << " - 400 * " << a[0][0][0].getSol() << " - " << f[0].getSol() << " <= -30" << endl;
-
 	if (p.getMIPStat() == XPRB_MIP_INFEAS)
 		return nullptr;
 
@@ -364,7 +328,7 @@ void FeedbackModel::genObj()
 	p.setObj(T);
 }
 
-void FeedbackModel::genFinishCon()
+void FeedbackModel::genDeadlineCon()
 {
 	for (int y = 0; y < getData()->Y; ++y)
 	{
@@ -380,7 +344,7 @@ void FeedbackModel::genFinishCon()
 				for (int i = 0; i < getData()->I; ++i)
 					ctr.addTerm(a[v][i][j], getData()->d[y][i]);
 
-				p.newCtr(("Fin_" + to_string(y) + "_" + to_string(v) + "_" + to_string(j)).c_str(), ctr);
+				p.newCtr(("Dead_" + to_string(y) + "_" + to_string(v) + "_" + to_string(j)).c_str(), ctr);
 			}
 	}
 }

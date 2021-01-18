@@ -61,6 +61,7 @@ public:
 	vector<double> r;				// im
 	vector<int> A;					// im
 	double T;
+	vector<pair<int, int>> PR;		// 'p'
 	vector<double> sInst;			// ii
 	vector<vector<int>> aInst;		// v ii
 	vector<int> vInst;				// ii

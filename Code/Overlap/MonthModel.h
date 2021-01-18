@@ -23,8 +23,10 @@ protected:
 	void genResourceCon();
 	void genDurationCon();
 	void genReleaseCon();
-	virtual void genFinishCon();
+	virtual void genDeadlineCon();
 	void genFixedCons();
+	void genFinishCon();
+	void genPrecedenceCon();
 
 public: 
 	MonthModel(MonthData* data, Mode* mode, string name = "Month");
@@ -44,7 +46,7 @@ protected:
 
 	void genDecVars() override;
 	void genObj() override;
-	void genFinishCon() override;
+	void genDeadlineCon() override;
 	void genMaxFinCon();
 
 public:

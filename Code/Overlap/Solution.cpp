@@ -177,9 +177,10 @@ void YearSolution::print()
 
 MonthSolution::MonthSolution(string name, int id) : Solution(name, id) { }
 
-void MonthSolution::setStarts(vector<vector<double>> s)
+void MonthSolution::setTimes(vector<vector<double>> s, vector<double> f)
 {
 	copy(s.begin(), s.end(), back_inserter(starts));
+	copy(f.begin(), f.end(), back_inserter(finishes));
 }
 
 void MonthSolution::setOrders(vector<vector<int>> a)
@@ -187,9 +188,9 @@ void MonthSolution::setOrders(vector<vector<int>> a)
 	copy(a.begin(), a.end(), back_inserter(orders));
 }
 
-void MonthSolution::printStarts()
+void MonthSolution::printTimes()
 {
-	cout << "Start times for each task:" << endl;
+	cout << "Start and finish times for each task:" << endl;
 
 	for (int i = 0; i < starts.size(); ++i)
 	{
@@ -198,7 +199,7 @@ void MonthSolution::printStarts()
 		for (int x = 1; x < starts[i].size(); ++x)
 			cout << ", " << starts[i][x];
 
-		cout << endl;
+		cout << "; Finish: " << finishes[i] << endl;
 	}
 
 }
@@ -225,6 +226,6 @@ void MonthSolution::print()
 {
 	printObj();
 	printDur();
-	printStarts();
+	printTimes();
 	printOrders();
 }

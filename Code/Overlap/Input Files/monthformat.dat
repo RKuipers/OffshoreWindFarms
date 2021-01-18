@@ -8,9 +8,9 @@
 1	1
 
 #Maintenance tasks
-#ID, Cost, Release time, Amount, Duration (per Y), Resources required (per Y)
+#ID, Cost, Release time, Amount, Duration (per Y), Resources required (per Y), Precs
 0	10	0	1	S	30	0	S	2	0
-1	10	0	2	S	10	20	S	1	1
+1	10	0	2	S	10	20	S	1	1	0
 2	10	0	1	S	10	15	S	2	1
 
 #Installation tasks

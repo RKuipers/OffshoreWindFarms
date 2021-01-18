@@ -32,6 +32,7 @@ MonthData::MonthData(int y, int v, int im, int ii) : Y(y), V(v), IMaint(im), IIn
 	rho = vector<vector<int>>(Y, vector<int>(I, 0));
 	r = vector<double>(IMaint, 0.0);
 	A = vector<int>(IMaint, 0);
+	PR = vector<pair<int, int>>();
 
 	sInst = vector<double>(IInst, 0.0);
 	aInst = vector<vector<int>>(V, vector<int>(IInst, 0));

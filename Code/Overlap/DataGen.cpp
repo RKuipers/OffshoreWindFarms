@@ -269,6 +269,9 @@ MonthData* DataGen::readMonth(ifstream* file)
 		ind = parseArray(split, ind, &arr, Y);
 		for (int y = 0; y < Y; ++y)
 			month->rho[y][i] = arr[y];
+
+		for (; ind < split.size(); ++ind)
+			month->PR.push_back(pair<int,int>(stoi(split[ind]), i));
 	}
 	readEmpty(file);
 
