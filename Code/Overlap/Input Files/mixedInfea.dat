@@ -32,13 +32,12 @@ A	1	12	11	0
 
 #MIXED
 #Vessels
-#ID, Start delay for planned tasks, Start delay (per reactive task), Amount needed for planned tasks, Amount needed (per reactive task)
-0	0	U	0	1	U	1
-1	30	U	0	1	U	1
+#ID, Amount needed for planned tasks, Amount needed (per reactive task)
+0	1	U	1
+1	1	U	1
 
 #Installation vessels
 #ID, Type, Month, Number of tasks, (Start time, Duration) per task
-
 
 #Failure times
 #Month, Time array, repeated (per type)

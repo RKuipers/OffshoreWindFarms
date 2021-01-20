@@ -1,6 +1,6 @@
 #Vessel Types, Vessels, Maint Tasks, Installation Tasks, Max Orders
-#Y V IMaint IInst
-2	3	3	2
+#Y V IMaint IInst J
+2	3	3	2	6
 
 #Vessels
 #Type ID, Available

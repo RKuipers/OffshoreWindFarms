@@ -238,11 +238,11 @@ MonthData* DataGen::readMonth(ifstream* file)
 	int V = stoi(split[1]);
 	int IMaint = stoi(split[2]);
 	int IInst = stoi(split[3]);
-	MonthData* month = new MonthData(Y, V, IMaint, IInst);
+	int J = stoi(split[4]);
+	MonthData* month = new MonthData(Y, V, IMaint, IInst, J);
 	readEmpty(file);
 
 	int I = IMaint + IInst;
-	int J = I;
 	int VyTotal = 0;
 	// Vessels
 	for (int y = 0; y < Y; ++y)
@@ -414,9 +414,9 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 
 		int Im = plannedTypes + repairs + react;
 		int I = Im + data->IInst[m];
-		int J = I;
+		int J = plannedAmount + repairs + react + data->IInst[m];
 
-		MonthData month = MonthData(data->Y, VyTotal, Im, data->IInst[m]);
+		MonthData month = MonthData(data->Y, VyTotal, Im, data->IInst[m], J);
 
 		// Vessels
 		for (int y = 0; y < data->Y; ++y)

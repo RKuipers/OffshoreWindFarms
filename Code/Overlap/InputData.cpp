@@ -24,7 +24,7 @@ YearData* YearData::getYear()
 	return this;
 }
 
-MonthData::MonthData(int y, int v, int im, int ii) : Y(y), V(v), IMaint(im), IInst(ii), I(im + ii), J(im + ii)
+MonthData::MonthData(int y, int v, int im, int ii, int j) : Y(y), V(v), IMaint(im), IInst(ii), I(im + ii), J(j)
 {
 	Vy = vector<int>(Y, 0);
 	c = vector<double>(I, 0.0);

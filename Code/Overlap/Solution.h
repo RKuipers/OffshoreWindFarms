@@ -61,13 +61,15 @@ protected:
 	vector<double> finishes;				// i
 	vector<vector<int>> orders;				// v j
 
-	void printTimes();
+	void printFinishes();
+	void printStarts();
 	void printOrders();
 
 public:
 	MonthSolution(string name, int id);
 
-	void setTimes(vector<vector<double>> s, vector<double> finishes);
+	void setFinishes(vector<double> finishes);
+	void setStarts(vector<vector<double>> s);
 	void setOrders(vector<vector<int>> a);
 	void print() override;
 };

@@ -12,7 +12,7 @@ MonthSolution* MonthModel::genSolution(XPRBprob* p, double duration)
 	solution = new MonthSolution(mode->getCurrentName(), mode->getCurrentId());
 	solution->setResult(p->getObjVal(), duration);
 
-	vector<vector<double>> s(getData()->I, vector<double>());
+	vector<vector<double>> s(getData()->V, vector<double>());
 	vector<double> f;
 	vector<vector<int>> a(getData()->V, vector<int>());
 
@@ -21,7 +21,7 @@ MonthSolution* MonthModel::genSolution(XPRBprob* p, double duration)
 			for (int i = 0; i < getData()->I; ++i)
 				if (round(this->a[v][i][j].getSol()) == 1)
 				{
-					s[i].push_back(abs(this->s[v][j].getSol()));
+					s[v].push_back(abs(this->s[v][j].getSol()));
 					a[v].push_back(i);
 					continue;
 				}
@@ -29,7 +29,8 @@ MonthSolution* MonthModel::genSolution(XPRBprob* p, double duration)
 	for (int i = 0; i < getData()->I; ++i)
 		f.push_back(abs(this->f[i].getSol()));
 
-	solution->setTimes(s, f);
+	solution->setFinishes(f);
+	solution->setStarts(s);
 	solution->setOrders(a);
 
 	return solution;
@@ -70,20 +71,11 @@ void MonthModel::genObj()
 {
 	XPRBctr Obj = p.newCtr();
 
-	/*for (int y = 0; y < getData()->Y; ++y)
+	for (int i = 0; i < getData()->IMaint; ++i)
 	{
-		int VyStart = 0;
-		if (y > 0)
-			VyStart = getData()->Vy[y - 1];
-
-		for (int v = VyStart; v < getData()->Vy[y]; ++v)
-			for (int i = 0; i < getData()->I; ++i)
-				for (int j = 0; j < getData()->J; ++j)
-					Obj.add(getData()->c[i] * a[v][i][j] * (s[v][j] + getData()->d[y][i]));
-	}*/
-
-	for (int i = 0; i < getData()->I; ++i)
 		Obj.addTerm(f[i], getData()->c[i]);
+		Obj.add(-1 * getData()->r[i] * getData()->c[i]);
+	}
 
 	p.setObj(Obj);
 }
@@ -130,8 +122,6 @@ void MonthModel::genLimitCon()
 
 void MonthModel::genResourceCon()
 {
-	MonthData* data = getData();
-
 	for (int y = 0; y < getData()->Y; ++y)
 		for (int i = 0; i < getData()->IMaint; ++i)
 		{
@@ -185,22 +175,11 @@ void MonthModel::genReleaseCon()
 
 void MonthModel::genDeadlineCon()
 {
-	for (int y = 0; y < getData()->Y; ++y)
+	for (int i = 1; i < getData()->I; ++i)
 	{
-		int VyStart = 0;
-		if (y > 0)
-			VyStart = getData()->Vy[y - 1];
+		XPRBrelation ctr = f[i] <= getData()->T;
 
-		for (int v = VyStart; v < getData()->Vy[y]; ++v)
-			for (int j = 0; j < getData()->J; ++j)
-			{
-				XPRBrelation ctr = s[v][j] + a[v][0][j] * getData()->d[y][0] <= getData()->T;
-
-				for (int i = 0; i < getData()->I; ++i)
-					ctr.addTerm(a[v][i][j], getData()->d[y][i]);
-
-				p.newCtr(("Dead_" + to_string(y) + "_" + to_string(v) + "_" + to_string(j)).c_str(), ctr);
-			}
+		p.newCtr(("Dead_" + to_string(i)).c_str(), ctr);
 	}
 }
 
@@ -245,7 +224,7 @@ void MonthModel::genFinishCon()
 			for (int i = 0; i < getData()->I; ++i)
 				for (int j = 0; j < getData()->J; ++j)
 				{
-					XPRBrelation ctr = getData()->d[y][i] + s[v][j] <= f[i] + 2 * getData()->T * (1 - a[v][i][j]);
+					XPRBrelation ctr = getData()->d[y][i] + s[v][j] <= f[i] + 3 * getData()->T * (1 - a[v][i][j]);
 
 					p.newCtr(("Fin_" + to_string(v) + "_" + to_string(i) + "_" + to_string(j)).c_str(), ctr);
 				}
@@ -261,7 +240,7 @@ void MonthModel::genPrecedenceCon()
 				int i = getData()->PR[ip].first;
 				int i_ = getData()->PR[ip].second;
 
-				XPRBrelation ctr = f[i] - (1 - a[v][i_][j]) * 2 * getData()->T <= s[v][j];
+				XPRBrelation ctr = f[i] - (1 - a[v][i_][j]) * 3 * getData()->T <= s[v][j];
 
 				p.newCtr(("Prec_" + to_string(ip) + "_" + to_string(v) + "_" + to_string(j)).c_str(), ctr);
 			}
@@ -301,6 +280,24 @@ MonthSolution* MonthModel::solve()
 
 	if (p.getMIPStat() == XPRB_MIP_INFEAS)
 		return nullptr;
+
+	/*for (int i = 0; i < getData()->I; ++i)
+		cout << "f_" << i << ": " << f[i].getSol() << endl;
+
+	cout << endl;
+
+	for (int v = 0; v < getData()->V; ++v)
+		for (int j = 0; j < getData()->J; ++j)
+			cout << "s_" << v << "_" << j << ": " << s[v][j].getSol() << endl;
+
+	cout << endl;
+
+	for (int v = 0; v < getData()->V; ++v)
+		for (int i = 0; i < getData()->I; ++i)
+			for (int j = 0; j < getData()->J; ++j)
+				cout << "a_" << v << "_" << i << "_" << j << ": " << a[v][i][j].getSol() << endl;
+
+	cout << endl;*/
 
 	return genSolution(&p, dur);
 }
@@ -367,7 +364,7 @@ vector<double> FeedbackModel::getEps()
 	vector<double> res = vector<double>(getData()->Y, 0.0);
 
 	for (int y = 0; y < getData()->Y; ++y)
-		res[y] = max(0.0, Ty[y].getSol() - getData()->T);
+		res[y] = max(0.0, this->Ty[y].getSol() - getData()->T);
 
 	return res;
 }

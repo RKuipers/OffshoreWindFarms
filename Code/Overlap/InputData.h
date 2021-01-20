@@ -66,7 +66,7 @@ public:
 	vector<vector<int>> aInst;		// v ii
 	vector<int> vInst;				// ii
 
-	MonthData(int y, int v, int im, int ii);
+	MonthData(int y, int v, int im, int ii, int j);
 
 	MonthData* getMonth() override;
 };
@@ -87,7 +87,7 @@ public:
 	vector<vector<int>> aInst;				// m ii
 	vector<vector<int>> vTypes;				// m 'v'
 
-	MixedData(int s, int m, int y, int ip, int ir);
+	MixedData(int s, int m, int y, int ip, int ir33);
 	MixedData(const YearData& year);
 
 	MixedData* getMixed() override;

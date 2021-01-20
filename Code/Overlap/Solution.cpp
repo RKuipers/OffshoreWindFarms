@@ -177,10 +177,14 @@ void YearSolution::print()
 
 MonthSolution::MonthSolution(string name, int id) : Solution(name, id) { }
 
-void MonthSolution::setTimes(vector<vector<double>> s, vector<double> f)
+void MonthSolution::setFinishes(vector<double> f)
+{
+	copy(f.begin(), f.end(), back_inserter(finishes));
+}
+
+void MonthSolution::setStarts(vector<vector<double>> s)
 {
 	copy(s.begin(), s.end(), back_inserter(starts));
-	copy(f.begin(), f.end(), back_inserter(finishes));
 }
 
 void MonthSolution::setOrders(vector<vector<int>> a)
@@ -188,18 +192,30 @@ void MonthSolution::setOrders(vector<vector<int>> a)
 	copy(a.begin(), a.end(), back_inserter(orders));
 }
 
-void MonthSolution::printTimes()
+void MonthSolution::printFinishes()
 {
-	cout << "Start and finish times for each task:" << endl;
+	cout << "Finish times for each task:" << endl;
 
-	for (int i = 0; i < starts.size(); ++i)
+	for (int i = 0; i < finishes.size(); ++i)
+		cout << i << ": " << finishes[i] << endl;
+
+}
+
+void MonthSolution::printStarts()
+{
+	cout << "Start times for each vessel:" << endl;
+
+	for (int v = 0; v < starts.size(); ++v)
 	{
-		cout << i << ": " << starts[i][0];
+		if (starts[v].empty())
+			continue;
 
-		for (int x = 1; x < starts[i].size(); ++x)
-			cout << ", " << starts[i][x];
+		cout << v << ": " << starts[v][0];
 
-		cout << "; Finish: " << finishes[i] << endl;
+		for (int j = 1; j < starts[v].size(); ++j)
+			cout << ", " << starts[v][j];
+
+		cout << endl;
 	}
 
 }
@@ -226,6 +242,7 @@ void MonthSolution::print()
 {
 	printObj();
 	printDur();
-	printTimes();
+	printFinishes();
+	printStarts();
 	printOrders();
 }
