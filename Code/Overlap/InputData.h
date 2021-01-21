@@ -41,6 +41,7 @@ public:
 	vector<int> Turbs;					// m
 	vector<vector<vector<double>>> eps;	// sig m y
 	vector<vector<vector<int>>> rho;	// sig m y
+	vector<double> lambda;				// ir
 
 	YearData(int s, int m, int y, int ip, int ir);
 

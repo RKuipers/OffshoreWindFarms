@@ -17,6 +17,7 @@ YearData::YearData(int s, int m, int y, int ip, int ir) : S(s), M(m), Y(y), Ip(i
 	Turbs = vector<int>(M, 0);
 	eps = vector<vector<vector<double>>>(S, vector<vector<double>>(M, vector<double>(Y, 0.0)));
 	rho = vector<vector<vector<int>>>(S, vector<vector<int>>(M, vector<int>(Y, 0)));
+	lambda = vector<double>(Ir, 0.0);
 }
 
 YearData* YearData::getYear()

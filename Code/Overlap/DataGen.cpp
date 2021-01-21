@@ -172,16 +172,6 @@ YearData* DataGen::readYear(ifstream* file)
 	}
 	readEmpty(file);
 
-	// Duration of delay and work per type of failure
-	split = readLine(file);
-	int ind = parseArrayDouble(split, 0, &arrD, Ir);
-	for (int i = 0; i < Ir; ++i)
-		year->dD[i] = arrD[i];
-	ind = parseArrayDouble(split, ind, &arrD, Ir);
-	for (int i = 0; i < Ir; ++i)
-		year->dR[i] = arrD[i];
-	readEmpty(file);
-
 	// Offline duration for planned task
 	year->dP = stoi(readLine(file)[0]);
 	readEmpty(file);
@@ -204,7 +194,17 @@ YearData* DataGen::readYear(ifstream* file)
 	year->GU = stoi(split[1]);
 	readEmpty(file);
 
-	// Failures
+	//Failure characteristics
+	for (int ir = 0; ir < Ir; ++ir)
+	{
+		split = readLine(file);
+		year->lambda[ir] = stod(split[1]);
+		year->dD[ir] = stod(split[2]);
+		year->dR[ir] = stod(split[3]);
+	}
+	readEmpty(file);
+
+	// Failure amounts
 	for (int s = 0; s < S; ++s)
 	{
 		split = readLine(file);

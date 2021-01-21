@@ -93,6 +93,7 @@ void YearModel::genObj()
 	XPRBctr Obj = p.newCtr();
 
 	for (int sig = 0; sig < getData()->S; ++sig)
+	{
 		for (int m = 0; m < getData()->M; ++m)
 		{
 			for (int y = 0; y < getData()->Y; ++y)
@@ -110,11 +111,15 @@ void YearModel::genObj()
 
 				if (m > 0)
 				{
-					Obj.addTerm(FU[m-1][ir][sig], getData()->H[m] * getData()->eH[m] * sFac);
+					Obj.addTerm(FU[m - 1][ir][sig], getData()->H[m] * getData()->eH[m] * sFac);
 					Obj.addTerm(R[m][ir][sig], -1 * getData()->H[m] * getData()->eH[m] * sFac);
 				}
 			}
 		}
+
+		for (int ir = 0; ir < getData()->Ir; ++ir)
+			Obj.addTerm(FU[getData()->M - 1][ir][sig], getData()->lambda[ir]);
+	}
 	p.setObj(Obj);
 }
 

@@ -6,9 +6,6 @@
 #ID, Hours per month, Costs (per month), Amount avaialable (per month), Duration of planned, Duration of reactive (per type), Time used by installation (per month), Amount avaialable from installation (per month)
 0	180	U	1800	U	3	5	S	4	30	A	6	0	1	80	5	0	A	6	0	1	1	5	0
 
-#Duration of delay and work per type of failure
-S	2	6	S	4	30
-
 #Offline duration for planned task
 5
 
@@ -21,7 +18,12 @@ U	70
 #Min/Max months between maint
 6	9
 
-#Failures
+#Failure characteristics
+#Failure type ID, Leftover penalty, Duration of delay, and Duration of work
+0	50400	2	4
+1	50400	6	30
+
+#Failure amounts
 #Scenario ID, Amount (per month) repeated (per type)
 0	S	0	0	0	0	2	3	4	5	0	0	8	2	S	19	18	2	0	0	0	0	0	5	3	0	0
 

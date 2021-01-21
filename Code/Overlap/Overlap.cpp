@@ -19,7 +19,7 @@ void runYear()
 {
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/yearBasic.dat");
+    ifstream datafile("Input Files/yearScen.dat");
     YearData* data = dg.readYear(&datafile);
     YearModel* model = new YearModel(data, &mode);
     model->genProblem();
@@ -45,7 +45,7 @@ void runMixed()
 
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/mixedBasic.dat");
+    ifstream datafile("Input Files/mixedEasy.dat");
     MixedData* data = dg.readMixed(&datafile);
 
     bool feasible = false;
