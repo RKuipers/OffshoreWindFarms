@@ -155,9 +155,9 @@ subject to:
 \sum_{v \in V_y} \sum_{j \in J} a_{v, i, j}				&\geq	A_i \cdot \rho_{y,i}  				& \forall y \in Y, \forall i \in I^{Maint} 			\\
 s_{v,j} - s_{v,(j-1)}							&\geq	\sum_{i \in I} (a_{v,i,(j-1)} \cdot d_{y,i})	& \forall y \in Y, \forall v \in V_y, \forall j \in J - \{ 0 \}	\\
 s_{v,j}									&\geq r_i \cdot a_{v,i,j} 					& \forall v \in V, \forall I \in I, \forall j \in J		\\
-d_{y,i} + s_{v,j}								&\leq f_i + 2 T \cdot (1 - a_{v,i,j})			& \forall y \in Y, \forall v \in V_y, \forall i \in I, \forall j \in J 	\\
+s_{v,j} + d_{y,i}								&\leq f_i + M \cdot (1 - a_{v,i,j})			& \forall y \in Y, \forall v \in V_y, \forall i \in I, \forall j \in J 	\\
 f_i 										&\leq	T							& \forall i \in I 						\\
-f_i - a_{v, i', j} \cdot 2 T							&\leq s_{v,j}							& \forall (i, i') \in PR, \forall v \in V, \forall j \in J 	\\
+f_i - a_{v, i', j} \cdot M							&\leq s_{v,j}							& \forall (i, i') \in PR, \forall v \in V, \forall j \in J 	\\
 \sum_{j \in J} a_{v,i,j}							&=	a^{Inst}_{v,i}					& \forall v \in V, \forall i \in I^{Inst}  			\\
 s^{Inst}_i \cdot a_{v_i,i,j}	\leq	s_{v_i,j}			&\leq	T - a_{v_i,i,j} \cdot (T - s^{Inst}_i)		& \forall i \in I^{Inst}, \forall j \in J			
 \end{align}
@@ -165,14 +165,17 @@ s^{Inst}_i \cdot a_{v_i,i,j}	\leq	s_{v_i,j}			&\leq	T - a_{v_i,i,j} \cdot (T - s
 \end{frame}
 
 \begin{frame}{Months model Explanation}
-\expl Objective is to minimise costs of tasks being uncompleted (the +max bit is optional as it's about constants) \\ 
-\expl Ensures every vessel has at most one first task \\ 
-\expl Ensures that a vessel follows a path without brances \\
-\expl Ensures every task has enough resourses assigned to it \\
-\expl Ensures the starting times of consecutive tasks are separated by at least the duration of the first task \\
-\expl Ensures all tasks are started after their release time, and finished on time \\
+\expl Objective is to minimise the waiting time of tasks, weighed by their cost over time \\ 
+\expl Ensures any vessels is assigned to at most 1 task at a time, and only has a $j$th task if it has a $(j-1)$th task \\ 
+\expl Ensures no task is visited more than that task should be visited \\
+\expl Ensures every task has enough resourses assigned to it (for every iteration) \\
+\expl Ensures the starting times of consecutive (for a given vessel) tasks are far enough apart \\
+\expl Ensures all tasks are started after their release time \\
+\expl Links the start and finish time of a task together with its duration \\
+\expl Ensures tasks are finished on time \\
+\expl Enforces precedency relations between tasks \\
 \expl Forces every installation task to be assigned as in the installation schedule \\
-\expl Forces every installation task to be started as in the installation schedule
+\expl Forces installation tasks to start at the time dictated by the installation schedule
 \end{frame}
 
 \begin{frame}{Months model notation overview}
@@ -187,13 +190,14 @@ Sets:
 \item $I^{Inst}$:  Installation tasks completed this month by vessels that are also available for maintenance tasks
 \item $I^{Maint}$: Maintenance tasks to be scheduled this month
 \item $I = I^{Inst} \cup I^{Maint}$:  Tasks to be completed in this month
+\item $PR$: Pairs of tasks with a precedence relationship (where the first task needs to be finished before the second task can be started)
 \end{itemize}
 
 Decision variables:
 \begin{itemize}
-\item $s_i$: Start time of task $i$
-\item $a^F_{v,i}$ \& $a^L_{v,i}$: Binary variables, 1 for the first and last task $i$ of vessel $v$ respectively
-\item $a_{v,i,i'}$: Binary variable which is 1 if vessel $v$ performs task $i'$ after task $i'$
+\item $s_{v,j}$: Start time of the $j$th assignment to vessel $v$
+\item $f_i$: Finish time of the $i$th task
+\item $a_{v,i,j}$: Binary variable which is 1 if vessel $v$ performs task $i$ as its $j$th task
 \end{itemize}
 \end{column}
 
@@ -203,14 +207,15 @@ Decision variables:
 Parameters:
 \begin{itemize}
 \item $c_i$: The cost per hour of a task not being completed
-\item $s_{y,i}$: The start time offset between task $i$ starting and vessel type $y$ being used for it
+\item $r_i$: The release time of task $i$; it cannot be started before this time
+\item $A_i$: The amount of times task $i$ needs to be completed (tasks with the same characteristics are grouped this way)
 \item $d_{y,i}$: The duration of task $i$ for vessel type $y$
 \item $\rho_{y,i}$: The amount of vessels of type $y$ required for task $i$
 \item $M$: A large number
-\item $r_i$: The release time of task $i$; it cannot be started before this time
 \item $T$: The end time of the month
 \item $s^{Inst}_i$: Start time of task $i \in I^{Inst}$, as in the installation schedule
 \item $a^{Inst}_{v,i}$: Binary assignment variable of task $i \in I^{Inst}$, as in the installation schedule
+\item $v_i$: For $i \in I^{Inst}$ this represents the vessel assigned to installation task $i$
 \end{itemize}
 \end{column}
 \end{columns}
