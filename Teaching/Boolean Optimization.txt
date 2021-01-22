@@ -1,0 +1,12 @@
+(W3 AND NOT (W4 AND W5)) OR W1
+(W3 OR W1) AND (NOT (W4 AND W5) OR W1)
+(W3 OR W1) AND ((NOT W4) OR (NOT W5) OR W1)
+
+Sizes:
+N(W3 OR W1) = N(W3) + N(W1) = 1000 + 2000 = 3000
+N((NOT W4) OR (NOT W5) OR W1) = N(NOT W4) + N(NOT W5) + N(W1) 
+	= (N - N(W4)) + (N - N(W5)) + N(W1) = 80000 + 80000 + 2000 = 162000
+
+Order:
+1	(W3 OR W1)
+2	(W3 OR W1) AND ((NOT W4) OR (NOT W5) OR W1)
