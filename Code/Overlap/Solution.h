@@ -18,6 +18,8 @@ public:
 	Solution(string name, int id);
 
 	void setResult(double value, double duration);
+	double getObj();
+
 	void printObj();
 	void printDur();
 	virtual void print() =0;

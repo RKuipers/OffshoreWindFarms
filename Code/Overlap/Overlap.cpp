@@ -45,14 +45,12 @@ void runMixed()
 
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/mixedEasy.dat");
+    ifstream datafile("Input Files/mixedBasic.dat");
     MixedData* data = dg.readMixed(&datafile);
 
-    bool feasible = false;
-    int infeasible = 0;
-    while (!feasible)
+    int infeasible = 1;
+    while (infeasible > 0)
     {
-        feasible = true;
         infeasible = 0;
 
         cout << "-------------- YEAR --------------" << endl;
@@ -62,6 +60,7 @@ void runMixed()
         yearSol->print();
 
         vector<MonthData> months = dg.genMonths(data, yearSol);
+        vector<MonthSolution*> monthSols = vector<MonthSolution*>(months.size(), nullptr);
         for (int m = 0; m < months.size(); ++m)
         {
             cout << endl;
@@ -76,20 +75,24 @@ void runMixed()
 
             MonthModel* monthModel = new MonthModel(&months[m], &mode);
             monthModel->genProblem();
-            MonthSolution* sol = monthModel->solve();
-            if (sol == nullptr)
+            monthSols[m] = monthModel->solve();
+            if (monthSols[m] == nullptr)
             {
                 vector<double> ep;
                 vector<int> rho;
                 monthModel->getRequirements(&ep, &rho);
                 data->eps[0][m] = ep; // TODO: 0 is for scenario; needs to be fixed
                 data->rho[0][m] = rho;
-                feasible = false;
                 infeasible++;
             }
             else
-                sol->print();
+                monthSols[m]->print();
         }
+        
+        cout << endl;
+
+        if (infeasible == 0)
+            yearModel->printMixedValue(monthSols);
     }
 
     cout << "TOTAL duration: " << ((double)clock() - start) / (double)CLOCKS_PER_SEC << endl;

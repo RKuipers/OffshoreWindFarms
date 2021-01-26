@@ -28,5 +28,7 @@ public:
 
 	void genProblem() override;
 	YearSolution* solve() override;
+
+	double printMixedValue(vector<MonthSolution*> months);
 };
 

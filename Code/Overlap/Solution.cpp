@@ -13,6 +13,11 @@ void Solution::setResult(double value, double duration)
 	this->duration = duration;
 }
 
+double Solution::getObj()
+{
+	return value;
+}
+
 void Solution::printObj()
 {
 	cout << "Objective value: " << value << endl;

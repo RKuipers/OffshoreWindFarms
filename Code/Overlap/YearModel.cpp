@@ -226,3 +226,71 @@ YearSolution* YearModel::solve()
 
 	return genSolution(&p, dur);
 }
+
+double YearModel::printMixedValue(vector<MonthSolution*> months)
+{
+	cout << "Costs per month:" << endl;
+	cout << "Month: Total (Vessel rentals + Planned downtime + Repairs + Unhandled failures)" << endl;
+
+	double res = 0.0;
+	int sig = 0;
+
+	vector<double> vesselRental = vector<double>(getData()->M, 0.0);
+	vector<double> plannedDowntime = vector<double>(getData()->M, 0.0);
+	vector<double> repairs = vector<double>(getData()->M, 0.0);
+	vector<double> unhandledFailures = vector<double>(getData()->M, 0.0);
+	double vr = 0.0, pd = 0.0, re = 0.0, uf = 0.0, lo = 0.0;
+
+	for (int m = 0; m < getData()->M; ++m)
+	{
+		double e = getData()->eH[m];
+
+		// Vessel Rentals
+		for (int y = 0; y < getData()->Y; ++y)
+			vesselRental[m] += solution->getVessels()[sig][m][y] * getData()->c[y][m];
+		// Downtime planned
+		for (int ip = 0; ip < getData()->Ip; ++ip)
+			plannedDowntime[m] += solution->getPlanned()[m][ip] * getData()->dP * e;
+
+		// Task costs
+		if (months[m] != nullptr)
+			repairs[m] += months[m]->getObj();
+
+		for (int ir = 0; ir < getData()->Ir; ++ir)
+		{
+			// Unhandled failures		keep
+			unhandledFailures[m] += FU[m][ir][sig].getSol() * getData()->H[m] * 0.5 * e;
+
+			// Old unhandled failures	keep
+			if (m > 0)
+				unhandledFailures[m] += (FU[m - 1][ir][sig].getSol() - solution->getRepairs()[sig][m][ir]) * getData()->H[m] * e;
+		}
+
+		double total = vesselRental[m] + plannedDowntime[m] + repairs[m] + unhandledFailures[m];
+		vr += vesselRental[m];
+		pd += plannedDowntime[m];
+		re += repairs[m];
+		uf += unhandledFailures[m];
+
+		cout << m << ": " << total << " (" << vesselRental[m] << " + " << plannedDowntime[m] << " + " << repairs[m] << " + " << unhandledFailures[m] << ")" << endl;
+
+		res += total;
+	}
+
+	// Last month penalty
+	for (int ir = 0; ir < getData()->Ir; ++ir)
+		lo += FU[getData()->M - 1][ir][sig].getSol() * getData()->lambda[ir];
+	res += lo;
+
+	cout << endl;
+	cout << "Total: " << res << endl;
+	cout << "Totals per category:" << endl;
+	cout << "Vessel rentals: " << vr << endl;
+	cout << "Planned downtime: " << pd << endl;
+	cout << "Repairs: " << re << endl;
+	cout << "Unhandled failures: " << uf << endl;
+	cout << "Leftover failures: " << lo << endl;
+	cout << endl;
+
+	return res;
+}
