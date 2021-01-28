@@ -4,6 +4,7 @@
 #include <iostream>		// cout
 #include <string>		// stod
 #include <fstream>		// ifstream, ofstream
+#include <stdlib.h>     // srand, rand 
 #include "InputData.h"
 #include "Solution.h"
 
@@ -14,6 +15,8 @@ private:
 	bool readEmpty(ifstream* datafile, char sep = '\t');
 	int parseArray(vector<string> line, int start, vector<int>* res, int amount);
 	int parseArrayDouble(vector<string> line, int start, vector<double>* res, int amount);
+
+	vector<int> genRandomFailures(double yearlyFailRate, int nTurbines, int maxTime);
 
 public:
 	YearData* readYear(ifstream* file);

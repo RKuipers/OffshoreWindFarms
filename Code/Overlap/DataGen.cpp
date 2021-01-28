@@ -125,6 +125,20 @@ int DataGen::parseArrayDouble(vector<string> line, int start, vector<double>* re
 	}
 }
 
+vector<int> DataGen::genRandomFailures(double yearlyFailRate, int nTurbines, int maxTime)
+{
+	vector<int> res = vector<int>();
+	double mFR = yearlyFailRate / 12.0;
+
+	int nFailures = 0;
+	for (int t = 0; t < nTurbines; ++t)
+		if ((rand() % 1000000) / 1000000.0 <= mFR)
+			nFailures++;;
+
+	for (int f = 0; f < nFailures; ++f)
+		res.push_back(rand() % maxTime);
+}
+
 YearData* DataGen::readYear(ifstream* file)
 {
 	vector<int> arr = vector<int>();
@@ -301,6 +315,8 @@ MonthData* DataGen::readMonth(ifstream* file)
 
 MixedData* DataGen::readMixed(ifstream* file)
 {
+	srand(42); // TODO: Lose seed
+
 	vector<int> arr = vector<int>();
 	vector<double> arrD = vector<double>();
 
