@@ -34,7 +34,7 @@ U	152
 A	1	80	23	0
 
 #Failure mode
-R
+D
 #Failure amounts
 #Scenario ID, Amount (per month) repeated (per type)
 0	U	50	U	20	S	2	2	2	1	2	2	2	2	2	1	2	2	2	1	2	2	2	2	2	1	2	2	2	2	S	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	S	0	1	0	0	0	0	0	1	0	0	1	0	0	0	1	1	0	0	0	0	0	0	1	0
