@@ -42,6 +42,7 @@ public:
 	vector<vector<vector<double>>> eps;	// sig m y
 	vector<vector<vector<int>>> rho;	// sig m y
 	vector<double> lambda;				// ir
+	bool randFailMode;
 
 	YearData(int s, int m, int y, int ip, int ir);
 

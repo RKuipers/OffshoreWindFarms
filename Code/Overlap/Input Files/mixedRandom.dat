@@ -1,15 +1,15 @@
 #YEAR
 #Scenarios, Months, Vessel Types, Planned Task Amount, Reactive Task Types
 #S M Y Ip Ir
-1	12	2	1	1
+1	24	2	2	3
 
 #Vessels
 #ID, Hours per month, Costs (per month), Amount avaialable (per month), Duration of planned, Duration of reactive (per type), Time used by installation (per month), Amount avaialable from installation (per month)
-0	240	U	2000	U	2	40	U	240	U	0	U	0
-1	240	U	2000	U	2	20	U	240	U	0	U	0
+0	200	U	2000	U	2	6	S	4	8	24	A	5	0	1	70	18	0	A	5	0	1	1	18	0
+1	180	U	1800	U	2	4	S	6	6	0	A	7	0	1	50	16	0	A	7	0	1	1	16	0
 
 #Offline duration for planned task
-50
+6
 
 #Hours in given month
 U	720
@@ -18,44 +18,32 @@ U	720
 U	70
 
 #Min/Max months between maint
-6	9
+6	18
 
 #Failure characteristics
 #Failure type ID, Leftover penalty, Duration of delay, and Duration of work
-0	50400	0	240
+0	50400	0	6
+1	50400	1	8
+2	50400	8	24
 
 #Turbines
-A	1	12	11	0	
+S	20	0	0	5	2	3	3	2	0	0	10	5	20	0	0	5	2	3	3	2	0	0	10	5
 
 #Failure mode
 R
-#Failure amounts
-#Scenario ID, Amount (per month) repeated (per type)
-0	S	0	0	0	0	0	1	1	1	1	1	1	0
+#Yearly failure rate (per failure type)
+7.5	0.9	0.05
 
 #MIXED
 #Vessels
 #ID, Amount needed for planned tasks, Amount needed (per reactive task)
 0	1	U	1
-1	1	U	1
+1	1	U	2
 
 #Installation vessels
 #ID, Type, Month, Number of tasks, (Start time, Duration) per task
+0	1	7	2	30	50	0	20
+1	0	5	1	40	50
 
 #End Time
-240
-
-#Failure times
-#Month, Time array, repeated (per type)
-0	
-1	
-2	
-3	
-4	
-5	0
-6	0
-7	0
-8	0
-9	0
-10	0
-11	
+200

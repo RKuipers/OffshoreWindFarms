@@ -16,7 +16,8 @@ private:
 	int parseArray(vector<string> line, int start, vector<int>* res, int amount);
 	int parseArrayDouble(vector<string> line, int start, vector<double>* res, int amount);
 
-	vector<int> genRandomFailures(double yearlyFailRate, int nTurbines, int maxTime);
+	int genRandomFailures(double yearlyFailRate, int nTurbines);
+	vector<double> genRandomFailureTimes(int failures, int maxTime);
 
 public:
 	YearData* readYear(ifstream* file);

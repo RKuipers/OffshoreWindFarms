@@ -44,8 +44,18 @@ YearSolution* YearModel::genSolution(XPRBprob* p, double duration)
 			{
 				int leftover = 0;
 
+				int fuO = 0;
+				if (m > 0)
+					fuO = round(this->FU[m - 1][ir][sig].getSol());
+				int fuN = round(this->FU[m][ir][sig].getSol());
+				int r = round(this->R[m][ir][sig].getSol());
+				int ft = getData()->Ft[m][ir][sig];
+
 				if (m > 0)
 					leftover = round(this->FU[m-1][ir][sig].getSol()) - round(this->R[m][ir][sig].getSol());
+
+				if (ft + leftover - fuN < 0)
+					ft = ft;
 
 				F[m][ir].push_back(getData()->Ft[m][ir][sig] + leftover - round(this->FU[m][ir][sig].getSol()));
 			}

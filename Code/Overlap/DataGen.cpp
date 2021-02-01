@@ -125,18 +125,26 @@ int DataGen::parseArrayDouble(vector<string> line, int start, vector<double>* re
 	}
 }
 
-vector<int> DataGen::genRandomFailures(double yearlyFailRate, int nTurbines, int maxTime)
+int DataGen::genRandomFailures(double yearlyFailRate, int nTurbines)
 {
-	vector<int> res = vector<int>();
 	double mFR = yearlyFailRate / 12.0;
 
 	int nFailures = 0;
 	for (int t = 0; t < nTurbines; ++t)
-		if ((rand() % 1000000) / 1000000.0 <= mFR)
-			nFailures++;;
+		if (rand() / ((double)RAND_MAX) <= mFR)
+			nFailures++;
 
-	for (int f = 0; f < nFailures; ++f)
-		res.push_back(rand() % maxTime);
+	return nFailures;
+}
+
+vector<double> DataGen::genRandomFailureTimes(int failures, int maxTime)
+{
+	vector<double> res = vector<double>();
+
+	for (int f = 0; f < failures; ++f)
+		res.push_back((double)(rand() % maxTime));
+
+	return res;
 }
 
 YearData* DataGen::readYear(ifstream* file)
@@ -218,24 +226,45 @@ YearData* DataGen::readYear(ifstream* file)
 	}
 	readEmpty(file);
 
-	// Failure amounts
-	for (int s = 0; s < S; ++s)
-	{
-		split = readLine(file);
-		int ind = 1;
-		for (int i = 0; i < Ir; i++)
-		{
-			ind = parseArray(split, ind, &arr, M);
-			for (int m = 0; m < M; ++m)
-				year->Ft[m][i][s] = arr[m];
-		}
-	}
-	readEmpty(file);
-
 	// Turbines
 	parseArray(readLine(file), 0, &arr, M);
 	for (int m = 0; m < M; ++m)
 		year->Turbs[m] = arr[m];
+	readEmpty(file);
+
+	// Failures
+	year->randFailMode = readLine(file)[0] == "R";
+	if (!year->randFailMode)
+	{
+		for (int s = 0; s < S; ++s)
+		{
+			split = readLine(file);
+			int ind = 1;
+			for (int i = 0; i < Ir; i++)
+			{
+				ind = parseArray(split, ind, &arr, M);
+				for (int m = 0; m < M; ++m)
+					year->Ft[m][i][s] = arr[m];
+			}
+		}
+	}
+	else
+	{
+		split = readLine(file);
+		vector<int> turbs = vector<int>(M, 0);
+
+		turbs[0] = year->Turbs[0];
+		for (int m = 1; m < M; ++m)
+			turbs[m] = turbs[m - 1] + year->Turbs[m];
+
+		for (int s = 0; s < S; ++s)
+			for (int ir = 0; ir < Ir; ++ir)
+			{
+				double yFR = stod(split[ir]);
+				for (int m = 0; m < M; ++m)
+					year->Ft[m][ir][s] = genRandomFailures(yFR, turbs[m]);
+			}
+	}
 
 	return year;
 }
@@ -376,22 +405,32 @@ MixedData* DataGen::readMixed(ifstream* file)
 	}
 	readEmpty(file);
 
-	// Failure times
-	for (int m = 0; m < year.M; ++m)
-	{
-		split = readLine(file);
-		int ind = 1;
-		for (int ir = 0; ir < year.Ir; ++ir)
-		{
-			for (int f = 0; f < year.Ft[m][ir][0]; ++f) // TODO: sig is always 0?
-				mixed->FTime[m][ir].push_back(stod(split[ind + f]));
-			ind += year.Ft[m][ir][0];
-		}
-	}
-	readEmpty(file);
-
 	// End Time
 	mixed->T = stod(readLine(file)[0]);
+
+	// Failure times
+	if (!year.randFailMode)
+	{
+		readEmpty(file);
+
+		for (int m = 0; m < year.M; ++m)
+		{
+			split = readLine(file);
+			int ind = 1;
+			for (int ir = 0; ir < year.Ir; ++ir)
+			{
+				for (int f = 0; f < year.Ft[m][ir][0]; ++f) // TODO: sig is always 0?
+					mixed->FTime[m][ir].push_back(stod(split[ind + f]));
+				ind += year.Ft[m][ir][0];
+			}
+		}
+	}
+	else
+	{
+		for (int ir = 0; ir < year.Ir; ++ir)
+			for (int m = 0; m < year.M; ++m)
+				mixed->FTime[m][ir] = genRandomFailureTimes(year.Ft[m][ir][0], mixed->T);
+	}
 
 	return mixed;
 }

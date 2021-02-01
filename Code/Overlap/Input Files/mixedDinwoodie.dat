@@ -30,12 +30,14 @@ U	152
 3	109440	168	26
 4	109440	336	52
 
+#Turbines
+A	1	80	23	0
+
+#Failure mode
+R
 #Failure amounts
 #Scenario ID, Amount (per month) repeated (per type)
 0	U	50	U	20	S	2	2	2	1	2	2	2	2	2	1	2	2	2	1	2	2	2	2	2	1	2	2	2	2	S	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	S	0	1	0	0	0	0	0	1	0	0	1	0	0	0	1	1	0	0	0	0	0	0	1	0
-
-#Turbines
-A	1	80	23	0
 
 #MIXED
 #Vessels
@@ -46,6 +48,9 @@ A	1	80	23	0
 
 #Installation vessels
 #ID, Type, Month, Number of tasks, (Start time, Duration) per task
+
+#End Time
+720
 
 #Failure times
 #Month, Time array, repeated (per type)
@@ -73,6 +78,3 @@ A	1	80	23	0
 21	75
 22	140	170
 23	
-
-#End Time
-720

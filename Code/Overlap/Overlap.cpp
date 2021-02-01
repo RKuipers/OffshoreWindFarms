@@ -45,7 +45,7 @@ void runMixed()
 
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/mixedBasic.dat");
+    ifstream datafile("Input Files/mixedRandom.dat");
     MixedData* data = dg.readMixed(&datafile);
 
     int infeasible = 1;
