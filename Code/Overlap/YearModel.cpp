@@ -36,36 +36,14 @@ YearSolution* YearModel::genSolution(XPRBprob* p, double duration)
 
 	solution->setRepairs(R);
 	
-	vector<vector<vector<int>>> F(getData()->M, vector<vector<int>>(getData()->Ir, vector<int>()));
+	vector<vector<vector<int>>> U(getData()->M, vector<vector<int>>(getData()->Ir, vector<int>()));
 
 	for (int m = 0; m < getData()->M; ++m)
 		for (int ir = 0; ir < getData()->Ir; ++ir)
 			for (int sig = 0; sig < getData()->S; ++sig)
-			{
-				int leftover = 0;
+				U[m][ir].push_back(round(this->U[m][ir][sig].getSol()));
 
-				int fuO = 0;
-				if (m > 0)
-					fuO = round(this->FU[m - 1][ir][sig].getSol());
-				int fuN = round(this->FU[m][ir][sig].getSol());
-				int r = round(this->R[m][ir][sig].getSol());
-				int ft = getData()->Ft[m][ir][sig];
-
-				if (m > 0)
-					leftover = round(this->FU[m-1][ir][sig].getSol()) - round(this->R[m][ir][sig].getSol());
-
-				if (ft + leftover - fuN < 0)
-					ft = ft;
-
-				F[m][ir].push_back(getData()->Ft[m][ir][sig] + leftover - round(this->FU[m][ir][sig].getSol()));
-
-				if (ir == 1)
-				{
-					cout << m << ": " << ft << ", " << fuN << ", " << r << ", " << (ft + leftover - fuN) << ", " << leftover << endl;
-				}
-			}
-
-	solution->setReactive(F);
+	solution->setUnhandled(U);
 
 	return solution;
 }
@@ -92,8 +70,8 @@ void YearModel::genDecVars()
 
 			for (int ir = 0; ir < getData()->Ir; ++ir)
 			{
-				FU[m][ir][sig] = p.newVar(("FU_" + to_string(m) + "_" + to_string(ir) + "_" + to_string(sig)).c_str(), XPRB_UI);
 				R[m][ir][sig] = p.newVar(("R_" + to_string(m) + "_" + to_string(ir) + "_" + to_string(sig)).c_str(), XPRB_UI);
+				U[m][ir][sig] = p.newVar(("U_" + to_string(m) + "_" + to_string(ir) + "_" + to_string(sig)).c_str(), XPRB_UI);
 			}
 		}
 
@@ -119,21 +97,13 @@ void YearModel::genObj()
 
 			for (int ir = 0; ir < getData()->Ir; ++ir)
 			{
-				Obj.addTerm(FU[m][ir][sig], 0.5 * getData()->H[m] * getData()->eH[m] * sFac);
-				Obj.add(getData()->Ft[m][ir][sig] * (getData()->dR[ir] + getData()->dD[ir]) * getData()->eH[m] * sFac);
-				Obj.addTerm(FU[m][ir][sig], -1 * (getData()->dR[ir] + getData()->dD[ir]) * getData()->eH[m] * sFac);
-				Obj.addTerm(R[m][ir][sig], getData()->dR[ir] * getData()->eH[m] * sFac);
-
-				if (m > 0)
-				{
-					Obj.addTerm(FU[m - 1][ir][sig], getData()->H[m] * getData()->eH[m] * sFac);
-					Obj.addTerm(R[m][ir][sig], -1 * getData()->H[m] * getData()->eH[m] * sFac);
-				}
+				Obj.addTerm(R[m][ir][sig], (getData()->dR[ir] + getData()->dD[ir]) * getData()->eH[m] * sFac);
+				Obj.addTerm(U[m][ir][sig], getData()->H[m] * getData()->eH[m] * sFac);
 			}
 		}
 
 		for (int ir = 0; ir < getData()->Ir; ++ir)
-			Obj.addTerm(FU[getData()->M - 1][ir][sig], getData()->lambda[ir]);
+			Obj.addTerm(U[getData()->M - 1][ir][sig], getData()->lambda[ir]);
 	}
 	p.setObj(Obj);
 }
@@ -144,18 +114,13 @@ void YearModel::genCapacityCon()
 		for (int m = 0; m < getData()->M; ++m)
 			for (int y = 0; y < getData()->Y; ++y)
 			{
-				XPRBrelation ctr = getData()->L[y] * N[y][m][sig] + getData()->LInst[y][m] - getData()->eps[sig][m][y] >= 0;
+				XPRBrelation ctr = getData()->L[y] * N[y][m][sig] + getData()->LInst[y][m] >= getData()->eps[sig][m][y];
 
 				for (int ip = 0; ip < getData()->Ip; ++ip)
 					ctr.addTerm(P[m][ip], -1 * getData()->dPy[y]);
 
 				for (int ir = 0; ir < getData()->Ir; ++ir)
-				{
-					if (m >= 1)
-						ctr.addTerm(FU[m-1][ir][sig], -1 * getData()->dRy[y][ir]);
-					ctr.addTerm(FU[m][ir][sig], getData()->dRy[y][ir]);
-					ctr.add(getData()->Ft[m][ir][sig] * getData()->dRy[y][ir] * -1);
-				}
+					ctr.addTerm(R[m][ir][sig], -1 * getData()->dRy[y][ir]);
 
 				p.newCtr(("Cap_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(y)).c_str(), ctr);
 			}
@@ -180,15 +145,10 @@ void YearModel::genRepairCon()
 	for (int sig = 0; sig < getData()->S; ++sig)
 		for (int ir = 0; ir < getData()->Ir; ++ir)
 		{
-			FU[0][ir][sig].setUB(getData()->Ft[0][ir][sig]);
-			R[0][ir][sig].fix(0);
+			p.newCtr(("Rep_" + to_string(sig) + "_0_" + to_string(ir)).c_str(), getData()->Ft[0][ir][sig] == R[0][ir][sig] + U[0][ir][sig]);
 
 			for (int m = 1; m < getData()->M; ++m)
-			{
-				p.newCtr(("RepL_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(ir)).c_str(), R[m][ir][sig] >= FU[m - 1][ir][sig] - FU[m][ir][sig]);
-				p.newCtr(("RepU_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(ir)).c_str(), R[m][ir][sig] <= FU[m - 1][ir][sig]);
-				p.newCtr(("UnhU_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(ir)).c_str(), FU[m][ir][sig] <= getData()->Ft[m][ir][sig] + FU[m - 1][ir][sig]);
-			}
+				p.newCtr(("Rep_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(ir)).c_str(), getData()->Ft[m][ir][sig] + U[m-1][ir][sig] == R[m][ir][sig] + U[m][ir][sig]);
 		}
 }
 
@@ -231,8 +191,8 @@ YearModel::YearModel(YearData* data, Mode* mode) : Model(data, mode, "Year")
 {
 	N = vector<vector<vector<XPRBvar>>>(data->Y, vector<vector<XPRBvar>>(data->M, vector<XPRBvar>(data->S)));
 	P = vector<vector<XPRBvar>>(data->M, vector<XPRBvar>(data->Ip));
-	FU = vector<vector<vector<XPRBvar>>>(data->M, vector<vector<XPRBvar>>(data->Ir, vector<XPRBvar>(data->S)));
 	R = vector<vector<vector<XPRBvar>>>(data->M, vector<vector<XPRBvar>>(data->Ir, vector<XPRBvar>(data->S)));
+	U = vector<vector<vector<XPRBvar>>>(data->M, vector<vector<XPRBvar>>(data->Ir, vector<XPRBvar>(data->S)));
 }
 
 YearSolution* YearModel::solve()
@@ -242,6 +202,7 @@ YearSolution* YearModel::solve()
 	return genSolution(&p, dur);
 }
 
+/*
 double YearModel::printMixedValue(vector<MonthSolution*> months)
 {
 	cout << "Costs per month:" << endl;
@@ -308,4 +269,4 @@ double YearModel::printMixedValue(vector<MonthSolution*> months)
 	cout << endl;
 
 	return res;
-}
+}*/

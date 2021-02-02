@@ -454,22 +454,19 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 			Vy[y] = VyTotal;
 		}
 
-		int plannedAmount = 0, repairs = 0, react = 0;
+		int plannedAmount = 0, repairs = 0;
 		for (int i = 0; i < data->Ip; ++i)
 			plannedAmount += sol->getPlanned()[m][i];
 		for (int i = 0; i < data->Ir; ++i)
-		{
 			repairs += sol->getRepairs()[sig][m][i];
-			react += sol->getReactive()[sig][m][i];
-		}
 
 		int plannedTypes = 0;
 		if (plannedAmount > 0)
 			plannedTypes = 1;
 
-		int Im = plannedTypes + repairs + react;
+		int Im = plannedTypes + repairs;
 		int I = Im + data->IInst[m];
-		int J = plannedAmount + repairs + react + data->IInst[m];
+		int J = plannedAmount + repairs + data->IInst[m];
 
 		MonthData month = MonthData(data->Y, VyTotal, Im, data->IInst[m], J);
 
@@ -493,13 +490,6 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 					month.rho[y][i + plannedTypes + repDone] = data->rhoR[y][ir];
 				}
 				repDone += sol->getRepairs()[sig][m][ir];
-
-				for (int i = 0; i < sol->getReactive()[sig][m][ir]; ++i) // Reactive tasks
-				{
-					month.d[y][i + plannedTypes + repairs + reactDone] = data->dRy[y][ir];
-					month.rho[y][i + plannedTypes + repairs + reactDone] = data->rhoR[y][ir];
-				}
-				reactDone += sol->getReactive()[sig][m][ir];
 			}
 
 			for (int i = 0; i < data->IInst[m]; ++i) // Installation tasks
@@ -509,19 +499,12 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 		// Costs per task
 		for (int i = 0; i < plannedTypes; ++i) // Planned tasks
 			month.c[i] = 0;
-		for (int i = plannedTypes; i < Im; ++i) // Repair & reactive tasks
+		for (int i = plannedTypes; i < Im; ++i) // Repair tasks
 			month.c[i] = data->eH[m];
 
 		// Release times
 		for (int i = 0; i < plannedTypes + repairs; ++i) // Planned & repair tasks
 			month.r[i] = 0;
-		int offset = plannedTypes + repairs;
-		for (int ir = 0; ir < data->Ir; ++ir)  // Reactive tasks
-		{
-			for (int i = 0; i < sol->getReactive()[sig][m][ir]; ++i)
-				month.r[i + offset] = data->FTime[m][ir][i];
-			offset += sol->getReactive()[sig][m][ir];
-		}
 
 		// Amount of tasks
 		if (plannedAmount > 1)

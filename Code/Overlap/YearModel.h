@@ -10,8 +10,8 @@ private:
 protected:
 	vector<vector<vector<XPRBvar>>> N;	// y m sig
 	vector <vector<XPRBvar>> P;			// m i
-	vector<vector<vector<XPRBvar>>> FU;	// m i sig
 	vector<vector<vector<XPRBvar>>> R;	// m i sig
+	vector<vector<vector<XPRBvar>>> U;	// m i sig
 
 	YearData* getData();
 	YearSolution* genSolution(XPRBprob* p, double duration) override;
@@ -29,6 +29,6 @@ public:
 	void genProblem() override;
 	YearSolution* solve() override;
 
-	double printMixedValue(vector<MonthSolution*> months);
+	//double printMixedValue(vector<MonthSolution*> months);
 };
 

@@ -19,7 +19,7 @@ void runYear()
 {
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/yearScen.dat");
+    ifstream datafile("Input Files/yearformat.dat");
     YearData* data = dg.readYear(&datafile);
     YearModel* model = new YearModel(data, &mode);
     model->genProblem();
@@ -91,8 +91,8 @@ void runMixed()
         
         cout << endl;
 
-        if (infeasible == 0)
-            yearModel->printMixedValue(monthSols);
+        /*if (infeasible == 0)
+            yearModel->printMixedValue(monthSols);*/
     }
 
     cout << "TOTAL duration: " << ((double)clock() - start) / (double)CLOCKS_PER_SEC << endl;

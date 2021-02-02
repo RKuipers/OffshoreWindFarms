@@ -65,18 +65,18 @@ void YearSolution::setRepairs(vector<vector<vector<int>>> R)
 				repairs[sig][m][i] = R[m][i][sig];
 }
 
-void YearSolution::setReactive(vector<vector<vector<int>>> F)
+void YearSolution::setUnhandled(vector<vector<vector<int>>> U)
 {
-	int Sig = F[0][0].size();
-	int I = F[0].size();
-	int M = F.size();
+	int Sig = U[0][0].size();
+	int I = U[0].size();
+	int M = U.size();
 
-	reactive = vector<vector<vector<int>>>(Sig, vector<vector<int>>(M, vector<int>(I, -1)));
+	unhandled = vector<vector<vector<int>>>(Sig, vector<vector<int>>(M, vector<int>(I, -1)));
 
 	for (int sig = 0; sig < Sig; ++sig)
 		for (int m = 0; m < M; ++m)
 			for (int i = 0; i < I; ++i)
-				reactive[sig][m][i] = F[m][i][sig];
+				unhandled[sig][m][i] = U[m][i][sig];
 }
 
 vector<vector<vector<int>>> YearSolution::getVessels()
@@ -94,9 +94,9 @@ vector<vector<vector<int>>> YearSolution::getRepairs()
 	return repairs;
 }
 
-vector<vector<vector<int>>> YearSolution::getReactive()
+vector<vector<vector<int>>> YearSolution::getUnhandled()
 {
-	return reactive;
+	return unhandled;
 }
 
 void YearSolution::printVessels()
@@ -150,18 +150,18 @@ void YearSolution::printRepairs()
 	}
 }
 
-void YearSolution::printReactive()
+void YearSolution::printUnhandled()
 {
-	for (int sig = 0; sig < reactive.size(); ++sig)
+	for (int sig = 0; sig < unhandled.size(); ++sig)
 	{
-		cout << "Reactive tasks in scenario " << sig << " (per month V and type >):" << endl;
+		cout << "Unhandled tasks in scenario " << sig << " (per month V and type >):" << endl;
 
-		for (int m = 0; m < reactive[sig].size(); ++m)
+		for (int m = 0; m < unhandled[sig].size(); ++m)
 		{
-			cout << m << ": " << reactive[sig][m][0];
+			cout << m << ": " << unhandled[sig][m][0];
 
-			for (int i = 1; i < reactive[sig][m].size(); ++i)
-				cout << ", " << reactive[sig][m][i];
+			for (int i = 1; i < unhandled[sig][m].size(); ++i)
+				cout << ", " << unhandled[sig][m][i];
 
 			cout << endl;
 		}
@@ -175,7 +175,7 @@ void YearSolution::print()
 	printVessels();
 	printPlanned();
 	printRepairs();
-	printReactive();
+	printUnhandled();
 }
 
 //-----------------------------------------------MONTH---------------------------------------------
