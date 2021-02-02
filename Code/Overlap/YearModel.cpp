@@ -58,6 +58,11 @@ YearSolution* YearModel::genSolution(XPRBprob* p, double duration)
 					ft = ft;
 
 				F[m][ir].push_back(getData()->Ft[m][ir][sig] + leftover - round(this->FU[m][ir][sig].getSol()));
+
+				if (ir == 1)
+				{
+					cout << m << ": " << ft << ", " << fuN << ", " << r << ", " << (ft + leftover - fuN) << ", " << leftover << endl;
+				}
 			}
 
 	solution->setReactive(F);
