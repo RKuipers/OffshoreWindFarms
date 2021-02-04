@@ -541,3 +541,80 @@ vector<MonthData> DataGen::genMonths(MixedData* data, YearSolution* sol)
 
 	return res;
 }
+
+vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
+{
+	int sig = 0; // TODO: FIND SOLUTION FOR SCENARIOS
+
+	vector<MonthData> res = vector<MonthData>();
+
+	for (int m = 0; m < data->M; ++m)
+	{
+		// Data indexing
+		vector<int> Vy = vector<int>(data->Y, 0);
+		vector<int> VEnd = vector<int>(data->Y, 0);
+		int V = 0;
+
+		for (int y = 0; y < data->Y; ++y)
+		{
+			Vy[y] = sol->getVessels()[sig][m][y] + data->NInst[y][m];
+			V += Vy[y];
+			VEnd[y] = V;
+		}
+
+		int mTaskTypes = 0, mTasks = 0, pTypes = 0, rTypes = 0;
+		for (int ip = 0; ip < data->Ip; ++ip)
+			if (sol->getPlanned()[m][ip] > 0)
+			{
+				mTaskTypes = 1;
+				mTasks += sol->getPlanned()[m][ip];
+				pTypes = 1;
+			}
+		for (int ir = 0; ir < data->Ir; ++ir)
+			if (sol->getPlanned()[m][ir] > 0)
+			{
+				++mTaskTypes;
+				mTasks += sol->getPlanned()[m][ir];
+				++rTypes;
+			}
+		int totTaskTypes = mTaskTypes + data->IInst[m];
+		int totTasks = mTasks + data->IInst[m];
+
+		MonthData month = MonthData(data->Y, V, mTaskTypes, data->IInst[m], totTasks);
+
+		// Vessels (durations and requirements)
+		for (int y = 0; y < data->Y; ++y)
+		{
+			for (int ip = 0; ip < pTypes; ++ip) // Planned
+			{
+				month.d[y][ip] = data->dPy[y];
+				month.rho[y][ip] = data->rhoP[y];
+			}
+			for (int ir = pTypes; ir < mTaskTypes; ++ir) // Repair
+			{
+				month.d[y][ir] = data->dRy[y][ir - pTypes];
+				month.rho[y][ir] = data->rhoR[y][ir - pTypes];
+			}
+			for (int ii = mTaskTypes; ii < totTaskTypes; ++ii) // Install
+				month.d[y][ii] = data->dI[m][y][ii - mTaskTypes];
+		}
+
+		// Costs per task
+		for (int ip = 0; ip < pTypes; ++ip) // Planned
+			month.c[ip] = 0;
+		for (int ir = pTypes; ir < mTaskTypes; ++ir) // Repair
+			month.c[ir] = data->eH[m];
+
+		// Release times
+		for (int ip = 0; ip < pTypes; ++ip) // Planned
+			month.r[ip] = 0; 
+		for (int ir = pTypes; ir < mTaskTypes; ++ir) // Repair
+		{
+			month.r[ir] = data->FTime[m][ir][0]; // TODO: All repairs of the same type have same failure/release time now, need a way to differentiate
+		}
+
+		// TODO: Continue
+	}
+
+	return res;
+}

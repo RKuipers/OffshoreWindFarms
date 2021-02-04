@@ -24,5 +24,6 @@ public:
 	MonthData* readMonth(ifstream* file);
 	MixedData* readMixed(ifstream* file);
 	vector<MonthData> genMonths(MixedData* data, YearSolution* sol);
+	vector<MonthData> genMonths2(MixedData* data, YearSolution* sol);
 };
 
