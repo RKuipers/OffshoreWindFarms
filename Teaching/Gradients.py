@@ -1,5 +1,5 @@
 #A
-
+print ('A')
 def z(x, y):
     return (x + 2 * y + 1)**2
     
@@ -44,6 +44,7 @@ y_der = (z(0,delta)-z(0,0)) / delta
 print ("delta:", delta, "y_derivative:", y_der)
 
 #B
+print ('B')
 #3*x -> 3
 #3*x + 2 -> 3
 #x^4 -> 4*x^3 -> 4
@@ -89,6 +90,7 @@ f4_der = (f4(x + delta) - f4(x))/delta
 print ("x:", x, "delta:", delta, "numerical:", f4_der, "analytical:", f4p(x))
 
 #C
+print ('C')
 delta = 0.001
 
 print ("Comparing analytical and numerical differentiation")

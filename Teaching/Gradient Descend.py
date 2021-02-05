@@ -31,12 +31,12 @@ for _ in range(10):
     
 #C
 print ("C")
-x = th.tensor.fscalar()
-z = 2*x**3
+x = th.tensor.fscalar('x')
+z = (2*x + 3)**3
 der = th.tensor.grad(z,x)
 diff = th.function([x], der)
 print (diff(1))
-assert diff(1) == 6
+assert diff(1) == 150
 
 #D
 print ("D")
