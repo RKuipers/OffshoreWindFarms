@@ -11,23 +11,28 @@ MonthSolution* MonthModel::genSolution(XPRBprob* p, double duration)
 {
 	solution = new MonthSolution(mode->getCurrentName(), mode->getCurrentId());
 	solution->setResult(p->getObjVal(), duration);
-
+		
 	vector<vector<double>> s(getData()->V, vector<double>());
 	vector<double> f;
 	vector<vector<int>> a(getData()->V, vector<int>());
 
-	for (int v = 0; v < getData()->V; ++v)
-		for (int j = 0; j < getData()->J; ++j)
-			for (int i = 0; i < getData()->I; ++i)
-				if (round(this->a[v][i][j].getSol()) == 1)
-				{
-					s[v].push_back(abs(this->s[v][j].getSol()));
-					a[v].push_back(i);
-					continue;
-				}
+	int stat = p->getMIPStat();
 
-	for (int i = 0; i < getData()->I; ++i)
-		f.push_back(abs(this->f[i].getSol()));
+	if (p->getMIPStat() >= XPRB_MIP_SOLUTION)
+	{
+		for (int v = 0; v < getData()->V; ++v)
+			for (int j = 0; j < getData()->J; ++j)
+				for (int i = 0; i < getData()->I; ++i)
+					if (round(this->a[v][i][j].getSol()) == 1)
+					{
+						s[v].push_back(abs(this->s[v][j].getSol()));
+						a[v].push_back(i);
+						continue;
+					}
+
+		for (int i = 0; i < getData()->I; ++i)
+			f.push_back(abs(this->f[i].getSol()));
+	}
 
 	solution->setFinishes(f);
 	solution->setStarts(s);
@@ -267,7 +272,7 @@ void MonthModel::getRequirements(vector<double>* eps, vector<int>* rho)
 			(*rho)[y] = std::max((*rho)[y], getData()->rho[y][i]);
 }
 
-MonthSolution* MonthModel::solve()
+MonthSolution* MonthModel::solve(int maxTime)
 {
 	/*if (getData()->I > 12)
 	{
@@ -276,9 +281,9 @@ MonthSolution* MonthModel::solve()
 		XPRStune(opt_prob, "g");
 	}*/
 
-	double dur = solveBasics();
+	double dur = solveBasics(maxTime);
 
-	if (p.getMIPStat() == XPRB_MIP_INFEAS)
+	if (p.getMIPStat() != XPRB_MIP_SOLUTION && p.getMIPStat() != XPRB_MIP_OPTIMAL)
 		return nullptr;
 
 	/*for (int i = 0; i < getData()->I; ++i)

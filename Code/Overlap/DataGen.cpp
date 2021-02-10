@@ -571,10 +571,10 @@ vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
 				pTypes = 1;
 			}
 		for (int ir = 0; ir < data->Ir; ++ir)
-			if (sol->getPlanned()[m][ir] > 0)
+			if (sol->getRepairs()[sig][m][ir] > 0)
 			{
 				++mTaskTypes;
-				mTasks += sol->getPlanned()[m][ir];
+				mTasks += sol->getRepairs()[sig][m][ir];
 				++rTypes;
 			}
 		int totTaskTypes = mTaskTypes + data->IInst[m];

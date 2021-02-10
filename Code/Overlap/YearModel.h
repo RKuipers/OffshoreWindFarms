@@ -27,7 +27,7 @@ public:
 	YearModel(YearData* data, Mode* mode);
 
 	void genProblem() override;
-	YearSolution* solve() override;
+	YearSolution* solve(int maxTime = 0) override;
 
 	//double printMixedValue(vector<MonthSolution*> months);
 };

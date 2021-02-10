@@ -48,6 +48,7 @@ void runMixed()
     ifstream datafile("Input Files/mixedRandom.dat");
     MixedData* data = dg.readMixed(&datafile);
 
+    int maxTime = 8;
     int infeasible = 1;
     while (infeasible > 0)
     {
@@ -75,7 +76,7 @@ void runMixed()
 
             MonthModel* monthModel = new MonthModel(&months[m], &mode);
             monthModel->genProblem();
-            monthSols[m] = monthModel->solve();
+            monthSols[m] = monthModel->solve(maxTime);
             if (monthSols[m] == nullptr)
             {
                 vector<double> ep;
@@ -91,8 +92,13 @@ void runMixed()
         
         cout << endl;
 
-        /*if (infeasible == 0)
-            yearModel->printMixedValue(monthSols);*/
+        if (infeasible == 0)
+            ;//yearModel->printMixedValue(monthSols);
+        else
+        {
+            cout << "Redoing year since " << infeasible << " months are infeasible" << endl;
+            maxTime *= 2;
+        }
     }
 
     cout << "TOTAL duration: " << ((double)clock() - start) / (double)CLOCKS_PER_SEC << endl;

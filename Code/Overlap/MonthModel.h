@@ -34,7 +34,7 @@ public:
 	void getRequirements(vector<double>* eps, vector<int>* rho);
 
 	void genProblem() override;
-	MonthSolution* solve() override;
+	MonthSolution* solve(int maxTime = 0) override;
 };
 
 class FeedbackModel :

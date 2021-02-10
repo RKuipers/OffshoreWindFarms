@@ -195,9 +195,9 @@ YearModel::YearModel(YearData* data, Mode* mode) : Model(data, mode, "Year")
 	U = vector<vector<vector<XPRBvar>>>(data->M, vector<vector<XPRBvar>>(data->Ir, vector<XPRBvar>(data->S)));
 }
 
-YearSolution* YearModel::solve()
+YearSolution* YearModel::solve(int maxTime)
 {
-	double dur = solveBasics();
+	double dur = solveBasics(maxTime);
 
 	return genSolution(&p, dur);
 }
