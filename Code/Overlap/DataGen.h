@@ -1,7 +1,10 @@
 #pragma once
 
+#define SEED 42
+
 #include <vector>
 #include <iostream>		// cout
+#include <algorithm>    // sort, shuffle
 #include <string>		// stod
 #include <fstream>		// ifstream, ofstream
 #include <stdlib.h>     // srand, rand 

@@ -82,7 +82,7 @@ public:
 	// Parameters:
 	vector<int> rhoP;						// y
 	vector<vector<int>> rhoR;				// y ir
-	double T;
+	double T, DT;
 	vector<vector<vector<double>>> FTime;	// m ir 'f'
 	vector<vector<double>> sInst;			// m ii
 	vector<vector<vector<double>>> dI;		// m y ii

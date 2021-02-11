@@ -344,7 +344,7 @@ MonthData* DataGen::readMonth(ifstream* file)
 
 MixedData* DataGen::readMixed(ifstream* file)
 {
-	srand(42); // TODO: Lose seed
+	srand(SEED); // TODO: Lose seed
 
 	vector<int> arr = vector<int>();
 	vector<double> arrD = vector<double>();
@@ -405,8 +405,10 @@ MixedData* DataGen::readMixed(ifstream* file)
 	}
 	readEmpty(file);
 
-	// End Time
-	mixed->T = stod(readLine(file)[0]);
+	// Month and Day Length
+	split = readLine(file);
+	mixed->T = stod(split[0]);
+	mixed->DT = stod(split[1]);
 
 	// Failure times
 	if (!year.randFailMode)
@@ -431,6 +433,14 @@ MixedData* DataGen::readMixed(ifstream* file)
 			for (int m = 0; m < year.M; ++m)
 				mixed->FTime[m][ir] = genRandomFailureTimes(year.Ft[m][ir][0], mixed->T);
 	}
+	for (int ir = 0; ir < year.Ir; ++ir)
+		for (int m = 0; m < year.M; ++m)
+		{
+			sort(mixed->FTime[m][ir].begin(), mixed->FTime[m][ir].end());
+			for (int d = 1; d * mixed->DT <= mixed->T; ++d)
+				for (int index = 0; mixed->FTime[m][ir][index] < d * mixed->DT; ++index)
+					mixed->FTime[m][ir][index] = d * mixed->DT;
+		}
 
 	return mixed;
 }
@@ -552,17 +562,20 @@ vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
 	{
 		// Data indexing
 		vector<int> Vy = vector<int>(data->Y, 0);
-		vector<int> VEnd = vector<int>(data->Y, 0);
-		int V = 0;
+		vector<int> VInds = vector<int>(data->Y, 0);
+		int VyTotal = 0;
 
 		for (int y = 0; y < data->Y; ++y)
 		{
-			Vy[y] = sol->getVessels()[sig][m][y] + data->NInst[y][m];
-			V += Vy[y];
-			VEnd[y] = V;
+			VInds[y] = VyTotal;
+			VyTotal += sol->getVessels()[sig][m][y] + data->NInst[y][m];
+			Vy[y] = VyTotal;
 		}
 
 		int mTaskTypes = 0, mTasks = 0, pTypes = 0, rTypes = 0;
+		vector<vector<double>> fTimes = vector<vector<double>>(data->Ir, vector<double>());
+		vector<vector<int>> fAmounts = vector<vector<int>>(data->Ir, vector<int>());
+		vector<int> types = vector<int>();
 		for (int ip = 0; ip < data->Ip; ++ip)
 			if (sol->getPlanned()[m][ip] > 0)
 			{
@@ -570,17 +583,44 @@ vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
 				mTasks += sol->getPlanned()[m][ip];
 				pTypes = 1;
 			}
+		int plannedAmount = mTasks;
 		for (int ir = 0; ir < data->Ir; ++ir)
-			if (sol->getRepairs()[sig][m][ir] > 0)
+			if (sol->getRepairs()[sig][m][ir] > 0)// TODO: This needs testing
 			{
-				++mTaskTypes;
+				if (sol->getRepairs()[sig][m][ir] >= data->FTime[m][ir].size())
+				{
+					copy(data->FTime[m][ir].begin(), data->FTime[m][ir].end(), fTimes[ir]);
+					while (fTimes[ir].size() < sol->getRepairs()[sig][m][ir])
+						fTimes[ir].push_back(0);
+					sort(fTimes[ir].begin(), fTimes[ir].end());
+				}
+				else if (sol->getRepairs()[sig][m][ir] < data->FTime[m][ir].size()) 
+				{
+					copy(data->FTime[m][ir].begin(), data->FTime[m][ir].end(), fTimes[ir]);
+					shuffle(fTimes[ir].begin(), fTimes[ir].end(), SEED);
+					while (fTimes[ir].size() > sol->getRepairs()[sig][m][ir])
+						fTimes[ir].pop_back();
+					sort(fTimes[ir].begin(), fTimes[ir].end());					
+				}
+				fAmounts[ir].push_back(1);
+				for (int i = 1; i < fTimes[ir].size(); ++i)
+					if (fTimes[ir][i] == fTimes[ir][i - 1])
+						++fAmounts[ir][fAmounts[ir].size() - 1];
+					else
+						fAmounts[ir].push_back(1);
+				fTimes[ir].erase(unique(fTimes[ir].begin(), fTimes[ir].end()), fTimes[ir].end());
+
+				for (int i = 0; i < fTimes[ir].size(); ++i)
+					types.push_back(ir);
+
+				mTaskTypes += fAmounts[ir].size();
 				mTasks += sol->getRepairs()[sig][m][ir];
-				++rTypes;
+				rTypes += fAmounts[ir].size();
 			}
 		int totTaskTypes = mTaskTypes + data->IInst[m];
 		int totTasks = mTasks + data->IInst[m];
 
-		MonthData month = MonthData(data->Y, V, mTaskTypes, data->IInst[m], totTasks);
+		MonthData month = MonthData(data->Y, VyTotal, mTaskTypes, data->IInst[m], totTasks);
 
 		// Vessels (durations and requirements)
 		for (int y = 0; y < data->Y; ++y)
@@ -592,8 +632,8 @@ vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
 			}
 			for (int ir = pTypes; ir < mTaskTypes; ++ir) // Repair
 			{
-				month.d[y][ir] = data->dRy[y][ir - pTypes];
-				month.rho[y][ir] = data->rhoR[y][ir - pTypes];
+				month.d[y][ir] = data->dRy[y][types[ir - pTypes]];
+				month.rho[y][ir] = data->rhoR[y][types[ir - pTypes]];
 			}
 			for (int ii = mTaskTypes; ii < totTaskTypes; ++ii) // Install
 				month.d[y][ii] = data->dI[m][y][ii - mTaskTypes];
@@ -609,11 +649,39 @@ vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
 		for (int ip = 0; ip < pTypes; ++ip) // Planned
 			month.r[ip] = 0; 
 		for (int ir = pTypes; ir < mTaskTypes; ++ir) // Repair
+			month.r[ir] = fTimes[types[ir - pTypes]][ir - pTypes]; // TODO: Test these indices
+
+		// Amount of tasks
+		for (int ip = 0; ip < pTypes; ++ip) // Planned
+			month.A[ip] = plannedAmount;
+		for (int ir = pTypes; ir < mTaskTypes; ++ir) // Repair
+			month.A[ir] = fAmounts[types[ir - pTypes]][ir - pTypes]; // TODO: Test these indices
+
+		// Installation tasks
+		for (int ii = 0; ii < data->IInst[m]; ++ii)
+			month.sInst[ii] = data->sInst[m][ii];
+
+		// Installation assignments
+		vector<int> vTrans = vector<int>();
+		vector<int> used = vector<int>(data->Y, 0);
+		for (int v = 0; v < data->vTypes[m].size(); ++v)
 		{
-			month.r[ir] = data->FTime[m][ir][0]; // TODO: All repairs of the same type have same failure/release time now, need a way to differentiate
+			int y = data->vTypes[m][v];
+			vTrans.push_back(VInds[y] + used[y]);
+			used[y]++;
+			if (used[y] > data->NInst[y][m])
+				cout << "ERROR: Error in conversion between global and local vessel indices" << endl;
+		}
+		for (int i = 0; i < data->aInst[m].size(); ++i)
+		{
+			month.aInst[vTrans[data->aInst[m][i]]][i] = 1;
+			month.vInst[i] = vTrans[data->aInst[m][i]];
 		}
 
-		// TODO: Continue
+		// End Time
+		month.T = data->T;
+
+		res.push_back(month);
 	}
 
 	return res;
