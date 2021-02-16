@@ -436,9 +436,10 @@ MixedData* DataGen::readMixed(ifstream* file)
 	for (int ir = 0; ir < year.Ir; ++ir)
 		for (int m = 0; m < year.M; ++m)
 		{
+			int index = 0;
 			sort(mixed->FTime[m][ir].begin(), mixed->FTime[m][ir].end());
 			for (int d = 1; d * mixed->DT <= mixed->T; ++d)
-				for (int index = 0; mixed->FTime[m][ir][index] < d * mixed->DT; ++index)
+				for (; index < mixed->FTime[m][ir].size() && mixed->FTime[m][ir][index] < d * mixed->DT; ++index)
 					mixed->FTime[m][ir][index] = d * mixed->DT;
 		}
 
@@ -589,15 +590,15 @@ vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
 			{
 				if (sol->getRepairs()[sig][m][ir] >= data->FTime[m][ir].size())
 				{
-					copy(data->FTime[m][ir].begin(), data->FTime[m][ir].end(), fTimes[ir]);
+					//copy(data->FTime[m][ir].begin(), data->FTime[m][ir].end(), fTimes[ir]);
 					while (fTimes[ir].size() < sol->getRepairs()[sig][m][ir])
 						fTimes[ir].push_back(0);
 					sort(fTimes[ir].begin(), fTimes[ir].end());
 				}
 				else if (sol->getRepairs()[sig][m][ir] < data->FTime[m][ir].size()) 
 				{
-					copy(data->FTime[m][ir].begin(), data->FTime[m][ir].end(), fTimes[ir]);
-					shuffle(fTimes[ir].begin(), fTimes[ir].end(), SEED);
+					//copy(data->FTime[m][ir].begin(), data->FTime[m][ir].end(), fTimes[ir]);
+					//shuffle(fTimes[ir].begin(), fTimes[ir].end(), SEED);
 					while (fTimes[ir].size() > sol->getRepairs()[sig][m][ir])
 						fTimes[ir].pop_back();
 					sort(fTimes[ir].begin(), fTimes[ir].end());					

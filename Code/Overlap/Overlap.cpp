@@ -45,7 +45,7 @@ void runMixed()
 
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/mixedRandom.dat");
+    ifstream datafile("Input Files/mixedformat.dat");
     MixedData* data = dg.readMixed(&datafile);
 
     int maxTime = 8;
@@ -93,7 +93,7 @@ void runMixed()
         cout << endl;
 
         if (infeasible == 0)
-            ;//yearModel->printMixedValue(monthSols);
+            ;// yearModel->printMixedValue(monthSols); TODO: Uncomment
         else
         {
             cout << "Redoing year since " << infeasible << " months are infeasible" << endl;

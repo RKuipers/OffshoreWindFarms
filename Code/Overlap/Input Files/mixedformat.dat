@@ -47,7 +47,7 @@ D
 1	0	5	1	40	50
 
 #Month and Day Length
-200	
+200	7
 
 #Failure times
 #Month, Time array, repeated (per type)
