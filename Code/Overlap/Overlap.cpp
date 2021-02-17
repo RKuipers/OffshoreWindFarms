@@ -60,7 +60,7 @@ void runMixed()
         YearSolution* yearSol = yearModel->solve();
         yearSol->print();
 
-        vector<MonthData> months = dg.genMonths(data, yearSol);
+        vector<MonthData> months = dg.genMonths2(data, yearSol);
         vector<MonthSolution*> monthSols = vector<MonthSolution*>(months.size(), nullptr);
         for (int m = 0; m < months.size(); ++m)
         {
@@ -93,7 +93,7 @@ void runMixed()
         cout << endl;
 
         if (infeasible == 0)
-            ;// yearModel->printMixedValue(monthSols); TODO: Uncomment
+            yearModel->printMixedValue(monthSols);
         else
         {
             cout << "Redoing year since " << infeasible << " months are infeasible" << endl;

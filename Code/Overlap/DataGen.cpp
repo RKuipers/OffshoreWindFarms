@@ -590,15 +590,17 @@ vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
 			{
 				if (sol->getRepairs()[sig][m][ir] >= data->FTime[m][ir].size())
 				{
-					//copy(data->FTime[m][ir].begin(), data->FTime[m][ir].end(), fTimes[ir]);
+					fTimes[ir] = vector<double>(data->FTime[m][ir].size(), 0.0);
+					copy(data->FTime[m][ir].begin(), data->FTime[m][ir].end(), fTimes[ir].begin());
 					while (fTimes[ir].size() < sol->getRepairs()[sig][m][ir])
 						fTimes[ir].push_back(0);
 					sort(fTimes[ir].begin(), fTimes[ir].end());
 				}
 				else if (sol->getRepairs()[sig][m][ir] < data->FTime[m][ir].size()) 
 				{
-					//copy(data->FTime[m][ir].begin(), data->FTime[m][ir].end(), fTimes[ir]);
-					//shuffle(fTimes[ir].begin(), fTimes[ir].end(), SEED);
+					fTimes[ir] = vector<double>(data->FTime[m][ir].size(), 0.0);
+					copy(data->FTime[m][ir].begin(), data->FTime[m][ir].end(), fTimes[ir].begin());
+					shuffle(fTimes[ir].begin(), fTimes[ir].end(), default_random_engine(SEED));
 					while (fTimes[ir].size() > sol->getRepairs()[sig][m][ir])
 						fTimes[ir].pop_back();
 					sort(fTimes[ir].begin(), fTimes[ir].end());					
@@ -626,6 +628,8 @@ vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
 		// Vessels (durations and requirements)
 		for (int y = 0; y < data->Y; ++y)
 		{
+			month.Vy[y] = Vy[y];
+
 			for (int ip = 0; ip < pTypes; ++ip) // Planned
 			{
 				month.d[y][ip] = data->dPy[y];

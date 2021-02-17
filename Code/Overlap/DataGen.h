@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <algorithm>    // sort, shuffle
+#include <random>
 #include <iostream>		// cout
 #include <string>		// stod
 #include <fstream>		// ifstream, ofstream

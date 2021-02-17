@@ -29,6 +29,6 @@ public:
 	void genProblem() override;
 	YearSolution* solve(int maxTime = 0) override;
 
-	//double printMixedValue(vector<MonthSolution*> months);
+	double printMixedValue(vector<MonthSolution*> months);
 };
 
