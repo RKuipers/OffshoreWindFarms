@@ -42,8 +42,8 @@ D
 #Installation vessels
 #ID, Type, Month, Number of tasks, (Start time, Duration) per task
 
-#End Time
-240
+#Month and Day Length
+240	8
 
 #Failure times
 #Month, Time array, repeated (per type)

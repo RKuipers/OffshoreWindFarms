@@ -45,10 +45,10 @@ void runMixed()
 
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/mixedformat.dat");
+    ifstream datafile("Input Files/mixedEasy.dat");
     MixedData* data = dg.readMixed(&datafile);
 
-    int maxTime = 8;
+    int maxTime = 60;
     int infeasible = 1;
     while (infeasible > 0)
     {

@@ -573,10 +573,14 @@ vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
 			Vy[y] = VyTotal;
 		}
 
-		int mTaskTypes = 0, mTasks = 0, pTypes = 0, rTypes = 0;
-		vector<vector<double>> fTimes = vector<vector<double>>(data->Ir, vector<double>());
-		vector<vector<int>> fAmounts = vector<vector<int>>(data->Ir, vector<int>());
-		vector<int> types = vector<int>();
+		int visits = 0; // Used for J
+		int pTasks = 0; // Types of planned tasks, usually 0 or 1
+		vector<int> rTasks = vector<int>(data->Ir, 0); // Types of repair tasks, by (global) repair type ir
+		vector<vector<double>> fTimes = vector<vector<double>>(data->Ir, vector<double>());	// Times at which failures happen, by (global) repair type ir
+		vector<vector<int>> fAmounts = vector<vector<int>>(data->Ir, vector<int>()); // Amount of failures that happen at corresponding type, by (global) repair type ir
+
+		// TODO: Redo whole method using above indices (and more if needed)
+
 		for (int ip = 0; ip < data->Ip; ++ip)
 			if (sol->getPlanned()[m][ip] > 0)
 			{

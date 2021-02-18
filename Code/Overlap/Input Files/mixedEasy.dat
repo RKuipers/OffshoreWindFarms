@@ -45,8 +45,8 @@ D
 1	0	12	1	120	40
 2	0	22	1	10	60
 
-#End Time
-240
+#Month and Day Length
+240	8
 
 #Failure times
 #Month, Time array, repeated (per type)
