@@ -34,10 +34,9 @@ U	152
 A	1	80	23	0
 
 #Failure mode
-D
-#Failure amounts
-#Scenario ID, Amount (per month) repeated (per type)
-0	U	50	U	20	S	2	2	2	1	2	2	2	2	2	1	2	2	2	1	2	2	2	2	2	1	2	2	2	2	S	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	S	0	1	0	0	0	0	0	1	0	0	1	0	0	0	1	1	0	0	0	0	0	0	1	0
+R
+#Yearly failure rate (per failure type)
+7.5	3.0	0.275	0.04	0.08
 
 #MIXED
 #Vessels
@@ -50,31 +49,4 @@ D
 #ID, Type, Month, Number of tasks, (Start time, Duration) per task
 
 #Month and Day Length
-720 24
-
-#Failure times
-#Month, Time array, repeated (per type)
-0	30	120
-1	80
-2	45	90	135
-3	60	60	60	70
-4	0	5	10	15	100
-5	123
-6	60	120
-7	0	30	60	90	120	150
-8	
-9	75
-10	140	170
-11	
-12	30	120
-13	80
-14	45	90	135
-15	60	60	60	70
-16	0	5	10	15	100
-17	123
-18	60	120
-19	0	30	60	90	120	150
-20	
-21	75
-22	140	170
-23	
+720	24

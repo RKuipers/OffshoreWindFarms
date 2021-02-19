@@ -436,11 +436,14 @@ MixedData* DataGen::readMixed(ifstream* file)
 	for (int ir = 0; ir < year.Ir; ++ir)
 		for (int m = 0; m < year.M; ++m)
 		{
-			int index = 0;
 			sort(mixed->FTime[m][ir].begin(), mixed->FTime[m][ir].end());
-			for (int d = 1; d * mixed->DT <= mixed->T; ++d)
-				for (; index < mixed->FTime[m][ir].size() && mixed->FTime[m][ir][index] < d * mixed->DT; ++index)
-					mixed->FTime[m][ir][index] = d * mixed->DT;
+			for (int f = 0; f < mixed->FTime[m][ir].size(); ++f)
+			{
+				double fracpart, intpart;
+				fracpart = modf(mixed->FTime[m][ir][f] / mixed->DT, &intpart);
+				if (fracpart != 0.0)
+					mixed->FTime[m][ir][f] = (intpart + 1) * mixed->DT;
+			}
 		}
 
 	return mixed;
@@ -576,20 +579,30 @@ vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
 		int visits = 0; // Used for J
 		int pTasks = 0; // Types of planned tasks, usually 0 or 1
 		vector<int> rTasks = vector<int>(data->Ir, 0); // Types of repair tasks, by (global) repair type ir
+		vector<int> offsets = vector<int>(data->Ir, 0); // Offset in amount of tasks in previously handled failure types (and planned)
+		int nTasks = 0; // Used for I
 		vector<vector<double>> fTimes = vector<vector<double>>(data->Ir, vector<double>());	// Times at which failures happen, by (global) repair type ir
 		vector<vector<int>> fAmounts = vector<vector<int>>(data->Ir, vector<int>()); // Amount of failures that happen at corresponding type, by (global) repair type ir
+		// Some truths about above:
+		// fTimes[ir].size() == fAmounts[ir].size() == rTasks[ir]
+		// nTasks = pTasks + sum rTasks
+		// visits = sum sol->getPlanned() + sum fAmounts
+		// offsets[ir] = pTasks + sum_{ir' < ir} rTasks[ir']
 
 		// TODO: Redo whole method using above indices (and more if needed)
 
 		for (int ip = 0; ip < data->Ip; ++ip)
 			if (sol->getPlanned()[m][ip] > 0)
 			{
-				mTaskTypes = 1;
-				mTasks += sol->getPlanned()[m][ip];
-				pTypes = 1;
+				visits += sol->getPlanned()[m][ip];
+				pTasks = 1;
+				nTasks = 1;
 			}
-		int plannedAmount = mTasks;
+		int pAmount = visits;
+		offsets[0] = pTasks;
+
 		for (int ir = 0; ir < data->Ir; ++ir)
+		{
 			if (sol->getRepairs()[sig][m][ir] > 0)// TODO: This needs testing
 			{
 				if (sol->getRepairs()[sig][m][ir] >= data->FTime[m][ir].size())
@@ -600,15 +613,16 @@ vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
 						fTimes[ir].push_back(0);
 					sort(fTimes[ir].begin(), fTimes[ir].end());
 				}
-				else if (sol->getRepairs()[sig][m][ir] < data->FTime[m][ir].size()) 
+				else if (sol->getRepairs()[sig][m][ir] < data->FTime[m][ir].size())
 				{
 					fTimes[ir] = vector<double>(data->FTime[m][ir].size(), 0.0);
 					copy(data->FTime[m][ir].begin(), data->FTime[m][ir].end(), fTimes[ir].begin());
 					shuffle(fTimes[ir].begin(), fTimes[ir].end(), default_random_engine(SEED));
 					while (fTimes[ir].size() > sol->getRepairs()[sig][m][ir])
 						fTimes[ir].pop_back();
-					sort(fTimes[ir].begin(), fTimes[ir].end());					
+					sort(fTimes[ir].begin(), fTimes[ir].end());
 				}
+
 				fAmounts[ir].push_back(1);
 				for (int i = 1; i < fTimes[ir].size(); ++i)
 					if (fTimes[ir][i] == fTimes[ir][i - 1])
@@ -616,55 +630,58 @@ vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
 					else
 						fAmounts[ir].push_back(1);
 				fTimes[ir].erase(unique(fTimes[ir].begin(), fTimes[ir].end()), fTimes[ir].end());
-
-				for (int i = 0; i < fTimes[ir].size(); ++i)
-					types.push_back(ir);
-
-				mTaskTypes += fAmounts[ir].size();
-				mTasks += sol->getRepairs()[sig][m][ir];
-				rTypes += fAmounts[ir].size();
+				if (fAmounts[ir].size() != fTimes[ir].size())
+					cout << "Sizing error in generating month data" << endl;
 			}
-		int totTaskTypes = mTaskTypes + data->IInst[m];
-		int totTasks = mTasks + data->IInst[m];
 
-		MonthData month = MonthData(data->Y, VyTotal, mTaskTypes, data->IInst[m], totTasks);
+			visits += sol->getRepairs()[sig][m][ir];
+			rTasks[ir] += fAmounts[ir].size();
+			nTasks += fAmounts[ir].size();
+			if (ir > 0)
+				offsets[ir] = offsets[ir - 1] + rTasks[ir - 1];
+		}
+
+		MonthData month = MonthData(data->Y, VyTotal, nTasks, data->IInst[m], visits + data->IInst[m]);
 
 		// Vessels (durations and requirements)
 		for (int y = 0; y < data->Y; ++y)
 		{
 			month.Vy[y] = Vy[y];
 
-			for (int ip = 0; ip < pTypes; ++ip) // Planned
+			for (int ip = 0; ip < pTasks; ++ip) // Planned
 			{
 				month.d[y][ip] = data->dPy[y];
 				month.rho[y][ip] = data->rhoP[y];
 			}
-			for (int ir = pTypes; ir < mTaskTypes; ++ir) // Repair
-			{
-				month.d[y][ir] = data->dRy[y][types[ir - pTypes]];
-				month.rho[y][ir] = data->rhoR[y][types[ir - pTypes]];
-			}
-			for (int ii = mTaskTypes; ii < totTaskTypes; ++ii) // Install
-				month.d[y][ii] = data->dI[m][y][ii - mTaskTypes];
+			for (int ir = 0; ir < data->Ir; ++ir) // Repair
+				for (int i = 0; i < rTasks[ir]; ++i)
+				{
+					month.d[y][i + offsets[ir]] = data->dRy[y][ir];
+					month.rho[y][i + offsets[ir]] = data->rhoR[y][ir];
+				}
+			for (int ii = 0; ii < data->IInst[m]; ++ii) // Install
+				month.d[y][ii + offsets[offsets.size() - 1]] = data->dI[m][y][ii];
 		}
 
 		// Costs per task
-		for (int ip = 0; ip < pTypes; ++ip) // Planned
+		for (int ip = 0; ip < pTasks; ++ip) // Planned
 			month.c[ip] = 0;
-		for (int ir = pTypes; ir < mTaskTypes; ++ir) // Repair
+		for (int ir = pTasks; ir < nTasks; ++ir) // Repair
 			month.c[ir] = data->eH[m];
 
 		// Release times
-		for (int ip = 0; ip < pTypes; ++ip) // Planned
+		for (int ip = 0; ip < pTasks; ++ip) // Planned
 			month.r[ip] = 0; 
-		for (int ir = pTypes; ir < mTaskTypes; ++ir) // Repair
-			month.r[ir] = fTimes[types[ir - pTypes]][ir - pTypes]; // TODO: Test these indices
+		for (int ir = 0; ir < data->Ir; ++ir) // Repair
+			for (int i = 0; i < rTasks[ir]; ++i)
+				month.r[i + offsets[ir]] = fTimes[ir][i];
 
 		// Amount of tasks
-		for (int ip = 0; ip < pTypes; ++ip) // Planned
-			month.A[ip] = plannedAmount;
-		for (int ir = pTypes; ir < mTaskTypes; ++ir) // Repair
-			month.A[ir] = fAmounts[types[ir - pTypes]][ir - pTypes]; // TODO: Test these indices
+		for (int ip = 0; ip < pTasks; ++ip) // Planned
+			month.A[ip] = pAmount;
+		for (int ir = 0; ir < data->Ir; ++ir) // Repair
+			for (int i = 0; i < rTasks[ir]; ++i)
+				month.A[i + offsets[ir]] = fAmounts[ir][i];
 
 		// Installation tasks
 		for (int ii = 0; ii < data->IInst[m]; ++ii)

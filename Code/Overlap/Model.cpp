@@ -4,8 +4,8 @@ double Model::solveBasics(int maxTime, clock_t start)
 {
 	// TODO: Expand
 
-	if (data->getMonth() == nullptr || data->getMonth()->J <= 15)
-		p.setMsgLevel(0);
+	/*if (data->getMonth() == nullptr || data->getMonth()->J <= 15)
+		p.setMsgLevel(0);*/
 	string name = p.getName();
 
 	if (maxTime != 0)
