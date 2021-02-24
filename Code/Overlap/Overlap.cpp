@@ -45,7 +45,7 @@ void runMixed()
 
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/mixedRandom.dat");
+    ifstream datafile("Input Files/mixedDinwoodie.dat");
     MixedData* data = dg.readMixed(&datafile);
 
     int maxTime = 60;

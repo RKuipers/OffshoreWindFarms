@@ -139,7 +139,7 @@ void MonthModel::genResourceCon()
 			for (int v = VyStart; v < getData()->Vy[y]; ++v)
 				for (int j = 0; j < getData()->J; ++j)
 					if ((j > 0 || v > VyStart))
-							ctr.addTerm(a[v][i][j]);
+						ctr.addTerm(a[v][i][j]);
 
 			p.newCtr(("Res_" + to_string(y) + "_" + to_string(i)).c_str(), ctr);
 		}

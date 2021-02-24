@@ -33,6 +33,6 @@ map_sequence = theano.function([input_indices], #inputs
                                [input_vectors, context_vector], #outputs
                                updates=[])
 
-vectors, context = map_sequence([3,2,1]) #should print [1,1,1,0,0]
+vectors, context = map_sequence([3,2,1])
 print ("input vectors:\n",vectors, "\n are mapped into the context vector:\n",context)
 

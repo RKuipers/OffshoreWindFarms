@@ -589,8 +589,6 @@ vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
 		// visits = sum sol->getPlanned() + sum fAmounts
 		// offsets[ir] = pTasks + sum_{ir' < ir} rTasks[ir']
 
-		// TODO: Redo whole method using above indices (and more if needed)
-
 		for (int ip = 0; ip < data->Ip; ++ip)
 			if (sol->getPlanned()[m][ip] > 0)
 			{
@@ -603,7 +601,7 @@ vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
 
 		for (int ir = 0; ir < data->Ir; ++ir)
 		{
-			if (sol->getRepairs()[sig][m][ir] > 0)// TODO: This needs testing
+			if (sol->getRepairs()[sig][m][ir] > 0)
 			{
 				if (sol->getRepairs()[sig][m][ir] >= data->FTime[m][ir].size())
 				{
@@ -641,7 +639,7 @@ vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
 				offsets[ir] = offsets[ir - 1] + rTasks[ir - 1];
 		}
 
-		MonthData month = MonthData(data->Y, VyTotal, nTasks, data->IInst[m], visits + data->IInst[m]);
+		MonthData month = MonthData(data->Y, VyTotal, nTasks, data->IInst[m], visits + data->IInst[m]); // TODO: Add in translation from global Y to local Y
 
 		// Vessels (durations and requirements)
 		for (int y = 0; y < data->Y; ++y)
