@@ -568,12 +568,20 @@ vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
 		vector<int> Vy = vector<int>(data->Y, 0);
 		vector<int> VInds = vector<int>(data->Y, 0);
 		int VyTotal = 0;
+		int yCount = 0;
+		vector<int> yTrans = vector<int>(data->Y, -1);
 
 		for (int y = 0; y < data->Y; ++y)
 		{
 			VInds[y] = VyTotal;
-			VyTotal += sol->getVessels()[sig][m][y] + data->NInst[y][m];
+			int thisY = sol->getVessels()[sig][m][y] + data->NInst[y][m];
+			VyTotal += thisY;
 			Vy[y] = VyTotal;
+			if (thisY != 0)
+			{
+				yTrans[y] = yCount;
+				++yCount;
+			}
 		}
 
 		int visits = 0; // Used for J
@@ -639,26 +647,31 @@ vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
 				offsets[ir] = offsets[ir - 1] + rTasks[ir - 1];
 		}
 
-		MonthData month = MonthData(data->Y, VyTotal, nTasks, data->IInst[m], visits + data->IInst[m]); // TODO: Add in translation from global Y to local Y
+		MonthData month = MonthData(yCount, VyTotal, nTasks, data->IInst[m], visits + data->IInst[m]);
 
 		// Vessels (durations and requirements)
 		for (int y = 0; y < data->Y; ++y)
 		{
-			month.Vy[y] = Vy[y];
+			if (yTrans[y] == -1)
+				continue;
+
+			int yLocal = yTrans[y];
+
+			month.Vy[yLocal] = Vy[y];
 
 			for (int ip = 0; ip < pTasks; ++ip) // Planned
 			{
-				month.d[y][ip] = data->dPy[y];
-				month.rho[y][ip] = data->rhoP[y];
+				month.d[yLocal][ip] = data->dPy[y];
+				month.rho[yLocal][ip] = data->rhoP[y];
 			}
 			for (int ir = 0; ir < data->Ir; ++ir) // Repair
 				for (int i = 0; i < rTasks[ir]; ++i)
 				{
-					month.d[y][i + offsets[ir]] = data->dRy[y][ir];
-					month.rho[y][i + offsets[ir]] = data->rhoR[y][ir];
+					month.d[yLocal][i + offsets[ir]] = data->dRy[y][ir];
+					month.rho[yLocal][i + offsets[ir]] = data->rhoR[y][ir];
 				}
 			for (int ii = 0; ii < data->IInst[m]; ++ii) // Install
-				month.d[y][ii + offsets[offsets.size() - 1]] = data->dI[m][y][ii];
+				month.d[yLocal][ii + offsets[offsets.size() - 1]] = data->dI[m][y][ii];
 		}
 
 		// Costs per task
