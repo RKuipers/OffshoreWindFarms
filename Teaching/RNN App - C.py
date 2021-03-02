@@ -21,7 +21,7 @@ word_embeddings = theano.shared(random_matrix(n_words, word_embedding_size), 'wo
 
 W_xh = theano.shared(random_matrix(recurrent_size, word_embedding_size), 'W_xh')
 W_hh = theano.shared(random_matrix(recurrent_size, recurrent_size), 'W_hh')
-W_output = theano.shared(random_matrix(n_classes, word_embedding_size), 'W_output')
+W_output = theano.shared(random_matrix(n_classes, recurrent_size), 'W_output')
 
 #This represents the input sequence (e.g. a sentence):
 input_vectors = word_embeddings[input_indices]

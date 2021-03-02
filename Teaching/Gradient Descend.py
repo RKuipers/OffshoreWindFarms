@@ -12,14 +12,14 @@ import theano as th
 #B
 print ("B")
 def z(x,y):
-    return -((2*x -y +1)**2)
+    return -(2*x - y + 1)**2
 def dx(x,y):
     return -8*x + 4*y - 4
 def dy(x,y):
     return -2*y + 4*x + 2
 x=0
 y=0
-r=0.05
+r=0.01
 print(x, y, z(x,y))
 for _ in range(10):
     x_up = x + r * dx(x,y)
