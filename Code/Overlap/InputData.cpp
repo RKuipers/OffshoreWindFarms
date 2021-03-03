@@ -38,6 +38,7 @@ MonthData::MonthData(int y, int v, int im, int ii, int j) : Y(y), V(v), IMaint(i
 	sInst = vector<double>(IInst, 0.0);
 	aInst = vector<vector<int>>(V, vector<int>(IInst, 0));
 	vInst = vector<int>(IInst, 0);
+	yTrans = vector<int>(Y, 0);	
 }
 
 MonthData* MonthData::getMonth()

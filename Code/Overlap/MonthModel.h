@@ -7,6 +7,7 @@ class MonthModel :
 {
 private:
 	MonthSolution* solution;
+	int id;
 
 protected:
 	vector<vector<XPRBvar>> s;			// v j
@@ -29,9 +30,9 @@ protected:
 	void genPrecedenceCon();
 
 public: 
-	MonthModel(MonthData* data, Mode* mode, string name = "Month");
+	MonthModel(MonthData* data, Mode* mode, string name = "Month", int id = 0);
 
-	void getRequirements(vector<double>* eps, vector<int>* rho);
+	void getRequirements(vector<double>* eps, vector<int>* rho, int globalY);
 
 	void genProblem() override;
 	MonthSolution* solve(int maxTime = 0) override;
@@ -50,9 +51,9 @@ protected:
 	void genMaxFinCon();
 
 public:
-	FeedbackModel(MonthData* data, Mode* mode);
+	FeedbackModel(MonthData* data, Mode* mode, int id = 0);
 
 	void genProblem() override;
-	vector<double> getEps();
+	vector<double> getEps(int globalY);
 };
 

@@ -8,12 +8,11 @@ double Model::solveBasics(int maxTime, clock_t start)
 		p.setMsgLevel(0);*/
 	string name = p.getName();
 
+	XPRBloadmat(p.getCRef());
+	XPRSprob opt_prob = XPRBgetXPRSprob(p.getCRef());
 	if (maxTime != 0)
-	{
-		XPRBloadmat(p.getCRef());
-		XPRSprob opt_prob = XPRBgetXPRSprob(p.getCRef());
 		XPRSsetintcontrol(opt_prob, XPRS_MAXTIME, -maxTime);
-	}
+	XPRSsetdblcontrol(opt_prob, XPRS_MIPRELSTOP, 0.05);
 
 	p.exportProb(XPRB_LP, ("Output Files/" + name).c_str());
 	if (start == 0)
@@ -22,4 +21,4 @@ double Model::solveBasics(int maxTime, clock_t start)
 	return ((double)clock() - start) / (double)CLOCKS_PER_SEC;
 }
 
-Model::Model(InputData* data, Mode* mode, string name) : p((name + to_string(mode->getCurrentId())).c_str()), data(data), mode(mode) { }
+Model::Model(InputData* data, Mode* mode, string name) : p((name).c_str()), data(data), mode(mode) { }

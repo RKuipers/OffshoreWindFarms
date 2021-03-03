@@ -48,7 +48,7 @@ void runMixed()
     ifstream datafile("Input Files/mixedDinwoodie.dat");
     MixedData* data = dg.readMixed(&datafile);
 
-    int maxTime = 60;
+    int maxTime = 0;
     int infeasible = 1;
     while (infeasible > 0)
     {
@@ -74,14 +74,14 @@ void runMixed()
             else
                 cout << "-------------- MONTH " << m << " --------------" << endl;
 
-            MonthModel* monthModel = new MonthModel(&months[m], &mode);
+            MonthModel* monthModel = new MonthModel(&months[m], &mode, "Month", m);
             monthModel->genProblem();
             monthSols[m] = monthModel->solve(maxTime);
             if (monthSols[m] == nullptr)
             {
                 vector<double> ep;
                 vector<int> rho;
-                monthModel->getRequirements(&ep, &rho);
+                monthModel->getRequirements(&ep, &rho, data->Y);
                 data->eps[0][m] = ep; // TODO: 0 is for scenario; needs to be fixed
                 data->rho[0][m] = rho;
                 infeasible++;

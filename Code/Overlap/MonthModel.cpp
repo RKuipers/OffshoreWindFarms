@@ -252,24 +252,25 @@ void MonthModel::genPrecedenceCon()
 				
 }
 
-MonthModel::MonthModel(MonthData* data, Mode* mode, string name) : Model(data, mode, name)
+MonthModel::MonthModel(MonthData* data, Mode* mode, string name, int id) : Model(data, mode, name + to_string(id))
 { 
+	this->id = id;
 	s = vector<vector<XPRBvar>>(data->V, vector<XPRBvar>(data->J));
 	a = vector<vector<vector<XPRBvar>>>(data->V, vector<vector<XPRBvar>>(data->I, vector<XPRBvar>(data->J)));
 	f = vector<XPRBvar>(data->I);
 }
 
-void MonthModel::getRequirements(vector<double>* eps, vector<int>* rho)
+void MonthModel::getRequirements(vector<double>* eps, vector<int>* rho, int globalY)
 {
-	FeedbackModel* model = new FeedbackModel(getData(), mode);
+	FeedbackModel* model = new FeedbackModel(getData(), mode, id);
 	model->genProblem();
 
-	(*eps) = model->getEps();
+	(*eps) = model->getEps(globalY);
 
-	(*rho) = vector<int>(getData()->Y, 0);
+	(*rho) = vector<int>(globalY, 0);
 	for (int y = 0; y < getData()->Y; ++y)
 		for (int i = 0; i < getData()->IMaint; ++i)
-			(*rho)[y] = std::max((*rho)[y], getData()->rho[y][i]);
+			(*rho)[getData()->yTrans[y]] = std::max((*rho)[y], getData()->rho[y][i]);
 }
 
 MonthSolution* MonthModel::solve(int maxTime)
@@ -357,19 +358,19 @@ void FeedbackModel::genMaxFinCon()
 		p.newCtr(("MaxFin_" + to_string(y)).c_str(), Ty[y] <= T);
 }
 
-FeedbackModel::FeedbackModel(MonthData* data, Mode* mode) : MonthModel(data, mode, "Feedback")
+FeedbackModel::FeedbackModel(MonthData* data, Mode* mode, int id) : MonthModel(data, mode, "Feedback", id)
 {
 	Ty = vector<XPRBvar>(data->Y);
 }
 
-vector<double> FeedbackModel::getEps()
+vector<double> FeedbackModel::getEps(int globalY)
 {
-	solveBasics(20);
+	solveBasics();
 
-	vector<double> res = vector<double>(getData()->Y, 0.0);
+	vector<double> res = vector<double>(globalY, 0.0);
 
 	for (int y = 0; y < getData()->Y; ++y)
-		res[y] = max(0.0, this->Ty[y].getSol() - getData()->T);
+		res[getData()->yTrans[y]] = max(0.0, this->Ty[y].getSol() - getData()->T);
 
 	return res;
 }

@@ -67,6 +67,7 @@ public:
 	vector<double> sInst;			// ii
 	vector<vector<int>> aInst;		// v ii
 	vector<int> vInst;				// ii
+	vector<int> yTrans;				// y (local to global)
 
 	MonthData(int y, int v, int im, int ii, int j);
 
