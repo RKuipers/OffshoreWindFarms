@@ -658,6 +658,7 @@ vector<MonthData> DataGen::genMonths2(MixedData* data, YearSolution* sol)
 			int yLocal = yTrans[y];
 
 			month.Vy[yLocal] = Vy[y];
+			month.yTrans[yLocal] = y;
 
 			for (int ip = 0; ip < pTasks; ++ip) // Planned
 			{
