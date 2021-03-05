@@ -1,11 +1,11 @@
 #include "Model.h"
 
-double Model::solveBasics(int maxTime, clock_t start)
+double Model::solveBasics(int maxTime, bool verbose, clock_t start)
 {
 	// TODO: Expand
 
-	/*if (data->getMonth() == nullptr || data->getMonth()->J <= 15)
-		p.setMsgLevel(0);*/
+	if (!verbose)
+		p.setMsgLevel(0);
 	string name = p.getName();
 
 	XPRBloadmat(p.getCRef());

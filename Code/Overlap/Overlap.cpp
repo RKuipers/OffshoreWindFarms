@@ -79,6 +79,8 @@ void runMixed()
             monthSols[m] = monthModel->solve(maxTime);
             if (monthSols[m] == nullptr)
             {
+                cout << "Month " << m << " deemed infeasible, running Feedback model" << endl;
+
                 vector<double> ep;
                 vector<int> rho;
                 monthModel->getRequirements(&ep, &rho, data->Y);
