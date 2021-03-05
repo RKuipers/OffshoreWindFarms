@@ -1,0 +1,23 @@
+A
+v(x,y,z) = (x+y+z-1)^2 + x * y
+x -> a (+)
+y -> a (+)
+a -> b (+)
+z -> b (+)
+b -> c (+1)
+c -> d (^2)
+x -> e (*)
+y -> e (*)
+d -> v (+)
+e -> v (+)
+
+B
+- Term Frequency weighed very highly, which can easily be manipulated
+- TF saturation ignored; "the" will outperform every real word
+- Corpus size not considered; if a word appears in 5 documents out of 6 that's a lot, 5 out of 1000 it's not
+
+C
+P(UNFAIR|HEADS) = P(HEADS|UNFAIR) * P(UNFAIR) / P(HEADS) = A
+P(HEADS) = P(HEADS|FAIR) * P(FAIR) + P(HEADS|UNFAIR) * P(UNFAIR)
+	= 0.5 * 0.9 + 0.9 * 0.1 = 0.54
+A = 0.9 * 0.1 / 0.54 = 0.1666
