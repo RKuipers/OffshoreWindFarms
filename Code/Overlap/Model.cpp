@@ -13,6 +13,7 @@ double Model::solveBasics(int maxTime, bool verbose, clock_t start)
 	if (maxTime != 0)
 		XPRSsetintcontrol(opt_prob, XPRS_MAXTIME, -maxTime);
 	XPRSsetdblcontrol(opt_prob, XPRS_MIPRELSTOP, 0.05);
+	XPRStune(opt_prob, "g");
 
 	p.exportProb(XPRB_LP, ("Output Files/" + name).c_str());
 	if (start == 0)

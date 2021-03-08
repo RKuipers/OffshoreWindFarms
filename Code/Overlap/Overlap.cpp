@@ -48,7 +48,7 @@ void runMixed()
     ifstream datafile("Input Files/mixedDinwoodie.dat");
     MixedData* data = dg.readMixed(&datafile);
 
-    int maxTime = 0;
+    int maxTime = 1200;
     int infeasible = 1;
     while (infeasible > 0)
     {
