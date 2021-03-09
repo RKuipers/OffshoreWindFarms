@@ -35,6 +35,7 @@ public:
 	void getRequirements(vector<double>* eps, vector<int>* rho, int globalY);
 
 	void genProblem() override;
+	void genPartialProblem(int it);
 	MonthSolution* solve(int maxTime = 0) override;
 };
 

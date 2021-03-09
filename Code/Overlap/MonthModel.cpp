@@ -57,6 +57,28 @@ void MonthModel::genProblem()
 	genPrecedenceCon();
 }
 
+void MonthModel::genPartialProblem(int it)
+{
+	if (it == 0)
+	{
+		genDecVars();
+		genObj();
+
+		genOrderCon();
+		genLimitCon();
+		genDurationCon();
+		genFixedCons();
+		genFinishCon();
+		genPrecedenceCon();
+		genReleaseCon();
+	}
+	else if (it == 1)
+	{
+		genDeadlineCon();
+		genResourceCon();
+	}
+}
+
 void MonthModel::genDecVars()
 {
 	for (int v = 0; v < getData()->V; ++v)
@@ -365,7 +387,7 @@ FeedbackModel::FeedbackModel(MonthData* data, Mode* mode, int id) : MonthModel(d
 
 vector<double> FeedbackModel::getEps(int globalY)
 {
-	solveBasics(300, false);
+	solveBasics(60, false);
 
 	vector<double> res = vector<double>(globalY, 0.0);
 
