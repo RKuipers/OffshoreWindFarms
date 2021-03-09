@@ -80,6 +80,7 @@ void runMixed()
             monthSols[m] = monthModel->solve(maxTime);
             monthModel->genPartialProblem(1);
             monthSols[m] = monthModel->solve(maxTime);
+
             if (monthSols[m] == nullptr)
             {
                 cout << "Month " << m << " deemed infeasible, running Feedback model" << endl;
