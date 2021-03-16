@@ -387,7 +387,7 @@ FeedbackModel::FeedbackModel(MonthData* data, Mode* mode, int id) : MonthModel(d
 
 vector<double> FeedbackModel::getEps(int globalY)
 {
-	solveBasics(60, false);
+	solveBasics(150, false);
 
 	vector<double> res = vector<double>(globalY, 0.0);
 
