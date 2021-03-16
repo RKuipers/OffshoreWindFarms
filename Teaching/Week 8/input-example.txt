@@ -1,0 +1,13 @@
+the	<s> 
+tower	<s> the
+with	<s> the tower
+four	<s> the tower with
+blocks	<s> the tower with four
+has	<s> the tower with four blocks
+a	<s> the tower with four blocks has
+black	<s> the tower with four blocks has a
+block	<s> the tower with four blocks has a black
+at	<s> the tower with four blocks has a black block
+the	<s> the tower with four blocks has a black block at
+top	<s> the tower with four blocks has a black block at the
+</s>	<s> the tower with four blocks has a black block at the top

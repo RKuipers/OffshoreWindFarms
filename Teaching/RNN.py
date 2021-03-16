@@ -22,6 +22,7 @@ print ("word embeddings: \n", w_emb, "\n")
 cvs = wes
 
 def rnn_step(word_vector, context_vector):
+    #return np.dot(np.ones((5,5)), context_vector) + word_vector
     return np.dot(np.ones((5,5)), context_vector) + word_vector
 def map_sequence(input_indices):
     input_vectors = w_emb[input_indices]

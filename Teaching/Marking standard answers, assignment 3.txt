@@ -1,0 +1,8 @@
+RNN Applications A: while this works, you should've changed the 1st size of W1 to use the hidden_size (or a new hidden_size) for the new hidden layer, instead of the number_of_classes, and then use that same number for the 2nd size of W2. Since this still works this only costs minor marks. 
+(80%, 97%)
+
+RNN Applications A: No new layer was added, instead the output matrix got split in two. You should've changed the size of W1 and created a new layer of activations and outputs, as a bridge between the first hidden layer and the output layer. 
+(0%, 85%)
+
+RNN Applications C: W0 should use recurrent_size rather than word_embedding_size; in this specific case it works as both values are the same, but this does not work in the general case. 
+(80%, 94%)
