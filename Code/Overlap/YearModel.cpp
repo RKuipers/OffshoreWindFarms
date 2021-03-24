@@ -55,6 +55,7 @@ void YearModel::genProblem()
 
 	genCapacityCon();
 	genResourceCon();
+	genRhoCon();
 	genRepairCon();
 	genRegMaintCon();
 }
@@ -66,7 +67,13 @@ void YearModel::genDecVars()
 		for (int sig = 0; sig < getData()->S; ++sig)
 		{
 			for (int y = 0; y < getData()->Y; ++y)
+			{
 				N[y][m][sig] = p.newVar(("N_" + to_string(y) + "_" + to_string(m) + "_" + to_string(sig)).c_str(), XPRB_UI);
+
+				Mp[y][m][sig] = p.newVar(("Mp_" + to_string(y) + "_" + to_string(m) + "_" + to_string(sig)).c_str(), XPRB_UI);
+				for (int ir = 0; ir < getData()->Ir; ++ir)
+					Mr[y][m][sig][ir] = p.newVar(("Mr_" + to_string(y) + "_" + to_string(m) + "_" + to_string(sig) + "_" + to_string(ir)).c_str(), XPRB_UI);
+			}
 
 			for (int ir = 0; ir < getData()->Ir; ++ir)
 			{
@@ -134,9 +141,35 @@ void YearModel::genResourceCon()
 			{
 				N[y][m][sig].setUB(getData()->A[y][m]);
 
-				XPRBrelation ctr = N[y][m][sig] >= getData()->rho[sig][m][y] - getData()->NInst[y][m];
+				//XPRBrelation ctr = N[y][m][sig] >= getData()->rho[sig][m][y] - getData()->NInst[y][m];
 
-				p.newCtr(("Res_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(y)).c_str(), ctr);
+				//p.newCtr(("Res_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(y)).c_str(), ctr);
+			}
+}
+
+void YearModel::genRhoCon()
+{
+	for (int sig = 0; sig < getData()->S; ++sig)
+		for (int m = 0; m < getData()->M; ++m)
+			for (int y = 0; y < getData()->Y; ++y)
+			{
+				XPRBrelation ctrL = N[y][m][sig] * (1.0 / (float)getData()->rhoP[y]) >= Mp[y][m][sig];
+				XPRBrelation ctrR = Mp[y][m][sig] >= P[m][0] * (getData()->dPy[y] / (float)getData()->L[y]);
+
+				for (int ip = 1; ip < getData()->Ip; ++ip)
+					ctrR.addTerm(P[m][ip], (getData()->dPy[y] / (float)getData()->L[y]));
+
+				p.newCtr(("RhoPL_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(y)).c_str(), ctrL);
+				p.newCtr(("RhoPR_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(y)).c_str(), ctrR);
+
+				for (int ir = 0; ir < getData()->Ir; ++ir)
+				{
+					XPRBrelation ctrL = N[y][m][sig] * (1.0 / (float)getData()->rhoR[y][ir]) >= Mr[y][m][sig][ir];
+					XPRBrelation ctrR = Mr[y][m][sig][ir] >= R[m][ir][sig] * (getData()->dRy[y][ir] / (float)getData()->L[y]);
+
+					p.newCtr(("RhoRL_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(y) + "_" + to_string(ir)).c_str(), ctrL);
+					p.newCtr(("RhoRR_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(y) + "_" + to_string(ir)).c_str(), ctrR);
+				}
 			}
 }
 
@@ -193,6 +226,8 @@ YearModel::YearModel(YearData* data, Mode* mode) : Model(data, mode, "Year")
 	P = vector<vector<XPRBvar>>(data->M, vector<XPRBvar>(data->Ip));
 	R = vector<vector<vector<XPRBvar>>>(data->M, vector<vector<XPRBvar>>(data->Ir, vector<XPRBvar>(data->S)));
 	U = vector<vector<vector<XPRBvar>>>(data->M, vector<vector<XPRBvar>>(data->Ir, vector<XPRBvar>(data->S)));
+	Mp = vector<vector<vector<XPRBvar>>>(data->Y, vector<vector<XPRBvar>>(data->M, vector<XPRBvar>(data->S)));
+	Mr = vector<vector<vector<vector<XPRBvar>>>>(data->Y, vector<vector<vector<XPRBvar>>>(data->M, vector<vector<XPRBvar>>(data->S, vector<XPRBvar>(data->Ir))));
 }
 
 YearSolution* YearModel::solve(int maxTime)

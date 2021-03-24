@@ -40,7 +40,8 @@ public:
 	vector<vector<int>> NInst;			// y m
 	vector<int> Turbs;					// m
 	vector<vector<vector<double>>> eps;	// sig m y
-	vector<vector<vector<int>>> rho;	// sig m y
+	vector<int> rhoP;					// y
+	vector<vector<int>> rhoR;			// y ir
 	vector<double> lambda;				// ir
 	bool randFailMode;
 

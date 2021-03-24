@@ -12,6 +12,8 @@ protected:
 	vector <vector<XPRBvar>> P;			// m i
 	vector<vector<vector<XPRBvar>>> R;	// m i sig
 	vector<vector<vector<XPRBvar>>> U;	// m i sig
+	vector<vector<vector<XPRBvar>>> Mp;	// y m sig
+	vector<vector<vector<vector<XPRBvar>>>> Mr;	// y m sig ir
 
 	YearData* getData();
 	YearSolution* genSolution(XPRBprob* p, double duration) override;
@@ -20,6 +22,7 @@ protected:
 	void genObj() override;
 	void genCapacityCon();
 	void genResourceCon();
+	void genRhoCon();
 	void genRepairCon();
 	void genRegMaintCon();
 

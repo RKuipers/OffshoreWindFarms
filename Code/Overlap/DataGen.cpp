@@ -184,6 +184,13 @@ YearData* DataGen::readYear(ifstream* file)
 		for (int i = 0; i < Ir; ++i)
 			year->dRy[y][i] = arrD[i];
 
+		year->rhoP[y] = stoi(split[ind]);
+		ind++;
+
+		ind = parseArray(split, ind, &arr, Ir);
+		for (int i = 0; i < Ir; ++i)
+			year->rhoR[y][i] = arr[i];
+
 		ind = parseArray(split, ind, &arr, M);
 		for (int m = 0; m < M; ++m)
 			year->LInst[y][m] = arr[m];

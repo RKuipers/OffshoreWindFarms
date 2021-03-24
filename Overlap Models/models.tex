@@ -38,11 +38,11 @@
 \end{equation}
 subject to:
 \begin{align}
-L_y \cdot N_{y,m,\sigma} + L^{Inst}_{y,m}		&\geq		\sum_{ip \in I^P} (P_{m,ip} \cdot d^P_y) + \sum_{ir\in I^R} (d^R_{y, ir} \cdot R_{m,ir,\sigma})																										& \forall \sigma \in S, \forall m \in M, \forall y \in Y	\\
-\lfloor N_{y,m,\sigma} / \rho^P_y \rfloor		&		\leq 	\sum_{ip \in I^P} P_{m,ip} \cdot d^P_y / (L_y)		& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
-\lfloor N_{y,m,\sigma} / \rho^R_{y, ir} \rfloor		&		\leq 	R_{m,ir,\sigma} \cdot d^R_{y, ir} / (L_y) & \forall \sigma \in S, \forall m \in M, \forall y \in Y, \forall ir \in I^R 	\\
-N_{y,m,\sigma}						&		\leq 	A_{y,m} 								& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
-F^T_{m, ir, \sigma} + U_{m-1,ir,\sigma} 		&=		R_{m,ir,\sigma} + U_{m,ir,\sigma}					& \forall \sigma \in S, \forall m \in M, \forall ir \in I^R	\\
+L_y \cdot N_{y,m,\sigma} + L^{Inst}_{y,m}	&\geq		\sum_{ip \in I^P} (P_{m,ip} \cdot d^P_y) + \sum_{ir\in I^R} (d^R_{y, ir} \cdot R_{m,ir,\sigma})																											& \forall \sigma \in S, \forall m \in M, \forall y \in Y	\\
+N_{y,m,\sigma} / \rho^P_y \geq	M^P_{y, m, \sigma}	&\geq 	\sum_{ip \in I^P} P_{m,ip} \cdot d^P_y / L_y	& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
+N_{y,m,\sigma} / \rho^R_{y, ir} \geq M^R_{y, m, \sigma, ir}&\geq 	R_{m,ir,\sigma} \cdot d^R_{y, ir} / L_y 			& \forall \sigma \in S, \forall m \in M, \forall y \in Y, \forall ir \in I^R \\
+N_{y,m,\sigma}					&\leq 		A_{y,m} 										& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
+F^T_{m, ir, \sigma} + U_{m-1,ir,\sigma} 	&=		R_{m,ir,\sigma} + U_{m,ir,\sigma}						& \forall \sigma \in S, \forall m \in M, \forall ir \in I^R	\\
 \sum_{m' = 0}^{m-G^U} P_{m',(ip-1)} - \sum_{m' = 0}^{m-1} P_{m',ip} 	&\leq P_{m,ip}	\leq 	\sum_{m' =  0}^{m-G^L} P_{m',(ip-1)} - \sum_{m' = 0}^{m-1} P_{m',ip}	
 																				& \forall m \in M, \forall ip \in I^P			
 \end{align}

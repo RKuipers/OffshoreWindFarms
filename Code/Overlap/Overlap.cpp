@@ -9,7 +9,7 @@
 
 #include "Solution.h"
 
-//#define YEAR
+#define YEAR
 //#define MONTH
 //#define MIXED
 
@@ -19,7 +19,7 @@ void runYear()
 {
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/yearformat.dat");
+    ifstream datafile("Input Files/yearTest.dat");
     YearData* data = dg.readYear(&datafile);
     YearModel* model = new YearModel(data, &mode);
     model->genProblem();
@@ -89,7 +89,7 @@ void runMixed()
                 vector<int> rho;
                 monthModel->getRequirements(&ep, &rho, data->Y);
                 data->eps[0][m] = ep; // TODO: 0 is for scenario; needs to be fixed
-                data->rho[0][m] = rho;
+                //data->rho[0][m] = rho;
                 infeasible++;
             }
             else
