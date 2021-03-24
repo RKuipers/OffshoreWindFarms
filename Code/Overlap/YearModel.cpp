@@ -121,13 +121,13 @@ void YearModel::genCapacityCon()
 		for (int m = 0; m < getData()->M; ++m)
 			for (int y = 0; y < getData()->Y; ++y)
 			{
-				XPRBrelation ctr = getData()->L[y] * N[y][m][sig] + getData()->LInst[y][m] >= getData()->eps[sig][m][y];
+				XPRBrelation ctr = getData()->L[y] * N[y][m][sig] + getData()->LInst[y][m] >= 0;
 
 				for (int ip = 0; ip < getData()->Ip; ++ip)
-					ctr.addTerm(P[m][ip], -1 * getData()->dPy[y]);
+					ctr.addTerm(P[m][ip], -1 * getData()->dPy[y] * getData()->rhoP[y]);
 
 				for (int ir = 0; ir < getData()->Ir; ++ir)
-					ctr.addTerm(R[m][ir][sig], -1 * getData()->dRy[y][ir]);
+					ctr.addTerm(R[m][ir][sig], -1 * getData()->dRy[y][ir] * getData()->rhoR[y][ir]);
 
 				p.newCtr(("Cap_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(y)).c_str(), ctr);
 			}
@@ -153,7 +153,7 @@ void YearModel::genRhoCon()
 		for (int m = 0; m < getData()->M; ++m)
 			for (int y = 0; y < getData()->Y; ++y)
 			{
-				XPRBrelation ctrL = N[y][m][sig] * (1.0 / (float)getData()->rhoP[y]) >= Mp[y][m][sig];
+				XPRBrelation ctrL = (N[y][m][sig] + getData()->NInst[y][m]) * (1.0 / (float)getData()->rhoP[y]) >= Mp[y][m][sig];
 				XPRBrelation ctrR = Mp[y][m][sig] >= P[m][0] * (getData()->dPy[y] / (float)getData()->L[y]);
 
 				for (int ip = 1; ip < getData()->Ip; ++ip)
@@ -164,7 +164,7 @@ void YearModel::genRhoCon()
 
 				for (int ir = 0; ir < getData()->Ir; ++ir)
 				{
-					XPRBrelation ctrL = N[y][m][sig] * (1.0 / (float)getData()->rhoR[y][ir]) >= Mr[y][m][sig][ir];
+					XPRBrelation ctrL = (N[y][m][sig] + getData()->NInst[y][m])* (1.0 / (float)getData()->rhoR[y][ir]) >= Mr[y][m][sig][ir];
 					XPRBrelation ctrR = Mr[y][m][sig][ir] >= R[m][ir][sig] * (getData()->dRy[y][ir] / (float)getData()->L[y]);
 
 					p.newCtr(("RhoRL_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(y) + "_" + to_string(ir)).c_str(), ctrL);
