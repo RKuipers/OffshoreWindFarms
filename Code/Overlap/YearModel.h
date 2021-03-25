@@ -8,12 +8,12 @@ private:
 	YearSolution* solution;
 
 protected:
-	vector<vector<XPRBvar>> N;			// y m
+	vector<vector<vector<XPRBvar>>> N;	// y m sig
 	vector <vector<XPRBvar>> P;			// m i
 	vector<vector<vector<XPRBvar>>> R;	// m i sig
 	vector<vector<vector<XPRBvar>>> U;	// m i sig
-	vector<vector<XPRBvar>> Mp;			// y m
-	vector<vector<vector<XPRBvar>>> Mr;	// y m ir
+	vector<vector<vector<XPRBvar>>> Mp;	// y m sig
+	vector<vector<vector<vector<XPRBvar>>>> Mr;	// y m sig ir
 
 	YearData* getData();
 	YearSolution* genSolution(XPRBprob* p, double duration) override;

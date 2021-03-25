@@ -29,7 +29,7 @@ class YearSolution
 	: public Solution
 {
 protected:
-	vector<vector<vector<int>>> vessels;	// m y
+	vector<vector<vector<int>>> vessels;	// sig m y
 	vector<vector<int>> planned;			// m i
 	vector<vector<vector<int>>> repairs;	// sig m i
 	vector<vector<vector<int>>> unhandled;	// sig m i
