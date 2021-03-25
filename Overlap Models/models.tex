@@ -25,26 +25,28 @@
 \smalld
 
 \begin{equation}
-	\min_{\substack{N_{y,m,\sigma}, P_{m,ip} \in \mathbb{Z}^* \\ 
-	R_{m,ir,\sigma}, U_{m,ir,\sigma} \in \mathbb{Z}^* }}
+	\min_{\substack{N_{y,m}, P_{m,ip} \in \mathbb{Z}^* \\ 
+	R_{m,ir,\sigma}, U_{m,ir,\sigma} \in \mathbb{Z}^*  \\
+	M^P_{y, m}, M^R_{y, m, ir}}}
 	\begin{aligned}
 	\frac{1}{|S|} \cdot \sum_{\sigma \in S} ( \sum_{m \in M} [ 
-	\sum_{y \in Y} (N_{y,m,\sigma} \cdot c_{y,m}) +  
+	\sum_{y \in Y} (N_{y,m} \cdot c_{y,m}) +  
 	e^H_m \cdot (\sum_{ir \in I^R}[U_{m,ir,\sigma} \cdot H_m + 
-	R_{m,ir,\sigma} \cdot (d^R_{ir} + d^D_{ir})]\\
+	R_{m,ir,\sigma} \cdot (d^R_{ir} + d^D_{ir})] +\\
 	\sum_{ip \in I^P} [P_{m,ip} \cdot d^P])] + 
 	\sum_{ir \in I^R} [F^U_{\hat{m}, ir, \sigma} \cdot \lambda_{ir}] )
 	\end{aligned}	
 \end{equation}
 subject to:
 \begin{align}
-L_y \cdot N_{y,m,\sigma} + L^{Inst}_{y,m}	&\geq		\sum_{ip \in I^P} (P_{m,ip} \cdot d^P_y \cdot \rho^P_y) + \sum_{ir\in I^R} (R_{m,ir,\sigma} \cdot d^R_{y, ir} \cdot \rho^R_{y, ir})																					& \forall \sigma \in S, \forall m \in M, \forall y \in Y	\\
-(N_{y,m,\sigma} + N^{Inst}_{y,m}) / \rho^P_y &\geq	M^P_{y, m, \sigma}	\geq 	\sum_{ip \in I^P} P_{m,ip} \cdot d^P_y / L_y																														& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
-(N_{y,m,\sigma} + N^{Inst}_{y,m}) / \rho^R_{y, ir} &\geq M^R_{y, m, \sigma, ir}\geq 	R_{m,ir,\sigma} \cdot d^R_{y, ir} / L_y 																												& \forall \sigma \in S, \forall m \in M, \forall y \in Y, \forall ir \in I^R \\
-N_{y,m,\sigma}					&\leq 		A_{y,m} 										& \forall \sigma \in S, \forall m \in M, \forall y \in Y 	\\
-F^T_{m, ir, \sigma} + U_{m-1,ir,\sigma} 	&=		R_{m,ir,\sigma} + U_{m,ir,\sigma}						& \forall \sigma \in S, \forall m \in M, \forall ir \in I^R	\\
+L_y \cdot N_{y,m} + L^{Inst}_{y,m}		&\geq		\begin{aligned}\sum_{ip \in I^P} (P_{m,ip} \cdot d^P_y \cdot \rho^P_y) +\\ 
+									\sum_{ir\in I^R} (R_{m,ir,\sigma} \cdot d^R_{y, ir} \cdot \rho^R_{y, ir})\end{aligned}																												& \forall \sigma \in S, m \in M, y \in Y	\\
+(N_{y,m} + N^{Inst}_{y,m}) / \rho^P_y	 &\geq	M^P_{y, m}	\geq 	\sum_{ip \in I^P} P_{m,ip} \cdot d^P_y / L_y																																& \forall m \in M, y \in Y 	\\
+(N_{y,m} + N^{Inst}_{y,m}) / \rho^R_{y, ir} &\geq M^R_{y, m, ir}\geq 	R_{m,ir,\sigma} \cdot d^R_{y, ir} / L_y 																												& \forall \sigma \in S, m \in M, y \in Y, ir \in I^R \\
+N_{y,m}						&\leq 		A_{y,m} 										& \forall m \in M, y \in Y 	\\
+F^T_{m, ir, \sigma} + U_{m-1,ir,\sigma} 	&=		R_{m,ir,\sigma} + U_{m,ir,\sigma}						& \forall \sigma \in S, m \in M, ir \in I^R	\\
 \sum_{m' = 0}^{m-G^U} P_{m',(ip-1)} - \sum_{m' = 0}^{m-1} P_{m',ip} 	&\leq P_{m,ip}	\leq 	\sum_{m' =  0}^{m-G^L} P_{m',(ip-1)} - \sum_{m' = 0}^{m-1} P_{m',ip}	
-																				& \forall m \in M, \forall ip \in I^P			
+																				& \forall m \in M, ip \in I^P			
 \end{align}
 
 \end{frame}
@@ -53,7 +55,9 @@ F^T_{m, ir, \sigma} + U_{m-1,ir,\sigma} 	&=		R_{m,ir,\sigma} + U_{m,ir,\sigma}		
 \smalla
 \expl The objective takes an average cost of all scenarios by counting up the cost per month. Each month has a cost for vessels chartered (by type), the cost of failures (broken up in unhandled and repaired failures), andthe energy lost due to planned maintenance. Finally there is a cost for unhandled failures in the final month. \\
 \expl For each vessel type the available time (based on charters and spare time from installation) minus the planned time the vessels are used (for planned maintenance) needs to be greater than the time spend fixing new failures. \\
-\expl Ensures enough vessels are assigned to a given month (based on feedback from that month), and the amount of vessels chartered doesn't surpass the available vessels \\
+\expl Ensures that if planned tasks are assigned to a month that there are enough vessels chartered \\
+\expl Ensures that if repair tasks are assigned to a month that there are enough vessels chartered \\
+\expl Ensures the amount of vessels chartered doesn't surpass the available vessels \\
 \expl Every failure (new and leftover from previous months) needs to be repaired or unhandled  \\
 \expl Ensures planned tasks are not scheduled too close together or too far apart by counting up the turbines that were last visited $G^U$ and $G^L$ or more months ago respectively, and subtracting all that were revisited more recently
 \end{frame}
@@ -73,18 +77,18 @@ Sets:
 
 Decision variables:
 \begin{itemize}
-\item $N_{y,m,\sigma}$: The amount of vessels of type $y$ chartered in month $m$ in scenario $\sigma$
+\item $N_{y,m}$: The amount of vessels of type $y$ chartered in month $m$
 \item $P_{m,ip}$: Planned tasks in iteration $ip \in I^P$ in month $m$
 \item $R_{m,ir,\sigma}$: Repair tasks of type $ir \in I^R$ in month $m$ and scenario $\sigma$
 \item $U_{m,ir,\sigma}$: Unhandled failures of type $ir \in I^R$ in month $m$ and scenario $\sigma$
+\item $M^P_{y, m}$: Minimum amount of vessels of type $y$ in month $m$ (based on assigned planned tasks)
+\item $M^R_{y, m, ir}$: Minimum amount of vessels of type $y$ in month $m$ (based on assigned repair tasks of type $ir$)
 \end{itemize}
 
 Parameters:
 \begin{itemize}
 \item $c_{y,m}$: The cost of chartering a vessel of type $y$ in month $m$
 \item $\lambda_{ir}$: The cost penalty for leftover failures of type $ir$ in the final month
-\item $e^H_m$: The energy produced by a single turbine per hour in month $m$
-\item $H_m$: The number of hours in month $m$
 \end{itemize}
 \end{column}
 
@@ -93,9 +97,10 @@ Parameters:
 \begin{column}{.48\textwidth}
 Parameters (cont):
 \begin{itemize}
+\item $e^H_m$: The energy produced by a single turbine per hour in month $m$
+\item $H_m$: The number of hours in month $m$
 \item $F^T_{m,ir,\sigma}$: The total amount of failures of type $ir \in I^R$ in month $m$ in scenario $\sigma$
-\item $\epsilon_{\sigma, m, y}$: Feedback parameter that enforces leighway in the amount of vessel time available to month $m$
-\item $\rho_{ \sigma, m, y}$: Feedback parameter that enforces a minimum amount of a certain vessel assigned to month $m$
+\item $\rho^P_y \& /rho^R_{y, ir}$: Vessels of type $y$ required for planned tasks and repair tasks of type $ir$ respectively
 \item $L_y$: The amount of hours a vessel of type $y$ is available if chartered for a month
 \item $L^{Inst}_{y,m}$: Leftover hours vessels of type $y$ are available in month $m$ based on the installation schedule
 \item $N^{Inst}_{y,m}$: Amount of vessels of type $y$ used by the installation schedule in month $m$ that can also partially help out with maintenance operations
