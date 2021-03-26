@@ -1,0 +1,1000 @@
+with	er is een doos met een gele cirkel en minimaal een zwart vierkant <s> there is a box
+has	er is een toren met twee gele blokken die niet aan elkaar vastzitten <s> there is one tower that
+</s>	er is maar 1 doos met minimaal 1 driehoek <s> there is only 1 box with at least 1 triangle
+item	er is een doos met een blauw item dat de muur raakt en een geel item er bovenop <s> there is a box with a blue
+black	er is een toren met een blauw blok, een geel blok en twee zwarte blokken <s> there is a tower with a blue block a yellow block and two
+items	er is een doos met zes items en het heeft drie kleuren <s> there is a box with six
+blue	er zijn 2 blauwe items <s> there are 2
+exactly	een van de grijze dozen bevat precies een object <s> one of the grey box contains
+black	er is een doos met een zwart vierkant en minimaal een zwarte driehoek <s> there is a box with a
+are	er zijn precies twee zwarte vierkanten die de onderste basis raken <s> there
+not	er zijn twee torens met niet meer dan twee blokken die even hoog zijn <s> there are two tower with
+square	er is een doos met een klein geel vierkantje en het raakt de muur niet <s> there is box with a small yellow
+the	er zijn minstens twee blauwe vierkanten die de rand raken <s> there are at least two blue squares touching
+bottom	er is minstens een geel vierkant dat de bodem van een doos dicht raakt <s> there is at least one yellow square closely touching the
+are	er zijn 2 gele vierkantjes <s> there
+two	er is tenminste een geel blok als de top van een toren met tenminste twee blokken <s> there is at least one yellow block as the top of a tower with at least
+touching	er is precies een geel voorwerp dat een rand raakt <s> there is exactly one yellow object is
+tower	er is maar 1 toren met minimaal 1 zwart blok <s> there is only 1
+square	er is een doos met minimaal een geel vierkant en minimaal een zwarte driehoek <s> there is a box with at least one yellow
+block	er is een blauw blok onder een zwart blok <s> there is a blue block bellow a black
+there	er is een doos met 2 items en het zwarte item raakt de muur <s> 
+the	minstens een van de grijze dozen bevat precies een zwart voorwerp <s> at least one of
+color	er is een toren met maar een blok en de kleur is blauw <s> there is a tower with only one block and the
+items	twee dozen hebben hetzelfde aantal items <s> two boxes have the same number of
+square	er is een blauw vierkant dat de lijn raakt <s> there is a blue
+a	er is een zwart blok als de top van een toren met vier blokken <s> there is a black block as the top of
+there	er is een gele toren waarvan de blokken niet meer dan drie zijn <s> 
+closely	er is een zwarte cirkel die de bodem van een doos dicht raakt <s> there is a black circle
+triangle	er is een blauwe driehoek die de onderste basis raakt <s> there is one blue
+least	er is tenminste een grijze doos met precies zeven objecten <s> there is at
+above	er is een toren met een blauw blok boven een geel blok <s> there is a tower with a blue block
+blocks	er is een toren van vier blokken en het tweede blok vanaf de basis is blauw <s> there is a four
+there	er is een doos met vier items en de drie hebben dezelfde vorm <s> 
+four	de toren met vier blokken heeft een zwart blok over het blauwe blok <s> the tower with
+are	er zijn 2 dozen met 1 gele cirkel <s> there
+</s>	het tweede blok vanaf de voet van een toren is blauw <s> the second block from the base of a tower is blue
+blue	er is een doos met blauwe en gele items waarvan de ene een kleine gele driehoek is en de andere een kleine blauwe driehoek <s> there is a box with blue and yellow items of which one is a small yellow triangle and another is a small
+not	er is niet meer dan een grijze doos met precies twee objecten <s> there is
+four	er is een doos met vier items en de drie items zijn hetzelfde <s> there is a box with
+a	er is een geel vierkant dat de bodem van een doos dicht raakt <s> there is
+</s>	er zijn 2 dozen met minimaal 1 zwart vierkant <s> there are 2 boxes with at least 1 black square
+of	er is een doos met 2 items van zwarte en gele kleur <s> there is a box with 2 items
+is	er is een doos met slechts een item en het is een cirkel <s> there
+not	er is een toren met vier blokken waarvan de basis en de bovenkant niet dezelfde kleur hebben <s> there is a four blocks tower which the base and top are
+is	zwarte driehoek raakt geen enkele rand <s> black triangle
+there	er is een zwarte cirkel die een hoek van een doos dicht raakt <s> 
+the	er is een doos met slechts vijf items en de kleur van de items is blauw en zwart <s> there is a box that has only five items and color of
+block	er is een toren met 1 blauw blok en 1 geel blok <s> there is a tower with 1 blue block and 1 yellow
+</s>	een van de torens met vier blokken heeft bovenaan een geel blok <s> one of the tower with four blocks has a yellow block on the top
+</s>	er is een toren die meer dan 2 blokken heeft, maar slechts twee blauwe blokken <s> there is a tower which has more than 2 blocks but only have two blue blocks
+a	er is een toren met precies twee blokken met aan de basis een blauw blok <s> there is
+edge	er zijn precies vier cirkels die geen enkele rand raken <s> there are exactly four circle not touching any
+with	er zijn twee torens met een zwart blok boven een blauw blok <s> there are two towers
+blocks	de toren met vier blokken heeft blauwe en zwarte blokken <s> the tower with four blocks has
+contain	Alle drie grijze vakken bevatten objecten in even of oneven getallen <s> ll the three grey boxes either
+square	er is een doos met een zwart vierkant een blauw vierkant en een geel item <s> there is a box with a black
+edge	er is precies een geel voorwerp dat een rand raakt <s> there is exactly one yellow object is touching an
+blue	het grijze vak met het minste aantal objecten bevat minimaal een blauw object <s> the grey box with least number of objects contains at least one
+</s>	er is precies een blauw voorwerp dat een rand raakt <s> there is exactly one blue object touching an edge
+has	er zijn twee dozen met elk twee blauwe items <s> there are two box that
+are	er zijn 2 dozen met minimaal 1 gele driehoek <s> there
+two	er zijn twee torens met een geel blok aan de basis <s> there are
+of	er is geen cirkel die de rechterwand van een doos nauw raakt <s> there is no circle closely touching right wall
+right	er is een geel vierkant dat de rechtermuur van een doos nauw raakt <s> there is a yellow square closely touching
+a	er is een toren met een blauw object boven een zwart object <s> there is one tower with
+</s>	er is een blauw blok boven een geel blok <s> there is as blue block above a yellow block
+color	er is een doos met 3 items van alleen blauwe en gele kleur <s> there is a box with 3 items of only blue and yellow
+is	er is een geel item dat de hoek raakt <s> there
+item	er is een doos met slechts een item dat geen blauwe driehoek of een blauw vierkant is <s> there is a box with only one
+of	er is geen item dat de bodem van een doos dicht raakt <s> there is no item closely touching the bottom
+at	er is een doos met een blauw vierkant en minimaal een zwarte cirkel <s> there is a box with a blue square and
+base	er is een blauwe cirkel die de basis raakt <s> there is a blue circle touching the
+a	er is een doos met een gele driehoek een zwarte driehoek en minimaal twee blauwe items <s> there is a box with a yellow triangle
+there	er is een driehoek die de benedenhoek raakt <s> 
+has	er is een doos met slechts drie zwarte items <s> there is a box that
+item	het zwarte item zit bovenaan <s> the black
+blue	er zijn twee dozen met blauwe driehoeken <s> there are two boxes with
+there	er is minstens een blauw blok op een zwart blok <s> 
+not	er zijn precies twee blauwe driehoeken die geen enkele rand raken <s> there are exactly two blue triangles
+square	er is een doos met een geel vierkant en een zwarte cirkel <s> there is a box with a yellow
+top	er zijn slechts twee torens met gele blokken en tenminste een daarvan heeft een geel blok als de top van een toren <s> there are only two towers with yellow blocks and at least one of them has yellow block as the
+blocks	er is 1 toren met 2 op elkaar gestapelde blokken van dezelfde kleur <s> there is 1 tower with 2
+a	er is een toren met een geel blok boven een blauw blok <s> there is a tower with a yellow block over
+with	er is een toren met precies twee blokken van dezelfde kleur <s> there is one tower
+a	er is minstens een blauwe cirkel die een muur van een doos dicht raakt <s> there is at least one blue circle closely touching a wall of
+circle	er is een doos met een gele cirkel en twee zwarte items <s> there is a box with a yellow
+a	er is een doos met slechts drie zwarte items <s> there is
+tower	er is een toren met slechts twee zwarte blokken <s> there is a
+are	er zijn twee dozen met slechts twee gele objecten <s> there
+a	er is een toren die precies twee blauwe blokken heeft <s> there is
+is	er is precies een gele driehoek die de rand niet raakt <s> there
+touching	er is precies een gele driehoek die de rand raakt <s> there is exactly one yellow triangle
+a	er is precies een driehoek die de bodem van een doos nauw raakt <s> there is exactly one triangle closely touching the bottom of
+as	er is een geel blok als de top van een toren <s> there is a yellow block
+with	er is 1 doos met precies 2 blauwe items <s> there is 1 box
+the	er is 1 doos met 2 zwarte items van dezelfde vorm <s> there is 1 box with 2 black items of
+a	er is een doos met een zwart item dat de muur raakt en een blauw erboven <s> there is
+blue	er is minstens een doos met precies vier items, waaronder een blauwe <s> there is at least one box with exactly four items including
+box	er is een geel item dat een hoek van een doos dicht raakt <s> there is a yellow item closely touching a corner of a
+circle	er is een cirkel die de rechtermuur van een doos nauw raakt <s> there is a
+a	er is een doos met vier vierkanten <s> there is
+square	er is geen geel vierkant dat de rechtermuur van een doos nauw raakt <s> there is no yellow
+yellow	er is een toren waarvan het tweede blok vanaf de basis geel is <s> there is a tower which is the second block from the base is
+blue	er is een doos met een geel item bovenop en een blauw item er recht onder <s> there is a box with a yellow item on top and a
+items	er is een doos met zeven items en de drie zijn cirkels <s> there is a box with seven
+one	er is een doos met slechts een blauw item <s> there is a box with only
+there	er zijn precies twee torens met aan de basis een blauw blok <s> 
+small	er is een doos met een klein geel vierkantje en het raakt de muur niet <s> there is box with a
+blocks	er zijn twee zwarte blokken als basis van een toren <s> there are two black
+</s>	er is een doos met een geel vierkant en twee cirkels <s> there is a box with a yellow square and two circles
+square	er is een blauw vierkant dat de bodem van een doos dicht raakt <s> there is a blue
+</s>	er is een geel blok boven een zwart blok <s> there is as yellow block above a black block
+base	er is precies een blauwe driehoek die de onderste basis raakt <s> there is exactly one blue triangle touching the bottom
+tower	er is een blauwe toren met minstens twee blokken <s> there is a blue
+2	er is een doos met 2 items van zwarte en gele kleur <s> there is a box with
+block	er is een toren met een geel blok en minimaal een blauw blok <s> there is a tower with a yellow block and at least one blue
+a	er is een doos met een geel item bovenaan en 2 zwarte items eronder <s> there is
+block	er zijn 2 torens met 1 blauw blok <s> there are 2 towers with 1 blue
+block	er is tenminste een toren met een enkel blok dat zwart is <s> there is at least one tower with a single
+1	er is 1 doos met 2 items <s> there is
+only	er is een toren met alleen blauwe en gele blokken <s> there is a tower with
+the	zwarte cirkel raakt de rand niet <s> black circle is not touching
+item	er is een doos met een blauwe cirkel en minimaal een zwart item <s> there is a box with a blue circle and at least one black
+</s>	een van de grijze dozen met precies vier objecten heeft blauwe en gele kleurobjecten <s> one of the grey box with exactly four objects has blue and yellow color objects
+2	er zijn 2 blauwe driehoeken <s> there are
+tower	er is een toren met een zwart blok aan de basis <s> there is one
+the	twee kleine gele voorwerpen raken de muur <s> two small yellow items are touching
+contains	een van de grijze vierkantjes bevat slechts een object en dit object raakt de rand niet <s> one of the grey square
+box	er is een doos met vier items <s> there is a
+there	er is een toren met drie blokken van drie verschillende kleuren <s> 
+a	er is een toren met een geel blok boven een zwart blok <s> there is a tower with a yellow block over
+is	er is een toren die alleen blauwe kleurblokken heeft <s> there
+and	er is een doos met 2 gele en 2 blauwe items <s> there is a box with 2 yellow
+item	er is precies 1 geel item <s> there is exactly 1 yellow
+one	er is een doos zonder een blauw item met twee gele en minimaal een zwarte item <s> there is a box without a blue item with two yellow and at least
+towers	er zijn twee torens met bovenaan een zwart blok <s> there are two
+with	er is een blauw blok als basis van een toren met meer dan twee blokken <s> there is a blue block as the base of a tower
+</s>	er is een toren met minstens drie blokken van dezelfde kleur <s> there is one tower with at least three blocks of same color
+yellow	er is slechts 1 doos met gele driehoeken <s> there is only 1 box with
+blocks	er zijn twee blauwe blokken als de top van een toren <s> there are two blue
+there	er zijn 5 gele items <s> 
+block	er is tenminste een toren met vier blokken met bovenaan een zwart blok <s> there is at least one tower with four blocks with a black
+square	er is een doos met minimaal een vierkant en minimaal drie driehoeken <s> there is a box with at least one
+</s>	er is geen zwarte cirkel die de bodem van een doos dicht raakt <s> there is no black circle closely touching the bottom of a box
+1	er is 1 toren met slechts 1 zwart blok en 1 geel blok <s> there is 1 tower with only
+yellow	er is een zwart blok boven een geel blok <s> there is a black block above a
+black	er is een doos met een geel item een zwarte driehoek een zwarte cirkel en minimaal een blauw vierkant <s> there is a box with a yellow item a black triangle a
+only	er is een toren waar slechts 2 blokken dezelfde kleur hebben <s> there is a tower where
+in	er is maar 1 toren met minimaal 1 geel blok erin <s> there is only 1 tower with at least 1 yellow block
+</s>	er is 1 doos met items van alle drie de kleuren <s> there is 1 box with items of all three colours
+towers	er zijn twee torens met dezelfde basiskleur die niet blauw is <s> there are two
+</s>	de toren met precies drie blokken heeft bovenaan een blauw blok <s> the tower with exactly three blocks has a blue block at the top
+</s>	er is een toren met precies een blauw blok dat bovenaan staat <s> there is a tower with exactly one blue block which is at the top
+</s>	er zijn twee driehoeken van dezelfde kleur die de hoeken raken <s> there are two the same color triangles that are touching the corners
+tower	er is een toren met een blauw blok bovenaan en onderaan <s> there is a
+box	er is een doos met slechts 2 blauwe en gele items <s> there is a
+multiple	er zijn twee dozen met meerdere items en elk heeft twee zwarte item <s> there are two boxes with
+three	er is 1 doos met drie items van dezelfde kleur <s> there is 1 box with
+</s>	er is precies een toren met een blauw blok aan de basis en een geel blok aan de bovenkant <s> there is exactly one tower with a blue block at the base and yellow block at the top
+touching	geen van de zwarte kleurobjecten raakt de rand <s> none of the black color objects are
+tower	er is geen toren met twee gele blokken <s> there is no
+is	er is een geel vierkant in de hoek van de doos <s> there
+of	er is een doos met 3 items waarvan 2 geel <s> there is a box with 3 items
+blue	er is precies een blauw blok als de top van een toren met minstens drie blokken <s> there is exactly one
+side	er is een blauw vierkant dat de zijkant raakt <s> there is a blue square touching the
+box	er is een zwart voorwerp dat het dak van een doos dicht raakt <s> there is a black item closely touching the roof of a
+1	er is 1 geel item <s> there is
+yellow	er is geen gele cirkel die de bodem van een doos dicht raakt <s> there is no
+black	er is precies een zwarte driehoek die de rand niet raakt <s> there is exactly one
+of	een van de grijze vierkantjes bevat precies vijf objecten <s> one
+top	er zijn precies twee gele blokken als de top van een toren <s> there are exactly two yellow blocks as the
+tower	er is een toren met een blauw blok boven een geel blok <s> there is a
+two	er is een toren van twee blokken en het ene blok is zwart <s> there is a
+</s>	de basis en het tweede blok van de toren zijn geel <s> the base and second block of the tower are yellow
+yellow	er is 1 toren met slechts 2 blauwe blokken en 1 geel blok <s> there is 1 tower with only 2 blue blocks and 1
+one	een van de grijze dozen heeft precies drie objecten waarvan er een een cirkel is <s> 
+blue	er is een toren met twee blauwe blokken <s> there is a tower that has two
+blocks	er is een blauw blok als basis van een toren met precies drie blokken <s> there is a blue block as the base of a tower with exactly three
+blocks	er is tenminste een toren met vier blokken met bovenaan een zwart blok <s> there is at least one tower with four
+is	er is een blok met precies een object dat een gele kleur heeft <s> there
+square	er is een doos met minimaal een zwart vierkant en minimaal twee cirkels <s> there is a box with at least one black
+yellow	er zit 1 doos met daarin 2 gele items <s> there is 1 box with 2
+least	er is minimaal 1 toren met bovenaan een zwart blok <s> there is at
+box	er is een doos met een gele driehoek een gele cirkel en twee zwarte cirkels <s> there is a
+at	er is een doos met minimaal drie cirkels en minimaal twee driehoeken <s> there is a box with at least three circles and
+corner	er is een geel vierkant in de hoek van de doos <s> there is a yellow square in the
+box	er is een doos met precies 3 items <s> there is one
+there	er zijn twee driehoeken die de bodem van een doos nauw aanraken <s> 
+and	er is een doos met een blauwe cirkel en minimaal een zwart item <s> there is a box with a blue circle
+is	er is een geel vierkant dat de bodem van een doos dicht raakt <s> there
+blocks	er zijn minstens twee zwarte blokken als basis van een toren met minstens twee blokken <s> there are at least two black blocks as the base of a tower with at least two
+circle	er is 1 doos met precies 1 cirkel erin <s> there is 1 box with exactly 1
+is	er is een zwart blok dat is bevestigd aan blauwe en gele blokken <s> there
+there	er is een doos met een gele cirkel en een blauwe driehoek <s> 
+edge	er zijn precies twee zwarte cirkels die de rand raken <s> there are exactly two black circles touching the
+same	Alle dozen hebben niet hetzelfde aantal items <s> ll the boxes do not have the
+are	er zijn 3 blauwe vierkanten <s> there
+tower	er is 1 toren met een blauw blok in het midden <s> there is 1
+the	er is een blauw blok als de top van een toren met vier blokken <s> there is a blue block as
+the	er is een toren met drie blokken met aan de basis een blauw blok <s> there is a tower with three blocks having a blue block at
+</s>	er is een zwart vierkant dat bijna de hoek raakt <s> there is a black square almost touching the corner
+blocks	er zijn 2 torens met 2 blauwe blokken <s> there are 2 towers with 2 blue
+is	er is slechts een zwart item dat de bodem van een doos dicht raakt <s> there
+exactly	er is een doos met precies twee items <s> there is a box with
+edge	er is een zwart vierkant dat een rand raakt <s> there is a black square touching an
+</s>	er is precies een toren met een zwart blok boven een geel blok <s> there is exactly one tower with a black block above a yellow block
+is	er is 1 toren met 1 blauw blok aan de basis <s> there
+not	er is een blauwe cirkel die de rand niet raakt <s> there is a blue circle
+in	er is een grijze doos met precies drie objecten waarvan de objecten blauw en geel van kleur zijn <s> there is a grey box with exactly three objects where the objects are blue and yellow
+most	er is een blauw blok als basis van een toren met maximaal drie blokken <s> there is a blue block as the base of a tower with at
+item	er is een doos met slechts een item dat geen driehoek is <s> there is a box with only one
+a	er is een geel blok boven een blauw blok <s> there is
+base	er is 1 toren met een blauw blok aan de basis <s> there is 1 tower with a blue block at the
+with	de toren met vier blokken heeft een zwart blok boven een blauw blok <s> the tower
+2	er zijn 2 zwarte cirkels <s> there are
+item	er is een zwart voorwerp dat een hoek van een doos dicht raakt <s> there is a black
+are	er is een doos met 4 items waarvan er 3 zwart zijn <s> there is a box with 4 items of which 3
+is	er is een doos met slechts twee items die niet hetzelfde zijn <s> there
+a	er is een doos met een geel item bovenop en een blauw item er recht onder <s> there is a box with a yellow item on top and
+items	er is een doos met alleen gele en zwarte items <s> there is a box with only yellow and black
+at	er is hoogstens een geel item dat de bodem van een doos dicht raakt <s> there is
+one	een van de grijze dozen bevat precies twee objecten <s> 
+box	er is een doos met minstens een zwarte driehoek, minstens een blauwe driehoek en een geel vierkant <s> there is a
+above	er is geen zwart blok boven een blauw blok <s> there is no black block
+there	er zijn twee torens met zwarte blokken <s> 
+</s>	een van de grijze dozen heeft precies drie objecten waarvan er een een cirkel is <s> one of the grey box has exactly three objects one of which is a circle
+triangle	er is een doos met een gele driehoek en een blauwe driehoek <s> there is a box with a yellow triangle and a blue
+is	er is een doos die een zwarte en blauwe items aan de zijkant van de doos raken <s> there
+the	er is een toren met een blauw blok bovenaan en onderaan <s> there is a tower with a blue block at
+with	er is een doos met zeven items en de vier zijn geel <s> there is a box
+there	er is minstens 1 driehoek die een hoek nauw raakt <s> 
+1	er is 1 toren met minimaal 1 zwart blok <s> there is
+square	er is een grijs vierkant met precies vier objecten <s> there is one grey
+1	er is 1 doos met slechts 1 geel item en het is een vierkant <s> there is 1 box with only
+blue	er is een doos met minimaal 3 gele items en een blauw item <s> there is a box with at least 3 yellow items and one
+items	er is een doos met minimaal 3 items en een blauwe bovenop <s> there is a box with at least 3
+there	er zijn precies twee cirkels die geen enkele rand raken <s> 
+one	er is een zwarte toren met slechts een blok <s> there is a black tower with only
+</s>	er is maar een blauw voorwerp dat een rand raakt <s> there is only one blue object touching an edge
+</s>	er is een zwart voorwerp dat de basis raakt <s> there is a black object touching the base
+one	er is tenminste een toren met precies een blok dat geel van kleur is <s> there is at least
+a	er is een toren met blokken van drie verschillende kleuren <s> there is
+with	er is een doos met een klein geel vierkantje en het raakt de muur niet <s> there is box
+5	daar een 5 blauwe blokken <s> there a
+which	er is een doos met 3 items waarvan 2 geel <s> there is a box with 3 items of
+there	er is een doos met een blauw vierkant, minstens een zwart vierkant en minstens twee gele items <s> 
+the	de toren met meer dan twee blokken heeft bovenaan en onderaan een geel blok <s> 
+is	er is een doos met blauwe en gele items waarvan de ene een kleine gele driehoek is en de andere een kleine blauwe driehoek <s> there
+</s>	er is precies een zwart vierkant dat de rand raakt <s> there is exactly one black square touching the edge
+is	er is een doos met slechts een klein item <s> there
+yellow	er is een toren van vier blokken waarvan de bovenkant geel is <s> there is a four blocks tower that the top is
+and	er is een doos met een gele driehoek en twee zwarte driehoeken <s> there is a box with a yellow triangle
+closely	er is een blauwe cirkel die de bodem van een doos dicht raakt <s> there is a blue circle
+with	er is een toren met vier blokken met een zwart blok boven een blauw blok met een zwart blok aan de bovenkant van de toren <s> there is a tower
+at	er is 1 toren met minimaal 1 geel en 1 zwart blok <s> there is 1 tower with
+the	er zijn twee gele cirkels die de rand niet raken <s> there are two yellow circles not touching
+and	er is een toren met meer dan twee blokken en de bovenkant is zwart <s> there is a tower with more than two blocks
+box	er is een doos met een blauw vierkant en een geel vierkant <s> there is a
+has	er is een toren met een geel blok tussen twee blauwe blokken <s> there is a tower which
+3	er is een doos met maximaal 3 items waarvan er minimaal een geel en een zwart item is <s> there is a box with
+blue	er is een doos met 2 items waarvan er een blauw is <s> there is a box with 2 items of which one is
+which	er is een doos met 3 items waarvan er 2 dezelfde vorm hebben <s> there is a box with 3 items of
+with	er is een toren met twee blauwe blokken die aan elkaar zijn bevestigd <s> there is a tower that has two blue blocks attached
+that	er zijn twee torens met dezelfde basiskleur die niet blauw is <s> there are two towers with the same base color
+of	er is een doos met 3 items van alle 3 verschillende kleuren <s> there is a box with 3 items
+there	er zijn twee blauwe items bovenop <s> 
+base	er is een toren met bovenaan een blauw blok en onderaan een zwart blok <s> there is a tower with a blue block at the top and a black block at the
+bottom	er is een zwarte cirkel die de bodem van een doos dicht raakt <s> there is a black circle closely touching the
+item	er is een geel item dat de muur raakt met een zwart item erop <s> there is yellow item touching the wall with a black
+is	er is een driehoek die de bodem van een doos nauw raakt <s> there
+there	er is een doos met drie zwarte items en een blauw item er bovenop <s> 
+with	er is een doos met meerdere items en de drie hebben dezelfde vorm en kleur <s> there is a box
+is	er is minimaal 1 doos met een zwarte cirkel en een zwarte driehoek <s> there
+is	er is een doos met 2 grote cirkels waarvan er een de muur raakt <s> there
+is	er is geen geel blok op een geel blok <s> there
+top	de toren met meer dan een blok heeft bovenaan een zwart blok <s> the tower having more than one block has a black block at the
+the	het midden van een toren van drie blokken is zwart <s> 
+is	er is een toren met een zwart blok boven een geel blok <s> there
+with	er is een doos met een blauwe cirkel en een blauw vierkant <s> there is a box
+tower	er is een toren met vier blokken waarvan de basis en de bovenkant geel zijn <s> there is a four blocks
+items	er is een doos met drie vierkanten en andere items <s> there is a box with three squares and other
+object	er is een object dat geen cirkel is die de hoek raakt <s> there is an
+with	er is 1 doos met minimaal 1 gele cirkel en 1 gele driehoek <s> there is 1 box
+closely	er zijn precies drie items die de bodem van een doos nauw aanraken <s> there are exactly three items
+is	er is geen item dat de muur van een doos dicht raakt <s> there
+is	er is een doos met een geel vierkant en minimaal een gele cirkel <s> there
+there	er zijn 2 torens die gele blokken bevatten <s> 
+of	er is minstens een item dat de rechter benedenhoek van een doos nauw raakt <s> there is at least one item closely touching bottom right corner
+are	er zijn precies twee blauwe driehoeken die geen enkele rand raken <s> there
+3	er is een doos met 3 items van alle 3 verschillende kleuren en een geel bovenop <s> there is a box with 3 items of all
+a	er is een zwart blok op een zwart blok <s> there is black block on
+items	er is 1 doos met slechts 2 items <s> there is 1 box with only 2
+circle	er is 1 doos met daarin een zwarte driehoek en een zwarte cirkel <s> there is 1 box with a black triangle and black
+a	er is een toren met bovenaan een zwart blok <s> there is one tower with
+and	er is een doos met een zwart vierkant en twee blauwe items <s> there is a box with a black square
+the	er is een doos met 2 items waarvan een een driehoek is die de muur niet raakt <s> there is a box with 2 items of which one is a triangle not touching
+there	er is een zwart blok als de top van een toren met precies drie blokken <s> 
+are	er zijn 2 torens met minimaal 1 geel blok <s> there
+with	er is 1 doos met precies 1 item <s> there is 1 box
+black	er is een doos met items van alleen zwarte en blauwe kleur <s> there is a box with items of only
+there	er is een zwart blok als de top van een toren met vier blokken <s> 
+of	er is een doos met een zwarte cirkel en veel blauwe items <s> there is a box with a black circle and a lot
+</s>	er is precies een toren met een geel blok aan de basis <s> there is exactly one tower with a yellow block at the base
+wall	er is geen item dat de muur van een doos dicht raakt <s> there is no item closely touching a
+touching	er is precies een zwart voorwerp dat de basis raakt <s> there is exactly one black object
+the	er zijn twee torens met bovenaan een blauw blok <s> there are two towers with blue block at
+</s>	er is een doos met een gele driehoek die met de bovenkant de muur raakt <s> there is a box with a yellow triangle touching the wall with its top
+closely	er is geen geel vierkant dat de bodem van een doos dicht raakt <s> there is no yellow square
+tower	er zijn twee torens met niet meer dan twee blokken die even hoog zijn <s> there are two
+</s>	er is een blauw voorwerp dat de basis raakt <s> there is a blue object touching the base
+is	er is een zwart blok op een zwart blok als basis van een toren met drie blokken <s> there
+</s>	de bases van de drie torens zijn allemaal hetzelfde <s> the bases of the three towers are all the same
+black	er is een toren met een zwart blok aan de basis <s> there is a tower with a
+exactly	een van de grijze vierkantjes bevat precies een object <s> one of the grey square contains
+is	er is een doos met slechts een blauw item en minimaal twee zwarte items <s> there
+has	er is een doos met slechts twee items die niet hetzelfde zijn <s> there is a box that
+</s>	er is toren met zwart tweede blok <s> there is tower with black second block
+tower	er is minimaal 1 toren met onderaan een geel blok <s> there is at least 1
+block	er is een blauw blok onder een zwart blok <s> there is a blue
+color	er is tenminste een toren met precies een blok dat blauw van kleur is <s> there is at least one tower with exactly one block which is of blue
+</s>	er is een doos met 6 items van 2 verschillende kleuren waarvan er maximaal 2 gele zijn <s> there is a box with 6 items of 2 different colors of which there are 2 yellow ones at most
+box	er is een doos met een zwart vierkant dat de muur raakt en nog een er bovenop <s> there is a
+blocks	er is 1 toren met alleen blauwe blokken <s> there is 1 tower with only blue
+black	er zijn 2 zwarte driehoeken <s> there are 2
+objects	een van de grijze vierkantjes heeft precies vier objecten <s> one of the grey square has exactly four
+and	er is een doos met slechts 2 gele en blauwe items <s> there is a box with only 2 yellow
+yellow	er is een doos met 2 items waarvan de meeste geel is <s> there is a box with 2 items at most of which one is
+black	er is een zwart blok als basis van een toren met vier blokken <s> there is a
+</s>	er is een doos met twee blauwe items en minimaal twee gele cirkels <s> there is a box with two blue items and at least two yellow circles
+each	er zijn twee blauwe blokken met elkaar verbonden <s> there are two blue blocks attached with
+blocks	de toren met drie blokken heeft bovenaan een blauw blok <s> the tower with three
+which	er is een doos met maximaal 2 items waarvan een een driehoek is <s> there is a box with 2 items at most of
+is	er is minstens 1 zwart vierkant in elke doos <s> there
+square	er is een doos met 1 zwarte cirkel en 1 zwart vierkant <s> there is a box with 1 black circle and 1 black
+of	er is een zwart blok als de top van twee torens <s> there is a black block as the top
+different	er zijn twee blauwe cirkels van verschillende grootte in twee verschillende dozen <s> there are two blue circles of
+yellow	er is een doos met 2 gele driehoeken <s> there is one box with 2
+the	er zijn twee torens met dezelfde hoogte die kleiner zijn dan de derde toren <s> there are two towers with
+bottom	er is een gele cirkel die de bodem van een doos dicht raakt <s> there is a yellow circle closely touching the
+a	er is een doos met precies drie gele items <s> there is
+black	er zijn dozen met gele en zwarte of zwarte en gele items <s> there are boxes with either yellow and black or
+a	er is een doos met een blauw vierkant en een blauwe driehoek <s> there is a box with a blue square and
+with	er is minimaal 1 doos met precies 1 artikel <s> there is at least 1 box
+a	er is een geel item met een zwart item erop <s> there is a yellow item with
+1	er is minimaal 1 toren met 2 blauwe blokken <s> there is at least
+is	er is een toren met drie blokken waar een geel blok aan de voet van de toren staat <s> there is a tower with three blocks where a yellow block
+item	er is minstens 1 blauw item dat een hoek dicht raakt <s> there is at least 1 blue
+tower	er is een toren met blokken van drie verschillende kleuren <s> there is a
+yellow	er is een toren met alleen gele kleurblokken <s> there is one tower with only
+which	er is een toren die precies een blok heeft <s> there is a tower
+there	er is tenminste een toren met precies twee gele blokken <s> 
+tower	een toren heeft een geel blok aan de bovenkant <s> one
+box	er is een doos met 1 zwarte cirkel en 1 zwart vierkant <s> there is a
+</s>	er zijn minstens drie blauwe objecten die de rand niet raken <s> there are atleast three blue objects not touching the edge
+one	een van de grijze vierkantjes bevat precies een zwart object <s> one of the grey square contains exactly
+1	er zijn 2 zwarte driehoeken en 1 zwarte cirkel <s> there are 2 black triangles and
+yellow	er is minimaal 1 doos met 1 geel item en 1 blauw item <s> there is at least 1 box with 1
+black	er is minimaal 1 toren met bovenaan een zwart blok <s> there is at least 1 tower with a
+top	er is een blauw blok als de top van een toren met maximaal drie blokken <s> there is a blue block as the
+the	er is maar een zwart item dat de muur raakt <s> there is only one black item touching
+one	er is een doos met maximaal 3 items van slechts een kleur <s> there is a box with 3 items at most of only
+the	er is een doos met maximaal 2 items waarvan een zwart item de hoek van de doos raakt <s> there is a box with 2 items at most of which a black item is touching the corner of
+top	er is een doos met blauwe en gele items en de gele bovenop <s> there is a box with blue and yellow items and the yellow one on
+of	er is minstens een geel blok als basis van een toren <s> there is at least one yellow block as the base
+items	er is 1 doos met minimaal 3 gele items <s> there is 1 box with at least 3 yellow
+towers	er zijn 2 torens die minstens 1 blauw blok bevatten <s> there are 2
+items	er is een doos met twee gele items en minimaal drie blauwe items <s> there is a box with two yellow items and at least three blue
+there	er zijn 2 zwarte cirkels <s> 
+</s>	het zwarte item zit bovenaan <s> the black item is on top
+different	er is een doos met 3 items maar niet alle 3 verschillende kleuren <s> there is a box with 3 items but not all 3
+there	er is minstens een zwart blok op een blauw blok <s> 
+2	er is een doos met slechts 2 items van verschillende kleur <s> there is a box with only
+items	er zijn 2 blauwe items <s> there are 2 blue
+a	er is tenminste een toren met vier blokken met een blauw blok boven een blauw blok <s> there is at least one tower with four blocks having a blue block over
+colour	er is minimaal 1 doos met minimaal 2 cirkels van dezelfde kleur <s> there is at least 1 box with at least 2 circles of the same
+with	er is een doos met precies vier items inclusief blauwe cirkels <s> there is a box
+least	er is 1 toren met minimaal 2 zwarte blokken <s> there is 1 tower with at
+top	er is een zwart blok als de top van twee torens <s> there is a black block as the
+every	in elke doos zit een zwart item <s> there is a black item in
+1	er is 1 blauwe driehoek en 1 blauw vierkant <s> there is 1 blue triangle and
+items	er is een doos met alleen blauwe en gele items en een groot geel vierkant <s> there is a box with only blue and yellow
+top	er is een zwart blok als de top van een toren met twee blokken <s> there is a black block as the
+top	er is precies een toren met bovenaan een blauw blok <s> there is exactly one tower with a blue block at the
+just	er is 1 doos met slechts 1 item <s> there is 1 box with
+with	er is een doos met 4 gele en een blauwe item <s> there is a box
+</s>	er is een doos met 2 blauwe 2 zwarte en 2 gele items <s> there is a box with 2 blue 2 black and 2 yellow items
+is	er is een toren met precies twee blokken met bovenaan een blauw blok <s> there
+one	slechts een zwart item raakt de muur <s> only
+yellow	er is een doos met vier items en de twee items zijn geel van kleur <s> there is a box with four items and the two items are
+</s>	er is een doos met slechts een blauw vierkant <s> there is a box with only one blue square
+objects	minstens een grijs vierkant heeft precies zeven objecten <s> at least one grey square has exactly seven
+there	er zijn twee zwarte blokken als de top van een toren <s> 
+</s>	er is een blauwe driehoek die de rechterwand van een doos nauw raakt <s> there is a blue triangle closely touching right wall of a box
+with	er is een doos met zes items en een raakt de zijkant <s> there is a box
+box	er is minimaal 1 doos met 2 zwarte cirkels <s> there is at least 1
+with	er is een doos met een blauw vierkant en een cirkel <s> there is a box
+middle	er is tenminste een toren met precies drie blokken met een geel object als middelste blok <s> there is at least one tower with exactly three blocks having a yellow object as a
+is	er is een doos met twee items en de ene is een zwart vierkant <s> there is a box with two items and the one
+is	er is een blauwe toren met precies twee blokken <s> there
+box	er is een doos met een vierkant <s> there is a
+with	er is een doos met precies drie items inclusief blauw vierkant <s> there is a box
+only	er is een grijs vierkant met alleen objecten in blauwe en zwarte kleur <s> there is a grey square with objects of blue and black color
+4	er zijn 4 gele blokken <s> there are
+of	er is een doos met 3 items waarvan er minstens een blauw is <s> there is a box with 3 items
+object	een van de grijze vierkantjes bevat slechts een object dat een gele cirkel is <s> one of the grey square contains only one
+the	er is precies een geel vierkant dat de rand raakt <s> there is exactly one yellow square touching
+a	er is een doos met maximaal 2 items waarvan een een driehoek is <s> there is a box with 2 items at most of which one is
+with	er is een doos met een blauwe cirkel en twee driehoeken <s> there is a box
+of	een van de grijze dozen heeft precies drie objecten waarvan er een een cirkel is <s> one
+a	er is een doos met een geel vierkant en een gele cirkel <s> there is a box with a yellow square and
+are	de basis en de bovenkant van een toren met vier blokken hebben dezelfde kleur <s> the base and top of a four blocks tower
+there	er is minstens een zwart blok op een zwart blok <s> 
+</s>	er zijn precies drie zwarte cirkels die geen enkele rand raken <s> there are exactly three black circles not touching any edge
+which	er is tenminste een toren met precies een blok dat blauw van kleur is <s> there is at least one tower with exactly one block
+tower	er is minstens een blauw blok als de top van een toren <s> there is at least one blue block as the top of a
+a	er is een gele driehoek die de basis raakt <s> there is
+no	er is geen blauwe toren met slechts een blok <s> there is
+in	er is een ander aantal items in de dozen <s> there is a different number of items
+at	er zijn precies twee torens met aan de basis een zwart blok <s> there are exactly two towers with a black block
+exactly	er is 1 toren met precies 4 blokken <s> there is 1 tower with
+objects	een van de grijze vierkantjes bevat precies vier objecten <s> one of the grey square contains exactly four
+is	er is een blauw blok boven het gele blok <s> there
+the	daar is de doos met dezelfde set items <s> there is the box with
+with	er is een doos met een gele driehoek en twee zwarte items <s> there is a box
+box	een van de grijze dozen heeft maar een object <s> one of the grey
+a	er is een doos met items van 3 verschillende kleuren en slechts een blauwe cirkel van gemiddelde grootte <s> there is
+items	er is een doos met 4 items en een zwarte bovenkant <s> there is a box with 4
+blocks	er is maar een blauw blok als de top van een toren met vier blokken <s> there is only one blue block as the top of a tower with four
+is	een van de grijze dozen heeft minder dan drie objecten waarvan er een een vierkant is <s> one of the grey box has less than three objects one of which
+is	er is een grijze doos die alleen objecten van blauwe en zwarte kleur bevat <s> there
+a	er is een toren met een zwarte bovenkant <s> there is tower with
+items	er is een doos met een geel vierkant en twee blauwe items <s> there is a box with a yellow square and two blue
+black	er is een toren met een geel blok boven een zwart blok <s> there is one tower with a yellow block above a
+one	er is precies een toren met alleen zwarte blokken <s> there is exactly
+there	er is een blauw blok op een geel blok <s> 
+touching	er is een zwart vierkant dat de bodem van een doos dicht raakt <s> there is a black square closely
+the	er is minstens een blauwe driehoek die de bodem van een doos dicht raakt <s> there is at least one blue triangle closely touching
+in	er is een blauw blok op een blauw blok in een toren met vier blokken <s> there is a blue block on a blue block
+is	zwart vierkant raakt geen enkele rand <s> black square
+1	er is 1 toren met 3 zwarte blokken bovenop een verschillend gekleurd blok <s> there is
+a	er is 1 toren met een blauw blok aan de basis <s> there is 1 tower with
+with	er is een doos met alleen blauwe en gele items en een groot geel vierkant <s> there is a box
+blue	er is een doos met items van alleen zwarte en blauwe kleur <s> there is a box with items of only black and
+there	er zijn twee dozen met elk vijf items <s> 
+</s>	een van de grijze dozen bevat precies een object dat een zwarte cirkel is <s> one of the grey box contains exactly one object which is a black circle
+is	er is een toren met precies een blok <s> there
+tower	er is 1 toren met onderaan een geel blok <s> there is 1
+and	er is een doos met een gele driehoek een gele cirkel en twee zwarte cirkels <s> there is a box with a yellow triangle a yellow circle
+</s>	er is geen zwart blok boven een blauw blok <s> there is no black block above a blue block
+top	er is precies een blauw blok als de top van een toren met minstens drie blokken <s> there is exactly one blue block as the
+yellow	er is precies een geel vierkant dat geen enkele rand raakt <s> there is exactly one
+square	er is precies een blauw vierkant dat de basis raakt <s> there is exactly one blue
+1	er is minstens 1 toren met een blauw blok aan de basis <s> there is at least
+</s>	er is een doos met items van alleen blauwe en zwarte kleur <s> there is a box with items of only blue and black color
+</s>	er zijn minstens twee torens met dezelfde kleur <s> there are at least two towers with the same color
+</s>	er is een doos met slechts drie zwarte items <s> there is a box that has only three black items
+a	er is een toren met slechts een zwart blok en twee blauwe blokken <s> there is
+the	er is 1 toren met onderaan een zwart blok <s> there is 1 tower with a black block at
+</s>	er is een driehoek die de hoek raakt <s> there is a triangle touching the corner
+the	er is een doos met een zwart item dat de muur raakt en een blauw item er bovenop <s> there is a box with a black item touching
+has	er is een toren die maar een kleur heeft <s> there is a tower which
+a	er is een geel blok als de top van een toren met minstens drie blokken <s> there is a yellow block as the top of
+with	er is een toren met meer dan twee blokken met een geel blok aan de basis <s> there is a tower
+is	er is een doos met een zwart vierkant en een blauwe cirkel <s> there
+a	er is tenminste een toren met een zwart blok aan de basis <s> there is at least one tower with
+the	er zijn minstens twee torens met bovenaan een geel blok <s> there are at least two towers with a yellow block at
+block	er is een toren met een zwart blok boven een blauw blok <s> there is a tower with a black
+two	er zijn precies twee driehoeken die de rand raken <s> there are exactly
+a	de toren met vier blokken heeft een blauw blok boven een geel blok <s> the tower with four blocks has
+1	er is 1 toren met alleen blauwe blokken <s> there is
+</s>	er zijn twee items die de hoek raken <s> there are two items touching the corner
+there	er is een zwart blok als basis van een toren met alleen zwarte en blauwe blokken <s> 
+</s>	er is een doos die een zwarte en blauwe items aan de zijkant van de doos raken <s> there is a box that a black and blue items are touching side of the box
+the	een van de grijze dozen heeft twee cirkels die de basis raken <s> one of the grey box has two circles touching
+the	er is minstens een geel vierkant dat de bodem van een doos dicht raakt <s> there is at least one yellow square closely touching
+black	er is geen zwarte driehoek die de bodem van een doos dicht raakt <s> there is no
+triangle	er is een doos met een driehoek en minimaal een zwarte cirkel <s> there is a box with a
+</s>	er is minstens een zwart item dat de bodem van een doos dicht raakt <s> there is at least one black item closely touching the bottom of a box
+</s>	er is een doos met een zwart item dat de muur raakt en een blauw item er bovenop <s> there is a box with a black item touching the wall and a blue item on top
+3	er is een doos met 3 items van alle 3 verschillende kleuren en een geel bovenop <s> there is a box with
+that	er zijn twee torens met elk twee blauwe blokken <s> there are two towers
+right	er is een zwarte driehoek die de rechterkant raakt <s> there is a black triangle touching the
+closely	er zijn twee vierkanten die de rechtermuur van een doos nauw aanraken <s> there are two squares
+four	de basis en de bovenkant van een toren met vier blokken hebben dezelfde kleur <s> the base and top of a
+there	er is maar 1 toren met minimaal 1 blauw blok <s> 
+black	de toren met drie blokken heeft aan de basis een zwart blok <s> the tower with three blocks has a
+there	er is 1 geel item dat vlak een hoek raakt <s> 
+a	er is een doos met een geel vierkant en twee blauwe items <s> there is a box with
+square	er is een doos met een geel vierkant en twee blauwe items <s> there is a box with a yellow
+triangle	er is een zwarte driehoek die een rand raakt <s> there is one black
+a	er is een doos met een geel item en alleen zwarte items erop <s> there is
+blue	er is een zwart blok als basis van een toren met alleen zwarte en blauwe blokken <s> there is a black block as the base of a tower with only black and
+there	er zitten 4 gele items in 1 doos <s> 
+are	er zijn 3 gele items <s> there
+</s>	de toren met drie blokken heeft een geel blok boven een zwart blok <s> the tower with three blocks has a yellow block over a black block
+and	er is een doos met twee blauwe items en minimaal twee gele cirkels <s> there is a box with two blue items
+there	er is een toren met een zwart blok boven een blauw blok <s> 
+box	er is een grijze doos die alleen objecten van blauwe en zwarte kleur bevat <s> there is a grey
+black	er is een zwarte cirkel die de rand raakt <s> there is a
+there	er is een doos met een zwart vierkant en twee blauwe items <s> 
+of	twee van de drie torens hebben dezelfde basis <s> two out
+box	er is een doos met 3 items en een blauw item raakt de muur <s> there is
+are	er is een doos met 4 items waarvan minimaal 2 blauw en zwart <s> there is a box with 4 items of which at least 2
+there	er is een doos met 3 items waarvan 2 zwart <s> 
+block	er is precies een toren met een blauw blok boven een geel blok <s> there is exactly one tower with a blue
+is	er is een grijze doos met precies vijf objecten <s> there
+blue	er zijn minstens twee blauwe cirkels die geen enkele rand raken <s> there are at least two
+a	er is een doos met een geel vierkant en nog een vierkant <s> there is
+four	er is een toren met vier blokken met een geel blok aan de basis en een ander kleurblok aan de bovenkant <s> there is a tower with
+yellow	er is een doos met slechts 2 zwarte en gele items <s> there is a box with only 2 black and
+there	er zijn slechts twee zwarte vierkanten die de muur raken <s> 
+one	er is precies een geel vierkant dat de bodem van een doos dicht raakt <s> there is exactly
+is	er is 1 geel item dat vlak een hoek raakt <s> there
+there	er is een doos met een blauw vierkant en minimaal twee zwarte items inclusief een cirkel <s> 
+big	er is een grote gele driehoek die de muur niet raakt <s> there is a
+item	er is als doos met slechts een item en het is zwart <s> there is as box with only one
+block	er zijn 2 torens met een zwart blok aan de basis <s> there are 2 towers with a black
+at	er is een doos met een geel item en minimaal 2 zwarte items <s> there is a box with one yellow item and
+box	er is een doos met precies vier items <s> there is a
+exactly	er zijn precies drie gele objecten die geen enkele rand raken <s> there are
+</s>	er is een geel blok als basis van een toren met drie blokken <s> there is a yellow block as the base of a tower with three blocks
+there	er is een blauw blok boven het basisblok <s> 
+with	er is een doos met een gele driehoek van gemiddelde grootte en een zwart vierkant <s> there is box
+is	er is precies een zwart vierkant dat geen enkele rand raakt <s> there
+two	er zijn precies twee gele cirkels die een rand raken <s> there are exactly
+are	er zijn minstens twee gele blokken als de top van een toren <s> there
+with	er is een doos met een geel vierkant en twee cirkels <s> there is a box
+the	geen van de blauwe driehoeken raakt de rand <s> none of the blue triangles are touching
+and	er is 1 doos met alleen blauwe en gele items <s> there is 1 box with only blue
+edge	er zijn precies twee gele cirkels die de rand niet raken <s> there are exactly two yellow circles not touching the
+box	er is een doos met zes items <s> there is a
+three	de toren met drie blokken heeft aan de basis een zwart blok <s> the tower with
+circle	er is een doos met een blauw vierkant en een cirkel <s> there is a box with a blue square and a
+circles	er is een doos met twee blauwe items en minimaal twee gele cirkels <s> there is a box with two blue items and at least two yellow
+with	er zijn precies twee torens met minimaal twee blokken <s> there are exactly two towers
+wall	er is tenminste een zwarte cirkel die de rechtermuur van een doos nauw raakt <s> there is at least one black circle closely touching right
+of	een van de grijze dozen bevat precies zes objecten <s> one
+two	er zijn precies twee torens met aan de basis een zwart blok <s> there are exactly
+black	er zijn twee torens met een zwarte bovenkant <s> there are two towers with a
+there	er is tenminste een grijs vierkant met precies twee objecten <s> 
+a	er is een doos met een blauwe cirkel en een geel vierkant <s> there is
+is	er is een drie blokken toren waarvan de bovenkant geel is <s> there is a three blocks tower that the top
+tower	er is een toren met minimaal drie blokken en elk heeft een geel blok boven een blauw blok <s> there is a
+block	er is een toren met maar een blok en de kleur is geel <s> there is a tower with only one
+with	er is een blauw blok als de top van een toren met maximaal twee blokken <s> there is a blue block as the top of a tower
+is	er is precies een doos met een item <s> there
+object	een van de grijze vierkantjes bevat precies een object <s> one of the grey square contains exactly one
+there	er is een toren met vier blokken met een zwart blok boven een zwart blok <s> 
+with	er is een doos met een blauw item dat de muur raakt en een zwart item er recht bovenop <s> there is a box
+exactly	er is precies een toren met alleen zwarte blokken <s> there is
+</s>	de kleur van een toren met twee blokken is blauw en zwart <s> the color of a two blocks tower is blue and black
+least	er is een doos met minimaal een blauwe driehoek en minimaal een cirkel <s> there is a box with at least one blue triangle and at
+a	er is een toren met een blauw blok, een geel blok en twee zwarte blokken <s> there is
+towers	er zijn slechts twee torens met gele blokken en tenminste een daarvan heeft een geel blok als de top van een toren <s> there are only two
+the	de eerste twee blokken vanaf de voet van een toren zijn zwart <s> the first two blocks from
+black	er is een doos met alleen blauwe en zwarte items <s> there is a box with only blue and
+there	er zijn blauwe blokken in elk vakje met dezelfde positie <s> 
+one	er zijn twee dozen met elk een item <s> there are two boxes with
+a	er is een geel blok als de top van een toren met minimaal twee blokken <s> there is a yellow block as the top of
+with	er is een doos met items van alle 3 verschillende kleuren en een blauw vierkant <s> there is a box
+tower	er is een toren met alleen gele kleurblokken <s> there is one
+black	er is minimaal 1 doos met een zwarte cirkel en een zwarte driehoek <s> there is at least 1 box with a
+circle	er is een blauwe cirkel en minimaal een zwart item <s> there is a blue
+the	de bovenkant van de toren met drie blokken is geel <s> 
+least	er is minstens een toren met slechts een geel blok <s> there is at
+touching	er is een blauw item dat de bodem van een doos dicht raakt <s> there is a blue item closely
+the	er is een doos met vier items en de twee zijn zwart <s> there is a box with four items and
+blocks	de kleur van een toren met twee blokken is blauw en zwart <s> the color of a two
+base	er is tenminste een toren met een zwart blok aan de basis <s> there is at least one tower with a black block at the
+3	er is een doos met items van 3 verschillende kleuren en slechts een blauwe cirkel van gemiddelde grootte <s> there is a box with items of
+a	er is een doos met een geel item en 2 zwarte items die elkaar raken <s> there is
+the	er is een doos met een klein geel vierkantje en het raakt de muur niet <s> there is box with a small yellow square and it is not touching
+exactly	er is precies een blauw item dat de bodem van een doos dicht raakt <s> there is
+is	er is minimaal 1 toren met onderaan een blauw blok <s> there
+a	er is een geel blok over een zwart blok <s> there is a yellow block over
+triangle	er is een doos met meerdere items en de enige zwarte is een driehoek <s> there is a box with multiple items and the only black is a
+a	er is een doos met een gele driehoek en een blauw item <s> there is a box with a yellow triangle and
+a	er is een doos met een zwarte cirkel en veel blauwe items <s> there is a box with
+an	er is een item dat de hoek raakt <s> there is
+there	er zijn precies twee torens met bovenaan een geel blok <s> 
+there	er is een doos met een gele cirkel en minimaal een blauwe driehoek <s> 
+two	er is een doos met een gele driehoek en twee vierkanten <s> there is a box with a yellow triangle and
+is	er is een doos met twee zwarte driehoeken en een gele cirkel <s> there
+box	er is een doos met minimaal een blauwe cirkel en een blauwe driehoek <s> there is a
+block	er is geen zwart blok als basis van een toren met precies drie blokken <s> there is no black
+is	er is 1 doos met precies 1 blauw item en 1 geel item <s> there
+only	er is 1 toren met slechts 1 blauw blok en slechts 1 zwart blok <s> there is 1 tower with only 1 blue block and
+towers	er zijn minstens twee torens met bovenaan een geel blok <s> there are at least two
+block	er is 1 toren met 1 zwart blok en 1 geel blok <s> there is 1 tower with 1 black
+yellow	een van de grijze dozen bevat precies twee gele vierkantjes <s> one of the grey box contains exactly two
+touching	gele cirkel van gemiddelde grootte raakt de muur <s> yellow circle of medium size is
+the	er zijn twee blauwe blokken als de top van een toren <s> there are two blue blocks as
+the	de toren met vier blokken heeft een zwart blok over het zwarte blok <s> 
+least	er is tenminste een blauw blok als basis van een toren met tenminste twee blokken <s> there is at least one blue block as the base of a tower with at
+is	er is 1 toren met minimaal 3 blauwe blokken <s> there
+at	er is een toren met een zwart blok aan de basis <s> there is one tower with a black block
+exactly	er is een toren met precies een blauw blok dat bovenaan staat <s> there is a tower with
+yellow	alle gele cirkels raken de rand <s> all
+box	er is een doos met een zwarte driehoek, minstens een blauwe cirkel en gele items <s> there is a
+two	er zijn minstens twee zwarte blokken als basis van een toren met minstens twee blokken <s> there are at least two black blocks as the base of a tower with at least
+a	er is een doos met twee zwarte driehoeken en een gele cirkel <s> there is a box with two black triangles and
+there	er is precies een zwarte driehoek die geen enkele rand raakt <s> 
+one	een van de grijze dozen bevat precies een object <s> one of the grey box contains exactly
+square	er is een doos waar een zwart en blauw vierkant elkaar raken <s> there is a box where a black and blue
+is	er is een geel blok dat aan een blauw blok is bevestigd <s> there is a yellow block that
+the	er is een toren met meer dan twee blokken en het bovenste blok is geel <s> there is a tower with more than two blocks and
+towers	er zijn twee torens met dezelfde hoogte die kleiner zijn dan de derde toren <s> there are two
+and	er is een doos met een gele cirkel en veel zwarte items <s> there is a box with a yellow circle
+a	er is een doos die een zwarte en blauwe items aan de zijkant van de doos raken <s> there is a box that
+objects	een van de grijze dozen heeft precies vijf objecten <s> one of the grey box has exactly five
+box	er is een geel item dat de bodem van een doos dicht raakt <s> there is a yellow item closely touching the bottom of a
+yellow	Alle drie torens bevatten 1 geel blok <s> ll three towers contain 1
+different	er is een doos met 4 items van 2 verschillende kleuren <s> there is a box with 4 items of 2
+there	er zijn twee torens die bovenaan een geel blok hebben <s> 
+tower	er is maar 1 toren met bovenaan een zwart blok <s> there is only 1
+touching	er zijn 3 gele items die de muur raken <s> there are 3 yellow items
+of	er is geen zwart item dat de bodem van een doos dicht raakt <s> there is no black item closely touching the bottom
+tower	er is een toren met twee blauwe blokken <s> there is one
+corner	er is een zwarte cirkel die een hoek van een doos dicht raakt <s> there is a black circle closely touching a
+block	er is een blauw blok onder een zwart blok <s> there is a blue
+yellow	er is minimaal 1 doos met alleen zwarte en gele items <s> there is at least 1 box with only black and
+top	er is een doos met alle 3 verschillende kleuren en een zwarte driehoek die met de bovenkant de muur raakt <s> there is a box with all 3 different colors and a black triangle touching the wall with its
+is	er is een doos met 3 items en een zwarte raakt de muur <s> there is a box with 3 items and a black one
+</s>	er is een doos met een zwarte en gele vierkantjes <s> there is a box that has one black and yellow squares
+blocks	er is een toren met drie blokken met ten minste twee gele blokken <s> there is a tower with three blocks having atleast two
+yellow	er zijn dozen met gele en zwarte of zwarte en gele items <s> there are boxes with either
+</s>	er is een vierkant en een cirkel die nauw een hoek raakt <s> there is a square and a circle closely touching a corner
+</s>	er is een groot blauw vierkant dat de muur raakt <s> there is a big blue square touching the wall
+there	er is 1 toren met een blauw blok aan de basis <s> 
+</s>	er is een doos met twee gele items en minimaal drie blauwe items <s> there is a box with two yellow items and at least three blue items
+</s>	de kleur van de drie blokken van een toren na de basis zijn allemaal hetzelfde <s> the color of the three blocks of a tower after the base are all the same
+black	de toren met drie objecten heeft bovenaan een zwart blok <s> the tower with three objects has a
+with	een toren met 2 blauwe blokken <s> one tower
+blocks	er is geen toren met precies twee blokken <s> there is no tower with exactly two
+triangle	er is een doos met een zwarte driehoek een geel vierkant en een cirkel <s> there is a box with a black
+block	er is maar 1 toren met bovenaan een zwart blok <s> there is only 1 tower with a black
+top	er is een geel blok als de top van een toren met minimaal twee blokken <s> there is a yellow block as the
+is	er is minstens een toren met een blauw blok aan de basis <s> there
+the	een van de grijze vierkantjes heeft drie cirkels <s> one of
+box	er is 1 doos met precies 1 cirkel erin <s> there is 1
+tower	er is een toren met alleen zwarte blokken <s> there is a
+exactly	een van de grijze doos heeft precies drie objecten van minstens twee verschillende kleuren <s> one of the grey box has
+a	er is een doos met drie blauwe items <s> there is
+have	de toren met twee blokken heeft blokken van dezelfde kleur op elkaar <s> the tower with two blocks
+box	er is een doos met maximaal 3 items van zwarte en gele kleur <s> there is a
+yellow	er is een geel blok boven een zwart blok <s> there is a
+</s>	er is een geel vierkant bovenop een ander geel vierkant dat de muur raakt <s> there is a yellow square on top of another yellow square touching the wall
+yellow	er is een doos met blauwe en gele driehoeken <s> there is a box which has a blue and
+tower	er is precies een blauw blok als de top van een toren <s> there is exactly one blue block as the top of a
+base	er is een zwart blok als basis van een toren met vier blokken <s> there is a black block as the
+one	een van de grijze dozen heeft precies vijf objecten <s> 
+</s>	er is een doos met twee cirkels en een gele driehoek <s> there is a box with two circles and a yellow triangle
+base	er is een gele cirkel die de basis raakt <s> there is a yellow circle touching the
+object	het grijze vak met het minste aantal objecten bevat slechts een zwart object <s> the grey box with least number of
+tower	er is een toren met vier blokken met een zwart blok boven een zwart blok <s> there is a
+is	er is een doos met precies twee blauwe items, precies twee gele items en slechts een zwart item <s> there
+one	er is een doos met slechts een vierkant en het raakt de muur <s> there is a box with only
+touching	er is een zwart vierkant dat de muur van een doos nauw raakt <s> there is a black square closely
+box	elk grijs vak bevat een even aantal objecten <s> each grey
+blue	er is een doos met drie blauwe items en twee zwarte items <s> there is a box which has three
+block	er is een blauw blok boven het gele blok <s> there is as blue block above the yellow
+only	er is een toren met slechts twee blokken <s> there is a tower with
+touching	er is precies een blauw vierkant dat de muur raakt <s> there is exactly one blue square
+</s>	er is een doos met een geel item een zwarte driehoek een zwarte cirkel en minimaal een blauw vierkant <s> there is a box with a yellow item a black triangle a black circle and at least one blue square
+items	er zijn twee items die de bodem van een doos nauw aanraken <s> there are two
+</s>	er zijn minimaal 2 torens met 1 zwart blok <s> there are at least 2 towers with 1 black block
+circle	er is precies op de zwarte cirkel die geen enkele rand raakt <s> there is exactly on black
+exactly	er is 1 doos met precies 1 item <s> there is 1 box that has
+box	er is 1 doos met precies 1 item <s> there is 1
+yellow	er is een doos met een geel vierkant en minimaal een gele cirkel <s> there is a box with a
+is	er is 1 toren met precies 2 zwarte blokken <s> there
+exactly	er is 1 doos met precies 1 vierkant item <s> there is 1 box with
+</s>	er is 1 toren met bovenaan 1 geel blok <s> there is 1 tower with 1 yellow block at the top
+blue	er is minstens een blauwe cirkel die de rand raakt <s> there is atleast one
+yellow	er is 1 doos met alleen blauwe en gele items <s> there is 1 box with only blue and
+same	twee van de drie torens hebben dezelfde basis <s> two out of the three towers have the
+</s>	er is minstens een doos met een zwarte cirkel en een blauw vierkant <s> there is at least one box which has a black circle and a blue square
+two	er is een geel blok als de top van een toren met minimaal twee blokken <s> there is a yellow block as the top of a tower with at least
+blocks	er is een toren met meer dan twee blokken en het bovenste blok is geel <s> there is a tower with more than two
+as	er is een zwart blok op een zwart blok als basis van een toren met drie blokken <s> there is a black block on a black block
+of	er is een toren met alleen een of meer blauwe blokken <s> there is a tower with one or more blocks
+item	er is 1 doos met precies 1 item <s> there is 1 box that has exactly 1
+square	tenminste een van de vierkante dozen bevat een oneven aantal objecten <s> at least one of the
+three	er is een blauw blok als basis van een toren met drie blokken <s> there is a blue block as the base of a tower with
+and	er is een doos met zes items en de drie items zijn twee blauwe driehoeken en een blauw vierkant <s> there is a box that has six item and the three items are two blue triangles
+has	er zijn twee torens met twee blokken van dezelfde kleur die aan elkaar zijn bevestigd <s> there are two towers that
+is	er is een toren met een blauw blok aan de basis <s> there
+same	er zijn twee dozen met hetzelfde aantal objecten en drie soorten kleuren <s> there are two boxes which has the
+circle	er zijn 2 zwarte cirkelvormen <s> there are 2 black
+is	er is een doos met een zwart vierkant en minimaal een zwarte driehoek <s> there
+there	er is een doos met slechts vijf items en de kleur van de items is blauw en zwart <s> 
+with	er is een doos met een zwarte cirkel en 2 zwarte driehoeken <s> there is a box
+a	er is een doos met een zwart vierkant een blauwe cirkel en drie gele items <s> there is a box with
+is	er is een toren met een zwart blok boven een blauw blok <s> there
+is	er is een zwart vierkant dat de hoek raakt <s> there
+tower	de toren met vier blokken heeft een zwart blok boven een blauw blok <s> the
+2	er is een doos met items van 2 verschillende kleuren en precies 2 gele items <s> there is a box with items of
+circles	er is minimaal 1 doos met minimaal 2 cirkels van dezelfde kleur <s> there is at least 1 box with at least 2
+is	er is minstens een blauw vierkant dat geen enkele rand raakt <s> there
+is	er is een toren en de kleur van het tweede en derde blok is zwart <s> there
+</s>	er is een toren met drie blokken met ten minste twee gele blokken <s> there is a tower with three blocks having atleast two blocks of yellow color
+only	er is een doos met slechts drie zwarte items <s> there is a box that has
+is	er is een item dat de bodem van een doos nauw raakt <s> there
+wall	er is geen blauw vierkant dat de rechtermuur van een doos nauw raakt <s> there is no blue square closely touching right
+</s>	er is een doos met 3 items maar niet alle 3 verschillende kleuren <s> there is a box with 3 items but not all 3 different colors
+of	een van de grijze vierkantjes bevat precies een object <s> one
+at	er is een doos met minimaal een blauwe driehoek en minimaal drie gele items <s> there is a box with
+are	er zijn precies twee zwarte objecten die de basis raken <s> there
+exactly	er is 1 doos met precies 1 geel item en 1 blauw item <s> there is 1 box with
+any	er is een driehoek die een rand raakt <s> there is one triangle touching
+2	er zijn 2 zwarte driehoeken en 1 zwarte cirkel <s> there are
+exactly	er zijn precies vier objecten die een rand raken <s> there are
+box	er is een doos met 2 items waarvan de meeste geel is <s> there is a
+is	er is een doos met 2 items waarvan 1 een blauw vierkant is <s> there
+colors	er zijn twee dozen met hetzelfde aantal objecten en drie soorten kleuren <s> there are two boxes which has the same number of objects and three kinds of
+blue	er is een blauw blok op een geel blok <s> there is a
+blue	er is een blauwe toren met minstens twee blokken <s> there is a
+there	er is een geel vierkant bovenop een ander geel vierkant dat de muur raakt <s> 
+tower	er is 1 toren die precies 1 blok heeft <s> there is 1
+blue	er is een doos met een blauwe cirkel en een blauw vierkant <s> there is a box with a blue circle and a
+of	er is maar een blauw blok als de top van een toren <s> there is only one blue block as the top
+an	er is precies een geel voorwerp dat een rand raakt <s> there is exactly one yellow object is touching
+blocks	daar een 5 blauwe blokken <s> there a 5 blue
+touching	er is geen zwarte driehoek die de rechterwand van een doos nauw raakt <s> there is no black triangle closely
+</s>	er is 1 toren met slechts 1 zwart blok en 1 geel blok <s> there is 1 tower with only 1 black block and 1 yellow block
+the	er is een blauwe cirkel die bijna de hoek raakt <s> there is a blue circle nearly touching
+the	het tweede blok vanaf de voet van een toren is blauw <s> 
+yellow	er is geen gele cirkel die een muur van een doos dicht raakt <s> there is no
+is	er is een zwarte driehoek die de bodem van een doos nauw raakt <s> there
+yellow	er zijn twee torens met een geel blok aan de basis <s> there are two towers with a
+yellow	er zijn twee torens die minstens 1 geel blok bevatten <s> there are two towers that contain at least 1
+</s>	er is een doos met precies drie items <s> there is a box with exactly three items
+3	items van alle 3 verschillende kleuren raken de muur <s> items of all
+of	er is precies een blauw blok als basis van een toren <s> there is exactly one blue block as the base
+</s>	er is 1 doos met precies 1 blauwe driehoek <s> there is 1 box with exactly 1 blue triangle
+three	een van de grijze dozen heeft precies drie objecten waarvan er een een cirkel is <s> one of the grey box has exactly
+tower	er is een toren met twee blokken waarvan de basis blauw is en de bovenkant geel <s> there is a
+</s>	er is een blauw blok onder een geel blok <s> there is a blue block below a yellow block
+</s>	er is een doos met drie items die de zijkant raken <s> there is a box that has three items are touching the side
+a	er is een doos met twee zwarte driehoeken en een gele cirkel <s> there is
+</s>	Alle drie torens hebben aan de basis hetzelfde kleurblok <s> ll the three towers have the same color block at the base
+</s>	er is een zwart blok dat tussen de twee blokken zit dat niet zwart is <s> there is a black block that is between the two blocks that is not black
+are	er zijn twee zwarte voorwerpen die de zijkant raken <s> there
+with	er is minstens een doos met precies vier items <s> there is at least one box
+block	er zijn twee torens met een blauw blok aan de basis <s> there are two towers with a blue
+2	een doos heeft 2 zwarte driehoeken <s> one box has
+has	er is een doos met twee gele vierkantjes <s> there is a box that
+box	er is een blauw vierkant dat de bodem van een doos dicht raakt <s> there is a blue square closely touching the bottom of a
+block	er is tenminste een toren met een zwart blok boven het gele blok <s> there is at least one tower with a black
+the	er is een doos met 2 items en een zwarte raakt de muur <s> there is a box with 2 items and a black one is touching
+wall	er is een geel vierkant dat de rechtermuur van een doos nauw raakt <s> there is a yellow square closely touching right
+a	er is een doos met een blauw vierkant een gele cirkel en minimaal een zwarte cirkel <s> there is a box with a blue square
+with	er is een toren met twee blokken waarvan minstens een blok geel is <s> there is one tower
+three	er is een doos met minimaal een blauwe cirkel en minimaal drie driehoeken <s> there is a box with at least one blue circle and at least
+box	er zit maar 1 doosje met gele driehoekjes in <s> there is only 1
+edge	er zijn twee gele objecten die de rand raken <s> there are two yellow objects touching the
+is	er is 1 toren met een blauw blok aan de basis <s> there
+is	er is een doos met 4 items waarvan de meeste 2 zwart zijn <s> there
+tower	er is een zwart blok op een zwart blok als basis van een toren met drie blokken <s> there is a black block on a black block as the base of a
+of	er is tenminste een doos waarvan een van de items zwart is <s> there is at least one box that has one
+</s>	er zit 1 doosje met daarin precies 1 zwarte cirkel <s> there is 1 box with exactly 1 black circle in it
+with	er is een doos met een zwart vierkant en een blauwe cirkel <s> there is a box
+four	er is een toren met vier blokken waarvan twee zwarte <s> there is a tower with
+grey	een van de grijze dozen heeft precies vijf objecten <s> one of the
+block	er is een zwart blok dat tussen twee gele blokken zit <s> there is a black
+items	er is een doos met minimaal twee items en een zwart item er bovenop <s> there is a box with at least two
+is	er is geen zwart blok als basis van een toren met vier blokken <s> there
+as	er is tenminste een geel blok als de top van een toren met precies drie blokken <s> there is at least one yellow block
+of	de voet van de toren met twee blokken is zwart <s> the base
+least	er zijn minstens twee gele blokken als de top van een toren <s> there are at
+exactly	er is een doos met items van 2 verschillende kleuren en precies 2 gele items <s> there is a box with items of 2 different colors and
+third	er is een toren en de kleur van het tweede en derde blok is zwart <s> there is a tower and the color of the second and
+the	er is een gele cirkel die de zijkant raakt <s> there is a yellow circle touching
+and	er is een doos met een blauw vierkant en een blauwe driehoek <s> there is a box with a blue square
+square	er is minstens een doos met een zwarte cirkel en een blauw vierkant <s> there is at least one box which has a black circle and a blue
+yellow	er is een zwart blok onder een geel blok <s> there is a black block underneath a
+it	er is een doos met een item en deze is zwart <s> there is a box with one item and
+any	er is precies een zwarte cirkel die geen enkele rand raakt <s> there is exactly one black circle not touching
+block	er is 1 toren met bovenaan een blauw blok <s> there is 1 tower with a blue
+black	er is een zwarte driehoek die bijna de zijkant raakt <s> there is a
+the	er is een toren met bovenaan een geel blok en onderaan een blauw blok <s> there is a tower with a yellow block at
+most	er is een doos met 4 items waarvan de meeste 2 zwart zijn <s> there is a box with 4 items at
+</s>	er is een blauw blok als de top van een toren met maximaal drie blokken <s> there is a blue block as the top of a tower with at most three blocks
+box	er is 1 doos met drie items van dezelfde kleur <s> there is 1
+a	er is een toren met bovenaan een geel blok en onderaan een blauw blok <s> there is
+are	Alle zwarte vierkanten raken de rand <s> ll black squares
+black	er is een zwart vierkant dat de hoek raakt <s> there is a
+there	er is 1 toren met 2 zwarte blokken op elkaar gestapeld <s> 
+touching	er zijn drie zwarte cirkels die geen enkele rand raken <s> there are three black circles not
+there	er is een zwart vierkant dat dicht bij een hoek van een doos ligt <s> 
+1	er is 1 toren met minimaal 1 geel en 1 zwart blok <s> there is 1 tower with at least 1 yellow and
+of	er is een zwart blok als basis van een toren met vier blokken <s> there is a black block as the base
+</s>	er zijn precies drie gele objecten die een rand raken <s> there are exactly three yellow objects touching any edge
+square	er is een zwart vierkant dat een rand raakt <s> there is a black
+a	er is een doos met twee zwarte cirkels <s> there is
+are	er zijn twee grijze vierkanten met een zwart voorwerp dat de onderste basis raakt <s> there
+exactly	er zijn precies twee cirkels die de bodem van een doos nauw aanraken <s> there are
+one	er is een doos met items van 3 verschillende kleuren en 2 zwarte items waarvan er tenminste een een driehoek is <s> there is a box with items of 3 different colors and 2 black items with at least
+1	er zijn 2 dozen met minimaal 1 zwarte cirkel <s> there are 2 boxes with at least
+2	er zijn 2 dozen met minimaal 1 geel item <s> there are
+</s>	er is een doos met slechts 2 items van zwarte en blauwe kleur <s> there is a box with only 2 items of black and blue color
+</s>	er is een doos met een driehoek en minimaal twee cirkels <s> there is a box with a triangle and at least two circles
+box	er is geen zwart item dat de bodem van een doos dicht raakt <s> there is no black item closely touching the bottom of a
+1	er is 1 toren met alleen zwarte blokken <s> there is
+with	er is een toren met precies een blok <s> there is a tower
+and	er is een doos met een zwarte cirkel en minstens een zwarte vierkant <s> there is a box with a black circle
+block	er is een toren die maar een blok heeft <s> there is a tower which has only one
+exactly	een van de grijze doos bevat precies drie objecten waarvan er twee zwart zijn en een blauw <s> one of the grey box contains
+objects	een van de grijze boxen bevat objecten waarvan precies twee van de objecten zwart zijn <s> one of the grey box contains objects where exactly two of the
+black	er zijn precies twee zwarte objecten die de rand raken <s> there are exactly two
+touching	er is een doos met een blauw item dat een geel item nauw raakt <s> there is a box with a blue item closely
+are	er is een doos met 3 items waarvan 2 geel <s> there is a box with 3 items of which 2
+a	er is een blauw blok als basis van een toren met minimaal twee blokken <s> there is a blue block as the base of
+has	er is tenminste een toren met een blauw blok boven een geel blok <s> there is at least one tower which
+yellow	er is een klein geel vierkant dat de muur raakt <s> there is a small
+box	er is een doos met een voorwerp <s> there is a
+has	er is een doos met drie items en de drie items hebben verschillende kleuren <s> there is a box with three items and the three items
+four	er is een toren met vier blokken zonder bovenaan een geel blok <s> there is a tower with
+is	er is een doos met twee gele vierkantjes <s> there
+blocks	er is minstens een toren met slechts vier blokken <s> there is at least one tower with only four
+multiple	er is een doos met meerdere items en de vier items zijn zwart <s> there is a box with
+a	daar een 5 blauwe blokken <s> there
+</s>	tenminste een van de grijze vierkantjes bevat exact een object <s> at least one of the grey square contains exactly one object
+tower	er is een blauw blok als de top van een toren <s> there is a blue block as the top of a
+only	er is als doos met slechts een item en het is zwart <s> there is as box with
+are	er zijn 2 dozen met minimaal 1 geel item <s> there
+boxes	Alle drie grijze vakken bevatten objecten in even of oneven getallen <s> ll the three grey
+block	er is tenminste een toren met precies twee blokken met bovenaan een blauw blok <s> there is at least one tower with exactly two blocks with a blue
+one	er is minstens een blauw blok als basis van een toren <s> there is at least
+the	er zijn twee zwarte blokken als basis van een toren met minstens twee blokken <s> there are two black blocks as
+</s>	er is 1 doos met 2 zwarte vierkantjes <s> there is 1 box with 2 black squares
+same	er zijn twee torens met niet meer dan twee blokken die even hoog zijn <s> there are two tower with not more than two blocks that are the
+which	er is maar een toren met een tweede zwart blok <s> there is only one tower
+one	er is een doos met slechts een zwart item <s> there is a box with only
+black	de top van de drie torens zijn twee blauwe en een zwarte blokken <s> the top of the three towers are two blue and one
+is	er is een doos met 3 kleine items van alle 3 verschillende kleuren <s> there
+blocks	er is een blauw blok als de top van een toren met maximaal drie blokken <s> there is a blue block as the top of a tower with at most three
+touching	er zijn precies vier objecten die een rand raken <s> there are exactly four objects
+is	er is 1 toren met een blauw blok in het midden <s> there
+blue	er is 1 toren met 3 blauwe blokken <s> there is 1 tower with 3
+blue	er zijn twee torens met een blauw blok boven een geel blok <s> there are two towers with a
+and	er is een doos met zes items en een raakt de zijkant <s> there is a box with six items
+objects	er zijn precies drie zwarte objecten die geen enkele rand raken <s> there are exactly three black
+black	er zit minstens 1 zwart blok in elke doos <s> there is at least 1
+blocks	er zijn 2 zwarte blokken <s> there are 2 black
+bottom	er zijn twee blauwe items die de bodem van een doos nauw aanraken <s> there are two blue items closely touching the
+that	er is een doos met slechts een item dat geen blauwe driehoek of een blauw vierkant is <s> there is a box with only one item
+</s>	er is een zwart blok onder een geel blok <s> there is a black block bellow a yellow block
+top	er zijn twee torens met een zwarte bovenkant <s> there are two towers with a black
+2	er is een doos met 2 items waarvan de meeste geel is <s> there is a box with
+each	er zijn twee dozen met meerdere items en elk heeft twee zwarte item <s> there are two boxes with multiple items and
+</s>	er is een doos met 5 items van 2 verschillende kleuren <s> there is a box with 5 items of 2 different colors
+having	er is tenminste een toren met precies drie blokken met een geel object als middelste blok <s> there is at least one tower with exactly three blocks
+</s>	een van de grijze dozen heeft precies drie objecten <s> one of the grey box has exactly three objects
+items	er is een doos met items van 2 verschillende kleuren waarvan er maar een blauw is <s> there is a box with
+a	er is een doos met 3 items maar niet alle 3 verschillende kleuren <s> there is
+any	er zijn precies twee gele cirkels die een rand raken <s> there are exactly two yellow circles touching
+the	er is tenminste een toren met precies vier blokken met een zwart blok aan de basis en een blauw blok aan de bovenkant <s> there is at least one tower with exactly four blocks having black block at the base and blue block at
+and	er is een doos met twee zwarte driehoeken en een gele cirkel <s> there is a box with two black triangles
+wall	er is een doos met 3 items en een blauw item raakt de muur <s> there is box with 3 items and a blue item touching the
+is	er is een gele cirkel die de muur raakt <s> there
+</s>	er is een blauw blok als basis van een toren met minstens drie blokken <s> there is a blue block as the base of a tower with at least three blocks
+there	er zijn twee torens met dezelfde basiskleur die niet blauw is <s> 
+towers	twee torens hebben dezelfde hoogte en dezelfde topkleur <s> two
+a	de basis van een toren met vier blokken is geel <s> the base of
+there	er is een toren met vier blokken met bovenaan het blauwe blok <s> 
+yellow	er is een doos met een zwart vierkant een blauwe cirkel en meer dan twee gele items <s> there is a box with a black square a blue circle and more than two
+a	er is een doos met 5 items <s> there is
+blue	er is 1 toren met bovenaan 1 blauw blok <s> there is 1 tower with 1
+yellow	er is een doos waar een zwart en geel vierkant elkaar raken <s> there is a box where a black and
+yellow	er zit 1 doos met daarin maar 1 geel item <s> there is 1 box with only 1
+black	er is een doos met een vierkant en een driehoek die zwart zijn <s> there is a box that has one square and one triangle that are
+</s>	er is een toren met een enkel blok zwarte kleur <s> there is one tower with has a single block of black color
+as	er is een blauw blok als basis van een toren met precies drie blokken <s> there is a blue block
+items	er is minimaal 1 doos met 2 blauwe items <s> there is at least 1 box with 2 blue
+with	er is tenminste een toren met een enkel blok dat van blauwe kleur is <s> there is at least one tower
+1	1 toren heeft een geel blok aan de basis <s> 
+a	er is een driehoek die de rechterwand van een doos nauw raakt <s> there is a triangle closely touching right wall of
+which	er is een toren met een enkel object dat een blauwe kleur heeft <s> there is one tower with a single object
+box	In elk van de dozen zit een geel item dat de lijn van de doos raakt <s> ll of the boxes has a yellow item touching the line of the
+items	er is een doos met drie items die twee zwarte en een blauwe zijn <s> there is box with three
+yellow	er is een gele cirkel die de bodem van een doos dicht raakt <s> there is a
+a	er is een zwart blok boven een blauw blok <s> there is
+</s>	er is een toren met precies twee blokken waarvan beide blokken dezelfde kleur hebben <s> there is a tower with exactly two blocks where both blocks are of same color
+exactly	er is precies een zwart vierkant dat de basis raakt <s> there is
+a	er is een toren waar slechts 2 blokken dezelfde kleur hebben <s> there is
+</s>	er is 1 doos met precies 2 items <s> there is 1 box with exactly 2 items
+two	er is precies een geel blok als basis van een toren met minimaal twee blokken <s> there is exactly one yellow block as the base of a tower with at least
+there	er is 1 toren met minimaal 2 zwarte blokken <s> 
+towers	er zijn twee torens met minimaal drie blokken <s> there are two
+a	er is een vierkant en een cirkel die nauw een hoek raakt <s> there is a square and a circle closely touching
+block	er is precies een toren met een geel blok aan de basis <s> there is exactly one tower with a yellow
+base	er zijn twee zwarte blokken als basis van een toren <s> there are two black blocks as the
+with	er is een doos met 3 items van alleen blauwe en gele kleur <s> there is a box
+square	er is een doos met een gele driehoek van gemiddelde grootte en een zwart vierkant <s> there is box with a yellow triangle of medium size and a black
+a	er is een toren met een geel blok en drie andere blokken <s> there is a tower with
+items	er is 1 doos met minimaal 2 gele items <s> there is 1 box with at least 2 yellow
+there	er zijn 2 torens met alleen blauwe blokken <s> 
+a	er is een doos met items van alle 3 verschillende kleuren en een blauwe cirkel raakt de muur <s> there is a box with items of all 3 different colors and
+is	er is precies een toren met een zwart blok aan de basis <s> there
+</s>	er is een doos met items van 2 verschillende kleuren waarvan er maar een blauw is <s> there is a box with items of 2 different colors of which only one is blue
+black	er is een doos met 1 zwarte driehoek en 1 zwart vierkant <s> there is a box with 1 black triangle and 1
+a	er is een doos met 2 zwarte items die elkaar niet raken <s> there is
+a	er is een toren met vier blokken met bovenaan een zwart blok <s> there is a tower with four blocks having
+there	er is een geel blok tussen zwarte blokken <s> 
+5	er zijn 5 blauwe items <s> there are
+</s>	er is geen item dat de bodem van een doos dicht raakt <s> there is no item closely touching the bottom of a box
+black	er is een doos met 2 blauwe 2 zwarte en 2 gele items <s> there is a box with 2 blue 2
+a	er is een kleine zwarte cirkel die de muur niet raakt <s> there is
+</s>	er is een doos met alleen gele en blauwe items <s> there is a box with only yellow and blue items
+there	er is geen doos met precies een geel item en precies twee blauwe items <s> 
+there	er is geen geel blok als basis van een toren <s> 
+is	er is een doos met 2 zwarte en 2 gele items <s> there
+</s>	er is een doos met minimaal twee zwarte cirkels en precies een blauwe driehoek <s> there is a box with at least two black circles and exactly one blue triangle
+two	er zijn twee torens met een zwart blok boven een blauw blok <s> there are
+</s>	er is een zwart voorwerp dat de muur raakt <s> there is a black item touching the wall
+black	er is precies een zwart voorwerp dat de rand raakt <s> there is exactly one
+with	er is tenminste een toren met vier blokken met een blauw blok boven een blauw blok <s> there is at least one tower
+box	een van de grijze dozen bevat precies zes objecten waarvan een van de objecten een gele cirkel is <s> one of the grey
+the	er is een toren waarvan het tweede blok vanaf de basis geel is <s> there is a tower which is
+is	er is minstens een item dat de rechter benedenhoek van een doos nauw raakt <s> there
+are	er zijn 2 torens die minstens 1 geel blok bevatten <s> there
+touching	er is precies een vierkant dat een rand raakt <s> there is exactly one square
+</s>	er is een doos met een driehoek en minimaal een zwarte cirkel <s> there is a box with a triangle and at least one black circle
+only	er is een doos met alleen gele items <s> there is a box with
+box	er is een doos met drie zwarte items en een geel item <s> there is a
+a	er is een doos met een gele cirkel die de muur raakt <s> there is a box with
+touching	er is precies een geel vierkant dat de rand raakt <s> there is exactly one yellow square
+top	er is een doos met minimaal twee items en een zwart item er bovenop <s> there is a box with at least two items and a black item on
+</s>	er zijn twee blauwe voorwerpen die de rechtermuur van een doos nauw aanraken <s> there are two blue items closely touching right wall of a box
+a	er is een toren met vier blokken met een zwart blok boven een zwart blok <s> there is a tower with four blocks having
+triangles	er is een doos met minimaal een geel vierkant en minimaal twee driehoeken <s> there is a box with at least one yellow square and at least two
+only	er is een doos met slechts een item <s> there is as box with
+box	er is een doos die maar een vorm heeft <s> there is a
+different	er zijn 2 dozen met items van 2 verschillende kleuren <s> there are 2 boxes with items of 2
+is	er is geen geel blok als basis van een toren met minstens twee blokken <s> there
+exactly	er is tenminste een toren met precies drie blokken met een geel object als middelste blok <s> there is at least one tower with
+</s>	er is een doos met minstens 3 items en een blauwe die de muur raakt <s> there is a box with at least 3 items and a blue one touching the wall
+two	een van de grijze doos heeft precies twee objecten waarvan er een een blauwe cirkel is <s> one of the grey box has exactly
+the	er is een zwarte driehoek die de bodem van een doos nauw raakt <s> there is a black triangle closely touching
+</s>	er zijn minstens twee torens met een zwart blok aan de basis <s> there are at least two towers with a black block at the base
+top	de top van de drie torens zijn twee blauwe en een zwarte blokken <s> the
+box	er is een doos met een driehoek en minimaal twee cirkels <s> there is a
+square	er is een geel vierkant dat de hoek raakt <s> there is a yellow
+there	er is een doos met een zwart item dat de muur raakt en een ander zwart item erop <s> 
+item	er is een item dat de bodem van een doos nauw raakt <s> there is an
+a	er is een blauw blok op een geel blok <s> there is a blue block on
+there	er is 1 toren met 2 zwarte blokken <s> 
+tower	er is geen zwart blok als basis van een toren met precies drie blokken <s> there is no black block as the base of a
+box	er is een doos met 4 items waarvan er 3 geel zijn <s> there is a
+touching	er is een blauwe cirkel die de rand niet raakt <s> there is a blue circle not
+block	de toren met drie blokken heeft een geel blok boven een zwart blok <s> the tower with three blocks has a yellow
+edge	geen van de gele driehoeken raakt de rand <s> none of the yellow triangles are touching the
+four	er is een toren met vier blokken met een zwart blok boven een zwart blok <s> there is a tower with
+one	er is precies een zwart voorwerp dat de basis raakt <s> there is exactly
+black	er is een doos met een gele driehoek van gemiddelde grootte en een zwart vierkant <s> there is box with a yellow triangle of medium size and a
+there	er zijn 3 zwarte items <s> 
+a	er is een doos met 1 blauw en 1 geel item <s> there is
+yellow	er is tenminste een toren met een geel blok boven een zwart blok <s> there is at least one tower with a
+black	er is tenminste een zwarte driehoek die de rechterwand van een doos nauw raakt <s> there is at least one
+with	er is tenminste een toren met bovenaan een geel blok <s> there is at least one tower
+the	er zijn 2 torens met bovenaan een zwart blok <s> there are 2 towers with a black block at
+with	er is tenminste een toren met een geel blok boven een zwart blok <s> there is at least one tower
+objects	een van de grijze dozen heeft precies twee objecten <s> one of the grey box has exactly two
+</s>	er is 1 doos met 5 items <s> there is 1 box with 5 items
+is	dezelfde kleur zit bovenaan in alle 3 de dozen <s> the same color
+is	er is een doos met blauwe en gele items en het aantal items van elke kleur is hetzelfde <s> there
+are	een van de grijze boxen bevat objecten waarvan precies twee van de objecten zwart zijn <s> one of the grey box contains objects where exactly two of the objects
+two	er zijn twee torens met elk precies twee blokken <s> there are two towers with exactly
+block	er is minimaal 1 toren met bovenaan een zwart blok <s> there is at least 1 tower with a black
+only	er is een doos met slechts een item dat blauw is <s> there is a box which has
+of	een van de grijze dozen bevat precies zes objecten waarvan een van de objecten een gele cirkel is <s> one
+a	er is een doos met een blauwe driehoek en twee gele items <s> there is a box with
+with	er is een blauw blok als de top van een toren met precies drie blokken <s> there is a blue block as the top of a tower
+at	er is minstens een blauw blok als de top van een toren <s> there is
+yellow	er is een doos met een gele cirkel en minimaal een zwart vierkant <s> there is a box with a
+a	er is een doos met een blauwe cirkel en een zwart vierkant <s> there is
+least	er zijn minstens twee cirkels die geen enkele rand raken <s> there are at
+there	er zijn 3 blauwe blokken <s> 
+no	er is geen toren met twee gele blokken <s> there is
+all	er is een doos met 3 items van alle 3 verschillende kleuren waarvan 3 items zwart zijn <s> there is a box with 3 items of
+edge	er is precies een cirkel die de rand raakt <s> there is exactly one circle touching the
+there	er is een toren met meer dan twee blokken en het bovenste blok is geel <s> 
+edge	er zijn precies drie vierkanten die elke rand raken <s> there are exactly three squares touching any
+only	er is een doos met een geel item en alleen zwarte items erop <s> there is a box with a yellow item and
+a	er is een doos met een driehoek en minimaal twee cirkels <s> there is
+a	een van de grijze dozen heeft minder dan drie objecten waarvan er een een vierkant is <s> one of the grey box has less than three objects one of which is
+there	er zijn 2 zwarte blokken <s> 
+are	er zijn precies twee zwarte objecten die geen enkele rand raken <s> there
+is	er is een geel blok boven het zwarte blok <s> there
+and	een van de grijze doos bevat precies drie objecten waarvan er twee zwart zijn en een blauw <s> one of the grey box contains exactly three objects of which two are black
+two	er zijn twee torens met dezelfde hoogte die kleiner zijn dan de derde toren <s> there are
+item	er is een doos met een item dat blauw is <s> there is a box with one
+a	er zijn twee gele driehoeken die de bodem van een doos nauw aanraken <s> there are two yellow triangles closely touching the bottom of
+</s>	Alle torens hebben minimaal een blok dat dezelfde kleur heeft <s> ll the towers have at least one block that is the same in color
+</s>	er is een blauw blok als de top van een toren met minstens drie blokken <s> there is a blue block as the top of a tower with at least three blocks
+there	er is een doos met een gele cirkel en twee zwarte items <s> 
+two	er zijn precies twee gele blokken als de top van een toren <s> there are exactly
+of	er zijn precies 2 zwarte items bovenop het item dat de muur raakt <s> there are exactly 2 black items on top
+the	het middelste blok van de toren is geel <s> 

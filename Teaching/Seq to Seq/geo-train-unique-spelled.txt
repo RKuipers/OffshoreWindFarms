@@ -1,0 +1,1992 @@
+the tower with four blocks has a black block at the top
+there is a box with single item
+there are two yellow triangles touching the base
+there is at least one tower with four blocks having a black block at the top
+there are two yellow items closely touching right wall of a box
+there is one tower with a yellow block in between two black blocks
+there is a box that has six item and the three items are two blue triangles and one blue square
+there is a box with two items and the one item is black
+there is 1 circle closely touching a corner
+there is a box that has three circles
+there are 2 towers with a black block at the base
+there is a black block that is attached to blue and yellow blocks
+there is a box with exactly four items including blue circles
+the total black blocks of the two box is four
+there is a box with only one item that is not a triangle
+there is a blue triangle touching the side
+there is a tower with a blue block above a base block
+there are exactly four circle not touching any edge
+there is no black triangle closely touching the bottom of a box
+there are 3 black items
+there is a tower which has two blue blocks
+there is a box with 2 triangles of same color nearly touching each other
+there is exactly one blue object touching the base
+there is a tower that has two blue blocks
+there is 1 tower where the top and the bottom blocks are the same colour
+there are 2 yellow items on top
+two towers have yellow base
+there is a yellow square in the corner of the box
+there is a box with 4 items and a black one on top
+there is a box with at least 3 yellow items and one blue item
+there is a black block as the top of two towers
+there is a box with multiple items and there is a yellow circle and triangle
+there is one triangle touching any edge
+there are two towers with blue base
+there are two boxes with exactly three items
+there is a box with 2 circles and only one item of different shape
+there is exactly one yellow object touching any edge
+there is a blue block bellow a black block
+there are 5 yellow blocks
+there is a square closely touching a corner of a box
+there are 2 blue circles
+there is a box that has only one block which is not blue
+there is a box with 3 items of which 2 have the same shape
+there is a black item closely touching the roof of a box
+there is a tower with exactly one blue block which is at the top
+there is a box with a yellow square and exactly two blue items
+there is 1 box with 2 items
+there is a tower with only one black block and two blue blocks
+there is a tower with four blocks
+there is a box with three black items and a yellow item
+there is a yellow item with a black item on top of it
+there are exactly three black objects touching the edge
+there is a blue block as the top of a tower
+there is a box where a black square is touching the wall with another black square on top of it
+there is a blue block bellow a yellow block
+there is a box with two yellow triangles
+there is a box with three black items and a blue item on top
+there is a box with only two items
+one of the grey box has exactly three objects of atleast two different colors
+there is only one item closely touching the bottom of a box
+there is a box which only has circle and square
+there is a box with a yellow triangle and two squares
+there is a box that has one square and one triangle that are black
+there is 1 box with only 1 black circle
+there are two box that has two blue items each
+there is box with a small yellow square and it is not touching the wall
+there is a box with three squares
+there is only one blue block as the base of a tower
+there are at least two blue objects touching the edge
+there is a black block above a blue block
+there is a tower with only one block and the color is yellow
+there is a box with only one triangle
+there is a box which has only one item that is blue
+there is a box with a blue square and at least one black circle
+there is exactly one tower with a blue block at base
+there is at least 1 box with many items
+at least one of the square box contains odd number of objects
+each box has at least 1 black item
+there are at least 2 towers with at least 1 blue block
+there is a box with at least 3 items and a blue one touching the wall
+there is a box with 6 items of 2 different colors of which there are 2 yellow ones at most
+there is a box with only one square
+there is a black item in every box
+there is a black block as the top of a tower with three blocks
+there is 1 yellow circle
+there is a tower with four blocks having a black block above a blue block with a black block at the top of the tower
+the second block from the base of a tower is blue
+there is a box with 2 yellow and 1 black item
+there is a box with a yellow item touching the wall and a blue item on top of it
+there is a box with three items and the three items has different colors
+there is a box with only black and yellow items
+there are two boxes with two black objects
+there is a box with only 2 squares
+there is no blue triangle closely touching right wall of a box
+there is a box with exactly three items
+there is a box with two triangles of the same size not touching the wall
+there is a blue square of medium size touching the wall
+there is a blue block between black blocks
+there is at least 1 triangle closely touching a corner
+there is one tower with at least two blue blocks
+there is a bow with one yellow and only two black items
+there is a black block as the top of a tower
+there are two blue items closely touching the bottom of a box
+there is at least one blue triangle touching the bottom base
+there are 4 square shapes
+there is a box with a black square and two blue items
+there is exactly one blue block on a black block
+there are two towers with a yellow block at the top
+there is a black circle not touching the edge
+there is a box with the exacts set of items
+there is one tower with a black block at base
+there is at least one yellow item closely touching right wall of a box
+there is a blue item closely touching a corner
+there is a box with a yellow triangle and at least one blue triangle
+one of the grey square contains exactly one black object
+there is tower with has a black block above a yellow block
+there is a blue block as the base of a tower with two blocks
+there is a tower with exactly four blocks
+one of the towers has a blue block above a yellow block
+there is at least one blue square not touching any edge
+there is one tower with has a single block of black color
+the tower with three blocks has a blue object
+there is a grey box with exactly five objects
+there is a box with two blue items and at least two yellow circles
+there is a box with a yellow square and a black circle
+there are at least 2 yellow squares
+there is a box with two black items
+there is box with three items which are two blacks and one blue
+there is a box which has one black and one yellow
+there is 1 box with exactly 1 item
+there are 1 blue circle
+ll boxes have exactly 2 black items
+there is a box with 4 items
+there is only one blue block as the top of a tower
+there is a box with a black square and at least one blue triangle
+there is one square touching the base
+there are exactly two yellow objects touching the edge
+there is a tower with a black base and yellow top
+there is at least 1 box with 1 yellow item and 1 blue item
+there is a box with only 2 yellow and blue items
+there is a box with only two squares
+there is a box with two blue items and exactly one yellow item
+there is a grey box with only one yellow square
+the tower with three blocks has a blue block at the base
+one of the grey box has exactly two objects one of which is a blue circle
+there are three items touching the side
+the first three color of a tower from the base are yellow and black
+there is a box with 2 black items and one yellow item
+there are two black blocks as the top of a tower
+there is exactly one black circle touching the edge
+there is a box with 2 items at most and a black item touching the wall
+there is one tower with a single object which is of blue color
+there is a box with at least 6 items of all 3 different colors
+the black item is on top
+there is a blue block on a blue block in a tower with four blocks
+there is 1 box with exactly 3 items
+there is a circle closely touching a corner
+the top of a four blocks tower is black
+there are 2 boxes with only 1 yellow item
+there is a yellow triangle touching the base
+there is a box with black and yellow items and a small yellow circle
+there is 1 box with only 2 items
+there are at least 2 blue blocks
+there is a box with a blue circle and two triangles
+there is a tower with at least three blocks and each has a yellow block above a blue block
+there is a box with six items and the two are black circles
+there is exactly one tower which has a black block at the base
+there is a tower that has two blue blocks attached with each other
+there is a box with items of all 3 different colors and a blue square
+there is a circle nearly touching the corner
+there is a box with a yellow item on top of the black item
+there is a box with a black triangle a yellow square and a circle
+there is one tower with blocks of yellow and blue color
+there is as blue block above a yellow block
+there is exactly one blue circle touching any edge
+there is exactly one black object touching the base
+there is exactly one tower with a black block above a yellow block
+there are 3 black blocks
+there is 1 box with only blue and yellow items
+there is a tower with exactly two yellow blocks
+there is a tower with only one block that is not blue
+there is a blue block on a yellow block
+there is a box with multiple items and the three items are black
+there is a tower with more than two blocks having a black block at base and a yellow block at top
+there is at least 1 box with black and yellow items
+the tower with three blocks has a yellow block over a black block
+there is a box with two yellow items two blue items and two black items
+there is one tower with black blocks only
+there is only 1 box with 2 blue items
+there is a box where a black and blue square are touching each other
+one of the grey square has exactly one object
+there is one tower with three blocks having a yellow block in between two blocks of same color
+there is a box with 4 yellow items
+there is at least one grey square with exactly two objects
+there are 2 black circles
+there is a tower with exactly one block which is of blue color
+the is no circle closely touching bottom right corner of a box
+there are 2 boxes with 2 yellow items
+there is a box with only two yellow items
+there is one tower with a blue object over a black object
+there is a box with 4 items of which 2 are black
+there is exactly one black circle touching the bottom base
+there is no black block as the base of a tower with four blocks
+there are two blue items on top
+there is a blue block as the base of a tower with only two blocks
+there is a box with a yellow square and two black circles
+there is a box with a triangle and at least two circles
+one of the grey box contains objects of which only one object is blue
+there is a black square touching the side
+there are at least 4 blue blocks
+there is a box with at least one square and at least three triangles
+there is a box with a blue circle and a black square
+there is at least one tower with only four blocks
+there is only 1 box with blue and yellow items
+there is a box with only one object
+there is a small blue item touching the wall
+there is no yellow block as the base of a tower
+there is box with 3 items and a blue item touching the wall
+there is 1 tower with at least 2 black blocks
+there is a box with 3 items of which one is blue
+there are two triangles closely touching the bottom of a box
+there is a four blocks tower that the top is yellow
+ll boxes have at least 5 items
+there is a box with 3 small items of all 3 different colors
+one of the grey box has exactly two objects which are black
+there are two towers with a black top
+there are 2 towers with at least 1 yellow block
+there is a box which has only two items and they are both circles
+there is a box that has only one item that is not blue
+there is at least one black block on a yellow block
+there are two blue blocks attached with each other
+there is at least one box with a black square and a black triangle
+there are exactly three squares touching any edge
+one of the grey box has objects of only one color
+there are 2 black squares
+there is no tower with four blocks
+there is a tower with yellow base
+there is a box with multiple items and the only black is a triangle
+there is as box with only one item
+there is a box with at least one black triangle at least one blue triangle and a yellow square
+there is a box with a small yellow square touching the wall
+two of the three towers has a blue base
+the third block of a tower from the base is black
+there are two boxes with items of all three colors
+there are 2 towers with yellow blocks
+there is only one box which has no blue item
+there is a box with 3 items of which at least 2 are black items touching each other
+there is 1 box with many items
+the top of the three blocks tower is yellow
+there is at least one black circle closely touching right wall of a box
+there is a four blocks tower and the second block from the base is blue
+there are two yellow blocks as the top of a tower with at least two blocks
+there is one blue circle touching the base
+there is a small black square touching the wall
+there are exactly three objects touching the edge
+there is a box with 2 black and 2 yellow items
+there is a box with 2 items of black and blue color
+there is a black square touching an edge
+there are two towers with a black block at the top
+there is a box with a yellow item on top and a black item right beneath it
+there is a box with a yellow item on top
+there is a blue circle not touching the edge
+there is a yellow block above a black block
+there is at least one tower with four blocks with a black block at the top
+there are two towers of three blocks each
+there is a box with a yellow triangle a black triangle and a blue square
+at least one grey box contains exactly two objects
+one of the tower with two blocks has a black block at the base
+at least one of the grey box contains objects of two color
+there is at least 1 box with exactly 2 blue items
+there is a box with items of 2 different colors of which only one is blue
+the three towers have one two and four blocks each
+the small yellow square is nearly touching the wall
+one of the grey box contains two blue one yellow and one black objects
+there is 1 box with exactly 1 blue triangle
+there is a black block as the base of a tower
+there is a tower with two blocks where the base is blue and the top is yellow
+there is a black block that is between two yellow blocks
+there is only 1 box with yellow triangles in it
+there is a box with a blue circle and at least one black item
+there is a box with 3 items of 2 different colors
+there is exactly one tower with black block over a yellow block
+there are 6 blue blocks
+there are 3 blue squares
+one of the grey square has exactly one object which is black
+there is a box with a black item touching the wall and a blue item on top
+there is atleast one tower with exactly two black blocks
+there is a box with six items and the it has three colors
+there is a box that has three blue items
+there is one tower with exactly one object which is blue in color
+there is a yellow block as the base of at least two towers
+there are 2 black circles and 1 black triangle
+there is only 1 box with yellow triangles
+there are exactly two triangles touching the edge
+there is 1 box with 3 blue items
+there is only 1 box with at least 1 yellow item
+there is a box that has two yellow squares
+there is a blue square touching the side
+there is a box with yellow and blue items and the blue are triangle
+there is 1 box with only blue items
+there is a box that has one black and yellow squares
+there is exactly one blue item closely touching right wall of a box
+there are two yellow circles not touching the edge
+there is 1 box with 2 blue circles
+there is a black square closely touching a corner of a box
+there is a yellow block that is attach to a blue block
+there is at least one yellow item closely touching the bottom of a box
+there is a blue circle not touching any edge
+there are 4 yellow blocks
+there is a black item closely touching a corner of a box
+there is a tower with four blocks with a black block above base block of different color
+there is only one item in a box
+there is at least one tower with exactly three blocks
+there is a box with a yellow triangle at least one blue circle and at least one black item
+there is exactly one yellow object touching the bottom base
+there is a box which has only one item and it is circle
+there are two towers with black blocks as the second level
+there is exactly 1 blue circle
+two towers have yellow blocks under a blue block
+there is 1 tower with at least 2 black blocks stacked together
+there is a tower with only blue and yellow blocks
+there is a box with a black triangle and at least one blue square
+there is no black circle closely touching right wall of a box
+the tower with more than two blocks has a yellow block at the top and base
+there is exactly one square closely touching right wall of a box
+one of the grey box contains two yellow objects among other objects
+one of the grey square contains exactly four objects
+there is exactly one tower which has a blue block over a black block
+one of the grey square has exactly four objects
+there is 1 box with only yellow and blue items
+there is at least 1 square in each box
+there is a box with a blue circle a yellow circle and exactly three squares
+there is a box with two black items and a yellow square
+there are 3 yellow blocks
+there are two towers with the same base color that is not blue
+there is one black triangle touching the edge
+there is no item closely touching a corner of a box
+one of the grey square contains exactly five objects
+there is a box with 3 items of black and blue color
+there is one grey square with exactly four objects
+there are 2 boxes that have at least 1 blue item
+there is a box with four yellow items and at least one blue circle
+there is a blue tower with only one block
+there is at least one blue block on a blue block
+there is a tower with exactly three blocks all of which are of black color
+there is one tower with block blocks only
+there is at least one item closely touching bottom right corner of a box
+one of the grey square contains exactly two objects
+there are 6 yellow items
+there is a box with a yellow square and another square
+there is at least one yellow square touching the base
+there is a yellow block between black blocks
+there is at least one blue circle closely touching a wall of a box
+there is a box with four black items
+there is exactly one blue block as the top of a tower
+there are two towers with a blue block at the base
+one of the grey box contains exactly four objects
+there is a box with three yellow items
+there is a box with yellow items and only one other color
+there is a box with a blue circle a yellow triangle and at least one square
+there is 1 tower with only black and yellow blocks
+there are 2 boxes with 1 black item
+there is a box with 3 items of only blue and yellow color
+there is a box with 1 blue and 1 yellow item
+there is at least 1 box with exactly 1 item
+there is 1 box with only 1 yellow item
+the middle block of a three tower block is blue
+there are 3 yellow triangles
+there is a box with items of only 2 different colors
+there are at least two towers with the same color
+there is exactly one blue block as the base of a tower
+there is a box with five items
+there is a blue block as the top of a tower with four blocks
+there is a box with exactly two blue triangles and a black circle
+there is a box with only blue and yellow items of which there are only yellow squares
+there is a tower with three black blocks
+there is a box with 2 items of black and yellow color
+there is a box which has a blue circle and a yellow square
+there is a yellow block as the top of a tower with three blocks
+there is a black circle touching the edge
+there is a box which has five items
+there is a box with a blue triangle and two yellow items
+there is a blue block as the base of a tower with at least two blocks
+there are two black blocks as the base of a tower
+there is a blue block as the base of a tower with at most three blocks
+there are exactly two yellow triangles not touching the edge
+there is an item closely touching the roof of a box
+there is exactly one blue circle touching an edge
+there is at least one black circle touching the bottom edge
+there is a box with four items and the two items are yellow in color
+one of the tower with four blocks has a blue block over a yellow block
+there are exactly four yellow objects touching the edge
+there is 1 box with 3 black items
+there is 1 square
+there are 4 yellow items
+there is at least one blue triangle not touching the base
+there are two towers with a blue block over a yellow block
+there is at least one grey box which contains exactly five objects
+there are exactly two yellow blocks as the base of a tower
+there is a triangle closely touching right wall of a box
+there are exactly two towers with three blocks
+there are at least 2 boxes with at least 1 black item
+none of the black triangles are touching the edge
+there are three black circles not touching any edge
+there are exactly three yellow objects touching any edge
+there is a box with a blue circle a black square and at least two yellow items
+one of the grey box contains exactly one object which is a black circle
+there is 1 tower with exactly 2 yellow blocks
+there is a box with 2 items at most of which a black item is touching the corner of the box
+there is at least one yellow block as the base of a tower with four blocks
+there is 1 box with exactly 2 items of the same colour
+there is a big blue square touching the wall
+there is a box with two black circles
+there is a small black item touching the wall
+one tower contains 2 blue blocks
+there is a yellow circle touching an edge
+there is only 1 tower with at least 1 black block
+there is a box with 4 items of all 3 different colors and one yellow circle
+there is a box with a yellow square and a yellow circle
+there is a blue square touching the base
+there is at least one tower with two yellow blocks
+there is a tower with a blue block a yellow block and two black blocks
+there is a black block as the base of a tower with exactly three blocks
+there is a yellow square on top of another yellow square touching the wall
+there is at least 1 tower with a blue block at the base
+there are exactly two black squares touching the bottom base
+there is a black block that do have a block above it
+there is a box with only 2 items of different color
+there are 2 black items
+there is a blue block under a black block
+there is a box that has two black items which are triangle and circle
+there is no triangle closely touching the bottom of a box
+there is 1 tower with exactly 1 black block
+there is one tower with exactly one object which is blue
+there is one tower with only yellow color blocks
+there is 1 box with 4 black items
+there are at least 2 towers with a yellow block at the bottom
+there is 1 tower with at least 2 blue blocks
+there is a box which has exactly two black circles
+one box has 3 blue items
+there are 2 towers with a yellow block at the top
+one of the tower has a different colored block above a black block
+there is a box with 3 items of which 2 are yellow
+there is exactly one blue object touching an edge
+there is a box with two squares
+there are exactly two items closely touching the bottom of a box
+one of the three towers has a black top
+there are 3 items that are not the colour black
+there is 1 box with at least 1 black triangle
+the tower with four blocks has a black block over the blue block
+there are 3 black squares
+there are only two black squares touching the wall
+there is only one box with five items
+one of the grey square contains exactly one object touching the bottom base
+there is 1 box with exactly 1 item
+there are exactly two yellow squares not touching any edge
+there is a black square closely touching a wall of a box
+there is exactly one tower with a yellow block at the top
+there is a box with 2 blue and 1 yellow item
+there is 1 box with exactly 2 items
+there is a black tower
+there is a tower with three blocks having atleast two blocks of yellow color
+there is at least one tower with a single block which is of blue color
+there are 6 items touching the wall
+one of the tower has a black block over a yellow block
+there are two tower with not more than two blocks that are the same in height
+there is exactly one tower with a black block at base
+there is a tower that the second block from the base is black
+none of the triangles are touching any edge
+there is a box with at least 3 items and a blue one on top
+there is exactly one tower with only black blocks
+there are two towers with black block at the top
+there is a tower with a black block at base
+there is 1 box with only 1 yellow item and it is a square
+there is a box with items of the same color and a small circle
+there is 1 box with exactly 1 yellow item and 1 blue item
+there is a box with black item directly on top of the item touching the wall
+one of the grey box contains exactly two yellow squares
+there is a triangle in every box
+there are exactly two objects in a grey box of which one is a triangle
+there is yellow item touching the wall with a black item on top
+there is a box with three items and one is touching the side
+there is 1 box with only 2 black triangles
+there is 1 box with exactly 2 blue items
+none of the black triangles not touching any edge
+the is one tower with a black block at the base
+there is 1 tower with 2 yellow blocks stacked together
+there is a box with a yellow square touching the wall and a blue square on top
+there is a yellow block as the top of a tower with at least three blocks
+there are 2 towers with a yellow block at the base
+there are exactly 2 blue items
+there is 1 tower with a blue block in the middle
+there is one blue triangle touching the bottom base
+there is a box with a blue square and at least two black items
+there is 1 black square
+there are two towers with exactly one block
+there is at least one tower with less than three black blocks having a black block at the base
+there is a black triangle closely touching the bottom of a box
+the bases of the three towers are all the same
+there are exactly three black objects not touching any edge
+there is 1 black square closely touching the bottom right corner
+there is no tower with exactly two blocks
+there is a blue circle closely touching right wall of a box
+yellow triangle is not touching any edge
+there is one tower with a black block at the base
+there is a blue block as the top of a tower with exactly three blocks
+there is a box with a blue triangle and at least one black circle
+the grey box with least number of objects contains at least one blue object
+there is a black block on a black block as the base of a tower with three blocks
+there are at least two black blocks above a blue block
+there is exactly one black square touching the edge
+there is at least 1 box with a black circle and a black triangle
+there is a box with 1 yellow and 1 black item
+one of the grey square contains only one object and this object is not touching the edge
+there is a box that has only one shape
+there is one tower with a yellow block above the black block
+there are two black blocks above a yellow block
+there is 1 tower with 1 yellow block at the top
+there are exactly four objects touching the edge
+there is a black square touching the right corner
+there is a box with 4 items of which at least 2 are blue and black
+there are two boxes with a black circle
+there is 1 yellow triangle
+there are 2 boxes with 1 yellow circle
+there is one tower with a black block at the top
+there is a tower with a yellow block above base block
+there is a triangle closely touching a corner of a box
+there are exactly two towers with at least two blocks
+black square is touching the edge
+there is a box with 1 black triangle and 1 black square
+there is at least one tower with a black block at the base
+there is 1 blue triangle and 1 yellow triangle
+there is a yellow circle touching the wall
+there is a blue square touching the line
+one of the grey square has exactly five objects
+there is 1 tower with 3 black blocks on top of a different coloured block
+there is a box that has only black item
+there are two grey squares containing exactly five objects
+there is a tower which has only one block
+there is at least one tower which has a blue block over a yellow block
+there is a tower which is the second block from the base is yellow
+there is a tower with three blocks where a yellow block is at base of the tower
+there is a blue object touching the base
+there are 2 blue squares
+there is a box with 2 yellow items at most and no other color
+there is a box with at least one blue circle and three triangles
+there is 1 box with exactly 1 circle in it
+there is at least 1 tower with a yellow block at the top
+there are two boxes with a blue triangle
+the same color is on top in all 3 boxes
+there is a box with a blue item touching the wall and a yellow item on top
+there is at least one tower with exactly two blocks having a black block at the top
+there is no yellow square closely touching the bottom of a box
+there is a square closely touching right wall of a box
+there are at least 2 yellow triangles
+there is one black circle touching the edge
+there is a box with a yellow triangle touching the wall with its top
+there is only one tower with black at the top
+there is 1 box with only 1 item in it
+there is a box with two yellow items and at least three blue items
+there is a box with blue and yellow items of which one is a small yellow triangle and another is a small blue triangle
+there is a yellow tower
+there are exactly three triangles not touching any edge
+there is 1 box with at least 2 yellow squares
+there is a box with only one item of medium size not touching the wall
+there are atleast three blue objects not touching the edge
+there is one tower which has a yellow block at the base
+the tower with three blocks has a blue block at the top
+each box has at least 1 yellow item
+there is at least 1 box with at least 2 circles of the same colour
+there is a tower with a black block above a black block
+one of the grey box has exactly five objects
+there is a box with at least one black square and at least two circles
+there is a yellow block over a black block
+there is a box with at least 3 items touching the wall
+there is a box with black and yellow items and only one is yellow
+there is exactly one tower with a yellow block at base
+every box has a circle of the same color
+there is at least one black block on a black block
+there is a grey box with exactly four objects of which atleast one object is touching the edge
+there is 1 tower with 3 blue blocks
+there is a box with only three items
+there is a box with a blue triangle a black triangle and at least one yellow circle
+one tower with 2 blue blocks
+there are two yellow triangles closely touching the bottom of a box
+there are 2 towers where the top and bottom blocks are both blue
+there is a black block as the top of a tower with at most three blocks
+there is at least 1 tower with exactly 1 blue block
+ll of the boxes has a yellow item touching the line of the box
+there is a box that has six items
+there are at least 3 blue circles
+there is 1 box with exactly 1 blue item and 1 yellow item
+there is 1 tower with exactly 4 blocks
+there are 2 blue circles and 1 blue triangle
+there are at least two black blocks as the base of a tower with at least two blocks
+at least one grey square has exactly seven objects
+there is at least one tower with a yellow block over a black block
+there is at least one grey box containing exactly seven objects
+one of the three tower have two colors
+there is at least 1 black block in each box
+there is only 1 tower with a black block at the top
+there are two towers that contain at least 1 yellow block
+there is 1 tower with a black block at the top
+one tower with a yellow block at the top
+there is a box with one item that is blue
+there is a tower with four blocks not having a yellow block at top
+there are 2 boxes that have at least 1 black circle
+there is a black triangle not touching the base or edge
+there is a tower with a yellow block above a blue block
+there is 1 tower where 2 of the same colour blocks are at the bottom
+there is a box with a blue circle and exactly one yellow item
+there is no black block above a blue block
+there is an object that is not a circle touching the corner
+one of the grey box contains less than three objects
+there is at least one tower with a yellow block at the top
+there is a grey square with exactly three objects
+there is a box with multiple items and the two are black
+the top of a four blocks tower is blue
+there is a box with 1 black items and 3 items of one another color
+there is a blue block as the base of a tower with four blocks
+there is a tower with exactly one block
+two towers have a black block
+there is a grey square with objects of blue and black color only
+there is at least one black item closely touching the bottom of a box
+there is a box with a black square and two circles
+there is 1 yellow block
+1 tower has a yellow block at its base
+there is a box with a black square and two blue squares
+there is a box with a black item touching the wall and 2 items at most on top of it
+there is a box with items of all 3 different colors and exactly 2 blue items
+there is one black square touching the edge
+there is a black square above the black triangle
+there is a three blocks tower that the top is yellow
+there is exactly one circle not touching any edge
+the base and top of a four blocks tower are the same in color
+there is a box with 2 black items on top
+there is a box with 3 items and a black one on top
+there is a tower that the base and second block are the same in color
+there are exactly three yellow squares not touching the edge
+there is one black triangle touching the base
+there is 1 box with at least 2 triangles in it
+there is a four tower block that the second block from the base is black
+there is 1 tower with at least 3 blue blocks
+there are only two towers that has black block
+there are two blue objects touching the edge
+there is a box with items of 3 different colors and 2 black items with at least one being a triangle
+there is one tower which has a blue block at the base
+there are at least two yellow blocks as the top of a tower
+there is at least one blue triangle closely touching the bottom of a box
+one of the grey box has a black circle touching the edge
+there is a yellow triangle closely touching right wall of a box
+there is a tower with exactly two blue blocks
+there is exactly on black circle not touching any edge
+there is a black circle closely touching right wall of a box
+there is exactly one yellow object touching the edge
+there is a box with 4 items of 2 different colors
+there is a tower with a black block at the base
+there are two towers with the same height that are smaller than the third tower
+there is a yellow square touching the corner
+there is only one blue object touching an edge
+there are exactly three yellow objects not touching the edge
+there is a yellow tower that the blocks are not more than three
+there is no yellow block as the top of a tower
+there are exactly two squares closely touching the bottom of a box
+there is 1 tower that contains at least 2 yellow blocks
+there is exactly one blue triangle not touching any edge
+there is a box with 4 items of 3 different colors
+the tower with four blocks has a blue block at the top
+one of the grey square has three circles
+there are at least three squares not touching any edge
+there are two towers with yellow block at the top
+there is a box with 2 items at most of which one is yellow
+there is at least one yellow block as the top of a tower with exactly three blocks
+one of the tower with four blocks has a yellow block on the top
+there is as yellow block above a black block
+there is a yellow block above the blue block
+ll the towers have a black block at the top
+there is a box with only one item that is not a blue triangle or a blue square
+there is one tower with exactly one object which is not black
+items of all 3 different colors are touching the wall
+there is at least 1 box with only black and yellow items
+there is a blue block above the base block
+there are two blue squares touching the edge
+there is one tower with a yellow block above a black block
+black circle is not touching the edge
+there is a tower which has only black color blocks
+there are boxes with either yellow and black or black and yellow items
+there is a box with a black square and at least two circles
+there is a box with only blue and black items
+there is a blue square closely touching right wall of a box
+one of the grey square contains exactly one object which is yellow
+there is a box with 2 blue items touching each other
+there is a box with exactly two blue items
+there is as blue block above the yellow block
+there is a box with a black item touching the wall and a blue one above it
+there is a box with a blue square a yellow circle and at least one black circle
+there is a blue block above a yellow block
+there is at least one blue circle closely touching the bottom of a box
+there is a tower with three blocks having a blue block at the base
+there is a box with at least three circles and at least two triangles
+the tower with three blocks has a blue block over a blue block
+there is at least 1 box with 2 black items of the same shape
+there is exactly one tower with a yellow block at the base
+there is a box with a yellow circle and at least one black square
+there is only 1 yellow circle
+there is a box with 3 blue items
+there are two boxes with exactly two items
+there are 2 boxes with 1 blue item
+there are at least two blue circles not touching any edge
+there is 1 box with only 1 item
+there are 2 black circles
+there is a blue tower
+there is exactly one yellow object is touching an edge
+there is a box with a black square touching the wall and another one on top of it all
+there is a box with a yellow item on top and 2 black items beneath it
+there are exactly two blue squares not touching the edge
+there is a yellow circle closely touching right wall of a box
+there is a black item closely touching the bottom of a box
+the black square is not touching the edge
+there is a box with only one blue item and at least 3 items of another color
+there is no blue tower with only one block
+there is a box with a black triangle and a black square
+there is a box with a black square a blue circle and three yellow items
+there is exactly one blue block as the top of a tower with at least three blocks
+there is a small black circle not touching the wall
+there is a black triangle closely touching right wall of a box
+there is a yellow block as the base of a tower with at least two blocks
+there are two towers with at least three blocks
+one of the tower with the three blocks has a yellow block at the top
+none of the yellow squares are touching the edge
+there is a yellow item closely touching right wall of a box
+there is 1 yellow item in each box
+there is a box with 4 items of which 3 are black
+there is a box with only yellow and blue items
+there is a box with only one blue square
+there is a black block above two yellow blocks
+there is a grey box with exactly four objects
+there is at least 1 box with only blue and black items in it
+there is a box which has only one yellow block base
+there is as box with only one item and it is black
+there is a tower with a yellow block and at least one blue block
+black square is not touching the edge
+there is 1 tower with a black block at the base
+at least one blue circle is touching the bottom base
+there is a blue block as the top of a tower with only two blocks
+there are at least two yellow objects not touching any edge
+there is a box with a yellow circle and at least one blue triangle
+there is a box with 5 items
+there is a box with a yellow circle and a blue triangle
+there is atleast one blue circle touching the edge
+there is a box with black square and blue circle
+there is a tower which has more than 2 blocks but only have two blue blocks
+there is a box with 3 items and a blue item on top
+there is at least one tower having a yellow block over a black block
+there is a box with a black square a yellow square and at least one blue square
+there is no box with only black items
+there is at least one box with a blue triangle and a black square
+there are exactly 2 boxes with yellow items
+ll there towers contain at least 1 yellow block
+there is one tower with two blue blocks
+there is at most one yellow item closely touching the bottom of a box
+there is a box with at least one blue triangle and at least three yellow items
+there is only one yellow block as the base of a tower
+there is a box with 1 black circle and 1 black square
+there is only one tower with a yellow block at the base
+there is a black block as the top of a tower with at least three blocks
+there is no yellow item closely touching the bottom of a box
+there is a tower with only blue blocks
+there are two towers with a blue base
+one of the grey square contains exactly six objects
+there is a tower with only two black blocks
+there is a box with a yellow square a black square and two yellow circles
+there are exactly two squares touching the edge
+there are two blue circles of different size in two different boxes
+yellow squares are not touching any edge
+there is a box with a yellow triangle and a blue item
+there is one tower with a yellow block above the blue block
+there is a box with only one item that is blue
+there is a box with three blue items including circle
+the tower with four blocks has a blue block over a yellow block
+there is 1 box with at least 6 items in it
+there is a black block underneath a yellow block
+there is exactly one blue triangle touching the bottom base
+there is a tower with a yellow block over a black block
+there is a yellow block on a black block
+there is a black block on a yellow block
+there is 1 tower with a yellow block at the top
+there is no blue square closely touching right wall of a box
+there are three items closely touching the bottom of a box
+there are 2 towers that contain yellow blocks
+there is a box with two black triangles and a yellow circle
+there is a tower with exactly two blocks having a yellow block above a blue block
+there is exactly one tower with a blue block at the base
+none of the yellow triangles are touching the edge
+one of the grey box contains objects where exactly two of the objects are black
+there is a grey square with exactly one object which is yellow
+there are two boxes with one item each
+there is a tower with exactly two blocks
+there is a box with a yellow item and four black items
+one of the grey box has exactly two objects
+there is a tower with blocks of three different colors
+there is a box with exactly two blue items exactly two yellow items and only one black item
+there is a box with 3 items of all 3 different colors of which 3 items are black
+the grey box with least number of object contains only one black object
+the yellow item is touching the wall
+there is a box with 2 items and the black item is touching the wall
+there are at least 2 towers with yellow blocks at the base
+there is 1 box with just 1 item
+two of the three towers has a black base
+the tower with four blocks has a black block over a blue block
+there is a tower with exactly three blocks
+one of the grey box has exactly four objects one of which is a black triangle
+at least one grey box contains exactly four objects
+tower with four blocks has blocks of all the three colors
+there is one tower with exactly one object which is yellow in color
+there is at least one circle closely touching right wall of a box
+on the tower there is a blue block above a yellow block with a blue block at the top
+there is a box with one object
+there is a box with 4 items where yellow item is touching the wall
+there is a box which has six items
+there is a box with one item that is yellow square
+there is a box that has only three black items
+there are two towers with black blocks
+there is 1 box with exactly 1 blue triangle
+there is a box with six items and one is touching the side
+there is a box with multiple items and the 2 black are squares
+there is a box with a yellow triangle and a black triangle
+there is 1 box with at least 2 yellow items
+one tower has exactly 1 black block and 1 yellow block
+there is a tower with 1 blue block and 1 yellow block
+there is 1 blue item that is a triangle
+there are more than two black objects touching the edge
+there is exactly one tower with two blocks and with a black block at the base
+there is a yellow square and a yellow circle
+there are exactly two triangles touching the right side edge
+there is only 1 tower with 1 blue block at the base
+there are 2 boxes with at least 1 yellow circle
+there is 1 tower with at least 1 blue block
+ll the towers have at least one block that is the same in color
+there are exactly two tower with at least three blocks
+there are 2 towers with at least 2 blue blocks
+there is a box with 3 items at most of which there are at least one yellow and one black item
+there is an item closely touching the bottom of a box
+there are two towers with exactly two blocks each
+there is one tower with a yellow block above a yellow block
+there is 1 box with 5 yellow items
+there are exactly four black objects not touching any edge
+there is a box with yellow items and exactly three black triangles
+there are 3 blue blocks
+there is a tower with only one blue block
+there is a box that has only five items and color of the items is blue and black
+there are 2 boxes with at least 1 yellow triangle
+there is a box with blue and yellow items and the number of the items of each colors are the same
+there are 5 yellow items
+there are exactly two yellow circles touching the base
+there is one tower with exactly three blocks
+there is a box with only one item
+there is a black square almost touching the corner
+there is a different number of items in the boxes
+there is a yellow circle closely touching the bottom of a box
+there is a box with a black item on top
+there is a big black triangle not touching the wall
+there is no yellow square closely touching right wall of a box
+there are only 2 towers with at least 1 blue block
+there is one black triangle touching any edge
+there is a black triangle touching the side of the box
+there are two towers with a yellow block at the base
+one of the grey box contains exactly six objects
+there is a black triangle touching the right side
+there is 1 black circle closely touching a corner
+there is a black circle closely touching the bottom of a box
+there is exactly one black block as the base of a tower
+there is a box with items of all 3 different colors and a blue circle touching the wall
+there is a box with multiple items and the three has the same shape and color
+the tower with three blocks has a yellow block at the base
+there is a black item touching the wall
+there is a yellow item closely touching a corner of a box
+there is no circle closely touching right wall of a box
+there is a box with at least two black circles and exactly one blue triangle
+there are exactly two triangles touching any edge
+the tower with exactly two blocks has a black block at the base
+there is a tower and the base is yellow
+there is a box with exactly one yellow circle and exactly one black triangle
+there is a blue block as the base of exactly one tower
+two blue squares are touching the wall
+there is a box with four triangles
+there is 1 tower with a blue block in the middle
+the blue item is not touching the wall
+there is at least 1 blue item closely touching a corner
+at least one of the grey box contains two triangle objects
+there are seven items in a box
+one of the grey square contains exactly three objects
+there is a box with a blue square and a circle
+there is a box with a black item touching the wall and another black item on top of it
+there is a box with a yellow circle and a lot of black items
+there is 1 tower with only blue blocks
+there are 4 blue items
+there is a yellow block as the top of a tower
+there is a tower with only black blocks
+there is a tower with exactly one block which is of black color
+there is a box with a black circle and a blue circle
+there is a box with a yellow square and at least one yellow circles
+there is a box with a yellow triangle and at least one black circle
+there is a blue block as the base of a tower with exactly three blocks
+there is a box with 2 blue 2 black and 2 yellow items
+one of the grey box has exactly one black object
+there is a box with a blue item closely touching a yellow item
+there is a tower where only 2 blocks are the same colour
+there is a box with all 3 different colors and a black triangle touching the wall with its top
+there is a box with items of 3 different colors and only one blue circle of medium size
+there is a box with 3 items of blue and black color
+there is a box with only one blue item
+there is one tower with a yellow block at the top
+there is at least one tower with four blocks with a black block below the top block
+there is 1 tower with yellow and black blocks
+there are at least 2 towers with a yellow block at the base
+there is a box with multiple items and only one item has a different color
+one of the grey box has exactly seven objects
+there is only one color on the top in all 3 boxes
+there are exactly two towers with a yellow block at the top
+there is no black item closely touching the bottom of a box
+ll the three towers have the same color block at the base
+there are 2 towers with a blue block at the base
+two of the three towers has the same base color that is not black
+there is 1 box with 2 black squares
+there is a box with multiple items and there is one black square and one black triangle
+there is a blue circle touching the edge of the square
+there is 1 box with only 1 blue item
+there is a box with a yellow item on top and a blue item right beneath it
+there is exactly one tower with a blue block at the top
+there is exactly one black circle not touching any edge
+there is a blue triangle touching the edge
+there is a box with 2 big circles of which one is touching the wall
+there is a box with only blue items
+there is a yellow block above a black block
+there are exactly three black squares not touching any edge
+there is exactly one yellow object not touching any edge
+there is a box that two circles are attached to a line
+there are exactly two black objects touching the edge
+there is a big yellow square touching the wall
+there are two yellow objects touching the base
+there is a box with a yellow triangle and two black items
+there is 1 box with 2 blue squares
+there are at least two circles not touching any edge
+there are two towers that has two blue blocks each
+there are exactly two towers with blue block at the top
+two out of the three towers have the same base
+there are three blue objects touching the edge
+the yellow item is touching the wall
+there is a box with at most 3 items of black and yellow color
+there are exactly three triangles touching any edge
+there is at least one tower with a black block at the top
+there are 2 black circle shapes
+there is at least one tower with exactly four blocks having black block at the base and blue block at the top
+there are exactly three items closely touching the bottom of a box
+there is no square closely touching the bottom of a box
+there is at least one black block on a blue block
+there is at least 1 tower with a blue block at the top
+there is no yellow circle closely touching right wall of a box
+there is no box with exactly one yellow item and exactly two blue items
+there is 1 black triangle closely touching a corner
+there is a box with multiple items and the four items are black
+there are two towers with four blocks and each has at least two yellow blocks
+there is exactly one yellow block as the base of a tower with at least two blocks
+one of the grey box contains exactly three objects of which two are black and one is of blue color
+there is a box with a black square and at least one black triangle
+there is a black square attached to the right corner of the box
+there is black block on a black block
+there is a box with two yellow triangles and other items
+there is a black item touching the side
+there are at least two black blocks as the top of a tower
+there is at least 1 box with 2 black circles
+there is at least one tower with exactly three blocks having all blocks of the same color
+there are 4 blue squares
+there are exactly three yellow objects not touching any edge
+there is a box with a black triangle a yellow square and a blue square
+there is at least one blue square touching any edge
+there is exactly one blue square closely touching the bottom of a box
+there is a black block as the base of at least one tower
+there is only 1 tower with a black block at the bottom
+there are 2 yellow triangles
+there is 1 box with exactly 1 yellow item
+there is a tower with exactly one block which is of yellow color
+there are two boxes which has only two yellow objects
+there is a box with one square
+there is a black block above a yellow block
+there is 1 tower with a blue block at the base
+there is a black block as the base of tower with four blocks
+there are two boxes that has the same number of items
+there is 1 box with a black triangle and black circle in it
+there is a circle closely touching right wall of a box
+there is no yellow circle closely touching the bottom of a box
+there is a box with a black circle and at least one black squares
+there is a box that has only one block
+there is a yellow circle touching the edge
+there is at least one box which has a black circle and a blue square
+exactly 3 triangles are not touching the wall
+there are two boxes with only one blue item
+there is a box with at least one blue circle and at least three triangles
+there is a box with a lot of items but only one is touching the wall
+there is exactly one yellow triangle not touching the edge
+there are four items touching the side
+there is a big yellow triangle not touching the wall
+there is 1 tower that has exactly 2 black blocks
+the tower with three blocks has blocks of two different color
+there are exactly two black blocks as the base of a tower
+there is a blue triangle not touching any edge
+there is at least 1 tower with a black block at the top
+one of the grey box contains exactly one object
+there is at least 1 box with 2 yellow items
+there are exactly 2 black items on top of the item touching the wall
+there are triangles closely touching right wall of a box
+there is two blocks tower and the color is yellow and blue
+there are 2 black triangles in the same box
+there is at least one tower with exactly two yellow blocks
+there is a black square touching the corner
+there is a box with a blue square and a blue triangle
+there is a blue square touching the edge
+there is a black circle closely touching a corner
+there is a box with only 2 items
+there is 1 box with 2 blue items
+there is a blue block as the top of tower
+there are 2 boxes with at least 1 black square
+there is a box with two items
+one tower has a yellow block on the top
+there is one box with many items
+there is box with a yellow triangle of medium size and a black square
+one of the grey box has exactly three objects one of which is a circle
+there is a box with only one small item
+there is one tower with a black block over a blue block
+there is only 1 tower with at least 1 yellow block in it
+there are exactly two blue objects touching any edge
+there is a box with items of all 3 different colors
+there is a box with 3 items
+there are 2 blue triangles
+the base and the top of a three blocks tower are the same in color
+there is at least one tower with exactly two blocks with a blue block at the top
+there are 4 yellow items in 1 box
+there is a box with 3 items of which at least one is blue
+there is at least 1 tower with 2 blue blocks stacked together
+one of the grey square has exactly six objects
+there is a tower with a black block over a blue block
+there is only one black block as the base of a tower
+there is a blue block over a yellow block
+there is 1 box with 2 yellow items in it
+there are exactly two towers with a yellow block at the base
+there is a yellow triangle not touching the edge
+there is a box which has only one yellow item which is triangle
+there is no blue circle closely touching right wall of a box
+there is a box with items of 2 different colors and exactly 2 yellow items
+there is one tower with at least three blocks of same color
+there are exactly two black objects touching the base
+there is black square touching the side of the box
+there is a box with all 3 colors and a blue one on top
+there is no yellow block on a yellow block
+there is a tower with exactly two blocks having a blue block at the base
+there is only one blue block as the top of a tower with four blocks
+there is a tower with four blocks having a black block at the top
+there is 1 tower with 2 blue blocks stacked together
+there is at least one yellow block as the top of a tower
+there are two boxes which has five items each
+there is exactly one blue circle not touching any edge
+there is at least one box with exactly four items including blue one
+there is at least one tower with single object which is of yellow color
+there is no black block on a blue block
+there is at least one yellow block above of a black block
+there is a yellow square closely touching right wall of a box
+there is one box with 2 yellow triangles
+there are exactly two circles closely touching the bottom of a box
+there are two boxes with yellow circles
+one of the grey box has exactly two objects where one of the object is yellow
+there is 1 box with items of all three colours
+there is a box with 2 items of which one is blue
+there is a box with a black square a blue square and a yellow circle
+there is a black block as the base of a tower with only black and blue blocks
+there is a box with 4 items at most of which 2 are black
+there is a box with exactly 3 yellow items
+there is one tower that has two yellow blocks that are not attach with each other
+the tower with four blocks has a yellow block at the top
+there is 1 yellow circle closely touching a box corner
+there is 1 tower with 1 block in it
+there is 1 tower with only blue and yellow items
+there is at least one blue item closely touching right wall of a box
+there is a black block that is between the two blocks that is not black
+there is a box with at least two items and a black item on top
+there is exactly one black square not touching any edge
+there is a blue triangle touching the base
+there is a black square closely touching the bottom of a box
+there is 1 tower with 3 black blocks stacked together
+there is a box which has three items and the two are black the other one is black
+there are exactly two black objects not touching any edge
+there is a box with a blue circle a black circle and a black square
+there is a tower with three blocks and the base is yellow
+there is at least one tower with exactly one block which is of blue color
+there is the box with the same set of items
+there are two towers with block of same color at base
+there is a black block on a blue block
+there is a tower with a black block above a blue block
+there is a box with a black circle a black square and a yellow item
+there is only one yellow block as the top of a tower
+there is a tower with only yellow blocks with less than four blocks
+black triangle is touching the wall
+one of the grey box has exactly six objects
+the bases of the towers are yellow and black only
+ll the boxes do not have the same number of items
+there is at least 1 tower with a blue block at the base
+there are exactly two black circles touching the edge
+there is at least one circle closely touching the bottom of a box
+there is a box with a blue square and at least two black items including circle
+there is a tower with a yellow block in the middle
+there is 1 tower with 2 black blocks stacked together
+the color of the three blocks of a tower after the base are all the same
+there is a yellow item closely touching a corner
+one of the grey box contains exactly two objects
+there is a box with 4 items and a blue item beneath the item on top
+there is a black block attached to a blue block
+there are two yellow blocks as the top of a tower
+there are at least two yellow squares touching the wall
+there is a blue block as the top of a tower with at most two blocks
+there is a tower with exactly two blocks where both blocks are of same color
+there are 3 yellow items touching the wall
+one of the grey box contains three black objects
+there is 1 black circle
+there is a blue square closely touching the bottom of a box
+there is a black square not touching the edge
+there is one tower which has a yellow block over a blue block
+there is 1 box with 2 black items of the same shape
+there is a box with black squares and yellow triangles
+there is a box with exactly two yellow items
+there is at least 1 tower with 1 blue block at the top
+there is a box that has one black triangle and one black square
+there is at least one box that has one of the items is black
+there is exactly one blue square touching the base
+one of the grey square has exactly one square object only
+there is at least one tower with four blocks having a blue block over a blue block
+there is 1 blue block
+there is at least one tower with a single block which is black
+there is 1 box with exactly 1 block
+there is at least one box with exactly two blue items
+there is no tower with only yellow blocks
+there are 2 blue items
+there is one yellow circle touching the edge
+there is a black block as the top of a tower with two blocks
+there is a box with 2 items and a black one is touching the wall
+there is a box that has two black triangles
+there is a box with at least 3 items of which two are blue
+one tower has only blue and black blocks
+there is a tower with more than two blocks and the top block is yellow
+there is at least one tower with four blocks having yellow block at the top
+there is at least 1 tower with 2 yellow blocks
+there are 5 black items
+there is one tower with exactly two blocks of same color
+there is a black block bellow a yellow block
+there is a tower which has a yellow block in between two blue blocks
+there is at least 1 tower with a black block at the base
+two towers have the same base
+there are exactly two yellow circles touching any edge
+there is a four block tower where the base and second blocks are the same in color
+there is 1 box with 2 yellow items
+there are exactly two circles not touching any edge
+there is a box that has a black and yellow circle
+there are 2 yellow circles
+there is exactly one circle touching the edge
+there is a blue circle touching the side
+there is a tower which has exactly one block
+there is a box with 4 items of which 3 are yellow
+there are two triangles touching the side
+there are at least 2 towers with a black block at the top
+there is a yellow block above a blue block
+there is a box with 3 items of 2 different color
+there is a tower that has four blocks
+the grey square with the least number of objects has a circle
+there are 2 yellow items
+there is a box with only black items
+there is at least one blue square closely touching right wall of a box
+there is 1 black triangle
+there is a box with only 2 blue and yellow items
+there is a box with 4 items of all 3 different colors
+one of the grey box has only triangles
+there is a circle that is touching the corner
+there is a four blocks tower which the base and top are not the same in color
+there is a triangle touching the base
+there is a black square touching the base
+there is a grey box with exactly three objects where the objects are blue and yellow in color
+two boxes have the same number of items
+there is no tower with two yellow blocks
+two small yellow items are touching the wall
+there is tower with a black top
+there is no black block as the base of a tower with exactly three blocks
+there is at least one tower with exactly one block which is black
+there is 1 tower with 2 blocks stacked together of the same colour
+there are exactly two towers with black blocks
+there is a tower with only one yellow block
+there is a blue block as the base of a tower with at least three blocks
+there is 1 box with at least 1 yellow circle and 1 yellow triangle
+there are exactly 3 yellow items not touching the wall
+there is tower with black second block
+there is a box with multiple items and two are black
+there is a tower with a yellow block at the top and a blue block at the base
+there is a tower with three blocks and the two are blue
+there is a box with 4 blue items
+none of the black squares are touching the edge
+there is a yellow circle not touching the edge
+there is exactly one blue object touching the edge
+there is a box with at least 3 blue one yellow and one black item
+there is a tower with only one block and the color is blue
+there is at least 1 box with 2 black items
+there are 2 yellow blocks
+there is a box with a black square a blue square and a yellow item
+there is one grey box with has exactly one yellow object touching the edge
+there is a box with 2 yellow and 2 blue items
+there is a circle closely touching the bottom of a box
+there is a tower with a blue block at the top and a black block at the base
+there is 1 tower with only 1 blue block and only 1 black block
+there is at least 1 black circle
+there is one tower with a yellow block over a blue block
+there is a box that has only two items that are not the same
+there is an item touching the corner
+there is a yellow block on a blue block
+there are at least two towers with a yellow block at the base
+there is at least one yellow circle closely touching right wall of a box
+there is a blue block as the base of a tower with three blocks
+there is exactly one triangle closely touching the bottom of a box
+there is one tower where a blue block is on top of a black block
+the tower with two blocks has black block at the base
+there is a box with a blue square and a yellow square
+there is a square and a circle closely touching a corner
+there are 3 yellow circles
+there is a box with only 2 items of black and blue color
+each grey box contains even count of objects
+there is 1 box with 1 blue square and 1 black triangle
+there are two black objects touching the edge
+there is 1 box with a yellow circle and square in it
+there is a tower that has three black and one blue blocks
+there is a box with a black square a blue circle and more than two yellow items
+one tower with 2 blue blocks stacked together
+one of the grey square contains only one object which is a yellow circle
+there is a blue block as the top of a tower with three blocks
+there is a box with a blue square and at least one blue circle
+there is a box with at least 2 blue items and one black item
+there is at least one blue circle closely touching right wall of a box
+there is a box with at least one blue triangle and at least one circle
+there is a yellow square closely touching the bottom of a box
+there is at least 1 tower with at least 2 yellow blocks stacked together
+there is 1 box with 2 yellow triangles
+there is 1 tower with only black blocks
+there are exactly two yellow triangles not touching any edge
+there is at least one blue block on a yellow block
+there is a box with a blue item and at least two black items
+there are two towers with two yellow blocks
+there are at least 2 black squares
+there is exactly one yellow square closely touching the bottom of a box
+there are blue blocks in each boxes that have the same position
+there is a box which has four items
+there are 5 black blocks
+there is one blue triangle touching any edge
+there is a box with 4 items of which 3 are circles and 1 is a triangle
+one of the grey square contains exactly one object
+there is at least one tower which has blocks of all three colors
+one of the grey box has only one object
+there are 3 yellow items
+there is a box with 2 items at most of which one is a triangle
+there are two black triangles not touching the edge
+there is no yellow circle closely touching a wall of a box
+there is 1 box with 1 blue circle and 1 blue square
+there is a tower with exactly two blocks which are of yellow color
+there is a tower with a blue block at the base
+there is a box that has three items are touching the side
+there is a blue block as the base of a tower with exactly two blocks
+there is a tower with a yellow block and other three blocks
+there is exactly one yellow circle not touching any edge
+there is a box with a black item between two items of the same color
+there are 2 boxes with at least 1 yellow item
+the tower with three blocks has a yellow block at the top
+there is a tower that has at least 3 yellow blocks attached with each other
+there is a box with 3 items of all 3 different colors and a yellow on top
+there are 2 towers with 1 blue block
+one of the grey box contains only two objects
+there is only one small item touching the wall
+there are two towers which has exactly one black block as the top most block
+one of the tower with block blocks has a yellow block below the top block
+there is at least 1 black square in each box
+there is a blue triangle that is touching the side of the box
+there is a box with seven items and the three are circles
+there is only one black item touching the wall
+there is exactly one black triangle not touching any edge
+there is 1 box with only 1 yellow item in it
+there are two black objects touching the side
+there is at least one tower with exactly two blocks
+there is a yellow block on a yellow block
+the top of the three towers are two blue and one black blocks
+there are 2 towers with 2 blue blocks
+there is a yellow square touching the base
+there is a tower with four blocks having a yellow block at the base and a different color block at the top
+the middle block of the tower is yellow
+there is no tower with three black blocks
+there are two towers with a blue block at the top
+there is a box which has only two items and they are blue
+there is at least one tower with four blocks with a yellow block at the base and a blue block below the top block
+there is 1 tower with a yellow block at the base
+there is a box with at least one yellow square and at least two triangles
+there is a black triangle touching the edge
+there is a tower with four blocks with the blue block at the top
+blue square is touching the edge
+there are three yellow blocks as the top of a tower
+there is no black circle closely touching the bottom of a box
+there is a black block as the top of a tower with exactly two blocks
+there is a box with items of only blue and black color
+there are two black blocks as the base of a tower with at least two blocks
+there are 2 boxes with 2 items of 2 different colors
+there is a grey box where none of the black objects are touching the edge
+there is a box which has three blue items
+there is a box with a yellow item a black triangle a black circle and at least one blue square
+there is 1 box with exactly 1 square item
+there are exactly two blue triangles not touching any edge
+one of the grey box has two black triangles
+there is a tower with two blue blocks and two yellow blocks
+there are at least 3 black triangles
+there is a box with 2 items
+there is a box with a black square touching the wall and blue and yellow squares on top of it
+there is a box with only one small black item
+there is a tower with less than four blocks having a blue block at the top
+there is a box which has three blue items and two black items
+there is a box with 2 items of which one is a triangle not touching the wall
+there is a black square closely touching right wall of a box
+there is at least one square closely touching the bottom of a box
+there is only one black block on a black block
+there is a box with only two yellow circles
+there is 1 box with at least 3 yellow items
+there is a box with a yellow circle and a black circle
+there are 2 yellow circles in one box
+there is 1 box with 1 blue circle
+one of the grey square has exactly two objects which are yellow
+there is at least one tower of three blocks which has blocks of either yellow or blue color only
+there is a blue circle nearly touching the corner
+there is a blue block on a black block
+there is exactly one tower with a blue block over a yellow block
+there is at least 1 tower with 2 blue blocks
+there are 2 blue items touching the wall
+there is 1 box with 5 items
+there is a blue tower with at least two blocks
+there is 1 box with 4 yellow items
+there is a yellow block as the top of a tower with more than two blocks
+there is a box with 2 items of which 1 is a blue square
+there are three towers that are not the same in height
+there are at least 3 yellow items
+one tower has 2 blocks of the same colour
+there is a square closely touching a wall of a box
+there is a box with 3 items but not all 3 different colors
+at least one of the grey box contains exactly one black object
+there is at least one tower with a black block over a blue black
+there are exactly three black objects not touching the any edge
+at least two boxes have the same number of objects each and the same number of object touching the side
+ll of the boxes have many items
+there are 3 circles
+the black triangle is touching the wall with its side
+one of the grey box has atleast one triangle and one square touching the edge
+there is a yellow triangle closely touching the bottom of a box
+there are two blue blocks as the top of a tower
+there are at least 2 blue triangles
+two towers have the same height and the same top color
+there is a box with only blue and yellow items and a big yellow square
+there are 2 yellow squares
+there is a triangle touching the corner
+there is a box with two yellow triangles and at least one blue circle
+there is a box with only yellow squares
+there are 2 boxes with at least 1 black triangle
+there are 2 boxes with at least 1 black circle
+there is a square closely touching a corner
+there is one tower with 1 yellow block at the base
+there is a box with 4 items at most of all 3 different colors
+there is a box with exactly two blue items and exactly two black items
+there is 1 tower with a black block at the bottom
+there is a box with a yellow triangle and a blue triangle
+there is 1 box with 2 yellow items and 2 blue items and 1 black item
+there is a tower with three blocks of three different colors
+there is a box with items of only 2 different colors and a small black triangle touching the wall
+there is a box with 2 black items
+there is a black triangle touching the base
+there is a black block between two blocks
+there is no square closely touching right wall of a box
+the tower with four blocks has two yellow objects
+the small yellow square is not touching the wall
+there is a tower with more than two blocks and the top is black
+there is 1 tower with 2 yellow blocks
+there is 1 tower with only 2 blue blocks and 1 yellow block
+there is one tower with exactly two blocks which has blue block at the top
+there is at least one yellow block as the top of a tower with at least two blocks
+yellow circle of medium size is touching the wall
+there is a box with a black circle and a lot of blue items
+there is a box with 3 items of which two are yellow
+there is a box with a blue circle and a blue square
+one of the grey box contains exactly three objects
+there are at least two towers with a black block at the base
+there is a blue block on a blue block
+there is a box with four items and the three items are the same
+there is a box with two yellow squares and at least two blue squares
+there is at least one box with exactly four items
+there is a box with only blue and yellow items
+there is a box with at most two items
+the base of the two blocks tower is black
+there is one tower with a yellow block at the base
+there is a grey box with exactly three objects
+there is a grey square with exactly five objects
+there is a blue block as the base of at least one tower
+there is 1 tower with 1 blue block at the top
+there is a box with a yellow square touching the wall
+there is a four blocks tower and the top block is blue
+there is a tower which has only one color
+there is a box with exactly four items including black triangle
+there is no blue block above a black block
+there is a circle touching the side
+there is a box with at least 2 yellow and 1 blue item
+only one black item is touching the wall
+there are exactly three circles not touching any edge
+there is 1 tower with 2 black blocks
+there is a blue tower with exactly two blocks
+there is a box with a blue and yellow square touching each other
+there is a box with four items and the two are black
+there is a box with 1 item
+there is 1 box with only black and yellow items
+there is a box with a yellow item touching the wall and at least 2 blue on top of it
+there are two squares closely touching right wall of a box
+there is a box with four items
+the tower with four blocks has blocks of blue and black color
+there is a box with exactly four items
+there is at least one tower with a single block which is yellow
+there is a black block as the top of a tower with four blocks
+the base of the tower with two blocks is black
+there is exactly one yellow triangle touching the base
+there is exactly 1 black item
+there is no blue square closely touching a corner of a box
+there is a blue block above a black block
+there are 2 blue blocks
+there is a box with at least 4 items of all 3 different colors
+there is a box which has four items and the three are the same in shape
+every box has many items
+there is a box with a yellow triangle a black triangle and at least two blue items
+there is a black square touching the wall with at least two items on top of it
+there is a blue circle touching the base
+there is a box with a circle and at least two triangles
+there is a two blocks tower and the one block is black
+there are 2 boxes with items of 2 different colors
+there is a box with one yellow item and at least 2 black items
+there is exactly one black square not touching the edge
+there are at least 2 towers with 1 black block
+at least one of the grey square contains exactly one object
+there are 4 blue blocks
+there is 1 tower with a blue block at the base
+there is no blue item closely touching the bottom of a box
+two boxes have the same two black items each
+there are two towers with a yellow block at base
+there is a yellow block as the base of a tower with four blocks
+there is 1 yellow item
+there is 1 box where the only black item is a square
+one tower has 2 yellow blocks and 1 blue block
+there is a box that has only one blue item
+there is a box with items of 2 different colors of which the blue one is both on top and on the bottom
+there is a black block below a yellow block
+there is a yellow square touching the edge
+there are exactly two blue objects touching the edge
+there is a yellow block as the top of a tower with at least two blocks
+there is 1 blue circle
+there is 1 black triangle
+there is a box with one item and it is black
+there is at least 1 tower with 1 black block at the top
+there is only 1 tower with at least 1 blue block
+there is a tower with two yellow blocks and at least one black block
+there is no black block as the base of a tower
+there are two towers with yellow blocks on the top
+there are at least two circles touching the edge
+at least one grey square has exactly three objects
+one of the grey box contains exactly six objects where one of the object is a yellow circle
+there is a blue object touching the corner and the shape is not circle
+there is at least one blue block as the base of a tower with at least two blocks
+there is a box with exactly two items
+one box has 2 black triangles
+there is a black object touching the edge which is not a square
+there is 1 tower with exactly 1 blue block and 1 black block
+there is a box with exactly six items
+there a 5 blue blocks
+the top of the two towers are black
+there is a blue block as the base of two towers
+there is 1 triangle closely touching a corner
+there is 1 box with only yellow and blue items in it
+there is a tower with two black blocks
+there is 1 tower with 1 blue block in the middle of it
+there is 1 tower with at least 1 yellow and 1 black block
+there is one tower with at least two blue blocks in it
+ll the three grey boxes either contain objects in even or odd numbers
+there is exactly 1 yellow square and 1 yellow triangle
+the first two blocks of the tower are black and blue
+there is a two blocks tower and the top is blue
+there are 2 black triangles and 1 black circle
+there is a four blocks tower
+there is a box which has a blue and yellow triangles
+there is a black circle touching the base
+there is a box which has four squares
+there is no circle closely touching the bottom of a box
+the tower with four blocks has a blue block at the base
+there is a box with 3 items of only black and yellow color
+there is at least one box with exactly 1 circle in it
+there are 3 blue items
+there are two black items touching the side
+there is a black block as the base of a tower with at least two blocks
+there is at least 1 tower with 2 blue blocks
+there is a grey box which contains objects of blue and black color only
+two tower have the same base but different on top
+there is one tower with exactly two blocks having the same color block over each other
+there is a box with a yellow circle touching the wall
+tower with three objects has a black block
+there is a blue item closely touching right wall of a box
+there is a box with a black square and a blue triangle
+there is exactly one square touching any edge
+there is 1 box with exactly 1 blue item
+there is a box with only blue and black items of which one is a black square
+there is at least 1 black circle in each box
+there is a triangle that is touching the lower corner
+none of the yellow triangles are touching any edge
+there is no item closely touching a wall of a box
+there is a box with a blue triangle touching the wall
+there is a box with items of only blue and yellow color
+black triangle is not touching any edge
+there is a box without a blue item with two yellow and at least one black item
+there is an item closely touching a corner
+there are two circles touching the base
+there are two boxes which has the same number of objects and three kinds of colors
+there is a box with a blue triangle and at least two black items
+there is at least one black triangle closely touching right wall of a box
+there is a box where a black and yellow square are touching each other
+there is a box with a blue item touching the wall and a yellow item on top of it
+there is at least one tower with exactly three blocks having a yellow object as a middle block
+there is a tower which has exactly two blue blocks
+there is only one tower which has second black block
+there is not more than one grey box with exactly two objects
+there is a box with exactly three blue items
+there is a yellow block above the black block
+there is a box with black and yellow items of which there are 2 items of different size
+there is a box with a yellow item and only black items on top of it
+there is 1 box with 3 items
+there is exactly one tower with a blue block at the base and yellow block at the top
+the base of a tower is blue and the top is yellow
+there is a box with six items
+there is a tower with four blocks and the three are the same
+there is 1 box that has exactly 1 item
+there is at least one tower with a black block above the yellow block
+there is a box which has only two items and the color are the same
+there is at least one yellow block as the base of a tower with at least two blocks
+there is a yellow block as the top of a tower with four blocks
+there are exactly three objects touching the base
+there is 1 tower with 1 blue block at the base
+there is a tower with only one object which is black
+there is 1 tower with at least 2 yellow blocks
+there is a blue circle and at least one black item
+there are two towers that has two the same color blocks attach with each other
+there is a box with 3 items and a black one is touching the wall
+there is a tower with four blocks having blocks of all three colors
+there is a box with seven items and the four are yellow
+there is 1 tower with only 1 black block and 1 yellow block
+the base of the two towers is blue
+there is 1 tower with blocks of all 3 colours
+the base and second block of the tower are yellow
+there is a box with 3 items at most of which 2 are blue triangles
+there is one tower with a black block over a yellow block
+there is a box with two items and one of the items is triangle
+there is a box with 4 items and a black on top
+there is 1 box with exactly 1 black circle in it
+there is a box with 3 items of which 2 are blue
+there are exactly four objects touching any edge
+there is 1 black item closely touching a corner
+there is a box which has only three items
+there are at least two towers that has only two blue blocks
+the tower with four blocks has a black block over the black block
+there is 1 box with exactly 1 black triangle
+there are at least two towers with a yellow block at the top
+there is a yellow item closely touching the bottom of a box
+there is exactly one blue item closely touching the bottom of a box
+there is a blue block as the top of a tower with at least two blocks
+there is a box with exactly three yellow items
+the first two blocks from the base of a tower are black
+there is a box with only one item that is not black
+blue circle is touching the wall
+there are exactly two grey boxes containing exactly five objects
+there is a black triangle that is almost touching the side
+there is at least 1 tower with a black block at the base
+there is a box with 3 items of all 3 different colors
+there are exactly two black squares not touching the edge
+there is a box with only black and blue items
+none of the black color objects are touching the edge
+there is a box with one blue triangle and one black square of the same size
+there is a box with only yellow items of which at least one is a triangle
+there is 1 tower with a yellow block at the bottom
+there is at least 1 tower with a blue block at the bottom
+there is a box with 2 black items not touching each other
+there is at least one tower with two blocks
+there is a black block as the base of a tower with four blocks
+there are 5 blue items
+there is a yellow block as the base of a tower with three blocks
+there is a box with a yellow circle and a black triangle
+there are two grey squares with one black object touching the bottom base
+the tower with three objects has a black block at the top
+there are two towers with the same base color that is not yellow
+there is 1 box with only 2 items of the same colour
+there are 4 black items
+there are two black items closely touching right wall of a box
+there is a box with a blue square at least one black square and at least two yellow items
+there is a tower with exactly three blocks having a yellow block at the top and base
+there is a black item closely touching a corner
+the tower with three blocks has a black block as a middle block
+none of the blue circles are touching any edge
+there is exactly one square touching the bottom base
+each box has at least 1 yellow item in it
+there are seven items in a box and some of the items are yellow
+there is a tower with a blue block above a yellow block
+the middle of a three blocks tower is black
+there is a box with a yellow triangle and two black triangles
+there is a box with multiple objects which has only one black object that is circle
+there are two boxes with two items of different color
+there are at least 2 towers with 2 blue blocks stacked together
+one of the grey box has more than one object which are all of same type
+the color of a two blocks tower is blue and black
+there are 3 yellow squares
+there is a box with at most 3 items of black and blue color
+there is at least one blue block above a yellow block
+there are exactly three objects in one grey box
+there is one box with exactly 3 items
+there is a box with three squares and other items
+there is a tower with three blocks having yellow block at the base
+the tower with three blocks has a black block at the base
+there is a box with 4 yellow and one blue item
+there is 1 box with 1 black item
+there is 1 blue triangle and 1 blue square
+there is exactly one yellow object touching the base
+there is no blue triangle closely touching the bottom of a box
+there is 1 tower than contains at least 1 yellow block
+there is a box with items of all 3 different colors and only one blue circle
+there is at least one yellow block as the base of a tower
+there is a tower with two yellow blocks and two black blocks
+there is at least one blue block on a black block
+there are exactly two yellow objects not touching any edge
+there is a tower that the third block from the base is black
+there is no yellow triangle closely touching the bottom of a box
+there is 1 box with three items of the same colour
+there are exactly three blue objects not touching the edge
+the base of a four blocks tower is yellow
+there is a yellow block bellow a black block
+there is 1 tower with 4 blocks
+there are two blue circles not touching the edge
+there is exactly one tower with a black block at the top
+there is at least one tower with exactly one block which is of yellow color
+there are exactly two towers with black blocks and at least two towers with blue blocks
+there are two yellow objects touching the edge
+there is a tower with two black blocks and exactly one yellow block
+there is 1 box with exactly 1 black item
+none of the blue objects are touching any edge
+there is a black block on a black block
+there are 2 towers with a blue block at the top
+there are 2 boxes with yellow items
+there is a box with only 2 yellow items and at least one black item
+there are two towers which has only two blocks
+there is a tower with exactly two black blocks
+there is a box with 3 items of different color
+there are exactly two blue blocks as the base of a tower
+one of the grey box has exactly three objects one of which is blue square
+there is a black tower with only one block
+there are two towers with a black block above a blue block
+there is an item closely touching a corner of a box
+there is a blue circle closely touching the bottom of a box
+there are two towers that has 2 black blocks each
+of the three towers one has only black base
+there is a box with a yellow square and a blue triangle
+one of the grey box has two circles touching the base
+there are two towers with blue block at the top
+there is a box which has only two items and the color is blue
+there is a box which has a blue square a yellow square and two black items
+ll black squares are touching the edge
+there is a tower with only two blocks
+at least 1 tower has a yellow block at its base
+there are two towers with a black block at the base
+there is only 1 box with at least 1 triangle
+there are atleast two towers with a black block at the base
+one blue object is touching the base
+there is a tower with one or more blocks of blue color only
+there is a black block as the top of a tower with exactly three blocks
+there is no black block as the top of a tower with at most three blocks
+there is a four blocks tower that has at least two black blocks attached
+there are 2 black triangles
+there is a box with 2 yellow 3 blue and 1 black item
+there is a two blocks tower and only one color
+the yellow triangle is touching the wall
+there is a box which has blue and black items only
+there are at least two black objects touching the edge
+there are exactly two yellow circles not touching the edge
+there is a box with 4 items of which 1 is yellow
+there is exactly one box with one item
+none of the blue triangles are touching the edge
+there is at least one blue block as the base of a tower
+none of the black circles are touching any edge
+there is one tower with two blocks where atleast one block is yellow
+there is a box with only black and blue items alternately positioned
+there is a blue block as the top of a tower with at least three blocks
+there are at least two blue blocks above a yellow block
+one of the grey box has less than three objects one of which is a square
+there is a triangle touching the edge of the square
+at least one grey box has exactly three objects
+there is a box with only one black square
+there is at least one box with only two items
+there is a box with two items and the one is a black square
+there is a tower with two black blocks and the top and base are black
+there is a box with at least one yellow square and at least one black triangle
+there is one tower with exactly two yellow blocks
+there is a box with at least one blue circle and a blue triangle
+there is a box with 5 items of 2 different colors
+there is no yellow block as the base of a tower with at least two blocks
+there is a blue circle closely touching a corner
+there is no box with only one item
+there is a blue triangle closely touching right wall of a box
+there is a tower with only blue and black blocks
+blue squares are touching the base
+there are two blue circles touching any edge
+there is exactly one tower which has a blue block over a yellow block
+there is exactly one square touching the base
+there is 1 yellow square
+there is a box with a yellow square and two circles
+there are two towers with the same number of blocks
+there is exactly one yellow circle touching the edge
+there is a small yellow square touching the wall
+there are exactly two towers with a blue block at the base
+there is one yellow circle not touching the edge
+there are exactly two objects touching the base
+there is a box with 3 blue 2 black and 1 yellow item
+one of the grey square contains only yellow color objects
+there is grey box with two triangles touching the base
+there is a box with multiple items and the two are yellow
+there are 2 yellow items and they are the same type of item
+there is a blue block as the base of only two towers
+there is a box with only yellow and black items
+there is a box with only one yellow square
+there is exactly one blue triangle not touching the edge
+there are two the same color item touching the different corner of a square
+there is no box with a black item and two yellow items
+there are 2 towers that contain at least 1 blue block
+there is 1 box with at least 2 triangles of the same colour
+there is a black object touching the base
+there is a tower with a yellow top
+there is exactly one blue circle not touching any edge
+there is at least one yellow square closely touching the bottom of a box
+there is a box with a yellow square and two blue items
+there is a grey box with exactly one object which is a circle
+there is at least one tower with exactly one black block
+there is a blue block as the top of a tower with at most three blocks
+there are two yellow squares touching the edge
+there is at least one tower with a blue block at the top and yellow block at the base
+there is a tower with a yellow block at the base
+there is 1 box with 1 black item and 1 yellow item
+there is a box with 3 items of all 3 different colors
+there is a box with only 3 items of which 1 is yellow
+there is a box with a black item touching the wall and a blue item on top
+there are 2 black blocks
+there is a box with a yellow item and 2 black items touching each other
+there is a blue square not touching any edge
+one of the grey box has exactly three objects
+there is a box with only one blue item and at least two black items
+there is atleast one grey box with exactly three objects
+there is 1 box with a black square and a black triangle
+there is 1 tower that has exactly 1 block
+there is a box with a yellow triangle a yellow circle and two black circles
+there is exactly 1 yellow item
+there is atleast one tower with a blue block at the base
+the items of all 3 colors are touching the wall
+there is a blue triangle closely touching the bottom of a box
+there is 1 tower with 1 black block and 1 yellow block
+there are only two towers with blue block base
+the tower having more than one block has a black block at the top
+the tower with four blocks has a yellow block at the base
+there is a yellow item touching the corner
+there is a yellow triangle touching the edge
+there are 2 towers with exactly 1 yellow block
+there is a box with a blue circle a blue triangle and a yellow triangle
+there are at least two towers with exactly three blocks
+there is only 1 box with blue items
+there is a box with a yellow circle a blue square and at least one black squares
+there is a tower with only three black blocks
+there are at least 2 yellow blocks
+there is a yellow block as the top of a tower with exactly two blocks
+one of the grey square has exactly two objects
+there is box with items of different colors and two black items at most
+one of the grey square has two circles
+there are two the same color triangles that are touching the corners
+there is 1 tower with a yellow block above a black block
+there is a box with items of only black and blue color
+there are seven blocks
+there is a box with a small yellow circle not touching the wall
+there is a box with only blue and yellow color and a big circle
+there is a grey box having only blue color objects where at least one blue square is not touching an edge
+there is a black object touching the bottom base
+there is a box with three blue items
+there is 1 yellow item closely touching a corner
+there is exactly one black block as the top of a tower with at least two blocks
+there is a black circle closely touching a corner of a box
+there is a blue item closely touching the bottom of a box
+there are two items touching the corner
+the blue item is touching the wall
+there is a box with a blue circle and a yellow square
+there is at least one tower with exactly one block which is of black color
+there is at least 1 box with 2 blue items
+there is 1 tower with 2 blue blocks
+there is a box with a yellow circle and two black items
+there is a tower that the color above the base is black only
+there is 1 tower with 3 blocks of the same colour
+there is 1 box with only black items
+there is a tower with a blue block at the top and at the base
+at least one tower with four blocks has a blue block at the base
+there is a yellow circle touching the base
+there is 1 box with exactly 1 black triangle and 1 black square
+there are at least two towers that are not the same in height
+there is a rectangle closely touching right wall of a box
+there is a tower and the color of the second and third block is black
+there is a box with only one square and it is touching the wall
+the tower with exactly three blocks has a blue block at the top
+there is a three blocks tower which the top and base is black
+there are 2 towers with 1 blue block at the base
+there is a black circle not touching any edge
+there is one tower with has blocks of black color only
+there is a grey box with exactly six objects
+there are 2 blocks with a blue block at the top
+there is a yellow circle touching the side
+the base of the three towers are two blue and one yellow
+there is exactly one blue square touching the wall
+there are 2 boxes that have at least 1 yellow item
+there is a yellow block as the top of a tower with exactly three blocks
+one of the grey box with exactly four objects has blue and yellow color objects
+there is exactly one tower with a yellow block over a blue block
+two towers are the same in height
+there is a tower which has only blue color blocks
+there is at least one tower with a yellow block above a black block
+one of the grey box has exactly four objects
+there is one tower with a yellow block over a black block
+there is at least one black block as the base of a tower
+one of the grey box contains four black objects
+there is 1 tower with a black block in the middle
+each grey square has exactly one yellow object
+there is only 1 tower with 1 blue block
+there is a blue or black triangle closely touching the bottom of a box
+there is at least one box with only one item
+there is exactly one yellow square not touching any edge
+there is a box with a black circle and two squares
+there is at most one yellow block as the base of a tower
+there is one yellow circle touching the base
+there is a box with 3 black items
+there is a box with seven items and the two are blue
+the number of items in the boxes is different
+there are four yellow objects not touching any edge
+there is a box with a yellow square and at least one triangle
+there is a tower with only one block
+there are two blue items closely touching right wall of a box
+there is a three blocks tower which has two blue blocks
+there is 1 box with 2 black items
+there is a tower with a yellow block over a blue block
+the tower with two blocks have same color blocks on top of each other
+there is at least 1 black item in each box
+there is 1 blue triangle
+there is 1 tower with 1 blue block and 1 yellow block and 1 black block
+ll three towers contain 1 yellow block
+there is a box with at least 2 items and a blue one on top
+there are two boxes with blue triangles
+yellow square is not touching the wall
+there is exactly one triangle touching the base
+there is a blue block as the base of a tower with more than two blocks
+there is a box with blue and yellow items and the yellow one on top
+there are exactly two yellow blocks as the top of a tower
+there is exactly one yellow square touching the edge
+there is a box with only 1 item
+there are 2 towers that contain at least 1 yellow block
+there is a box with a yellow item touching the wall and 2 blue items on top of it
+there are at least two blue squares touching the edge
+there is exactly one black item closely touching the bottom of a box
+there is a tower with exactly one black block and at least one blue block
+there are two towers with the same height but their base is not the same in color
+there is exactly one yellow block as the top of a tower
+the top of a tower is black which is attached to a yellow block
+there is a box with one item
+there are two towers which has yellow block at the top
+there is a blue square touching the corner
+there are exactly three black objects not touching the edge
+there is a yellow block bellow a blue block
+there are 2 towers with only blue blocks
+ll towers have at least 1 yellow block in it
+there is at least one tower with a yellow block at the base
+there is a tower with only yellow blocks
+there is exactly one blue circle touching the edge
+there is a tower which has two black blocks
+there is exactly one circle closely touching right wall of a box
+there is 1 box with 1 yellow item and 1 blue item
+there is a four blocks tower that the base and top is yellow
+two of the three towers has a black top
+there is only one black item closely touching the bottom of a box
+there is at least one yellow block on a black block
+there is a box with a black triangle at least one blue circle and yellow items
+there is a box with a blue square and a black circle
+there is no black triangle closely touching right wall of a box
+there are two yellow items touching each other
+there is a box which has three items
+there is a box with a blue item touching the wall and a black one right on top of it
+at least one of the grey square contains exactly one object which is a triangle
+the grey box with least number of objects contains one blue circle
+there is 1 tower with at least 1 yellow block
+black square is not touching any edge
+there is 1 tower that is made of only 1 block
+there is one tower with exactly two objects
+there is 1 tower with 1 black block at the base
+there is a tower which has a blue block over a blue block
+there is at least one blue block as the top of a tower
+there are 2 blue triangles and 2 black triangles
+there are exactly two towers with a black block at the base
+there is at least one tower with four blocks
+there is 1 box with exactly 1 circle in it
+there is a box with a yellow square and two black squares
+there is a box with exactly three items including blue square
+there is a triangle closely touching the bottom of a box
+there is a box with 3 items at most of 2 different colors at most
+all yellow circles are touching the edge
+there is a tower with two yellow blocks
+there is 1 tower with at least 1 black block
+there are 2 squares with 1 black item
+there is at least 1 tower with a yellow block at the bottom
+there is a box with at least three blue items
+there are two yellow blocks as the base of a tower
+there is exactly one black triangle not touching the edge
+there are only two towers with yellow blocks and at least one of them has yellow block as the top of a tower
+there are exactly three black circles not touching any edge
+there is a back block of at least one tower
+there are at least 4 black blocks
+there is a tower with more than two blocks having a yellow block at base
+there is block which has an exactly one object which is of yellow color
+there is a blue block below a yellow block
+there are two items closely touching the bottom of a box
+there is exactly one black triangle touching the base
+there is no tower with three blocks
+there are black blocks in each tower and the positions are the same
+there is a single block tower and the color is yellow
+there is a box with only yellow items
+there is one tower which has a black block over a black block
+there is exactly one black object touching the edge
+there are two boxes that has two different shapes yellow items
+there is at least one black circle touching the base
+there is exactly one black circle touching the base
+there is a box with two yellow squares
+there is a grey box with exactly two objects
+there are two black circles not touching any edge
+one of the three towers base is yellow
+there is a box with a black circle and 2 black triangles
+there are 2 boxes with at least 1 black item
+there is a box with two circles and a yellow triangle
+there is a box with 3 items at most of only one color
+there is 1 tower with a blue block at the top
+there is a tower with a black block above a black block and a blue block at the base
+there is one box with at least 1 blue square and 1 blue triangle
+there is 1 box with exactly 1 item in it
+there is at least 1 blue item in each box
+there is a box with only one black item
+there is a box that a black and blue items are touching side of the box
+there is at least 1 black block in each tower
+there are two blue blocks as the base of a tower
+there is exactly one yellow triangle touching the edge
+there is a box with three black items
+there are 2 boxes with items of only 2 different colors
+there are two black items closely touching the bottom of a box
+there is exactly one black square touching the base
+there is a box with a black item a yellow item and at least one blue item
+there is a box with 3 items of only black and yellow color
+there is a tower with four blocks including two black ones
+there is a box with 3 items of which 2 are black
+there is 1 tower with 1 black block at the top
+there is no item closely touching the bottom of a box
+the top of a two blocks tower is blue
+there is a yellow block as the top of a tower with blue blocks
+there is a box with only 2 black and yellow items
+there is a box with 4 items of which one is a blue item and 3 are yellow items
+there is a box that has three blue circles
+there is a box with only 3 items
+there is a box with 2 items of which 1 is blue
+there is 1 tower with exactly 2 yellow blocks stacked together
+there is a black triangle touching the side
+there is a tower with four blocks having a black block above a black block
+there is 1 box with only blue and black items
+there is a box with a triangle and at least one black circle
+there is no blue circle of medium size touching the wall
+there is at least one tower with only one yellow block
+there is exactly one tower with four blocks
+there are 2 towers with a black block at the top
+there are two boxes with multiple items and each has two black items

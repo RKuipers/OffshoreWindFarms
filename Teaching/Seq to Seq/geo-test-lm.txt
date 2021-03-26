@@ -1,0 +1,1000 @@
+blocks	<s> there are at least 2 blue
+with	<s> there is 1 box
+together	<s> there is 1 tower with exactly 2 yellow blocks stacked
+1	<s> there is 1 box with exactly
+yellow	<s> there are two towers with
+triangles	<s> there are two
+</s>	<s> there is a box with a black square a blue square and a yellow item
+black	<s> there is as yellow block above a
+is	<s> there
+two	<s> there are exactly two towers with black blocks and at least
+one	<s> there is
+grey	<s> one of the
+there	<s>
+a	<s> there is
+box	<s> there is a
+with	<s> there is a box
+items	<s> there is a box with a black item touching the wall and 2
+square	<s> there is a grey box with only one yellow
+four	<s> there is a tower that has
+on	<s> there is at least one yellow block
+objects	<s> there is a box with multiple
+blue	<s> there is exactly one tower with a
+black	<s> there is no
+there	<s>
+of	<s> there are exactly three items closely touching the bottom
+contain	<s> ll the three grey boxes either
+item	<s> there is only one small
+with	<s> there is a tower
+blocks	<s> there are two towers that has two the same color
+blue	<s> there is a box with a yellow triangle a black triangle and at least two
+is	<s> there
+least	<s> there are 2 towers that contain at
+block	<s> there is a blue
+block	<s> there is a yellow block over a black
+with	<s> there is a grey square
+items	<s> there is a box with multiple
+base	<s> there are exactly two yellow circles touching the
+has	<s> one tower
+block	<s> there are atleast two towers with a black
+at	<s> there is a box with at least one blue triangle and
+is	<s> there
+yellow	<s> there is only 1 box with blue and
+3	<s> there is a box with
+wall	<s> the yellow triangle is touching the
+</s>	<s> there is a box with 4 items of 2 different colors
+edge	<s> there is a blue triangle not touching any
+there	<s>
+there	<s>
+a	<s> there is one tower with
+there	<s>
+tower	<s> there is at least one yellow block as the base of a
+</s>	<s> there is a box with exactly three blue items
+which	<s> there is a box with 2 items of
+three	<s> the color of the
+is	<s> there is a box with 4 items where yellow item
+three	<s> ll the
+</s>	<s> there is a box with a yellow item a black triangle a black circle and at least one blue square
+items	<s> there is a box with a black triangle at least one blue circle and yellow
+box	<s> there is a
+a	<s> there is a box which has
+block	<s> there is a tower with exactly one blue
+a	<s> there is
+is	<s> there
+is	<s> there
+square	<s> there is a box that has one black triangle and one black
+not	<s> there are exactly four black objects
+there	<s>
+top	<s> there are three yellow blocks as the
+top	<s> there is a four blocks tower that the base and
+yellow	<s> there is a box with a
+tower	<s> there is one
+and	<s> there is a box with only blue
+box	<s> there is a
+one	<s> there is a box with at least
+with	<s> the tower
+and	<s> there is at least 1 box with black
+</s>	<s> there is at least one tower with exactly two yellow blocks
+a	<s> there is a box with
+</s>	<s> there is a tower that has three black and one blue blocks
+blue	<s> there is a
+a	<s> the top of
+a	<s> there is a box with
+other	<s> there are two blue blocks attached with each
+block	<s> there is 1 tower with at least 1 black
+of	<s> there is 1 box with items
+there	<s>
+corner	<s> there is a blue square touching the
+a	<s> there are two boxes with
+a	<s> there is
+right	<s> there is at least one item closely touching bottom
+has	<s> the tower with four blocks
+a	<s> there is a yellow square closely touching the bottom of
+</s>	<s> there are 2 yellow squares
+of	<s> there is no yellow item closely touching the bottom
+blue	<s> there is 1 box with exactly 1 yellow item and 1
+is	<s> there
+</s>	<s> there is a blue circle closely touching right wall of a box
+and	<s> there is a box with at least one blue triangle
+there	<s>
+is	<s> there
+triangle	<s> there is a yellow
+there	<s>
+</s>	<s> there are 2 blue blocks
+</s>	<s> there is a yellow item closely touching a corner
+1	<s> there is
+a	<s> there is a box with
+black	<s> there is a box with 4 items at most of which 2 are
+colors	<s> there is a box with 3 items at most of 2 different
+tower	<s> there is a tower with four blocks having a black block above a blue block with a black block at the top of the
+</s>	<s> there is a box with a black circle and a blue circle
+towers	<s> of the three
+black	<s> there is a
+towers	<s> there are two
+with	<s> there is a box
+black	<s> there is exactly one
+three	<s> there is a black block as the top of a tower with
+only	<s> there is 1 box with
+of	<s> there is a black block as the top
+a	<s> there is a tower with
+2	<s> there are
+it	<s> there is a box with only one square and
+blocks	<s> there is no black block as the base of a tower with four
+are	<s> there
+exactly	<s> one of the grey square has
+black	<s> there is a
+block	<s> there is a four blocks tower and the second
+with	<s> one of the tower
+any	<s> there are exactly three circles not touching
+box	<s> at least one grey
+bottom	<s> there is a yellow item closely touching the
+with	<s> there is a box
+</s>	<s> there is a box with 4 items of which 3 are black
+exactly	<s> there are
+box	<s> there is a
+a	<s> there is
+black	<s> there is a
+black	<s> there is 1 box with a black square and a
+with	<s> there is a tower
+black	<s> there are two
+only	<s> there is a box with
+base	<s> there is one blue triangle touching the bottom
+there	<s>
+is	<s> there
+towers	<s> there are 2
+1	<s> there is
+there	<s>
+from	<s> the third block of a tower
+is	<s> there
+not	<s> there are three towers that are
+a	<s> there is one tower which has a yellow block over
+a	<s> there is
+has	<s> at least one grey square
+black	<s> there is a box with a
+objects	<s> there are two boxes with two black
+one	<s> the grey box with least number of objects contains at least
+square	<s> there is a box with one blue triangle and one black
+</s>	<s> one of the grey square contains exactly one object
+with	<s> there is a tower
+and	<s> there is a box with two yellow squares
+with	<s> there is box
+only	<s> there is
+a	<s> there is
+a	<s> there is
+objects	<s> there are exactly two black
+that	<s> there is a tower
+tower	<s> there is 1
+a	<s> there is
+two	<s> there are
+1	<s> there is
+least	<s> there is 1 tower with at
+</s>	<s> one of the grey box has only one object
+black	<s> there is at least one tower with four blocks with a
+is	<s> there
+one	<s> there is
+which	<s> there are two towers
+with	<s> there is 1 tower
+there	<s>
+at	<s> there is
+at	<s> there is a box with a black square a yellow square and
+the	<s> there is a tower with three blocks where a yellow block is at base of
+1	<s> there is
+item	<s> there is 1 box with only 1 yellow
+a	<s> there is
+box	<s> there is a
+least	<s> there is 1 tower with at
+box	<s> one
+in	<s> there are 4 yellow items
+is	<s> there
+with	<s> there is a box
+black	<s> there is one tower which has a black block over a
+edge	<s> there is exactly one yellow triangle not touching the
+there	<s>
+there	<s>
+that	<s> there is a box
+black	<s> there are two boxes with a
+triangles	<s> there are two black
+corner	<s> there is a square closely touching a
+one	<s>
+the	<s> there is 1 box with three items of
+black	<s> there is exactly on
+</s>	<s> there is a box with exactly one yellow circle and exactly one black triangle
+of	<s> at least one
+items	<s> there is a box with multiple items and the three
+yellow	<s> there are two towers which has
+there	<s>
+</s>	<s> there is a box with items of all 3 different colors
+of	<s> one
+the	<s> there are at least 2 towers with a yellow block at
+tower	<s> there is at least one yellow block as the base of a
+there	<s>
+box	<s> there is no blue item closely touching the bottom of a
+box	<s> there is no yellow square closely touching the bottom of a
+a	<s> there are only two towers with yellow blocks and at least one of them has yellow block as the top of
+is	<s> there
+two	<s> there is a tower with
+</s>	<s> there are 2 boxes with 2 yellow items
+</s>	<s> there is a box with a yellow circle and two black items
+a	<s> there is
+is	<s> there
+</s>	<s> there is a black triangle touching the base
+is	<s> there
+least	<s> there is at
+a	<s> there is
+is	<s> there
+</s>	<s> there is exactly one blue object touching the edge
+the	<s> there is at least one blue triangle touching
+</s>	<s> there is a black block on a blue block
+2	<s> there are
+box	<s> there is a
+only	<s> there is a tower which has more than 2 blocks but
+and	<s> there is a box with a blue square
+box	<s> there is a
+which	<s> there is at least one tower
+black	<s> there is a box with 2
+circles	<s> there are exactly two yellow
+even	<s> each grey box contains
+there	<s>
+least	<s> there is at
+any	<s> there are two blue circles touching
+box	<s> there is a
+have	<s> ll the towers
+tower	<s> there is a yellow block as the top of a
+where	<s> there is 1 tower
+black	<s> the bases of the towers are yellow and
+2	<s> there is a box with at least
+there	<s> on the tower
+a	<s> there is a tower with a yellow block over
+there	<s>
+with	<s> there is a yellow block as the top of a tower
+one	<s> there is exactly
+items	<s> there are two boxes that has the same number of
+there	<s>
+are	<s> there
+edge	<s> there are exactly two blue objects touching the
+four	<s> one of the grey square has exactly
+blocks	<s> one tower has 2
+there	<s>
+blue	<s> there is a
+one	<s> there is at least one box that has
+is	<s> there
+each	<s> there are two box that has two blue items
+one	<s> there is a box with at least 3 blue one yellow and
+least	<s> there is at least one yellow block as the base of a tower with at
+at	<s> there is a tower with a blue block
+there	<s>
+block	<s> there is one tower with a yellow
+box	<s> there is a triangle in every
+</s>	<s> there are at least 2 black squares
+a	<s> there is
+</s>	<s> one of the grey box has exactly two objects which are black
+and	<s> there is a box with 3 items at most of which there are at least one yellow
+with	<s> there is a box
+touching	<s> there is a box with a yellow item and 2 black items
+at	<s> there is
+circle	<s> there is a box with a blue
+black	<s> there is one tower with a yellow block above the
+</s>	<s> one of the grey box contains four black objects
+wall	<s> the yellow item is touching the
+touching	<s> there is 1 black item closely
+the	<s> there is a tower with exactly two blocks having a blue block at
+yellow	<s> there is a box with only black and
+box	<s> there is a
+is	<s> there
+the	<s> there are exactly three yellow squares not touching
+wall	<s> there is a box with a yellow item touching the
+is	<s> the top of a two blocks tower
+there	<s>
+blocks	<s> there is a tower with only yellow blocks with less than four
+on	<s> there is a yellow block
+one	<s> there is at least
+with	<s> there is a box
+exactly	<s> there is a grey box with
+base	<s> there is a blue block as the
+the	<s> there is a grey box where none of the black objects are touching
+there	<s>
+is	<s> there
+color	<s> there is a box that has only five items and
+blocks	<s> there is a black block as the base of a tower with four
+exactly	<s> there is
+yellow	<s> there is 1 box with only
+one	<s>
+in	<s> there is a tower with a yellow block
+blocks	<s> there is a tower with a yellow block and other three
+blue	<s> there is a tower which has only
+2	<s> there is a box with only
+yellow	<s> there is 1 box with a
+item	<s> there is a yellow
+</s>	<s> there is tower with has a black block above a yellow block
+touching	<s> there are two grey squares with one black object
+the	<s> there is a yellow item touching
+a	<s> there is
+of	<s> one
+</s>	<s> there is one yellow circle touching the base
+a	<s> there is
+the	<s> there is a blue block as
+exactly	<s> one of the grey box contains
+at	<s> there is a box with
+box	<s> one
+base	<s> there are two blue blocks as the
+tower	<s> there is a
+with	<s> there is a box
+touching	<s> there are exactly three objects
+one	<s> one of the grey box has exactly three objects
+with	<s> there are two towers
+block	<s> there is at least one yellow
+right	<s> the is no circle closely touching bottom
+has	<s> one of the grey box
+all	<s> the bases of the three towers are
+box	<s> there is a blue item closely touching right wall of a
+yellow	<s> there are 4
+top	<s> there is exactly one tower with a black block at the
+circles	<s> there is a box with a yellow square a black square and two yellow
+a	<s> there is
+has	<s> one of the grey box
+with	<s> there is 1 box
+one	<s> there is at least
+of	<s> at least two boxes have the same number of objects each and the same number
+is	<s> there
+grey	<s> there is a
+there	<s>
+a	<s> one of the grey box has exactly three objects one of which is
+</s>	<s> there is only one blue block as the top of a tower with four blocks
+box	<s> there is a
+at	<s> there is at least 1 tower with a yellow block
+two	<s> one of the grey square contains exactly
+one	<s> there is at least
+wall	<s> there is a box with at least 3 items and a blue one touching the
+a	<s> there are two yellow triangles closely touching the bottom of
+</s>	<s> there are 2 towers with exactly 1 yellow block
+tower	<s> the
+edge	<s> there are exactly three yellow objects touching any
+box	<s> there is a
+box	<s> there is only one black item closely touching the bottom of a
+black	<s> there is a tower with only blue and
+the	<s> there is a black square touching
+is	<s> there
+</s>	<s> there is one tower where a blue block is on top of a black block
+base	<s> there is a tower with three blocks and the
+two	<s> there are exactly
+with	<s> there is a box
+2	<s> there is a box with only
+three	<s> there is a box with only
+which	<s> there is a box with 4 items of
+blue	<s> there is 1 tower with 1
+are	<s> there is a grey box where none of the black objects
+blue	<s> there is a box with only
+there	<s>
+is	<s> there
+there	<s>
+blue	<s> there is a box with two yellow squares and at least two
+</s>	<s> there is a box with only two squares
+square	<s> there is a box with a yellow circle and at least one black
+box	<s> there is a grey
+blue	<s> one tower has 2 yellow blocks and 1
+square	<s> there is a box with a black
+is	<s> there
+blocks	<s> there are 2
+of	<s> there are exactly two yellow blocks as the top
+in	<s> there is a box with four items and the two items are yellow
+two	<s> there are
+</s>	<s> there is a box with only one item that is not black
+2	<s> there are
+3	<s> there are
+two	<s> there are at least
+2	<s> there is a box with
+blue	<s> there is 1 box with 1
+there	<s>
+of	<s> there is no yellow block as the base
+above	<s> there is at least one yellow block
+block	<s> there is exactly one tower which has a blue block over a yellow
+there	<s>
+a	<s> there is
+objects	<s> at least one of the grey box contains
+there	<s>
+</s>	<s> there is one tower which has a blue block at the base
+objects	<s> ll the three grey boxes either contain
+a	<s> there is
+at	<s> there is a box with a black square and
+item	<s> there is at least 1 blue
+</s>	<s> there is a box with a yellow square and two black squares
+</s>	<s> there is a blue item closely touching a corner
+least	<s> there are at
+are	<s> there
+box	<s> there is a
+4	<s> there is a box with
+at	<s> there is a box with a blue item and
+there	<s>
+tower	<s> there is a
+black	<s> there is a box with only one item that is not
+2	<s> there is a box with a yellow item touching the wall and
+wall	<s> there is no circle closely touching right
+circle	<s> there is a box with at least one blue triangle and at least one
+items	<s> there is a box with only 2
+four	<s> there is no black block as the base of a tower with
+</s>	<s> there are 4 yellow blocks
+</s>	<s> one box has 2 black triangles
+is	<s> there
+a	<s> there is
+only	<s> there is a box with 3 items at most of
+two	<s> there is a box with
+there	<s>
+a	<s> at least 1 tower has
+is	<s> there
+is	<s> there
+of	<s> one
+black	<s> there is 1 tower with a
+black	<s> there is exactly one
+and	<s> there is a box with a blue circle
+a	<s> there is no black circle closely touching the bottom of
+closely	<s> there is a black item
+not	<s> there is exactly one yellow triangle
+</s>	<s> there is a box with a yellow circle and a lot of black items
+with	<s> there is a tower
+one	<s> there are exactly three objects in
+</s>	<s> there is a box with 2 items at most and a black item touching the wall
+</s>	<s> there is 1 box with only black and yellow items
+there	<s>
+with	<s> there is a box
+a	<s> there is
+circle	<s> there is exactly one black
+one	<s> ll the towers have at least
+there	<s>
+one	<s>
+attached	<s> there is a four blocks tower that has at least two black blocks
+there	<s>
+a	<s> there is
+yellow	<s> there is one tower with a
+triangle	<s> there is at least 1
+one	<s> there is at least
+edge	<s> there are exactly three black squares not touching any
+base	<s> there are two towers with the same height but their
+most	<s> there is at
+with	<s> there is 1 box
+there	<s>
+there	<s>
+</s>	<s> one of the grey square has three circles
+that	<s> there is a box
+with	<s> there is at least one box
+</s>	<s> two towers have yellow blocks under a blue block
+of	<s> there is at least one yellow block as the base
+touching	<s> there is a black item closely
+the	<s> there are exactly two towers with a yellow block at
+of	<s> there is a blue block as the base
+yellow	<s> there are at least two
+blocks	<s> there are 5 black
+items	<s> there is a box with a black square a blue circle and more than two yellow
+same	<s> there is 1 box with only 2 items of the
+squares	<s> there is a box with a yellow square and two black
+objects	<s> there is a grey box having only blue color
+squares	<s> there is a box with a yellow circle a blue square and at least one black
+each	<s> there is at least 1 black square in
+color	<s> there is a box with four items and the two items are yellow in
+blocks	<s> there is a tower with exactly two blocks where both
+black	<s> only one
+the	<s> there are two yellow blocks as
+box	<s> there is no black item closely touching the bottom of a
+block	<s> there is a blue
+item	<s> there is a box with two blue items and exactly one yellow
+is	<s> there
+triangles	<s> there is a box with two
+of	<s> yellow circle
+exactly	<s> there is a tower with
+least	<s> there is at
+edge	<s> there is exactly one black square not touching the
+black	<s> there is a tower with a blue block a yellow block and two
+tower	<s> the base of the two blocks
+items	<s> there is a box with only 2 blue and yellow
+the	<s> there is an item touching
+a	<s> there is
+least	<s> there are at
+there	<s>
+is	<s> there
+a	<s> there is
+black	<s> there is a
+bottom	<s> there is an item closely touching the
+the	<s>
+tower	<s> there are two blue blocks as the top of a
+top	<s> there is at least one tower with exactly two blocks with a blue block at the
+block	<s> there is a tower with exactly two blocks having a yellow
+blocks	<s> there are 3 yellow
+of	<s> one
+a	<s> there is
+a	<s> there is
+there	<s>
+are	<s> there
+square	<s> there is exactly one yellow
+box	<s> there is 1
+same	<s> there is a box which has four items and the three are the
+a	<s> there is
+least	<s> there is a box with a blue square and at
+there	<s>
+blue	<s> there is a box with a
+</s>	<s> there is at least one blue block above a yellow block
+there	<s>
+least	<s> there are two yellow blocks as the top of a tower with at
+touching	<s> there is a box with 2 items and the black item is
+exactly	<s> there is
+tower	<s> there is only one yellow block as the top of a
+with	<s> there are 2 towers
+there	<s>
+are	<s> there
+are	<s> there
+edge	<s> there is exactly one yellow triangle touching the
+items	<s> there is a box with 3
+is	<s> there is exactly one yellow object
+</s>	<s> there is 1 tower with only blue and yellow items
+black	<s> ll boxes have exactly 2
+</s>	<s> there are at least 2 towers with a yellow block at the base
+</s>	<s> there is a blue block on a blue block
+block	<s> there are only two towers that has black
+with	<s> there is a box
+is	<s> there
+box	<s> there is at least one blue triangle closely touching the bottom of a
+box	<s> there is a
+at	<s> there are
+of	<s> the middle
+top	<s> there is at least one tower with a blue block at the
+there	<s>
+a	<s> the base of
+is	<s> there
+has	<s> there are two towers with four blocks and each
+yellow	<s> there is 1 tower with 1 blue block and 1
+one	<s> there is at least
+</s>	<s> there is a grey square with exactly five objects
+</s>	<s> there is a box with 3 small items of all 3 different colors
+touching	<s> there is a blue circle closely
+four	<s> the tower with
+box	<s> there is a
+1	<s> there is
+there	<s>
+is	<s> there
+a	<s> there is a black block as the base of
+there	<s>
+block	<s> the tower with four blocks has a black
+</s>	<s> there is atleast one grey box with exactly three objects
+are	<s> there
+</s>	<s> there are exactly three triangles touching any edge
+with	<s> there is a box
+yellow	<s> there is a box with multiple items and the two are
+a	<s> there is
+items	<s> there is a box with black and yellow items of which there are 2
+touching	<s> there are at least three squares not
+and	<s> there is a box that has two black items which are triangle
+two	<s> there are
+with	<s> there is 1 tower
+one	<s> there is a box with only
+item	<s> there is a box that has six
+top	<s> there is a box with a black square touching the wall and blue and yellow squares on
+of	<s> there is a box with a blue item touching the wall and a yellow item on top
+the	<s> there are two
+item	<s> there is a box with black item directly on top of the
+on	<s> there is a box with at least two items and a black item
+four	<s> the tower with
+second	<s> there are two towers with black blocks as the
+there	<s>
+three	<s> there is a box with
+box	<s> one of the grey
+is	<s> there
+at	<s>
+corner	<s> there is 1 triangle closely touching a
+contains	<s> one of the grey square
+a	<s> there is
+the	<s>
+at	<s> there is a box with at least one blue triangle and
+two	<s> at least
+yellow	<s> there is a box with a
+3	<s> there is a box with
+blocks	<s> there is a tower with four
+triangle	<s> there is a blue
+a	<s> there is
+a	<s> there is a blue block as the base of
+the	<s>
+edge	<s> there are exactly three triangles touching any
+including	<s> there is a box with exactly four items
+box	<s> there is one
+square	<s> there is a box with a blue
+block	<s> there is a blue
+block	<s> ll the towers have a black
+square	<s> there is a
+black	<s> there is a tower with only one object which is
+two	<s> there are exactly
+there	<s>
+and	<s> there is a box that has one square
+</s>	<s> there is exactly one square touching any edge
+yellow	<s> there are exactly two
+is	<s> there
+block	<s> there is only 1 tower with 1 blue
+box	<s> there is a
+there	<s>
+</s>	<s> there are 2 boxes with items of 2 different colors
+is	<s> there
+of	<s> there is at least one item closely touching bottom right corner
+top	<s> there is a tower with exactly one blue block which is at the
+block	<s> there is exactly one yellow
+there	<s>
+has	<s> the tower with four blocks
+tower	<s> there is at least one
+yellow	<s> there is 1 box with at least 1 yellow circle and 1
+block	<s> there is a yellow
+with	<s> there is a box
+block	<s> there is a tower with a black block above a black
+is	<s> there
+and	<s> there is a tower with only blue
+there	<s>
+</s>	<s> one of the grey square contains only yellow color objects
+grey	<s> at least one
+yellow	<s> at least 1 tower has a
+of	<s> one
+exactly	<s> there is a grey box with
+blue	<s> two
+touching	<s> there is exactly one circle
+is	<s> there is a box with 4 items of which one
+exactly	<s> there is at least one tower with
+and	<s> there is a box with a yellow square a black square
+is	<s> there
+is	<s> there
+touching	<s> there is a box with black item directly on top of the item
+yellow	<s> there is a box with black and yellow items and a small
+is	<s> there
+blocks	<s> there is 1 tower with 4
+block	<s> there is at least one tower with a single
+the	<s> there are two black blocks as
+</s>	<s> there is a box with at least 2 items and a blue one on top
+exactly	<s> there is
+block	<s> there is 1 tower with 1 blue block and 1 yellow
+the	<s> there is a box with 2 items at most and a black item touching
+black	<s> there is a tower with four blocks having a
+circles	<s> there are 2 yellow
+top	<s> there is exactly one blue block as the
+a	<s> there is a box with a blue circle and
+four	<s> the tower with
+</s>	<s> there is only one tower with a yellow block at the base
+there	<s>
+there	<s>
+one	<s> there is a box with a yellow square and at least
+with	<s> there is a box
+block	<s> there is at least one yellow
+base	<s> there is a four blocks tower which the
+items	<s> there is a box with multiple
+with	<s> there is a black block as the top of a tower
+of	<s> there is a box with the exacts set
+it	<s> there is a box with a black item touching the wall and another black item on top of
+one	<s>
+exactly	<s> one of the grey square contains
+four	<s> there is a box which has
+yellow	<s> one of the grey square has exactly two objects which are
+blocks	<s> there is a tower with only yellow
+touching	<s> there is at least one yellow square closely
+base	<s> there is a tower with a black block at the
+touching	<s> there is at least one blue square
+1	<s> there is at least
+contains	<s> one of the grey box
+touching	<s> there is an item closely
+with	<s> the tower
+numbers	<s> ll the three grey boxes either contain objects in even or odd
+the	<s> there is exactly one blue square touching
+there	<s>
+yellow	<s> there are 2 boxes with at least 1
+any	<s> there are exactly three black objects not touching the
+yellow	<s> each box has at least 1
+is	<s> there
+not	<s> one of the grey square contains only one object and this object is
+with	<s> there is a box
+is	<s> there
+tower	<s> there is a black block as the base of at least one
+a	<s> there is a box which has
+has	<s> one of the grey box
+block	<s> there is a yellow block on a blue
+only	<s> there is a tower with
+of	<s> there is a black block as the top
+box	<s> there is at least one blue circle closely touching right wall of a
+with	<s> there is a box
+a	<s> there is a blue square closely touching the bottom of
+two	<s> there are exactly
+items	<s> there is a box which has only two
+exactly	<s> one of the grey square contains
+with	<s> there are 2 boxes
+it	<s> there is one tower with at least two blue blocks in
+the	<s> there is exactly one tower with a yellow block at
+there	<s>
+a	<s> there is
+with	<s> there is a box
+touching	<s> there is exactly one yellow circle not
+a	<s> there is a square closely touching
+</s>	<s> there is a box with only black and blue items alternately positioned
+touching	<s> there is a box with two triangles of the same size not
+is	<s> there
+yellow	<s> there is a box with only 3 items of which 1 is
+bottom	<s> there is no blue triangle closely touching the
+</s>	<s> there is 1 box with at least 1 black triangle
+color	<s> there are two towers with the same base
+triangles	<s> there are two boxes with blue
+closely	<s> there is 1 circle
+two	<s> there is a box that has
+box	<s> there is 1 yellow circle closely touching a
+it	<s> there is 1 box with only yellow and blue items in
+</s>	<s> there is a box with multiple items and the three items are black
+one	<s> there is a box with 3 items at most of only
+one	<s> there is exactly
+is	<s> there
+a	<s> there is a black block as the top of
+circle	<s> there is a black
+at	<s> there are at least 2 towers with
+a	<s> there is a box with a black circle and
+a	<s> there is
+in	<s> there is 1 box with exactly 1 circle
+grey	<s> there is one
+blue	<s> there is 1 box with only
+base	<s> there is a blue block as the
+a	<s> there is
+wall	<s> there is a box with a lot of items but only one is touching the
+two	<s> there are exactly
+same	<s> there is 1 box with at least 2 triangles of the
+box	<s> there is a
+at	<s> there are exactly two towers with blue block
+square	<s> there is 1 box with 1 blue
+there	<s>
+</s>	<s> there is a yellow circle touching the side
+is	<s> there
+is	<s> there is a box with two items and the one
+items	<s> there is a box with 3
+with	<s> there is at least 1 tower
+box	<s> there is a
+only	<s> there is a two blocks tower and
+</s>	<s> there is a blue block on a black block
+with	<s> there is 1 box
+a	<s> there is a blue block above
+are	<s> there
+</s>	<s> there is a box with a black item touching the wall and a blue one above it
+is	<s> there
+blue	<s> there are 2 blocks with a
+there	<s>
+a	<s> there is
+</s>	<s> there are at least two blue squares touching the edge
+base	<s> there is 1 tower with a black block at the
+is	<s> there
+tower	<s> the
+with	<s> there is a box
+the	<s>
+towers	<s> there are exactly two
+of	<s> there is no black triangle closely touching the bottom
+blue	<s> there is a
+there	<s>
+one	<s>
+top	<s> there is a black block as the
+block	<s> there is a yellow
+yellow	<s> there is a tower with more than two blocks having a
+is	<s> there
+is	<s> there
+two	<s> there is one tower with at least
+block	<s> there is a black
+</s>	<s> there are 2 blue triangles and 2 black triangles
+are	<s> there
+is	<s> there
+blue	<s> there is a box with a blue square and a
+objects	<s> one of the grey square has exactly two
+tower	<s> on the
+there	<s>
+of	<s> there is a yellow square closely touching the bottom
+yellow	<s> there is exactly one
+bottom	<s> there is at least one circle closely touching the
+is	<s> there
+there	<s>
+</s>	<s> there is a box which has only one item and it is circle
+other	<s> there is a tower that has at least 3 yellow blocks attached with each
+a	<s> there is at least one black triangle closely touching right wall of
+colors	<s> there are two boxes with items of all three
+yellow	<s> there is at least 1 tower with 2
+</s>	<s> there is at least one box with a blue triangle and a black square
+</s>	<s> there is a box with black square and blue circle
+exactly	<s> there is
+a	<s> there is at least one blue circle closely touching a wall of
+there	<s>
+there	<s>
+items	<s> there is a box with at least 3
+a	<s> there are two black items closely touching the bottom of
+box	<s> there is a
+two	<s> there is a box with
+above	<s> there is at least one blue block
+a	<s> there is
+top	<s> there is a black block as the
+block	<s> there is at least one tower with exactly one
+one	<s> there is
+touching	<s> there is exactly one black square
+exactly	<s> there is 1 box with
+items	<s> there is a box with at least one blue triangle and at least three yellow
+black	<s> one of the grey box contains four
+</s>	<s> there is not more than one grey box with exactly two objects
+one	<s> there is a box that has only
+with	<s> there is 1 tower
+corner	<s> there is a black square closely touching a
+is	<s> there
+touching	<s> there is a square closely
+least	<s> there is 1 tower with at
+with	<s> there are two towers
+the	<s> there is 1 tower with a blue block at
+block	<s> the tower with three blocks has a yellow
+box	<s> there is no circle closely touching right wall of a
+the	<s> there are two the same color item touching
+is	<s> there is a box with 2 items at most of which one
+second	<s> there is a four block tower where the base and
+is	<s> there
+different	<s> there is a box with items of all 3
+has	<s> there is a box which
+</s>	<s> there is a blue block as the top of a tower with four blocks
+box	<s> there is 1
+with	<s> there is a box
+with	<s> there is a yellow block as the base of a tower
+1	<s> there is a box with 2 items of which
+there	<s>
+blue	<s> there is a
+least	<s> there is at
+box	<s> there is a
+box	<s> there is a
+a	<s> there is
+there	<s>
+with	<s> there are exactly two towers with black blocks and at least two towers
+only	<s> there is a black block as the base of a tower with
+touching	<s> there is a box with items of all 3 different colors and a blue circle
+have	<s> one of the three tower
+corner	<s> there is 1 circle closely touching a
+touching	<s> there are exactly two blue objects
+top	<s> the base of a tower is blue and the
+and	<s> there is 1 box with a black triangle
+one	<s> at least
+square	<s> there is a box with a black
+a	<s> there are two yellow blocks as the top of
+black	<s> there is a black square above the
+</s>	<s> one of the grey box contains exactly one object which is a black circle
+two	<s> there are
+above	<s> there is a black block
+the	<s> there are two black blocks as
+square	<s> at least one of the grey
+triangles	<s> none of the
+exactly	<s> there is a tower with
+the	<s> there are two towers with black block at
+the	<s> there are 3 items that are not
+is	<s> there
+the	<s> there is a blue block above
+top	<s> there is a tower with four blocks not having a yellow block at
+the	<s> there is exactly one circle touching
+on	<s> there is at least one black block
+one	<s> there is exactly
+item	<s> there is a box with 2 black items and one yellow
+exactly	<s> there is
+items	<s> there is a black square touching the wall with at least two
+touching	<s> there is a black square
+least	<s> there is at
+has	<s> there is a tower which
+with	<s> there is 1 tower
+from	<s> the second block
+</s>	<s> there is at least one box with exactly four items including blue one
+exactly	<s> one of the grey square has
+2	<s> there are
+and	<s> there is 1 box with only blue
+yellow	<s> there is a tower with only
+there	<s>
+touching	<s> there is a circle closely
+a	<s> there is
+black	<s> there are at least 4
+a	<s> two towers have yellow blocks under
+with	<s> there is a box
+block	<s> there is 1 tower with 3 black blocks on top of a different coloured
+the	<s>
+four	<s> there is a tower with
+one	<s> there is at least
+</s>	<s> on the tower there is a blue block above a yellow block with a blue block at the top
+exactly	<s> there is a box with
+edge	<s> there are more than two black objects touching the
+a	<s> there is
+shape	<s> there is a box with 3 items of which 2 have the same
+a	<s> there is
+is	<s> there
+black	<s> there are two
+more	<s> there is a tower with
+one	<s>
+the	<s> none of the black triangles are touching
+two	<s> there is a box with
+nearly	<s> the small yellow square is
+items	<s> there is a box with exactly two blue
+most	<s> there is a box with 3 items at
+there	<s>
+blue	<s> there are at least 2
+yellow	<s> there is one tower with 1
+with	<s> the tower
+and	<s> there is at least one box which has a black circle
+one	<s> there is exactly
+blocks	<s> the tower with three
+square	<s> there is a yellow
+there	<s>
+a	<s> there is
+with	<s> there are 2 towers
+there	<s>
+blocks	<s> there is 1 tower where the top and the bottom
+that	<s> there is a box
+circle	<s> there is a
+has	<s> tower with three objects
+blue	<s> there is 1 tower with at least 2
+1	<s> there is 1 tower that has exactly
+</s>	<s> there is a tower with two black blocks and exactly one yellow block
+square	<s> there is a blue
+circle	<s> there is a box with a blue
+blue	<s> there are 2 blue circles and 1
+</s>	<s> there is exactly one tower which has a blue block over a yellow block
+on	<s> there is a box with a yellow item touching the wall and 2 blue items
+one	<s> there is exactly
+black	<s> there is a box with only one blue item and at least two
+blue	<s> there is a box with 4 items and a
+circle	<s> there is a box with a yellow
+circles	<s> there are three black
+block	<s> there is a tower with four blocks not having a yellow
+triangle	<s> there is a box with 2 items of which one is a
+the	<s> one of
+is	<s> there
+top	<s> the
+</s>	<s> there is 1 tower with 1 black block at the top
+</s>	<s> there is a tower with a blue block at the top and at the base
+</s>	<s> there is at least one tower with exactly one block which is of yellow color
+tower	<s> there is 1
+blocks	<s> there is a blue block as the base of a tower with at least two
+top	<s> there is 1 tower with 1 black block at the
+the	<s> there is at least one yellow block as
+block	<s> there is at least one tower with a yellow block over a black
+two	<s> there is a box with a yellow square and
+</s>	<s> there is a box with one item that is yellow square
+different	<s> there is a box with at least 6 items of all 3
+with	<s> there is a box
+is	<s> there
+box	<s> each
+block	<s> there is a tower with exactly one black block and at least one blue
+from	<s> there is a tower which is the second block
+touching	<s> there are exactly three circles not
+2	<s> there are
+in	<s> there is 1 box with at least 6 items
+different	<s> there is a box with at least 4 items of all 3
+two	<s>
+at	<s> there is 1 tower with
+there	<s>
+box	<s> there is as
+the	<s> the black square is not touching
+</s>	<s> one tower with 2 blue blocks
+2	<s> one tower has
+are	<s> there is a box which has four items and the three
+one	<s> there is exactly
+one	<s> there is exactly
+it	<s> there is a box with a yellow item touching the wall and at least 2 blue on top of
+one	<s> there is a box with
+squares	<s> there are at least two yellow
+are	<s> there
+</s>	<s> there is a blue block bellow a yellow block
+the	<s> there are two yellow squares touching
+with	<s> there are exactly two towers
+there	<s>
+yellow	<s> there is exactly 1 yellow square and 1
+triangle	<s> there is a black
+is	<s> there
+blue	<s> there is a box with a yellow square touching the wall and a
+</s>	<s> there is a box which has a blue square a yellow square and two black items
+box	<s> there is a
+there	<s>
+touching	<s> one of the grey square contains exactly one object
+triangle	<s> there is a black
+to	<s> there is a black block attached
+is	<s> there
+a	<s> there is
+is	<s> there are two towers with the same base color that
+two	<s> the total black blocks of the
+the	<s> one of the tower with four blocks has a yellow block on
+touching	<s> there are two black objects
+a	<s> there is
+blocks	<s> there are exactly two towers with black
+a	<s> there is a box with blue and yellow items of which one is a small yellow triangle and another is
+exactly	<s> one of the grey box has
+the	<s> there is a box with two items and
+</s>	<s> there are 5 black items
+blue	<s> there is a
+are	<s> there
+2	<s> there are
+one	<s> there is a box with six items and
+one	<s>

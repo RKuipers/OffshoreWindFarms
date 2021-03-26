@@ -1,0 +1,2750 @@
+is	there is circle 1 blue <s> there
+2	are 2 there circles yellow <s> there are
+there	1 square is there <s> 
+items	items yellow there 2 are <s> there are 2 yellow
+2	are 2 there black items <s> there are
+blue	items blue 2 there are <s> there are 2
+1	is 1 yellow there item <s> there is
+3	3 there are items black <s> there are
+2	yellow are 2 blocks there <s> there are
+there	blue there 5 a blocks <s> 
+are	yellow are circles 3 there <s> there
+1	circle blue 1 is there <s> there is
+there	yellow circles there are 2 <s> 
+3	are 3 items there black <s> there are
+black	black are blocks there 3 <s> there are 3
+5	5 a blue there blocks <s> there a
+</s>	4 are blue items there <s> there are 4 blue items
+is	block 1 is there yellow <s> there
+blue	3 items are blue there <s> there are 3
+two	base have two towers yellow <s> 
+are	are yellow there triangles 3 <s> there
+circle	there blue 1 is circle <s> there is 1 blue
+is	1 is black triangle there <s> there
+blocks	seven there are blocks <s> there are seven
+squares	4 there squares blue are <s> there are 4 blue
+yellow	a yellow there is tower <s> there is a
+squares	3 blue squares there are <s> there are 3 blue
+</s>	2 triangles are black there <s> there are 2 black triangles
+blue	5 a blue there blocks <s> there a 5
+seven	there blocks seven are <s> there are
+there	there 3 black are blocks <s> 
+there	are black 2 items there <s> 
+are	items yellow there 2 are <s> there
+black	a black is tower there <s> there is a
+yellow	there are squares yellow 2 <s> there are 2
+there	1 is there yellow circle <s> 
+items	there 5 black items are <s> there are 5 black
+items	items there black 2 are <s> there are 2 black
+4	blue there 4 blocks are <s> there are
+blocks	are seven blocks there <s> there are seven
+are	triangles yellow there are 2 <s> there
+blue	2 are triangles there blue <s> there are 2
+triangle	1 there is triangle black <s> there is 1 black
+there	blocks there are blue 2 <s> 
+two	yellow have towers two base <s> 
+every	every box many has items <s> 
+4	items there 4 are black <s> there are
+are	2 are black circles there <s> there
+circles	circles are 3 there <s> there are 3
+</s>	2 triangles are there black <s> there are 2 black triangles
+circles	2 blue are circles there <s> there are 2 blue
+</s>	there 3 are black blocks <s> there are 3 black blocks
+are	there 5 blue items are <s> there
+</s>	there yellow are squares 3 <s> there are 3 yellow squares
+items	are items 5 black there <s> there are 5 black
+are	there circles 3 yellow are <s> there
+squares	squares blue are 2 there <s> there are 2 blue
+are	squares 3 there blue are <s> there
+black	are there 2 squares black <s> there are 2
+2	circles yellow are there 2 <s> there are
+</s>	there blue 1 is circle <s> there is 1 blue circle
+black	there items are 4 black <s> there are 4
+items	5 black there are items <s> there are 5 black
+1	there black 1 square is <s> there is
+</s>	there 3 black are blocks <s> there are 3 black blocks
+yellow	is there circle yellow 1 <s> there is 1
+square	are 4 there shapes square <s> there are 4
+items	there blue items are 3 <s> there are 3 blue
+there	a black is tower there <s> 
+triangles	are 3 yellow triangles there <s> there are 3 yellow
+black	circle is black 1 there <s> there is 1
+yellow	are 3 yellow triangles there <s> there are 3
+black	2 black there are triangles <s> there are 2
+2	2 yellow there items are <s> there are
+</s>	item there 1 is yellow <s> there is 1 yellow item
+blue	blue is there triangle 1 <s> there is 1
+are	items blue 2 there are <s> there
+black	there is a black tower <s> there is a
+there	block there blue 1 is <s> 
+tower	there is yellow tower a <s> there is a yellow
+items	are items 5 yellow there <s> there are 5 yellow
+</s>	are items 5 black there <s> there are 5 black items
+</s>	there 1 triangle is black <s> there is 1 black triangle
+1	1 is there yellow circle <s> there is
+circle	there circle black is 1 <s> there is 1 black
+are	circles black there are 2 <s> there
+yellow	is yellow there a tower <s> there is a
+</s>	yellow circles there are 2 <s> there are 2 yellow circles
+</s>	4 blue are items there <s> there are 4 blue items
+</s>	items there blue are 3 <s> there are 3 blue items
+</s>	are 2 there black items <s> there are 2 black items
+are	items are there yellow 5 <s> there
+there	there black are squares 2 <s> 
+</s>	is black there triangle 1 <s> there is 1 black triangle
+</s>	black circle there 1 is <s> there is 1 black circle
+yellow	there yellow items 5 are <s> there are 5
+squares	squares 3 there blue are <s> there are 3 blue
+2	triangles 2 yellow there are <s> there are
+is	blue 1 block there is <s> there
+6	yellow 6 there items are <s> there are
+yellow	1 there is triangle yellow <s> there is 1
+are	are black items 3 there <s> there
+is	tower is a blue there <s> there
+black	is 1 square black there <s> there is 1
+circles	3 there circles are <s> there are 3
+3	yellow there 3 items are <s> there are
+are	there squares 3 are black <s> there
+yellow	yellow there blocks are 3 <s> there are 3
+there	yellow circles are 3 there <s> 
+squares	are squares 2 there yellow <s> there are 2 yellow
+blocks	4 there are blocks blue <s> there are 4 blue
+item	is yellow item 1 there <s> there is 1 yellow
+are	5 items blue there are <s> there
+are	3 there are circles <s> there
+there	blocks are yellow 3 there <s> 
+circle	blue 1 there circle are <s> there are 1 blue
+blue	are 2 blue squares there <s> there are 2
+there	are black blocks 3 there <s> 
+there	are there items 5 blue <s> 
+</s>	there blue blocks 2 are <s> there are 2 blue blocks
+there	there a blue 5 blocks <s> 
+tower	blue is there a tower <s> there is a blue
+there	tower is a blue there <s> 
+</s>	blue there squares 2 are <s> there are 2 blue squares
+there	circles yellow 2 there are <s> 
+there	yellow are 2 blocks there <s> 
+circles	black circles are 2 there <s> there are 2 black
+3	3 there circles are <s> there are
+towers	two towers base have yellow <s> two
+a	yellow there a is tower <s> there is
+squares	squares there are 3 blue <s> there are 3 blue
+yellow	6 items yellow are there <s> there are 6
+</s>	5 blue are items there <s> there are 5 blue items
+is	black triangle 1 is there <s> there
+a	is there a tower blue <s> there is
+there	there are 3 blue squares <s> 
+1	there 1 item yellow is <s> there is
+triangles	yellow 2 there are triangles <s> there are 2 yellow
+4	4 are blue there squares <s> there are
+blue	squares are there blue 3 <s> there are 3
+black	squares are there black 2 <s> there are 2
+black	are 3 black items there <s> there are 3
+there	are blue blocks 6 there <s> 
+there	yellow there 3 items are <s> 
+circles	circles 2 there blue are <s> there are 2 blue
+</s>	yellow are 5 blocks there <s> there are 5 yellow blocks
+blocks	3 blocks there yellow are <s> there are 3 yellow
+are	2 circles black are there <s> there
+</s>	1 is there yellow square <s> there is 1 yellow square
+are	squares are there blue 3 <s> there
+blue	blue triangle 1 there is <s> there is 1
+blue	there 4 blocks are blue <s> there are 4
+</s>	are black blocks 3 there <s> there are 3 black blocks
+1	1 there is triangle yellow <s> there is
+there	1 blue triangle there is <s> 
+3	there blocks blue are 3 <s> there are
+square	black is square 1 there <s> there is 1 black
+circle	circle is black there 1 <s> there is 1 black
+block	there block 1 is blue <s> there is 1 blue
+triangle	1 there triangle is blue <s> there is 1 blue
+there	1 there yellow square is <s> 
+are	circles 2 blue there are <s> there
+blue	blue blocks there are 6 <s> there are 6
+triangles	are there blue 2 triangles <s> there are 2 blue
+</s>	black 2 are blocks there <s> there are 2 black blocks
+there	are items 5 yellow there <s> 
+3	there 3 triangles are yellow <s> there are
+are	are there items 5 blue <s> there
+items	blue items 4 are there <s> there are 4 blue
+there	2 triangles are black there <s> 
+there	blocks 4 there blue are <s> 
+there	there 4 are blocks blue <s> 
+black	3 squares black there are <s> there are 3
+blocks	there 3 are black blocks <s> there are 3 black
+are	there 5 yellow items are <s> there
+is	is 1 there triangle black <s> there
+3	3 items there blue are <s> there are
+is	there 1 is triangle black <s> there
+1	there is yellow 1 block <s> there is
+blue	are items blue there 3 <s> there are 3
+is	is there a tower blue <s> there
+blue	are there 2 triangles blue <s> there are 2
+there	there is yellow block 1 <s> 
+2	squares blue are 2 there <s> there are
+black	there squares are 3 black <s> there are 3
+2	are there blue 2 triangles <s> there are
+are	there triangles 2 yellow are <s> there
+</s>	shapes are 4 square there <s> there are 4 square shapes
+1	1 there is triangle black <s> there is
+circle	there is circle 1 blue <s> there is 1 blue
+blue	triangle there is blue 1 <s> there is 1
+blue	4 there items are blue <s> there are 4
+there	blue 1 block there is <s> 
+block	is 1 yellow block there <s> there is 1 yellow
+5	there 5 blue items are <s> there are
+there	blue blocks there are 6 <s> 
+there	triangles yellow there 2 are <s> 
+there	there block 1 is blue <s> 
+is	black is tower a there <s> there
+2	2 are there black circles <s> there are
+blue	items there blue are 3 <s> there are 3
+items	are black items 3 there <s> there are 3 black
+</s>	is 1 square there <s> there is 1 square
+black	2 squares black there are <s> there are 2
+blue	there blue blocks are 4 <s> there are 4
+blocks	5 a blue there blocks <s> there a 5 blue
+is	circle blue 1 is there <s> there
+4	4 are items there black <s> there are
+yellow	items yellow 3 there are <s> there are 3
+yellow	yellow items are 3 there <s> there are 3
+blue	blocks 3 there blue are <s> there are 3
+2	2 squares are there yellow <s> there are
+yellow	is 1 yellow circle there <s> there is 1
+yellow	have yellow base two towers <s> two towers have
+are	are circles 2 black there <s> there
+</s>	there is 1 square black <s> there is 1 black square
+</s>	are blue triangles there 2 <s> there are 2 blue triangles
+blue	blue there is triangle 1 <s> there is 1
+</s>	there blue blocks are 2 <s> there are 2 blue blocks
+</s>	there are circles 3 <s> there are 3 circles
+</s>	are 2 black there blocks <s> there are 2 black blocks
+</s>	there 4 yellow items are <s> there are 4 yellow items
+black	circles 2 are black there <s> there are 2
+blue	are 2 there triangles blue <s> there are 2
+circles	circles blue are 2 there <s> there are 2 blue
+3	are items blue there 3 <s> there are
+is	blue there circle 1 is <s> there
+there	yellow 1 is there circle <s> 
+3	blocks are yellow 3 there <s> there are
+</s>	circle is black there 1 <s> there is 1 black circle
+</s>	yellow are triangles there 2 <s> there are 2 yellow triangles
+1	blue there is triangle 1 <s> there is
+</s>	are blue squares there 3 <s> there are 3 blue squares
+</s>	there yellow is 1 block <s> there is 1 yellow block
+4	4 there are items blue <s> there are
+</s>	circles are 3 there <s> there are 3 circles
+there	there blue blocks are 2 <s> 
+2	there 2 are black items <s> there are
+there	are 5 items yellow there <s> 
+yellow	5 yellow are items there <s> there are 5
+blocks	blocks there black are 2 <s> there are 2 black
+there	square are shapes there 4 <s> 
+are	blocks 4 there blue are <s> there
+blocks	are 4 blocks there yellow <s> there are 4 yellow
+</s>	squares yellow there 3 are <s> there are 3 yellow squares
+there	squares blue are 4 there <s> 
+are	are 2 blue triangles there <s> there
+</s>	are 3 yellow triangles there <s> there are 3 yellow triangles
+2	blocks black there are 2 <s> there are
+yellow	yellow 2 circles there are <s> there are 2
+yellow	are yellow 3 blocks there <s> there are 3
+items	4 blue are items there <s> there are 4 blue
+</s>	4 items are black there <s> there are 4 black items
+are	there items blue 2 are <s> there
+squares	are 2 blue squares there <s> there are 2 blue
+blue	there items blue are 5 <s> there are 5
+are	there 2 are triangles black <s> there
+1	1 square there is yellow <s> there is
+squares	yellow squares there are 3 <s> there are 3 yellow
+triangle	triangle there is blue 1 <s> there is 1 blue
+squares	squares are there 2 blue <s> there are 2 blue
+is	yellow block is there 1 <s> there
+there	yellow are blocks there 5 <s> 
+are	triangles there 2 black are <s> there
+blocks	are there seven blocks <s> there are seven
+</s>	blocks blue 3 are there <s> there are 3 blue blocks
+</s>	there yellow 1 is item <s> there is 1 yellow item
+</s>	yellow are blocks there 5 <s> there are 5 yellow blocks
+items	yellow there 5 are items <s> there are 5 yellow
+3	3 blue are there blocks <s> there are
+there	4 there blue squares are <s> 
+</s>	squares 3 there are blue <s> there are 3 blue squares
+are	6 items yellow are there <s> there
+4	items 4 there yellow are <s> there are
+there	5 there are blocks black <s> 
+1	1 there is square <s> there is
+are	there black are squares 2 <s> there
+2	there blue blocks are 2 <s> there are
+2	triangles yellow there 2 are <s> there are
+are	triangles blue are 2 there <s> there
+</s>	4 there are items blue <s> there are 4 blue items
+there	there tower is blue a <s> 
+yellow	circle 1 yellow there is <s> there is 1
+are	are items blue there 3 <s> there
+yellow	there circle is yellow 1 <s> there is 1
+blue	circle there 1 blue is <s> there is 1
+</s>	are seven there blocks <s> there are seven blocks
+are	black there 4 items are <s> there
+</s>	black are 2 circles there <s> there are 2 black circles
+there	black circle there 1 is <s> 
+</s>	blue there block 1 is <s> there is 1 blue block
+black	are 2 black squares there <s> there are 2
+circle	blue 1 there is circle <s> there is 1 blue
+there	are there black 2 items <s> 
+there	there 1 triangle is black <s> 
+</s>	2 blue are circles there <s> there are 2 blue circles
+</s>	5 are black there blocks <s> there are 5 black blocks
+there	is there yellow item 1 <s> 
+there	there 4 yellow are items <s> 
+2	circles 2 are black there <s> there are
+yellow	yellow there a tower is <s> there is a
+yellow	there blocks 4 are yellow <s> there are 4
+is	1 is there yellow circle <s> there
+there	there is yellow 1 block <s> 
+are	are black 2 items there <s> there
+are	4 there squares blue are <s> there
+there	3 items are blue there <s> 
+black	a tower there black is <s> there is a
+there	4 are items there black <s> 
+there	there yellow 5 blocks are <s> 
+</s>	blocks blue 3 there are <s> there are 3 blue blocks
+</s>	tower a blue there is <s> there is a blue tower
+yellow	there circles 3 yellow are <s> there are 3
+circles	yellow 2 circles there are <s> there are 2 yellow
+</s>	there items are 4 black <s> there are 4 black items
+squares	4 squares are blue there <s> there are 4 blue
+</s>	3 blue squares there are <s> there are 3 blue squares
+are	yellow 3 there circles are <s> there
+are	are squares there 3 blue <s> there
+2	circles 2 there blue are <s> there are
+is	a black is tower there <s> there
+items	there blue are 5 items <s> there are 5 blue
+are	there yellow are squares 3 <s> there
+1	1 square there is <s> there is
+tower	tower is a blue there <s> there is a blue
+</s>	there blocks yellow 5 are <s> there are 5 yellow blocks
+yellow	are there 2 yellow items <s> there are 2
+is	there yellow is 1 block <s> there
+items	are items blue there 3 <s> there are 3 blue
+</s>	3 items are blue there <s> there are 3 blue items
+there	there circle black is 1 <s> 
+yellow	3 are blocks yellow there <s> there are 3
+</s>	squares there are 3 yellow <s> there are 3 yellow squares
+blue	4 there are items blue <s> there are 4
+yellow	yellow there items 3 are <s> there are 3
+2	blue are 2 there squares <s> there are
+there	5 blue are items there <s> 
+tower	tower there is black a <s> there is a black
+there	items are there yellow 5 <s> 
+triangle	blue is triangle there 1 <s> there is 1 blue
+are	squares are 4 blue there <s> there
+blue	4 are there blue blocks <s> there are 4
+circle	1 is there yellow circle <s> there is 1 yellow
+blue	are items 4 there blue <s> there are 4
+yellow	yellow are triangles 2 there <s> there are 2
+many	items every has many box <s> every box has
+are	blue 1 there circle are <s> there
+are	black there are 3 items <s> there
+black	there 3 squares black are <s> there are 3
+there	there is 1 square <s> 
+there	are there circles 3 <s> 
+</s>	are squares 2 black there <s> there are 2 black squares
+items	has box every many items <s> every box has many
+4	4 blue are blocks there <s> there are
+circle	1 circle is yellow there <s> there is 1 yellow
+there	yellow are 5 blocks there <s> 
+have	yellow have towers two base <s> two towers
+2	2 are black there blocks <s> there are
+are	yellow are 3 triangles there <s> there
+yellow	is 1 yellow block there <s> there is 1
+is	there is yellow block 1 <s> there
+</s>	are there 5 blocks black <s> there are 5 black blocks
+square	there 1 is black square <s> there is 1 black
+2	squares 2 black there are <s> there are
+there	circles there 3 are <s> 
+2	there are squares yellow 2 <s> there are
+there	is a tower there black <s> 
+seven	seven there are blocks <s> there are
+4	4 items are there blue <s> there are
+is	there is yellow 1 block <s> there
+are	are there items 5 black <s> there
+blocks	blocks there seven are <s> there are seven
+2	squares are there 2 blue <s> there are
+</s>	are 2 blue squares there <s> there are 2 blue squares
+blue	4 there squares blue are <s> there are 4
+</s>	4 there are squares blue <s> there are 4 blue squares
+there	blue 3 squares there are <s> 
+</s>	items 4 there yellow are <s> there are 4 yellow items
+1	circle 1 yellow there is <s> there is
+</s>	there blue are 5 items <s> there are 5 blue items
+there	blue a blocks there 5 <s> 
+circles	there 2 are black circles <s> there are 2 black
+squares	squares blue are 4 there <s> there are 4 blue
+there	blue is there a tower <s> 
+a	there a is blue tower <s> there is
+yellow	there 4 yellow items are <s> there are 4
+5	there items blue are 5 <s> there are
+there	items yellow are 3 there <s> 
+are	blocks there blue 2 are <s> there
+are	there 5 yellow are items <s> there
+is	1 square there is <s> there
+items	items 5 are there black <s> there are 5 black
+triangle	blue triangle 1 there is <s> there is 1 blue
+are	are 3 items there black <s> there
+</s>	3 items there blue are <s> there are 3 blue items
+is	square is 1 there <s> there
+there	4 are yellow there blocks <s> 
+</s>	black are items there 5 <s> there are 5 black items
+</s>	squares black are there 2 <s> there are 2 black squares
+blue	are blue blocks 6 there <s> there are 6
+</s>	blue there circle 1 is <s> there is 1 blue circle
+is	1 triangle black there is <s> there
+are	2 are black there blocks <s> there
+blocks	are blocks 3 there black <s> there are 3 black
+blue	4 there are blocks blue <s> there are 4
+are	items 5 are there black <s> there
+</s>	two have towers yellow base <s> two towers have yellow base
+are	2 there are black blocks <s> there
+there	there blue triangle is 1 <s> 
+circles	2 there are circles yellow <s> there are 2 yellow
+1	black is there triangle 1 <s> there is
+</s>	1 blue there are circle <s> there are 1 blue circle
+there	yellow there 5 are items <s> 
+blocks	black are blocks there 3 <s> there are 3 black
+</s>	circle 1 are there blue <s> there are 1 blue circle
+yellow	there yellow square 1 is <s> there is 1
+blocks	blue there 5 a blocks <s> there a 5 blue
+</s>	blocks blue a 5 there <s> there a 5 blue blocks
+yellow	items 4 yellow there are <s> there are 4
+every	many box has every items <s> 
+there	are squares there 3 blue <s> 
+3	3 blue there blocks are <s> there are
+</s>	shapes 4 there are square <s> there are 4 square shapes
+4	there blue are blocks 4 <s> there are
+5	there blocks yellow 5 are <s> there are
+</s>	1 there triangle is black <s> there is 1 black triangle
+blocks	2 are there blocks yellow <s> there are 2 yellow
+blue	circle 1 are there blue <s> there are 1
+are	are squares 2 black there <s> there
+items	items 2 blue are there <s> there are 2 blue
+there	there items 2 blue are <s> 
+is	1 is black there triangle <s> there
+yellow	2 there are circles yellow <s> there are 2
+</s>	there triangles 2 yellow are <s> there are 2 yellow triangles
+are	are there 3 blue items <s> there
+there	yellow are triangles there 2 <s> 
+are	there 4 are blocks blue <s> there
+2	there 2 black circles are <s> there are
+are	there 2 are black triangles <s> there
+circle	circle 1 is blue there <s> there is 1 blue
+blue	is there a tower blue <s> there is a
+there	4 there are blocks blue <s> 
+there	squares 4 there are blue <s> 
+blocks	blocks 5 there black are <s> there are 5 black
+</s>	is there block blue 1 <s> there is 1 blue block
+are	yellow 2 are blocks there <s> there
+circles	are circles 3 there <s> there are 3
+there	blocks 3 there blue are <s> 
+are	blocks there are yellow 3 <s> there
+square	1 square is there black <s> there is 1 black
+1	is there black 1 triangle <s> there is
+</s>	there 1 is block blue <s> there is 1 blue block
+yellow	blocks are yellow 3 there <s> there are 3
+there	yellow 3 there circles are <s> 
+yellow	a is there tower yellow <s> there is a
+3	items yellow are there 3 <s> there are
+blue	there blue are 5 items <s> there are 5
+</s>	a yellow there is tower <s> there is a yellow tower
+there	yellow there block is 1 <s> 
+1	circle is black there 1 <s> there is
+blocks	there blue blocks are 4 <s> there are 4 blue
+are	black there items 2 are <s> there
+blue	are blue there 2 circles <s> there are 2
+there	squares there 3 are yellow <s> 
+3	blocks there 3 blue are <s> there are
+tower	a black is there tower <s> there is a black
+</s>	are there items 5 black <s> there are 5 black items
+is	there is 1 square black <s> there
+square	4 shapes square there are <s> there are 4
+are	black are 2 circles there <s> there
+</s>	items there 4 are black <s> there are 4 black items
+there	2 black triangles are there <s> 
+there	blocks there are 2 black <s> 
+black	5 are black there blocks <s> there are 5
+are	are black there 3 squares <s> there
+</s>	2 blocks are black there <s> there are 2 black blocks
+1	1 there triangle is black <s> there is
+items	there items blue 2 are <s> there are 2 blue
+are	are items 4 there blue <s> there
+yellow	circle there yellow is 1 <s> there is 1
+</s>	5 are there black items <s> there are 5 black items
+2	items 2 blue are there <s> there are
+</s>	circle 1 there is blue <s> there is 1 blue circle
+blocks	blocks 4 there blue are <s> there are 4 blue
+there	are circles 3 there <s> 
+black	items black are 2 there <s> there are 2
+1	there yellow is 1 block <s> there is
+</s>	squares are there black 2 <s> there are 2 black squares
+blocks	blue blocks there are 6 <s> there are 6 blue
+square	shapes square there are 4 <s> there are 4
+a	a yellow there is tower <s> there is
+</s>	blocks there 2 yellow are <s> there are 2 yellow blocks
+box	many has box every items <s> every
+are	circles 2 there blue are <s> there
+blue	squares 4 there are blue <s> there are 4
+are	there seven are blocks <s> there
+</s>	are 3 items there black <s> there are 3 black items
+black	there black 1 square is <s> there is 1
+</s>	2 black there are triangles <s> there are 2 black triangles
+there	1 there is triangle black <s> 
+yellow	3 blocks there yellow are <s> there are 3
+</s>	are items 4 there blue <s> there are 4 blue items
+blue	items 5 blue are there <s> there are 5
+are	are there 1 blue circle <s> there
+is	is yellow there a tower <s> there
+items	3 items black there are <s> there are 3 black
+is	circle 1 black there is <s> there
+is	there 1 item yellow is <s> there
+yellow	items are 6 yellow there <s> there are 6
+items	there yellow items 5 are <s> there are 5 yellow
+are	there are blocks yellow 2 <s> there
+</s>	blue blocks there are 6 <s> there are 6 blue blocks
+yellow	is yellow item 1 there <s> there is 1
+every	has every items box many <s> 
+</s>	many items box every has <s> every box has many items
+</s>	blue 1 there is circle <s> there is 1 blue circle
+circles	there are circles 3 <s> there are 3
+items	items every has many box <s> every box has many
+triangles	triangles yellow there 2 are <s> there are 2 yellow
+is	a tower there yellow is <s> there
+are	are 5 items yellow there <s> there
+are	there are squares yellow 2 <s> there
+are	2 blue there items are <s> there
+blocks	are there 3 black blocks <s> there are 3 black
+3	yellow 3 there are triangles <s> there are
+squares	black 3 are squares there <s> there are 3 black
+there	2 black there are triangles <s> 
+yellow	yellow there tower a is <s> there is a
+are	are 2 there circles blue <s> there
+are	there blue items are 3 <s> there
+blocks	blocks 5 yellow are there <s> there are 5 yellow
+</s>	circles are 2 black there <s> there are 2 black circles
+triangles	yellow are triangles 2 there <s> there are 2 yellow
+circle	there blue are circle 1 <s> there are 1 blue
+there	are there 2 yellow items <s> 
+have	base towers yellow have two <s> two towers
+are	there blue blocks are 2 <s> there
+black	black is there 1 circle <s> there is 1
+are	there blue are blocks 4 <s> there
+items	items there 4 are black <s> there are 4 black
+there	are there 3 black blocks <s> 
+are	yellow there 5 are items <s> there
+yellow	are yellow blocks 4 there <s> there are 4
+</s>	there a blue 5 blocks <s> there a 5 blue blocks
+there	blue items there are 3 <s> 
+</s>	yellow circles are 3 there <s> there are 3 yellow circles
+there	blue 1 there circle are <s> 
+blue	blocks blue 3 there are <s> there are 3
+black	black there are circles 2 <s> there are 2
+yellow	there 4 yellow are items <s> there are 4
+blocks	5 there are blocks black <s> there are 5 black
+3	there are blocks 3 blue <s> there are
+are	4 there are items blue <s> there
+1	is 1 yellow block there <s> there is
+items	4 there items are blue <s> there are 4 blue
+are	blue items there are 3 <s> there
+2	there blue blocks 2 are <s> there are
+there	yellow are 3 there items <s> 
+there	black are 2 squares there <s> 
+</s>	3 there circles are <s> there are 3 circles
+1	blue there circle 1 is <s> there is
+1	is black there triangle 1 <s> there is
+circles	black circles are there 2 <s> there are 2 black
+are	4 blue there blocks are <s> there
+tower	yellow there a is tower <s> there is a yellow
+there	there blocks yellow 5 are <s> 
+yellow	yellow 5 are there blocks <s> there are 5
+circle	yellow 1 is there circle <s> there is 1 yellow
+black	are squares 3 there black <s> there are 3
+2	2 there are circles yellow <s> there are
+blocks	blocks there are yellow 3 <s> there are 3 yellow
+3	items yellow are 3 there <s> there are
+are	circles there are 2 black <s> there
+</s>	are black 3 there blocks <s> there are 3 black blocks
+5	blue there 5 a blocks <s> there a
+are	3 there black squares are <s> there
+items	black there are 3 items <s> there are 3 black
+are	items blue 2 are there <s> there
+yellow	there yellow 1 is item <s> there is 1
+</s>	there is 1 triangle black <s> there is 1 black triangle
+</s>	base have two towers yellow <s> two towers have yellow base
+are	are there 3 circles <s> there
+</s>	are yellow 4 there blocks <s> there are 4 yellow blocks
+</s>	there 2 black circles are <s> there are 2 black circles
+there	there seven are blocks <s> 
+there	there blocks seven are <s> 
+</s>	blocks there blue 2 are <s> there are 2 blue blocks
+square	1 there yellow square is <s> there is 1 yellow
+blue	1 blue there are circle <s> there are 1
+</s>	blue 4 there items are <s> there are 4 blue items
+there	items there 4 are black <s> 
+is	there 1 black triangle is <s> there
+every	items box every many has <s> 
+items	black there 4 items are <s> there are 4 black
+squares	there are yellow squares 2 <s> there are 2 yellow
+</s>	circle 1 is blue there <s> there is 1 blue circle
+2	yellow there circles 2 are <s> there are
+blue	blue are 1 circle there <s> there are 1
+6	6 items yellow are there <s> there are
+</s>	is 1 yellow circle there <s> there is 1 yellow circle
+there	4 are blue items there <s> 
+3	squares 3 there are blue <s> there are
+2	there 2 blue are items <s> there are
+there	yellow block is there 1 <s> 
+is	there circle is yellow 1 <s> there
+6	blue are 6 blocks there <s> there are
+</s>	there circle is yellow 1 <s> there is 1 yellow circle
+circles	yellow circles 3 there are <s> there are 3 yellow
+are	blocks there 2 yellow are <s> there
+are	2 blue are circles there <s> there
+items	there 4 yellow are items <s> there are 4 yellow
+3	squares yellow there 3 are <s> there are
+</s>	is 1 there triangle black <s> there is 1 black triangle
+</s>	many has box every items <s> every box has many items
+a	blocks 5 blue a there <s> there
+</s>	3 are black there squares <s> there are 3 black squares
+are	circles 3 are there <s> there
+there	tower there is black a <s> 
+there	there blue is block 1 <s> 
+</s>	black circles are there 2 <s> there are 2 black circles
+are	blocks there 3 blue are <s> there
+2	yellow are triangles 2 there <s> there are
+1	is there block blue 1 <s> there is
+there	4 there square shapes are <s> 
+1	circle is 1 black there <s> there is
+shapes	are 4 there shapes square <s> there are 4 square
+are	shapes 4 there are square <s> there
+</s>	1 is black there triangle <s> there is 1 black triangle
+there	2 circles there yellow are <s> 
+squares	squares are there blue 3 <s> there are 3 blue
+4	there 4 are yellow blocks <s> there are
+black	is a there tower black <s> there is a
+4	there 4 yellow are items <s> there are
+block	there yellow 1 block is <s> there is 1 yellow
+there	3 blue squares there are <s> 
+triangle	there triangle yellow is 1 <s> there is 1 yellow
+there	blue squares are there 4 <s> 
+is	is yellow 1 there item <s> there
+are	there are items black 4 <s> there
+there	items are black 4 there <s> 
+blocks	there blocks 4 are yellow <s> there are 4 yellow
+black	are there items 5 black <s> there are 5
+there	4 blue there blocks are <s> 
+</s>	yellow 1 is there circle <s> there is 1 yellow circle
+are	there 4 blocks are blue <s> there
+a	is there tower blue a <s> there is
+</s>	yellow 3 there circles are <s> there are 3 yellow circles
+</s>	yellow there is 1 block <s> there is 1 yellow block
+3	are there squares black 3 <s> there are
+there	are there blue 2 triangles <s> 
+</s>	squares there are 3 blue <s> there are 3 blue squares
+1	1 there triangle is blue <s> there is
+are	circles 2 are black there <s> there
+1	yellow there is 1 block <s> there is
+3	circles there 3 are <s> there are
+</s>	triangles 2 there yellow are <s> there are 2 yellow triangles
+blocks	blocks 6 are blue there <s> there are 6 blue
+are	there 2 blue are blocks <s> there
+black	there are black items 4 <s> there are 4
+4	there blue blocks are 4 <s> there are
+there	is 1 yellow there item <s> 
+blue	there 2 blue are items <s> there are 2
+there	blue there 4 blocks are <s> 
+squares	squares yellow there 3 are <s> there are 3 yellow
+</s>	are there seven blocks <s> there are seven blocks
+items	there items are black 5 <s> there are 5 black
+yellow	triangles yellow there 2 are <s> there are 2
+</s>	there is tower a blue <s> there is a blue tower
+</s>	there is yellow a tower <s> there is a yellow tower
+blue	blue circle there are 1 <s> there are 1
+black	circles there 2 black are <s> there are 2
+blue	blocks 5 blue a there <s> there a 5
+items	yellow there 3 items are <s> there are 3 yellow
+black	there is 1 square black <s> there is 1
+are	there are black items 4 <s> there
+yellow	4 yellow there are items <s> there are 4
+are	2 yellow are there circles <s> there
+there	3 there black squares are <s> 
+3	are there 3 items blue <s> there are
+3	blocks there are yellow 3 <s> there are
+2	triangles black are there 2 <s> there are
+</s>	black is square there 1 <s> there is 1 black square
+is	is there circle yellow 1 <s> there
+are	there items are 4 black <s> there
+1	square is 1 there <s> there is
+1	there 1 is triangle black <s> there is
+yellow	yellow there items are 2 <s> there are 2
+block	block 1 is there yellow <s> there is 1 yellow
+</s>	6 yellow are there items <s> there are 6 yellow items
+there	there are blocks yellow 2 <s> 
+there	black are blocks there 3 <s> 
+4	4 there square shapes are <s> there are
+circles	2 are there black circles <s> there are 2 black
+black	3 items black there are <s> there are 3
+a	there is a black tower <s> there is
+2	are blocks there 2 yellow <s> there are
+there	there is circle 1 blue <s> 
+blue	5 items blue there are <s> there are 5
+are	squares 2 black there are <s> there
+shapes	4 there are square shapes <s> there are 4 square
+there	blocks there black are 2 <s> 
+circles	yellow there circles 2 are <s> there are 2 yellow
+black	1 there is triangle black <s> there is 1
+blue	block there blue 1 is <s> there is 1
+</s>	yellow are 2 blocks there <s> there are 2 yellow blocks
+blue	blue there 4 blocks are <s> there are 4
+there	yellow there items 3 are <s> 
+</s>	1 there is triangle black <s> there is 1 black triangle
+are	yellow 4 there blocks are <s> there
+blue	blue there 2 items are <s> there are 2
+there	1 there is triangle yellow <s> 
+triangles	yellow 3 there are triangles <s> there are 3 yellow
+are	yellow 5 are there blocks <s> there
+black	circle is black there 1 <s> there is 1
+are	there blocks yellow 2 are <s> there
+are	squares blue are 2 there <s> there
+</s>	blue is triangle 1 there <s> there is 1 blue triangle
+</s>	there 5 black items are <s> there are 5 black items
+is	blue is triangle 1 there <s> there
+there	5 are there black items <s> 
+items	items yellow are 3 there <s> there are 3 yellow
+1	there 1 is block blue <s> there is
+squares	4 there are squares blue <s> there are 4 blue
+</s>	is 1 yellow item there <s> there is 1 yellow item
+there	yellow squares there are 3 <s> 
+</s>	there are yellow 2 items <s> there are 2 yellow items
+there	shapes 4 there are square <s> 
+square	1 square there is yellow <s> there is 1 yellow
+black	2 blocks are black there <s> there are 2
+3	squares 3 there blue are <s> there are
+</s>	there 3 black blocks are <s> there are 3 black blocks
+are	are yellow there 3 items <s> there
+there	a tower there black is <s> 
+blue	squares are there 2 blue <s> there are 2
+are	black circles are there 2 <s> there
+there	there yellow is 1 block <s> 
+there	black is tower a there <s> 
+2	2 blue there items are <s> there are
+</s>	yellow are 3 there items <s> there are 3 yellow items
+blue	there are 2 circles blue <s> there are 2
+blue	there are squares 2 blue <s> there are 2
+are	items 2 blue are there <s> there
+1	triangle there is 1 black <s> there is
+are	black 3 are squares there <s> there
+black	5 black there are items <s> there are 5
+blocks	4 are yellow there blocks <s> there are 4 yellow
+are	2 black are circles there <s> there
+3	items there blue are 3 <s> there are
+yellow	yellow circles there are 2 <s> there are 2
+</s>	a there blue tower is <s> there is a blue tower
+there	there triangle is yellow 1 <s> 
+</s>	black there are 3 items <s> there are 3 black items
+blue	there is circle 1 blue <s> there is 1
+there	there black blocks are 2 <s> 
+blue	5 blocks there a blue <s> there a 5
+blue	4 squares are blue there <s> there are 4
+2	there squares are 2 yellow <s> there are
+</s>	a is there tower yellow <s> there is a yellow tower
+tower	black is tower a there <s> there is a black
+blue	is there tower blue a <s> there is a
+are	black are items there 5 <s> there
+there	blocks 5 there black are <s> 
+</s>	blue items there are 3 <s> there are 3 blue items
+4	squares 4 there are blue <s> there are
+there	a is there tower yellow <s> 
+square	there yellow is square 1 <s> there is 1 yellow
+yellow	3 are triangles there yellow <s> there are 3
+blocks	there are yellow blocks 2 <s> there are 2 yellow
+there	2 blue are squares there <s> 
+items	every box many has items <s> every box has many
+is	circle is 1 black there <s> there
+there	there triangles 2 yellow are <s> 
+there	5 blocks there a blue <s> 
+have	have yellow base two towers <s> two towers
+are	are yellow 4 there items <s> there
+black	triangle black is 1 there <s> there is 1
+there	are 3 black items there <s> 
+3	items yellow 3 there are <s> there are
+</s>	there circles are 3 <s> there are 3 circles
+are	are blocks there 6 blue <s> there
+items	yellow there items are 2 <s> there are 2 yellow
+4	items black are 4 there <s> there are
+items	there are items 5 yellow <s> there are 5 yellow
+5	5 blocks there a blue <s> there a
+black	circles 2 are there black <s> there are 2
+is	circle is black 1 there <s> there
+3	3 there triangles are yellow <s> there are
+items	items there yellow are 3 <s> there are 3 yellow
+there	yellow are triangles 2 there <s> 
+there	3 there triangles are yellow <s> 
+blue	3 blue are there blocks <s> there are 3
+are	2 are blocks blue there <s> there
+circles	are 2 there circles yellow <s> there are 2 yellow
+are	5 there are blocks black <s> there
+yellow	have yellow base towers two <s> two towers have
+triangles	are 2 there blue triangles <s> there are 2 blue
+there	1 there triangle is black <s> 
+there	blue 1 there is circle <s> 
+there	circle 1 yellow there is <s> 
+3	black are there 3 items <s> there are
+is	there blue 1 is circle <s> there
+yellow	1 there yellow square is <s> there is 1
+items	there items 2 blue are <s> there are 2 blue
+are	5 yellow are items there <s> there
+blocks	4 blue are blocks there <s> there are 4 blue
+</s>	items are 3 there black <s> there are 3 black items
+blue	there are blocks 3 blue <s> there are 3
+2	there 2 blue items are <s> there are
+are	there blocks are seven <s> there
+blue	circle blue 1 is there <s> there is 1
+3	are squares there 3 blue <s> there are
+items	there are black items 4 <s> there are 4 black
+yellow	yellow 1 is there circle <s> there is 1
+there	are 2 there triangles blue <s> 
+1	there is circle 1 blue <s> there is
+is	is yellow item 1 there <s> there
+squares	3 there yellow squares are <s> there are 3 yellow
+1	blue 1 there circle are <s> there are
+2	items there black 2 are <s> there are
+there	3 blocks there yellow are <s> 
+is	blue 1 there is circle <s> there
+is	1 there is square <s> there
+blue	there blue items are 3 <s> there are 3
+circles	are there circles 3 <s> there are 3
+black	triangles there 2 black are <s> there are 2
+</s>	triangles are there 2 blue <s> there are 2 blue triangles
+there	2 there yellow squares are <s> 
+yellow	there blocks yellow 2 are <s> there are 2
+</s>	there are blocks yellow 2 <s> there are 2 yellow blocks
+3	squares there 3 are yellow <s> there are
+1	is there block 1 blue <s> there is
+circles	there 2 black circles are <s> there are 2 black
+blocks	there seven are blocks <s> there are seven
+base	base towers yellow have two <s> two towers have yellow
+3	circles are 3 yellow there <s> there are
+there	blue triangle 1 there is <s> 
+items	there yellow 2 are items <s> there are 2 yellow
+is	black there 1 is triangle <s> there
+2	blocks there are blue 2 <s> there are
+squares	are squares 2 black there <s> there are 2 black
+is	yellow there is 1 block <s> there
+black	2 black triangles there are <s> there are 2
+there	triangles 2 yellow there are <s> 
+there	items there yellow are 6 <s> 
+blue	blue there block 1 is <s> there is 1
+triangle	is there black 1 triangle <s> there is 1 black
+squares	4 there blue squares are <s> there are 4 blue
+</s>	black there 4 items are <s> there are 4 black items
+tower	there tower is blue a <s> there is a blue
+5	black 5 are blocks there <s> there are
+2	2 are there black blocks <s> there are
+there	are squares 2 black there <s> 
+</s>	blocks 5 yellow are there <s> there are 5 yellow blocks
+black	there squares 3 are black <s> there are 3
+are	there 4 are yellow blocks <s> there
+</s>	circles are there yellow 3 <s> there are 3 yellow circles
+blocks	blue are 6 blocks there <s> there are 6 blue
+6	blue there are 6 blocks <s> there are
+3	yellow squares there are 3 <s> there are
+are	5 are black there blocks <s> there
+5	5 there are blocks black <s> there are
+</s>	many box has every items <s> every box has many items
+4	items 4 are there black <s> there are
+3	are circles 3 there <s> there are
+</s>	1 square there is yellow <s> there is 1 yellow square
+3	yellow 3 blocks there are <s> there are
+4	there 4 are blocks blue <s> there are
+</s>	yellow there are 4 blocks <s> there are 4 yellow blocks
+blocks	yellow are 5 blocks there <s> there are 5 yellow
+black	black 2 are blocks there <s> there are 2
+there	3 items black there are <s> 
+2	there 2 are black circles <s> there are
+blue	are blue triangles there 2 <s> there are 2
+yellow	blocks there 2 yellow are <s> there are 2
+items	are 5 items there yellow <s> there are 5 yellow
+</s>	yellow 6 items there are <s> there are 6 yellow items
+squares	are squares there yellow 3 <s> there are 3 yellow
+3	circles are there yellow 3 <s> there are
+yellow	there 1 yellow is circle <s> there is 1
+black	black are blocks 5 there <s> there are 5
+1	circle 1 are there blue <s> there are
+2	items blue 2 are there <s> there are
+black	1 square is there black <s> there is 1
+2	2 there circles blue are <s> there are
+black	circle 1 black there is <s> there is 1
+there	there 1 is black square <s> 
+triangles	2 black there are triangles <s> there are 2 black
+blue	are 2 there blue triangles <s> there are 2
+</s>	black are 2 triangles there <s> there are 2 black triangles
+there	are there 3 items blue <s> 
+there	circles are 3 there <s> 
+</s>	are squares 2 there yellow <s> there are 2 yellow squares
+blue	are blocks there blue 2 <s> there are 2
+are	are 3 black items there <s> there
+</s>	blocks there black are 2 <s> there are 2 black blocks
+6	items are 6 yellow there <s> there are
+1	1 square is there <s> there is
+there	triangles black are there 2 <s> 
+there	there 4 are yellow blocks <s> 
+</s>	3 black there are blocks <s> there are 3 black blocks
+1	there yellow 1 is item <s> there is
+are	there are squares 4 blue <s> there
+black	are black items there 5 <s> there are 5
+</s>	there yellow items 5 are <s> there are 5 yellow items
+is	there yellow 1 block is <s> there
+yellow	yellow there a is tower <s> there is a
+blue	blue 1 block there is <s> there is 1
+item	is 1 yellow there item <s> there is 1 yellow
+yellow	there yellow 1 block is <s> there is 1
+are	are items black 2 there <s> there
+</s>	6 items yellow there are <s> there are 6 yellow items
+items	there black are items 3 <s> there are 3 black
+3	are yellow triangles 3 there <s> there are
+yellow	are yellow there 3 items <s> there are 3
+blue	there items are blue 2 <s> there are 2
+</s>	yellow are triangles 2 there <s> there are 2 yellow triangles
+yellow	yellow 3 there are triangles <s> there are 3
+black	black circles there are 2 <s> there are 2
+1	there 1 triangle is black <s> there is
+there	yellow 6 are items there <s> 
+</s>	block 1 is blue there <s> there is 1 blue block
+black	items are black 4 there <s> there are 4
+are	2 blocks are black there <s> there
+yellow	1 is there yellow circle <s> there is 1
+</s>	there black 2 are squares <s> there are 2 black squares
+items	are black items there 5 <s> there are 5 black
+a	there a blue 5 blocks <s> there
+blue	there 2 blue are blocks <s> there are 2
+is	blue there is triangle 1 <s> there
+blue	there blue blocks are 2 <s> there are 2
+many	many has box every items <s> every box has
+blue	4 blue are blocks there <s> there are 4
+</s>	are there 3 yellow circles <s> there are 3 yellow circles
+black	are black 2 circles there <s> there are 2
+</s>	1 is black triangle there <s> there is 1 black triangle
+yellow	yellow are items 2 there <s> there are 2
+a	a there blue tower is <s> there is
+yellow	base have two towers yellow <s> two towers have
+5	black there 5 blocks are <s> there are
+items	there black items are 2 <s> there are 2 black
+is	is black there triangle 1 <s> there
+2	there 2 blue are blocks <s> there are
+items	items yellow 3 there are <s> there are 3 yellow
+there	there triangle yellow is 1 <s> 
+blocks	black 5 are blocks there <s> there are 5 black
+are	yellow there are 4 items <s> there
+are	are there 2 triangles blue <s> there
+2	are 2 blue triangles there <s> there are
+circles	circles 3 are there <s> there are 3
+yellow	yellow 3 blocks there are <s> there are 3
+are	items are 2 black there <s> there
+there	triangles 2 there yellow are <s> 
+4	blue items 4 are there <s> there are
+2	there black are squares 2 <s> there are
+is	square yellow there 1 is <s> there
+yellow	there items yellow 2 are <s> there are 2
+</s>	there blocks blue are 3 <s> there are 3 blue blocks
+</s>	squares are there blue 3 <s> there are 3 blue squares
+4	4 there squares blue are <s> there are
+</s>	triangles yellow there are 2 <s> there are 2 yellow triangles
+black	black is triangle 1 there <s> there is 1
+there	blue 3 there items are <s> 
+towers	have yellow base two towers <s> two
+1	there blue 1 is circle <s> there is
+there	triangles blue are 2 there <s> 
+are	yellow 2 circles are there <s> there
+is	1 square there yellow is <s> there
+</s>	triangle there is blue 1 <s> there is 1 blue triangle
+is	is there black 1 triangle <s> there
+yellow	yellow squares there are 3 <s> there are 3
+yellow	yellow are there 3 squares <s> there are 3
+squares	blue 3 squares there are <s> there are 3 blue
+1	1 circle is yellow there <s> there is
+there	there blue are circle 1 <s> 
+</s>	yellow 2 there are triangles <s> there are 2 yellow triangles
+many	items box every many has <s> every box has
+</s>	4 there squares blue are <s> there are 4 blue squares
+items	items are 2 black there <s> there are 2 black
+circle	blue circle 1 there is <s> there is 1 blue
+2	are blocks there blue 2 <s> there are
+3	blocks blue 3 are there <s> there are
+2	there items 2 blue are <s> there are
+blue	triangles blue are 2 there <s> there are 2
+is	a there yellow tower is <s> there
+</s>	blocks 4 there blue are <s> there are 4 blue blocks
+blue	3 blue there blocks are <s> there are 3
+triangle	blue is triangle 1 there <s> there is 1 blue
+a	there is tower a blue <s> there is
+</s>	are items 5 yellow there <s> there are 5 yellow items
+there	circles blue are there 2 <s> 
+circle	there circle 1 blue are <s> there are 1 blue
+items	are 2 there black items <s> there are 2 black
+2	are blue there 2 circles <s> there are
+</s>	a black is there tower <s> there is a black tower
+</s>	are yellow there triangles 3 <s> there are 3 yellow triangles
+black	2 are black circles there <s> there are 2
+there	3 yellow there circles are <s> 
+blocks	are yellow there blocks 2 <s> there are 2 yellow
+is	is there circle 1 black <s> there
+circles	circles are 2 black there <s> there are 2 black
+square	square there is 1 <s> there is 1
+are	are 2 there blue triangles <s> there
+there	there squares 3 blue are <s> 
+4	there are black items 4 <s> there are
+yellow	yellow there 2 are squares <s> there are 2
+3	are black blocks 3 there <s> there are
+square	square is there 1 <s> there is 1
+2	2 yellow are there circles <s> there are
+black	items there 4 are black <s> there are 4
+circles	are black 2 circles there <s> there are 2 black
+there	5 a blue there blocks <s> 
+blue	blocks 4 there blue are <s> there are 4
+there	blue are 1 circle there <s> 
+there	there 1 yellow is circle <s> 
+</s>	blocks a 5 blue there <s> there a 5 blue blocks
+3	black 3 are squares there <s> there are
+blocks	there 2 blue are blocks <s> there are 2 blue
+3	are yellow there triangles 3 <s> there are
+2	2 circles black are there <s> there are
+blocks	2 are there black blocks <s> there are 2 black
+there	are yellow 4 there blocks <s> 
+</s>	are 2 blue triangles there <s> there are 2 blue triangles
+are	there are 2 circles black <s> there
+are	blocks 6 are blue there <s> there
+there	blocks there 6 are blue <s> 
+squares	there squares 3 blue are <s> there are 3 blue
+blue	are there 3 blue items <s> there are 3
+</s>	2 black triangles there are <s> there are 2 black triangles
+items	3 items blue there are <s> there are 3 blue
+black	there 1 triangle is black <s> there is 1
+there	yellow items 4 there are <s> 
+yellow	yellow there are 4 blocks <s> there are 4
+</s>	black 3 are squares there <s> there are 3 black squares
+items	many has box every items <s> every box has many
+yellow	2 yellow there blocks are <s> there are 2
+are	black are 2 triangles there <s> there
+3	are 3 black items there <s> there are
+blocks	are blue blocks 6 there <s> there are 6 blue
+there	blocks there 2 yellow are <s> 
+blocks	there blue blocks 2 are <s> there are 2 blue
+there	are 3 blocks there blue <s> 
+circle	black is there 1 circle <s> there is 1 black
+there	block yellow there is 1 <s> 
+there	4 there are items blue <s> 
+1	black triangle 1 is there <s> there is
+triangles	triangles 2 blue are there <s> there are 2 blue
+there	black is 1 there square <s> 
+blue	blue there squares 2 are <s> there are 2
+there	blue is triangle there 1 <s> 
+items	there items 6 yellow are <s> there are 6 yellow
+black	there 5 black items are <s> there are 5
+5	are black items there 5 <s> there are
+</s>	2 yellow there blocks are <s> there are 2 yellow blocks
+are	items are black 4 there <s> there
+triangles	there 3 triangles are yellow <s> there are 3 yellow
+4	are yellow 4 there items <s> there are
+2	are there 2 squares black <s> there are
+black	there 2 are black circles <s> there are 2
+</s>	circles are 3 yellow there <s> there are 3 yellow circles
+black	are black blocks 3 there <s> there are 3
+</s>	2 are black there blocks <s> there are 2 black blocks
+is	1 yellow is square there <s> there
+there	are 2 there circles blue <s> 
+are	there blocks 4 are yellow <s> there
+are	items there yellow are 6 <s> there
+5	there are items 5 yellow <s> there are
+</s>	2 there are yellow squares <s> there are 2 yellow squares
+are	squares there 3 are yellow <s> there
+</s>	black 1 there square is <s> there is 1 black square
+blue	there are 3 blue squares <s> there are 3
+are	there circles are 3 <s> there
+</s>	2 circles there yellow are <s> there are 2 yellow circles
+5	are 5 items yellow there <s> there are
+</s>	items yellow are there 3 <s> there are 3 yellow items
+there	yellow 5 are there blocks <s> 
+items	3 there are items black <s> there are 3 black
+4	4 shapes square there are <s> there are
+there	4 are there blue blocks <s> 
+</s>	yellow towers have two base <s> two towers have yellow base
+</s>	there 5 yellow items are <s> there are 5 yellow items
+2	black circles are there 2 <s> there are
+1	circle blue are 1 there <s> there are
+</s>	black are there 3 items <s> there are 3 black items
+4	yellow items 4 there are <s> there are
+2	there are yellow blocks 2 <s> there are
+3	3 are black there squares <s> there are
+there	2 there are black blocks <s> 
+blocks	yellow 3 blocks there are <s> there are 3 yellow
+triangles	are blue triangles there 2 <s> there are 2 blue
+</s>	are yellow 3 blocks there <s> there are 3 yellow blocks
+there	black there are 3 items <s> 
+yellow	items 4 there yellow are <s> there are 4
+3	circles are 3 there <s> there are
+towers	base towers yellow have two <s> two
+</s>	4 are there blue blocks <s> there are 4 blue blocks
+is	circle 1 yellow there is <s> there
+squares	there squares are 2 yellow <s> there are 2 yellow
+there	are items blue there 3 <s> 
+triangles	are 2 there triangles blue <s> there are 2 blue
+</s>	blocks are there black 5 <s> there are 5 black blocks
+square	there is 1 square <s> there is 1
+</s>	3 there squares yellow are <s> there are 3 yellow squares
+3	there 3 are black blocks <s> there are
+there	1 is black there triangle <s> 
+</s>	4 shapes square there are <s> there are 4 square shapes
+black	are 2 there black items <s> there are 2
+5	there items are black 5 <s> there are
+3	are there 3 yellow circles <s> there are
+4	yellow there are 4 blocks <s> there are
+black	circles black there are 2 <s> there are 2
+</s>	there is yellow block 1 <s> there is 1 yellow block
+</s>	yellow two towers base have <s> two towers have yellow base
+black	black is tower a there <s> there is a
+black	black are items there 5 <s> there are 5
+square	1 yellow is square there <s> there is 1 yellow
+2	there items blue 2 are <s> there are
+black	black is square 1 there <s> there is 1
+are	4 are items there black <s> there
+blocks	yellow there blocks are 3 <s> there are 3 yellow
+are	items are 6 yellow there <s> there
+squares	are blue 2 there squares <s> there are 2 blue
+seven	there blocks are seven <s> there are
+blue	there circle 1 blue are <s> there are 1
+blocks	blocks are yellow 3 there <s> there are 3 yellow
+1	1 is black triangle there <s> there is
+are	blue are 5 items there <s> there
+there	there blue blocks are 4 <s> 
+square	square there 1 is <s> there is 1
+</s>	circle there is 1 black <s> there is 1 black circle
+there	triangle black is 1 there <s> 
+yellow	2 squares are there yellow <s> there are 2
+blue	tower is there a blue <s> there is a
+items	yellow 6 items there are <s> there are 6 yellow
+there	black is square 1 there <s> 
+there	3 are black there squares <s> 
+there	1 square is there black <s> 
+there	2 blue are circles there <s> 
+are	3 there triangles are yellow <s> there
+are	there are items 5 yellow <s> there
+</s>	there black 1 square is <s> there is 1 black square
+</s>	there circle 1 blue are <s> there are 1 blue circle
+there	are circles 2 black there <s> 
+</s>	is a there tower black <s> there is a black tower
+there	circle is black there 1 <s> 
+1	are there 1 blue circle <s> there are
+</s>	is 1 yellow block there <s> there is 1 yellow block
+there	there is tower a blue <s> 
+squares	squares yellow 2 are there <s> there are 2 yellow
+triangles	black are 2 triangles there <s> there are 2 black
+a	blocks blue a 5 there <s> there
+yellow	is 1 yellow there item <s> there is 1
+are	there items are black 5 <s> there
+there	there 2 blue are blocks <s> 
+</s>	are there 2 yellow items <s> there are 2 yellow items
+have	have yellow base towers two <s> two towers
+there	there are squares 4 blue <s> 
+there	are 2 there blue triangles <s> 
+blocks	blocks there blue 2 are <s> there are 2 blue
+blocks	there 4 are blocks blue <s> there are 4 blue
+two	have yellow base towers two <s> 
+2	yellow 2 there are triangles <s> there are
+there	there 2 are triangles black <s> 
+</s>	are yellow blocks 4 there <s> there are 4 yellow blocks
+blue	squares 3 there are blue <s> there are 3
+there	black there are circles 2 <s> 
+items	there 4 yellow items are <s> there are 4 yellow
+yellow	yellow there block is 1 <s> there is 1
+are	yellow there items are 2 <s> there
+5	blocks are there black 5 <s> there are
+black	squares black are there 2 <s> there are 2
+there	there yellow 1 block is <s> 
+triangle	1 is triangle there black <s> there is 1 black
+circle	circle there 1 blue is <s> there is 1 blue
+1	1 yellow square is there <s> there is
+</s>	are yellow there blocks 2 <s> there are 2 yellow blocks
+</s>	circles yellow 2 there are <s> there are 2 yellow circles
+there	circles there 2 black are <s> 
+blue	there is tower a blue <s> there is a
+there	items 4 are there black <s> 
+there	circles blue are 2 there <s> 
+tower	is a tower there black <s> there is a black
+are	triangles 2 blue are there <s> there
+</s>	2 squares black there are <s> there are 2 black squares
+5	blocks 5 there black are <s> there are
+squares	there are squares 2 blue <s> there are 2 blue
+circle	circle 1 yellow there is <s> there is 1 yellow
+black	2 are there black blocks <s> there are 2
+items	4 yellow there are items <s> there are 4 yellow
+yellow	are yellow 4 there blocks <s> there are 4
+</s>	there is a black tower <s> there is a black tower
+there	are there items 5 black <s> 
+</s>	4 there blue items are <s> there are 4 blue items
+</s>	every box has many items <s> every box has many items
+</s>	items black are 2 there <s> there are 2 black items
+yellow	yellow are triangles there 2 <s> there are 2
+there	are square there 4 shapes <s> 
+1	1 there triangle yellow is <s> there is
+black	items black are 4 there <s> there are 4
+</s>	blue circles there 2 are <s> there are 2 blue circles
+are	squares 3 there are blue <s> there
+5	5 are there black items <s> there are
+there	4 blue are blocks there <s> 
+</s>	many has every box items <s> every box has many items
+there	4 are blue there squares <s> 
+blocks	are yellow 4 there blocks <s> there are 4 yellow
+items	3 items there blue are <s> there are 3 blue
+there	square is 1 there <s> 
+are	3 items are blue there <s> there
+are	yellow are 5 there blocks <s> there
+items	are 3 items there black <s> there are 3 black
+squares	yellow there 2 are squares <s> there are 2 yellow
+black	tower there is black a <s> there is a
+there	is yellow 1 there item <s> 
+there	are 3 yellow triangles there <s> 
+3	there 3 squares black are <s> there are
+</s>	every box many has items <s> every box has many items
+</s>	blocks 3 there blue are <s> there are 3 blue blocks
+</s>	two towers base have yellow <s> two towers have yellow base
+1	is there circle yellow 1 <s> there is
+1	blue triangle 1 there is <s> there is
+</s>	circles yellow are there 2 <s> there are 2 yellow circles
+there	3 blue there blocks are <s> 
+blocks	yellow 5 are there blocks <s> there are 5 yellow
+blocks	are yellow blocks 4 there <s> there are 4 yellow
+</s>	are there 2 squares black <s> there are 2 black squares
+</s>	block yellow there is 1 <s> there is 1 yellow block
+</s>	tower is a blue there <s> there is a blue tower
+</s>	is 1 yellow there item <s> there is 1 yellow item
+black	black there a tower is <s> there is a
+circles	there circles 3 yellow are <s> there are 3 yellow
+squares	there are squares 4 blue <s> there are 4 blue
+there	are 2 there black items <s> 
+is	tower there is black a <s> there
+1	block 1 is there yellow <s> there is
+circles	circles there are 2 black <s> there are 2 black
+yellow	triangles yellow there are 2 <s> there are 2
+are	are there black 2 items <s> there
+are	there 4 yellow are items <s> there
+4	there blocks 4 are yellow <s> there are
+items	items are there 5 blue <s> there are 5 blue
+</s>	1 there triangle yellow is <s> there is 1 yellow triangle
+</s>	black there items 2 are <s> there are 2 black items
+3	yellow there blocks are 3 <s> there are
+</s>	items yellow there 2 are <s> there are 2 yellow items
+6	blocks 6 are blue there <s> there are
+blocks	yellow 2 are blocks there <s> there are 2 yellow
+yellow	are yellow triangles 3 there <s> there are 3
+2	are blue triangles there 2 <s> there are
+tower	is there a tower blue <s> there is a blue
+there	1 is there yellow square <s> 
+are	are circles 3 there <s> there
+2	2 blue are circles there <s> there are
+there	2 black are circles there <s> 
+triangle	there blue triangle is 1 <s> there is 1 blue
+</s>	square there 1 is <s> there is 1 square
+</s>	there blue items are 3 <s> there are 3 blue items
+there	there items are black 5 <s> 
+</s>	there 3 squares black are <s> there are 3 black squares
+are	blue squares are there 4 <s> there
+</s>	yellow there a is tower <s> there is a yellow tower
+3	3 blocks there yellow are <s> there are
+4	blue 4 there items are <s> there are
+</s>	1 blue is there block <s> there is 1 blue block
+</s>	items there yellow are 3 <s> there are 3 yellow items
+is	1 square there is yellow <s> there
+2	are squares 2 there yellow <s> there are
+black	there 2 are black items <s> there are 2
+seven	there seven are blocks <s> there are
+yellow	squares there 3 are yellow <s> there are 3
+2	are there 2 yellow items <s> there are
+blue	are there items 5 blue <s> there are 5
+1	circle 1 black there is <s> there is
+square	there yellow square 1 is <s> there is 1 yellow
+are	there black 2 are squares <s> there
+3	3 items black there are <s> there are
+black	a black is there tower <s> there is a
+yellow	block yellow there is 1 <s> there is 1
+there	shapes square there are 4 <s> 
+2	are blocks there 2 blue <s> there are
+are	blue are 2 there squares <s> there
+are	are 3 blocks there blue <s> there
+</s>	there black blocks are 2 <s> there are 2 black blocks
+3	items are 3 there black <s> there are
+are	are yellow circles 3 there <s> there
+5	there 5 yellow items are <s> there are
+</s>	circles 3 are there <s> there are 3 circles
+block	there is yellow block 1 <s> there is 1 yellow
+6	yellow 6 are items there <s> there are
+circle	blue are 1 there circle <s> there are 1 blue
+circles	circles black there are 2 <s> there are 2 black
+blue	blocks there 6 are blue <s> there are 6
+shapes	are square there 4 shapes <s> there are 4 square
+are	are items 5 black there <s> there
+are	are there items yellow 4 <s> there
+</s>	there block 1 is blue <s> there is 1 blue block
+</s>	is yellow there a tower <s> there is a yellow tower
+2	there are blocks yellow 2 <s> there are
+3	are squares there yellow 3 <s> there are
+are	blocks there black are 2 <s> there
+</s>	there 2 are black triangles <s> there are 2 black triangles
+black	circle there is 1 black <s> there is 1
+</s>	yellow there 2 are squares <s> there are 2 yellow squares
+are	yellow circles there are 2 <s> there
+blocks	black 2 are blocks there <s> there are 2 black
+triangles	there 2 are black triangles <s> there are 2 black
+there	blue is there triangle 1 <s> 
+are	squares blue are 4 there <s> there
+items	items yellow are there 3 <s> there are 3 yellow
+triangle	1 there triangle yellow is <s> there is 1 yellow
+are	1 blue there are circle <s> there
+</s>	3 there are items black <s> there are 3 black items
+5	blocks a 5 blue there <s> there a
+there	black 1 there square is <s> 
+</s>	4 blue are blocks there <s> there are 4 blue blocks
+items	are there 3 items blue <s> there are 3 blue
+is	there triangle is yellow 1 <s> there
+are	are yellow there blocks 2 <s> there
+circles	2 there circles blue are <s> there are 2 blue
+are	3 there circles are <s> there
+are	blocks are there black 5 <s> there
+4	there are items black 4 <s> there are
+black	1 is black triangle there <s> there is 1
+circle	there 1 yellow is circle <s> there is 1 yellow
+blocks	there blocks yellow 2 are <s> there are 2 yellow
+there	there is yellow triangle 1 <s> 
+blue	circles blue are there 2 <s> there are 2
+1	circle there is 1 black <s> there is
+yellow	are squares 2 there yellow <s> there are 2
+blocks	4 are there blocks yellow <s> there are 4 yellow
+is	block yellow there is 1 <s> there
+1	blue is triangle 1 there <s> there is
+</s>	4 there items are blue <s> there are 4 blue items
+there	there 4 blocks are blue <s> 
+items	items box every many has <s> every box has many
+there	are there items yellow 4 <s> 
+there	is a there tower black <s> 
+there	there 2 are black circles <s> 
+</s>	are black 2 circles there <s> there are 2 black circles
+blue	blue squares are there 4 <s> there are 4
+</s>	is there circle 1 black <s> there is 1 black circle
+3	are there 3 circles <s> there are
+there	black 3 are squares there <s> 
+</s>	3 items black there are <s> there are 3 black items
+are	squares are there black 2 <s> there
+3	blocks blue 3 there are <s> there are
+are	blue items 4 are there <s> there
+there	are yellow items 2 there <s> 
+</s>	yellow there 3 items are <s> there are 3 yellow items
+1	yellow block is there 1 <s> there is
+circle	blue circle there are 1 <s> there are 1 blue
+</s>	blocks are yellow 3 there <s> there are 3 yellow blocks
+2	yellow 2 are items there <s> there are
+5	black are items there 5 <s> there are
+2	circles there 2 black are <s> there are
+there	circles 3 are there <s> 
+there	are yellow there 3 items <s> 
+</s>	3 are triangles there yellow <s> there are 3 yellow triangles
+</s>	blue there are 6 blocks <s> there are 6 blue blocks
+there	yellow are there 3 squares <s> 
+yellow	1 square there yellow is <s> there is 1
+</s>	there blocks are seven <s> there are seven blocks
+item	is there yellow item 1 <s> there is 1 yellow
+</s>	triangles yellow there 2 are <s> there are 2 yellow triangles
+</s>	there squares 3 blue are <s> there are 3 blue squares
+</s>	yellow 2 circles there are <s> there are 2 yellow circles
+</s>	are yellow items 2 there <s> there are 2 yellow items
+3	there squares are 3 black <s> there are
+1	blue there block 1 is <s> there is
+there	is there circle 1 black <s> 
+4	items 4 yellow there are <s> there are
+is	there 1 is black square <s> there
+are	are seven there blocks <s> there
+triangles	are 2 blue triangles there <s> there are 2 blue
+are	are there 3 yellow circles <s> there
+there	1 is yellow triangle there <s> 
+block	block yellow there is 1 <s> there is 1 yellow
+yellow	block 1 is there yellow <s> there is 1
+towers	yellow have towers base two <s> two
+there	5 items blue there are <s> 
+there	black is square there 1 <s> 
+2	triangles yellow there are 2 <s> there are
+black	black there items 2 are <s> there are 2
+block	there yellow is 1 block <s> there is 1 yellow
+2	items are 2 black there <s> there are
+items	blue 4 there items are <s> there are 4 blue
+5	blocks are yellow there 5 <s> there are
+is	1 there triangle is blue <s> there
+square	black is 1 there square <s> there is 1 black
+4	4 there blue items are <s> there are
+</s>	squares 4 there are blue <s> there are 4 blue squares
+triangle	1 is black triangle there <s> there is 1 black
+there	are squares 3 there black <s> 
+2	circles blue are there 2 <s> there are
+is	blue is there triangle 1 <s> there
+</s>	seven are blocks there <s> there are seven blocks
+there	seven are blocks there <s> 
+</s>	are blocks there 2 blue <s> there are 2 blue blocks
+4	there are squares 4 blue <s> there are
+there	black there items 2 are <s> 
+are	items yellow are 6 there <s> there
+are	items there blue are 3 <s> there
+2	there items are blue 2 <s> there are
+is	tower a blue there is <s> there
+there	yellow there tower a is <s> 
+</s>	yellow 3 there are triangles <s> there are 3 yellow triangles
+2	are circles 2 black there <s> there are
+there	items 5 blue are there <s> 
+there	is 1 yellow block there <s> 
+items	6 items yellow are there <s> there are 6 yellow
+circles	black circles there are 2 <s> there are 2 black
+has	every box has many items <s> every box
+there	there squares 3 are black <s> 
+are	blocks there seven are <s> there
+there	is there a tower blue <s> 
+2	there black blocks are 2 <s> there are
+are	items 4 yellow there are <s> there
+1	is 1 yellow circle there <s> there is
+blue	are there 1 blue circle <s> there are 1
+there	are black there 3 squares <s> 
+</s>	are seven blocks there <s> there are seven blocks
+items	blue items are there 5 <s> there are 5 blue
+blocks	3 blue there blocks are <s> there are 3 blue
+</s>	blue are 5 items there <s> there are 5 blue items
+1	circle there yellow is 1 <s> there is
+is	is 1 yellow block there <s> there
+1	there yellow square 1 is <s> there is
+blue	blue are 6 there blocks <s> there are 6
+yellow	there items 6 yellow are <s> there are 6
+there	there 1 square is <s> 
+</s>	seven there are blocks <s> there are seven blocks
+blue	there blue is block 1 <s> there is 1
+are	are 2 there triangles blue <s> there
+there	items yellow are there 3 <s> 
+is	there is tower a blue <s> there
+items	items 4 there yellow are <s> there are 4 yellow
+yellow	1 there triangle yellow is <s> there is 1
+2	there triangles 2 yellow are <s> there are
+</s>	items box every many has <s> every box has many items
+circles	black are 2 circles there <s> there are 2 black
+are	yellow circles are 3 there <s> there
+are	are 2 there black items <s> there
+blue	blue 3 are there blocks <s> there are 3
+</s>	there 4 yellow are items <s> there are 4 yellow items
+there	a there yellow tower is <s> 
+a	is yellow there a tower <s> there is
+are	2 are there blocks yellow <s> there
+1	blue 1 there is circle <s> there is
+blocks	there yellow are 5 blocks <s> there are 5 yellow
+</s>	circle blue are 1 there <s> there are 1 blue circle
+there	there is yellow a tower <s> 
+triangle	black triangle 1 is there <s> there is 1 black
+3	blue items there are 3 <s> there are
+are	there 3 squares black are <s> there
+are	3 blue are there blocks <s> there
+is	blue triangle 1 there is <s> there
+there	1 square there is <s> 
+there	5 are black there blocks <s> 
+blue	blocks blue 3 are there <s> there are 3
+are	items are 3 there black <s> there
+</s>	blue circle 1 there is <s> there is 1 blue circle
+blue	blocks 6 are blue there <s> there are 6
+there	items there black 2 are <s> 
+</s>	2 are blocks blue there <s> there are 2 blue blocks
+blue	there items 2 blue are <s> there are 2
+there	are blocks yellow 3 there <s> 
+</s>	there is yellow 1 block <s> there is 1 yellow block
+</s>	black there a tower is <s> there is a black tower
+yellow	1 yellow square is there <s> there is 1
+there	there blocks blue are 3 <s> 
+are	there are yellow blocks 2 <s> there
+2	triangles 2 blue are there <s> there are
+blocks	are black blocks 5 there <s> there are 5 black
+</s>	circles there are 2 black <s> there are 2 black circles
+items	are there items 5 black <s> there are 5 black
+</s>	items 3 yellow are there <s> there are 3 yellow items
+there	circle 1 are there blue <s> 
+there	blocks a 5 blue there <s> 
+blue	a there blue tower is <s> there is a
+blue	are 2 there squares blue <s> there are 2
+</s>	black is triangle 1 there <s> there is 1 black triangle
+there	are 5 items there yellow <s> 
+is	circle 1 there is blue <s> there
+there	2 there are blocks blue <s> 
+there	blue 4 there items are <s> 
+is	square there 1 is <s> there
+2	black there are circles 2 <s> there are
+black	is black there triangle 1 <s> there is 1
+</s>	black is there triangle 1 <s> there is 1 black triangle
+is	block 1 is blue there <s> there
+are	4 are yellow there blocks <s> there
+there	there squares are 2 yellow <s> 
+are	are seven blocks there <s> there
+base	have yellow base towers two <s> two towers have yellow
+</s>	2 there are black blocks <s> there are 2 black blocks
+squares	there squares 3 are black <s> there are 3 black
+6	6 yellow are there items <s> there are
+</s>	3 there triangles are yellow <s> there are 3 yellow triangles
+squares	2 there yellow squares are <s> there are 2 yellow
+squares	squares there 3 are yellow <s> there are 3 yellow
+</s>	blue 1 there circle are <s> there are 1 blue circle
+items	are black 2 items there <s> there are 2 black
+many	every box many has items <s> every box has
+3	are 3 blocks there blue <s> there are
+</s>	yellow 4 there blocks are <s> there are 4 yellow blocks
+are	items 4 there yellow are <s> there
+</s>	black there are circles 2 <s> there are 2 black circles
+triangle	there 1 triangle is black <s> there is 1 black
+black	black is 1 there square <s> there is 1
+triangles	there yellow 3 are triangles <s> there are 3 yellow
+</s>	there 3 triangles are yellow <s> there are 3 yellow triangles
+item	item there 1 is yellow <s> there is 1 yellow
+are	are blue triangles there 2 <s> there
+yellow	yellow there are 4 items <s> there are 4
+are	2 are triangles there blue <s> there
+base	yellow have towers base two <s> two towers have yellow
+are	yellow 3 blocks there are <s> there
+2	are items black 2 there <s> there are
+are	circles blue are there 2 <s> there
+2	are 2 there squares blue <s> there are
+are	4 items are there blue <s> there
+3	circles 3 are there <s> there are
+yellow	items yellow are 3 there <s> there are 3
+there	there yellow are triangles 2 <s> 
+there	there items blue are 5 <s> 
+items	there 2 blue items are <s> there are 2 blue
+items	there 5 blue items are <s> there are 5 blue
+4	shapes are 4 square there <s> there are
+blue	blue items there are 3 <s> there are 3
+tower	a tower there black is <s> there is a black
+triangles	there triangles 2 yellow are <s> there are 2 yellow
+triangle	there is 1 triangle black <s> there is 1 black
+</s>	circles 2 are there black <s> there are 2 black circles
+are	circles yellow are there 2 <s> there
+black	are squares 2 black there <s> there are 2
+</s>	blue is there a tower <s> there is a blue tower
+2	triangles 2 there yellow are <s> there are
+items	yellow are items 2 there <s> there are 2 yellow
+yellow	squares yellow 2 are there <s> there are 2
+yellow	there squares are 2 yellow <s> there are 2
+1	black is there 1 circle <s> there is
+</s>	are black items 3 there <s> there are 3 black items
+there	2 there are circles yellow <s> 
+1	1 is black there triangle <s> there is
+</s>	black is tower a there <s> there is a black tower
+there	circles yellow are there 2 <s> 
+squares	are there squares yellow 2 <s> there are 2 yellow
+2	black are 2 circles there <s> there are
+block	there 1 is block blue <s> there is 1 blue
+items	items 4 yellow there are <s> there are 4 yellow
+4	4 are yellow there blocks <s> there are
+there	3 yellow there are triangles <s> 
+</s>	4 items are there blue <s> there are 4 blue items
+yellow	two towers base have yellow <s> two towers have
+are	3 are blocks yellow there <s> there
+there	2 are blocks blue there <s> 
+</s>	square yellow there 1 is <s> there is 1 yellow square
+are	circle blue are 1 there <s> there
+blocks	yellow are blocks there 5 <s> there are 5 yellow
+</s>	there items 2 blue are <s> there are 2 blue items
+black	are black blocks 5 there <s> there are 5
+a	is a tower there black <s> there is
+blocks	blue there are 6 blocks <s> there are 6 blue
+triangles	there are yellow 2 triangles <s> there are 2 yellow
+there	there yellow items 5 are <s> 
+yellow	circles yellow 2 there are <s> there are 2
+</s>	are blue blocks 6 there <s> there are 6 blue blocks
+a	is a there tower black <s> there is
+</s>	black are blocks 5 there <s> there are 5 black blocks
+there	a there black tower is <s> 
+are	blue there 2 items are <s> there
+</s>	items black are 4 there <s> there are 4 black items
+there	there 3 are black blocks <s> 
+</s>	circle is 1 black there <s> there is 1 black circle
+there	are 2 there squares blue <s> 
+4	4 items are black there <s> there are
+there	blue 5 a there blocks <s> 
+5	5 are black there blocks <s> there are
+many	has box every many items <s> every box has
+shapes	there square are shapes 4 <s> there are 4 square
+3	are blocks 3 there black <s> there are
+</s>	there squares 3 are black <s> there are 3 black squares
+2	there yellow are triangles 2 <s> there are
+two	two towers base have yellow <s> 
+blue	there blue blocks 2 are <s> there are 2
+</s>	yellow there square 1 is <s> there is 1 yellow square
+circles	are there 3 circles <s> there are 3
+towers	base have two towers yellow <s> two
+</s>	there tower is blue a <s> there is a blue tower
+</s>	are yellow there 3 items <s> there are 3 yellow items
+yellow	there is yellow triangle 1 <s> there is 1
+square	shapes are 4 square there <s> there are 4
+blue	are blocks there 6 blue <s> there are 6
+blue	there a is blue tower <s> there is a
+yellow	there is yellow 1 block <s> there is 1
+blocks	are black 3 there blocks <s> there are 3 black
+there	are seven there blocks <s> 
+squares	are there squares black 3 <s> there are 3 black
+3	3 there are circles <s> there are
+towers	yellow have towers two base <s> two
+there	black are 2 triangles there <s> 
+are	are there 3 black blocks <s> there
+1	there 1 square is <s> there is
+</s>	there are squares 2 blue <s> there are 2 blue squares
+blue	blue are 2 there squares <s> there are 2
+2	triangles there 2 black are <s> there are
+blocks	blocks blue 3 there are <s> there are 3 blue
+</s>	items 4 are there black <s> there are 4 black items
+circles	black there are circles 2 <s> there are 2 black
+there	items 5 are there black <s> 
+1	1 there yellow square is <s> there is
+there	seven there are blocks <s> 
+there	blocks blue 3 are there <s> 
+</s>	circle there yellow is 1 <s> there is 1 yellow circle
+yellow	items are there yellow 5 <s> there are 5
+are	squares there are 3 yellow <s> there
+6	6 items yellow there are <s> there are
+there	there are blue 6 blocks <s> 
+is	black is 1 there square <s> there
+black	1 is there triangle black <s> there is 1
+is	there blue triangle is 1 <s> there
+are	there yellow 5 blocks are <s> there
+are	there blocks seven are <s> there
+yellow	2 there yellow squares are <s> there are 2
+there	squares black are there 2 <s> 
+</s>	there yellow 1 block is <s> there is 1 yellow block
+</s>	2 are there black blocks <s> there are 2 black blocks
+blue	1 blue is there block <s> there is 1
+are	2 black there are triangles <s> there
+there	a black is there tower <s> 
+1	yellow 1 is there circle <s> there is
+blue	blue items are there 5 <s> there are 5
+blue	items 2 blue are there <s> there are 2
+are	are there 5 blocks black <s> there
+circle	blue are 1 circle there <s> there are 1 blue
+blocks	blue 5 a there blocks <s> there a 5 blue
+blue	there blue 1 is circle <s> there is 1
+are	are 4 there shapes square <s> there
+are	blue are 6 there blocks <s> there
+there	4 there blue items are <s> 
+are	blocks are yellow there 5 <s> there
+box	has every items box many <s> every
+3	there 3 black blocks are <s> there are
+</s>	are 3 black items there <s> there are 3 black items
+there	1 is there triangle black <s> 
+1	there 1 black triangle is <s> there is
+</s>	squares are 4 blue there <s> there are 4 blue squares
+are	are black items there 5 <s> there
+there	blue are 6 blocks there <s> 
+black	a there black tower is <s> there is a
+blue	4 there blue items are <s> there are 4
+are	squares yellow 2 are there <s> there
+1	triangle black is 1 there <s> there is
+are	there items are blue 2 <s> there
+are	yellow are blocks there 5 <s> there
+have	two towers base have yellow <s> two towers
+1	is 1 yellow item there <s> there is
+there	blue are 2 there squares <s> 
+there	circle blue 1 is there <s> 
+there	are yellow 4 there items <s> 
+yellow	are items 5 yellow there <s> there are 5
+block	is there block 1 blue <s> there is 1 blue
+there	shapes are 4 square there <s> 
+shapes	square are shapes there 4 <s> there are 4 square
+squares	there black are squares 2 <s> there are 2 black
+2	are 2 there circles blue <s> there are
+1	circle there 1 blue is <s> there is
+square	1 square there yellow is <s> there is 1 yellow
+is	circle there is 1 black <s> there
+there	3 there are items black <s> 
+are	yellow 6 are items there <s> there
+squares	there 3 squares black are <s> there are 3 black
+yellow	are squares there yellow 3 <s> there are 3
+items	many has every box items <s> every box has many
+2	are there 2 triangles blue <s> there are
+there	square there is 1 <s> 
+are	there yellow 2 are items <s> there
+are	circles blue are 2 there <s> there
+</s>	1 square there is <s> there is 1 square
+4	there square are shapes 4 <s> there are
+circles	circles 2 are black there <s> there are 2 black
+</s>	1 is yellow triangle there <s> there is 1 yellow triangle
+are	4 there square shapes are <s> there
+black	2 are there black circles <s> there are 2
+there	yellow items are 3 there <s> 
+triangles	3 there triangles are yellow <s> there are 3 yellow
+</s>	there are 2 circles blue <s> there are 2 blue circles
+</s>	yellow 1 triangle is there <s> there is 1 yellow triangle
+</s>	5 yellow blocks are there <s> there are 5 yellow blocks
+</s>	items there yellow are 6 <s> there are 6 yellow items
+1	is 1 there triangle black <s> there is
+black	there are black items 5 <s> there are 5
+yellow	there yellow blocks 4 are <s> there are 4
+there	there black 1 square is <s> 
+</s>	6 items yellow are there <s> there are 6 yellow items
+</s>	squares blue are 2 there <s> there are 2 blue squares
+items	there 5 yellow items are <s> there are 5 yellow
+tower	a is there tower yellow <s> there is a yellow
+blocks	blue a blocks there 5 <s> there a 5 blue
+are	squares there are 3 blue <s> there
+blocks	there a blue 5 blocks <s> there a 5 blue
+there	a 5 blocks blue there <s> 
+blocks	blocks there 3 blue are <s> there are 3 blue
+yellow	blocks are yellow there 5 <s> there are 5
+</s>	yellow are circles 3 there <s> there are 3 yellow circles
+</s>	3 are blocks yellow there <s> there are 3 yellow blocks
+there	2 blue there items are <s> 
+there	items are 6 yellow there <s> 
+1	circle 1 is there yellow <s> there is
+items	items are there yellow 5 <s> there are 5 yellow
+items	items blue 2 are there <s> there are 2 blue
+2	circles yellow 2 there are <s> there are
+squares	2 there are yellow squares <s> there are 2 yellow
+black	are circles 2 black there <s> there are 2
+black	items are 3 there black <s> there are 3
+are	there are 3 yellow blocks <s> there
+blue	2 blue are circles there <s> there are 2
+6	items there yellow are 6 <s> there are
+there	is there tower blue a <s> 
+5	yellow there 5 are items <s> there are
+circle	is there circle yellow 1 <s> there is 1 yellow
+there	a yellow there is tower <s> 
+there	are there 3 circles <s> 
+2	blocks there blue 2 are <s> there are
+squares	there are squares yellow 2 <s> there are 2 yellow
+there	are there 1 blue circle <s> 
+there	there yellow 3 are triangles <s> 
+there	circle blue are 1 there <s> 
+is	yellow there a tower is <s> there
+is	is 1 triangle blue there <s> there
+2	circles 2 blue there are <s> there are
+blue	squares there are 3 blue <s> there are 3
+</s>	4 squares are blue there <s> there are 4 blue squares
+1	square there is 1 <s> there is
+blue	4 are blue items there <s> there are 4
+a	blue a blocks there 5 <s> there
+yellow	yellow there 3 items are <s> there are 3
+circles	3 there are circles <s> there are 3
+has	every box many has items <s> every box
+there	blocks are there black 5 <s> 
+there	black 2 are blocks there <s> 
+3	3 squares black there are <s> there are
+are	items 4 are there black <s> there
+are	blue 3 are there blocks <s> there
+</s>	there triangle 1 is yellow <s> there is 1 yellow triangle
+1	is yellow item 1 there <s> there is
+are	4 yellow there are items <s> there
+there	yellow 6 there items are <s> 
+yellow	5 yellow blocks are there <s> there are 5
+2	yellow there items are 2 <s> there are
+1	blue are 1 there circle <s> there are
+circles	circles are there yellow 3 <s> there are 3 yellow
+there	2 squares are there yellow <s> 
+is	a yellow there is tower <s> there
+blue	4 are blue there squares <s> there are 4
+are	2 are there black circles <s> there
+there	are there 2 triangles blue <s> 
+many	has every items box many <s> every box has
+</s>	2 are there black circles <s> there are 2 black circles
+there	there is yellow tower a <s> 
+are	triangles 2 there yellow are <s> there
+yellow	1 yellow triangle is there <s> there is 1
+are	3 yellow there circles are <s> there
+</s>	1 yellow square is there <s> there is 1 yellow square
+yellow	are 5 items yellow there <s> there are 5
+items	are 3 black items there <s> there are 3 black
+</s>	1 is there yellow circle <s> there is 1 yellow circle
+are	are blue blocks 6 there <s> there
+</s>	there blocks yellow 2 are <s> there are 2 yellow blocks
+are	are 5 items there yellow <s> there
+</s>	blocks black there are 2 <s> there are 2 black blocks
+are	are yellow 4 there blocks <s> there
+are	2 triangles are there black <s> there
+there	there circles are 3 <s> 
+yellow	there yellow 3 are triangles <s> there are 3
+5	blue a blocks there 5 <s> there a
+circle	circle 1 is there yellow <s> there is 1 yellow
+items	blue 3 there items are <s> there are 3 blue
+5	blue items are there 5 <s> there are
+blue	there a blue 5 blocks <s> there a 5
+</s>	yellow there items 3 are <s> there are 3 yellow items
+every	every box has many items <s> 
+5	there 5 black items are <s> there are
+items	4 items are black there <s> there are 4 black
+box	every box many has items <s> every
+yellow	there yellow are triangles 2 <s> there are 2
+tower	is yellow there a tower <s> there is a yellow
+there	there are 2 circles black <s> 
+</s>	blue is there triangle 1 <s> there is 1 blue triangle
+seven	seven are blocks there <s> there are
+is	yellow there block is 1 <s> there
+yellow	yellow 2 are blocks there <s> there are 2
+</s>	yellow there block is 1 <s> there is 1 yellow block
+squares	there squares are 3 black <s> there are 3 black
+</s>	black is square 1 there <s> there is 1 black square
+</s>	are there 1 blue circle <s> there are 1 blue circle
+there	squares are there 2 blue <s> 
+1	there blue is block 1 <s> there is
+is	1 blue triangle there is <s> there
+</s>	there seven blocks are <s> there are seven blocks
+is	1 yellow square is there <s> there
+there	6 items yellow there are <s> 
+shapes	4 there square shapes are <s> there are 4 square
+items	are yellow items 2 there <s> there are 2 yellow
+blue	2 blue there items are <s> there are 2
+black	there 2 are black triangles <s> there are 2
+there	there are squares yellow 2 <s> 
+</s>	blocks 5 blue a there <s> there a 5 blue blocks
+there	there 5 yellow are items <s> 
+there	1 yellow triangle is there <s> 
+</s>	items every has many box <s> every box has many items
+items	yellow items 4 there are <s> there are 4 yellow
+black	there is 1 triangle black <s> there is 1
+yellow	yellow are 5 blocks there <s> there are 5
+blocks	2 there are black blocks <s> there are 2 black
+yellow	yellow two towers base have <s> two towers have
+blocks	yellow are 2 blocks there <s> there are 2 yellow
+there	tower is there a blue <s> 
+are	are squares 3 there black <s> there
+1	there is 1 triangle black <s> there is
+triangle	black there 1 is triangle <s> there is 1 black
+blocks	there blocks blue are 3 <s> there are 3 blue
+are	circle 1 are there blue <s> there
+1	there triangle is yellow 1 <s> there is
+is	yellow there square 1 is <s> there
+4	4 there blue squares are <s> there are
+blue	there blue triangle is 1 <s> there is 1
+there	circle 1 is there yellow <s> 
+</s>	there are 3 yellow blocks <s> there are 3 yellow blocks
+black	are there 5 blocks black <s> there are 5
+items	items are 3 there black <s> there are 3 black
+items	every box has many items <s> every box has many
+</s>	is yellow item 1 there <s> there is 1 yellow item
+items	many box has every items <s> every box has many
+</s>	triangles there 2 black are <s> there are 2 black triangles
+3	there squares 3 are black <s> there are
+there	circles 2 there blue are <s> 
+2	2 there yellow squares are <s> there are
+are	3 yellow there are triangles <s> there
+items	items black are 2 there <s> there are 2 black
+items	items yellow are 6 there <s> there are 6 yellow
+</s>	shapes square there are 4 <s> there are 4 square shapes
+1	there triangle 1 is yellow <s> there is
+blocks	there blue are blocks 4 <s> there are 4 blue
+are	triangles yellow there 2 are <s> there
+</s>	there are items black 4 <s> there are 4 black items
+</s>	blue a blocks there 5 <s> there a 5 blue blocks
+is	a black is there tower <s> there
+circle	is 1 yellow circle there <s> there is 1 yellow
+</s>	1 there triangle is blue <s> there is 1 blue triangle
+yellow	are yellow 4 there items <s> there are 4
+</s>	there are squares 4 blue <s> there are 4 blue squares
+is	is 1 yellow circle there <s> there
+</s>	1 there is triangle yellow <s> there is 1 yellow triangle
+yellow	there triangle is yellow 1 <s> there is 1
+2	yellow are triangles there 2 <s> there are
+are	there blocks yellow 5 are <s> there
+circle	black circle there is 1 <s> there is 1 black
+</s>	there squares are 2 yellow <s> there are 2 yellow squares
+is	there yellow square 1 is <s> there
+2	black are 2 squares there <s> there are
+there	squares there are 3 yellow <s> 
+there	1 circle is yellow there <s> 
+black	there black blocks are 2 <s> there are 2
+1	yellow there square 1 is <s> there is
+4	are there items yellow 4 <s> there are
+there	blocks black there are 2 <s> 
+1	block yellow there is 1 <s> there is
+blue	4 blue there blocks are <s> there are 4
+are	blue there 4 blocks are <s> there
+2	black are 2 triangles there <s> there are
+3	are squares 3 there black <s> there are
+there	are blue 2 there squares <s> 
+two	yellow two towers base have <s> 
+are	items yellow are 3 there <s> there
+</s>	3 there black squares are <s> there are 3 black squares
+is	blue is triangle there 1 <s> there
+3	yellow are there 3 squares <s> there are
+yellow	yellow there 5 are items <s> there are 5
+yellow	there 1 item yellow is <s> there is 1
+there	squares are 4 blue there <s> 
+1	is 1 triangle blue there <s> there is
+black	are there 3 black blocks <s> there are 3
+yellow	3 there yellow squares are <s> there are 3
+is	yellow 1 triangle is there <s> there
+triangle	1 is black there triangle <s> there is 1 black
+items	are 4 yellow items there <s> there are 4 yellow
+are	5 yellow blocks are there <s> there
+there	is 1 yellow circle there <s> 
+box	items every has many box <s> every
+triangle	there is yellow triangle 1 <s> there is 1 yellow
+is	item there 1 is yellow <s> there
+is	is a there tower black <s> there
+2	items yellow there 2 are <s> there are
+yellow	yellow circles 3 there are <s> there are 3
+blocks	there are blocks 3 blue <s> there are 3 blue
+5	there blue are 5 items <s> there are
+yellow	yellow 2 there are triangles <s> there are 2
+blocks	are blocks there 2 blue <s> there are 2 blue
+are	4 shapes square there are <s> there
+</s>	yellow are there 3 squares <s> there are 3 yellow squares
+</s>	are there 3 circles <s> there are 3 circles
+items	items there blue are 3 <s> there are 3 blue
+are	items there black 2 are <s> there
+</s>	there yellow square 1 is <s> there is 1 yellow square
+many	many box has every items <s> every box has
+are	2 blue are squares there <s> there
+there	are there 3 blue items <s> 
+items	there 5 yellow are items <s> there are 5 yellow
+are	5 are there black items <s> there
+circles	circles yellow 2 there are <s> there are 2 yellow
+triangle	there triangle is yellow 1 <s> there is 1 yellow
+there	yellow 3 there are triangles <s> 
+blocks	blocks 5 blue a there <s> there a 5 blue
+circle	is there circle 1 black <s> there is 1 black
+circles	are circles 2 black there <s> there are 2 black
+there	circle 1 there blue is <s> 
+</s>	blocks there are blue 2 <s> there are 2 blue blocks
+is	there 1 triangle is black <s> there
+are	there items yellow 2 are <s> there
+</s>	there black are squares 2 <s> there are 2 black squares
+</s>	are squares there yellow 3 <s> there are 3 yellow squares
+</s>	3 yellow there circles are <s> there are 3 yellow circles
+1	there circle black is 1 <s> there is
+are	there are 2 circles blue <s> there
+item	is yellow 1 there item <s> there is 1 yellow
+</s>	yellow there a tower is <s> there is a yellow tower
+block	1 blue is there block <s> there is 1 blue
+</s>	1 square is there black <s> there is 1 black square
+1	1 blue there are circle <s> there are
+2	items blue 2 there are <s> there are
+are	there yellow items 5 are <s> there
+2	are 2 black squares there <s> there are
+there	square there 1 is <s> 
+has	many items box every has <s> every box
+items	yellow there are 4 items <s> there are 4 yellow
+black	5 are there black items <s> there are 5
+blocks	are black blocks 3 there <s> there are 3 black
+there	blocks blue a 5 there <s> 
+there	there black are items 3 <s> 
+there	3 blue are there blocks <s> 
+yellow	yellow 6 items there are <s> there are 6
+there	items there blue are 3 <s> 
+1	there triangle yellow is 1 <s> there is
+is	1 there triangle yellow is <s> there
+are	there are yellow 2 triangles <s> there
+triangle	triangle there is 1 black <s> there is 1 black
+items	are items 4 there blue <s> there are 4 blue
+yellow	6 items yellow there are <s> there are 6
+squares	there yellow are squares 3 <s> there are 3 yellow
+triangles	triangles yellow there are 2 <s> there are 2 yellow
+squares	blue are 2 there squares <s> there are 2 blue
+squares	3 there black squares are <s> there are 3 black
+blue	circle blue are 1 there <s> there are 1
+4	4 there are blocks blue <s> there are
+items	there are yellow 2 items <s> there are 2 yellow
+there	tower a blue there is <s> 
+are	yellow there blocks are 3 <s> there
+</s>	3 there yellow squares are <s> there are 3 yellow squares
+yellow	there are 3 yellow blocks <s> there are 3
+circles	are blue there 2 circles <s> there are 2 blue
+block	blue there block 1 is <s> there is 1 blue
+there	2 yellow there items are <s> 
+black	is there black 1 triangle <s> there is 1
+black	there 1 is black square <s> there is 1
+</s>	squares there 3 are yellow <s> there are 3 yellow squares
+there	4 there are squares blue <s> 
+yellow	is 1 yellow item there <s> there is 1
+there	are 2 black there blocks <s> 
+triangle	is 1 triangle blue there <s> there is 1 blue
+square	1 square there is <s> there is 1
+blue	items blue 2 are there <s> there are 2
+triangles	yellow are triangles there 2 <s> there are 2 yellow
+items	items are black 4 there <s> there are 4 black
+are	3 blue squares there are <s> there
+circles	yellow are circles 3 there <s> there are 3 yellow
+is	there 1 yellow is circle <s> there
+is	is 1 square black there <s> there
+</s>	there 2 are black circles <s> there are 2 black circles
+shapes	shapes 4 there are square <s> there are 4 square
+squares	squares black are there 2 <s> there are 2 black
+a	black there a tower is <s> there is
+circles	there are 2 circles black <s> there are 2 black
+</s>	2 there yellow squares are <s> there are 2 yellow squares
+box	many items box every has <s> every
+2	items black are 2 there <s> there are
+blocks	black blocks are there 5 <s> there are 5 black
+are	4 blue are blocks there <s> there
+black	there are items black 4 <s> there are 4
+1	circle is black 1 there <s> there is
+yellow	there are yellow 2 triangles <s> there are 2
+1	blue circle 1 there is <s> there is
+are	are blue there 2 circles <s> there
+there	there 2 are black triangles <s> 
+</s>	1 there yellow square is <s> there is 1 yellow square
+there	blocks are yellow there 5 <s> 
+2	2 squares black there are <s> there are
+</s>	5 a blue there blocks <s> there a 5 blue blocks
+circle	circle there yellow is 1 <s> there is 1 yellow
+</s>	blue are 2 there squares <s> there are 2 blue squares
+5	yellow are blocks there 5 <s> there are
+there	are blue 2 squares there <s> 
+square	there 1 square is <s> there is 1
+blue	are blue 2 there squares <s> there are 2
+items	yellow there items 3 are <s> there are 3 yellow
+there	2 yellow are there circles <s> 
+triangles	triangles blue are 2 there <s> there are 2 blue
+there	circle there yellow is 1 <s> 
+are	there items 6 yellow are <s> there
+yellow	3 there triangles are yellow <s> there are 3
+yellow	circles yellow are there 2 <s> there are 2
+</s>	4 yellow there are items <s> there are 4 yellow items
+is	black is there 1 circle <s> there
+are	are black 3 there blocks <s> there
+</s>	triangles black are there 2 <s> there are 2 black triangles
+yellow	1 is there yellow square <s> there is 1
+black	black circles are 2 there <s> there are 2
+items	black are there 3 items <s> there are 3 black
+is	blue is there a tower <s> there
+items	are there items yellow 4 <s> there are 4 yellow
+there	are items 5 black there <s> 
+2	triangles blue are 2 there <s> there are
+circle	are there 1 blue circle <s> there are 1 blue
+there	3 items blue there are <s> 
+3	3 are blocks yellow there <s> there are
+</s>	there yellow item is 1 <s> there is 1 yellow item
+2	2 circles there yellow are <s> there are
+</s>	are square there 4 shapes <s> there are 4 square shapes
+</s>	there are yellow 2 triangles <s> there are 2 yellow triangles
+there	5 yellow are items there <s> 
+items	yellow 6 there items are <s> there are 6 yellow
+circles	circles are 3 yellow there <s> there are 3 yellow
+is	there is yellow tower a <s> there
+yellow	there 5 yellow are items <s> there are 5
+there	4 are there blocks yellow <s> 
+4	are yellow blocks 4 there <s> there are
+is	black circle there 1 is <s> there
+squares	yellow are there 3 squares <s> there are 3 yellow
+</s>	2 blue are squares there <s> there are 2 blue squares
+</s>	1 square is there <s> there is 1 square
+there	4 items are there blue <s> 
+there	1 triangle black there is <s> 
+blocks	3 black there are blocks <s> there are 3 black
+items	4 there blue items are <s> there are 4 blue
+yellow	are blocks there 2 yellow <s> there are 2
+yellow	1 yellow is square there <s> there is 1
+there	are yellow squares there 3 <s> 
+black	black is square there 1 <s> there is 1
+is	1 there is triangle black <s> there
+3	are yellow there 3 items <s> there are
+2	there are 2 circles black <s> there are
+2	black there items 2 are <s> there are
+yellow	4 are yellow there blocks <s> there are 4
+5	5 blue are items there <s> there are
+are	there black items are 2 <s> there
+2	black 2 are blocks there <s> there are
+is	there triangle yellow is 1 <s> there
+blue	there items blue 2 are <s> there are 2
+box	many has every box items <s> every
+</s>	1 yellow triangle is there <s> there is 1 yellow triangle
+triangles	triangles there 2 black are <s> there are 2 black
+</s>	there is 1 square <s> there is 1 square
+</s>	yellow 3 blocks there are <s> there are 3 yellow blocks
+black	5 there are blocks black <s> there are 5
+2	blocks there 2 yellow are <s> there are
+</s>	blue squares are there 4 <s> there are 4 blue squares
+black	3 black there are blocks <s> there are 3
+there	there are items 5 yellow <s> 
+there	are blocks there 2 blue <s> 
+there	there 2 black circles are <s> 
+there	1 blue is there block <s> 
+there	are yellow 3 blocks there <s> 
+is	1 there triangle is black <s> there
+2	2 black there are triangles <s> there are
+there	are there 3 yellow circles <s> 
+black	is there circle 1 black <s> there is 1
+there	1 yellow square is there <s> 
+</s>	are black there 3 squares <s> there are 3 black squares
+are	squares yellow there 3 are <s> there
+is	tower is there a blue <s> there
+box	every box has many items <s> every
+are	there black blocks are 2 <s> there
+blocks	there blocks yellow 5 are <s> there are 5 yellow
+is	triangle there is blue 1 <s> there
+are	blocks blue 3 there are <s> there
+4	there 4 yellow items are <s> there are
+2	there are yellow squares 2 <s> there are
+there	are 2 blue squares there <s> 
+there	are yellow blocks 4 there <s> 
+4	are 4 yellow items there <s> there are
+</s>	5 there are blocks black <s> there are 5 black blocks
+squares	are squares there 3 blue <s> there are 3 blue
+</s>	2 are triangles there blue <s> there are 2 blue triangles
+is	a is there tower yellow <s> there
+are	3 blocks there yellow are <s> there
+yellow	there yellow are 5 blocks <s> there are 5
+5	there a blue 5 blocks <s> there a
+black	black there 4 items are <s> there are 4
+blue	triangles 2 blue are there <s> there are 2
+square	black is square there 1 <s> there is 1 black
+there	4 there items are blue <s> 
+base	two have towers yellow base <s> two towers have yellow
+many	every box has many items <s> every box has
+are	there 2 black circles are <s> there
+are	yellow are 5 blocks there <s> there
+box	has box every many items <s> every
+there	black circles are 2 there <s> 
+</s>	there blue blocks are 4 <s> there are 4 blue blocks
+</s>	there blocks 4 are yellow <s> there are 4 yellow blocks
+are	there blue are circle 1 <s> there
+every	has box every many items <s> 
+there	are black 3 there blocks <s> 
+black	black are 2 squares there <s> there are 2
+there	is 1 yellow item there <s> 
+seven	are seven blocks there <s> there are
+yellow	yellow items 4 there are <s> there are 4
+blue	blocks there 3 blue are <s> there are 3
+blocks	are blocks there blue 2 <s> there are 2 blue
+circles	circles there 2 black are <s> there are 2 black
+items	5 items blue there are <s> there are 5 blue
+a	there is yellow a tower <s> there is
+triangles	2 black triangles there are <s> there are 2 black
+tower	there a is blue tower <s> there is a blue
+</s>	blocks there are yellow 3 <s> there are 3 yellow blocks
+there	yellow 2 circles are there <s> 
+</s>	there items blue are 5 <s> there are 5 blue items
+4	squares blue are 4 there <s> there are
+</s>	1 circle is yellow there <s> there is 1 yellow circle
+are	blocks are yellow 3 there <s> there
+there	there 3 triangles are yellow <s> 
+black	blocks are there black 5 <s> there are 5
+are	are yellow squares there 3 <s> there
+yellow	yellow are 3 there items <s> there are 3
+2	there are yellow 2 items <s> there are
+triangle	black is triangle 1 there <s> there is 1 black
+black	items 4 are there black <s> there are 4
+black	are black items 3 there <s> there are 3
+are	black are 2 squares there <s> there
+items	there are items black 4 <s> there are 4 black
+square	there square are shapes 4 <s> there are 4
+blue	there 4 are blocks blue <s> there are 4
+3	3 black there are blocks <s> there are
+triangle	is 1 there triangle black <s> there is 1 black
+blocks	blocks 3 there blue are <s> there are 3 blue
+blocks	blocks blue 3 are there <s> there are 3 blue
+is	yellow there tower a is <s> there
+</s>	are 5 items yellow there <s> there are 5 yellow items
+there	blue there circle 1 is <s> 
+there	items 3 black there are <s> 
+</s>	are there 3 blue items <s> there are 3 blue items
+item	there 1 item yellow is <s> there is 1 yellow
+circles	2 black are circles there <s> there are 2 black
+there	there 1 is block blue <s> 
+there	black are items there 5 <s> 
+</s>	are 5 items there yellow <s> there are 5 yellow items
+is	a tower there black is <s> there
+1	there is 1 square black <s> there is
+items	black are items there 5 <s> there are 5 black
+yellow	yellow are blocks there 5 <s> there are 5
+is	there circle black is 1 <s> there
+2	blue circles there 2 are <s> there are
+blue	a 5 blocks blue there <s> there a 5
+blue	2 there are blocks blue <s> there are 2
+are	there items 2 blue are <s> there
+yellow	are yellow 3 there blocks <s> there are 3
+5	are items 5 black there <s> there are
+blocks	yellow are 5 there blocks <s> there are 5 yellow
+are	there blue blocks 2 are <s> there
+3	yellow 3 there circles are <s> there are
+items	items 4 are there black <s> there are 4 black
+is	black is square there 1 <s> there
+4	4 squares are blue there <s> there are
+a	there is yellow tower a <s> there is
+black	circles there are 2 black <s> there are 2
+are	are blue squares there 3 <s> there
+there	black are blocks 5 there <s> 
+</s>	there are yellow blocks 2 <s> there are 2 yellow blocks
+6	there are blue 6 blocks <s> there are
+squares	squares there are 3 yellow <s> there are 3 yellow
+blue	blue is triangle 1 there <s> there is 1
+items	there items are blue 2 <s> there are 2 blue
+yellow	1 square there is yellow <s> there is 1
+there	block 1 is there yellow <s> 
+black	there circle black is 1 <s> there is 1
+</s>	2 black triangles are there <s> there are 2 black triangles
+1	1 is triangle there black <s> there is
+there	items 4 yellow there are <s> 
+</s>	are 4 there shapes square <s> there are 4 square shapes
+a	yellow there tower a is <s> there is
+there	yellow there blocks are 3 <s> 
+</s>	has box every many items <s> every box has many items
+yellow	there yellow is square 1 <s> there is 1
+there	square is there 1 <s> 
+there	yellow there are 4 items <s> 
+1	there yellow 1 block is <s> there is
+are	2 squares black there are <s> there
+is	blue there block 1 is <s> there
+1	there yellow is square 1 <s> there is
+3	yellow circles 3 there are <s> there are
+square	1 square is there <s> there is 1
+1	there circle 1 blue are <s> there are
+yellow	yellow towers have two base <s> two towers have
+</s>	are 3 blocks there blue <s> there are 3 blue blocks
+blue	are 6 there blue blocks <s> there are 6
+a	there tower is blue a <s> there is
+</s>	there is yellow tower a <s> there is a yellow tower
+squares	squares 4 there are blue <s> there are 4 blue
+squares	are yellow squares there 3 <s> there are 3 yellow
+items	5 are there black items <s> there are 5 black
+2	there blocks yellow 2 are <s> there are
+4	4 there are square shapes <s> there are
+are	are yellow triangles 3 there <s> there
+blue	there squares 3 blue are <s> there are 3
+</s>	circles blue are there 2 <s> there are 2 blue circles
+</s>	there are blue 6 blocks <s> there are 6 blue blocks
+there	2 are triangles there blue <s> 
+are	3 items blue there are <s> there
+squares	3 there squares yellow are <s> there are 3 yellow
+</s>	there yellow 3 are triangles <s> there are 3 yellow triangles
+yellow	circle 1 is there yellow <s> there is 1
+black	black are there 3 items <s> there are 3
+4	black there 4 items are <s> there are
+there	blue are 6 there blocks <s> 
+triangles	2 black triangles are there <s> there are 2 black
+</s>	there 4 are blocks blue <s> there are 4 blue blocks
+is	there is a black tower <s> there
+are	2 there are blocks blue <s> there
+blue	blue a blocks there 5 <s> there a 5
+yellow	are yellow squares there 3 <s> there are 3
+items	items 5 blue are there <s> there are 5 blue
+yellow	a there yellow tower is <s> there is a
+3	black are blocks there 3 <s> there are
+black	are items black 2 there <s> there are 2
+3	3 items blue there are <s> there are
+blue	there blue are circle 1 <s> there are 1
+tower	a there black tower is <s> there is a black
+blue	2 blue are squares there <s> there are 2
+yellow	is there yellow item 1 <s> there is 1
+</s>	items 2 blue are there <s> there are 2 blue items
+blocks	are blocks yellow 3 there <s> there are 3 yellow
+3	there yellow are squares 3 <s> there are
+yellow	there yellow are squares 3 <s> there are 3
+blue	3 blue squares there are <s> there are 3
+2	yellow there 2 are squares <s> there are
+there	there is a black tower <s> 
+there	yellow there a is tower <s> 
+black	2 black are circles there <s> there are 2
+blue	squares are 4 blue there <s> there are 4
+has	items every has many box <s> every box
+</s>	4 are items there black <s> there are 4 black items
+there	black triangle 1 is there <s> 
+triangles	2 are triangles there blue <s> there are 2 blue
+there	blue circle 1 there is <s> 
+</s>	is there tower blue a <s> there is a blue tower
+</s>	circle is black 1 there <s> there is 1 black circle
+are	2 there are yellow squares <s> there
+there	are blue squares there 3 <s> 
+black	there 3 black are blocks <s> there are 3
+</s>	there 2 are triangles black <s> there are 2 black triangles
+are	3 squares black there are <s> there
+triangle	there triangle 1 is yellow <s> there is 1 yellow
+1	yellow there block is 1 <s> there is
+blue	blue are 1 there circle <s> there are 1
+</s>	items yellow 3 there are <s> there are 3 yellow items
+there	yellow there items are 2 <s> 
+yellow	there are yellow blocks 2 <s> there are 2
+there	is 1 there triangle black <s> 
+there	there circles 3 yellow are <s> 
+items	4 items are there blue <s> there are 4 blue
+item	is 1 yellow item there <s> there is 1 yellow
+black	2 circles black are there <s> there are 2
+</s>	are there 3 items blue <s> there are 3 blue items
+black	are black 2 items there <s> there are 2
+are	yellow there items 3 are <s> there
+there	are 2 blue triangles there <s> 
+there	there yellow 2 are items <s> 
+black	2 triangles are there black <s> there are 2
+there	items are there 5 blue <s> 
+black	are there squares black 3 <s> there are 3
+</s>	base towers yellow have two <s> two towers have yellow base
+there	3 there squares yellow are <s> 
+</s>	triangles 2 yellow there are <s> there are 2 yellow triangles
+there	there yellow are squares 3 <s> 
+2	circles there are 2 black <s> there are
+are	black 5 are blocks there <s> there
+there	blue items are there 5 <s> 
+are	are yellow 3 there blocks <s> there
+a	blue there 5 a blocks <s> there
+blocks	there yellow 5 blocks are <s> there are 5 yellow
+there	blue is triangle 1 there <s> 
+</s>	is there block 1 blue <s> there is 1 blue block
+1	black circle there is 1 <s> there is
+2	there black items are 2 <s> there are
+</s>	there 2 are black items <s> there are 2 black items
+are	4 there items are blue <s> there
+there	items are 3 there black <s> 
+3	black blocks are there 3 <s> there are
+2	are yellow there blocks 2 <s> there are
+base	two towers base have yellow <s> two towers have yellow
+</s>	are 2 there triangles blue <s> there are 2 blue triangles
+</s>	yellow there blocks are 3 <s> there are 3 yellow blocks
+every	many has box every items <s> 
+2	are squares 2 black there <s> there are
+2	are yellow items 2 there <s> there are
+yellow	are there 3 yellow circles <s> there are 3
+are	circles are 3 yellow there <s> there
+2	there 2 are black triangles <s> there are
+yellow	3 there squares yellow are <s> there are 3
+there	black is there 1 circle <s> 
+</s>	square is 1 there <s> there is 1 square
+5	yellow are 5 there blocks <s> there are
+</s>	5 black there are items <s> there are 5 black items
+are	are 2 black there blocks <s> there
+2	are there squares yellow 2 <s> there are
+</s>	are there 3 black blocks <s> there are 3 black blocks
+</s>	blue 3 there items are <s> there are 3 blue items
+blue	blue 1 there circle are <s> there are 1
+there	there blocks are seven <s> 
+there	circles 2 are black there <s> 
+</s>	4 there are blocks blue <s> there are 4 blue blocks
+black	blocks there are 2 black <s> there are 2
+1	there blue are circle 1 <s> there are
+yellow	yellow there is 1 block <s> there is 1
+there	1 square there yellow is <s> 
+3	are there 3 black blocks <s> there are
+are	seven there are blocks <s> there
+is	yellow there triangle 1 is <s> there
+there	there are blocks 3 blue <s> 
+there	are yellow triangles 3 there <s> 
+</s>	blocks blue there are 2 <s> there are 2 blue blocks
+2	black circles there are 2 <s> there are
+</s>	there are squares yellow 2 <s> there are 2 yellow squares
+square	is 1 square black there <s> there is 1 black
+</s>	blocks are yellow there 5 <s> there are 5 yellow blocks
+there	squares blue are 2 there <s> 
+are	black are there 3 items <s> there
+there	black is triangle 1 there <s> 
+3	3 there black squares are <s> there are
+4	4 there are squares blue <s> there are
+there	are yellow there triangles 3 <s> 
+circles	yellow 3 there circles are <s> there are 3 yellow
+</s>	a there black tower is <s> there is a black tower
+there	circles are 3 yellow there <s> 
+items	has every items box many <s> every box has many
+yellow	a tower there yellow is <s> there is a
+1	1 square there yellow is <s> there is
+there	a there blue tower is <s> 
+items	yellow 2 are items there <s> there are 2 yellow
+black	black are 2 circles there <s> there are 2
+items	4 are blue items there <s> there are 4 blue
+</s>	is 1 square black there <s> there is 1 black square
+</s>	yellow 2 circles are there <s> there are 2 yellow circles
+</s>	there 1 is triangle black <s> there is 1 black triangle
+blocks	there yellow blocks 4 are <s> there are 4 yellow
+there	4 yellow there are items <s> 
+</s>	is yellow 1 there item <s> there is 1 yellow item
+seven	are there seven blocks <s> there are
+3	yellow items are 3 there <s> there are
+are	black are blocks there 3 <s> there
+are	blocks there 6 are blue <s> there
+blue	blocks blue a 5 there <s> there a 5
+3	items 3 yellow are there <s> there are
+</s>	are 2 there squares blue <s> there are 2 blue squares
+yellow	are yellow there blocks 2 <s> there are 2
+circles	there are 2 circles blue <s> there are 2 blue
+5	blue are 5 items there <s> there are
+are	yellow are triangles there 2 <s> there
+black	4 items are black there <s> there are 4
+yellow	yellow have towers two base <s> two towers have
+yellow	are 2 there circles yellow <s> there are 2
+blue	2 are blocks blue there <s> there are 2
+yellow	yellow 2 circles are there <s> there are 2
+there	yellow circles 3 there are <s> 
+</s>	2 there circles blue are <s> there are 2 blue circles
+blocks	are blocks there 2 yellow <s> there are 2 yellow
+seven	there seven blocks are <s> there are
+there	are yellow there blocks 2 <s> 
+there	there 1 black triangle is <s> 
+are	are 4 blocks there yellow <s> there
+</s>	circle 1 yellow there is <s> there is 1 yellow circle
+5	are items 5 yellow there <s> there are
+2	2 black triangles there are <s> there are
+circle	circle is 1 black there <s> there is 1 black
+2	2 are blocks blue there <s> there are
+</s>	circles blue are 2 there <s> there are 2 blue circles
+blue	4 there blue squares are <s> there are 4
+5	yellow 5 are there blocks <s> there are
+tower	there is a black tower <s> there is a black
+yellow	there is yellow tower a <s> there is a
+there	there items blue 2 are <s> 
+are	yellow are there 3 squares <s> there
+yellow	there 3 triangles are yellow <s> there are 3
+</s>	are 2 there circles yellow <s> there are 2 yellow circles
+3	3 yellow there are triangles <s> there are
+there	there blue are 5 items <s> 
+blocks	are yellow 3 blocks there <s> there are 3 yellow
+there	items 2 blue are there <s> 
+blue	are 3 blocks there blue <s> there are 3
+circle	circle is black 1 there <s> there is 1 black
+are	there yellow are triangles 2 <s> there
+</s>	there items are black 5 <s> there are 5 black items
+</s>	black 5 are blocks there <s> there are 5 black blocks
+are	yellow 6 there items are <s> there
+squares	3 are black there squares <s> there are 3 black
+there	there 1 item yellow is <s> 
+</s>	are there squares black 3 <s> there are 3 black squares
+triangle	black is there triangle 1 <s> there is 1 black
+square	4 there are square shapes <s> there are 4
+</s>	are yellow 4 there items <s> there are 4 yellow items
+base	yellow towers have two base <s> two towers have yellow
+are	are yellow items 2 there <s> there
+circles	circles there 3 are <s> there are 3
+yellow	1 is yellow triangle there <s> there is 1
+are	there seven blocks are <s> there
+yellow	are there squares yellow 2 <s> there are 2
+1	there 1 yellow is circle <s> there is
+a	a tower there black is <s> there is
+a	blocks a 5 blue there <s> there
+seven	blocks there seven are <s> there are
+are	4 are there blocks yellow <s> there
+have	base have two towers yellow <s> two towers
+2	2 black are circles there <s> there are
+black	black circles are there 2 <s> there are 2
+are	4 there are squares blue <s> there
+there	is 1 square there <s> 
+</s>	5 items blue there are <s> there are 5 blue items
+there	2 there are yellow squares <s> 
+is	a there blue tower is <s> there
+there	black blocks are there 5 <s> 
+2	are blue 2 there squares <s> there are
+blocks	5 blocks there a blue <s> there a 5 blue
+are	shapes square there are 4 <s> there
+1	1 is there yellow square <s> there is
+there	there a is blue tower <s> 
+1	1 square there is black <s> there is
+is	triangle there is 1 black <s> there
+yellow	yellow circles are 3 there <s> there are 3
+there	there is 1 square black <s> 
+blue	are blue 2 squares there <s> there are 2
+tower	a there blue tower is <s> there is a blue
+are	blue 3 there items are <s> there
+square	1 yellow square is there <s> there is 1 yellow
+are	are black blocks 3 there <s> there
+there	2 are there black blocks <s> 
+are	yellow there 3 items are <s> there
+</s>	there yellow is square 1 <s> there is 1 yellow square
+there	yellow are items 2 there <s> 
+blocks	there are blue 6 blocks <s> there are 6 blue
+black	1 is black there triangle <s> there is 1
+triangles	are there 2 triangles blue <s> there are 2 blue
+blocks	blocks there are 2 black <s> there are 2 black
+there	are items black 2 there <s> 
+there	there are yellow blocks 2 <s> 
+squares	2 squares are there yellow <s> there are 2 yellow
+a	a is there tower yellow <s> there is
+are	black circles are 2 there <s> there
+triangles	2 triangles are there black <s> there are 2 black
+there	blue there squares 2 are <s> 
+black	1 is triangle there black <s> there is 1
+1	there block 1 is blue <s> there is
+are	4 there are blocks blue <s> there
+6	there items 6 yellow are <s> there are
+are	2 are there black blocks <s> there
+6	are blocks there 6 blue <s> there are
+</s>	there 2 blue are blocks <s> there are 2 blue blocks
+2	triangles are there 2 blue <s> there are
+</s>	2 black are circles there <s> there are 2 black circles
+</s>	yellow items are 3 there <s> there are 3 yellow items
+are	are 3 yellow triangles there <s> there
+blocks	yellow there are 4 blocks <s> there are 4 yellow
+blocks	black there 5 blocks are <s> there are 5 black
+</s>	are blue 2 squares there <s> there are 2 blue squares
+there	are yellow circles 3 there <s> 
+</s>	are there circles 3 <s> there are 3 circles
+is	square is there 1 <s> there
+</s>	there 1 square is <s> there is 1 square
+2	are 2 black there blocks <s> there are
+triangle	there 1 is triangle black <s> there is 1 black
+black	2 black triangles are there <s> there are 2
+black	black there are 3 items <s> there are 3
+items	items 3 black there are <s> there are 3 black
+</s>	circle 1 is there yellow <s> there is 1 yellow circle
+3	blue 3 there items are <s> there are
+are	black circles there are 2 <s> there
+there	2 triangles are there black <s> 
+</s>	are there 2 triangles blue <s> there are 2 blue triangles
+</s>	blocks there 3 blue are <s> there are 3 blue blocks
+there	items blue 2 there are <s> 
+base	have yellow base two towers <s> two towers have yellow
+</s>	yellow 2 are blocks there <s> there are 2 yellow blocks
+black	3 there black squares are <s> there are 3
+there	circle is 1 black there <s> 
+is	1 is yellow triangle there <s> there
+black	is a tower there black <s> there is a
+are	blocks blue there are 2 <s> there
+every	items every has many box <s> 
+2	2 are triangles there blue <s> there are
+black	there 3 are black blocks <s> there are 3
+yellow	yellow there triangle 1 is <s> there is 1
+blue	there 1 is block blue <s> there is 1
+squares	black are 2 squares there <s> there are 2 black
+3	are black items 3 there <s> there are
+yellow	there blocks yellow 5 are <s> there are 5
+circle	circle blue 1 is there <s> there is 1 blue
+circles	2 circles there yellow are <s> there are 2 yellow
+blocks	there are blocks yellow 2 <s> there are 2 yellow
+are	are 2 black squares there <s> there
+squares	are 2 black squares there <s> there are 2 black
+is	1 circle is yellow there <s> there
+there	squares are there black 2 <s> 
+blocks	blocks blue a 5 there <s> there a 5 blue
+circles	3 yellow there circles are <s> there are 3 yellow
+are	items black are 4 there <s> there
+have	yellow have towers base two <s> two towers
+are	there yellow 3 are triangles <s> there
+are	circles are there yellow 3 <s> there
+triangle	1 there is triangle yellow <s> there is 1 yellow
+there	there blue items are 3 <s> 
+are	are 2 blue squares there <s> there
+black	are items 5 black there <s> there are 5
+3	yellow are circles 3 there <s> there are
+are	there are black items 5 <s> there
+are	squares are there 2 blue <s> there
+</s>	is there yellow item 1 <s> there is 1 yellow item
+are	are yellow blocks 4 there <s> there
+there	is black there triangle 1 <s> 
+there	there items 6 yellow are <s> 
+there	there blue 1 is circle <s> 
+</s>	are 6 there blue blocks <s> there are 6 blue blocks
+1	is 1 square black there <s> there is
+</s>	black are 2 squares there <s> there are 2 black squares
+</s>	is 1 triangle blue there <s> there is 1 blue triangle
+3	blue 3 squares there are <s> there are
+are	2 there yellow squares are <s> there
+there	are blocks there 6 blue <s> 
+tower	a tower there yellow is <s> there is a yellow
+yellow	2 circles there yellow are <s> there are 2
+there	items black are 2 there <s> 
+yellow	yellow are 5 there blocks <s> there are 5
+is	circle there yellow is 1 <s> there
+square	shapes 4 there are square <s> there are 4
+every	many has every box items <s> 
+black	1 there triangle is black <s> there is 1
+1	black is square there 1 <s> there is
+squares	are blue 2 squares there <s> there are 2 blue
+blue	blue 5 a there blocks <s> there a 5
+</s>	a 5 blocks blue there <s> there a 5 blue blocks
+two	yellow have towers base two <s> 
+are	are 2 there squares blue <s> there
+tower	there is yellow a tower <s> there is a yellow
+there	squares yellow there 3 are <s> 
+black	black there 1 is triangle <s> there is 1
+black	blocks there black are 2 <s> there are 2
+yellow	are yellow items 2 there <s> there are 2
+2	there 2 are triangles black <s> there are
+there	there black 2 are squares <s> 
+there	is there block 1 blue <s> 
+blocks	blue are 6 there blocks <s> there are 6 blue
+2	are 2 there triangles blue <s> there are
+items	there items yellow 2 are <s> there are 2 yellow
+there	there 4 yellow items are <s> 
+black	3 there are items black <s> there are 3
+are	items 3 black there are <s> there
+a	black is tower a there <s> there is
+there	there are circles 3 <s> 
+blocks	are seven there blocks <s> there are seven
+a	a 5 blocks blue there <s> there
+items	blue items there are 3 <s> there are 3 blue
+items	are there 2 yellow items <s> there are 2 yellow
+2	there are 2 circles blue <s> there are
+squares	blue there squares 2 are <s> there are 2 blue
+square	is 1 square there <s> there is 1
+3	are yellow squares there 3 <s> there are
+are	items 3 yellow are there <s> there
+are	3 items there blue are <s> there
+circles	2 circles black are there <s> there are 2 black
+blocks	are 6 there blue blocks <s> there are 6 blue
+yellow	2 there are yellow squares <s> there are 2
+are	6 items yellow there are <s> there
+there	blocks there seven are <s> 
+there	black there 4 items are <s> 
+there	3 squares black there are <s> 
+triangle	1 there triangle is black <s> there is 1 black
+blocks	black blocks are there 3 <s> there are 3 black
+there	are 2 black squares there <s> 
+there	blue there block 1 is <s> 
+</s>	yellow have towers two base <s> two towers have yellow base
+4	are square there 4 shapes <s> there are
+blue	circle 1 there blue is <s> there is 1
+6	yellow 6 items there are <s> there are
+3	items 3 black there are <s> there are
+have	two have towers yellow base <s> two towers
+5	blocks blue a 5 there <s> there a
+blue	blue 3 there items are <s> there are 3
+5	there 5 yellow are items <s> there are
+yellow	there yellow 2 are items <s> there are 2
+has	items box every many has <s> every box
+2	yellow 2 circles are there <s> there are
+</s>	yellow 2 are items there <s> there are 2 yellow items
+3	there circles are 3 <s> there are
+are	yellow there circles 2 are <s> there
+items	yellow items are 3 there <s> there are 3 yellow
+blocks	5 are black there blocks <s> there are 5 black
+blue	5 blue are items there <s> there are 5
+5	black blocks are there 5 <s> there are
+are	blue items are there 5 <s> there
+a	a there yellow tower is <s> there is
+are	there 3 black blocks are <s> there
+</s>	there triangle yellow is 1 <s> there is 1 yellow triangle
+are	3 are black there squares <s> there
+4	shapes 4 there are square <s> there are
+are	there 5 black items are <s> there
+2	yellow are items 2 there <s> there are
+are	are blocks there blue 2 <s> there
+blue	there blue are blocks 4 <s> there are 4
+there	triangles 2 blue are there <s> 
+circle	circle there is 1 black <s> there is 1 black
+there	blocks there blue 2 are <s> 
+</s>	there are items 5 yellow <s> there are 5 yellow items
+are	there blocks blue are 3 <s> there
+has	has box every many items <s> every box
+items	blue there 2 items are <s> there are 2 blue
+1	square yellow there 1 is <s> there is
+there	5 yellow blocks are there <s> 
+</s>	there is circle 1 blue <s> there is 1 blue circle
+</s>	are items blue there 4 <s> there are 4 blue items
+</s>	blue there 4 blocks are <s> there are 4 blue blocks
+triangle	triangle black is 1 there <s> there is 1 black
+</s>	squares yellow 2 are there <s> there are 2 yellow squares
+are	yellow 2 are items there <s> there
+3	3 items are blue there <s> there are
+</s>	2 there are circles yellow <s> there are 2 yellow circles
+is	1 is triangle there black <s> there
+triangles	there 2 are triangles black <s> there are 2 black
+there	3 there yellow squares are <s> 
+5	are there items 5 black <s> there are
+are	yellow are 3 there items <s> there
+are	circles are 2 black there <s> there
+are	are yellow 3 blocks there <s> there
+there	blocks 5 yellow are there <s> 
+are	are blocks there 2 yellow <s> there
+yellow	yellow 3 there circles are <s> there are 3
+items	6 items yellow there are <s> there are 6 yellow
+1	circle 1 there blue is <s> there is
+yellow	there are items 5 yellow <s> there are 5
+a	a black is there tower <s> there is
+are	there 3 triangles are yellow <s> there
+there	are squares there yellow 3 <s> 
+</s>	are 2 black squares there <s> there are 2 black squares
+there	1 is triangle there black <s> 
+there	blue there are 6 blocks <s> 
+are	are 4 yellow items there <s> there
+</s>	are circles 3 there <s> there are 3 circles
+blocks	there black blocks are 2 <s> there are 2 black
+3	there are 3 yellow blocks <s> there are
+2	circles black there are 2 <s> there are
+there	blocks there 3 blue are <s> 
+2	2 there are black blocks <s> there are
+circles	2 are black circles there <s> there are 2 black
+there	are there squares yellow 2 <s> 
+4	there 4 blocks are blue <s> there are
+yellow	yellow there square 1 is <s> there is 1
+1	1 yellow triangle is there <s> there is
+yellow	there is yellow a tower <s> there is a
+2	there are yellow 2 triangles <s> there are
+yellow	there triangle yellow is 1 <s> there is 1
+</s>	2 yellow are there circles <s> there are 2 yellow circles
+blocks	are there 5 blocks black <s> there are 5 black
+6	are blue blocks 6 there <s> there are
+are	blue circle there are 1 <s> there
+5	are there items 5 blue <s> there are
+base	yellow two towers base have <s> two towers have yellow
+are	there 3 are black blocks <s> there
+blue	3 items blue there are <s> there are 3
+</s>	items are there yellow 5 <s> there are 5 yellow items
+3	yellow are 3 triangles there <s> there are
+circle	there circle is yellow 1 <s> there is 1 yellow
+there	yellow are 3 triangles there <s> 
+3	yellow are 3 there items <s> there are
+there	there are 2 circles blue <s> 
+square	black 1 there square is <s> there is 1 black
+there	is 1 there item yellow <s> 
+</s>	are there items 5 blue <s> there are 5 blue items
+tower	is there tower blue a <s> there is a blue
+there	1 there triangle yellow is <s> 
+black	2 there are black blocks <s> there are 2
+are	are items blue there 4 <s> there
+are	2 triangles are black there <s> there
+there	black there 5 blocks are <s> 
+items	5 blue are items there <s> there are 5 blue
+4	4 are blue items there <s> there are
+5	a 5 blocks blue there <s> there a
+3	there are circles 3 <s> there are
+squares	are 2 there squares blue <s> there are 2 blue
+are	are black blocks 5 there <s> there
+</s>	items 5 blue are there <s> there are 5 blue items
+are	there 4 yellow items are <s> there
+1	item there 1 is yellow <s> there is
+</s>	squares are there 2 blue <s> there are 2 blue squares
+is	there 1 square is <s> there
+items	are yellow 4 there items <s> there are 4 yellow
+</s>	items blue 2 there are <s> there are 2 blue items
+is	there triangle 1 is yellow <s> there
+blue	are squares there 3 blue <s> there are 3
+there	6 items yellow are there <s> 
+</s>	there blue are circle 1 <s> there are 1 blue circle
+</s>	yellow there triangle 1 is <s> there is 1 yellow triangle
+every	many items box every has <s> 
+</s>	items are 6 yellow there <s> there are 6 yellow items
+there	is there black 1 triangle <s> 
+items	are items black 2 there <s> there are 2 black
+yellow	there are yellow squares 2 <s> there are 2
+circle	1 blue there are circle <s> there are 1 blue
+3	are 3 yellow triangles there <s> there are
+blocks	are yellow 3 there blocks <s> there are 3 yellow
+black	are black 3 there blocks <s> there are 3
+1	is yellow 1 there item <s> there is
+</s>	items 4 yellow there are <s> there are 4 yellow items
+a	5 a blue there blocks <s> there
+circles	are 2 there circles blue <s> there are 2 blue
+there	blue items 4 are there <s> 
+2	2 blocks are black there <s> there are
+are	2 yellow there items are <s> there
+black	black blocks are there 5 <s> there are 5
+</s>	squares blue are 4 there <s> there are 4 blue squares
+</s>	a tower there black is <s> there is a black tower
+are	yellow circles 3 there are <s> there
+3	there yellow 3 are triangles <s> there are
+yellow	is 1 there item yellow <s> there is 1
+tower	a there yellow tower is <s> there is a yellow
+black	black are 2 triangles there <s> there are 2
+</s>	items blue 2 are there <s> there are 2 blue items
+5	items 5 blue are there <s> there are
+3	3 there yellow squares are <s> there are
+blue	blocks there are blue 2 <s> there are 2
+</s>	are yellow squares there 3 <s> there are 3 yellow squares
+there	2 squares black there are <s> 
+are	2 yellow there blocks are <s> there
+blue	there tower is blue a <s> there is a
+5	blocks 5 yellow are there <s> there are
+blue	are there blue 2 triangles <s> there are 2
+blocks	seven are blocks there <s> there are seven
+3	are yellow circles 3 there <s> there are
+</s>	blue 3 are there blocks <s> there are 3 blue blocks
+circles	2 yellow are there circles <s> there are 2 yellow
+blue	tower is a blue there <s> there is a
+4	blue squares are there 4 <s> there are
+there	squares are there blue 3 <s> 
+items	are there 3 blue items <s> there are 3 blue
+blue	are 2 there circles blue <s> there are 2
+1	square there 1 is <s> there is
