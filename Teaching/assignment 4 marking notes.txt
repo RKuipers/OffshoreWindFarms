@@ -1,0 +1,26 @@
+NMC B
+	Overlap			75
+	Single file		25
+	1000 lines each		50
+	1000 lines from input	25
+
+NMC B: Training and testing data overlap (the lines that go into the testing file shouldn't go into the training file)
+75, 85
+
+NMC B: You only write a single file as output, instead of a training and a testing file
+25, 56
+
+NMC B: You only wrote 1000 lines in your training file, while it should use all lines that don't go into the testing file (23200 lines total)
+50, 71
+
+NMC B: You take the 1000 lines from the input, instead of processing the data first. This leads to a very small training set. 
+25, 56
+
+NMC A: You used both the update and forget gate, but you were supposed to only use the update gate (only z, no r). 
+50, 88
+
+Language Models A: Adding the -1 should have been it's own step, as every mathemathical operation is supposed to get its own node. 
+75, 99
+
+Language Models A: Node D should have been split up, as every mathemathical operation is supposed to get its own node. 
+75, 99
