@@ -15,7 +15,6 @@ YearData::YearData(int s, int m, int y, int ip, int ir) : S(s), M(m), Y(y), Ip(i
 	A = vector<vector<int>>(Y, vector<int>(M, 0));
 	NInst = vector<vector<int>>(Y, vector<int>(M, 0));
 	Turbs = vector<int>(M, 0);
-	eps = vector<vector<vector<double>>>(S, vector<vector<double>>(M, vector<double>(Y, 0.0))); // TODO: Buggy?
 	rhoP = vector<int>(Y, 0);
 	rhoR = vector<vector<int>>(Y, vector<int>(Ir, 0));
 	lambda = vector<double>(Ir, 0.0);

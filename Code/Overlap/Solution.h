@@ -29,7 +29,7 @@ class YearSolution
 	: public Solution
 {
 protected:
-	vector<vector<vector<int>>> vessels;	// m y
+	vector<vector<int>> vessels;			// m y
 	vector<vector<int>> planned;			// m i
 	vector<vector<vector<int>>> repairs;	// sig m i
 	vector<vector<vector<int>>> unhandled;	// sig m i
@@ -42,12 +42,12 @@ protected:
 public:
 	YearSolution(string name, int id);
 
-	void setVessels(vector<vector<vector<int>>> N);
+	void setVessels(vector<vector<int>> N);
 	void setPlanned(vector<vector<int>> P);
 	void setRepairs(vector<vector<vector<int>>> R);
 	void setUnhandled(vector<vector<vector<int>>> U);
 
-	vector<vector<vector<int>>> getVessels();
+	vector<vector<int>> getVessels();
 	vector<vector<int>> getPlanned();
 	vector<vector<vector<int>>> getRepairs();
 	vector<vector<vector<int>>> getUnhandled();

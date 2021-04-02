@@ -19,12 +19,13 @@ void runYear()
 {
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/yearTest.dat");
+    ifstream datafile("Input Files/yearDinwoodie.dat");
     YearData* data = dg.readYear(&datafile);
     YearModel* model = new YearModel(data, &mode);
     model->genProblem();
     YearSolution* sol = model->solve();
     sol->print();
+    model->printCostBreakdown();
 }
 
 void runMonth()
@@ -88,7 +89,7 @@ void runMixed()
                 vector<double> ep;
                 vector<int> rho;
                 monthModel->getRequirements(&ep, &rho, data->Y);
-                data->eps[0][m] = ep; // TODO: 0 is for scenario; needs to be fixed
+                //data->eps[0][m] = ep; // TODO: 0 is for scenario; needs to be fixed
                 //data->rho[0][m] = rho;
                 infeasible++;
             }
@@ -99,7 +100,7 @@ void runMixed()
         cout << endl;
 
         if (infeasible == 0)
-            yearModel->printMixedValue(monthSols);
+            yearModel->printCostBreakdown(monthSols);
         else
         {
             cout << "Redoing year since " << infeasible << " months are infeasible" << endl;

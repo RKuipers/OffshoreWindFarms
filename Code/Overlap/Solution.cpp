@@ -32,18 +32,16 @@ void Solution::printDur()
 
 YearSolution::YearSolution(string name, int id) : Solution(name, id) { }
 
-void YearSolution::setVessels(vector<vector<vector<int>>> N)
+void YearSolution::setVessels(vector<vector<int>> N)
 {
-	int Sig = N[0][0].size();
 	int Y = N.size();
 	int M = N[0].size();
 
-	vessels = vector<vector<vector<int>>>(Sig, vector<vector<int>>(M, vector<int>(Y, -1)));
+	vessels = vector<vector<int>>(M, vector<int>(Y, -1));
 
-	for (int sig = 0; sig < Sig; ++sig)
-		for (int m = 0; m < M; ++m)
-			for (int y = 0; y < Y; ++y)
-				vessels[sig][m][y] = N[y][m][sig];
+	for (int m = 0; m < M; ++m)
+		for (int y = 0; y < Y; ++y)
+			vessels[m][y] = N[y][m];
 }
 
 void YearSolution::setPlanned(vector<vector<int>> P)
@@ -79,7 +77,7 @@ void YearSolution::setUnhandled(vector<vector<vector<int>>> U)
 				unhandled[sig][m][i] = U[m][i][sig];
 }
 
-vector<vector<vector<int>>> YearSolution::getVessels()
+vector<vector<int>> YearSolution::getVessels()
 {
 	return vessels;
 }
@@ -101,19 +99,16 @@ vector<vector<vector<int>>> YearSolution::getUnhandled()
 
 void YearSolution::printVessels()
 {
-	for (int sig = 0; sig < vessels.size(); ++sig)
+	cout << "Vessels chartered (per month V and type >):" << endl;
+
+	for (int m = 0; m < vessels.size(); ++m)
 	{
-		cout << "Vessels chartered in scenario " << sig << " (per month V and type >):" << endl;
+		cout << m << ": " << vessels[m][0];
 
-		for (int m = 0; m < vessels[sig].size(); ++m)
-		{
-			cout << m << ": " << vessels[sig][m][0];
+		for (int y = 1; y < vessels[m].size(); ++y)
+			cout << ", " << vessels[m][y];
 
-			for (int y = 1; y < vessels[sig][m].size(); ++y)
-				cout << ", " << vessels[sig][m][y];
-
-			cout << endl;
-		}
+		cout << endl;
 	}
 }
 

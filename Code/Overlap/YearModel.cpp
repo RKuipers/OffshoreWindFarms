@@ -10,11 +10,11 @@ YearSolution* YearModel::genSolution(XPRBprob* p, double duration)
 	solution = new YearSolution(mode->getCurrentName(), mode->getCurrentId());
 	solution->setResult(p->getObjVal(), duration);
 
-	vector<vector<vector<int>>> N(getData()->Y, vector<vector<int>>(getData()->M, vector<int>()));
+	vector<vector<int>> N(getData()->Y, vector<int>());
 
 	for (int y = 0; y < getData()->Y; ++y)
 		for (int m = 0; m < getData()->M; ++m)
-			N[y][m].push_back(round(this->N[y][m].getSol()));
+			N[y].push_back(round(this->N[y][m].getSol()));
 
 	solution->setVessels(N);
 
@@ -236,19 +236,33 @@ YearSolution* YearModel::solve(int maxTime)
 	return genSolution(&p, dur);
 }
 
-double YearModel::printMixedValue(vector<MonthSolution*> months)
+double YearModel::printCostBreakdown(vector<MonthSolution*> months)
 {
-	cout << "Costs per month:" << endl;
-	cout << "Month: Total (Vessel rentals + Planned downtime + Repairs + Unhandled failures)" << endl;
-
 	double res = 0.0;
-	int sig = 0;
+	int nSigs = getData()->S;
+	int nMonths = getData()->M;
 
-	vector<double> vesselRental = vector<double>(getData()->M, 0.0);
-	vector<double> plannedDowntime = vector<double>(getData()->M, 0.0);
-	vector<double> repairs = vector<double>(getData()->M, 0.0);
-	vector<double> unhandledFailures = vector<double>(getData()->M, 0.0);
-	double vr = 0.0, pd = 0.0, re = 0.0, reexp = 0.0, uf = 0.0, lo = 0.0;
+	vector<double> sigWeight = vector<double>(nSigs, 1.0 / (float)nSigs);
+	vector<double> sigTotals = vector<double>(nSigs, 0.0);
+
+	bool mixed = true;
+	if (months.size() < getData()->M)
+		mixed = false;
+
+	// Scenario dependant
+	vector<double> vesselRental = vector<double>(nMonths, 0.0);
+	vector<double> plannedDowntime = vector<double>(nMonths, 0.0);
+	double vr = 0.0;
+	double pd = 0.0;
+
+	// Scenario independant
+	vector<vector<double>> repairs = vector<vector<double>>(nSigs, vector<double>(nMonths, 0.0));
+	vector<vector<double>> repairsExpected = vector<vector<double>>(nSigs, vector<double>(nMonths, 0.0));
+	vector<vector<double>> unhandledFailures = vector<vector<double>>(nSigs, vector<double>(nMonths, 0.0));
+	vector<double> re = vector<double>(nSigs, 0.0);
+	vector<double> reexp = vector<double>(nSigs, 0.0);
+	vector<double> uf = vector<double>(nSigs, 0.0);
+	vector<double> lo = vector<double>(nSigs, 0.0);
 
 	for (int m = 0; m < getData()->M; ++m)
 	{
@@ -256,47 +270,94 @@ double YearModel::printMixedValue(vector<MonthSolution*> months)
 
 		// Vessel Rentals
 		for (int y = 0; y < getData()->Y; ++y)
-			vesselRental[m] += solution->getVessels()[sig][m][y] * getData()->c[y][m];
+			vesselRental[m] += solution->getVessels()[m][y] * getData()->c[y][m];
+		vr += vesselRental[m];
+
 		// Downtime planned
 		for (int ip = 0; ip < getData()->Ip; ++ip)
 			plannedDowntime[m] += solution->getPlanned()[m][ip] * getData()->dP * e;
-
-		// Task costs
-		if (months[m] != nullptr)
-			repairs[m] += months[m]->getObj();
-		for (int ir = 0; ir < getData()->Ir; ++ir)
-			reexp += (getData()->dR[ir] + getData()->dD[ir]) * e;
-
-		// Unhandled failures
-		for (int ir = 0; ir < getData()->Ir; ++ir)
-			unhandledFailures[m] += U[m][ir][sig].getSol() * getData()->H[m] * 0.5 * e;
-
-		double total = vesselRental[m] + plannedDowntime[m] + repairs[m] + unhandledFailures[m];
-		vr += vesselRental[m];
 		pd += plannedDowntime[m];
-		re += repairs[m];
-		uf += unhandledFailures[m];
-
-		cout << m << ": " << total << " (" << vesselRental[m] << " + " << plannedDowntime[m] << " + " << repairs[m] << " + " << unhandledFailures[m] << ")" << endl;
-
-		res += total;
 	}
 
-	// Last month penalty
-	for (int ir = 0; ir < getData()->Ir; ++ir)
-		lo += U[getData()->M - 1][ir][sig].getSol() * getData()->lambda[ir];
-	res += lo;
+	for (int sig = 0; sig < nSigs; ++sig)
+	{
+		double scenTotal = 0.0;
 
-	cout << endl;
-	cout << "Total: " << res << endl;
-	cout << "Totals per category:" << endl;
-	cout << "Vessel rentals: " << vr << endl;
-	cout << "Planned downtime: " << pd << endl;
-	cout << "Repairs: " << re << endl;
-	cout << "Expected repairs: " << reexp << endl;
-	cout << "Unhandled failures: " << uf << endl;
-	cout << "Leftover failures: " << lo << endl;
-	cout << endl;
+		cout << "SCENARIO " << sig << endl;
+		cout << "Costs per month:" << endl;
+		cout << "Month: Total (Vessel rentals + Planned downtime + Repairs + Unhandled failures)" << endl;
+
+		for (int m = 0; m < getData()->M; ++m)
+		{
+			double e = getData()->eH[m];
+
+			// Task costs
+			if (mixed && months[m] != nullptr)
+				repairs[sig][m] += months[m]->getObj();
+			for (int ir = 0; ir < getData()->Ir; ++ir)
+				repairsExpected[sig][m] += solution->getRepairs()[sig][m][ir] * (getData()->dR[ir] + getData()->dD[ir]) * e;
+			if (!mixed)
+				repairs[sig][m] = repairsExpected[sig][m];
+
+			// Unhandled failures
+			for (int ir = 0; ir < getData()->Ir; ++ir)
+				unhandledFailures[sig][m] += solution->getUnhandled()[sig][m][ir] * getData()->H[m] * e;
+
+			double total = vesselRental[m] + plannedDowntime[m] + repairs[sig][m] + unhandledFailures[sig][m];
+			re[sig] += repairs[sig][m];
+			reexp[sig] += repairsExpected[sig][m];
+			uf[sig] += unhandledFailures[sig][m];
+
+			cout << m << ": " << total << " (" << vesselRental[m] << " + " << plannedDowntime[m] << " + " << repairs[sig][m] << " + " << unhandledFailures[sig][m] << ")" << endl;
+
+			scenTotal += total;
+		}
+
+		// Last month penalty
+		for (int ir = 0; ir < getData()->Ir; ++ir)
+			lo[sig] += U[getData()->M - 1][ir][sig].getSol() * getData()->lambda[ir];
+		scenTotal += lo[sig];
+
+		sigTotals[sig] = scenTotal;
+		res += sigTotals[sig] * sigWeight[sig];
+
+		cout << endl;
+		cout << "Total: " << scenTotal << endl;
+		cout << "Totals per category:" << endl;
+		cout << "Vessel rentals: " << vr << endl;
+		cout << "Planned downtime: " << pd << endl;
+		if (mixed)
+			cout << "Repairs: " << re[sig] << endl;
+		cout << "Expected repairs: " << reexp[sig] << endl;
+		cout << "Unhandled failures: " << uf[sig] << endl;
+		cout << "Leftover failures: " << lo[sig] << endl;
+		cout << endl;
+	}
+
+	if (nSigs > 1)
+	{
+		auto it = minmax_element(sigTotals.begin(), sigTotals.end());
+		int minId = distance(sigTotals.begin(), it.first);
+		double min = *it.first;
+		int maxId = distance(sigTotals.begin(), it.second);
+		double max = *it.second;
+
+		cout << endl;
+		cout << "-----------SUMMARY-----------" << endl;
+		cout << "Mean: " << MathHelp::Mean(&sigTotals) << endl;
+		cout << "Median: " << MathHelp::Median(&sigTotals) << endl;
+		cout << "Cheapest: " << minId << " costing " << min << endl;
+		cout << "Most expensive: " << maxId << " costing " << max << endl;
+		cout << endl; 
+		cout << "Vessel rentals: " << vr << endl;
+		cout << "Planned downtime: " << pd << endl;
+		if (mixed)
+			cout << "Repairs: " << MathHelp::Mean(&re) << endl;
+		cout << "Expected repairs: " << MathHelp::Mean(&reexp) << endl;
+		cout << "Unhandled failures: " << MathHelp::Mean(&uf) << endl;
+		cout << "Leftover failures: " << MathHelp::Mean(&lo) << endl;
+		cout << endl;
+	}
 
 	return res;
 }

@@ -165,6 +165,7 @@
   <ItemGroup>
     <ClCompile Include="DataGen.cpp" />
     <ClCompile Include="InputData.cpp" />
+    <ClCompile Include="MathHelp.cpp" />
     <ClCompile Include="Mode.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="MonthModel.cpp" />
@@ -175,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataGen.h" />
+    <ClInclude Include="MathHelp.h" />
     <ClInclude Include="InputData.h" />
     <ClInclude Include="Mode.h" />
     <ClInclude Include="Model.h" />

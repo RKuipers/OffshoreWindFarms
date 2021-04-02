@@ -1,5 +1,6 @@
 #pragma once
 #include "Model.h"
+#include "MathHelp.h"
 
 class YearModel :
 	public Model
@@ -32,6 +33,6 @@ public:
 	void genProblem() override;
 	YearSolution* solve(int maxTime = 0) override;
 
-	double printMixedValue(vector<MonthSolution*> months);
+	double printCostBreakdown(vector<MonthSolution*> months = { nullptr });
 };
 
