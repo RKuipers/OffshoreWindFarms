@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include "InputData.h"
 
 using namespace std;
 
@@ -34,13 +35,16 @@ protected:
 	vector<vector<vector<int>>> repairs;	// sig m i
 	vector<vector<vector<int>>> unhandled;	// sig m i
 
+	YearData* data;
+
 	void printVessels();
 	void printPlanned();
+	void printFailures();
 	void printRepairs();
 	void printUnhandled();
 
 public:
-	YearSolution(string name, int id);
+	YearSolution(string name, int id, YearData* data);
 
 	void setVessels(vector<vector<int>> N);
 	void setPlanned(vector<vector<int>> P);

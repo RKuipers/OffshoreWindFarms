@@ -30,7 +30,7 @@ void Solution::printDur()
 
 //-----------------------------------------------YEAR----------------------------------------------
 
-YearSolution::YearSolution(string name, int id) : Solution(name, id) { }
+YearSolution::YearSolution(string name, int id, YearData* data) : Solution(name, id), data(data) { }
 
 void YearSolution::setVessels(vector<vector<int>> N)
 {
@@ -127,6 +127,25 @@ void YearSolution::printPlanned()
 	}
 }
 
+void YearSolution::printFailures()
+{
+	data->Ft[0][0][0];
+	for (int sig = 0; sig < data->S; ++sig)
+	{
+		cout << "Failures in scenario " << sig << " (per month V and type >):" << endl;
+
+		for (int m = 0; m < data->M; ++m)
+		{
+			cout << m << ": " << data->Ft[m][0][sig];
+
+			for (int i = 1; i < data->Ir; ++i)
+				cout << ", " << data->Ft[m][i][sig];
+
+			cout << endl;
+		}
+	}
+}
+
 void YearSolution::printRepairs()
 {
 	for (int sig = 0; sig < repairs.size(); ++sig)
@@ -169,6 +188,7 @@ void YearSolution::print()
 	printDur();
 	printVessels();
 	printPlanned();
+	printFailures();
 	printRepairs();
 	printUnhandled();
 }
