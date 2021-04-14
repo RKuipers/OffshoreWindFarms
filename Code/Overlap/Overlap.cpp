@@ -23,6 +23,12 @@ void runYear()
     YearData* data = dg.readYear(&datafile);
     YearModel* model = new YearModel(data, &mode);
     model->genProblem();
+
+    int fails = 0;
+    for (auto i = 0; i < data->M; ++i)
+        fails += data->Ft[i][4][0];
+    cout << "FAILS: " << fails;
+
     YearSolution* sol = model->solve();
     sol->print();
     model->printCostBreakdown();
