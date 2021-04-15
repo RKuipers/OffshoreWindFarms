@@ -182,6 +182,11 @@ void YearSolution::printUnhandled()
 	}
 }
 
+void YearSolution::printDinwoodie()
+{
+	cout << endl;
+}
+
 void YearSolution::print()
 {
 	printObj();
@@ -191,6 +196,7 @@ void YearSolution::print()
 	printFailures();
 	printRepairs();
 	printUnhandled();
+	printDinwoodie();
 }
 
 //-----------------------------------------------MONTH---------------------------------------------

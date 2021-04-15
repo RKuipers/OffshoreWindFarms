@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include "InputData.h"
+#include "MathHelp.h"
 
 using namespace std;
 
@@ -42,6 +43,7 @@ protected:
 	void printFailures();
 	void printRepairs();
 	void printUnhandled();
+	void printDinwoodie();	// To print the metrics from the Dinwoodie paper
 
 public:
 	YearSolution(string name, int id, YearData* data);
