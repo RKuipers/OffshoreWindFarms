@@ -185,6 +185,66 @@ void YearSolution::printUnhandled()
 void YearSolution::printDinwoodie()
 {
 	cout << endl;
+	printAvailability();
+	cout << endl;
+}
+
+void YearSolution::printAvailability()
+{
+	cout << "Availability and production losses (per month V and scenario >): " << endl;
+
+	vector<vector<double>> avails = vector<vector<double>>(data->S, vector<double>(data->M));
+	vector<double> availsScen = vector<double>(data->S);
+
+	for (int sig = 0; sig < data->S; ++sig)
+	{
+		int turbs = 0;
+
+		for (int m = 0; m < data->M; ++m)
+		{
+			// Base time
+			turbs += data->Turbs[m];
+			double timeAvail = turbs * data->H[m];
+
+			// Planned
+			timeAvail -= MathHelp::Sum(&planned[m]) * data->dP;
+
+			for (int ir = 0; ir < data->Ir; ir++)
+			{
+				// Repairs
+				timeAvail -= repairs[sig][m][ir] * (data->dR[ir] + data->dD[ir]);
+
+				// Unhandled
+				int partiallyInactive = 0;
+				if (m == 0)
+					partiallyInactive = unhandled[sig][m][ir];
+				else if (unhandled[sig][m][ir] > unhandled[sig][m - 1][ir])
+					partiallyInactive = unhandled[sig][m][ir] - unhandled[sig][m - 1][ir];
+
+				timeAvail -= (unhandled[sig][m][ir] - partiallyInactive) * data->H[m];
+				for (int f = 0; f < partiallyInactive; ++f)
+					timeAvail -= (double)(rand() % data->H[m]);
+			}
+
+			avails[sig][m] = 100 * timeAvail / (turbs * data->H[m]);
+		}
+
+		availsScen[sig] = MathHelp::Mean(&avails[sig]);
+	}
+
+	for (int m = 0; m < data->M; ++m)
+	{
+		cout << m << ": " << avails[0][m];
+		for (int sig = 1; sig < data->S; ++sig)
+			cout << ", " << avails[sig][m];
+		cout << endl;
+	}
+
+	cout << "Average availability: " << MathHelp::Mean(&availsScen) << " (";
+	cout << availsScen[0];
+	for (int sig = 1; sig < data->S; ++sig)
+		cout << ", " << availsScen[sig];
+	cout << ")" << endl;
 }
 
 void YearSolution::print()

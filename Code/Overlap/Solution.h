@@ -43,7 +43,10 @@ protected:
 	void printFailures();
 	void printRepairs();
 	void printUnhandled();
-	void printDinwoodie();	// To print the metrics from the Dinwoodie paper
+
+	// To print the metrics from the Dinwoodie paper
+	void printDinwoodie();
+	void printAvailability();
 
 public:
 	YearSolution(string name, int id, YearData* data);

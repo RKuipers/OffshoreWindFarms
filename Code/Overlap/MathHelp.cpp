@@ -10,9 +10,9 @@ int MathHelp::Sum(vector<int>* vec)
     return accumulate(vec->begin(), vec->end(), 0);
 }
 
-double WeightedSum(vector<double>* vec, vector<double>* w)
+double MathHelp::WeightedSum(vector<double>* vec, vector<double>* w)
 {
-    vector<double> v = vector<double>(vec->size);
+    vector<double> v = vector<double>(vec->size());
     transform(vec->begin(), vec->end(), w->begin(), v.begin(), multiplies<double>());
     return MathHelp::Sum(&v);
 }
