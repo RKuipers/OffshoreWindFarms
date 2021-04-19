@@ -19,7 +19,7 @@ void runYear()
 {
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/yearformat.dat");
+    ifstream datafile("Input Files/yearDinwoodie.dat");
     YearData* data = dg.readYear(&datafile);
     YearModel* model = new YearModel(data, &mode);
     model->genProblem();
