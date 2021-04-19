@@ -18,8 +18,10 @@ U	720
 #Energy$ per hour in given month 
 #Based on 10m/s wind, 1.688 MWh, 90 pounds / MWh -> 152
 #Based on 9.75m/s wind, 1.578 MWh, 90 pounds / MWh -> 142 (not from paper but values lines up well with their results)
+#R is first attempt at seasonal averaged at 142
 #U	152
 U	142
+#R	12	172	162	152	142	132	122	112	122	132	142	152	162
 
 #Min/Max months between maint
 9	15

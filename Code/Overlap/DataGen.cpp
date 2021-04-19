@@ -71,6 +71,18 @@ int DataGen::parseArray(vector<string> line, int start, vector<int>* res, int am
 			(*res)[i] = stoi(line[i + start + 1]);
 		return start + amount + 1;
 	}
+	case 'R': // R a v1 v2 .. va -> Repeats after period a. Ideally amount is divisible by a. Used for annually repeating inputs
+	{
+		int a = stoi(line[start + 1]);
+		for (int r = 0; r >= amount / a; ++r)
+			for (int i = 0; i < a; ++i)
+			{
+				if (r * a + i <= amount)
+					break;
+				(*res)[r * a + i] = stoi(line[i + start + 2]);
+			}
+		return start + a + 2;
+	}
 	default:
 	{
 		cout << "Error reading a Periodical" << endl;
@@ -116,6 +128,18 @@ int DataGen::parseArrayDouble(vector<string> line, int start, vector<double>* re
 		for (int i = 0; i < amount; ++i)
 			(*res)[i] = stod(line[i + start + 1]);
 		return start + amount + 1;
+	}
+	case 'R': // R a v1 v2 .. va -> Repeats after period a. Ideally amount is divisible by a. Used for annually repeating inputs
+	{
+		int a = stoi(line[start + 1]);
+		for (int r = 0; r <= amount / a; ++r)
+			for (int i = 0; i < a; ++i)
+			{
+				if (r * a + i >= amount)
+					break;
+				(*res)[r * a + i] = stod(line[i + start + 2]);
+			}
+		return start + a + 2;
 	}
 	default:
 	{

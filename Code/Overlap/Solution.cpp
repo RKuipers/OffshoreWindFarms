@@ -195,12 +195,15 @@ void YearSolution::printAvailability()
 
 	vector<vector<double>> avails = vector<vector<double>>(data->S, vector<double>(data->M));
 	vector<double> availsScen = vector<double>(data->S);
+	vector<double> eAvail = vector<double>(data->S);
 	vector<vector<double>> losses = vector<vector<double>>(data->S, vector<double>(data->M));
 	vector<double> lossesScen = vector<double>(data->S);
 
 	for (int sig = 0; sig < data->S; ++sig)
 	{
 		int turbs = 0;
+		double eProd = 0.0;
+		double eMax = 0.0;
 
 		for (int m = 0; m < data->M; ++m)
 		{
@@ -228,11 +231,15 @@ void YearSolution::printAvailability()
 					timeAvail -= (double)(rand() % data->H[m]);
 			}
 
+			eProd += timeAvail * data->eH[m];
+			eMax += turbs * data->H[m] * data->eH[m];
+
 			avails[sig][m] = 100 * timeAvail / (turbs * data->H[m]);
 			losses[sig][m] = ((turbs * data->H[m]) - timeAvail) * data->eH[m];
 		}
 
 		availsScen[sig] = MathHelp::Mean(&avails[sig]);
+		eAvail[sig] = 100 * eProd / eMax;
 		lossesScen[sig] = MathHelp::Sum(&losses[sig]);
 	}
 
@@ -247,10 +254,16 @@ void YearSolution::printAvailability()
 		cout << endl;
 	}
 
-	cout << "Average availability: " << MathHelp::Mean(&availsScen) << " (";
+	cout << "Average time availability: " << MathHelp::Mean(&availsScen) << " (";
 	cout << availsScen[0];
 	for (int sig = 1; sig < data->S; ++sig)
 		cout << ", " << availsScen[sig];
+	cout << ")" << endl;
+
+	cout << "Average energy availability: " << MathHelp::Mean(&eAvail) << " (";
+	cout << eAvail[0];
+	for (int sig = 1; sig < data->S; ++sig)
+		cout << ", " << eAvail[sig];
 	cout << ")" << endl;
 
 	cout << "Average production losses: " << MathHelp::Mean(&lossesScen) << " (";
