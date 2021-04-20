@@ -225,7 +225,6 @@ void YearSolution::printAvailability()
 					partiallyInactive = unhandled[sig][m][ir];
 				else if (unhandled[sig][m][ir] > unhandled[sig][m - 1][ir])
 					partiallyInactive = unhandled[sig][m][ir] - unhandled[sig][m - 1][ir];
-
 				timeAvail -= (unhandled[sig][m][ir] - partiallyInactive) * data->H[m];
 				for (int f = 0; f < partiallyInactive; ++f)
 					timeAvail -= (double)(rand() % data->H[m]);

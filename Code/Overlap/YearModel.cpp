@@ -106,7 +106,7 @@ void YearModel::genObj()
 		}
 
 		for (int ir = 0; ir < getData()->Ir; ++ir)
-			Obj.addTerm(U[getData()->M - 1][ir][sig], getData()->lambda[ir]);
+			Obj.addTerm(U[getData()->M - 1][ir][sig], getData()->lambda[ir] * sFac);
 	}
 	p.setObj(Obj);
 }
