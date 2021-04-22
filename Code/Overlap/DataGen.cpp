@@ -161,12 +161,12 @@ int DataGen::genRandomFailures(double yearlyFailRate, int nTurbines)
 	return nFailures;
 }
 
-vector<double> DataGen::genRandomFailureTimes(int failures, int maxTime)
+vector<double> DataGen::genRandomFailureTimes(int failures, int maxTime, double delay)
 {
 	vector<double> res = vector<double>();
 
 	for (int f = 0; f < failures; ++f)
-		res.push_back((double)(rand() % maxTime));
+		res.push_back((double)(rand() % maxTime) + delay);
 
 	return res;
 }
@@ -293,7 +293,27 @@ YearData* DataGen::readYear(ifstream* file)
 			{
 				double yFR = stod(split[ir]);
 				for (int m = 0; m < M; ++m)
-					year->Ft[m][ir][s] = genRandomFailures(yFR, turbs[m]);
+				{
+					//year->Ft[m][ir][s] = genRandomFailures(yFR, turbs[m]);
+					int nFailures = genRandomFailures(yFR, turbs[m]);
+					vector<double> fTimes = genRandomFailureTimes(nFailures, year->H[m], year->dD[ir]);
+					sort(fTimes.begin(), fTimes.end());
+					int index = 0;
+					int month = m;
+					double maxTime = 0.0;
+					while (index < nFailures)
+					{
+						maxTime += year->H[month];
+						while (index < nFailures && fTimes[index] < maxTime)
+						{
+							year->Ft[month][ir][s]++;
+							index++;
+						}
+						month++;
+						if (month >= year->M)
+							break;
+					}
+				}
 			}
 	}
 

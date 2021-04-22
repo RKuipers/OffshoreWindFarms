@@ -22,7 +22,7 @@ private:
 	int parseArrayDouble(vector<string> line, int start, vector<double>* res, int amount);
 
 	int genRandomFailures(double yearlyFailRate, int nTurbines);
-	vector<double> genRandomFailureTimes(int failures, int maxTime);
+	vector<double> genRandomFailureTimes(int failures, int maxTime, double delay = 0.0);
 
 public:
 	YearData* readYear(ifstream* file);
