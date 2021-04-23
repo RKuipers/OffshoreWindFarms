@@ -207,6 +207,9 @@ void YearSolution::printAvailability()
 
 		for (int m = 0; m < data->M; ++m)
 		{
+			if (m == 105)
+				m = m;
+
 			// Base time
 			turbs += data->Turbs[m];
 			double timeAvail = turbs * data->H[m];
@@ -217,7 +220,9 @@ void YearSolution::printAvailability()
 			for (int ir = 0; ir < data->Ir; ir++)
 			{
 				// Repairs
-				timeAvail -= repairs[sig][m][ir] * (data->dR[ir] + data->dD[ir]);
+				int newRepairs = min(repairs[sig][m][ir], data->Ft[m][ir][sig]);	
+				timeAvail -= newRepairs * (data->dR[ir] + data->dD[ir]);			// Repairs that come from new failures
+				timeAvail -= (repairs[sig][m][ir] - newRepairs) * data->dR[ir];		// Repairs that come from previously unhandled failures
 
 				// Unhandled
 				int partiallyInactive = 0;
@@ -225,6 +230,7 @@ void YearSolution::printAvailability()
 					partiallyInactive = unhandled[sig][m][ir];
 				else if (unhandled[sig][m][ir] > unhandled[sig][m - 1][ir])
 					partiallyInactive = unhandled[sig][m][ir] - unhandled[sig][m - 1][ir];
+
 				timeAvail -= (unhandled[sig][m][ir] - partiallyInactive) * data->H[m];
 				for (int f = 0; f < partiallyInactive; ++f)
 					timeAvail -= (double)(rand() % data->H[m]);
