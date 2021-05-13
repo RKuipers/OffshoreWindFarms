@@ -153,14 +153,16 @@ void YearModel::genRhoCon()
 			for (int ip = 1; ip < getData()->Ip; ++ip)
 				ctrR.addTerm(P[m][ip], (getData()->dPy[y] / (float)getData()->L[y]));
 
-			p.newCtr(("RhoPL_" + to_string(m) + "_" + to_string(y)).c_str(), ctrL);
+			if (getData()->rhoP[y] > 0)
+				p.newCtr(("RhoPL_" + to_string(m) + "_" + to_string(y)).c_str(), ctrL);
 			p.newCtr(("RhoPR_" + to_string(m) + "_" + to_string(y)).c_str(), ctrR);
 
 			for (int ir = 0; ir < getData()->Ir; ++ir)
 			{
 				XPRBrelation ctrL = (N[y][m] + getData()->NInst[y][m]) * (1.0 / (float)getData()->rhoR[y][ir]) >= Mr[y][m][ir];
 
-				p.newCtr(("RhoRL_" + to_string(m) + "_" + to_string(y) + "_" + to_string(ir)).c_str(), ctrL);
+				if (getData()->rhoR[y][ir] > 0)
+					p.newCtr(("RhoRL_" + to_string(m) + "_" + to_string(y) + "_" + to_string(ir)).c_str(), ctrL);
 
 				for (int sig = 0; sig < getData()->S; ++sig)
 				{
@@ -251,8 +253,10 @@ double YearModel::printCostBreakdown(vector<MonthSolution*> months)
 
 	// Scenario dependant
 	vector<double> vesselRental = vector<double>(nMonths, 0.0);
+	vector<double> technicians = vector<double>(nMonths, 0.0);
 	vector<double> plannedDowntime = vector<double>(nMonths, 0.0);
 	double vr = 0.0;
+	double te = 0.0;
 	double pd = 0.0;
 
 	// Scenario independant
@@ -269,9 +273,14 @@ double YearModel::printCostBreakdown(vector<MonthSolution*> months)
 		double e = getData()->eH[m];
 
 		// Vessel Rentals
-		for (int y = 0; y < getData()->Y; ++y)
+		for (int y = 0; y < getData()->Y-1; ++y)
 			vesselRental[m] += solution->getVessels()[m][y] * getData()->c[y][m];
 		vr += vesselRental[m];
+		
+		// Technicians
+		int techId = getData()->Y - 1;
+		technicians[m] = solution->getVessels()[m][techId] * getData()->c[techId][m];
+		te += technicians[m];
 
 		// Downtime planned
 		for (int ip = 0; ip < getData()->Ip; ++ip)
@@ -285,7 +294,7 @@ double YearModel::printCostBreakdown(vector<MonthSolution*> months)
 
 		cout << "SCENARIO " << sig << endl;
 		cout << "Costs per month:" << endl;
-		cout << "Month: Total (Vessel rentals + Planned downtime + Repairs + Unhandled failures)" << endl;
+		cout << "Month: Total (Vessel rentals + Technicians + Planned downtime + Repairs + Unhandled failures)" << endl;
 
 		for (int m = 0; m < getData()->M; ++m)
 		{
@@ -303,12 +312,12 @@ double YearModel::printCostBreakdown(vector<MonthSolution*> months)
 			for (int ir = 0; ir < getData()->Ir; ++ir)
 				unhandledFailures[sig][m] += solution->getUnhandled()[sig][m][ir] * getData()->H[m] * e;
 
-			double total = vesselRental[m] + plannedDowntime[m] + repairs[sig][m] + unhandledFailures[sig][m];
+			double total = vesselRental[m] + technicians[m] + plannedDowntime[m] + repairs[sig][m] + unhandledFailures[sig][m];
 			re[sig] += repairs[sig][m];
 			reexp[sig] += repairsExpected[sig][m];
 			uf[sig] += unhandledFailures[sig][m];
 
-			cout << m << ": " << total << " (" << vesselRental[m] << " + " << plannedDowntime[m] << " + " << repairs[sig][m] << " + " << unhandledFailures[sig][m] << ")" << endl;
+			cout << m << ": " << total << " (" << vesselRental[m] << " + " << technicians[m] << " + " << plannedDowntime[m] << " + " << repairs[sig][m] << " + " << unhandledFailures[sig][m] << ")" << endl;
 
 			scenTotal += total;
 		}
@@ -325,6 +334,7 @@ double YearModel::printCostBreakdown(vector<MonthSolution*> months)
 		cout << "Total: " << scenTotal << endl;
 		cout << "Totals per category:" << endl;
 		cout << "Vessel rentals: " << vr << endl;
+		cout << "Technician costs: " << te << endl;
 		cout << "Planned downtime: " << pd << endl;
 		if (mixed)
 			cout << "Repairs: " << re[sig] << endl;
@@ -350,6 +360,7 @@ double YearModel::printCostBreakdown(vector<MonthSolution*> months)
 		cout << "Most expensive: " << maxId << " costing " << max << endl;
 		cout << endl; 
 		cout << "Vessel rentals: " << vr << endl;
+		cout << "Technician costs: " << te << endl;
 		cout << "Planned downtime: " << pd << endl;
 		if (mixed)
 			cout << "Repairs: " << MathHelp::Mean(&re) << endl;
