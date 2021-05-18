@@ -1,11 +1,14 @@
 #Base parameters
 nTurbs = 80
 batchInterval = 6
+avgPercent = 10.0
+prog = [2.0, 1.0, 0.75, 0.5, 0.75, 1.0]
+maxAmounts = [360, 672, 720, 360]
 
 #Defining options
 duration = [18, 24, 36]
-vessels = [[1,1,1,1],[1,0,1,1],[0,0,1,1],[0,0,1,0]]
-amount = [0.05, 0.1, 0.25]
+vessels = [[1,1,1,1],[1,0,1,1],[1,0,0,1],[1,0,0,0],[1,1,1,0]]
+pattern = ['c', 'w', 'b']
 turbines = ['a', 'e', 'r', 'b']
 
 #Read in base file
@@ -15,7 +18,7 @@ baseLines = f.readlines()
 def inc(x):
     return x + 1
 
-def getTurbs(t, d : int):
+def getTurbs(t, d):
     if (t == 'a'):
         s = "\t".join(["A\t1", str(int(nTurbs / 2)), str(d-2), "0\t1", str(int(nTurbs / 2))])
         l = [int(nTurbs / 2)] + ([0] * (d - 2)) + [int(nTurbs / 2)]
@@ -54,9 +57,33 @@ def getTurbs(t, d : int):
     print ("oops")
     return "oops"
 
+def getSeq(p, d, t, turbs):
+    if p == 'c':
+        return [avgPercent] * d
+    peaks = []
+    if t == 'b':
+        peaks = [i for i in range(d) if turbs[i] != 0]
+    else:
+        peaks = [i for i in range(d) if i % batchInterval == 0]
+    if p == 'b':
+        return [(avgPercent if i+1 in peaks else 0) for i in range(d)]
+    return [(avgPercent * prog[(i - peaks[0] + 1) % batchInterval]) for i in range(d)]
+
+def seq2Lines(lines, v, seq):
+    res = lines.copy()
+    for i in range(4):
+        if v[i] == 0:
+            continue
+        amount = "U\t1"
+        if 0 in seq:
+            amount = "\t".join(["S"] + ["1" if x > 0 else "0" for x in seq])
+        dur = "\t".join(["S"] + [str(maxAmounts[i] * s * 0.01) for s in seq])
+        res[i] = lines[i][:-9] + "\t" + dur + "\t" + amount
+    return res
+
 for d in duration:
     for v in vessels:
-        for a in amount:
+        for p in pattern:
             for t in turbines:
                 lines = baseLines.copy()
                 
@@ -70,3 +97,5 @@ for d in duration:
                 lines[35] = line
                 
                 #Vessels
+                seq = getSeq(p, d, t, turbs)
+                lines[7:11] = seq2Lines(lines[7:11], v, seq)
