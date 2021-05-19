@@ -11,6 +11,12 @@ vessels = [[1,1,1,1],[1,0,1,1],[1,0,0,1],[1,0,0,0],[1,1,1,0]]
 pattern = ['c', 'w', 'b']
 turbines = ['a', 'e', 'r', 'b']
 
+#Names
+dNames = ["18", "24", "36"]             #Number of months
+vNames = ["Al", "NF", "Cr", "CT", "NT"] #All, No Field Vessel, Crew (CTV + Technicians), CTV only, No Technicians
+pNames = ["Co", "Wa", "Bi"]             #Constant, Wave, Binary
+tNames = ["Ha", "Eq", "Ra", "Ba"]       #Half, Equal, Ramp, Batch
+
 #Read in base file
 f = open("C:\\Users\\Robin\\OneDrive\\Documenten\\GitHub\\OWFSim\\Code\\Overlap\\Input Files\\yearDinwoodie.dat")
 baseLines = f.readlines()
@@ -78,8 +84,13 @@ def seq2Lines(lines, v, seq):
         if 0 in seq:
             amount = "\t".join(["S"] + ["1" if x > 0 else "0" for x in seq])
         dur = "\t".join(["S"] + [str(maxAmounts[i] * s * 0.01) for s in seq])
-        res[i] = lines[i][:-9] + "\t" + dur + "\t" + amount
+        res[i] = lines[i][:-9] + "\t" + dur + "\t" + amount + "\n"
     return res
+
+def getName(l, v, names):
+    for i in range(len(l)):
+        if l[i] == v:
+            return names[i]
 
 for d in duration:
     for v in vessels:
@@ -90,12 +101,18 @@ for d in duration:
                 #Months
                 line = lines[3].split()
                 line[1] = str(d)
-                lines[3] = "\t".join(line)
+                lines[3] = "\t".join(line) + "\n"
                 
                 #Turbines
                 turbs, line = getTurbs(t, d)
-                lines[35] = line
+                lines[35] = line + "\n"
                 
                 #Vessels
                 seq = getSeq(p, d, t, turbs)
                 lines[7:11] = seq2Lines(lines[7:11], v, seq)
+                
+                #Write result
+                name = "_".join([getName(vessels, v, vNames), getName(pattern, p, pNames), getName(turbines, t, tNames), getName(duration, d, dNames)])
+                f = open("Input Files/Generated Files/" + name + ".dat", "w")
+                f.write("".join(lines))
+                f.close()
