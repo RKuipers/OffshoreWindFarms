@@ -22,7 +22,9 @@ class YearData
 {
 public:
 	// Sets:
-	int S, M, Y, Ip, Ir;	
+	int S, M, Y, Ip, Ir;
+	// Helpers:
+	int monthsPerYear, techId;
 	// Parameters:
 	vector<vector<double>> c;			// y m
 	vector<double> eH;					// m

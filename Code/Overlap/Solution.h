@@ -37,6 +37,7 @@ protected:
 	vector<vector<vector<int>>> unhandled;	// sig m i
 
 	YearData* data;
+	double timeAvail, enerAvail, prodLosses;
 
 	void printVessels();
 	void printPlanned();
@@ -44,9 +45,9 @@ protected:
 	void printRepairs();
 	void printUnhandled();
 
-	// To print the metrics from the Dinwoodie paper
-	void printDinwoodie();
 	void printAvailability();
+	void printScenarios();
+	void printDinwoodie();
 
 public:
 	YearSolution(string name, int id, YearData* data);

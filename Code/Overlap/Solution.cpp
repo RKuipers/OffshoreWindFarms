@@ -182,13 +182,6 @@ void YearSolution::printUnhandled()
 	}
 }
 
-void YearSolution::printDinwoodie()
-{
-	cout << endl;
-	printAvailability();
-	cout << endl;
-}
-
 void YearSolution::printAvailability()
 {
 	cout << "Availability and production losses (per month V and scenario >): " << endl;
@@ -264,29 +257,186 @@ void YearSolution::printAvailability()
 	for (int sig = 1; sig < data->S; ++sig)
 		cout << ", " << availsScen[sig];
 	cout << ")" << endl;
+	timeAvail = MathHelp::Mean(&availsScen);
 
 	cout << "Average energy availability: " << MathHelp::Mean(&eAvail) << " (";
 	cout << eAvail[0];
 	for (int sig = 1; sig < data->S; ++sig)
 		cout << ", " << eAvail[sig];
 	cout << ")" << endl;
+	enerAvail = MathHelp::Mean(&eAvail);
 
 	cout << "Average production losses: " << MathHelp::Mean(&lossesScen) << " (";
 	cout << lossesScen[0];
 	for (int sig = 1; sig < data->S; ++sig)
 		cout << ", " << lossesScen[sig];
 	cout << ")" << endl;
+	prodLosses = MathHelp::Mean(&lossesScen);
+}
+
+void YearSolution::printScenarios()
+{
+	int nSigs = data->S;
+	int nMonths = data->M;
+
+	vector<double> sigWeight = vector<double>(nSigs, 1.0 / (float)nSigs);
+	vector<double> sigTotals = vector<double>(nSigs, 0.0);
+
+	// Scenario dependant
+	vector<double> vesselRental = vector<double>(nMonths, 0.0);
+	vector<double> technicians = vector<double>(nMonths, 0.0);
+	vector<double> plannedDowntime = vector<double>(nMonths, 0.0);
+	double vr = 0.0;
+	double te = 0.0;
+	double pd = 0.0;
+
+	// Scenario independant
+	vector<vector<double>> repairs = vector<vector<double>>(nSigs, vector<double>(nMonths, 0.0));
+	vector<vector<double>> repairsExpected = vector<vector<double>>(nSigs, vector<double>(nMonths, 0.0));
+	vector<vector<double>> unhandledFailures = vector<vector<double>>(nSigs, vector<double>(nMonths, 0.0));
+	vector<double> re = vector<double>(nSigs, 0.0);
+	vector<double> reexp = vector<double>(nSigs, 0.0);
+	vector<double> uf = vector<double>(nSigs, 0.0);
+	vector<double> lo = vector<double>(nSigs, 0.0);
+
+	for (int m = 0; m < data->M; ++m)
+	{
+		double e = data->eH[m];
+
+		// Vessel Rentals
+		for (int y = 0; y < data->Y - 1; ++y)
+			vesselRental[m] += getVessels()[m][y] * data->c[y][m];
+		vr += vesselRental[m];
+
+		// Technicians
+		int techId = data->Y - 1;
+		technicians[m] = getVessels()[m][techId] * data->c[techId][m];
+		te += technicians[m];
+
+		// Downtime planned
+		for (int ip = 0; ip < data->Ip; ++ip)
+			plannedDowntime[m] += getPlanned()[m][ip] * data->dP * e;
+		pd += plannedDowntime[m];
+	}
+
+	for (int sig = 0; sig < nSigs; ++sig)
+	{
+		double scenTotal = 0.0;
+
+		cout << "SCENARIO " << sig << endl;
+		cout << "Costs per month:" << endl;
+		cout << "Month: Total (Vessel rentals + Technicians + Planned downtime + Repairs + Unhandled failures)" << endl;
+
+		for (int m = 0; m < data->M; ++m)
+		{
+			double e = data->eH[m];
+
+			// Task costs
+			for (int ir = 0; ir < data->Ir; ++ir)
+				repairsExpected[sig][m] += getRepairs()[sig][m][ir] * (data->dR[ir] + data->dD[ir]) * e;
+			repairs[sig][m] = repairsExpected[sig][m];
+
+			// Unhandled failures
+			for (int ir = 0; ir < data->Ir; ++ir)
+				unhandledFailures[sig][m] += getUnhandled()[sig][m][ir] * data->H[m] * e;
+
+			double total = vesselRental[m] + technicians[m] + plannedDowntime[m] + repairs[sig][m] + unhandledFailures[sig][m];
+			re[sig] += repairs[sig][m];
+			reexp[sig] += repairsExpected[sig][m];
+			uf[sig] += unhandledFailures[sig][m];
+
+			cout << m << ": " << total << " (" << vesselRental[m] << " + " << technicians[m] << " + " << plannedDowntime[m] << " + " << repairs[sig][m] << " + " << unhandledFailures[sig][m] << ")" << endl;
+
+			scenTotal += total;
+		}
+
+		// Last month penalty
+		for (int ir = 0; ir < data->Ir; ++ir)
+			lo[sig] += getUnhandled()[sig][data->M - 1][ir] * data->lambda[ir];
+		scenTotal += lo[sig];
+
+		sigTotals[sig] = scenTotal;
+
+		cout << endl;
+		cout << "Total: " << scenTotal << endl;
+		cout << "Totals per category:" << endl;
+		cout << "Vessel rentals: " << vr << endl;
+		cout << "Technician costs: " << te << endl;
+		cout << "Planned downtime: " << pd << endl;
+		cout << "Expected repairs: " << reexp[sig] << endl;
+		cout << "Unhandled failures: " << uf[sig] << endl;
+		cout << "Leftover failures: " << lo[sig] << endl;
+		cout << endl;
+	}
+
+	if (nSigs > 1)
+	{
+		auto it = minmax_element(sigTotals.begin(), sigTotals.end());
+		int minId = distance(sigTotals.begin(), it.first);
+		double min = *it.first;
+		int maxId = distance(sigTotals.begin(), it.second);
+		double max = *it.second;
+
+		cout << endl;
+		cout << "-----------SUMMARY-----------" << endl;
+		cout << "Mean: " << MathHelp::Mean(&sigTotals) << endl;
+		cout << "Median: " << MathHelp::Median(&sigTotals) << endl;
+		cout << "Cheapest: " << minId << " costing " << min << endl;
+		cout << "Most expensive: " << maxId << " costing " << max << endl;
+		cout << endl;
+		cout << "Vessel rentals: " << vr << endl;
+		cout << "Technician costs: " << te << endl;
+		cout << "Planned downtime: " << pd << endl;
+		cout << "Expected repairs: " << MathHelp::Mean(&reexp) << endl;
+		cout << "Unhandled failures: " << MathHelp::Mean(&uf) << endl;
+		cout << "Leftover failures: " << MathHelp::Mean(&lo) << endl;
+		cout << endl;
+	}
+}
+
+void YearSolution::printDinwoodie()
+{
+	double vCosts = 0.0, tCosts = 0.0;
+
+	for (int m = 0; m < data->M; ++m)
+		for (int y = 0; y < data->Y; ++y)
+			if (y != data->techId)
+				vCosts += data->c[y][m] * getVessels()[m][y];
+			else
+				tCosts += data->c[y][m] * getVessels()[m][y];
+
+	double unit = 1.0 / (1000000.0 * (double)data->M / (double)data->monthsPerYear);
+
+	cout << "-----------DINWOODIE-----------" << endl;
+	cout << "Availability (time): " << timeAvail << "%" << endl;
+	cout << "Availability (energy): " << enerAvail << "%" << endl;
+	cout << "Annual production losses: " << prodLosses * unit << " m" << endl;
+	cout << "Annual direct O&M costs: " << "?" << " m" << endl;	// TODO: Three below added
+	cout << "Annual vessel costs: " << vCosts * unit << " m" << endl;
+	cout << "Annual repair costs: " << "?" << " m" << endl;
+	cout << "Annual technician costs: " << tCosts * unit << " m" << endl;
+
+	cout << "Costs + losses: " << "?" << " m" << endl; // TODO: prod + direct
 }
 
 void YearSolution::print()
 {
+	// Objective & Duration
 	printObj();
 	printDur();
+
+	// Decision Variables
 	printVessels();
 	printPlanned();
 	printFailures();
 	printRepairs();
 	printUnhandled();
+
+	// Breakdowns
+	printAvailability();
+	printScenarios();
+
+	// Summary
 	printDinwoodie();
 }
 

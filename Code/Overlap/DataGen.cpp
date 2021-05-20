@@ -185,6 +185,8 @@ YearData* DataGen::readYear(ifstream* file)
 	int Ip = stoi(split[3]);
 	int Ir = stoi(split[4]);
 	YearData* year = new YearData(S, M, Y, Ip, Ir);
+	year->techId = stoi(split[5]);
+	year->monthsPerYear = stoi(split[6]);
 	readEmpty(file);
 
 	// Vessels

@@ -32,7 +32,5 @@ public:
 
 	void genProblem() override;
 	YearSolution* solve(int maxTime = 0) override;
-
-	double printCostBreakdown(vector<MonthSolution*> months = { nullptr });
 };
 

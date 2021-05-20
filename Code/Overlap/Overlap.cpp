@@ -19,13 +19,12 @@ void runYear()
 {
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/Generated Files/NF_Wa_Ba_36.dat");
+    ifstream datafile("Input Files/yearDinwoodieInstall.dat");
     YearData* data = dg.readYear(&datafile);
     YearModel* model = new YearModel(data, &mode);
     model->genProblem();
     YearSolution* sol = model->solve();
     sol->print();
-    model->printCostBreakdown();
 }
 
 void runMonth()
@@ -99,9 +98,7 @@ void runMixed()
         
         cout << endl;
 
-        if (infeasible == 0)
-            yearModel->printCostBreakdown(monthSols);
-        else
+        if (infeasible != 0)
         {
             cout << "Redoing year since " << infeasible << " months are infeasible" << endl;
             maxTime *= 2;
