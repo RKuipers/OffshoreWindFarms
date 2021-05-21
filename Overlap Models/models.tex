@@ -30,10 +30,11 @@
 	M^P_{y, m}, M^R_{y, m, ir} \in \mathbb{Z}^*}}
 	\begin{aligned}
 	\frac{1}{|S|} \cdot \sum_{\sigma \in S} ( \sum_{m \in M} [ 
-	\sum_{y \in Y} (N_{y,m} \cdot c_{y,m}) +  
+	\sum_{y \in Y} (N_{y,m} \cdot c^V_{y,m}) +  
 	e^H_m \cdot (\sum_{ir \in I^R}[U_{m,ir,\sigma} \cdot H_m + 
 	R_{m,ir,\sigma} \cdot (d^R_{ir} + d^D_{ir})] +\\
-	\sum_{ip \in I^P} [P_{m,ip} \cdot d^P])] + 
+	\sum_{ip \in I^P} [P_{m,ip} \cdot d^P]) + 
+	\sum_{ip \in I^P} (P_{m,ip} \cdot c^P) + \sum_{ir \in I^R} (R_{m,ir,\sigma} \cdot c^R_{ir})] + 
 	\sum_{ir \in I^R} [F^U_{\hat{m}, ir, \sigma} \cdot \lambda_{ir}] )
 	\end{aligned}	
 \end{equation}
@@ -53,7 +54,7 @@ F^T_{m, ir, \sigma} + U_{m-1,ir,\sigma} 	&=		R_{m,ir,\sigma} + U_{m,ir,\sigma}		
 
 \begin{frame}{Years model Explanation}
 \smalla
-\expl The objective takes an average cost of all scenarios by counting up the cost per month. Each month has a cost for vessels chartered (by type), the cost of failures (broken up in unhandled and repaired failures), andthe energy lost due to planned maintenance. Finally there is a cost for unhandled failures in the final month. \\
+\expl The objective takes an average cost of all scenarios by counting up the cost per month. Each month has a cost for vessels chartered (by type), the cost of lost energy production (broken up in unhandled failures, repairs and planned maintenance) and the repair costs (for spare parts etc). Finally it includes a cost for unhandled failures in the final month. \\
 \expl For each vessel type the available time (based on charters and spare time from installation) minus the planned time the vessels are used (for planned maintenance) needs to be greater than the time spend fixing new failures. \\
 \expl Ensures that if planned tasks are assigned to a month that there are enough vessels chartered \\
 \expl Ensures that if repair tasks are assigned to a month that there are enough vessels chartered \\
@@ -81,13 +82,13 @@ Decision variables:
 \item $P_{m,ip}$: Planned tasks in iteration $ip \in I^P$ in month $m$
 \item $R_{m,ir,\sigma}$: Repair tasks of type $ir \in I^R$ in month $m$ and scenario $\sigma$
 \item $U_{m,ir,\sigma}$: Unhandled failures of type $ir \in I^R$ in month $m$ and scenario $\sigma$
-\item $M^P_{y, m}$: Minimum amount of vessels of type $y$ in month $m$ (based on assigned planned tasks)
-\item $M^R_{y, m, ir}$: Minimum amount of vessels of type $y$ in month $m$ (based on assigned repair tasks of type $ir$)
+\item $M^P_{y, m} \& M^R_{y, m, ir}$: Minimum amount of vessels of type $y$ in month $m$ (based on planned and repair tasks)
 \end{itemize}
 
 Parameters:
 \begin{itemize}
-\item $c_{y,m}$: The cost of chartering a vessel of type $y$ in month $m$
+\item $c^V_{y,m}$: The cost of chartering a vessel of type $y$ in month $m$
+\item $c^P \& c^R_{ir}$: The cost of planned maintenance and repair tasks
 \item $\lambda_{ir}$: The cost penalty for leftover failures of type $ir$ in the final month
 \end{itemize}
 \end{column}
