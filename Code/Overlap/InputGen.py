@@ -105,7 +105,7 @@ for d in duration:
                 
                 #Turbines
                 turbs, line = getTurbs(t, d)
-                lines[35] = line + "\n"
+                lines[39] = line + "\n"
                 
                 #Vessels
                 seq = getSeq(p, d, t, turbs)

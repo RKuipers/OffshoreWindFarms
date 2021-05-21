@@ -9,6 +9,9 @@
 #Offline duration for planned task
 5
 
+#Cost of a planned task
+1000
+
 #Hours in given month
 U	720
 
@@ -20,8 +23,8 @@ U	70
 
 #Failure characteristics
 #Failure type ID, Leftover penalty, Duration of delay, and Duration of work
-0	50400	2	4
-1	50400	6	30
+0	50400	2	4	800
+1	50400	6	30	1200
 
 #Turbines
 S	20	0	0	5	2	3	3	2	0	0	10	5
