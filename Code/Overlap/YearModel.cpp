@@ -93,15 +93,19 @@ void YearModel::genObj()
 		for (int m = 0; m < getData()->M; ++m)
 		{
 			for (int y = 0; y < getData()->Y; ++y)
-				Obj.addTerm(N[y][m], getData()->c[y][m] * sFac);
+				Obj.addTerm(N[y][m], getData()->cV[y][m] * sFac);
 
 			for (int ip = 0; ip < getData()->Ip; ++ip)
+			{
 				Obj.addTerm(P[m][ip], getData()->dP * getData()->eH[m] * sFac);
+				Obj.addTerm(P[m][ip], getData()->cP * sFac);
+			}
 
 			for (int ir = 0; ir < getData()->Ir; ++ir)
 			{
 				Obj.addTerm(R[m][ir][sig], (getData()->dR[ir] + getData()->dD[ir]) * getData()->eH[m] * sFac);
 				Obj.addTerm(U[m][ir][sig], getData()->H[m] * getData()->eH[m] * sFac);
+				Obj.addTerm(R[m][ir][sig], getData()->cR[ir] * sFac);
 			}
 		}
 

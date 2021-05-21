@@ -305,12 +305,11 @@ void YearSolution::printScenarios()
 
 		// Vessel Rentals
 		for (int y = 0; y < data->Y - 1; ++y)
-			vesselRental[m] += getVessels()[m][y] * data->c[y][m];
+			vesselRental[m] += getVessels()[m][y] * data->cV[y][m];
 		vr += vesselRental[m];
 
 		// Technicians
-		int techId = data->Y - 1;
-		technicians[m] = getVessels()[m][techId] * data->c[techId][m];
+		technicians[m] = getVessels()[m][data->techId] * data->cV[data->techId][m];
 		te += technicians[m];
 
 		// Downtime planned
@@ -396,14 +395,23 @@ void YearSolution::printScenarios()
 
 void YearSolution::printDinwoodie()
 {
-	double vCosts = 0.0, tCosts = 0.0;
+	double vCosts = 0.0, rCosts = 0.0, tCosts = 0.0;
 
 	for (int m = 0; m < data->M; ++m)
+	{
 		for (int y = 0; y < data->Y; ++y)
 			if (y != data->techId)
-				vCosts += data->c[y][m] * getVessels()[m][y];
+				vCosts += data->cV[y][m] * getVessels()[m][y];
 			else
-				tCosts += data->c[y][m] * getVessels()[m][y];
+				tCosts += data->cV[y][m] * getVessels()[m][y];
+
+		for (int ip = 0; ip < data->Ip; ++ip)
+			rCosts += data->cP * getPlanned()[m][ip];
+		for (int ir = 0; ir < data->Ir; ++ir)
+			for (int sig = 0; sig < data->S; ++sig)
+				rCosts += data->cR[ir] * getRepairs()[sig][m][ir];
+	}
+	double costs = vCosts + rCosts + tCosts;
 
 	double unit = 1.0 / (1000000.0 * (double)data->M / (double)data->monthsPerYear);
 
@@ -411,12 +419,13 @@ void YearSolution::printDinwoodie()
 	cout << "Availability (time): " << timeAvail << "%" << endl;
 	cout << "Availability (energy): " << enerAvail << "%" << endl;
 	cout << "Annual production losses: " << prodLosses * unit << " m" << endl;
-	cout << "Annual direct O&M costs: " << "?" << " m" << endl;	// TODO: Three below added
+	cout << "Annual direct O&M costs: " << costs * unit << " m" << endl;
 	cout << "Annual vessel costs: " << vCosts * unit << " m" << endl;
-	cout << "Annual repair costs: " << "?" << " m" << endl;
-	cout << "Annual technician costs: " << tCosts * unit << " m" << endl;
+	cout << "Annual repair costs: " << rCosts * unit << " m" << endl;
+	cout << "Annual technician costs: " << tCosts * unit << " m" << endl << endl;
 
-	cout << "Costs + losses: " << "?" << " m" << endl; // TODO: prod + direct
+	cout << "Annual Costs + losses: " << (prodLosses + costs) * unit << " m" << endl;
+	cout << "Total Costs + losses: " << (prodLosses + costs) / 1000000.0 << " m" << endl;
 }
 
 void YearSolution::print()

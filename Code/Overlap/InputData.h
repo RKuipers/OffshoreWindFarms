@@ -26,7 +26,9 @@ public:
 	// Helpers:
 	int monthsPerYear, techId;
 	// Parameters:
-	vector<vector<double>> c;			// y m
+	vector<vector<double>> cV;			// y m
+	double cP;			
+	vector<double> cR;					// ir
 	vector<double> eH;					// m
 	vector<vector<vector<int>>> Ft;		// m ir sig
 	vector<int> H;						// m

@@ -2,7 +2,8 @@
 
 YearData::YearData(int s, int m, int y, int ip, int ir) : S(s), M(m), Y(y), Ip(ip), Ir(ir)
 {
-	c = vector<vector<double>>(Y, vector<double>(M, 0.0));
+	cV = vector<vector<double>>(Y, vector<double>(M, 0.0));
+	cR = vector<double>(Ir, 0.0);
 	eH = vector<double>(M, 0.0);
 	Ft = vector<vector<vector<int>>>(M, vector<vector<int>>(Ir, vector<int>(S, 0)));
 	H = vector<int>(M, 0);

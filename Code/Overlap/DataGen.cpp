@@ -198,7 +198,7 @@ YearData* DataGen::readYear(ifstream* file)
 
 		ind = parseArrayDouble(split, ind, &arrD, M);
 		for (int m = 0; m < M; ++m)
-			year->c[y][m] = arrD[m];
+			year->cV[y][m] = arrD[m];
 
 		ind = parseArray(split, ind, &arr, M);
 		for (int m = 0; m < M; ++m)
@@ -232,6 +232,10 @@ YearData* DataGen::readYear(ifstream* file)
 	year->dP = stoi(readLine(file)[0]);
 	readEmpty(file);
 
+	// Cost of a planned task
+	year->cP = stod(readLine(file)[0]);
+	readEmpty(file);
+
 	// Hours in given month
 	parseArray(readLine(file), 0, &arr, M);
 	for (int m = 0; m < M; ++m)
@@ -257,6 +261,7 @@ YearData* DataGen::readYear(ifstream* file)
 		year->lambda[ir] = stod(split[1]);
 		year->dD[ir] = stod(split[2]);
 		year->dR[ir] = stod(split[3]);
+		year->cR[ir] = stod(split[4]);
 	}
 	readEmpty(file);
 
