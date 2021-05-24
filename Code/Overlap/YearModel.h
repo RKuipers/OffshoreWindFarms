@@ -28,7 +28,7 @@ protected:
 	void genRegMaintCon();
 
 public:
-	YearModel(YearData* data, Mode* mode);
+	YearModel(YearData* data, Mode* mode, string name = "Year");
 
 	void genProblem() override;
 	YearSolution* solve(int maxTime = 0) override;

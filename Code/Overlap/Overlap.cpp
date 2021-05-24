@@ -17,11 +17,12 @@ using namespace std;
 
 void runYear()
 {
+    string name = "yearDinwoodieInstall";
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/yearDinwoodieInstall.dat");
+    ifstream datafile("Input Files/" + name + ".dat");
     YearData* data = dg.readYear(&datafile);
-    YearModel* model = new YearModel(data, &mode);
+    YearModel* model = new YearModel(data, &mode, name);
     model->genProblem();
     YearSolution* sol = model->solve();
     sol->print();

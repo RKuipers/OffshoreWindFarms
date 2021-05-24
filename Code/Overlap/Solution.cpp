@@ -432,6 +432,37 @@ void YearSolution::printDinwoodie()
 	cout << "Total Costs + losses: " << (prodLosses + costs) / 1000000.0 << " m" << endl;
 }
 
+void YearSolution::writeCSV()
+{
+	ofstream file;
+	file.open(""); // TODO
+	string sep = "\t";
+
+	// Columns
+	file << "Month_Scenario" << sep;
+	for (int y = 0; y < data->Y; ++y)
+		file << "Vessels type " << y << sep;
+	for (int ip = 0; ip < data->Ip; ++ip)
+		file << "Planned round  " << ip << sep;
+	for (int ir = 0; ir < data->Ir; ++ir)
+		file << "Repairs type " << ir << sep;
+	for (int ir = 0; ir < data->Ir; ++ir)
+		file << "Unhandled type " << ir << sep;
+	for (int ir = 0; ir < data->Ir; ++ir)
+		file << "Failures type " << ir << sep;
+	file << "Available %" << sep << "Energy Value" << sep;
+	file << "Production Losses P" << sep << "Production Losses R" << sep << "Production Losses U" << sep;
+	file << "Vessel costs" << sep << "Repair costs" << sep << "Technician costs" << endl;
+
+	for (int sig = 0; sig < data->S; ++sig)
+		for (int m = 0; m < data->M; ++m)
+		{
+			file << endl;
+		}
+
+	file.close();
+}
+
 void YearSolution::print()
 {
 	// Objective & Duration
@@ -451,6 +482,9 @@ void YearSolution::print()
 
 	// Summary
 	printDinwoodie();
+
+	// Output file
+	writeCSV();
 }
 
 //-----------------------------------------------MONTH---------------------------------------------

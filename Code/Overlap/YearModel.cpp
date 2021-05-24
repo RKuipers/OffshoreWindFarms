@@ -225,7 +225,7 @@ void YearModel::genRegMaintCon()
 		}
 }
 
-YearModel::YearModel(YearData* data, Mode* mode) : Model(data, mode, "Year")
+YearModel::YearModel(YearData* data, Mode* mode, string name) : Model(data, mode, name)
 {
 	N = vector<vector<XPRBvar>>(data->Y, vector<XPRBvar>(data->M));
 	P = vector<vector<XPRBvar>>(data->M, vector<XPRBvar>(data->Ip));

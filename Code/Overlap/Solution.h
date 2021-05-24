@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include "InputData.h"
 #include "MathHelp.h"
 
@@ -48,6 +49,7 @@ protected:
 	void printAvailability();
 	void printScenarios();
 	void printDinwoodie();
+	void writeCSV();
 
 public:
 	YearSolution(string name, int id, YearData* data);
