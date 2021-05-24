@@ -282,7 +282,7 @@ void YearSolution::printScenarios()
 	vector<double> sigWeight = vector<double>(nSigs, 1.0 / (float)nSigs);
 	vector<double> sigTotals = vector<double>(nSigs, 0.0);
 
-	// Scenario dependant
+	// Scenario independant
 	vector<double> vesselRental = vector<double>(nMonths, 0.0);
 	vector<double> technicians = vector<double>(nMonths, 0.0);
 	vector<double> plannedDowntime = vector<double>(nMonths, 0.0);
@@ -290,12 +290,12 @@ void YearSolution::printScenarios()
 	double te = 0.0;
 	double pd = 0.0;
 
-	// Scenario independant
-	vector<vector<double>> repairs = vector<vector<double>>(nSigs, vector<double>(nMonths, 0.0));
-	vector<vector<double>> repairsExpected = vector<vector<double>>(nSigs, vector<double>(nMonths, 0.0));
+	// Scenario dependant
+	vector<vector<double>> repairDowntime = vector<vector<double>>(nSigs, vector<double>(nMonths, 0.0));
+	vector<vector<double>> repairFlatCost = vector<vector<double>>(nSigs, vector<double>(nMonths, 0.0));
 	vector<vector<double>> unhandledFailures = vector<vector<double>>(nSigs, vector<double>(nMonths, 0.0));
-	vector<double> re = vector<double>(nSigs, 0.0);
-	vector<double> reexp = vector<double>(nSigs, 0.0);
+	vector<double> rd = vector<double>(nSigs, 0.0);
+	vector<double> rf = vector<double>(nSigs, 0.0);
 	vector<double> uf = vector<double>(nSigs, 0.0);
 	vector<double> lo = vector<double>(nSigs, 0.0);
 
@@ -324,27 +324,29 @@ void YearSolution::printScenarios()
 
 		cout << "SCENARIO " << sig << endl;
 		cout << "Costs per month:" << endl;
-		cout << "Month: Total (Vessel rentals + Technicians + Planned downtime + Repairs + Unhandled failures)" << endl;
+		cout << "Month: Total (Vessel rentals + Technicians + Planned downtime + Repair downtime + Repair costs + Unhandled failures)" << endl;
 
 		for (int m = 0; m < data->M; ++m)
 		{
 			double e = data->eH[m];
 
-			// Task costs
+			// Repair costs
 			for (int ir = 0; ir < data->Ir; ++ir)
-				repairsExpected[sig][m] += getRepairs()[sig][m][ir] * (data->dR[ir] + data->dD[ir]) * e;
-			repairs[sig][m] = repairsExpected[sig][m];
+			{
+				repairDowntime[sig][m] += getRepairs()[sig][m][ir] * (data->dR[ir] + data->dD[ir]) * e;
+				repairFlatCost[sig][m] += getRepairs()[sig][m][ir] * data->cR[ir];
+			}
 
 			// Unhandled failures
 			for (int ir = 0; ir < data->Ir; ++ir)
 				unhandledFailures[sig][m] += getUnhandled()[sig][m][ir] * data->H[m] * e;
 
-			double total = vesselRental[m] + technicians[m] + plannedDowntime[m] + repairs[sig][m] + unhandledFailures[sig][m];
-			re[sig] += repairs[sig][m];
-			reexp[sig] += repairsExpected[sig][m];
+			double total = vesselRental[m] + technicians[m] + plannedDowntime[m] + repairDowntime[sig][m] + repairFlatCost[sig][m] + unhandledFailures[sig][m];
+			rd[sig] += repairDowntime[sig][m];
+			rf[sig] += repairFlatCost[sig][m];
 			uf[sig] += unhandledFailures[sig][m];
 
-			cout << m << ": " << total << " (" << vesselRental[m] << " + " << technicians[m] << " + " << plannedDowntime[m] << " + " << repairs[sig][m] << " + " << unhandledFailures[sig][m] << ")" << endl;
+			cout << m << ": " << total << " (" << vesselRental[m] << " + " << technicians[m] << " + " << plannedDowntime[m] << " + " << repairDowntime[sig][m] << " + " << repairFlatCost[sig][m] << " + " << unhandledFailures[sig][m] << ")" << endl;
 
 			scenTotal += total;
 		}
@@ -362,7 +364,8 @@ void YearSolution::printScenarios()
 		cout << "Vessel rentals: " << vr << endl;
 		cout << "Technician costs: " << te << endl;
 		cout << "Planned downtime: " << pd << endl;
-		cout << "Expected repairs: " << reexp[sig] << endl;
+		cout << "Repair downtime: " << rd[sig] << endl;
+		cout << "Repair costs: " << rf[sig] << endl;
 		cout << "Unhandled failures: " << uf[sig] << endl;
 		cout << "Leftover failures: " << lo[sig] << endl;
 		cout << endl;
@@ -386,7 +389,8 @@ void YearSolution::printScenarios()
 		cout << "Vessel rentals: " << vr << endl;
 		cout << "Technician costs: " << te << endl;
 		cout << "Planned downtime: " << pd << endl;
-		cout << "Expected repairs: " << MathHelp::Mean(&reexp) << endl;
+		cout << "Repair downtime: " << MathHelp::Mean(&rd) << endl;
+		cout << "Repair costs: " << MathHelp::Mean(&rf) << endl;
 		cout << "Unhandled failures: " << MathHelp::Mean(&uf) << endl;
 		cout << "Leftover failures: " << MathHelp::Mean(&lo) << endl;
 		cout << endl;
@@ -409,7 +413,7 @@ void YearSolution::printDinwoodie()
 			rCosts += data->cP * getPlanned()[m][ip];
 		for (int ir = 0; ir < data->Ir; ++ir)
 			for (int sig = 0; sig < data->S; ++sig)
-				rCosts += data->cR[ir] * getRepairs()[sig][m][ir];
+				rCosts += data->cR[ir] * getRepairs()[sig][m][ir] * (1.0 / (float)data->S);
 	}
 	double costs = vCosts + rCosts + tCosts;
 
