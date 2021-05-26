@@ -33,12 +33,18 @@ class YearSolution
 {
 protected:
 	vector<vector<int>> vessels;			// m y
-	vector<vector<int>> planned;			// m i
-	vector<vector<vector<int>>> repairs;	// sig m i
-	vector<vector<vector<int>>> unhandled;	// sig m i
+	vector<vector<int>> planned;			// m ip
+	vector<vector<vector<int>>> repairs;	// sig m ir
+	vector<vector<vector<int>>> unhandled;	// sig m ir
+
+	vector<vector<double>> avail;					// sig m
+	vector<vector<double>> timeUnavailP;			// sig m
+	vector<vector<vector<double>>> timeUnavailR;	// sig m ir
+	vector<vector<vector<double>>> timeUnavailU;	// sig m ir
+	vector<double> vCosts;							// m
+	vector<double> tCosts;							// m
 
 	YearData* data;
-	double timeAvail, enerAvail, prodLosses;
 
 	void printVessels();
 	void printPlanned();
@@ -46,6 +52,7 @@ protected:
 	void printRepairs();
 	void printUnhandled();
 
+	void calcSecondaries();
 	void printAvailability();
 	void printScenarios();
 	void printDinwoodie();

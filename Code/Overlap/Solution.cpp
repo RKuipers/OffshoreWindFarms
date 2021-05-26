@@ -182,40 +182,34 @@ void YearSolution::printUnhandled()
 	}
 }
 
-void YearSolution::printAvailability()
+void YearSolution::calcSecondaries()
 {
-	cout << "Availability and production losses (per month V and scenario >): " << endl;
-
-	vector<vector<double>> avails = vector<vector<double>>(data->S, vector<double>(data->M));
-	vector<double> availsScen = vector<double>(data->S);
-	vector<double> eAvail = vector<double>(data->S);
-	vector<vector<double>> losses = vector<vector<double>>(data->S, vector<double>(data->M));
-	vector<double> lossesScen = vector<double>(data->S);
+	avail = vector<vector<double>>(data->S, vector<double>(data->M, 0.0));
+	timeUnavailP = vector<vector<double>>(data->S, vector<double>(data->M, 0.0));
+	timeUnavailR = vector<vector<vector<double>>>(data->S, vector<vector<double>>(data->M, vector<double>(data->Ir, 0.0)));
+	timeUnavailU = vector<vector<vector<double>>>(data->S, vector<vector<double>>(data->M, vector<double>(data->Ir, 0.0)));
 
 	for (int sig = 0; sig < data->S; ++sig)
 	{
 		int turbs = 0;
-		double eProd = 0.0;
-		double eMax = 0.0;
-
 		for (int m = 0; m < data->M; ++m)
 		{
-			if (m == 105)
-				m = m;
-
 			// Base time
 			turbs += data->Turbs[m];
-			double timeAvail = turbs * data->H[m];
+			double maxTime = turbs * data->H[m];
+			double timeAvail = maxTime;
 
 			// Planned
-			timeAvail -= MathHelp::Sum(&planned[m]) * data->dP;
+			timeUnavailP[sig][m] = MathHelp::Sum(&planned[m]) * data->dP;
+			timeAvail -= timeUnavailP[sig][m];
 
 			for (int ir = 0; ir < data->Ir; ir++)
 			{
 				// Repairs
-				int newRepairs = min(repairs[sig][m][ir], data->Ft[m][ir][sig]);	
-				timeAvail -= newRepairs * (data->dR[ir] + data->dD[ir]);			// Repairs that come from new failures
-				timeAvail -= (repairs[sig][m][ir] - newRepairs) * data->dR[ir];		// Repairs that come from previously unhandled failures
+				int newRepairs = min(repairs[sig][m][ir], data->Ft[m][ir][sig]);
+				timeUnavailR[sig][m][ir] += newRepairs * (data->dR[ir] + data->dD[ir]);			// Repairs that come from new failures
+				timeUnavailR[sig][m][ir] += (repairs[sig][m][ir] - newRepairs) * data->dR[ir];	// Repairs that come from previously unhandled failures
+				timeAvail -= timeUnavailR[sig][m][ir];
 
 				// Unhandled
 				int partiallyInactive = 0;
@@ -224,54 +218,82 @@ void YearSolution::printAvailability()
 				else if (unhandled[sig][m][ir] > unhandled[sig][m - 1][ir])
 					partiallyInactive = unhandled[sig][m][ir] - unhandled[sig][m - 1][ir];
 
-				timeAvail -= (unhandled[sig][m][ir] - partiallyInactive) * data->H[m];
+				timeUnavailU[sig][m][ir] += (unhandled[sig][m][ir] - partiallyInactive) * data->H[m];
 				for (int f = 0; f < partiallyInactive; ++f)
-					timeAvail -= (double)(rand() % data->H[m]);
+					timeUnavailU[sig][m][ir] += (double)(rand() % data->H[m]);
+				timeAvail -= timeUnavailU[sig][m][ir];
 			}
 
-			eProd += timeAvail * data->eH[m];
-			eMax += turbs * data->H[m] * data->eH[m];
-
-			avails[sig][m] = 100 * timeAvail / (turbs * data->H[m]);
-			losses[sig][m] = ((turbs * data->H[m]) - timeAvail) * data->eH[m];
+			avail[sig][m] = 100 * timeAvail / maxTime;
 		}
-
-		availsScen[sig] = MathHelp::Mean(&avails[sig]);
-		eAvail[sig] = 100 * eProd / eMax;
-		lossesScen[sig] = MathHelp::Sum(&losses[sig]);
 	}
+
+	vCosts = vector<double>(data->M, 0.0);
+	tCosts = vector<double>(data->M, 0.0);
 
 	for (int m = 0; m < data->M; ++m)
 	{
-		cout << m << ": " << avails[0][m];
+		for (int y = 0; y < data->Y; ++y)
+			vCosts[m] += vessels[m][y] * data->cV[y][m];
+
+		vCosts[m] -= vessels[m][data->techId] * data->cV[data->techId][m];
+		tCosts[m] += vessels[m][data->techId] * data->cV[data->techId][m];
+	}
+}
+
+void YearSolution::printAvailability()
+{
+	cout << "Availability and production losses (per month V and scenario >): " << endl;
+
+	vector<vector<double>> prodLosses = vector<vector<double>>(data->S, vector<double>(data->M, 0.0));
+
+	for (int m = 0; m < data->M; ++m)
+	{
+		cout << m << ": " << avail[0][m];
 		for (int sig = 1; sig < data->S; ++sig)
-			cout << ", " << avails[sig][m];
-		cout << " / " << losses[0][m];
+			cout << ", " << avail[sig][m];
+
+		for (int sig = 0; sig < data->S; ++sig)
+			prodLosses[sig][m] = (timeUnavailP[sig][m] + MathHelp::Sum(&timeUnavailR[sig][m]) + MathHelp::Sum(&timeUnavailU[sig][m])) * data->eH[m];
+
+		cout << " / " << prodLosses[0][m];
 		for (int sig = 1; sig < data->S; ++sig)
-			cout << ", " << losses[sig][m];
+			cout << ", " << prodLosses[sig][m];
 		cout << endl;
 	}
 
-	cout << "Average time availability: " << MathHelp::Mean(&availsScen) << " (";
-	cout << availsScen[0];
-	for (int sig = 1; sig < data->S; ++sig)
-		cout << ", " << availsScen[sig];
-	cout << ")" << endl;
-	timeAvail = MathHelp::Mean(&availsScen);
+	vector<double> availScen = vector<double>(data->S);
+	for (int sig = 0; sig < data->S; ++sig)
+		availScen[sig] = MathHelp::Mean(&avail[sig]);
 
-	cout << "Average energy availability: " << MathHelp::Mean(&eAvail) << " (";
-	cout << eAvail[0];
+	cout << "Average time availability: " << MathHelp::Mean(&availScen) << " (";
+	cout << availScen[0];
 	for (int sig = 1; sig < data->S; ++sig)
-		cout << ", " << eAvail[sig];
+		cout << ", " << availScen[sig];
 	cout << ")" << endl;
-	enerAvail = MathHelp::Mean(&eAvail);
 
-	cout << "Average production losses: " << MathHelp::Mean(&lossesScen) << " (";
-	cout << lossesScen[0];
+	double meanEnergy = MathHelp::Mean(&data->eH);
+	vector<double> availEn = vector<double>(data->S);
+	for (int sig = 0; sig < data->S; ++sig)
+		availEn[sig] = MathHelp::WeightedMean(&avail[sig], &data->eH) / meanEnergy;
+
+	cout << "Average energy availability: " << MathHelp::Mean(&availEn) << " (";
+	cout << availEn[0];
 	for (int sig = 1; sig < data->S; ++sig)
-		cout << ", " << lossesScen[sig];
+		cout << ", " << availEn[sig];
 	cout << ")" << endl;
-	prodLosses = MathHelp::Mean(&lossesScen);
+
+	vector<double> prodLossesScen = vector<double>(data->S);
+	for (int sig = 0; sig < data->S; ++sig)
+		prodLossesScen[sig] = MathHelp::Sum(&prodLosses[sig]);
+
+	cout << "Average production losses: " << MathHelp::Mean(&prodLossesScen) << " (";
+	cout << prodLossesScen[0];
+	for (int sig = 1; sig < data->S; ++sig)
+		cout << ", " << prodLossesScen[sig];
+	cout << ")" << endl;
+
+	cout << endl;
 }
 
 void YearSolution::printScenarios()
@@ -395,38 +417,49 @@ void YearSolution::printScenarios()
 		cout << "Leftover failures: " << MathHelp::Mean(&lo) << endl;
 		cout << endl;
 	}
+
+	cout << endl;
 }
 
 void YearSolution::printDinwoodie()
 {
-	double vCosts = 0.0, rCosts = 0.0, tCosts = 0.0;
+	vector<double> tAvailScen = vector<double>(data->S, 0.0);
+	vector<double> eAvailScen = vector<double>(data->S, 0.0);
+	vector<double> prLosses = vector<double>(data->S, 0.0);
+	double meanEnergy = MathHelp::Mean(&data->eH);
+	for (int sig = 0; sig < data->S; ++sig)
+	{
+		tAvailScen[sig] = MathHelp::Mean(&avail[sig]);
+		eAvailScen[sig] = MathHelp::WeightedMean(&avail[sig], &data->eH) / meanEnergy;
+		prLosses[sig] = MathHelp::WeightedSum(&timeUnavailP[sig], &data->eH);
+		for (int m = 0; m < data->M; ++m)
+			prLosses[sig] += (MathHelp::Sum(&timeUnavailR[sig][m]) + MathHelp::Sum(&timeUnavailU[sig][m])) * data->eH[m];
+	}
+	double prodLosses = MathHelp::Mean(&prLosses);
 
+	double rCosts = 0.0;
 	for (int m = 0; m < data->M; ++m)
 	{
-		for (int y = 0; y < data->Y; ++y)
-			if (y != data->techId)
-				vCosts += data->cV[y][m] * getVessels()[m][y];
-			else
-				tCosts += data->cV[y][m] * getVessels()[m][y];
-
 		for (int ip = 0; ip < data->Ip; ++ip)
 			rCosts += data->cP * getPlanned()[m][ip];
 		for (int ir = 0; ir < data->Ir; ++ir)
 			for (int sig = 0; sig < data->S; ++sig)
 				rCosts += data->cR[ir] * getRepairs()[sig][m][ir] * (1.0 / (float)data->S);
 	}
-	double costs = vCosts + rCosts + tCosts;
+	double vCostsSum = MathHelp::Sum(&vCosts);
+	double tCostsSum = MathHelp::Sum(&tCosts);
+	double costs = vCostsSum + rCosts + tCostsSum;
 
 	double unit = 1.0 / (1000000.0 * (double)data->M / (double)data->monthsPerYear);
 
 	cout << "-----------DINWOODIE-----------" << endl;
-	cout << "Availability (time): " << timeAvail << "%" << endl;
-	cout << "Availability (energy): " << enerAvail << "%" << endl;
+	cout << "Availability (time): " << MathHelp::Mean(&tAvailScen) << "%" << endl;
+	cout << "Availability (energy): " << MathHelp::Mean(&eAvailScen) << "%" << endl;
 	cout << "Annual production losses: " << prodLosses * unit << " m" << endl;
 	cout << "Annual direct O&M costs: " << costs * unit << " m" << endl;
-	cout << "Annual vessel costs: " << vCosts * unit << " m" << endl;
+	cout << "Annual vessel costs: " << vCostsSum * unit << " m" << endl;
 	cout << "Annual repair costs: " << rCosts * unit << " m" << endl;
-	cout << "Annual technician costs: " << tCosts * unit << " m" << endl << endl;
+	cout << "Annual technician costs: " << tCostsSum * unit << " m" << endl << endl;
 
 	cout << "Annual Costs + losses: " << (prodLosses + costs) * unit << " m" << endl;
 	cout << "Total Costs + losses: " << (prodLosses + costs) / 1000000.0 << " m" << endl;
@@ -457,6 +490,37 @@ void YearSolution::writeCSV()
 	for (int sig = 0; sig < data->S; ++sig)
 		for (int m = 0; m < data->M; ++m)
 		{
+			// Decision Variables
+			// Vessels
+			for (int y = 0; y < data->Y; ++y)
+				file << vessels[m][y] << sep;
+
+			// Planned
+			for (int ip = 0; ip < data->Ip; ++ip)
+				file << planned[m][ip] << sep;
+
+			// Repair
+			for (int ir = 0; ir < data->Ir; ++ir)
+				file << repairs[sig][m][ir] << sep;
+
+			// Unhandled
+			for (int ir = 0; ir < data->Ir; ++ir)
+				file << unhandled[sig][m][ir] << sep;
+
+			// Failures
+			for (int ir = 0; ir < data->Ir; ++ir)
+				file << data->Ft[m][ir][sig] << sep;
+
+			// Secondary statistics
+			// Availability
+			file << avail[sig][m] << sep << data->eH[m] << sep;
+
+			// Production Losses
+			file << timeUnavailP[sig][m] * data->eH[m] << sep << MathHelp::Sum(&timeUnavailR[sig][m]) * data->eH[m] << sep << MathHelp::Sum(&timeUnavailU[sig][m]) * data->eH[m] << sep;
+
+			// Costs
+			file << MathHelp::Sum(&vCosts) << sep << MathHelp::WeightedSum(&repairs[sig][m], &data->cR) << sep << MathHelp::Sum(&tCosts);
+
 			file << endl;
 		}
 
@@ -465,6 +529,7 @@ void YearSolution::writeCSV()
 
 void YearSolution::print()
 {
+
 	// Objective & Duration
 	printObj();
 	printDur();
@@ -475,6 +540,10 @@ void YearSolution::print()
 	printFailures();
 	printRepairs();
 	printUnhandled();
+	cout << endl;
+
+	// Calculate secondary metrics
+	calcSecondaries();
 
 	// Breakdowns
 	printAvailability();

@@ -1,13 +1,20 @@
 #include "MathHelp.h"
 
+int MathHelp::Sum(vector<int>* vec)
+{
+    return accumulate(vec->begin(), vec->end(), 0);
+}
+
 double MathHelp::Sum(vector<double>* vec)
 {
     return accumulate(vec->begin(), vec->end(), 0.0);
 }
 
-int MathHelp::Sum(vector<int>* vec)
+int MathHelp::WeightedSum(vector<int>* vec, vector<double>* w)
 {
-    return accumulate(vec->begin(), vec->end(), 0);
+    vector<double> v = vector<double>(vec->size());
+    transform(vec->begin(), vec->end(), w->begin(), v.begin(), multiplies<double>());
+    return (int)round(MathHelp::Sum(&v));
 }
 
 double MathHelp::WeightedSum(vector<double>* vec, vector<double>* w)
@@ -20,11 +27,6 @@ double MathHelp::WeightedSum(vector<double>* vec, vector<double>* w)
 double MathHelp::Mean(vector<double>* vec)
 {
 	return Sum(vec) / vec->size();
-}
-
-double MathHelp::Mean(vector<int>* vec)
-{
-    return Sum(vec) / vec->size();
 }
 
 double MathHelp::WeightedMean(vector<double>* vec, vector<double>* w)
