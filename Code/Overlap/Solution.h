@@ -12,13 +12,11 @@ using namespace std;
 class Solution
 {
 protected:
-	string modeName;
-	int modeId;
+	string name;
 	double value, duration; 
-	// TODO Maybe: Set option somewhere to print modeinfo
 
 public:
-	Solution(string name, int id);
+	Solution(string name);
 
 	void setResult(double value, double duration);
 	double getObj();
@@ -59,7 +57,7 @@ protected:
 	void writeCSV();
 
 public:
-	YearSolution(string name, int id, YearData* data);
+	YearSolution(string name, YearData* data);
 
 	void setVessels(vector<vector<int>> N);
 	void setPlanned(vector<vector<int>> P);
@@ -87,7 +85,7 @@ protected:
 	void printOrders();
 
 public:
-	MonthSolution(string name, int id);
+	MonthSolution(string name);
 
 	void setFinishes(vector<double> finishes);
 	void setStarts(vector<vector<double>> s);

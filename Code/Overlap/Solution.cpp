@@ -2,7 +2,7 @@
 
 //-----------------------------------------------BASE----------------------------------------------
 
-Solution::Solution(string name, int id) : modeName(name), modeId(id) 
+Solution::Solution(string name) : name(name)
 { 
 	duration = -1;
 }
@@ -30,7 +30,7 @@ void Solution::printDur()
 
 //-----------------------------------------------YEAR----------------------------------------------
 
-YearSolution::YearSolution(string name, int id, YearData* data) : Solution(name, id), data(data) { }
+YearSolution::YearSolution(string name, YearData* data) : Solution(name), data(data) { }
 
 void YearSolution::setVessels(vector<vector<int>> N)
 {
@@ -438,13 +438,14 @@ void YearSolution::printDinwoodie()
 	double prodLosses = MathHelp::Mean(&prLosses);
 
 	double rCosts = 0.0;
+	double sigWeight = 1.0 / (double)data->S;
 	for (int m = 0; m < data->M; ++m)
 	{
 		for (int ip = 0; ip < data->Ip; ++ip)
 			rCosts += data->cP * getPlanned()[m][ip];
 		for (int ir = 0; ir < data->Ir; ++ir)
 			for (int sig = 0; sig < data->S; ++sig)
-				rCosts += data->cR[ir] * getRepairs()[sig][m][ir] * (1.0 / (float)data->S);
+				rCosts += data->cR[ir] * getRepairs()[sig][m][ir] * sigWeight;
 	}
 	double vCostsSum = MathHelp::Sum(&vCosts);
 	double tCostsSum = MathHelp::Sum(&tCosts);
@@ -468,8 +469,8 @@ void YearSolution::printDinwoodie()
 void YearSolution::writeCSV()
 {
 	ofstream file;
-	file.open(""); // TODO
-	string sep = "\t";
+	file.open("Output Files/" + name + ".csv", ofstream::out | ofstream::trunc);
+	string sep = ";";
 
 	// Columns
 	file << "Month_Scenario" << sep;
@@ -490,6 +491,9 @@ void YearSolution::writeCSV()
 	for (int sig = 0; sig < data->S; ++sig)
 		for (int m = 0; m < data->M; ++m)
 		{
+			// ID
+			file << m << "_" << sig << sep;
+
 			// Decision Variables
 			// Vessels
 			for (int y = 0; y < data->Y; ++y)
@@ -513,13 +517,15 @@ void YearSolution::writeCSV()
 
 			// Secondary statistics
 			// Availability
-			file << avail[sig][m] << sep << data->eH[m] << sep;
+			string ava = to_string(avail[sig][m]);
+			replace(ava.begin(), ava.end(), '.', ',');
+			file << ava << sep << data->eH[m] << sep;
 
 			// Production Losses
 			file << timeUnavailP[sig][m] * data->eH[m] << sep << MathHelp::Sum(&timeUnavailR[sig][m]) * data->eH[m] << sep << MathHelp::Sum(&timeUnavailU[sig][m]) * data->eH[m] << sep;
 
 			// Costs
-			file << MathHelp::Sum(&vCosts) << sep << MathHelp::WeightedSum(&repairs[sig][m], &data->cR) << sep << MathHelp::Sum(&tCosts);
+			file << (int)round(vCosts[m]) << sep << MathHelp::WeightedSum(&repairs[sig][m], &data->cR) << sep << tCosts[m];
 
 			file << endl;
 		}
@@ -558,7 +564,7 @@ void YearSolution::print()
 
 //-----------------------------------------------MONTH---------------------------------------------
 
-MonthSolution::MonthSolution(string name, int id) : Solution(name, id) { }
+MonthSolution::MonthSolution(string name) : Solution(name) { }
 
 void MonthSolution::setFinishes(vector<double> f)
 {

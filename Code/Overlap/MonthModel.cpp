@@ -9,7 +9,7 @@ MonthData* MonthModel::getData()
 
 MonthSolution* MonthModel::genSolution(XPRBprob* p, double duration)
 {
-	solution = new MonthSolution(mode->getCurrentName(), mode->getCurrentId());
+	solution = new MonthSolution(mode->getCurrentName());
 	solution->setResult(p->getObjVal(), duration);
 		
 	vector<vector<double>> s(getData()->V, vector<double>());

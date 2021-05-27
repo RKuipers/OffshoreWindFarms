@@ -7,7 +7,7 @@ YearData* YearModel::getData()
 
 YearSolution* YearModel::genSolution(XPRBprob* p, double duration)
 {
-	solution = new YearSolution(mode->getCurrentName(), mode->getCurrentId(), getData());
+	solution = new YearSolution(p->getName(), getData());
 	solution->setResult(p->getObjVal(), duration);
 
 	vector<vector<int>> N(getData()->Y, vector<int>());
