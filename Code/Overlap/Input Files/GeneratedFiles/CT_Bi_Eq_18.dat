@@ -36,8 +36,8 @@ R	12	172	162	152	142	132	122	112	122	132	142	152	162	#First attempt at seasonal 
 4	109440	1440	52	334500
 
 #Turbines
-A	1	80	119	0
 A	17	4	1	12
+
 #Failure mode
 R
 #Yearly failure rate (per failure type)

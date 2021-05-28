@@ -13,17 +13,19 @@
 #define YEAR
 //#define MONTH
 //#define MIXED
-#define DEFAULTPATH "yearDinwoodieInstall.dat"
+#define DEFAULTPATH "GeneratedFiles"
+//#define DEFAULTPATH "yearDinwoodieInstall.dat"
 
 using namespace std;
 
 void runYear(string fullName)
 {
     string name = fullName;
-    name.replace(fullName.size() - 4, string::npos, "");
+    name = name.substr(name.find("\\") + 1);
+    name.replace(name.size() - 4, string::npos, "");
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/" + fullName);
+    ifstream datafile(fullName);
     YearData* data = dg.readYear(&datafile);
     YearModel* model = new YearModel(data, &mode, name);
     model->genProblem();
@@ -35,8 +37,7 @@ void runMultipleYears(string path)
 {
     for (const auto& entry : filesystem::directory_iterator("Input Files/" + path))
     {
-        string pathString = entry.path().string();
-        runYear(pathString.substr(pathString.find("\\") + 1));
+        runYear(entry.path().string());
         // TODO: Add parameters to stop every run from printing everything and to make them write a combined CSV
     }
 }
@@ -147,7 +148,7 @@ int main()
         cin >> path;
 #endif // !DEFAULTPATH
         if (path.substr(path.size() - 4).compare(".dat") == 0)
-            runYear(path);
+            runYear("Input Files/" + path);
         else
             runMultipleYears(path);
         break;

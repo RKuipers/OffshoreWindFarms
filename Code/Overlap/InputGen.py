@@ -105,7 +105,7 @@ for d in duration:
                 
                 #Turbines
                 turbs, line = getTurbs(t, d)
-                lines[39] = line + "\n"
+                lines[38] = line + "\n"
                 
                 #Vessels
                 seq = getSeq(p, d, t, turbs)
@@ -113,6 +113,6 @@ for d in duration:
                 
                 #Write result
                 name = "_".join([getName(vessels, v, vNames), getName(pattern, p, pNames), getName(turbines, t, tNames), getName(duration, d, dNames)])
-                f = open("Input Files/Generated Files/" + name + ".dat", "w")
+                f = open("Input Files/GeneratedFiles/" + name + ".dat", "w")
                 f.write("".join(lines))
                 f.close()
