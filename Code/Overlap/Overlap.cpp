@@ -1,31 +1,44 @@
 #include <iostream>
 #include <ctime>
+#include <filesystem>
+
 #include "DataGen.h"
 #include "Weather.h"
 #include "Model.h"
 #include "YearModel.h"
 #include "MonthModel.h"
 #include "Mode.h"
-
 #include "Solution.h"
 
 #define YEAR
 //#define MONTH
 //#define MIXED
+#define DEFAULTPATH "yearDinwoodieInstall.dat"
 
 using namespace std;
 
-void runYear()
+void runYear(string fullName)
 {
-    string name = "yearDinwoodieInstall";
+    string name = fullName;
+    name.replace(fullName.size() - 4, string::npos, "");
     Mode mode = Mode();
     DataGen dg = DataGen();
-    ifstream datafile("Input Files/" + name + ".dat");
+    ifstream datafile("Input Files/" + fullName);
     YearData* data = dg.readYear(&datafile);
     YearModel* model = new YearModel(data, &mode, name);
     model->genProblem();
     YearSolution* sol = model->solve();
     sol->print();
+}
+
+void runMultipleYears(string path)
+{
+    for (const auto& entry : filesystem::directory_iterator("Input Files/" + path))
+    {
+        string pathString = entry.path().string();
+        runYear(pathString.substr(pathString.find("\\") + 1));
+        // TODO: Add parameters to stop every run from printing everything and to make them write a combined CSV
+    }
 }
 
 void runMonth()
@@ -123,10 +136,20 @@ int main()
     cin >> run;
 #endif
 
+    string path = "";
     switch (run)
     {
     case 1:
-        runYear();
+#if defined(DEFAULTPATH)
+        path = DEFAULTPATH;
+#else
+        cout << "Which input file(s) should be used?" << endl;
+        cin >> path;
+#endif // !DEFAULTPATH
+        if (path.substr(path.size() - 4).compare(".dat") == 0)
+            runYear(path);
+        else
+            runMultipleYears(path);
         break;
     case 2:
         runMonth();
