@@ -5,6 +5,7 @@
 Solution::Solution(string name) : name(name)
 { 
 	duration = -1;
+	printToConsole = true;
 }
 
 void Solution::setResult(double value, double duration)
@@ -26,6 +27,18 @@ void Solution::printObj()
 void Solution::printDur()
 {
 	cout << "Duration: " << duration << endl;
+}
+
+void Solution::setPrintMode(bool ptc)
+{
+	printToConsole = ptc;
+}
+
+string Solution::toCSV(double d)
+{
+	string s = to_string(d);
+	replace(s.begin(), s.end(), '.', ',');
+	return s;
 }
 
 //-----------------------------------------------YEAR----------------------------------------------
@@ -243,55 +256,65 @@ void YearSolution::calcSecondaries()
 
 void YearSolution::printAvailability()
 {
-	cout << "Availability and production losses (per month V and scenario >): " << endl;
+	if (printToConsole)
+		cout << "Availability and production losses (per month V and scenario >): " << endl;
 
 	vector<vector<double>> prodLosses = vector<vector<double>>(data->S, vector<double>(data->M, 0.0));
 
 	for (int m = 0; m < data->M; ++m)
 	{
-		cout << m << ": " << avail[0][m];
-		for (int sig = 1; sig < data->S; ++sig)
-			cout << ", " << avail[sig][m];
-
 		for (int sig = 0; sig < data->S; ++sig)
 			prodLosses[sig][m] = (timeUnavailP[sig][m] + MathHelp::Sum(&timeUnavailR[sig][m]) + MathHelp::Sum(&timeUnavailU[sig][m])) * data->eH[m];
 
-		cout << " / " << prodLosses[0][m];
-		for (int sig = 1; sig < data->S; ++sig)
-			cout << ", " << prodLosses[sig][m];
-		cout << endl;
+		if (printToConsole)
+		{
+			cout << m << ": " << avail[0][m];
+			for (int sig = 1; sig < data->S; ++sig)
+				cout << ", " << avail[sig][m];
+
+			cout << " / " << prodLosses[0][m];
+			for (int sig = 1; sig < data->S; ++sig)
+				cout << ", " << prodLosses[sig][m];
+			cout << endl;
+		}
 	}
 
 	vector<double> availScen = vector<double>(data->S);
 	for (int sig = 0; sig < data->S; ++sig)
 		availScen[sig] = MathHelp::Mean(&avail[sig]);
-
-	cout << "Average time availability: " << MathHelp::Mean(&availScen) << " (";
-	cout << availScen[0];
-	for (int sig = 1; sig < data->S; ++sig)
-		cout << ", " << availScen[sig];
-	cout << ")" << endl;
+	avgAvailT = MathHelp::Mean(&availScen);
 
 	double meanEnergy = MathHelp::Mean(&data->eH);
 	vector<double> availEn = vector<double>(data->S);
 	for (int sig = 0; sig < data->S; ++sig)
 		availEn[sig] = MathHelp::WeightedMean(&avail[sig], &data->eH) / meanEnergy;
-
-	cout << "Average energy availability: " << MathHelp::Mean(&availEn) << " (";
-	cout << availEn[0];
-	for (int sig = 1; sig < data->S; ++sig)
-		cout << ", " << availEn[sig];
-	cout << ")" << endl;
+	avgAvailE = MathHelp::Mean(&availEn);
 
 	vector<double> prodLossesScen = vector<double>(data->S);
 	for (int sig = 0; sig < data->S; ++sig)
 		prodLossesScen[sig] = MathHelp::Sum(&prodLosses[sig]);
+	totProdLoss = MathHelp::Mean(&prodLossesScen);
 
-	cout << "Average production losses: " << MathHelp::Mean(&prodLossesScen) << " (";
-	cout << prodLossesScen[0];
-	for (int sig = 1; sig < data->S; ++sig)
-		cout << ", " << prodLossesScen[sig];
-	cout << ")" << endl;
+	if (printToConsole)
+	{
+		cout << "Average time availability: " << avgAvailT << " (";
+		cout << availScen[0];
+		for (int sig = 1; sig < data->S; ++sig)
+			cout << ", " << availScen[sig];
+		cout << ")" << endl;
+
+		cout << "Average energy availability: " << avgAvailE << " (";
+		cout << availEn[0];
+		for (int sig = 1; sig < data->S; ++sig)
+			cout << ", " << availEn[sig];
+		cout << ")" << endl;
+
+		cout << "Average production losses: " << totProdLoss << " (";
+		cout << prodLossesScen[0];
+		for (int sig = 1; sig < data->S; ++sig)
+			cout << ", " << prodLossesScen[sig];
+		cout << ")" << endl;
+	}
 
 	cout << endl;
 }
@@ -423,21 +446,7 @@ void YearSolution::printScenarios()
 
 void YearSolution::printDinwoodie()
 {
-	vector<double> tAvailScen = vector<double>(data->S, 0.0);
-	vector<double> eAvailScen = vector<double>(data->S, 0.0);
-	vector<double> prLosses = vector<double>(data->S, 0.0);
-	double meanEnergy = MathHelp::Mean(&data->eH);
-	for (int sig = 0; sig < data->S; ++sig)
-	{
-		tAvailScen[sig] = MathHelp::Mean(&avail[sig]);
-		eAvailScen[sig] = MathHelp::WeightedMean(&avail[sig], &data->eH) / meanEnergy;
-		prLosses[sig] = MathHelp::WeightedSum(&timeUnavailP[sig], &data->eH);
-		for (int m = 0; m < data->M; ++m)
-			prLosses[sig] += (MathHelp::Sum(&timeUnavailR[sig][m]) + MathHelp::Sum(&timeUnavailU[sig][m])) * data->eH[m];
-	}
-	double prodLosses = MathHelp::Mean(&prLosses);
-
-	double rCosts = 0.0;
+	rCosts = 0.0;
 	double sigWeight = 1.0 / (double)data->S;
 	for (int m = 0; m < data->M; ++m)
 	{
@@ -447,6 +456,9 @@ void YearSolution::printDinwoodie()
 			for (int sig = 0; sig < data->S; ++sig)
 				rCosts += data->cR[ir] * getRepairs()[sig][m][ir] * sigWeight;
 	}
+	if (!printToConsole)
+		return;
+
 	double vCostsSum = MathHelp::Sum(&vCosts);
 	double tCostsSum = MathHelp::Sum(&tCosts);
 	double costs = vCostsSum + rCosts + tCostsSum;
@@ -454,16 +466,16 @@ void YearSolution::printDinwoodie()
 	double unit = 1.0 / (1000000.0 * (double)data->M / (double)data->monthsPerYear);
 
 	cout << "-----------DINWOODIE-----------" << endl;
-	cout << "Availability (time): " << MathHelp::Mean(&tAvailScen) << "%" << endl;
-	cout << "Availability (energy): " << MathHelp::Mean(&eAvailScen) << "%" << endl;
-	cout << "Annual production losses: " << prodLosses * unit << " m" << endl;
+	cout << "Availability (time): " << avgAvailT << "%" << endl;
+	cout << "Availability (energy): " << avgAvailE << "%" << endl;
+	cout << "Annual production losses: " << totProdLoss * unit << " m" << endl;
 	cout << "Annual direct O&M costs: " << costs * unit << " m" << endl;
 	cout << "Annual vessel costs: " << vCostsSum * unit << " m" << endl;
 	cout << "Annual repair costs: " << rCosts * unit << " m" << endl;
 	cout << "Annual technician costs: " << tCostsSum * unit << " m" << endl << endl;
 
-	cout << "Annual Costs + losses: " << (prodLosses + costs) * unit << " m" << endl;
-	cout << "Total Costs + losses: " << (prodLosses + costs) / 1000000.0 << " m" << endl;
+	cout << "Annual Costs + losses: " << (totProdLoss + costs) * unit << " m" << endl;
+	cout << "Total Costs + losses: " << (totProdLoss + costs) / 1000000.0 << " m" << endl;
 }
 
 void YearSolution::writeCSV()
@@ -517,9 +529,7 @@ void YearSolution::writeCSV()
 
 			// Secondary statistics
 			// Availability
-			string ava = to_string(avail[sig][m]);
-			replace(ava.begin(), ava.end(), '.', ',');
-			file << ava << sep << data->eH[m] << sep;
+			file << toCSV(avail[sig][m]) << data->eH[m] << sep;
 
 			// Production Losses
 			file << timeUnavailP[sig][m] * data->eH[m] << sep << MathHelp::Sum(&timeUnavailR[sig][m]) * data->eH[m] << sep << MathHelp::Sum(&timeUnavailU[sig][m]) * data->eH[m] << sep;
@@ -533,33 +543,62 @@ void YearSolution::writeCSV()
 	file.close();
 }
 
-void YearSolution::print()
+void YearSolution::writeCSVLine()
 {
+	ofstream file;
+	file.open("Output Files/Collective.csv", ofstream::out | ofstream::app);
+	string sep = ";";
 
-	// Objective & Duration
-	printObj();
-	printDur();
+	double years = (double)data->M / (double)data->monthsPerYear;
 
-	// Decision Variables
-	printVessels();
-	printPlanned();
-	printFailures();
-	printRepairs();
-	printUnhandled();
-	cout << endl;
+	// Basics
+	file << name << sep << toCSV(getObj()) << sep << toCSV(duration) << sep;
 
+	// Losses
+	file << toCSV(avgAvailT) << sep << toCSV(avgAvailE) << sep << toCSV(totProdLoss / years) << sep;
+
+	// Costs
+	double vCostsSum = MathHelp::Sum(&vCosts);
+	double tCostsSum = MathHelp::Sum(&tCosts);
+	file << toCSV(vCostsSum + rCosts + tCostsSum) << sep << toCSV(vCostsSum) << sep << toCSV(rCosts) << sep << toCSV(tCostsSum) << endl;
+}
+
+void YearSolution::print(bool collective)
+{
 	// Calculate secondary metrics
 	calcSecondaries();
 
+	if (printToConsole)
+	{
+		// Objective & Duration
+		printObj();
+		printDur();
+
+		// Decision Variables
+		printVessels();
+		printPlanned();
+		printFailures();
+		printRepairs();
+		printUnhandled();
+		cout << endl;
+	}
+
 	// Breakdowns
 	printAvailability();
-	printScenarios();
+	if (printToConsole)
+		printScenarios();
 
 	// Summary
 	printDinwoodie();
 
-	// Output file
+	// Individual output file
 	writeCSV();
+
+	if (collective)
+	{
+		// Collective output file
+		writeCSVLine();
+	}
 }
 
 //-----------------------------------------------MONTH---------------------------------------------
@@ -627,7 +666,7 @@ void MonthSolution::printOrders()
 	}
 }
 
-void MonthSolution::print()
+void MonthSolution::print(bool collective)
 {
 	printObj();
 	printDur();

@@ -14,6 +14,7 @@ class Solution
 protected:
 	string name;
 	double value, duration; 
+	bool printToConsole;
 
 public:
 	Solution(string name);
@@ -23,7 +24,10 @@ public:
 
 	void printObj();
 	void printDur();
-	virtual void print() =0;
+	virtual void print(bool collective = true) =0;
+	void setPrintMode(bool ptc);
+
+	string toCSV(double d);
 };
 
 class YearSolution
@@ -41,8 +45,11 @@ protected:
 	vector<vector<vector<double>>> timeUnavailU;	// sig m ir
 	vector<double> vCosts;							// m
 	vector<double> tCosts;							// m
+	double avgAvailT, avgAvailE, totProdLoss, rCosts;
 
 	YearData* data;
+
+	void calcSecondaries();
 
 	void printVessels();
 	void printPlanned();
@@ -50,11 +57,12 @@ protected:
 	void printRepairs();
 	void printUnhandled();
 
-	void calcSecondaries();
 	void printAvailability();
 	void printScenarios();
 	void printDinwoodie();
+
 	void writeCSV();
+	void writeCSVLine();
 
 public:
 	YearSolution(string name, YearData* data);
@@ -69,7 +77,7 @@ public:
 	vector<vector<vector<int>>> getRepairs();
 	vector<vector<vector<int>>> getUnhandled();
 
-	void print() override;
+	void print(bool collective = true) override;
 };
 
 class MonthSolution
@@ -90,6 +98,6 @@ public:
 	void setFinishes(vector<double> finishes);
 	void setStarts(vector<vector<double>> s);
 	void setOrders(vector<vector<int>> a);
-	void print() override;
+	void print(bool collective = true) override;
 };
 

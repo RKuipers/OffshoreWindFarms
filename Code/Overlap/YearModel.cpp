@@ -237,7 +237,7 @@ YearModel::YearModel(YearData* data, Mode* mode, string name) : Model(data, mode
 
 YearSolution* YearModel::solve(int maxTime)
 {
-	double dur = solveBasics(maxTime);
+	double dur = solveBasics(maxTime, false);
 
 	return genSolution(&p, dur);
 }

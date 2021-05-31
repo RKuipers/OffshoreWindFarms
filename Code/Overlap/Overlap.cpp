@@ -18,7 +18,7 @@
 
 using namespace std;
 
-void runYear(string fullName)
+void runYear(string fullName, bool collective)
 {
     string name = fullName;
     name = name.substr(name.find("\\") + 1);
@@ -30,15 +30,28 @@ void runYear(string fullName)
     YearModel* model = new YearModel(data, &mode, name);
     model->genProblem();
     YearSolution* sol = model->solve();
-    sol->print();
+    sol->setPrintMode(!collective);
+    sol->print(collective);
 }
 
 void runMultipleYears(string path)
 {
+    ofstream file;
+    file.open("Output Files/Collective.csv", ofstream::out | ofstream::trunc);
+    string sep = ";";
+        
+    file << "Name" << sep << "Objective" << sep << "Duration" << sep;
+    file << "Availability (time)" << sep << "Availability (energy)" << sep << "Prod losses (annual)" << sep;
+    file << "Direct costs (annual)" << sep << "Vessel costs (annual)" << sep << "Repair costs (annual)" << sep << "Technician costs (annual)" << endl;
+    file.close();
+
+    int i = 0;
     for (const auto& entry : filesystem::directory_iterator("Input Files/" + path))
     {
-        runYear(entry.path().string());
-        // TODO: Add parameters to stop every run from printing everything and to make them write a combined CSV
+        string name = entry.path().string();
+        cout << "Run: " << i << ", File: " << name;
+        runYear(name, true);
+        ++i;
     }
 }
 
@@ -148,7 +161,7 @@ int main()
         cin >> path;
 #endif // !DEFAULTPATH
         if (path.substr(path.size() - 4).compare(".dat") == 0)
-            runYear("Input Files/" + path);
+            runYear("Input Files/" + path, false);
         else
             runMultipleYears(path);
         break;
