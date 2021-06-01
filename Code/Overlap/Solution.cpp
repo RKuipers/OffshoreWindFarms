@@ -560,7 +560,20 @@ void YearSolution::writeCSVLine()
 	// Costs
 	double vCostsSum = MathHelp::Sum(&vCosts);
 	double tCostsSum = MathHelp::Sum(&tCosts);
-	file << toCSV(vCostsSum + rCosts + tCostsSum) << sep << toCSV(vCostsSum) << sep << toCSV(rCosts) << sep << toCSV(tCostsSum) << endl;
+	file << toCSV(vCostsSum + rCosts + tCostsSum) << sep << toCSV(vCostsSum) << sep << toCSV(rCosts) << sep << toCSV(tCostsSum) << sep;
+
+	// Setup info
+	int prev = 0;
+	vector<string> parts = vector<string>();
+	for (int i = 0; i <= name.size(); ++i)
+		if (i == name.size() || name[i] == '_')
+		{
+			parts.push_back(name.substr(prev, i - prev));
+			prev = i+1;
+		}
+	for (string s : parts)
+		file << s << sep;
+	file << endl;
 }
 
 void YearSolution::print(bool collective)

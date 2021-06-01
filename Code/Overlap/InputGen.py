@@ -7,15 +7,17 @@ maxAmounts = [360, 672, 720, 360]
 
 #Defining options
 duration = [18, 24, 36]
-vessels = [[1,1,1,1],[1,0,1,1],[1,0,0,1],[1,0,0,0],[1,1,1,0]]
-pattern = ['c', 'w', 'b']
+vessels = [[1,1,1,1],[1,0,1,1],[1,0,0,1],[1,0,0,0],[1,1,1,0],[0,0,0,0]]
+pattern = ['c', 'w', 'b','n']
 turbines = ['a', 'e', 'r', 'b']
+mode = ['m', 'o']
 
 #Names
-dNames = ["18", "24", "36"]             #Number of months
-vNames = ["Al", "NF", "Cr", "CT", "NT"] #All, No Field Vessel, Crew (CTV + Technicians), CTV only, No Technicians
-pNames = ["Co", "Wa", "Bi"]             #Constant, Wave, Binary
-tNames = ["Ha", "Eq", "Ra", "Ba"]       #Half, Equal, Ramp, Batch
+dNames = ["18", "24", "36"]                   #Number of months
+vNames = ["Al", "NF", "Cr", "CT", "NT", "NO"] #All, No Field Vessel, Crew (CTV + Technicians), CTV only, No Technicians, None
+pNames = ["Co", "Wa", "Bi", "No"]             #Constant, Wave, Binary, None
+tNames = ["Ha", "Eq", "Ra", "Ba"]             #Half, Equal, Ramp, Batch
+mNames = ["Ma", "Ov"]                         #Maintenance, Overlap
 
 #Read in base file
 f = open("C:\\Users\\Robin\\OneDrive\\Documenten\\GitHub\\OWFSim\\Code\\Overlap\\Input Files\\yearDinwoodie.dat")
@@ -66,6 +68,8 @@ def getTurbs(t, d):
 def getSeq(p, d, t, turbs):
     if p == 'c':
         return [avgPercent] * d
+    if p == 'n':
+        return [0] * d
     peaks = []
     if t == 'b':
         peaks = [i for i in range(d) if turbs[i] != 0]
@@ -92,27 +96,30 @@ def getName(l, v, names):
         if l[i] == v:
             return names[i]
 
-for d in duration:
+for m in mode:
     for v in vessels:
         for p in pattern:
-            for t in turbines:
-                lines = baseLines.copy()
-                
-                #Months
-                line = lines[3].split()
-                line[1] = str(d)
-                lines[3] = "\t".join(line) + "\n"
-                
-                #Turbines
-                turbs, line = getTurbs(t, d)
-                lines[38] = line + "\n"
-                
-                #Vessels
-                seq = getSeq(p, d, t, turbs)
-                lines[7:11] = seq2Lines(lines[7:11], v, seq)
-                
-                #Write result
-                name = "_".join([getName(vessels, v, vNames), getName(pattern, p, pNames), getName(turbines, t, tNames), getName(duration, d, dNames)])
-                f = open("Input Files/GeneratedFiles/" + name + ".dat", "w")
-                f.write("".join(lines))
-                f.close()
+            if (p == 'n') != (v == [0,0,0,0]) or (p == 'n') != (m == 'm'):
+                continue            
+            for d in duration:
+                for t in turbines:
+                    lines = baseLines.copy()
+                    
+                    #Months
+                    line = lines[3].split()
+                    line[1] = str(d)
+                    lines[3] = "\t".join(line) + "\n"
+                    
+                    #Turbines
+                    turbs, line = getTurbs(t, d)
+                    lines[38] = line + "\n"
+                    
+                    #Vessels
+                    seq = getSeq(p, d, t, turbs)
+                    lines[7:11] = seq2Lines(lines[7:11], v, seq)
+                    
+                    #Write result
+                    name = "_".join([getName(mode, m, mNames), getName(vessels, v, vNames), getName(pattern, p, pNames), getName(turbines, t, tNames), getName(duration, d, dNames)])
+                    f = open("Input Files/GeneratedFiles/" + name + ".dat", "w")
+                    f.write("".join(lines))
+                    f.close()

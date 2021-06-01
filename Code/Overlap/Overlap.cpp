@@ -42,7 +42,8 @@ void runMultipleYears(string path)
         
     file << "Name" << sep << "Objective" << sep << "Duration" << sep;
     file << "Availability (time)" << sep << "Availability (energy)" << sep << "Prod losses (annual)" << sep;
-    file << "Direct costs (annual)" << sep << "Vessel costs (annual)" << sep << "Repair costs (annual)" << sep << "Technician costs (annual)" << endl;
+    file << "Direct costs (annual)" << sep << "Vessel costs (annual)" << sep << "Repair costs (annual)" << sep << "Technician costs (annual)" << sep;
+    file << "Vessels" << sep << "Pattern" << sep << "Turbines" << sep << "Months" << endl;
     file.close();
 
     int i = 0;
