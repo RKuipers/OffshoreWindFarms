@@ -560,7 +560,7 @@ void YearSolution::writeCSVLine()
 	// Costs
 	double vCostsSum = MathHelp::Sum(&vCosts);
 	double tCostsSum = MathHelp::Sum(&tCosts);
-	file << toCSV(vCostsSum + rCosts + tCostsSum) << sep << toCSV(vCostsSum) << sep << toCSV(rCosts) << sep << toCSV(tCostsSum) << sep;
+	file << toCSV((vCostsSum + rCosts + tCostsSum)/years) << sep << toCSV(vCostsSum/years) << sep << toCSV(rCosts/years) << sep << toCSV(tCostsSum/years) << sep;
 
 	// Setup info
 	int prev = 0;
