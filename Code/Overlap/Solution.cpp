@@ -216,10 +216,10 @@ void YearSolution::calcSecondaries()
 			timeUnavailP[sig][m] = MathHelp::Sum(&planned[m]) * data->dP;
 			timeAvail -= timeUnavailP[sig][m];
 
-			for (int ir = 0; ir < data->Ir; ir++)
+			for (int ir = 0; ir < data->Ir; ir++)// The code in this loop causes discrepancies between Objective and printed results
 			{
 				// Repairs
-				int newRepairs = min(repairs[sig][m][ir], data->Ft[m][ir][sig]);
+				int newRepairs = min(repairs[sig][m][ir], data->Ft[m][ir][sig]);				
 				timeUnavailR[sig][m][ir] += newRepairs * (data->dR[ir] + data->dD[ir]);			// Repairs that come from new failures
 				timeUnavailR[sig][m][ir] += (repairs[sig][m][ir] - newRepairs) * data->dR[ir];	// Repairs that come from previously unhandled failures
 				timeAvail -= timeUnavailR[sig][m][ir];
@@ -529,13 +529,13 @@ void YearSolution::writeCSV()
 
 			// Secondary statistics
 			// Availability
-			file << toCSV(avail[sig][m]) << data->eH[m] << sep;
+			file << toCSV(avail[sig][m]) << sep << data->eH[m] << sep;
 
 			// Production Losses
 			file << timeUnavailP[sig][m] * data->eH[m] << sep << MathHelp::Sum(&timeUnavailR[sig][m]) * data->eH[m] << sep << MathHelp::Sum(&timeUnavailU[sig][m]) * data->eH[m] << sep;
 
 			// Costs
-			file << (int)round(vCosts[m]) << sep << MathHelp::WeightedSum(&repairs[sig][m], &data->cR) << sep << tCosts[m];
+			file << (int)round(vCosts[m]) << sep << MathHelp::WeightedSum(&repairs[sig][m], &data->cR)+ MathHelp::Sum(&planned[m]) * data->cP << sep << tCosts[m];
 
 			file << endl;
 		}
