@@ -535,7 +535,7 @@ void YearSolution::writeCSV()
 			file << timeUnavailP[sig][m] * data->eH[m] << sep << MathHelp::Sum(&timeUnavailR[sig][m]) * data->eH[m] << sep << MathHelp::Sum(&timeUnavailU[sig][m]) * data->eH[m] << sep;
 
 			// Costs
-			file << (int)round(vCosts[m]) << sep << MathHelp::WeightedSum(&repairs[sig][m], &data->cR)+ MathHelp::Sum(&planned[m]) * data->cP << sep << tCosts[m];
+			file << (int)round(vCosts[m]) << sep << MathHelp::WeightedSum(&repairs[sig][m], &data->cR) + MathHelp::Sum(&planned[m]) * data->cP << sep << tCosts[m];
 
 			file << endl;
 		}
