@@ -13,8 +13,9 @@
 #define YEAR
 //#define MONTH
 //#define MIXED
-#define DEFAULTPATH "GeneratedFiles"
+//#define DEFAULTPATH "GeneratedFiles"
 //#define DEFAULTPATH "yearDinwoodieInstall.dat"
+#define DEFAULTPATH "yearDinwoodie.dat"
 
 using namespace std;
 
@@ -29,7 +30,7 @@ void runYear(string fullName, bool collective)
     YearData* data = dg.readYear(&datafile);
     YearModel* model = new YearModel(data, &mode, name);
     model->genProblem();
-    YearSolution* sol = model->solve();
+    YearSolution* sol = model->solve(0, !collective);
     sol->setPrintMode(!collective);
     sol->print(collective);
 }

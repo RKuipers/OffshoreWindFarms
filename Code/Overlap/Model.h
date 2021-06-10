@@ -32,6 +32,6 @@ public:
 	Model(InputData* data, Mode* mode, string name);
 
 	virtual void genProblem() = 0;
-	virtual Solution* solve(int maxTime = 0) =0;
+	virtual Solution* solve(int maxTime = 0, bool verbose = true) =0;
 };
 

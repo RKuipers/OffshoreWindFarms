@@ -36,7 +36,7 @@ public:
 
 	void genProblem() override;
 	void genPartialProblem(int it);
-	MonthSolution* solve(int maxTime = 0) override;
+	MonthSolution* solve(int maxTime = 0, bool verbose = true) override;
 };
 
 class FeedbackModel :

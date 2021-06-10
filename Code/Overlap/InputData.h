@@ -30,10 +30,12 @@ public:
 	double cP;			
 	vector<double> cR;					// ir
 	vector<double> eH;					// m
+	vector<vector<vector<double>>> W;	// sig m y
 	vector<vector<vector<int>>> Ft;		// m ir sig
 	vector<int> H;						// m
 	vector<int> L;						// y
 	vector<vector<int>> LInst;			// y m
+	vector<double> limits;				// y
 	double dP;
 	vector<double> dPy;					// y
 	vector<double> dR;					// ir

@@ -121,7 +121,7 @@ void YearModel::genCapacityCon()
 		for (int m = 0; m < getData()->M; ++m)
 			for (int y = 0; y < getData()->Y; ++y)
 			{
-				XPRBrelation ctr = getData()->L[y] * N[y][m] + getData()->LInst[y][m] >= 0;
+				XPRBrelation ctr = (getData()->L[y] * N[y][m] + getData()->LInst[y][m]) * getData()->W[sig][m][y] >= 0;
 
 				for (int ip = 0; ip < getData()->Ip; ++ip)
 					ctr.addTerm(P[m][ip], -1 * getData()->dPy[y] * getData()->rhoP[y]);
@@ -235,9 +235,9 @@ YearModel::YearModel(YearData* data, Mode* mode, string name) : Model(data, mode
 	Mr = vector<vector<vector<XPRBvar>>>(data->Y, vector<vector<XPRBvar>>(data->M, vector<XPRBvar>(data->Ir)));
 }
 
-YearSolution* YearModel::solve(int maxTime)
+YearSolution* YearModel::solve(int maxTime, bool verbose)
 {
-	double dur = solveBasics(maxTime, false);
+	double dur = solveBasics(maxTime, verbose);
 
 	return genSolution(&p, dur);
 }

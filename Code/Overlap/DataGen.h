@@ -12,6 +12,7 @@
 #include <stdlib.h>     // srand, rand 
 #include "InputData.h"
 #include "Solution.h"
+#include "Weather.h"
 
 class DataGen
 {

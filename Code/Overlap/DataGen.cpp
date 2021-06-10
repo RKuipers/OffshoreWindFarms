@@ -193,8 +193,9 @@ YearData* DataGen::readYear(ifstream* file)
 	for (int y = 0; y < Y; ++y)
 	{
 		split = readLine(file);
-		int ind = 2;
+		int ind = 3;
 		year->L[y] = stoi(split[1]);
+		year->limits[y] = stod(split[2]);
 
 		ind = parseArrayDouble(split, ind, &arrD, M);
 		for (int m = 0; m < M; ++m)
@@ -247,6 +248,9 @@ YearData* DataGen::readYear(ifstream* file)
 	for (int m = 0; m < M; ++m)
 		year->eH[m] = arrD[m];
 	readEmpty(file);
+
+	// Weather conditions (can be generated after Energy$)
+	year->W = WeatherGen().genPercentages(year->eH, year->limits, S);
 
 	// Min/Max months between maint
 	split = readLine(file);

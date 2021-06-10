@@ -295,7 +295,7 @@ void MonthModel::getRequirements(vector<double>* eps, vector<int>* rho, int glob
 			(*rho)[getData()->yTrans[y]] = std::max((*rho)[y], getData()->rho[y][i]);
 }
 
-MonthSolution* MonthModel::solve(int maxTime)
+MonthSolution* MonthModel::solve(int maxTime, bool verbose)
 {
 	/*if (getData()->I > 12)
 	{
@@ -304,7 +304,7 @@ MonthSolution* MonthModel::solve(int maxTime)
 		XPRStune(opt_prob, "g");
 	}*/
 
-	double dur = solveBasics(maxTime);
+	double dur = solveBasics(maxTime, verbose);
 
 	if (p.getMIPStat() != XPRB_MIP_SOLUTION && p.getMIPStat() != XPRB_MIP_OPTIMAL)
 		return nullptr;
