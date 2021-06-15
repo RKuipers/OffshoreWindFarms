@@ -1,124 +1,142 @@
+import math
+import numpy as np
+
 #Base parameters
-nTurbs = 80
-batchInterval = 6
-avgPercent = 10.0
-prog = [2.0, 1.0, 0.75, 0.5, 0.75, 1.0]
+batchInterval = 3
 maxAmounts = [360, 672, 720, 360]
 
 #Defining options
-duration = [18, 24, 36]
-vessels = [[1,1,1,1],[1,0,1,1],[1,0,0,1],[1,0,0,0],[1,1,1,0],[0,0,0,0]]
-pattern = ['c', 'w', 'b','n']
-turbines = ['a', 'e', 'r', 'b']
-#mode = ['m', 'o']
+duration = [6, 12, 21, 18, 24, 33, 30]
+turbines = ['a', 'h', 's', 'b', 'e']
+vessels = [[1,1,1,3],[1,0,1,3],[1,0,0,3],[1,0,0,0],[1,1,1,0],[0,0,0,0]]
+percentage = [5, 10, 15, 0]
+size = [80, 120, 150, 200]
 
 #Names
-dNames = ["18", "24", "36"]                   #Number of months
-vNames = ["Al", "NF", "Cr", "CT", "NT", "NO"] #All, No Field Vessel, Crew (CTV + Technicians), CTV only, No Technicians, None
-pNames = ["Co", "Wa", "Bi", "No"]             #Constant, Wave, Binary, None
-tNames = ["Ha", "Eq", "Ra", "Ba"]             #Half, Equal, Ramp, Batch
-#mNames = ["Ma", "Ov"]                         #Maintenance, Overlap
+dNames = ["Su", "Ye", "2SS", "2SL", "2Y", "3SS", "3SL"] #Summer, Year, 2 summers short, 2 summers long, 2 years, 3 summers short, 3 summer long
+tNames = ["Al", "Ha", "Eq", "Ra", "Ba"]                 #All, Half, Equal, Ramp, Batch
+vNames = ["Al", "NF", "Cr", "CT", "NT", "NO"]           #All, No Field Vessel, Crew (CTV + Technicians), CTV only, No Technicians, None
+pNames = list(map(str, percentage))                     #Percentage of time a vessel is available
+sNames = list(map(str, size))                           #Number of turbines
 
 #Read in base file
 f = open("C:\\Users\\Robin\\OneDrive\\Documenten\\GitHub\\OWFSim\\Code\\Overlap\\Input Files\\yearDinwoodie.dat")
 baseLines = f.readlines()
 
-def inc(x):
-    return x + 1
+def formatList(l):
+    if l[:-1] == l[1:]:
+        return "U\t" + str(l[0])
+    S = "\t".join(["S"] + list(map(str, l)))
+    arr = []
+    j = 0
+    for i in range(len(l) + 1):
+        if i == len(l) or l[i] != l[j]:
+            arr = arr + [i - j, l[j]]
+            j = i
+    A = "\t".join(["A"] + list(map(str, arr)))
+    return A if len(A) < len(S) else S
 
-def getTurbs(t, d):
-    if (t == 'a'):
-        s = "\t".join(["A\t1", str(int(nTurbs / 2)), str(d-2), "0\t1", str(int(nTurbs / 2))])
-        l = [int(nTurbs / 2)] + ([0] * (d - 2)) + [int(nTurbs / 2)]
-        return l, s
-    if (t == 'e'):
-        amount = int(nTurbs / d)
-        leftover = nTurbs % d
-        s = "\t".join(["A", str(d-1), str(amount), "1", str(amount + leftover)])
-        l = ([amount] * (d-1)) + [amount + leftover]
-        return l, s
-    if (t == 'r'):
-        monthsLeft = d
-        amount = 1
-        amountLeft = nTurbs
-        block = 3 if d == 18 else 4 if d == 24 else 6
-        res = []
-        while monthsLeft * amount < amountLeft and monthsLeft > 0:
-            res = res + ([amount] * block)
-            amountLeft = amountLeft - (block * amount)
-            amount = amount + 1
-            monthsLeft = monthsLeft - block
-        res = res + ([amount-1] * monthsLeft)
-        diff = nTurbs - sum(res)       
-        res = res[:-diff] + list(map(inc, res[-diff:]))
-        return (res, "\t".join(["S"] + list(map(str, res))))
-    if (t == 'b'):
-        batches = int(d / batchInterval)+1
-        batchSize = int(nTurbs / batches)
-        leftover = nTurbs % batches
-        s = ["A"] + (["1", str(batchSize), str(batchInterval - 1), "0"] * (batches - 1)) + ["1", str(batchSize + leftover)]
-        s[-4] = str(batchInterval - 2)
-        s = "\t".join(s)
-        l = ([batchSize] + ([0] * (batchInterval - 1))) * batches
-        l[-1] = batchSize + leftover
-        return l, s
-    print ("oops")
-    return "oops"
-
-def getSeq(p, d, t, turbs):
-    if p == 'c':
-        return [avgPercent] * d
-    if p == 'n':
-        return [0] * d
-    peaks = []
-    if t == 'b':
-        peaks = [i for i in range(d) if turbs[i] != 0]
-    else:
-        peaks = [i for i in range(d) if i % batchInterval == 0]
-    if p == 'b':
-        return [(avgPercent if i+1 in peaks else 0) for i in range(d)]
-    return [(avgPercent * prog[(i - peaks[0] + 1) % batchInterval]) for i in range(d)]
-
-def seq2Lines(lines, v, seq):
-    res = lines.copy()
-    for i in range(4):
-        if v[i] == 0:
-            continue
-        amount = "U\t1"
-        if 0 in seq:
-            amount = "\t".join(["S"] + ["1" if x > 0 else "0" for x in seq])
-        dur = "\t".join(["S"] + [str(maxAmounts[i] * s * 0.01) for s in seq])
-        res[i] = lines[i][:-9] + "\t" + dur + "\t" + amount + "\n"
+def getSeasons(d):
+    if d == 6 or d == 12 or d == 24:
+        return [1] * d
+    winter = 3 if d == 21 or d == 33 else 6
+    summer = 12 - winter
+    res = [1] * summer
+    while len(res) < d:
+        res = res + ([0] * winter) + ([1] * summer)
     return res
+
+def getSeasonPeaks(l):
+    peaks = []
+    for x in range(len(l)-1):
+        if l[x] > 0 and l[x+1] == 0:
+            peaks.append(x)
+    peaks[0] = 0
+    peaks = peaks + [len(l) - 1]
+    return [1 if i in peaks else 0 for i in range(len(l))]
+
+def getBatches(l):
+    if len(l) % batchInterval != 0:
+        print ("Oops BATCHES")
+    j = 0
+    peaks = [0] * len(l)
+    for i in range(len(l)):
+        if l[i] > 0:
+            j = j + 1
+            if j % batchInterval == 0:
+                peaks[i] = 1
+    peaks[0] = 1
+    return peaks
+
+def divTurbs(l, s):
+    amount = math.floor(s / sum(l))
+    res = [i * amount for i in l]
+    diff = s - sum(res)
+    for i in range(s - sum(res)):
+        res[i-1] = res[i-1] + 1
+    return res
+
+def getTurbs(s, t, d):
+    if t == 'a':
+        return [s] + ([0] * (d - 1))
+    if t == 'h':
+        return [math.ceil(s / 2)] + ([0] * (d - 2)) + [math.floor(s / 2)]
+    if t == 's':
+        return divTurbs(getSeasonPeaks(getSeasons(d)), s)
+    if t == 'b':
+        return divTurbs(getBatches(getSeasons(d)), s)
+    if t == 'e':
+        return divTurbs(getSeasons(d), s)
+
+def getVessels(d, v, p):
+    seasons = getSeasons(d)
+    amount = [seasons[i] * v for i in range(d)]
+    time = [amount[i] * p * 0.01 for i in range(d)]
+    return time, amount
 
 def getName(l, v, names):
     for i in range(len(l)):
         if l[i] == v:
             return names[i]
+        
+def setup(s, t, d, v, p):
+    lines = baseLines.copy()
+    
+    #Months
+    line = lines[3].split()
+    line[1] = str(d)
+    lines[3] = "\t".join(line) + "\n"
+    
+    #TODO: Batched turbines prints wrong (maybe other too)
+    #Turbines
+    turbs = getTurbs(s, t, d)
+    lines[38] = formatList(turbs) + "\n"
+    
+    #Vessels
+    for y in range(7, 11):
+        vesselsT, vesselsA = getVessels(d, v[y - 7], p)
+        lines[y] = lines[y][:-9] + "\t" + formatList(vesselsT) + "\t" + formatList(vesselsA) + "\n"
+    
+    #Write result
+    name = "_".join([getName(turbines, t, tNames), getName(duration, d, dNames), getName(vessels, v, vNames), getName(percentage, p, pNames), getName(size, s, sNames)])
+    f = open("Input Files/GeneratedFiles/" + name + ".dat", "w")
+    f.write("".join(lines))
+    f.close()
 
-for v in vessels:
-    for p in pattern:
-        if (p == 'n') != (v == [0,0,0,0]):
-            continue            
+for s in size:
+    for t in turbines:
         for d in duration:
-            for t in turbines:
-                lines = baseLines.copy()
-                
-                #Months
-                line = lines[3].split()
-                line[1] = str(d)
-                lines[3] = "\t".join(line) + "\n"
-                
-                #Turbines
-                turbs, line = getTurbs(t, d)
-                lines[38] = line + "\n"
-                
-                #Vessels
-                seq = getSeq(p, d, t, turbs)
-                lines[7:11] = seq2Lines(lines[7:11], v, seq)
-                
-                #Write result
-                name = "_".join([getName(vessels, v, vNames), getName(pattern, p, pNames), getName(turbines, t, tNames), getName(duration, d, dNames)])
-                f = open("Input Files/GeneratedFiles/" + name + ".dat", "w")
-                f.write("".join(lines))
-                f.close()
+            if t == 'a':
+                if d == 6 or d == 12 or d == 24:
+                    setup(s, t, d, [0, 0, 0, 0], 0)
+                continue
+            if t == 's' and (d == 6 or d == 12 or d == 24):
+                continue
+            for v in vessels:
+                if v == [0, 0, 0, 0]:
+                    setup(s, t, d, v, 0)
+                    continue
+                for p in percentage:
+                    if p == 0:
+                        continue
+                    setup(s, t, d, v, p)
