@@ -5,9 +5,9 @@
 
 #Vessels
 #ID, Hours per month, Weather limits, Costs (per month), Amount avaialable (per month), Duration of planned, Duration of reactive (per type), Amount used by planned, Amount used by reactive (per type), Time available from installation (per month), Amount avaialable from installation (per month)
-0	360	150	U	52500	U	3	60	S	3	7.5	22	0	0	1	S	1	1	1	0	0	A	6	0.1	6	0.0	6	0.1	A	6	1	6	0	6	1
-1	672	150	U	285000	U	1	0	S	0	0	0	26	0	0	S	0	0	0	1	0	A	6	0.1	6	0.0	6	0.1	A	6	1	6	0	6	1
-2	720	150	U	4500000	U	1	0	S	0	0	0	0	52	0	S	0	0	0	0	1	A	6	0.1	6	0.0	6	0.1	A	6	1	6	0	6	1
+0	360	150	U	52500	U	3	60	S	3	7.5	22	0	0	1	S	1	1	1	0	0	A	6	36.0	6	0.0	6	36.0	A	6	1	6	0	6	1
+1	672	150	U	285000	U	1	0	S	0	0	0	26	0	0	S	0	0	0	1	0	A	6	67.2	6	0.0	6	67.2	A	6	1	6	0	6	1
+2	720	150	U	4500000	U	1	0	S	0	0	0	0	52	0	S	0	0	0	0	1	A	6	72.0	6	0.0	6	72.0	A	6	1	6	0	6	1
 3	360	999	U	6667	U	20	60	S	3	7.5	22	26	52	3	S	2	2	3	4	5	U	0.0	U	0
 
 #Offline duration for planned task
@@ -36,7 +36,7 @@ R	12	172	162	152	142	132	122	112	122	132	142	152	162	#First attempt at seasonal 
 4	109440	1440	52	334500
 
 #Turbines
-A	1	60	16	0	1	60
+A	6	10	6	0	6	10
 
 #Failure mode
 R

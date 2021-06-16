@@ -1,0 +1,44 @@
+#YEAR
+#Scenarios, Months, Vessel Types, Planned Task Amount, Reactive Task Types
+#S M Y Ip Ir
+5	24	4	12	5	3	12
+
+#Vessels
+#ID, Hours per month, Weather limits, Costs (per month), Amount avaialable (per month), Duration of planned, Duration of reactive (per type), Amount used by planned, Amount used by reactive (per type), Time available from installation (per month), Amount avaialable from installation (per month)
+0	360	150	U	52500	U	3	60	S	3	7.5	22	0	0	1	S	1	1	1	0	0	U	54.0	U	1
+1	672	150	U	285000	U	1	0	S	0	0	0	26	0	0	S	0	0	0	1	0	U	100.8	U	1
+2	720	150	U	4500000	U	1	0	S	0	0	0	0	52	0	S	0	0	0	0	1	U	108.0	U	1
+3	360	999	U	6667	U	20	60	S	3	7.5	22	26	52	3	S	2	2	3	4	5	U	0.0	U	0
+
+#Offline duration for planned task
+60
+
+#Cost of a planned task
+18500
+
+#Hours in given month
+U	720
+
+#Energy$ per hour in given month 
+#U	152	#Based on 10m/s wind, 1.688 MWh, 90 pounds
+#U	142	#Based on 9.75m/s wind, 1.578 MWh, 90 pounds (not from paper but values lines up well with their results)
+R	12	172	162	152	142	132	122	112	122	132	142	152	162	#First attempt at seasonal averaged at 142
+
+#Min/Max months between maint
+9	15
+
+#Failure characteristics
+#Failure type ID, Leftover penalty, Duration of delay, Duration of work, and Cost of Repair
+0	109440	12	3	0
+1	109440	12	8	1000
+2	109440	12	22	18500
+3	109440	504	26	73500
+4	109440	1440	52	334500
+
+#Turbines
+U	5
+
+#Failure mode
+R
+#Yearly failure rate (per failure type)
+7.5	3.0	0.275	0.04	0.08

@@ -5,7 +5,7 @@
 
 #Vessels
 #ID, Hours per month, Weather limits, Costs (per month), Amount avaialable (per month), Duration of planned, Duration of reactive (per type), Amount used by planned, Amount used by reactive (per type), Time available from installation (per month), Amount avaialable from installation (per month)
-0	360	150	U	52500	U	3	60	S	3	7.5	22	0	0	1	S	1	1	1	0	0	U	0.05	U	1
+0	360	150	U	52500	U	3	60	S	3	7.5	22	0	0	1	S	1	1	1	0	0	U	18.0	U	1
 1	672	150	U	285000	U	1	0	S	0	0	0	26	0	0	S	0	0	0	1	0	U	0.0	U	0
 2	720	150	U	4500000	U	1	0	S	0	0	0	0	52	0	S	0	0	0	0	1	U	0.0	U	0
 3	360	999	U	6667	U	20	60	S	3	7.5	22	26	52	3	S	2	2	3	4	5	U	0.0	U	0

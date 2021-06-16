@@ -14,7 +14,7 @@ size = [80, 120, 150, 200]
 
 #Names
 dNames = ["Su", "Ye", "2SS", "2SL", "2Y", "3SS", "3SL"] #Summer, Year, 2 summers short, 2 summers long, 2 years, 3 summers short, 3 summer long
-tNames = ["Al", "Ha", "Eq", "Ra", "Ba"]                 #All, Half, Equal, Ramp, Batch
+tNames = ["Al", "Ha", "Se", "Ba", "Eq"]                 #All, Half, Season, Batch, Equal
 vNames = ["Al", "NF", "Cr", "CT", "NT", "NO"]           #All, No Field Vessel, Crew (CTV + Technicians), CTV only, No Technicians, None
 pNames = list(map(str, percentage))                     #Percentage of time a vessel is available
 sNames = list(map(str, size))                           #Number of turbines
@@ -71,9 +71,11 @@ def getBatches(l):
 def divTurbs(l, s):
     amount = math.floor(s / sum(l))
     res = [i * amount for i in l]
-    diff = s - sum(res)
-    for i in range(s - sum(res)):
-        res[i-1] = res[i-1] + 1
+    i = 1
+    while sum(res) < s:
+        if (res[-i] > 0):
+            res[-i] = res[-i] + 1
+        i = i + 1
     return res
 
 def getTurbs(s, t, d):
@@ -88,10 +90,10 @@ def getTurbs(s, t, d):
     if t == 'e':
         return divTurbs(getSeasons(d), s)
 
-def getVessels(d, v, p):
+def getVessels(d, v, p, m):
     seasons = getSeasons(d)
     amount = [seasons[i] * v for i in range(d)]
-    time = [amount[i] * p * 0.01 for i in range(d)]
+    time = [amount[i] * p * 0.01 * m for i in range(d)]
     return time, amount
 
 def getName(l, v, names):
@@ -107,14 +109,13 @@ def setup(s, t, d, v, p):
     line[1] = str(d)
     lines[3] = "\t".join(line) + "\n"
     
-    #TODO: Batched turbines prints wrong (maybe other too)
     #Turbines
     turbs = getTurbs(s, t, d)
     lines[38] = formatList(turbs) + "\n"
     
     #Vessels
     for y in range(7, 11):
-        vesselsT, vesselsA = getVessels(d, v[y - 7], p)
+        vesselsT, vesselsA = getVessels(d, v[y - 7], p, maxAmounts[y - 7])
         lines[y] = lines[y][:-9] + "\t" + formatList(vesselsT) + "\t" + formatList(vesselsA) + "\n"
     
     #Write result

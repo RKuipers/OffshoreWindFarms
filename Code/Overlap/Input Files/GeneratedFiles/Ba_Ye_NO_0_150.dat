@@ -36,7 +36,7 @@ R	12	172	162	152	142	132	122	112	122	132	142	152	162	#First attempt at seasonal 
 4	109440	1440	52	334500
 
 #Turbines
-A	5	13	6	12	1	13
+S	30	0	30	0	0	30	0	0	30	0	0	30
 
 #Failure mode
 R
