@@ -18,8 +18,8 @@ vector<vector<vector<double>>> WeatherGen::genPercentages(vector<double> e, vect
 					stdv = sd;
 
 				double normalized = (limits[y] - e[m]) / stdv;
-				//W[s][m][y] = 0.5 * erfc(-normalized * M_SQRT1_2);	// If the wind speed is normally distributed this gives the percentage of time it is above the limit
-				W[s][m][y] = 0.66;
+				W[s][m][y] = 0.5 * erfc(-normalized * M_SQRT1_2);	// If the wind speed is normally distributed this gives the percentage of time it is above the limit
+				//W[s][m][y] = 0.66;
 			}
 
 	return W;
