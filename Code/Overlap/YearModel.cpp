@@ -186,7 +186,7 @@ void YearModel::genRepairCon()
 			p.newCtr(("Rep_" + to_string(sig) + "_0_" + to_string(ir)).c_str(), getData()->Ft[0][ir][sig] == R[0][ir][sig] + U[0][ir][sig]);
 
 			for (int m = 1; m < getData()->M; ++m)
-				p.newCtr(("Rep_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(ir)).c_str(), getData()->Ft[m][ir][sig] + U[m-1][ir][sig] == R[m][ir][sig] + U[m][ir][sig]);
+				p.newCtr(("Rep_" + to_string(sig) + "_" + to_string(m) + "_" + to_string(ir)).c_str(), getData()->Ft[m][ir][sig] + U[m - 1][ir][sig] == R[m][ir][sig] + U[m][ir][sig]);
 		}
 }
 

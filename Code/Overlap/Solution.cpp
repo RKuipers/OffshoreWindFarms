@@ -237,6 +237,7 @@ void YearSolution::calcSecondaries()
 				timeAvail -= timeUnavailU[sig][m][ir];
 			}
 
+			timeAvail = max(0.0, timeAvail);
 			avail[sig][m] = 100 * timeAvail / maxTime;
 		}
 	}
