@@ -29,7 +29,7 @@ U	142	#Based on 9.75m/s wind, 1.578 MWh, 90 pounds (not from paper but values li
 
 #Failure characteristics
 #Failure type ID, Leftover penalty, Duration of delay, and Duration of work
-0	109440	12	3	0
+0	109440	12	3	0		#Penalty based on 152*720
 1	109440	12	8	1000
 2	109440	12	22	18500
 3	109440	504	26	73500

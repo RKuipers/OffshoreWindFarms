@@ -1,0 +1,3 @@
+Name;Objective;Duration;Availability (time);Availability (energy);Prod losses (annual);Direct costs (annual);Vessel costs (annual);Repair costs (annual);Technician costs (annual);Turbines;Dur;Vessels;Percent;Size
+Se_2SL_Al_10_120;8775387,600000;0,038000;96,440934;96,440934;2787744,000000;2501500,000000;890000,000000;1389266,666667;222233,333333;Se;2SL;Al;10;120;
+Se_2SL_NO_0_120;18200456,600000;0,056000;95,411060;95,411060;3507305,333333;6842926,000000;4910000,000000;1635133,333333;297792,666667;Se;2SL;NO;0;120;

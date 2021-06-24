@@ -501,6 +501,8 @@ void YearSolution::writeCSV()
 	file << "Production Losses P" << sep << "Production Losses R" << sep << "Production Losses U" << sep;
 	file << "Vessel costs" << sep << "Repair costs" << sep << "Technician costs" << endl;
 
+	double rCostTest = 0.0;
+
 	for (int sig = 0; sig < data->S; ++sig)
 		for (int m = 0; m < data->M; ++m)
 		{
@@ -537,9 +539,12 @@ void YearSolution::writeCSV()
 
 			// Costs
 			file << (int)round(vCosts[m]) << sep << MathHelp::WeightedSum(&repairs[sig][m], &data->cR) + MathHelp::Sum(&planned[m]) * data->cP << sep << tCosts[m];
+			rCostTest += MathHelp::WeightedSum(&repairs[sig][m], &data->cR) + MathHelp::Sum(&planned[m]) * data->cP;
 
 			file << endl;
 		}
+	if (rCosts == rCosts)
+		rCostTest = rCostTest;
 
 	file.close();
 }
@@ -547,7 +552,7 @@ void YearSolution::writeCSV()
 void YearSolution::writeCSVLine()
 {
 	ofstream file;
-	file.open("Output Files/Collective.csv", ofstream::out | ofstream::app);
+	file.open("Output Files/aaa_Collective.csv", ofstream::out | ofstream::app);
 	string sep = ";";
 
 	double years = (double)data->M / (double)data->monthsPerYear;

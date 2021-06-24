@@ -13,7 +13,8 @@
 #define YEAR
 //#define MONTH
 //#define MIXED
-#define DEFAULTPATH "GeneratedFiles"
+//#define DEFAULTPATH "GeneratedFiles"
+#define DEFAULTPATH "SelectedFiles"
 //#define DEFAULTPATH "yearDinwoodieInstall.dat"
 //#define DEFAULTPATH "yearDinwoodie.dat"
 //#define DEFAULTPATH "GeneratedFiles/Al_2Y_NO_0_200.dat"
@@ -39,7 +40,7 @@ void runYear(string fullName, bool collective)
 void runMultipleYears(string path)
 {
     ofstream file;
-    file.open("Output Files/Collective.csv", ofstream::out | ofstream::trunc);
+    file.open("Output Files/aaa_Collective.csv", ofstream::out | ofstream::trunc);
     string sep = ";";
         
     file << "Name" << sep << "Objective" << sep << "Duration" << sep;
