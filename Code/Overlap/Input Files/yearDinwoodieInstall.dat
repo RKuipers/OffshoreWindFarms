@@ -5,7 +5,7 @@
 
 #Vessels
 #ID, Hours per month, Weather limits, Costs (per month), Amount avaialable (per month), Duration of planned, Duration of reactive (per type), Amount used by planned, Amount used by reactive (per type), Time available from installation (per month), Amount avaialable from installation (per month)
-0	360	152	U	52500	U	3	60	S	3	7.5	22	0	0	1	S	1	1	1	0	0	U	18	U	1
+0	360	152	U	52500	U	7	60	S	3	7.5	22	0	0	1	S	1	1	1	0	0	U	18	U	1
 1	672	152	U	285000	U	1	0	S	0	0	0	26	0	0	S	0	0	0	1	0	U	34	U	1
 2	720	152	U	4500000	U	1	0	S	0	0	0	0	52	0	S	0	0	0	0	1	U	36	U	1
 3	360	999	U	6667	U	20	60	S	3	7.5	22	26	52	3	S	2	2	3	4	5	U	0	U	0
@@ -29,11 +29,11 @@ U	142	#Based on 9.75m/s wind, 1.578 MWh, 90 pounds (not from paper but values li
 
 #Failure characteristics
 #Failure type ID, Leftover penalty, Duration of delay, and Duration of work
-0	109440	12	3	0		#Penalty based on 152*720
-1	109440	12	8	1000
-2	109440	12	22	18500
-3	109440	504	26	73500
-4	109440	1440	52	334500
+0	613440	12	3	0		#Penalty based on 152*720
+1	613440	12	8	1000
+2	613440	12	22	18500
+3	613440	504	26	73500
+4	613440	1440	52	334500
 
 #Turbines
 A	1	80	119	0
