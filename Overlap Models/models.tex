@@ -46,7 +46,7 @@ subject to:
 (N_{y,m} + N^{Inst}_{y,m}) / \rho^R_{y, ir} &\geq M^R_{y, m, ir}\geq 	R_{m,ir,\sigma} \cdot d^R_{y, ir} / L_y 																												& \forall \sigma \in S, m \in M, y \in Y, ir \in I^R \\
 N_{y,m}						&\leq 		A_{y,m} 										& \forall m \in M, y \in Y 	\\
 F^T_{m, ir, \sigma} + U_{m-1,ir,\sigma} 	&=		R_{m,ir,\sigma} + U_{m,ir,\sigma}						& \forall \sigma \in S, m \in M, ir \in I^R	\\
-\sum_{m' = 0}^{m-G^U} P_{m',(ip-1)} - \sum_{m' = 0}^{m-1} P_{m',ip} 	&\leq P_{m,ip}	\leq 	\sum_{m' =  0}^{m-G^L} P_{m',(ip-1)} - \sum_{m' = 0}^{m-1} P_{m',ip}	
+\sum_{m' = 0}^{m-G^U-1} P_{m',ip-1} - \sum_{m' = 0}^{m-1} P_{m',ip} 	&\leq P_{m,ip}	\leq 	\sum_{m' =  0}^{m-G^L} P_{m',ip-1} - \sum_{m' = 0}^{m-1} P_{m',ip}	
 																				& \forall m \in M, ip \in I^P			
 \end{align}
 
