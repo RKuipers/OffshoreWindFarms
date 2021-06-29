@@ -13,8 +13,8 @@
 #define YEAR
 //#define MONTH
 //#define MIXED
-//#define DEFAULTPATH "GeneratedFiles"
-#define DEFAULTPATH "SelectedFiles"
+#define DEFAULTPATH "GeneratedFiles"
+//#define DEFAULTPATH "SelectedFiles"
 //#define DEFAULTPATH "yearDinwoodieInstall.dat"
 //#define DEFAULTPATH "yearDinwoodie.dat"
 //#define DEFAULTPATH "GeneratedFiles/Al_2Y_NO_0_200.dat"
