@@ -18,12 +18,12 @@ ggparcoord(resultsAgg, columns = c(2, 3, 4, 5, 6, 7), groupColumn = "Category", 
 #Breakdown plots
 library(crayon)
 resultsDur <- aggregate(cbind(Objective, ProdLoss, DirCosts, VesCosts, RepCosts, TechCosts) ~ Category + Dur, resultsRaw, mean)
-ggparcoord(resultsDur, columns = c(3, 4, 5, 6, 7, 8), groupColumn = "Category", scale = "uniminmax") +
+ggparcoord(resultsDur, columns = c(3, 4, 5, 6, 7, 8), groupColumn = "Category", scale = "globalminmax") +
   geom_line(aes(lty = as.factor(Dur)), size = 1.5) + 
   scale_linetype_manual(values=c("twodash", "dotted", "longdash", "solid", "blank", "dotdash", "dashed"))
 
 resultsTurb <- aggregate(cbind(Objective, ProdLoss, DirCosts, VesCosts, RepCosts, TechCosts) ~ Category + Turbines, resultsRaw, mean)
-ggparcoord(resultsTurb, columns = c(3, 4, 5, 6, 7, 8), groupColumn = "Category", scale = "uniminmax") +
+ggparcoord(resultsTurb, columns = c(3, 4, 5, 6, 7, 8), groupColumn = "Category", scale = "globalminmax") +
   geom_line(aes(lty = as.factor(Turbines)), size = 1.5) + 
   scale_linetype_manual(values=c("twodash", "dotted", "longdash", "solid", "blank", "dotdash", "dashed"))
 
@@ -38,7 +38,7 @@ ggparcoord(resultsPerc, columns = c(4, 5, 6, 7, 8), groupColumn = "Category", sc
   scale_linetype_manual(values=c("twodash", "dotted", "longdash", "solid", "dotdash", "dashed"))
 
 resultsSize <- aggregate(cbind(Objective, ProdLoss, DirCosts, VesCosts, RepCosts, TechCosts) ~ Category + Size, resultsRaw, mean) %>% transform(Size = chr(Size))
-ggparcoord(resultsSize, columns = c(3, 4, 5, 6, 7, 8), groupColumn = "Category", scale = "uniminmax") +
+ggparcoord(resultsSize, columns = c(3, 4, 5, 6, 7, 8), groupColumn = "Category", scale = "globalminmax") +
   geom_line(aes(lty = as.factor(Size)), size = 1.5) + 
   scale_linetype_manual(values=c("twodash", "dotted", "longdash", "solid"))
 
