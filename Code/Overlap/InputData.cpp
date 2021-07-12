@@ -5,12 +5,11 @@ YearData::YearData(int s, int m, int y, int ip, int ir) : S(s), M(m), Y(y), Ip(i
 	cV = vector<vector<double>>(Y, vector<double>(M, 0.0));
 	cR = vector<double>(Ir, 0.0);
 	eH = vector<double>(M, 0.0);
-	W = vector<vector<vector<double>>>(S, vector<vector<double>>(M, vector<double>(Y, 0)));
+	W = vector<vector<double>>(M, vector<double>(Y, 0));
 	Ft = vector<vector<vector<int>>>(M, vector<vector<int>>(Ir, vector<int>(S, 0)));
 	H = vector<int>(M, 0);
 	L = vector<int>(Y, 0);
 	LInst = vector<vector<int>>(Y, vector<int>(M, 0));
-	limits = vector<double>(Y, 0);
 	dPy = vector<double>(Y, 0.0);
 	dR = vector<double>(Ir, 0.0);
 	dRy = vector<vector<double>>(Y, vector<double>(Ir, 0.0));
