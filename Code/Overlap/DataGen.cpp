@@ -193,7 +193,7 @@ YearData* DataGen::readYear(ifstream* file)
 	for (int y = 0; y < Y; ++y)
 	{
 		split = readLine(file);
-		int ind = 3;
+		int ind = 2;
 		year->L[y] = stoi(split[1]);
 
 		ind = parseArrayDouble(split, ind, &arrD, M);

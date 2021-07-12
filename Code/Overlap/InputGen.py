@@ -123,7 +123,7 @@ def setup(s, t, d, v, p):
     for y in range(7, 11):
         vesselsT, vesselsA = getVessels(d, v[y - 7], p, maxAmounts[y - 7])
         splitline = lines[y].split()
-        splitline[21:25] = (formatList(vesselsT) + "\t" + formatList(vesselsA)).split()
+        splitline[20:24] = (formatList(vesselsT) + "\t" + formatList(vesselsA)).split()
         lines[y] = "\t".join(splitline) + "\n"
         
     #Month-based adjustment

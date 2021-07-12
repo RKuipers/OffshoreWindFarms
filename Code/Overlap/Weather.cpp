@@ -1,7 +1,9 @@
 #include "Weather.h"
 
-vector<vector<vector<double>>> WeatherGen::genPercentages(vector<double> e, vector<double> limits, int S, int mode, double sd)
+/*vector<vector<vector<double>>> WeatherGen::genPercentages(vector<double> e, vector<double> limits, int S, int mode, double sd)
 {
+	// DEPRICATED
+	
 	int M = e.size();
 	int Y = limits.size();
 
@@ -23,4 +25,4 @@ vector<vector<vector<double>>> WeatherGen::genPercentages(vector<double> e, vect
 			}
 
 	return W;
-}
+}*/

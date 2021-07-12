@@ -18,6 +18,6 @@ class WeatherGen
 public:
 	Weather genMonth(int month);
 
-	vector<vector<vector<double>>> genPercentages(vector<double> e, vector<double> limits, int S, int mode = 0, double sd = 5);
+	//vector<vector<vector<double>>> genPercentages(vector<double> e, vector<double> limits, int S, int mode = 0, double sd = 5);
 };
 
