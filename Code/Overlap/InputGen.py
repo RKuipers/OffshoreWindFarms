@@ -111,12 +111,14 @@ def setup(s, t, d, v, p):
     
     #Turbines
     turbs = getTurbs(s, t, d)
-    lines[38] = formatList(turbs) + "\n"
+    lines[39] = formatList(turbs) + "\n"
     
     #Vessels
     for y in range(7, 11):
         vesselsT, vesselsA = getVessels(d, v[y - 7], p, maxAmounts[y - 7])
-        lines[y] = lines[y][:-9] + "\t" + formatList(vesselsT) + "\t" + formatList(vesselsA) + "\n"
+        splitline = lines[y].split()
+        splitline[21:25] = (formatList(vesselsT) + formatList(vesselsA)).split()
+        lines[y] = "\t".join(splitline) + "\n"
     
     #Write result
     name = "_".join([getName(turbines, t, tNames), getName(duration, d, dNames), getName(vessels, v, vNames), getName(percentage, p, pNames), getName(size, s, sNames)])
