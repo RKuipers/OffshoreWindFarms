@@ -100,6 +100,12 @@ def getName(l, v, names):
     for i in range(len(l)):
         if l[i] == v:
             return names[i]
+
+def reAdjust(l):
+    split = l.split()
+    i = split.index('R') + 2
+    split[i:(i+12)] = split[(i+10):(i+12)] + split[i:(i+10)]
+    return "\t".join(split)
         
 def setup(s, t, d, v, p):
     lines = baseLines.copy()
@@ -117,8 +123,15 @@ def setup(s, t, d, v, p):
     for y in range(7, 11):
         vesselsT, vesselsA = getVessels(d, v[y - 7], p, maxAmounts[y - 7])
         splitline = lines[y].split()
-        splitline[21:25] = (formatList(vesselsT) + formatList(vesselsA)).split()
+        splitline[21:25] = (formatList(vesselsT) + "\t" + formatList(vesselsA)).split()
         lines[y] = "\t".join(splitline) + "\n"
+        
+    #Month-based adjustment
+    if (d == 21 or d == 33):
+        lines[7] = reAdjust(lines[7]) + "\n"
+        lines[8] = reAdjust(lines[8]) + "\n"
+        lines[9] = reAdjust(lines[9]) + "\n"
+        lines[25] = reAdjust(lines[25]) + "\n"
     
     #Write result
     name = "_".join([getName(turbines, t, tNames), getName(duration, d, dNames), getName(vessels, v, vNames), getName(percentage, p, pNames), getName(size, s, sNames)])

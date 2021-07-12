@@ -5,10 +5,10 @@
 
 #Vessels
 #ID, Hours per month, Weather limits, Costs (per month), Amount avaialable (per month), Duration of planned, Duration of reactive (per type), Amount used by planned, Amount used by reactive (per type), Time available from installation (per month), Amount avaialable from installation (per month)
-0	360	152	U	52500	U	7	60	S	3	7.5	22	0	0	1	S	1	1	1	0	0	A	6	54.0	6	0.0	6	54.0	A	6	1	6	0	6	1
-1	672	152	U	285000	U	1	0	S	0	0	0	26	0	0	S	0	0	0	1	0	U	0.0	U	0
-2	720	152	U	4500000	U	1	0	S	0	0	0	0	52	0	S	0	0	0	0	1	U	0.0	U	0
-3	360	999	U	6667	U	20	60	S	3	7.5	22	26	52	3	S	2	2	3	4	5	U	0.0	U	0
+0	360	152	U	52500	U	7	60	S	3	7.5	22	0	0	1	S	1	1	1	0	0	A	6	54.0	6	0.0	6	54.0	A	6	1	6	0	6	1	R	12	0.6617524	0.7650538	0.7476897	0.7618280	0.7504057	0.6329927	0.4878963	0.4307922	0.3515601	0.3879032	0.4651439	0.5946609
+1	672	152	U	285000	U	1	0	S	0	0	0	26	0	0	S	0	0	0	1	0	U	0.0	U	0	R	12	0.6617524	0.7650538	0.7476897	0.7618280	0.7504057	0.6329927	0.4878963	0.4307922	0.3515601	0.3879032	0.4651439	0.5946609
+2	720	152	U	4500000	U	1	0	S	0	0	0	0	52	0	S	0	0	0	0	1	U	0.0	U	0	R	12	0.7449235	0.7290323	0.8062167	0.7774194	0.7987666	0.6805839	0.5302594	0.5150972	0.4127278	0.4768817	0.5487986	0.5976573
+3	360	999	U	6667	U	20	60	S	3	7.5	22	26	52	3	S	2	2	3	4	5	U	0.0	U	0	U	1.0
 
 #Offline duration for planned task
 60
@@ -21,8 +21,9 @@ U	720
 
 #Energy$ per hour in given month 
 #U	152	#Based on 10m/s wind, 1.688 MWh, 90 pounds
-U	142	#Based on 9.75m/s wind, 1.578 MWh, 90 pounds (not from paper but values lines up well with their results)
+#U	142	#Based on 9.75m/s wind, 1.578 MWh, 90 pounds (not from paper but values lines up well with their results)
 #R	12	172	162	152	142	132	122	112	122	132	142	152	162	#First attempt at seasonal averaged at 142
+R	12	106.29584	105.20491	84.66365	83.60994	93.20165	102.29737	124.66845	128.35500	169.5120	155.61796	149.16367	125.68999	#Seasonal from FINO1 data, starting April
 
 #Min/Max months between maint
 6	12
