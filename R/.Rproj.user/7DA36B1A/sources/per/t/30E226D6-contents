@@ -38,7 +38,7 @@ ggparcoord(resultsPerc, columns = c(4, 5, 6, 7, 8), groupColumn = "Category", sc
   scale_linetype_manual(values=c("twodash", "dotted", "longdash", "solid", "dotdash", "dashed"))
 
 resultsSize <- aggregate(cbind(Objective, ProdLoss, DirCosts, VesCosts, RepCosts, TechCosts) ~ Category + Size, resultsRaw, mean) %>% transform(Size = chr(Size))
-ggparcoord(resultsSize, columns = c(3, 4, 5, 6, 7, 8), groupColumn = "Category", scale = "globalminmax") +
+ggparcoord(resultsSize, columns = c(4, 5, 6, 7, 8), groupColumn = "Category", scale = "globalminmax") +
   geom_line(aes(lty = as.factor(Size)), size = 1.5) + 
   scale_linetype_manual(values=c("twodash", "dotted", "longdash", "solid"))
 

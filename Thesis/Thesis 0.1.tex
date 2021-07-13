@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,12pt]{report}
 \usepackage[english]{babel}
 \usepackage{graphicx}
 \graphicspath{ {images/} }
@@ -9,6 +9,17 @@
 \usepackage{cite}
 \usepackage{url}
 \usepackage{harvard}
+\usepackage{titlesec, blindtext, color}
+\usepackage{thm-restate}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]
+  {\huge\bfseries}
+  {\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
 
 \citationmode{abbr}
 
@@ -56,13 +67,41 @@ Question: #3
 \pagebreak
 
 \begin{abstract}
-%TODO
-Lorem Ipsum
+Lorem Ipsum %TODO
 \end{abstract}
 
 \pagebreak
 
 \tableofcontents
+
+\pagebreak
+
+\chapter{Overlap between phases}
+\section{The topic}
+In this chapter I will discuss my efforts to answer \Cref{sqa}. 
+
+\begin{restatable}{subquestion}{sqa}
+\label{sqa}
+Can considering how phases in the life-cycle of a windfarm overlap and share resources improve logistical decision making on these projects?
+\end{restatable}
+
+In particular I looked at the overlap between the installation and maintenance phases. During the installation phase turbines come online gradually, and the completed turbines start generating energy while other turbines are still being installed. These online turbines require maintenance, which means the start of the maintenance phase occurs during the installation phase. In the current literature this is not considered, and the phases are treated as wholly separate topics. 
+
+This artificial separation leads to inefficiencies from two sources. Firstly, the current maintenance literature tends to consider windfarms of a constant size, but in practice there will be time window of several months, if not years, in which a windfarm will only partially be operational. If the windfarm is treated as having full capacity during this time, there will be an excess of maintenance capacity, which will go to waste. Therefore it is beneficial to consider this overlap phase, in which turbines gradually come online, as a special time period with different maintenance requirements than the main operational phase of the windfarm. 
+
+Secondly, there are potential benefits to both installation and maintenance operations happening concurrently, that will go overlooked unless these operations are considered in tandem. Resources can be shared between the operations, such as personnel and vessels. For example, crew transfer vessels are often on standby while the crew is performing installation work at a turbine; during this downtime the vessel could be used to transport other crew members to perform maintenance work. 
+
+\section{Model}
+Lorem Ipsum %TODO
+
+\section{Experiments}
+Lorem Ipsum %TODO
+
+\section{Results}
+Lorem Ipsum %TODO
+
+\section{Discussion}
+Lorem Ipsum %TODO
 
 \pagebreak
 
