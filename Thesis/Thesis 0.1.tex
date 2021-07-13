@@ -1,0 +1,72 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{subcaption}
+\usepackage{cleveref}
+\usepackage{cite}
+\usepackage{url}
+\usepackage{harvard}
+
+\citationmode{abbr}
+
+
+\linespread{1.3}
+
+\captionsetup[subfigure]{subrefformat=simple,labelformat=simple}
+\renewcommand\thesubfigure{(\alph{subfigure})}
+
+\setcounter{secnumdepth}{4}
+\newcommand{\myparagraph}[1]{\paragraph*{#1}\mbox{}\\}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{defin}{Definition}
+\newtheorem*{rquestion}{Question}
+\newtheorem{subquestion}{Sub-Question}
+\newcommand{\mydef}[3]{
+\begin{defin}
+\textsc{#1}
+
+Given: #2
+
+Question: #3
+\end{defin}}
+
+\newcommand{\bigO}[1]{$\mathcal{O}$($#1$)}
+\newcommand{\bigOs}[1]{$\mathcal{O^*}$($#1$)}
+\newcommand{\NP}{$\mathcal{NP}$}
+\newcommand{\acco}[1]{\{ #1 \}}
+
+\newcommand{\vecarr}[3]{\overset{#2}{\overrightarrow{#1}}}
+
+\newcommand{\algorithmicbreak}{\textbf{break}}
+\newcommand{\Break}{\State \algorithmicbreak}
+
+
+
+\begin{document}
+\title{Simulation and Optimisation of Offshore Renewable Energy Arrays for Minimal Life-Cycle Costs}
+\author{Robin Kuipers \\[1cm] Supervisors: \\ Kerem Akartunali \\ Euan Barlow\\[2cm] University of Strathclyde \\ Strathclyde Business School \\ {\small Glasgow, Scotland}}
+
+\maketitle
+
+\pagebreak
+
+\begin{abstract}
+%TODO
+Lorem Ipsum
+\end{abstract}
+
+\pagebreak
+
+\tableofcontents
+
+\pagebreak
+
+\bibliographystyle{agsm}
+\bibliography{mybib}
+
+\end{document}

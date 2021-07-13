@@ -1,27 +1,27 @@
 \babel@toc {english}{}
-\contentsline {section}{\numberline {1}Introduction}{5}% 
-\contentsline {section}{\numberline {2}The project}{7}% 
-\contentsline {subsection}{\numberline {2.1}Logistical decisions on offshore windfarms}{7}% 
-\contentsline {subsection}{\numberline {2.2}This research project}{9}% 
-\contentsline {section}{\numberline {3}Methods}{12}% 
-\contentsline {subsection}{\numberline {3.1}Simulation}{12}% 
-\contentsline {subsubsection}{\numberline {3.1.1}Reliance on weather data}{13}% 
-\contentsline {subsection}{\numberline {3.2}Optimisation}{14}% 
-\contentsline {subsection}{\numberline {3.3}Combining Simulation and Optimisation}{16}% 
-\contentsline {section}{\numberline {4}Literature}{18}% 
-\contentsline {subsection}{\numberline {4.1}Scheduling the installation}{18}% 
-\contentsline {subsection}{\numberline {4.2}Maintenance of the site}{23}% 
-\contentsline {subsection}{\numberline {4.3}Related research regarding offshore projects}{29}% 
-\contentsline {subsection}{\numberline {4.4}More general work on stochastic scheduling}{35}% 
-\contentsline {section}{\numberline {5}Simulation and optimisation tool}{38}% 
-\contentsline {subsection}{\numberline {5.1}Current progress}{38}% 
-\contentsline {subsection}{\numberline {5.2}Future developments}{40}% 
-\contentsline {subsubsection}{\numberline {5.2.1}Inputs and outputs}{41}% 
-\contentsline {subsubsection}{\numberline {5.2.2}Weather model}{44}% 
-\contentsline {subsection}{\numberline {5.3}Data plan}{44}% 
-\contentsline {section}{\numberline {6}Other activities}{47}% 
-\contentsline {section}{\numberline {7}Future Work}{51}% 
-\contentsline {subsection}{\numberline {7.1}Research plans}{51}% 
-\contentsline {subsubsection}{\numberline {7.1.1}Models for each phase}{51}% 
-\contentsline {subsubsection}{\numberline {7.1.2}Research questions}{54}% 
-\contentsline {subsection}{\numberline {7.2}Timeline and next steps}{57}% 
+\contentsline {section}{\numberline {1}Introduction}{5}{}%
+\contentsline {section}{\numberline {2}The project}{7}{}%
+\contentsline {subsection}{\numberline {2.1}Logistical decisions on offshore windfarms}{7}{}%
+\contentsline {subsection}{\numberline {2.2}This research project}{9}{}%
+\contentsline {section}{\numberline {3}Methods}{12}{}%
+\contentsline {subsection}{\numberline {3.1}Simulation}{12}{}%
+\contentsline {subsubsection}{\numberline {3.1.1}Reliance on weather data}{13}{}%
+\contentsline {subsection}{\numberline {3.2}Optimisation}{14}{}%
+\contentsline {subsection}{\numberline {3.3}Combining Simulation and Optimisation}{16}{}%
+\contentsline {section}{\numberline {4}Literature}{18}{}%
+\contentsline {subsection}{\numberline {4.1}Scheduling the installation}{18}{}%
+\contentsline {subsection}{\numberline {4.2}Maintenance of the site}{23}{}%
+\contentsline {subsection}{\numberline {4.3}Related research regarding offshore projects}{29}{}%
+\contentsline {subsection}{\numberline {4.4}More general work on stochastic scheduling}{35}{}%
+\contentsline {section}{\numberline {5}Simulation and optimisation tool}{38}{}%
+\contentsline {subsection}{\numberline {5.1}Current progress}{38}{}%
+\contentsline {subsection}{\numberline {5.2}Future developments}{40}{}%
+\contentsline {subsubsection}{\numberline {5.2.1}Inputs and outputs}{41}{}%
+\contentsline {subsubsection}{\numberline {5.2.2}Weather model}{44}{}%
+\contentsline {subsection}{\numberline {5.3}Data plan}{44}{}%
+\contentsline {section}{\numberline {6}Other activities}{47}{}%
+\contentsline {section}{\numberline {7}Future Work}{51}{}%
+\contentsline {subsection}{\numberline {7.1}Research plans}{51}{}%
+\contentsline {subsubsection}{\numberline {7.1.1}Models for each phase}{51}{}%
+\contentsline {subsubsection}{\numberline {7.1.2}Research questions}{54}{}%
+\contentsline {subsection}{\numberline {7.2}Timeline and next steps}{57}{}%
