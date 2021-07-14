@@ -42,4 +42,4 @@ ggparcoord(resultsSize, columns = c(4, 5, 6, 7, 8), groupColumn = "Category", sc
   geom_line(aes(lty = as.factor(Size)), size = 1.5) + 
   scale_linetype_manual(values=c("twodash", "dotted", "longdash", "solid"))
 
-#TODO: Determine suitable scaling (y axis)
+#TODO: Check out parcoords ipv ggparcoord
