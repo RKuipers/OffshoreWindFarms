@@ -43,4 +43,3 @@ ggparcoord(resultsSize, columns = c(4, 5, 6, 7, 8), groupColumn = "Category", sc
   scale_linetype_manual(values=c("twodash", "dotted", "longdash", "solid"))
 
 #TODO: Determine suitable scaling (y axis)
-#TODO: Make plots for the 5 different model parameters, while coloring based on the 3 categories
