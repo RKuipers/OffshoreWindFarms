@@ -43,3 +43,5 @@ ggparcoord(resultsSize, columns = c(4, 5, 6, 7, 8), groupColumn = "Category", sc
   scale_linetype_manual(values=c("twodash", "dotted", "longdash", "solid"))
 
 #TODO: Check out parcoords ipv ggparcoord
+#TODO: Transform Objective to Total (annual)
+#TODO: Create "normalized" dataframe which normalizes all data by #turbines
