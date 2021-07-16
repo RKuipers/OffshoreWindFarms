@@ -1,11 +1,11 @@
 #YEAR
 #Scenarios, Months, Vessel Types, Planned Task Amount, Reactive Task Types, Tech ID, Months per Year
 #S M Y Ip Ir
-5	30	4	4	5	3	12
+10	30	4	4	5	3	12
 
 #Vessels
 #ID, Hours per month, Weather limits, Costs (per month), Amount avaialable (per month), Duration of planned, Duration of reactive (per type), Amount used by planned, Amount used by reactive (per type), Time available from installation (per month), Amount avaialable from installation (per month)
-0	360	U	52500	U	12	60	S	3	7.5	22	0	0	1	S	1	1	1	0	0	A	6	18.0	6	0.0	6	18.0	6	0.0	6	18.0	A	6	1	6	0	6	1	6	0	6	1	R	12	0.6617524	0.7650538	0.7476897	0.7618280	0.7504057	0.6329927	0.4878963	0.4307922	0.3515601	0.3879032	0.4651439	0.5946609
+0	360	U	52500	U	15	60	S	3	7.5	22	0	0	1	S	1	1	1	0	0	A	6	18.0	6	0.0	6	18.0	6	0.0	6	18.0	A	6	1	6	0	6	1	6	0	6	1	R	12	0.6617524	0.7650538	0.7476897	0.7618280	0.7504057	0.6329927	0.4878963	0.4307922	0.3515601	0.3879032	0.4651439	0.5946609
 1	672	U	285000	U	1	0	S	0	0	0	26	0	0	S	0	0	0	1	0	U	0.0	U	0	R	12	0.6617524	0.7650538	0.7476897	0.7618280	0.7504057	0.6329927	0.4878963	0.4307922	0.3515601	0.3879032	0.4651439	0.5946609
 2	720	U	4500000	U	1	0	S	0	0	0	0	52	0	S	0	0	0	0	1	U	0.0	U	0	R	12	0.7449235	0.7290323	0.8062167	0.7774194	0.7987666	0.6805839	0.5302594	0.5150972	0.4127278	0.4768817	0.5487986	0.5976573
 3	360	U	6667	U	30	60	S	3	7.5	22	26	52	3	S	2	2	3	4	5	U	0.0	U	0	U	1.0

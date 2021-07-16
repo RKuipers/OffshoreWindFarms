@@ -1,7 +1,7 @@
 Month_Scenario;Vessels type 0;Vessels type 1;Vessels type 2;Vessels type 3;Planned round  0;Planned round  1;Planned round  2;Planned round  3;Repairs type 0;Repairs type 1;Repairs type 2;Repairs type 3;Repairs type 4;Unhandled type 0;Unhandled type 1;Unhandled type 2;Unhandled type 3;Unhandled type 4;Failures type 0;Failures type 1;Failures type 2;Failures type 3;Failures type 4;Available %;Energy Value;Production Losses P;Production Losses R;Production Losses U;Vessel costs;Repair costs;Technician costs
 0_0;1;0;0;3;0;0;0;0;21;3;0;0;0;0;0;0;0;0;21;3;0;0;0;97,996795;149.164;0;55936.4;0;52500;3000;20001
-1_0;1;0;0;4;0;0;0;0;14;4;1;0;0;0;0;0;0;0;14;4;1;0;0;98,269231;125.69;0;40723.6;0;52500;22500;26668
-2_0;1;0;0;3;0;0;0;0;19;10;0;0;0;0;0;0;0;0;19;10;0;0;0;97,409188;106.296;0;51553.5;0;52500;10000;20001
+1_0;1;0;0;4;0;0;0;0;13;4;1;0;0;0;0;0;0;0;13;4;1;0;0;98,349359;125.69;0;38838.2;0;52500;22500;26668
+2_0;1;0;0;3;0;0;0;0;18;10;0;0;0;0;0;0;0;0;18;10;0;0;0;97,489316;106.296;0;49959;0;52500;10000;20001
 3_0;1;0;0;3;0;0;0;0;13;4;0;0;0;0;0;0;0;0;13;4;0;0;0;98,530983;105.205;0;28931.4;0;52500;4000;20001
 4_0;1;0;0;5;0;0;0;0;16;3;1;1;0;0;0;0;0;0;16;3;1;1;0;95,384615;84.6637;0;73149.4;0;52500;95000;33335
 5_0;1;0;0;2;0;0;0;0;20;10;0;0;0;0;0;0;0;0;20;10;0;0;0;97,329060;83.6099;0;41805;0;52500;10000;13334
