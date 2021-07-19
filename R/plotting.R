@@ -64,7 +64,7 @@ myplot(resultsPerc)
 
 resultsSize <- aggregate(cbind(Total, ProdLoss, DirCosts, VesCosts, RepCosts, TechCosts) ~ Category + Size, resultsRaw, mean)
 myplot(resultsSize, "Category", "Size")
-parcoords(select(resultsSize, -c(1, 2)), rownames = F, color = list(colorBy = "Category", colorScale = "scaleSequential", colorScheme = "schemeCategory10"), withD3 = T)
+parcoords(resultsSize, rownames = F, color = list(colorScale = "scaleOrdinal", colorBy = "Category", colorScheme = "schemeCategory10"), withD3 = TRUE)
 
 #TODO: Check out parcoords ipv ggparcoord
 #TODO: Create "normalized" dataframe which normalizes all data by #turbines
