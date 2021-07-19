@@ -30,6 +30,11 @@ myplot <- function(df, group1 = "Category", group2 = NULL)
     geom_line(size = 1) + 
     facet_wrap(group2, scales = "free")
 }
+library(parcoords)
+myplot2 <- function(df, group1 = "Category", group2 = NULL)
+{
+  parcoords(df)
+}
 
 #Breakdown plots
 library(crayon)
@@ -59,6 +64,7 @@ myplot(resultsPerc)
 
 resultsSize <- aggregate(cbind(Total, ProdLoss, DirCosts, VesCosts, RepCosts, TechCosts) ~ Category + Size, resultsRaw, mean)
 myplot(resultsSize, "Category", "Size")
+parcoords(select(resultsSize, -c(1, 2)), rownames = F, color = list(colorBy = "Category", colorScale = "scaleSequential", colorScheme = "schemeCategory10"), withD3 = T)
 
 #TODO: Check out parcoords ipv ggparcoord
 #TODO: Create "normalized" dataframe which normalizes all data by #turbines
