@@ -100,10 +100,18 @@ However, this current investigation focuses solely on the overlap period at the 
 
 \bigskip
 
+Since there are two phases being dealt with here, there are a variety of possible approaches. Each operation, from both the installation phase and the maintenance phase could be considered simultaneously, and the period could be considered as a project in which tasks related to either phase need to be scheduled. However, this would cause the problem to be large and complicated, making it very computationally intensive to generate a schedule. Complications would arise from the timespan considered and the difference in the nature of installation and maintenance activities; installation tasks are set tasks that need to be carried out in some order for each turbine, after which the installation is complete, while maintenance tasks (in particular repair tasks) are largely independent of each other and occur after a failure, which is a stochastic event. Combining these tasks in a single optimisation model would be difficult, and the focus would lie on developing a model that can deal with the different natures of these tasks, instead of investigating the potential benefits of considering these phases simultaneously.
+
+Therefore another approach would be to treat the schedule of one of the phases as a fixed input, and compute the schedule of the other phase based on that information. This is what I chose to do, treating the installation as a fixed input into the maintenance schedule. I chose to do it this way around, rather than treating the maintenance schedule as an input to the installation schedule, as the maintenance phase naturally depends on the installation schedule; the turbines don't require maintenance until installed. Additionally, over the considered timeframe the installation phase is generally much more expensive than the maintenance phase, as the installation phase involves large operations, using expensive vessels, on every turbines, while large repairs requiring those vessels will be rare. Many repairs only require crew to be brought to the turbine, which is much less costly. Therefore the maintenance schedule is more likely to be significantly impacted by using some resources that are on standby for installation operations, rather than the other way around. 
+
+\bigskip
+
 In \Cref{s:model} I will describe the optimisation model developed to investigate and reduce these inefficiencies. The test cases created and experiments performed will be discussed in \Cref{s:expr}, and the results will be shown in \Cref{s:resul}. Finally \Cref{s:disc} will reflect on the results and discuss potential further research into this topic. 
 
 \section{Model} \label{s:model}
-Lorem Ipsum %TODO
+In order to investigate the overlap period and effect of sharing resources, I developed an optimisation model that can incorporate a level of resource sharing, but can also be used without the sharing. This is to compare cases without sharing to cases with resource sharing (of various amounts) using the same model. 
+
+I opted to use a high level model which decides for each month in the considered timespan which vessels to charter and which tasks to complete, but does not assign specific timeslots to any particular tasks. This is mostly because that detailed planning is very computationally expensive using optimisation models such as this, and in practice that level of planning would not happen at the start of the project for the entire timespan. Instead this high-level model decides which vessels to charter at what times, as those decisions often need to be made far in advance, and the more specific tasks will be planned on a month by month basis based on the actual failures that occur. 
 
 \section{Experiments} \label{s:expr}
 Lorem Ipsum %TODO
